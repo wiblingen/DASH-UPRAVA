@@ -1,11 +1,13 @@
 <?php require_once $_SERVER['DOCUMENT_ROOT'].'/config/config.php'; ?>
 <div class="header">
-    <div class="SmallHeader shLeft">Hostname: <?php echo exec('cat /etc/hostname'); ?></div><div class="SmallHeader shRight">Pi-Star: Ver.#  <?php echo $_SESSION['PiStarRelease']['Pi-Star']['Version'].'<br />';?>
-    <?php if (constant("AUTO_UPDATE_CHECK") == "true") { ?> 
-    <div id="CheckUpdate"><?php echo $version; system('/usr/local/sbin/pistar-check4updates'); ?></div></div>
-    <?php } else { ?>
-    <div id="CheckUpdate"><?php echo $version; ?></div></div>
-    <?php } ?>    
+    <div class="SmallHeader shLeft">Hostname: <?php echo exec('cat /etc/hostname'); ?></div>
+    <div class="SmallHeader shRight">
+       <div id="CheckUpdate">
+       <?php
+          include $_SERVER['DOCUMENT_ROOT'].'/includes/checkupdates.php';
+       ?>
+       </div><br />
+    </div>
     <h1>Pi-Star Digital Voice - Advanced Area</h1>
     <p>
 	<div class="navbar">
@@ -19,7 +21,6 @@
 	    <?php } ?>
 	    <a class="menudashboard" href="/"><?php echo $lang['dashboard'];?></a>
 	</div>
-
 	<div class="lnavbar">
             <ul class="mainnav">
 		<li class="has-subs"><a href="#">Quick Editors</a>
