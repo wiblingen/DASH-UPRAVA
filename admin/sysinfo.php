@@ -141,8 +141,15 @@ function timesyncdProc() {
     <body>
 	<div class="container">
 	    <div class="header">
-		<div class="SmallHeader shLeft">Hostname: <?php echo exec('cat /etc/hostname'); ?></div><div class="SmallHeader shRight">Pi-Star: Ver.#  <?php echo $_SESSION['PiStarRelease']['Pi-Star']['Version'].'<br />';?> <?php echo $version; system('/usr/local/sbin/pistar-check4updates'); ?></div>
-		<h1>Pi-Star <?php echo $lang['digital_voice']." ".$lang['dashboard']." - Hardware/Software Details ";?></h1>
+		<div class="SmallHeader shLeft">Hostname: <?php echo exec('cat /etc/hostname'); ?></div>
+                <div class="SmallHeader shRight">
+                <div id="CheckUpdate">
+                <?php
+                    include $_SERVER['DOCUMENT_ROOT'].'/includes/checkupdates.php';
+                ?>
+                </div><br />
+                </div>
+		<h1>Hardware/Software Details</h1>
 		<p>
 		    <div class="navbar">
               <script type= "text/javascript">

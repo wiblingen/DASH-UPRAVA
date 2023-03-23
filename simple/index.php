@@ -132,12 +132,13 @@ if(empty($_POST['func'])) {
 	<div class="container">
 	    <div class="header">
                <div class="SmallHeader shLeft"><a style="border-bottom: 1px dotted;" class="tooltip" href="#"><?php echo $lang['hostname'].": ";?> <span><strong>System IP Address<br /></strong><?php echo str_replace(',', ',<br />', exec('hostname -I'));?> </span>  <?php echo exec('cat /etc/hostname'); ?></a></div>
-		<div class="SmallHeader shRight">Pi-Star: Ver.#  <?php echo $_SESSION['PiStarRelease']['Pi-Star']['Version'].'<br />';?>
-		<?php if (constant("AUTO_UPDATE_CHECK") == "true") { ?>
-		<div id="CheckUpdate"><?php echo $version; system('/usr/local/sbin/pistar-check4updates'); ?></div></div>
-		<?php } else { ?>
-		<div id="CheckUpdate"><?php echo $version; ?></div></div>
-		<?php } ?>
+	       <div class="SmallHeader shRight">
+	         <div id="CheckUpdate">
+       		  <?php
+          	      include $_SERVER['DOCUMENT_ROOT'].'/includes/checkupdates.php';
+       		  ?>
+       	          </div><br />
+   	        </div>
 		<h1>Pi-Star <?php echo $lang['digital_voice']." ".$lang['dashboard_for']." <code style='font-weight:550;'>".$_SESSION['MYCALL']."</code>"; ?></h1>
 		<div id="CheckMessage">
 		<?php

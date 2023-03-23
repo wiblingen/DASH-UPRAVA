@@ -79,13 +79,15 @@ if ($_SERVER["PHP_SELF"] == "/config/changelog.php") {
 	<body>
 	    <div class="container">
 		<div class="header">
-		    <div class="SmallHeader shLeft">Hostname: <?php echo exec('cat /etc/hostname'); ?></div><div class="SmallHeader shRight">Pi-Star: Ver.#  <?php echo $_SESSION['PiStarRelease']['Pi-Star']['Version'].'<br />';?>
-		    <?php if (constant("AUTO_UPDATE_CHECK") == "true") { ?> 
-		    <div id="CheckUpdate"><?php echo $version; system('/usr/local/sbin/pistar-check4updates'); ?></div></div>
-		    <?php } else { ?>
-		    <div id="CheckUpdate"><?php echo $version; ?></div></div>
-		    <?php } ?>    
-		    <h1><code>W0CHP-PiStar-Dash</code><br />ChangeLog</h1>
+		    <div class="SmallHeader shLeft">Hostname: <?php echo exec('cat /etc/hostname'); ?></div>
+		    <div class="SmallHeader shRight">
+		       <div id="CheckUpdate">
+		       <?php
+		          include $_SERVER['DOCUMENT_ROOT'].'/includes/checkupdates.php';
+		       ?>
+		       </div><br />
+		    </div>
+		    <h1><code>W0CHP-PiStar-Dash</code> ChangeLog</h1>
 		    <p>
 			<div class="navbar">
 			    <a class="menuconfig" href="/admin/configure.php"><?php echo $lang['configuration'];?></a>
