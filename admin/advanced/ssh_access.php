@@ -52,7 +52,6 @@ if ($_SERVER["PHP_SELF"] == "/admin/advanced/ssh_access.php") {
        ?>
        </div><br />
     </div>
-    <?php } ?>    
     <h1>Pi-Star <?php echo $lang['digital_voice']." ".$lang['dashboard_for']." ".$_SESSION['MYCALL']; ?> - SSH Access</h1>
         <p>
         <div class="navbar">
