@@ -74,6 +74,7 @@ if(empty($_POST['func'])) {
         <link href="/js/select2/css/select2.min.css?version=<?php echo $versionCmd; ?>" rel="stylesheet" />
         <script src="/js/select2/js/select2.full.min.js?version=<?php echo $versionCmd; ?>"></script>
         <script src="/js/select2/js/select2-searchInputPlaceholder.js?version=<?php echo $versionCmd; ?>"></script>
+        <script src="/js/mqttws31.min.js?version=<?php echo $versionCmd; ?>"></script>
         <script type="text/javascript">
           $(document).ready(function() {
             $('.ysfLinkHost').select2({searchInputPlaceholder: 'Search...'});
@@ -185,11 +186,57 @@ if(empty($_POST['func'])) {
     setTimeout(reloadDateTime,1000);
     $(window).trigger('resize');
 
+    // Set up a mqtt/ws instance
+    var client = new Paho.MQTT.Client('192.168.1.50', 9001, 'WPSD_mqtt-ws');
+
+    // Set callback handlers for connection lost and received messages
+    client.onConnectionLost = onConnectionLost;
+    client.onMessageArrived = onMessageArrived;
+
+    // Connect the client over WebSocket
+    client.connect({
+      onSuccess: onConnect,
+      useSSL: false,
+      mqttVersion: 3,
+      onFailure: onFailure,
+      //reconnect: true
+    });
+
+    // Callback function for successful connection
+    function onConnect() {
+      console.log('Connected to MQTT broker');
+      client.subscribe('mmdvm/json');
+    }
+
+    // Callback function for connection loss
+    function onConnectionLost(responseObject) {
+      console.log('Connection lost: ' + responseObject.errorMessage);
+      // Try to reconnect after 5 seconds
+      setTimeout(function() { client.connect(); }, 5000);
+    }
+
+    // Callback function for received messages
+    function onMessageArrived(message) {
+      console.log('Received message: ' + message.payloadString);
+      // Update the page with the received message
+      document.getElementById('mqtt-message').innerHTML = message.payloadString;
+    }
+
+    // Callback function for connection failure
+    function onFailure(responseObject) {
+      console.log('Connection failed: ' + responseObject.errorMessage);
+    }
+
+
 	</script>
     </head>
     <body>
 	<div class="container">
 	    <div class="header">
+		<h3>MQTT Websocket Last Msg:</h3>
+		<code><p id="mqtt-message" style="white-space: normal"></p></code>
+		
+<hr />
                <div class="SmallHeader shLeft"><a style="border-bottom: 1px dotted;" class="tooltip" href="#"><?php echo $lang['hostname'].": ";?> <span><strong>System IP Address<br /></strong><?php echo str_replace(',', ',<br />', exec('hostname -I'));?> </span>  <?php echo exec('cat /etc/hostname'); ?></a></div>
 		<div class="SmallHeader shRight">
 		<div id="CheckUpdate">
