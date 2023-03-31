@@ -247,7 +247,7 @@ if ($configdmrgateway['GPSD']['Enable'] == 1) {
 }
 
 //
-// MobileGPS has been removed from the current MMDVMHost software, get rid of it
+// GPSD should xmit data to the various GWs instead of MMDVMHost...
 //
 if (isset($configmmdvm['GPSD'])) {
     if (isset($configmmdvm['GPSD']['Enable'])) {
@@ -4367,6 +4367,7 @@ else:
 		$toggleDMR2NXDNCheckboxCr		= 'onclick="toggleDMR2NXDNCheckbox()"';
 		$togglePOCSAGCheckboxCr			= 'onclick="togglePOCSAGCheckbox()"';
 		$toggleAPRSGatewayCheckboxCr		= 'onclick="toggleAPRSGatewayCheckbox()"';
+		$toggleGpsdCheckboxCr			= 'onclick="toggleGpsdCheckbox()"';
 		$toggleDmrGatewayNet1EnCheckboxCr	= 'onclick="toggleDmrGatewayNet1EnCheckbox()"';
 		$toggleDmrGatewayNet2EnCheckboxCr	= 'onclick="toggleDmrGatewayNet2EnCheckbox()"';
 		$toggleDmrGatewayNet4EnCheckboxCr	= 'onclick="toggleDmrGatewayNet4EnCheckbox()"';
@@ -4395,6 +4396,7 @@ else:
 		$toggleDMR2NXDNCheckboxCr		= "";
 		$togglePOCSAGCheckboxCr			= "";
 		$toggleAPRSGatewayCheckboxCr		= "";
+		$toggleGpsdCheckboxCr			= "";
 		$toggleDmrGatewayNet1EnCheckboxCr	= "";
 		$toggleDmrGatewayNet2EnCheckboxCr	= "";
 		$toggleDmrGatewayNet4EnCheckboxCr	= "";
@@ -4682,11 +4684,14 @@ else:
     </tr>
     <tr>
     <td align="left"><a class="tooltip2" href="#">GPSd:<span><b>GPS daemon support</b>Read NMEA data from a serially connected GPS unit and then to make that data available for other programs.</span></a></td>
-    <td align="left" colspan="3">
+    <input type="hidden" name="GPSD" value="OFF" />
     <?php
-    // Enabled ??
-    if ($configdmrgateway['GPSD']['Enable'] == "1") { echo "<div class=\"switch\"><input id=\"toggle-GPSD\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"GPSD\" value=\"ON\" checked=\"checked\" /><label for=\"toggle-GPSD\"></label></div>\n"; }
-    else { echo "<div class=\"switch\"><input id=\"toggle-GPSD\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"GPSD\" value=\"ON\" /><label for=\"toggle-GPSD\"></label></div>\n"; } ?>
+    if ( $configdmrgateway['GPSD']['Enable'] == 1 ) {
+        echo "<td align=\"left\" colspan='3'><div class=\"switch\"><input id=\"toggle-GPSD\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"GPSD\" value=\"ON\" checked=\"checked\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleGpsdCheckboxCr." /><label id=\"aria-toggle-GPSD\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Enable GPS Position Reporting\" aria-checked=\"true\" onKeyPress=\"toggleGpsdCheckbox()\" onclick=\"toggleGpsdCheckbox()\" for=\"toggle-GPSD\"><font style=\"font-size:0px\">Enable GPSD Position Reporting</font></label></div></td>\n";
+    } else {
+        echo "<td align=\"left\" colspan='3'><div class=\"switch\"><input id=\"toggle-GPSD\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"GPSD\" value=\"ON\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleGpsdCheckboxCr." /><label id=\"aria-toggle-GPSD\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Enable APRS Position Reporting\" aria-checked=\"false\" onKeyPress=\"toggleGpsdCheckbox()\" onclick=\"toggleGpsdCheckbox()\" for=\"toggle-GPSD\"><font style=\"font-size:0px\">Enable GPS Position Reporting</font></label></div></td>\n";
+    }
+    ?>
     </td>
     </tr>
 <?php if (file_exists('/etc/aprsgateway')) {
@@ -4781,7 +4786,6 @@ else:
     <input type="hidden" name="MMDVMModeDMR2YSF" value="OFF" />
     <input type="hidden" name="MMDVMModeDMR2NXDN" value="OFF" />
     <input type="hidden" name="MMDVMModePOCSAG" value="OFF" />
-    <input type="hidden" name="GPSD" value="OFF" />
     <h2 class="ConfSec"><?php echo $lang['mmdvmhost_config'];?></h2>
     <table>
     <tr>
