@@ -16,7 +16,7 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/config/ircddblocal.php';
 if (exec('grep "CCS link" '.$linkLogPath.' | wc -l') >= 1) {
 ?>
     <div style="text-align:left;font-weight:bold;">Active CCS Connections</div>
-    <table>
+    <table id="ccsConns">
 	<tr>
 	    <th><a class=tooltip href="#">Repeater<span><b>Callsign of connected repeater</b></span></a></th>
 	    <th><a class=tooltip href="#">Linked to<span><b>Actual link status</b></span></a></th>
