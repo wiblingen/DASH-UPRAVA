@@ -15,7 +15,7 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/config/ircddblocal.php';
 include_once $_SERVER['DOCUMENT_ROOT'].'/config/language.php';	      // Translation Code
 ?>
 <div style="text-align:left;font-weight:bold;"><?php echo $lang['active_starnet_groups'];?></div>
-<table style="table-layout: fixed;">
+<table style="table-layout: fixed;" id="starNetGrps">
     <tr>
 	<th><a class="tooltip" href="#"><?php echo $lang['callsign'];?><span><b>Starnet Callsign</b></span></a></th>
 	<th><a class="tooltip" href="#"><?php echo $lang['logoff'];?><span><b>Starnet Logoff Callsign</b></span></a></th>

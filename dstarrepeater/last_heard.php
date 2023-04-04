@@ -31,7 +31,7 @@ if ($callsignLookupSvc == "QRZ") {
 
 ?>
 <div style="text-align:left;font-weight:bold;"><?php echo $lang['last_heard_list'];?></div>
-<table>
+<table id="lastHeard">
     <tr>
 	<th><a class="tooltip" href="#"><?php echo $lang['time'];?> (<?php echo date('T')?>)</a></th>
 	<th><a class="tooltip" href="#"><?php echo $lang['callsign'];?></a></th>

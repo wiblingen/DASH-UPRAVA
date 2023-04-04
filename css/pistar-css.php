@@ -160,6 +160,14 @@ table tr:nth-child(odd) {
 
 table td {
     color: <?php echo $textContent; ?>;
+    text-decoration: none;
+    border: .5px solid <?php echo $tableBorderColor; ?>;
+    padding: 5px;
+    font-size: <?php echo "$mainFontSize"; ?>px;
+}
+
+#liveCallerDeets table td, #localTxs table td, #lastHeard table td, #ccsConns table td, #activeLinks table td, #starNetGrps table td, #infotable td, table.poc-lh-table td {
+    color: <?php echo $textContent; ?>;
     font-family: 'Inconsolata', monospace;
     font-weight: 500;
     text-decoration: none;
@@ -206,9 +214,7 @@ table td {
 }
 
 .divTableCell {
-    font-family: 'Inconsolata', monospace;
-    font-weight: 500;
-    font-size: <?php echo "$mainFontSize"; ?>px;
+    font-size: <?php echo "$bodyFontSize"; ?>px;
     border: .5px solid <?php echo $tableBorderColor; ?>;
     color: <?php echo $textContent; ?>;
 }
