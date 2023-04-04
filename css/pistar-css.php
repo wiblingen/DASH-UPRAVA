@@ -274,7 +274,6 @@ a.tooltip:hover span {
     top: 20px;
     left: 0;
     z-index: 100;
-    font: <?php echo $bodyFontSize; ?>px 'Inconsolata', monospace; 
     text-align: left;
     white-space: nowrap;
     border: none;
@@ -290,7 +289,6 @@ th:last-child a.tooltip:hover span {
 
 a.tooltip span b {
     text-decoration: none;
-    font: <?php echo $bodyFontSize; ?>px 'Inconsolata', monospace;
     display: block;
     margin: 0;
     font-weight: bold;
