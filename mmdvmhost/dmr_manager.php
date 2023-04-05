@@ -119,8 +119,8 @@ if ($_SESSION['DMRGatewayConfigs']['XLX Network']['Enabled'] == "1") {
       <td>
 	<input type="submit" value="Request Change" name="dmrNetMan" />
       </td>
-      <td>
-	Instantly disable / enable DMR Networks.
+      <td style="white-space:normal;padding: 3px;">
+	Instantly disable / enable DMR Networks.<br /><em>Note: networks will be re-enabed upon reboots, updates and nightly maintenance.</em>
       </td>
     </tr>
   </table>
