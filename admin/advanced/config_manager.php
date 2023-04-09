@@ -66,7 +66,7 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
 			    <?php
 			    if ( escapeshellcmd($_POST["save_current_config"]) ) {
 				if (!ctype_alnum($_POST['config_desc'])) {
-				   echo '<tr><td colspan="3"><br />No Spaces nor Non-Alpha-Numeric Characters are Permitted...
+				   echo '<tr><td colspan="3"><br />Spaces and Non-Alpha-Numeric Characters are not Permitted...
 				   <br />Page reloading...<br /><br />
 				   <script language="JavaScript" type="text/javascript">
                                    setTimeout("location.href = \''.$_SERVER["PHP_SELF"].'\'", 3000);

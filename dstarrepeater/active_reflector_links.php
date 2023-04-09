@@ -21,7 +21,7 @@ if (isset($_SESSION['CSSConfigs']['Background'])) {
 }
 ?>
 <div style="text-align:leftfont-weight:bold;"><?php echo$lang['d-star_link_status'];?></div>
-<table>
+<table id="activeLinks">
     <tr>
 	<th><a class="tooltip" href="#">Radio<span><b>Radio Module</b></span></a></th>
 	<th><a class="tooltip" href="#">Default<span><b>Default Link Destination</b></span></a></th>

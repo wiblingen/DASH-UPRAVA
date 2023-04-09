@@ -982,7 +982,7 @@ echo "<div class='divTableCell cell_content center'><div style=\"background: $ta
 <div class="mode_flex">
   <div class="mode_flex row">
     <div class="mode_flex column">
-      <div class="divTableHead">Enabled for Modes</div>
+      <div class="divTableHead">Publishing for Modes</div>
     </div>
   </div>
 <?php

@@ -217,8 +217,9 @@ function timesyncdProc() {
 			}
 		    }
 		    // OS Information
-		    echo "<tr><th align='left'>System</th><th align='left'>Version</th></tr>";
+		    echo "<tr><th align='left'>System</th><th align='left'>Details</th></tr>";
 		    echo "<tr><td align='left'>Operating System</td><td align='left'>{$system['os']}, release ver. {$system['os_ver']}</td></tr>";
+		    echo "<tr><td align='left'>Hardware &amp; Platform</td><td align='left'>".$_SESSION['PiStarRelease']['Pi-Star']['Hardware']."<br />".$_SESSION['PiStarRelease']['Pi-Star']['Platform']."</td></tr>";
 		    // Binary Information
 		    echo "  <tr><th align='left'>Software Binaries</th><th align='left'>Version</th></tr>\n";
 		    if (is_executable('/usr/local/bin/MMDVMHost')) {
