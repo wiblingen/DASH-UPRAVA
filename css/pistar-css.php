@@ -265,9 +265,13 @@ a.tooltip:hover {
 a.tooltip span {
     text-decoration: none;
     display: none;
+    font-size: <?php echo "$bodyFontSize"; ?>px;
+    font-family:  'Source Sans Pro', sans-serif;
 }
 
 a.tooltip:hover span {
+    font-size: <?php echo "$bodyFontSize"; ?>px;
+    font-family:  'Source Sans Pro', sans-serif;
     text-decoration: none;
     display: block;
     position: absolute;
