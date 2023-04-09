@@ -2878,7 +2878,7 @@ if (!empty($_POST)):
 	// Set MMDVMHost Fusion Mode
 	if (empty($_POST['MMDVMModeFUSION']) != TRUE ) {
           if (escapeshellcmd($_POST['MMDVMModeFUSION']) == 'ON' )  { $configmmdvm['System Fusion']['Enable'] = "1"; $configmmdvm['System Fusion Network']['Enable'] = "1"; $configdmr2ysf['Enabled']['Enabled'] = "0"; }
-          if (escapeshellcmd($_POST['MMDVMModeFUSION']) == 'OFF' ) { $configmmdvm['System Fusion']['Enable'] = "0"; $configmmdvm['System Fusion Network']['Enable'] = "0"; }
+          if (escapeshellcmd($_POST['MMDVMModeFUSION']) == 'OFF' ) { $configmmdvm['System Fusion']['Enable'] = "0"; $configmmdvm['System Fusion Network']['Enable'] = "0"; $configdgidgateway['Enabled']['Enabled'] = "0"; }
 	}
 
 	// Set MMDVMHost P25 Mode
