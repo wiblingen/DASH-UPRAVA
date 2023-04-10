@@ -145,8 +145,8 @@ if ($active >= 1) {
 		    $ucall = str_replace(' ', '', substr($ucall,0,8));
 		    print "<tr>";
 		    print "<td align=\"left\">$local_time</td>";
-		    print "<td align=\"center\">$groupz</td>";
-		    print "<td align=\"center\"><a href=\"http://www.qrz.com/db/$ucall\" target=\"_new\" alt=\"Lookup Callsign\">$ucall</a></td>";
+		    print "<td class='mono' align=\"center\">$groupz</td>";
+		    print "<td class='mono'  align=\"center\"><a href=\"http://www.qrz.com/db/$ucall\" target=\"_new\" alt=\"Lookup Callsign\">$ucall</a></td>";
 		    print "</tr>\n";
 		}
 	    }
