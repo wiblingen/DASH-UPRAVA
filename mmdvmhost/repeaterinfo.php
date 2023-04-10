@@ -299,11 +299,11 @@ if ( $testMMDVModeDSTAR == 1 || isPaused("D-Star") ) { //Hide the D-Star Reflect
   <div class="divTableBody">
     <div class="divTableRow center">
       <div class="divTableHeadCell">RPT1</div>
-      <div class="divTableCell cell_content" style="background: <?php echo $tableRowEvenBg; ?>;"><?php echo str_replace(' ', '&nbsp;', $_SESSION['DStarRepeaterConfigs']['callsign']); ?></div>
+      <div class="divTableCell cell_content mono" style="background: <?php echo $tableRowEvenBg; ?>;"><?php echo str_replace(' ', '&nbsp;', $_SESSION['DStarRepeaterConfigs']['callsign']); ?></div>
     </div>    
     <div class="divTableRow center">
       <div class="divTableHeadCell">RPT2</div>
-      <div class="divTableCell cell_content" style="background: <?php echo $tableRowEvenBg; ?>;"><?php echo str_replace(' ', '&nbsp;', $_SESSION['DStarRepeaterConfigs']['gateway']); ?></div>
+      <div class="divTableCell cell_content mono" style="background: <?php echo $tableRowEvenBg; ?>;"><?php echo str_replace(' ', '&nbsp;', $_SESSION['DStarRepeaterConfigs']['gateway']); ?></div>
     </div>	
   </div>
 </div>
@@ -780,7 +780,7 @@ if (getServiceEnabled('/etc/dgidgateway') == 1 )  { // Hide DGId GW info when GW
     <div class="divTableRow center">
 <?php
 	    if (getConfigItem("P25", "NAC", $_SESSION['MMDVMHostConfigs'])) {
-		echo "<div class='divTableHeadCell'>NAC</div><div class='divTableCell cell_content'><div style=\"background: $tableRowEvenBg;\">".getConfigItem("P25", "NAC", $_SESSION['MMDVMHostConfigs'])."</div></div>\n";
+		echo "<div class='divTableHeadCell'>NAC</div><div class='divTableCell cell_content mono'><div style=\"background: $tableRowEvenBg;\">".getConfigItem("P25", "NAC", $_SESSION['MMDVMHostConfigs'])."</div></div>\n";
 	    }
 	    echo "</div>\n<div class='divTableRow center'>\n";
 	    echo "<div class='divTableHeadCell'>".$lang['p25_net']."</div>\n";
@@ -831,7 +831,7 @@ if (getConfigItem("NXDN", "RAN", $_SESSION['MMDVMHostConfigs'])) {
     <div class="divTableRow center">
 <?php
 	echo "<div class='divTableHeadCell'>RAN</div>";
-	echo "<div class='divTableCell cell_content'><div style=\"background: $tableRowEvenBg;\">".getConfigItem("NXDN", "RAN", $_SESSION['MMDVMHostConfigs'])."</div></div>\n";
+	echo "<div class='divTableCell cell_content mono'><div style=\"background: $tableRowEvenBg;\">".getConfigItem("NXDN", "RAN", $_SESSION['MMDVMHostConfigs'])."</div></div>\n";
 	echo "</div>\n<div class='divTableRow center'>";
 	echo "<div class='divTableHeadCell'>".$lang['nxdn_net']."</div>\n";
 	if (isPaused("NXDN")) {
@@ -873,13 +873,13 @@ if (getConfigItem("NXDN", "RAN", $_SESSION['MMDVMHostConfigs'])) {
 <?php
 	echo "      <div class='divTableHeadCell'>RPT</div>\n";
 	echo "        <div class='divTableCell cell_content middle'>\n";
-	echo "          <div style=\"background: $tableRowEvenBg;\">".str_replace(' ', '&nbsp;', $configm17gateway['General']['Callsign'])."&nbsp;".str_replace(' ', '&nbsp;', $configm17gateway['General']['Suffix'])."</div>\n";
+	echo "          <div class='mono' style=\"background: $tableRowEvenBg;\">".str_replace(' ', '&nbsp;', $configm17gateway['General']['Callsign'])."&nbsp;".str_replace(' ', '&nbsp;', $configm17gateway['General']['Suffix'])."</div>\n";
 	echo "        </div>\n";
 	echo "      </div>\n";
 	echo "    <div class='divTableRow center'>\n";
 	echo "      <div class='divTableHeadCell'>CAN</div>\n";
 	echo "        <div class='divTableCell cell_content middle'>\n";
-	echo "          <div style=\"background: $tableRowEvenBg;\">$M17can</div>\n";
+	echo "          <div class='mono' style=\"background: $tableRowEvenBg;\">$M17can</div>\n";
 	echo "        </div>\n";
 	echo "      </div>\n";
 	echo "    <div class='divTableRow center'>\n";
