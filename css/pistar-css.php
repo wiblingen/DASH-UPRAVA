@@ -100,6 +100,10 @@ tt, code, kbd, pre {
         font-family: 'Inconsolata', monospace !important;
 }
 
+.mono {
+    font: <?php echo $mainFontSize; ?>px 'Inconsolata', monospace !important;
+}
+
 .SmallHeader {
     font-family: 'Inconsolata', monospace !important;
     font-size: 12px; 

@@ -56,7 +56,7 @@ if (isset($_SESSION['CSSConfigs']['Background'])) {
 	    else {
 		$rptrcall = $rcall;
 	    }
-	    print "<td>".str_replace(' ', '&nbsp;', substr($rptrcall,0,8))."</td>";
+	    print "<td class='mono'>".str_replace(' ', '&nbsp;', substr($rptrcall,0,8))."</td>";
 	    $param="reflector" . $i;
 	    if(isset($_SESSION['ircDDBConfigs'][$param])) {
 		print "<td>".str_replace(' ', '&nbsp;', substr($_SESSION['ircDDBConfigs'][$param],0,8))."</td>";
@@ -158,7 +158,7 @@ if (isset($_SESSION['CSSConfigs']['Background'])) {
 				$ci = 0;
 			    }
 			    print "<tr>";
-			    print "<td>".str_replace(' ', '&nbsp;', substr($rptrcall,0,8))."</td>";
+			    print "<td class='mono'>".str_replace(' ', '&nbsp;', substr($rptrcall,0,8))."</td>";
 			    print "<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>";
 			    print "<td><span title='$statimg' class='$color' style='font-weight:bold;'></span></td>";
 			    print "<td>".str_replace(' ', '&nbsp;', substr($linkRefl,0,8))."</td>";
@@ -207,7 +207,7 @@ if (isset($_SESSION['CSSConfigs']['Background'])) {
 			    $ci = 0;
 			}
 			print "<tr>";
-                        print "<td>".str_replace(' ', '&nbsp;', substr($rptrcall,0,8))."</td>";
+                        print "<td class='mono'>".str_replace(' ', '&nbsp;', substr($rptrcall,0,8))."</td>";
                         print "<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>";
                         print "<td><span title='$statimg' class='$color' style='font-weight:bold;'></span></td>";
                         print "<td>".str_replace(' ', '&nbsp;', substr($linkRptr,0,8))."</td>";
