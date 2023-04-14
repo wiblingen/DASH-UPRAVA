@@ -109,7 +109,7 @@ function purgeLogs() {
 			    <tr><th colspan="2"><?php echo $lang['power'];?></th></tr>
 			    <?php
 			    if ( escapeshellcmd($_POST["action"]) == "reboot" ) {
-				echo '<tr><td colspan="2" style="background: #000000; color: #00ff00;"><br /><br />Your Hotspot is rebooting...,
+				echo '<tr><td colspan="2" style="background: #000000; color: #00ff00;"><br /><br />Your Hotspot is rebooting...
 				   <br />You will be re-directed back to the
 				   <br />dashboard automatically in 90 seconds.<br /><br /><br />
 				   <script language="JavaScript" type="text/javascript">
@@ -123,8 +123,8 @@ function purgeLogs() {
                 exec('sudo reboot > /dev/null &');
 			    }
 			    else if ( escapeshellcmd($_POST["action"]) == "shutdown" ) {
-				echo '<tr><td colspan="2" style="background: #000000; color: #00ff00;"><br /><br />Shutdown command has been sent to your Hotspot 
-				   <br /> please wait at least 60 seconds for it to fully shutdown<br />before removing the power.<br /><br /><br /></td></tr>';
+				echo '<tr><td colspan="2" style="background: #000000; color: #00ff00;"><br /><br />Shutdown command has been sent to your Hotspot.
+				   <br />Please wait at least 60 seconds for it to fully shutdown<br />before removing the power.<br /><br /><br /></td></tr>';
 		if ( escapeshellcmd($_POST["purgeLogs"]) == "1" ) {
 		    purgeLogs();
 		}
