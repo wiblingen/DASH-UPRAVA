@@ -30,6 +30,9 @@ if ($_SERVER["PHP_SELF"] == "/admin/live_log.php") {
 	case "YSFGateway":
 	    $logfile = "/var/log/pi-star/YSFGateway-".gmdate('Y-m-d').".log";
 	    break;
+	case "DGIdGateway":
+	    $logfile = "/var/log/pi-star/DGIdGateway-".gmdate('Y-m-d').".log";
+	    break;
 	case "ircDDBGateway":
 	    $logfile = "/var/log/pi-star/ircDDBGateway-".gmdate('Y-m-d').".log";
 	    break;
@@ -165,6 +168,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/live_log.php") {
 	<option name="ircDDBGateway">ircDDBGateway</option>
 	<option name="DMRGateway">DMRGateway</option>
 	<option name="YSFGateway">YSFGateway</option>
+	<option name="DGIdGateway">DGIdGateway</option>
 	<option name="P25Gateway">P25Gateway</option>
 	<option name="NXDNGateway">NXDNGateway</option>
 	<option name="M17Gateway">M17Gateway</option>
@@ -197,6 +201,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/live_log.php") {
         <option name="ircDDBGateway" <?php if ($log == "ircDDBGateway") { echo "selected='selected'"; } ?>>ircDDBGateway</option>
         <option name="DMRGateway" <?php if ($log == "DMRGateway") { echo "selected='selected'"; } ?>>DMRGateway</option>
         <option name="YSFGateway" <?php if ($log == "YSFGateway") { echo "selected='selected'"; } ?>>YSFGateway</option>
+        <option name="DGIdGateway" <?php if ($log == "DGIdGateway") { echo "selected='selected'"; } ?>>DGIdGateway</option>
         <option name="P25Gateway" <?php if ($log == "P25Gateway") { echo "selected='selected'"; } ?>>P25Gateway</option>
         <option name="NXDNGateway" <?php if ($log == "NXDNGateway") { echo "selected='selected'"; } ?>>NXDNGateway</option>
         <option name="M17Gateway" <?php if ($log == "M17Gateway") { echo "selected='selected'"; } ?>>M17Gateway</option>
