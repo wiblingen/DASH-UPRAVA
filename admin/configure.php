@@ -4597,6 +4597,9 @@ else:
             <?php if(in_array($configModem['Modem']['Hardware'], array("stm32dvmv3+","stm32usbv3+","stm32dvmmtr2kopi"))) { ?>
             <td align="left" colspan="3"><select disabled="disabled" name="confHardwareSpeed">
 		<option value=\"$modemSpeed\">460800</option>
+			<?php elseif(in_array($configModem['Modem']['Hardware'], array("stm32dvmmtr2kopi"))) { ?>
+            <td align="left" colspan="3"><select disabled="disabled" name="confHardwareSpeed">
+		<option value=\"$modemSpeed\">500000</option>
 	    </select></td>
             <?php } else { ?>
 	    <td align="left" colspan="3"><select name="confHardwareSpeed">
