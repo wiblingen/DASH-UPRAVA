@@ -2514,7 +2514,7 @@ if (!empty($_POST)):
 	    $configmmdvm['Modem']['UARTSpeed'] = "460800";
 	  }
 
-	  if ( $confHardware == 'stm32dvmvmtr2kopi' ) {
+	  if ( $confHardware == 'stm32dvmmtr2kopi' ) {
 	    $rollModemType = 'sudo sed -i "/modemType=/c\\modemType=MMDVM" /etc/dstarrepeater';
 	    $rollMMDVMPort = 'sudo sed -i "/mmdvmPort=/c\\mmdvmPort=/dev/ttyAMA0" /etc/dstarrepeater';
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
@@ -4594,7 +4594,7 @@ else:
     </tr>
 	<tr id="modem_speed">
 	    <td align="left"><a class="tooltip2" href="#">Modem Baud Rate:<span><b>Baudrate</b>Serial speed (most Hats are using 115200)</span></a></td>
-            <?php if(in_array($configModem['Modem']['Hardware'], array("stm32dvmv3+","stm32usbv3+","stm32dvmmtr2kopi"))) { ?>
+            <?php if(in_array($configModem['Modem']['Hardware'], array("stm32dvmv3+","stm32usbv3+"))) { ?>
             <td align="left" colspan="3"><select disabled="disabled" name="confHardwareSpeed">
 		<option value=\"$modemSpeed\">460800</option>
 			<?php } elseif(in_array($configModem['Modem']['Hardware'], array("stm32dvmmtr2kopi"))) { ?>
