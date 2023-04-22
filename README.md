@@ -144,6 +144,7 @@ sudo WPSD-Installer -rd
   * Disable / Enable the intrusive and slow Pi-Star Firewall.
   * Disable / Enable Cron, in order to prevent updates and Pi-Star services restarting during middle-of-the-night/early AM operation.
 * Ability to configure POCSAG hang-time from the config page.
+* Native Nextion screen support built-in; no futzing around with Nextion drivers/scripts.
 
 ### User Interface / Design Features
 
