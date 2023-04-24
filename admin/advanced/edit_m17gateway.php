@@ -12,9 +12,7 @@ if (!isset($_SESSION) || !is_array($_SESSION)) {
 }
 
 $configfile = '/etc/m17gateway';
-$service = 'm17gateway.service';
-
-$tempfile = "/tmp/".md5(gmdate('M d Y')).".tmp";
+$tempfile = '/tmp/rforHfnDVlS0SaF.tmp';
 
 //this is the function going to update your ini file
 function update_ini_file($data, $filepath) {
@@ -51,7 +49,7 @@ function update_ini_file($data, $filepath) {
     exec("sudo rm $tempfile");
     
     // Reload the affected daemon
-    exec("sudo systemctl restart $service");
+    exec("sudo systemctl restart m17gateway.service");
     return $success;
 }
 

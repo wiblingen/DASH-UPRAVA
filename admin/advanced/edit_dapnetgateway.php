@@ -12,9 +12,7 @@ if (!isset($_SESSION) || !is_array($_SESSION)) {
 }
 
 $configfile = '/etc/dapnetgateway';
-$service = 'dapnetgateway.service';
-
-$tempfile = "/tmp/".md5(gmdate('M d Y')).".tmp";
+$tempfile = '/tmp/cVKu8oJJKWqe.tmp';
 
 //this is the function going to update your ini file
 function update_ini_file($data, $filepath) {
@@ -51,14 +49,13 @@ function update_ini_file($data, $filepath) {
 
     // Updates complete - copy the working file back to the proper location
     exec('sudo mount -o remount,rw /');
-    exec("sudo cp $tempfile $configfile");
-    exec("sudo chmod 644 $configfile");
-    exec("sudo chown root:root $configfile");
-    exec("sudo rm $tempfile");
+    exec('sudo cp /tmp/cVKu8oJJKWqe.tmp /etc/dapnetgateway');	    // Move the file back
+    exec('sudo chmod 644 /etc/dapnetgateway');				        // Set the correct runtime permissions
+    exec('sudo chown root:root /etc/dapnetgateway');			    // Set the owner
 
     // Reload the affected daemon
-    exec("sudo systemctl restart $service");
-    return $success;    
+    exec('sudo systemctl restart dapnetgateway.service');		    // Reload the daemon
+    return $success;
 }
 
 require_once('edit_template.php');
