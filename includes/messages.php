@@ -14,8 +14,8 @@ $headers = stream_context_create(Array("http" => Array("method"  => "GET",
                                                        'request_fulluri' => True )));
 // older wpsd with very old uuid scheme
 $UUID = $_SESSION['PiStarRelease']['Pi-Star']['UUID'];
-$uuidLen = strlen($UUID);
-if($uuidLen > 17) {
+$uuidNeedle = "-";
+if (strpos($UUID, $uuidNeedle) !== false) {
     $result = @file_get_contents('https://repo.w0chp.net/WPSD-Dev/WPSD_Messages/raw/branch/master/update-req-uuid.html', false, $headers);
     echo $result;
 }
