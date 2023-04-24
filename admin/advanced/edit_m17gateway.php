@@ -43,10 +43,9 @@ function update_ini_file($data, $filepath) {
     
     // Updates complete - copy the working file back to the proper location
     exec('sudo mount -o remount,rw /');
-    exec("sudo cp $tempfile $configfile");
-    exec("sudo chmod 644 $configfile");
-    exec("sudo chown root:root $configfile");
-    exec("sudo rm $tempfile");
+    exec('sudo cp /tmp/rforHfnDVlS0SaF.tmp /etc/m17gateway'); // Move the file back
+    exec('sudo chmod 644 /etc/m17gateway');                  // Set the correct runtime permissions
+    exec('sudo chown root:root /etc/m17gateway');            // Set the owner
     
     // Reload the affected daemon
     exec("sudo systemctl restart m17gateway.service");
