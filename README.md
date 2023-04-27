@@ -94,7 +94,7 @@ The setup of the Bullseye image is similar to that of Pi-Star's:
 
 1. Download the image.
 2. Use a tool such as [Balena Etcher](https://www.balena.io/etcher) to write the image to your SD-Card. This tool will automatically decompress the `.xz` file as well.
-3. Optional: Use my [WPA Config File Generator](/wpa-config-generator/) to automatically connect the dashboard to your WiFi. Otherwise, after about 5+ minutes post-bootup,
+3. Optional: Use my [WPA Config File Generator](https://w0chp.net/wpa-config-generator/) to automatically connect the dashboard to your WiFi. Otherwise, after about 5+ minutes post-bootup,
    you can connect to the `Pi-Star Setup` WiFi network to login to the dashboard.
 4. Insert the SD-Card into your hotspot and bootup!
 5. The default login is;
