@@ -3465,7 +3465,6 @@ if (!empty($_POST)):
 	// Add missing options to YSFGateway
 	if (!isset($configysfgateway['General']['WiresXMakeUpper'])) { $configysfgateway['General']['WiresXMakeUpper'] = "1"; }
 	if (!isset($configysfgateway['Network']['Revert'])) { $configysfgateway['Network']['Revert'] = "0"; }
-	if (!isset($configysfgateway['Network']['Port'])) { $configysfgateway['Network']['Port'] = "4200"; }
 	if (isset($configysfgateway['Network']['YSF2DMRAddress'])) { unset($configysfgateway['Network']['YSF2DMRAddress']); }
 	if (isset($configysfgateway['Network']['YSF2DMRPort'])) { unset($configysfgateway['Network']['YSF2DMRPort']); }
 	unset($configysfgateway['Network']['DataPort']);
@@ -3475,9 +3474,11 @@ if (!empty($_POST)):
 	if (!isset($configysfgateway['GPSD']['Port'])) { $configysfgateway['GPSD']['Port'] = "2947"; }
 	if ($configdgidgateway['Enabled']['Enabled'] == "1") { // if DGId is enabled by user, use the proper DGId ports, otherwise, use MMDVMHost ports:
 	    $configysfgateway['General']['LocalPort'] = "42025";
+	    $configysfgateway['Network']['Port'] = "4200"; // needed for DGiDGw
 	} else {
 	    $configysfgateway['General']['LocalPort'] = "4200";
 	    $configmmdvm['System Fusion Network']['GatewayPort'] = "4200"; // ensure MMDVMhost uses new YSFgw port when reverting
+	    unset($configysfgateway['Network']['Port']); // Must be removed when not using DGiDgw
 	}
 	if ($configdgidgateway['Enabled']['Enabled'] == "1") {
 	    $configysfgateway['General']['RptPort'] = "42026";
