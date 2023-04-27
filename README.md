@@ -66,28 +66,50 @@ There are two methods of installation...
 
 ### Installing `W0CHP-PiStar-Dash` from a Bullseye-based Disk Image {#disk-image-installation}
 
-Yes, you read that correctly; the `W0CHP-PiStar-Dash` disk image uses Bullseye
-as the core operating system; far newer and better than the legacy Buster that
+The `W0CHP-PiStar-Dash` disk images uses "Bullseye"
+as the core operating system; far newer and better than the legacy "Buster"-based OS that
 Pi-Star uses.
 
-However, you had better be damn-well familiar working with `xz` decompression,
-disk imaging, and setting up Pi-Star from scratch; because I will not cover any
-of that here.
+The Bullseye disk images are ready-to-go; with `W0CHP-PiStar-Dash` installed.
 
-The Bullseye disk image is ready-to-go; with Pi-Star 4.1.6 and `W0CHP-PiStar-Dash` installed.
+#### **Rasperry Pi Disk Image**
 
-**Notes: This disk image is for Raspberry Pi-based platforms. You will need an
-SD card of at least 4GB to install this disk image.**
+* RaspberryPi Disk Image Download: [<code>**WPSD_RPi_Latest.img.xz**</code>](https://w0chp.net/WPSD_RPi_Latest.img.xz) (804MB compressed; 2.7GB decompressed)
+* MD5 Checksums: [<code>**WPSD_RPi_Latest_MD5.txt**</code>](https://w0chp.net/WPSD_RPi_Latest_MD5.txt)
 
-* Disk Image Download: [<code>**WPSD_Latest.img.xz**</code>](https://w0chp.net/WPSD_Latest.img.xz) (804MB compressed; 2.7GB decompressed)
-* MD5 Checksums: [<code>**WPSD_Latest_MD5.txt**</code>](https://w0chp.net/WPSD_Latest_MD5.txt)
+#### **Orange Pi Zero Disk Image**
 
-**HINTS:**
+* OrangePi Zero Disk Image Download: [<code>**WPSD_OrangePiZero_Latest.img.xz**</code>](https://w0chp.net/WPSD_OrangePiZero_Latest.img.xz) (497MB compressed; 2.6GB decompressed)
+* MD5 Checksums: [<code>**WPSD_OrangePiZero_Latest_MD5.txt**</code>](https://w0chp.net/WPSD_OrangePiZero_Latest_MD5.txt)
 
-1. When first booting from the Bullseye-based disk image, go grab a coffee, drink, etc., perhaps even  with
-   friends (if you have any), and let the file-system auto-expand and the rest of the system initialize. Be patient.
+#### **Nano Pi Neo Disk Image**
+
+* NanoPi Neo Disk Image Download: [<code>**WPSD_NanoPiNeo_Latest.img.xz**</code>](https://w0chp.net/WPSD_NanoPiNeo_Latest.img.xz) (790MB compressed; 2.7GB decompressed)
+* MD5 Checksums: [<code>**WPSD_NanoPiNeo_Latest_MD5.txt**</code>](https://w0chp.net/WPSD_NanoPiNeo_Latest_MD5.txt)
+
+<i class="fas fa-exclamation-triangle"></i>  You will need an SD card of at
+least 4GB to install these disk images.
+
+The setup of the Bullseye image is similar to that of Pi-Star's:
+
+1. Download the image.
+2. Use a tool such as [Balena Etcher](https://www.balena.io/etcher) to write the image to your SD-Card. This tool will automatically decompress the `.xz` file as well.
+3. Optional: Use my [WPA Config File Generator](/wpa-config-generator/) to automatically connect the dashboard to your WiFi. Otherwise, after about 5+ minutes post-bootup,
+   you can connect to the `Pi-Star Setup` WiFi network to login to the dashboard.
+4. Insert the SD-Card into your hotspot and bootup!
+5. The default login is;
+
+   User: `pi-star`
+
+   Password: `raspberry`
+
+**<i class="fas fa-exclamation-circle"></i> Important Info for First Bootup:**
+
+1. When first booting from the Bullseye-based disk image, go grab a coffee,
+   drink, etc. and let the file-system auto-expand and the rest of the system
+   initialize. Be patient.
 2. When installing from the Bullseye-based disk image, it's a best practice (and better) to *run an update
-   **before** making configuration changes* to your hotspot. This ensures that configuration changes you make
+   **before** setting up or making configuration changes* to your hotspot. This ensures that setup/configuration changes you make
    are the most tested and up-to-date.
 
 ## Updating `W0CHP-PiStar-Dash`
