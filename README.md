@@ -75,17 +75,17 @@ The Bullseye disk images are ready-to-go; with `W0CHP-PiStar-Dash` installed.
 #### **Rasperry Pi Disk Image**
 
 * RaspberryPi Disk Image Download: [<code>**WPSD_RPi_Latest.img.xz**</code>](https://w0chp.net/WPSD_RPi_Latest.img.xz) (804MB compressed; 2.7GB decompressed)
-* MD5 Checksums: [<code>**WPSD_RPi_Latest_MD5.txt**</code>](https://w0chp.net/WPSD_RPi_Latest_MD5.txt)
+* MD5 Checksums: [<code>**WPSD_RPi_Latest-MD5.txt**</code>](https://w0chp.net/WPSD_RPi_Latest-MD5.txt)
 
 #### **Orange Pi Zero Disk Image**
 
 * OrangePi Zero Disk Image Download: [<code>**WPSD_OrangePiZero_Latest.img.xz**</code>](https://w0chp.net/WPSD_OrangePiZero_Latest.img.xz) (497MB compressed; 2.6GB decompressed)
-* MD5 Checksums: [<code>**WPSD_OrangePiZero_Latest_MD5.txt**</code>](https://w0chp.net/WPSD_OrangePiZero_Latest_MD5.txt)
+* MD5 Checksums: [<code>**WPSD_OrangePiZero_Latest-MD5.txt**</code>](https://w0chp.net/WPSD_OrangePiZero_Latest-MD5.txt)
 
 #### **Nano Pi Neo Disk Image**
 
 * NanoPi Neo Disk Image Download: [<code>**WPSD_NanoPiNeo_Latest.img.xz**</code>](https://w0chp.net/WPSD_NanoPiNeo_Latest.img.xz) (790MB compressed; 2.7GB decompressed)
-* MD5 Checksums: [<code>**WPSD_NanoPiNeo_Latest_MD5.txt**</code>](https://w0chp.net/WPSD_NanoPiNeo_Latest_MD5.txt)
+* MD5 Checksums: [<code>**WPSD_NanoPiNeo_Latest-MD5.txt**</code>](https://w0chp.net/WPSD_NanoPiNeo_Latest-MD5.txt)
 
 <i class="fas fa-exclamation-triangle"></i>  You will need an SD card of at
 least 4GB to install these disk images.
