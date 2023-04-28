@@ -76,6 +76,10 @@ body, font {
     margin: 0px;
 }
 
+.divTableCellSans h2 {
+    color: <?php echo $textContent; ?>;
+}
+
 h2.ConfSec {
     font-size: 1.3em;
     text-align: left;
