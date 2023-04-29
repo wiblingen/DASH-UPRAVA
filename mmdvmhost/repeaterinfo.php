@@ -974,8 +974,13 @@ if (!isProcessRunning("APRSGateway")) {
     </div>
     <div class="divTableRow center">
       <div class="divTableHeadCell">Server</div>
-<?php 
-echo "<div class='divTableCell cell_content center'><div style=\"background: $tableRowEvenBg;\">".getAPRSISserver()."</div></div>\n"; ?>
+<?php
+if(strpos(getAPRSISserver(), 'Not Conn') !== false) {
+    echo "<div class='divTableCell cell_content'><div class='inactive-mode-cell'>Not Connected</div></div>\n";
+} else {
+    echo "<div class='divTableCell cell_content center'><div style=\"background: $tableRowEvenBg;\">".getAPRSISserver()."</div></div>\n";
+}
+?>
     </div>
   </div>
 </div>
