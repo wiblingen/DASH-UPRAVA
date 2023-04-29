@@ -1021,7 +1021,7 @@ if (!empty($_POST)):
 	   }
 
             // Set GPSD daemon On or Off
-            $GPSDsvcOn = 'sudo systemctl unmask gpsd.service ; sudo systemctl unmask gpsd.socket ; sudo systemctl enable gpsd.service ; sudo systemctl enable gpsd.service';
+            $GPSDsvcOn = 'sudo systemctl unmask gpsd.service ; sudo systemctl unmask gpsd.socket ; sudo systemctl enable gpsd.service ; sudo systemctl enable gpsd.socket';
             $GPSDsvcOff = 'sudo systemctl disable gpsd.service ; sudo systemctl disable gpsd.socket ; sudo systemctl mask gpsd.service ; sudo systemctl mask gpsd.socket';
             $GPSDsvcStop = '(sudo systemctl stop gpsd.service ; sudo systemctl stop gpsd gpsd.socket) > /dev/null 2>&1 &';
 
