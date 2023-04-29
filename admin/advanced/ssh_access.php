@@ -59,8 +59,6 @@ if ($_SERVER["PHP_SELF"] == "/admin/advanced/ssh_access.php") {
           </a>
           <a class="menubackup" href="/admin/config_backup.php">Backup/Restore
           </a>
-          <a class="menuupgrade" href="/admin/advanced/upgrade.php">Upgrade
-          </a>
           <a class="menuupdate" href="/admin/update.php">Update
           </a>
           <a class="menuadmin" href="/admin/">Admin
