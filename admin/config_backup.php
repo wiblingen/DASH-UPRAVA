@@ -90,6 +90,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/config_backup.php") {
 			    $output .= shell_exec("sudo cp /etc/wpa_supplicant/wpa_supplicant.conf $backupDir > /dev/null")."\n";
                 	    $output .= shell_exec("sudo cp /etc/hostapd/hostapd.conf $backupDir > /dev/null")."\n";
 			    $output .= shell_exec("sudo cp /etc/pistar-css.ini $backupDir > /dev/null")."\n";
+			    $output .= shell_exec("sudo cp /etc/pistar-release $backupDir > /dev/null")."\n";
 			    $output .= shell_exec("sudo cp /etc/aprsgateway $backupDir > /dev/null")."\n";
 			    $output .= shell_exec("sudo cp /etc/ircddbgateway $backupDir > /dev/null")."\n";
 			    $output .= shell_exec("sudo cp /etc/mmdvmhost $backupDir > /dev/null")."\n";
