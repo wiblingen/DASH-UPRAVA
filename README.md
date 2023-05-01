@@ -1,14 +1,16 @@
 ## About `W0CHP-PiStar-Dash`, and Some Warnings
 
-This is my *personal* and highly customized fork/version of the Pi-Star
-dashboard, and related binaries.  I offer ZERO support. This is here for your
-hacking and enjoyment, and you're fully on your own. *Use at your own risk*,
-and DO NOT ask me for support.  Nor should you file/report any bugs etc. on any
-official Pi-Star medium...this is not an official Pi-Star release.
+This is my very highly modified and customized fork of MW0MWZ’s Pi-Star
+software, and I call it “W0CHP-PiStar-Dash”. There are so many large changes,
+divergences and new features, it merited my own fork/version.
+
+In fact, it’s pretty much its own distribution at this point; especially now
+that the W0CHP-PiStar-Dash image is now bullseye-based and is now its own
+beast, so to speak.
 
 It's *strongly* recommended that you read and heed the [warnings and
 caveats](https://w0chp.net/w0chp-pistar-dash/#caveats) and the
-[FAQs](https://w0chp.net/wpsd-faqs/).
+[FAQs](https://w0chp.net/wpsd-faqs/) before you do **anything**.
 
 ## Installing `W0CHP-PiStar-Dash`
 
