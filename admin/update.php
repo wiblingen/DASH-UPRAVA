@@ -103,7 +103,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/update.php") {
       <div class="container">
 	  <div class="header">
 	      <div class="SmallHeader shLeft">Hostname: <?php echo exec('cat /etc/hostname'); ?></div>
-	      <div class="SmallHeader shRight"><?php echo $version; ?></div>
+	      <div class="SmallHeader shRight"><?php echo $version; ?></div><br />
 	      <h1>Pi-Star - <?php echo $lang['digital_voice']." ".$lang['dashboard']." - ".$lang['update'];?></h1>
 	      <p>
 		  <div class="navbar">

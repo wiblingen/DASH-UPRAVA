@@ -265,8 +265,10 @@ if(empty($_POST['func'])) {
 			    echo ' <a class="menupower" href="/admin/power.php">'.$lang['power'].'</a>'."\n";
 			    echo ' <a class="menusysinfo" href="/admin/sysinfo.php">System Details</a>'."\n";
 			    echo ' <a class="menulogs" href="/admin/live_log.php">'.$lang['live_logs'].'</a>'."\n";
-			} ?>
-			<a class="menuadmin" href="/admin/"><?php echo $lang['admin'];?></a>
+			}
+                        if ($_SERVER["PHP_SELF"] !== "/admin/index.php") {
+                            echo '<a class="menuadmin" href="/admin/">'.$lang['admin'].'</a>'."\n";
+                        } ?>
 			<?php if (file_exists("/etc/dstar-radio.mmdvmhost")) { ?>
 			<a class="menulive" href="/live/">Live Caller</a>
 			<?php } ?>
