@@ -50,8 +50,7 @@ There are two methods of installation...
           -rd,  --restore-dashboard     :  Restore original dashboard.
 
 
-          -s,   --status                :  Display current install; original,
-                                           or W0CHP installations.
+          -s,   --status                :  Display version status/info
 
 4. When ready to install, run the above command again with the option/argument you wish...e.g:
 
@@ -148,7 +147,6 @@ sudo WPSD-Installer -rd
 * Full M17 Protocol Support. ([See M17 Notes below...](#m17-notes))
 * Full APRSGateway Support: Selectable APRS Data Sharing with specific modes.
 * Full DGId Support.
-* Selectable DMR Roaming Beacon Support: Network or Interval Mode (or disabled).
 * "Live Caller" screen; similar to a "virtual Nextion screen"; displays current caller information in real-time.
 * Current/Last Caller Details on Main Dashboard (name/location, when available).
 * Talkgroup Names display in target fields (Brandmeister DMR, NXDN and P25 support only).
@@ -169,6 +167,7 @@ sudo WPSD-Installer -rd
   * Disable / Enable Cron, in order to prevent updates and Pi-Star services restarting during middle-of-the-night/early AM operation.
 * Ability to configure POCSAG hang-time from the config page.
 * Native Nextion screen support built-in; no futzing around with Nextion drivers/scripts.
+* Selectable DMR Roaming Beacon Support: Network or Interval Mode (or disabled) - for actual repeaters only.
 
 ### User Interface / Design Features
 
@@ -203,7 +202,7 @@ sudo WPSD-Installer -rd
   issue (poor/inaccurate and taxing implementation, and can confuse power users that
   utilize my Instant Mode Manager, where the default cell is amber colored for
   paused modes [color is user-configurable].).
-  Instead, the *actual* network name is highlighted in red when there's a login issue (courtesy of `F1RMB`'s excellent code).
+  Instead, the *actual* network name is highlighted in red when there's a login issue.
 
 ## Notes about CSS, and custom CSS you may have previously applied
 
