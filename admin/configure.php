@@ -4752,7 +4752,7 @@ else:
       <div style="display:block;text-align:left;">
         <div style="display:block;">
           <div style="display:block;">
-          <label for="aprsgw-service-selection" style="display: inline-block;">Publish APRS Data for Mode(s):</label>
+          <label style="display: inline-block;">Publish APRS Data for Mode(s):</label>
           <br>
             <div style="display: inline-block;vertical-align: middle;">
                 <input name="DMRGatewayAPRS" id="aprsgw-service-selection-0" value="DMRGatewayAPRS" type="checkbox"
