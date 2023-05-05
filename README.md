@@ -8,11 +8,39 @@ In fact, it’s pretty much its own distribution at this point; especially now
 that the W0CHP-PiStar-Dash image is now bullseye-based and is now its own
 beast, so to speak.
 
-It's *strongly* recommended that you read and heed the [warnings and
-caveats](https://w0chp.net/w0chp-pistar-dash/#caveats) and the
-[FAQs](https://w0chp.net/wpsd-faqs/) before you do **anything**.
+## Warnings, Caveats and FAQs {#caveats}
+
+* [Read The FAQs!](https://w0chp.net/wpsd-faqs/)
+* This code/project is a moving target, has bugs (like any code does) and can be
+  unstable. It also consumes more system resources due to the myriad improvements.
+* If you plan on running my software on a single-core Pi-Zero 1st gen. or very old hardware, be prepared
+  for my software to run terribly slowly. I created this software specifically for
+  modern, multi-core CPU hardware.
+* [Read The FAQs again!](https://w0chp.net/wpsd-faqs/)
+
+## Getting Help/Support
+* Do *NOT* ask for support for `W0CHP-PiStar-Dash` on any official or unofficial
+  Pi-Star support page/forum/medium/etc. This is not Andy’s (`MW0MWZ`) Pi-Star
+  software!
+* Before you ask for help, [**read how to *properly* ask for help**](https://w0chp.net/musings/how-to-report-a-wpsd-issue/).
+* Some really great users, fans and contributors of `W0CHP-PiStar-Dash` have setup
+  a [Facebook Group](https://www.facebook.com/groups/w0chppistardash/) and a
+  [Discord Server](https://discord.gg/mjgUky8hze) to get community support, etc. These are the only *official* online support mediums for my software.
+* [<code>XLX-493</code> ; Module <code>E</code>](https://w0chp.net/xlx493-reflector/) is the `W0CHP-PiStar-Dash` Chat Module.
+  A direct DMR conference to this module/room is bridged with BrandMeister 
+  and TGIF Networks; BM: simply call TalkGroup `3170603`, and TGIF: simply call TalkGroup `493`.
+* **Issue / Bug Tracker and Pull Requests / Patches:**
+  * *DO NOT ASK FOR SUPPORT.* Repo and issue tracker access is for developers/hackers and contributors only, as well as *verified* bugs.
+  * The issue tracker is *NOT* for:
+    1. Support requests
+    2. Feature requests
+    3. Other topics not germane to bugs, issues, etc.
+  * You *may* be directed to file an issue report here by developers when necessary.
 
 ## Installing `W0CHP-PiStar-Dash`
+
+Now that you've been adequately informed of the rules, caveats and the risks, keep reading to learn how to
+install `W0CHP-PiStar-Dash`.
 
 There are two methods of installation...
 
@@ -21,7 +49,8 @@ There are two methods of installation...
 
 ### Installing `W0CHP-PiStar-Dash` on an Existing Pi-Star Hotspot {#hotspot-installation}
 
-**Note: You need to have a Pi-Star hotspot running at least v4.1.6!**[^1]
+<i class="fas fa-exclamation-triangle"></i> You need to have a Pi-Star hotspot
+**running at least v4.1.6!**[^1]
 
 1. Make a backup of your configuration if you wish -- just in case.
 
@@ -35,22 +64,23 @@ There are two methods of installation...
 
     You will be presented with...
 
+    ```
+	[i] W0CHP PiStar-Dash Installer Command Usage:
 
-        [i] W0CHP PiStar-Dash Installer Command Usage:
-
-          -h,   --help                  :  Display this help text.
-
-
-          -id,  --install-dashboard     :  Install W0CHP dashboard.
+	  -h,   --help                  :  Display this help text
 
 
-          -idc  --install-dashboard-css :  Install W0CHP dashboard,
-                                           WITH custom stylesheet.
-
-          -rd,  --restore-dashboard     :  Restore original dashboard.
+	  -id,  --install-dashboard     :  Install W0CHP dashboard
 
 
-          -s,   --status                :  Display version status/info
+	  -idc  --install-dashboard-css :  Install W0CHP dashboard
+                                   	   WITH custom stylesheet
+
+	  -rd,  --restore-dashboard     :  Restore original dashboard
+
+
+	  -s,   --status                :  Display version status/info
+    ```
 
 4. When ready to install, run the above command again with the option/argument you wish...e.g:
 
@@ -58,12 +88,13 @@ There are two methods of installation...
     curl -Ls https://w0chp.net/WPSD-Install | sudo env NO_SELF_UPDATE=1 bash -s -- -id
     ```
 
-    (...to install the dashboard *without* the `W0CHP` custom CSS)
-
-    **Important**: You *must* run the aforementioned commands with the exact syntax. Note the spaces and extra `--` (dashes), etc.
-    Otherwise, the commands will fail.
+	(...to install the dashboard *without* the `W0CHP` custom CSS)
 
 5. When the installer completes, refresh your dashboard home page to see the changes.
+
+<i class="fas fa-exclamation-triangle"></i> You **must** run the aforementioned
+commands with the exact syntax. Note the spaces and extra `--` (dashes), etc.
+Otherwise, the commands will fail.
 
 ### Installing `W0CHP-PiStar-Dash` from a Bullseye-based Disk Image {#disk-image-installation}
 
@@ -95,10 +126,11 @@ The setup of the Bullseye image is similar to that of Pi-Star's:
 
 1. Download the image.
 2. Use a tool such as [Balena Etcher](https://www.balena.io/etcher) to write the image to your SD-Card. This tool will automatically decompress the `.xz` file as well.
-3. Optional: Use my [WPA Config File Generator](https://w0chp.net/wpa-config-generator/) to automatically connect the dashboard to your WiFi. Otherwise, after about 5+ minutes post-bootup,
+3. Optional: Use my [WPA Config File Generator](https://w0chp.net/wpa-config-generator/) to automatically connect the dashboard to your WiFi. 
+4. Otherwise: After about 5+ minutes post-bootup, you can connect to the "`Pi-Star Setup`" WiFi network to login to the dashboard and configure your hotspot..
    you can connect to the `Pi-Star Setup` WiFi network to login to the dashboard.
-4. Insert the SD-Card into your hotspot and bootup!
-5. The default login is;
+5. Insert the SD-Card into your hotspot and bootup!
+6. The default login is;
 
    User: `pi-star`
 
@@ -128,38 +160,35 @@ sudo pistar-update
 
 ## Uninstalling `W0CHP-PiStar-Dash`
 
-Run:
+If you installed my software over an existing Pi-Star installation, it's super-simple...
 
-```text
-sudo WPSD-Installer -rd
-```
+1. Run:
 
-...And the original Pi-Star Dashboard will be restored.
+    ```text
+    sudo WPSD-Installer -rd
+    ```
 
-## Installation Demo Video
-
-[See how easy it is to install...](https://w0chp.net/musings/wpsd-install-demo/)
+    ...And the original Pi-Star Dashboard will be restored.
 
 ## Features, Enhancements and Omissions (not an exhaustive list)
 
 ### Functionality Features
 
-* Full M17 Protocol Support. ([See M17 Notes below...](#m17-notes))
 * Full APRSGateway Support: Selectable APRS Data Sharing with specific modes.
 * Full DGId Support.
 * "Live Caller" screen; similar to a "virtual Nextion screen"; displays current caller information in real-time.
 * Current/Last Caller Details on Main Dashboard (name/location, when available).
 * Talkgroup Names display in target fields (Brandmeister DMR, NXDN and P25 support only).
-* YSF/NXDN/P25 link managers gives the ability to change links/rooms on-the-fly, rather than going through the large (and slow) configuration page.
+* YSF/NXDN/P25/M17 link managers gives the ability to change links/rooms/reflectors/TGs  on-the-fly, rather than going through the configuration page.
 * DMR Network Manager allows instant disabling/enabling of configured DMR networks/masters; and fast switching of XLX reflectors and modules. Handy for "pausing" busy networks, talkgroups, timeslots, etc.
-* Searchable drop-downs for massive host lists in configuration/admin pages. E.g. D-Star Refs., YSF Hosts, XLX Hosts, DMR Hosts, etc.
+* Full M17 Protocol Support. ([See M17 Notes below...](#m17-notes))
 * BrandMeister Manager revamps galore:
   * Now displays connected actual talk group names.
   * Connected dynamic talk groups now display idle-timeout time (due to no TX).
   * Added ability to mass-drop your static talk groups; and mass re-add the previously
     linked static talk groups.
   * Added ability to batch add/delete up to 10 static talk groups at a time.
-* ~~TGIF Manager; now displays connected actual talk group names.~~ (**NOTE**: Since TGIF has moved to a new platform with no API available, this currently does not work until TGIF's API is made available.)
+* ~~TGIF Manager; now displays connected actual talk group names.~~ (**NOTE**: Since TGIF has moved to a new platform with no complete API available, this currently does not work until TGIF's API is made available.)
 * "Instant Mode Manager" added to admin page; allows you to instantly pause or resume selected radio modes. Handy for attending
   nets, quieting a busy mode, to temporarily eliminate "mode monopolization", etc.
 * "System Manager" added to admin page; allows you to instantly:
@@ -190,8 +219,8 @@ sudo WPSD-Installer -rd
 ### Features in Official Pi-Star Which are Intentionally Omitted in `W0CHP-PiStar-Dash`
 
 * Upgrade notice/nag in header (unnecessary and a hacky implementation). This has been replaced by my own
-* Custom `BannerH2` (etc.) text options have been removed (added clutter and I never used it). Instead, the hostname is displayed in the browser title.
   unobtrusive and configurable dashboard update notifier; displayed in the upper-right hand side of the top header.
+* Custom `BannerH2` (etc.) text options have been removed (added clutter and I never used it). Instead, the hostname is displayed in the browser title.
 * "GPS" link in Call Sign column of dashboard (superfluous and unreliable).
 * CPU Temp. in header; when CPU is running "cool" or "normal" recommended temps, the cell background
   is no longer colored green. Only when the CPU is running beyond recommended temps, is the cell colored
@@ -204,36 +233,32 @@ sudo WPSD-Installer -rd
   paused modes [color is user-configurable].).
   Instead, the *actual* network name is highlighted in red when there's a login issue.
 
-## Notes about CSS, and custom CSS you may have previously applied
+## Notes about CSS, and custom CSS you may have previously applied {#css-notes}
+
+<i class="fa fa-info-circle" aria-hidden="true"></i> These notes only apply to installations that used my installation script; not the disk images.
 
 1. When using the `-id` option, the "normal" Pi-Star colors are used, and no CSS is installed. Any custom CSS
-   you may have had, is removed but backed up. See bullet 4 below.
-
+   you may have had, is removed but backed up. See bullet #4 below.
 2. When using the `-idc` option, the `W0CHP` CSS is installed, and any of your custom CSS settings
   before installing the `W0CHP` dashboard, are backed up in the event you want to restore the official dashboard
-  (see bullet 4). This is done because the CSS in the official Pi-Star is incompatible. You can still
-  manually map/change your CSS back when running `W0CHP-PiStar-Dash` (see bullet 4 for details).
-
+  (see bullet #4). This is done because the CSS in the official Pi-Star is incompatible. You can still
+  manually map/change your CSS back when running `W0CHP-PiStar-Dash` (see bullet #4 for details).
 3. If you are already running `W0CHP-PiStar-Dash`, AND you have custom or `W0CHP-PiStar-Dash` CSS, no CSS changes, no matter which
   option you run this command with.
-
 4. When using the `-id` option, your custom CSS settings are backed up (in the event you want to revert back
-  to the official dashboard -- see  bullet 6), and the `W0CHP` dashboard uses the standard Pi-Star colors.
+  to the official dashboard -- see  bullet #6), and the `W0CHP` dashboard uses the standard Pi-Star colors.
   This means that if you want your previous custom CSS applied to the `W0CHP` dashboard, you will need to manually
   customize your colors; You can reference the color values you had previously used, by viewing the backup file of
   your custom CSS...
 
         /etc/.pistar-css.ini.user
 
-5. ...the reason for bullets 4 and 1, is because the `W0CHP` dashboard is vastly different than the official upstream version
+5. ...the reason for bullets #4 and #1, is because the `W0CHP` dashboard is vastly different than the official upstream version
   (completely different CSS mappings). Since this is for my personal use, I haven't added any logic to suck-in
   the user CSS values to the new mappings.
-
 6. If you had customized CSS settings before installing the `W0CHP` dashboard, they will be restored when
   using the `-rd` option.
-
 7. You can at any time start over and reset to the "normal" Pi-Star colors, by performing a CSS Factory Reset (`Configuration -> Advanced -> Tools -> CSS Tool`).
-
 8. If you'd like to start over with the custom `W0CHP` colors/CSS, you can copy/paste [the following values](https://repo.w0chp.net/WPSD-Dev/W0CHP-PiStar-Installer/src/branch/master/supporting-files/pistar-css-W0CHP.ini) into your `/etc/pistar-css.ini`.
 
 ## Notes about M17 Protocol Support {#m17-notes}
@@ -252,16 +277,17 @@ HAT users, you can simply run the following command:
 sudo pistar-mmdvmhshatdowngrade
 ```
 
-Failure to downgrade the modem firmware when uninstalling `W0CHP-PiStar-Dash`
-will result in a non-functional hot spot, since the official current Pi-Star
-`MMDVMHost` binary is not compatible with newer MMDVM firmware.
+<i class="fas fa-exclamation-triangle"></i> Failure to downgrade the modem
+firmware when uninstalling `W0CHP-PiStar-Dash` will result in a non-functional
+hot spot, since the official current Pi-Star `MMDVMHost` binary is not compatible with
+newer MMDVM firmware.
 
 ## Screenshots
 
-Not all pages shown here. Note, that you can customize the colors to your preferences...
+*Not all pages shown here. Note, that you can customize the colors to your preferences...*
 
 ### Main Dashboard
-![alt text](https://w0chp.net/w0chp-pistar-dash/Main "Dashboard")
+![alt text](https://w0chp.net/w0chp-pistar-dash/Main.png "Dashboard")
 
 ### Main Admin Landing Page
 ![alt text](https://w0chp.net/w0chp-pistar-dash/Admin.png "Admin Page")
@@ -284,7 +310,6 @@ Not all pages shown here. Note, that you can customize the colors to your prefer
 ### Moblie Device View
 ![alt-text](https://w0chp.net/w0chp-pistar-dash/Mobile.png "Mobile Device View")
 
-
 ## Credits
 
 Of course, most of the credit goes to the venerable and skilled, Andy Taylor,
@@ -300,17 +325,17 @@ The USA callsign lookup fallback function uses a terrific API,
 The callsign-to-country flag GeoLookup code was adopted from
 [xlxd](https://github.com/LX3JL/xlxd)... authored by Jean-Luc Deltombe,
 `LX3JL`; and Luc Engelmann, `LX1IQ`. [I run an XLX(d)
-reflector](/xlx493-reflector/), *plus*, I was able to adopt some of its code
+reflector](https://w0chp.net/xlx493-reflector/), *plus*, I was able to adopt some of its code
 for `W0CHP-PiStar-Dash`, ergo, I am very grateful.
 The excellent country flag images are courtesy of [Hampus Joakim
 Borgos](https://github.com/hampusborgos/country-flags).
 
 Credit must also be given to to Kim Heinz Hübel; `DG9VH`, and Hans-Juergen
 Barthen; `DL5DI`, both of whom arguably created the very first MMDVM and
-ircDDBGatweay dashboards (respectively); of which, spawned the entire Pi-Star
+ircDDBGateway dashboards (respectively); of which, spawned the entire Pi-Star
 concept.
 
-The very cool and welcome MMDVMhost log backup/restore and re-application on 
+The very cool and welcome MMDVMhost log backup/restore and re-application on
 reboot code, is courtesy of Mark, `KN2TOD`.
 
 So much credit goes toward the venerable José Uribe ("Andy"), `CA6JAU`, for his
@@ -325,11 +350,10 @@ and gifts to the ham community.
 
 [^1]: `W0CHP-PiStar-Dash` was not created for single-core and low-powered hardware; such as
       the first generation RPi Zero, etc. (`armv6l`). This software will run very slow on under-powered hardware.
-      Please consider yourself warned. Also, please ignore all of the idiot hams on various
+      Please consider yourself warned. Also, please ignore all of the hams on various
       support mediums saying, *"anything more than a Pi Zero is overkill"*. These ignoramuses
       have no idea what goes on under the hood in order to display meaningful info on the
-      dashboard. Hint: it's a lot, and it's very resource-intensive. Ignore them...they are dumb and
-      they have no idea what they are talking about.
+      dashboard. Hint: it's a lot, and it's very resource-intensive. Ignore them...they have no idea what they are talking about.
 
 [^2]: Piping to `bash`/shells/etc. from an online source is controversial (do
       a google search about it). However it's convenient, and one can [view & inspect
@@ -347,3 +371,4 @@ and gifts to the ham community.
       ```
       $ cat /proc/cpuinfo | grep Serial | cut -d ' ' -f 2
       ```
+
