@@ -67,19 +67,19 @@ There are two methods of installation...
     ```
 	[i] W0CHP PiStar-Dash Installer Command Usage:
 
-	  -h,   --help                  :  Display this help text
+	  -h,   --help                   :  Display this help text
 
 
-	  -id,  --install-dashboard     :  Install W0CHP dashboard
+	  -id,  --install-dashboard      :  Install W0CHP dashboard
 
 
-	  -idc  --install-dashboard-css :  Install W0CHP dashboard
-                                   	   WITH custom stylesheet
+	  -idc, --install-dashboard-css  :  Install W0CHP dashboard
+                                   	    WITH custom stylesheet
 
-	  -rd,  --restore-dashboard     :  Restore original dashboard
+	  -rd,  --restore-dashboard      :  Restore original dashboard
 
 
-	  -s,   --status                :  Display version status/info
+	  -s,   --status                 :  Display version status/info
     ```
 
 4. When ready to install, run the above command again with the option/argument you wish...e.g:
