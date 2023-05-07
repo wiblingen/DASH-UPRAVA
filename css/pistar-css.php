@@ -131,6 +131,7 @@ tt, code, kbd, pre {
     color: #4DEEEA;
     background: #000000;
     font-size: 17px;
+    padding: .5em 0 .5em .5em;
 }
 
 table {
