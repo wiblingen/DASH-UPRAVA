@@ -342,12 +342,13 @@ if (!isset($configmmdvm['NextionDriver'])) {
     $configmmdvm['NextionDriver']['Port'] = "0";
     $configmmdvm['NextionDriver']['DataFilesPath'] = "/usr/local/etc/";
     $configmmdvm['NextionDriver']['LogLevel'] = "2";
-    $configmmdvm['NextionDriver']['GroupsFile'] = "groups.txt";
+    $configmmdvm['NextionDriver']['GroupsFile'] = "groupsNextion.txt";
     $configmmdvm['NextionDriver']['DMRidFile'] = "stripped.csv";
     $configmmdvm['NextionDriver']['ShowModeStatus'] = "0";
     $configmmdvm['NextionDriver']['RemoveDim'] = "0";
     $configmmdvm['NextionDriver']['WaitForLan'] = "1";
     $configmmdvm['NextionDriver']['SleepWhenInactive'] = "0";
+    $configmmdvm['NextionDriver']['GroupsFileSrc'] = "https://hostfiles.w0chp.net/groupsNextion.txt";
 }
 if (!isset($configmmdvm['NextionDriver']['Enable'])) {
     $configmmdvm['NextionDriver']['Enable'] = "0";
