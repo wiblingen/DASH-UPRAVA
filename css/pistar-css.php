@@ -102,6 +102,7 @@ h2.ConfSec {
 
 .footer a {
     text-decoration: underline !important;
+    color : <?php echo $textBanners; ?> !important;
 }
 
 tt, code, kbd, pre {
