@@ -1,7 +1,7 @@
-**NOTE: If you are reading this on a site other than its official *w0chp.net*
-domain (such as GitHub etc.), this is not my official program / code, and is
-likely outdated. The canonical and official site for this program is:
-https://w0chp.net/w0chp-pistar-dash/.**
+**NOTE: If you are reading this on a site other than its official
+*https://repo.w0chp.net* domain (such as GitHub etc.), then this is not my
+official program / code, and is likely outdated. The canonical and official
+site for this program is: https://w0chp.net/w0chp-pistar-dash/.**
 
 ## About `W0CHP-PiStar-Dash`, and Some Warnings
 
