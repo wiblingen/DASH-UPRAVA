@@ -10,7 +10,7 @@ software, and I call it “W0CHP-PiStar-Dash”. There are so many large changes
 divergences and new features, it merited my own fork/version.
 
 In fact, it’s pretty much its own distribution at this point; especially now
-that the W0CHP-PiStar-Dash disk/OS  images are now bullseye-based; and is now
+that the W0CHP-PiStar-Dash disk/OS images are now bullseye-based; and is now
 its own beast, so-to-speak.
 
 ## Warnings, Caveats and FAQs {#caveats}
@@ -103,7 +103,7 @@ Otherwise, the commands will fail.
 
 ### Installing `W0CHP-PiStar-Dash` from a Bullseye-based Disk Image {#disk-image-installation}
 
-The `W0CHP-PiStar-Dash` disk images uses "Bullseye"
+The `W0CHP-PiStar-Dash` disk images use "Bullseye"
 as the core operating system; far newer and better than the legacy "Buster"-based OS that
 Pi-Star uses.
 
