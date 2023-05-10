@@ -227,8 +227,26 @@ if(empty($_POST['func'])) {
       console.log('Connection failed: ' + responseObject.errorMessage);
     }
 
+    </script>
+    <script>
+    function executeBackgroundTasks() {
+    var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          console.log("Background tasks executed successfully.");
+        }
+      };
+      xhttp.open("GET", "includes/execute-background-tasks.php", true);
+      xhttp.send();
+    }
 
-	</script>
+    // Call the executeBackgroundTasks() function every 2 hours
+    setInterval(function() {
+      executeBackgroundTasks();
+    }, 2 * 60 * 60 * 1000); // 2 hours
+    </script>
+
+>>>>>>> master
     </head>
     <body>
 	<div class="container">
@@ -899,11 +917,10 @@ if(empty($_POST['func'])) {
 	</div>
 	
 	</div>
+<?php
+include 'includes/execute-background-tasks.php';
+// Call the runBackgroundTasks() function to execute the background tasks
+runBackgroundTasks();
+?>
     </body>
 </html>
-<?php 
-if (file_exists('/usr/local/sbin/background-tasks.sh')) {
-    exec('sudo /usr/local/sbin/background-tasks.sh &> /dev/null 2<&1');
-}
-?>
-
