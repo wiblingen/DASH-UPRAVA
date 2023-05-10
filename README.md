@@ -10,8 +10,8 @@ software, and I call it “W0CHP-PiStar-Dash”. There are so many large changes
 divergences and new features, it merited my own fork/version.
 
 In fact, it’s pretty much its own distribution at this point; especially now
-that the W0CHP-PiStar-Dash image is now bullseye-based and is now its own
-beast, so to speak.
+that the W0CHP-PiStar-Dash disk/OS  images are now bullseye-based; and is now
+its own beast, so-to-speak.
 
 ## Warnings, Caveats and FAQs {#caveats}
 
