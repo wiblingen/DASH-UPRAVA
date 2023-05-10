@@ -186,24 +186,25 @@ if(empty($_POST['func'])) {
     $(window).trigger('resize');
 
     </script>
-    <script>
-    function executeBackgroundTasks() {
-    var xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-          console.log("Background tasks executed successfully.");
-        }
-      };
-      xhttp.open("GET", "includes/execute-background-tasks.php", true);
-      xhttp.send();
-    }
+<script>
+  function executeBackgroundTasks() {
+    $.ajax({
+      url: 'includes/execute-background-tasks.php',
+      success: function(data) {
+        console.log('Background tasks executed successfully.');
+      },
+      error: function() {
+        console.log('Error executing background tasks.');
+      }
+    });
+  }
 
-    // Call the executeBackgroundTasks() function every 2 hours
+  $(document).ready(function() {
     setInterval(function() {
       executeBackgroundTasks();
-    }, 2 * 60 * 60 * 1000); // 2 hours
-    </script>
-
+    }, 300000); // 5 mins
+  });
+</script>
     </head>
     <body>
 	<div class="container">
@@ -900,8 +901,7 @@ if(empty($_POST['func'])) {
 	</div>
 <?php
 include 'includes/execute-background-tasks.php';
-// Call the runBackgroundTasks() function to execute the background tasks
-runBackgroundTasks();
+executeBackgroundTasks();
 ?>
     </body>
 </html>
