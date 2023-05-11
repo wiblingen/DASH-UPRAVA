@@ -1,7 +1,8 @@
 **NOTE: If you are reading this on a site other than its official
 *https://repo.w0chp.net* domain (such as GitHub etc.), then this is not my
-official program / code, and is likely outdated. The canonical and official
-site for this program is: https://w0chp.net/w0chp-pistar-dash/.**
+official program / code, and is likely outdated, and is unsupported. The
+canonical and official site for this program is:
+https://w0chp.net/w0chp-pistar-dash/.**
 
 ## About `W0CHP-PiStar-Dash`, and Some Warnings
 
@@ -103,26 +104,27 @@ Otherwise, the commands will fail.
 
 ### Installing `W0CHP-PiStar-Dash` from a Bullseye-based Disk Image {#disk-image-installation}
 
-The `W0CHP-PiStar-Dash` disk images use "Bullseye"
-as the core operating system; far newer and better than the legacy "Buster"-based OS that
-Pi-Star uses.
+The `W0CHP-PiStar-Dash` disk images use "Bullseye" as the core operating
+system; far newer and better than the legacy "Buster"-based OS that Pi-Star
+uses.
 
 The Bullseye disk images are ready-to-go; with `W0CHP-PiStar-Dash` installed.
 
-#### **Rasperry Pi Disk Image**
+**Rasperry Pi Disk Image:**
 
-* RaspberryPi Disk Image Download: [<code>**WPSD_RPi_Latest.img.xz**</code>](https://w0chp.net/WPSD_RPi_Latest.img.xz) (804MB compressed; 2.7GB decompressed)
-* MD5 Checksums: [<code>**WPSD_RPi_Latest-MD5.txt**</code>](https://w0chp.net/WPSD_RPi_Latest-MD5.txt)
+: RaspberryPi Disk Image Download: [<code>**WPSD_RPi_Latest.img.xz**</code>](https://w0chp.net/WPSD_RPi_Latest.img.xz) (804MB compressed; 2.7GB decompressed)
 
-#### **Orange Pi Zero Disk Image**
+**Orange Pi Zero Disk Image:**
 
-* OrangePi Zero Disk Image Download: [<code>**WPSD_OrangePiZero_Latest.img.xz**</code>](https://w0chp.net/WPSD_OrangePiZero_Latest.img.xz) (497MB compressed; 2.6GB decompressed)
-* MD5 Checksums: [<code>**WPSD_OrangePiZero_Latest-MD5.txt**</code>](https://w0chp.net/WPSD_OrangePiZero_Latest-MD5.txt)
+: OrangePi Zero Disk Image Download: [<code>**WPSD_OrangePiZero_Latest.img.xz**</code>](https://w0chp.net/WPSD_OrangePiZero_Latest.img.xz) (497MB compressed; 2.6GB decompressed)
 
-#### **Nano Pi Neo Disk Image**
+**Nano Pi Neo Disk Image:**
 
-* NanoPi Neo Disk Image Download: [<code>**WPSD_NanoPiNeo_Latest.img.xz**</code>](https://w0chp.net/WPSD_NanoPiNeo_Latest.img.xz) (790MB compressed; 2.7GB decompressed)
-* MD5 Checksums: [<code>**WPSD_NanoPiNeo_Latest-MD5.txt**</code>](https://w0chp.net/WPSD_NanoPiNeo_Latest-MD5.txt)
+: NanoPi Neo Disk Image Download: [<code>**WPSD_NanoPiNeo_Latest.img.xz**</code>](https://w0chp.net/WPSD_NanoPiNeo_Latest.img.xz) (790MB compressed; 2.7GB decompressed)
+
+**SHA-256 Checksums for Image Files:**
+
+: [<code>WPSD_SHA256-SUMS.txt</code>](https://w0chp.net/WPSD_SHA256-SUMS.txt)
 
 <i class="fas fa-exclamation-triangle"></i>  You will need an SD card of at
 least 4GB to install these disk images.
