@@ -4,6 +4,8 @@ official program / code, and is likely outdated, and is unsupported. The
 canonical and official site for this program is:
 https://w0chp.net/w0chp-pistar-dash/.**
 
+[Please don’t upload my code to GitHub](https://nogithub.codeberg.page) [![Please don't upload my code to GitHub](https://nogithub.codeberg.page/badge.svg)](https://nogithub.codeberg.page)
+
 ## About `W0CHP-PiStar-Dash`, and Some Warnings
 
 This is my very highly modified and customized fork of MW0MWZ’s Pi-Star
