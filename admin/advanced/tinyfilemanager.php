@@ -3292,7 +3292,6 @@ global $lang, $root_url, $favicon_path;
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Web based File Manager in PHP, Manage your files efficiently and easily with Tiny File Manager">
     <meta name="author" content="CCP Programmers">
-    <meta name="robots" content="noindex, nofollow">
     <meta name="googlebot" content="noindex">
     <link rel="icon" href="<?php echo fm_enc($favicon_path) ?>" type="image/png">
     <title><?php echo fm_enc(APP_TITLE) ?></title>
@@ -3364,7 +3363,6 @@ $isStickyNavBar = $sticky_navbar ? 'navbar-fixed' : 'navbar-normal';
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Web based File Manager in PHP, Manage your files efficiently and easily with Tiny File Manager">
     <meta name="author" content="CCP Programmers">
-    <meta name="robots" content="noindex, nofollow">
     <meta name="googlebot" content="noindex">
     <link rel="icon" href="<?php echo fm_enc($favicon_path) ?>" type="image/png">
     <title><?php echo fm_enc(APP_TITLE) ?></title>

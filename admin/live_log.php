@@ -77,8 +77,6 @@ if ($_SERVER["PHP_SELF"] == "/admin/live_log.php") {
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
   <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" lang="en">
   <head>
-    <meta name="robots" content="index" />
-    <meta name="robots" content="follow" />
     <meta name="language" content="English" />
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
