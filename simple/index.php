@@ -51,8 +51,6 @@ if(empty($_POST['func'])) {
 	  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" lang="en">
     <head>
-	<meta name="robots" content="index" />
-	<meta name="robots" content="follow" />
 	<meta name="language" content="English" />
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=10; IE=9; IE=8; IE=7; IE=EDGE" />
