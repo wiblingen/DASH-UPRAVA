@@ -45,6 +45,22 @@ its own beast, so-to-speak.
     3. Other topics not germane to bugs, issues, etc.
   * You *may* be directed to file an issue report here by developers when necessary.
 
+## Known Issues
+* If you have a first-generation Raspberry Pi Zero (Pi Zero Rev.1.1 armv6l) with the
+  single-core processor (some Zumspots use these boards), and have downloaded my RPi Bullseye
+  disk image, you need to do a couple of things before you can access it:
+    1. [Install a WiFi config file before you boot the image](https://w0chp.net/wpa-config-generator/), or connect it to Ethernet. Network connectivity is required for first boot-up.
+    2. Let the image boot and configure for about 30 minutes, otherwise you will not be able to access the dashboard.
+
+  If you fail to do these things, you will get a "502 Bad Gateway" error when attempting to access the dashboard.
+* If you have a DVmega EuroNode or the like, and install my NeoPi Nano Bullseye
+  disk image on it, you will likely lose all wireless functionality (Ethernet still works,
+  however). This is because the DVmega folks create their own older Buster image,
+  tailored to their custom hardware. If you still want to use my software on DVMega
+  hardware, you absolutely can; and it's best to use the [existing hotspot installation
+  method](#hotspot-installation), which will leave the operating system alone as
+  the older Buster version and wireless functionality will remain intact.
+
 ## Installing `W0CHP-PiStar-Dash`
 
 Now that you've been adequately informed of the rules, caveats and the risks, keep reading to learn how to
@@ -112,17 +128,17 @@ uses.
 
 The Bullseye disk images are ready-to-go; with `W0CHP-PiStar-Dash` installed.
 
-**Rasperry Pi Disk Image:**
+**Raspberry Pi Disk Image:**
 
-: RaspberryPi Disk Image Download: [<code>**WPSD_RPi_Latest.img.xz**</code>](https://w0chp.net/WPSD_RPi_Latest.img.xz) (804MB compressed; 2.7GB decompressed)
+: Raspberry Pi Disk Image Download: [<code>**WPSD_RPi_Latest.img.xz**</code>](https://w0chp.net/WPSD_RPi_Latest.img.xz) (804MB compressed; 2.8GB decompressed)
 
 **Orange Pi Zero Disk Image:**
 
-: OrangePi Zero Disk Image Download: [<code>**WPSD_OrangePiZero_Latest.img.xz**</code>](https://w0chp.net/WPSD_OrangePiZero_Latest.img.xz) (497MB compressed; 2.6GB decompressed)
+: Orange Pi Zero Disk Image Download: [<code>**WPSD_OrangePiZero_Latest.img.xz**</code>](https://w0chp.net/WPSD_OrangePiZero_Latest.img.xz) (497MB compressed; 2.6GB decompressed)
 
 **Nano Pi Neo Disk Image:**
 
-: NanoPi Neo Disk Image Download: [<code>**WPSD_NanoPiNeo_Latest.img.xz**</code>](https://w0chp.net/WPSD_NanoPiNeo_Latest.img.xz) (790MB compressed; 2.7GB decompressed)
+: Nanook Neo Disk Image Download: [<code>**WPSD_NanoPiNeo_Latest.img.xz**</code>](https://w0chp.net/WPSD_NanoPiNeo_Latest.img.xz) (790MB compressed; 2.7GB decompressed)
 
 **SHA-256 Checksums for Image Files:**
 
