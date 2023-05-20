@@ -53,7 +53,7 @@ its own beast, so-to-speak.
     2. Let the image boot and configure for about 30 minutes, otherwise you will not be able to access the dashboard.
 
   If you fail to do these things, you will get a "502 Bad Gateway" error when attempting to access the dashboard.
-* If you have a DVmega EuroNode or the like, and install my NeoPi Nano Bullseye
+* If you have a DVmega EuroNode or the like, and install my NanoPi NEO Bullseye
   disk image on it, you will likely lose all wireless functionality (Ethernet still works,
   however). This is because the DVmega folks create their own older Buster image,
   tailored to their custom hardware. If you still want to use my software on DVMega
