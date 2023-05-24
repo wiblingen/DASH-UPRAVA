@@ -17,10 +17,11 @@ $tempfile = '/tmp/fmehg65694eg.tmp';
 function update_ini_file($data, $filepath) {
     $content = "";
     
-    //parse the ini file to get the sections
-    //parse the ini file using default parse_ini_file() PHP function
-    $parsed_ini = parse_ini_file($filepath, true);
-    
+    // Read the INI file contents
+    $ini_content = file_get_contents($filepath);
+    // Set the INI scanner option to treat values as literal strings
+    $parsed_ini = parse_ini_string($ini_content, true, INI_SCANNER_RAW);
+ 
     foreach($data as $section=>$values) {
 	// UnBreak special cases
 	$section = str_replace("_", " ", $section);

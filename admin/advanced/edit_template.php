@@ -55,9 +55,11 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/config/version.php';
 		    update_ini_file($data, $filepath);
 		}
 
-		//parse the ini file using default parse_ini_file() PHP function
-		$parsed_ini = parse_ini_file($filepath, true);
-		
+    		// Read the INI file contents
+    		$ini_content = file_get_contents($filepath);
+    		// Set the INI scanner option to treat values as literal strings
+    		$parsed_ini = parse_ini_string($ini_content, true, INI_SCANNER_RAW);
+	
 		echo '<form action="" method="post">'."\n";
 		foreach($parsed_ini as $section=>$values) {
 		    // keep the section as hidden text so we can update once the form submitted

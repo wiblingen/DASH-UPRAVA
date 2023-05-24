@@ -27,7 +27,7 @@ if (isset($_SESSION['CSSConfigs']['Background'])) {
 
 $config_dir = "/etc/WPSD_config_mgr";
 $curr_config = trim(file_get_contents('/etc/.WPSD_config'));
-$saved = date("M. d Y @ h:i A", filemtime("$config_dir" . "/". "$curr_config"));
+$saved = date("M d Y @ h:i A", filemtime("$config_dir" . "/". "$curr_config"));
 if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
     if (is_dir("$config_dir" . "/" ."$curr_config") != false ) {
     	 $curr_config = "<span style='color:$backgroundModeCellActiveColor;'>".trim(file_get_contents('/etc/.WPSD_config'))."</span><br /><small>(Saved: ".$saved."</small>)";
