@@ -48,6 +48,15 @@ if(empty($_GET['func'])) {
 if(empty($_POST['func'])) {
     $_POST['func'] = "main";
 }
+
+// ZUMradio image init:
+$iniFile = '/etc/dstar-radio.mmdvmhost';
+$section = 'ZUM';
+$key = 'NewInstall';
+$expectedValue = '1';
+$iniData = parse_ini_file($iniFile, true);
+$isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] === $expectedValue;
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 	  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -303,8 +312,15 @@ if(empty($_POST['func'])) {
                     echo '</div>'."\n";
             }
 
+	// New ZUMspot image?
+	    if ($isNewZumInstall) {
+		echo '<div class="contentwide">'."\n";
+		echo "<H1>New ZUMspot Installation...</H1>\n";
+		echo "<p>You will be re-directed to the configuration portal in 10 seconds to setup your ZUMspot...</p>\n";
+		echo '<script type="text/javascript">setTimeout(function() { window.location="/admin/configure.php";},10000);</script>'."\n";
         // First lets figure out if we are in MMDVMHost mode, or dstarrepeater mode;
-	    if (file_exists('/etc/dstar-radio.mmdvmhost')) {
+	
+	    } else if (file_exists('/etc/dstar-radio.mmdvmhost')) {
 		echo '<div class="nav">'."\n";					// Start the Side Menu
 		echo '<script type="text/javascript">'."\n";
 		echo 'function reloadRepeaterInfo(){'."\n";
@@ -847,14 +863,13 @@ if(empty($_POST['func'])) {
 		include 'dstarrepeater/local_tx.php';				//dstarrepeater Local Transmissions
 		echo '</div>'."\n";
 		echo '<br />'."\n";
-		
-	    }
+            }
 	    else {
 		echo '<div class="contentwide">'."\n";
 		//We dont know what mode we are in - fail...
 		echo "<H1>No Mode Defined...</H1>\n";
 		echo "<p>I don't know what mode I am in, you probably just need to configure me.</p>\n";
-		echo "<p>You will be re-directed to the configuration portal in 10 secs</p>\n";
+		echo "<p>You will be re-directed to the configuration portal in 10 seconds...</p>\n";
 		echo '<script type="text/javascript">setTimeout(function() { window.location="/admin/configure.php";},10000);</script>'."\n";
 	    }
 	    ?>
