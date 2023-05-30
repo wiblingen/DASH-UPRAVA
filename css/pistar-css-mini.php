@@ -211,12 +211,12 @@ a.tooltip2, a.tooltip2:link, a.tooltip2:visited, a.tooltip2:active  {
     text-decoration: none;
     position: relative;
     font-weight: bold;
-    color: #e9e9e9;
+    color : <?php echo $textSections; ?>; 
 }
 
 a.tooltip2:hover {
     text-decoration: none;
-    color: #e9e9e9;
+    color : <?php echo $textSections; ?>; 
     background: transparent;
 }
 
