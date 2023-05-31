@@ -316,7 +316,7 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 	    if ($isNewZumInstall) {
 		echo '<div class="contentwide">'."\n";
 		echo "<H1>New ZUMspot Installation...</H1>\n";
-		echo "<p>You will be re-directed to the configuration portal in 10 seconds to setup your ZUMspot...</p>\n";
+		echo "<p>You will be redirected to the configuration portal in 10 seconds to setup your ZUMspot...</p>\n";
 		echo '<script type="text/javascript">setTimeout(function() { window.location="/admin/configure.php";},10000);</script>'."\n";
         // First lets figure out if we are in MMDVMHost mode, or dstarrepeater mode;
 	
@@ -869,7 +869,7 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 		//We dont know what mode we are in - fail...
 		echo "<H1>No Mode Defined...</H1>\n";
 		echo "<p>I don't know what mode I am in, you probably just need to configure me.</p>\n";
-		echo "<p>You will be re-directed to the configuration portal in 10 seconds...</p>\n";
+		echo "<p>You will be redirected to the configuration portal in 10 seconds...</p>\n";
 		echo '<script type="text/javascript">setTimeout(function() { window.location="/admin/configure.php";},10000);</script>'."\n";
 	    }
 	    ?>
