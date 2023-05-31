@@ -4342,6 +4342,7 @@ if (!empty($_POST)):
                         exec('sudo mv /tmp/sja7hFRkw4euG7.tmp '.$modemConfigFileMMDVMHost);		// Move the file back
                         exec('sudo chmod 644 $modemConfigFileMMDVMHost');				// Set the correct runtime permissions
                         exec('sudo chown root:root $modemConfigFileMMDVMHost');			// Set the owner
+			exec('sudo sed -i "/\[ZUM]/,/^$/d" '.$modemConfigFileMMDVMHost);	// ZUMspot configured
                     }
 		}
         }
