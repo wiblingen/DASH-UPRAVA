@@ -1,15 +1,4 @@
 <?php
-if (!isset($_SESSION) || !is_array($_SESSION)) {
-    session_id('pistardashsess');
-    session_start();
-
-    include_once $_SERVER['DOCUMENT_ROOT'].'/config/config.php';          // MMDVMDash Config
-    include_once $_SERVER['DOCUMENT_ROOT'].'/config/version.php';         // Version Config
-    include_once $_SERVER['DOCUMENT_ROOT'].'/mmdvmhost/tools.php';        // MMDVMDash Tools
-    include_once $_SERVER['DOCUMENT_ROOT'].'/mmdvmhost/functions.php';    // MMDVMDash Functions
-    include_once $_SERVER['DOCUMENT_ROOT'].'/config/language.php';        // Translation Code
-    checkSessionValidity();
-}
 
 include('wifi/phpincs.php');
 $output = $return = 0;
@@ -158,7 +147,7 @@ switch($page) {
 			echo '<script>window.location.href=\'wifi.php?page=wlan0_info\';</script>';
 		}
 
-	echo '<script type="text/javascript">setTimeout(function () { location.reload(1); }, 15000);</script>
+	echo '<script type="text/javascript">setTimeout(function () { location.reload(1); }, 120000);</script>
 <div class="infobox">
 <form action="'.$_SERVER['PHP_SELF'].'?page=wlan0_info" method="post">
 <!-- <input type="submit" value="ifdown wlan0" name="ifdown_wlan0" /> -->
