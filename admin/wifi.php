@@ -273,7 +273,8 @@ echo '<br />
 		$output .= '<div class="infobox">'."\n";
 		$output .= '<input type="submit" value="Scan for Networks (10 secs)" name="Scan" />'."\n";
 		$output .= '<input type="button" value="Add Network" onclick="AddNetwork();" />'."\n";
-		$output .= '<input type="submit" value="Save (and connect)" name="SaveWPAPSKSettings" onmouseover="UpdateNetworks(this)" />'."\n";
+		$output .= '<input type="submit" value="Save WiFi Settings" name="SaveWPAPSKSettings" onmouseover="UpdateNetworks(this)" />'."\n";
+		$output .= '<input type="submit" value="Reboot with New WiFi Settings" name="Reboot"" />'."\n";
 		$output .= '</div>'."\n";
 		$output .= '</form>'."\n";
 
@@ -338,6 +339,12 @@ echo '<br />
 
 		}
 		echo "</table>\n";
+        } elseif(isset($_POST['Reboot'])) {
+		echo "<h3>Rebooting...</h3>\n";
+                echo "In a few minutes, you can access your dashboard from your newly-configured WiFi network: <a href='http://".gethostname().".local'>http://".gethostname().".local</a>";
+		echo "<br />";
+		echo "<br />";
+		exec("sudo sync && sudo reboot");
 	}
 
 	break;
