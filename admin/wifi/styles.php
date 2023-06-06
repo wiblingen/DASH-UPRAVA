@@ -42,10 +42,12 @@ input[type=text],input[type=password] {
 	border:1px solid;
 }
 
+/*
 input[type=button],input[type=submit] {
 	border:1px solid;
 	border-radius:5px;
 }
+*/
 
 input[type=button]:hover,input[type=submit]:hover {
 	color: <?php echo $textNavbarHover; ?>;

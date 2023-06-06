@@ -4,6 +4,16 @@ include('wifi/phpincs.php');
 $output = $return = 0;
 $page = $_GET['page'];
 
+// lets get the status of wpa_supp:
+$wpaSupplicantPath = '/etc/wpa_supplicant/wpa_supplicant.conf';
+$fileContents = file_get_contents($wpaSupplicantPath);
+$netDefined = preg_match('/network\s*=\s*{/', $fileContents);
+// $netDefined will be 1 if networks are defined, 0 otherwise
+if ($netDefined) {
+    $netDefined = 1;
+} else {
+    $netDefined = 0;
+}
 
 echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -200,8 +210,7 @@ echo '<br />
 <br />
 </div>
 <br />
-</div>
-<div class="intfooter">Information provided by ifconfig and iwconfig</div>';
+</div>';
 	break;
 
 	case "wpa_conf":
@@ -251,7 +260,7 @@ echo '<br />
 <input type="button" value="WiFi Info" name="wlan0_info" onclick="document.location=\'?page=\'+this.name" /><br />
 <input type="hidden" id="Networks" name="Networks" />
 <div class="network" id="networkbox">'."\n";
-		if (!isset($wifiCountry)) { $wifiCountry = "JP"; }
+		if (!isset($wifiCountry)) { $wifiCountry = "US"; }
 		$output .= 'WiFi Regulatory Domain (Country Code) : <select name="wifiCountryCode">'."\n";
 		exec('regdbdump /lib/crda/regulatory.bin | fgrep country | cut -b 9-10', $regDomains);
 		foreach($regDomains as $regDomain) {
@@ -272,12 +281,13 @@ echo '<br />
 		$output .= '</div>'."\n";
 		$output .= '<div class="infobox">'."\n";
 		$output .= '<input type="submit" value="Scan for Networks (10 secs)" name="Scan" />'."\n";
-		$output .= '<input type="button" value="Add Network" onclick="AddNetwork();" />'."\n";
-		$output .= '<input type="submit" value="Save WiFi Settings" name="SaveWPAPSKSettings" onmouseover="UpdateNetworks(this)" />'."\n";
-		$output .= '<input type="submit" value="Reboot with New WiFi Settings" name="Reboot"" />'."\n";
+		$output .= '<input type="button" value="Add New WiFi Network" onclick="AddNetwork();" />'."\n";
+		if($netDefined ==1) {
+		    $output .= '<input type="submit" value="Save WiFi Settings" name="SaveWPAPSKSettings" onmouseover="UpdateNetworks(this)" />'."\n";
+		    $output .= '<input type="submit" value="Reboot with New WiFi Settings" name="Reboot" />'."\n";
+		}
 		$output .= '</div>'."\n";
 		$output .= '</form>'."\n";
-
 
 	echo $output;
 	echo '<script type="text/Javascript">UpdateNetworks()</script>';
@@ -307,13 +317,13 @@ echo '<br />
 		if (!file_exists('/sys/class/net/wlan0_ap')) {
 			exec('sudo ip link set wlan0 down && sleep 3 && sudo ip link set wlan0 up');
 		}
-		echo "<script>document.location='?page=\wlan0_info'</script>";
+		echo "<script>document.location='?page=wpa_conf'</script>";
 
 	} elseif(isset($_POST['Scan'])) {
 		$return = '';
 		exec('ifconfig wlan0 | grep -i running | wc -l',$test);
 		exec('sudo wpa_cli scan -i wlan0',$return);
-		sleep(8);
+		sleep(10);
 		exec('sudo wpa_cli scan_results -i wlan0',$return);
 		unset($return['0']); // This is a better way to clean up;
 		unset($return['1']); // This is a better way to clean up;
@@ -339,12 +349,15 @@ echo '<br />
 
 		}
 		echo "</table>\n";
-        } elseif(isset($_POST['Reboot'])) {
+	} elseif(isset($_POST['Reboot'])) {
+		echo "<div style='padding: 10px'>";
 		echo "<h3>Rebooting...</h3>\n";
-                echo "In a few minutes, you can access your dashboard from your newly-configured WiFi network: <a href='http://".gethostname().".local'>http://".gethostname().".local</a>";
+		echo "In a few minutes, you can access your dashboard from your newly-configured WiFi network: <a target='_blank' href='http://".gethostname().".local'>http://".gethostname().".local</a>";
 		echo "<br />";
 		echo "<br />";
-		exec("sudo sync && sudo reboot");
+		echo "</div>";
+		exec("sudo sync && sudo reboot > /dev/null 2>&1 &");
+		exit;
 	}
 
 	break;
