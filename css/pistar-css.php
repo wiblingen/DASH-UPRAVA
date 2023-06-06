@@ -574,7 +574,7 @@ select {
 
 .select2-selection__rendered {
   font-family: 'Inconsolata', monospace;
-  color: black;
+  color: black !important;
   font-size: <?php echo $bodyFontSize; ?>px !important;
   background: #e2e2e2;
 }
@@ -588,6 +588,10 @@ select {
 
 [class^='select2'] {
   border-radius: 0px !important;
+}
+
+.select2-results__option {
+  color: black !important;
 }
 
 .navbar {
