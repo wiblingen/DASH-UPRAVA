@@ -629,8 +629,8 @@ if (file_exists($bmAPIkeyFile) && fopen($bmAPIkeyFile,'r')) {
 <?php } } ?>
 <div class="container">
 <div class="header">
-<div class="SmallHeader shLeft">Hostname: <?php echo exec('cat /etc/hostname'); ?></div>
-<div class="SmallHeader shRight">
+<div class="SmallHeader shLeft noMob">Hostname: <?php echo exec('cat /etc/hostname'); ?></div>
+<div class="SmallHeader shRight noMob">
   <div id="CheckUpdate">
   <?php
     include $_SERVER['DOCUMENT_ROOT'].'/includes/checkupdates.php';
@@ -638,8 +638,7 @@ if (file_exists($bmAPIkeyFile) && fopen($bmAPIkeyFile,'r')) {
   </div><br />
 </div>
 <h1>Pi-Star <?php echo $lang['digital_voice']." - ".$lang['configuration'];?></h1>
-		<p>
-		    <div class="navbar">
+        <div class="navbar">
               <script type= "text/javascript">
                $(document).ready(function() {
                  setInterval(function() {
@@ -661,13 +660,13 @@ if (file_exists($bmAPIkeyFile) && fopen($bmAPIkeyFile,'r')) {
                  update();
                });
               </script>
-              <div style="text-align: left; padding-left: 8px; padding-top: 5px; float: left;">
+              <div class="headerClock">
                 <span id="timer"></span>
             </div>
-			<a class="menureset" href="javascript:factoryReset();"><?php echo $lang['factory_reset'];?></a>
-			<a class="menubackup" href="/admin/config_backup.php"><?php echo $lang['backup_restore'];?></a>
-			<a class="menuupdate" href="/admin/update.php"><?php echo $lang['update'];?></a>
-			<a class="menuexpert" href="/admin/advanced/">Advanced</a>
+			<a class="noMob menureset" href="javascript:factoryReset();"><?php echo $lang['factory_reset'];?></a>
+			<a class="noMob menubackup" href="/admin/config_backup.php"><?php echo $lang['backup_restore'];?></a>
+			<a class="noMob menuupdate" href="/admin/update.php"><?php echo $lang['update'];?></a>
+			<a class="noMob menuexpert" href="/admin/advanced/">Advanced</a>
 			<a class="menupower" href="/admin/power.php"><?php echo $lang['power'];?></a>
 			<a class="menuadmin" href="/admin/"><?php echo $lang['admin'];?></a>
 			<?php if (file_exists("/etc/dstar-radio.mmdvmhost")) { ?>
@@ -675,7 +674,6 @@ if (file_exists($bmAPIkeyFile) && fopen($bmAPIkeyFile,'r')) {
 			<?php } ?>
 			<a class="menudashboard" href="/"><?php echo $lang['dashboard'];?></a>
 		    </div>
-		</p>
 </div>
 <?php
 // check that no modes are paused. If so, bail and direct user to unpause...
