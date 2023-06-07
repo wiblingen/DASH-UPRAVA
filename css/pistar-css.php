@@ -41,6 +41,14 @@ body, font {
     font-size: <?php echo $headerFontSize; ?>px;
 }
 
+.headerClock {
+    font-size: 0.9em;
+    text-align: left;
+    padding-left: 8px;
+    padding-top: 5px;
+    float: left;
+}
+
 .nav {
     float: left;
     margin : 0;
@@ -597,6 +605,7 @@ select {
 .navbar {
     overflow: hidden;
     background-color: <?php echo $backgroundNavbar; ?>;
+    padding-bottom: 10px;
 }
 
 .navbar a {
@@ -628,6 +637,8 @@ select {
 .lnavbar {
     overflow: hidden;
     background-color: <?php echo $backgroundNavbar; ?>;
+    padding-bottom: 10px;
+    margin-top: -0.6rem;
 }
 
 /* Advanced menus */

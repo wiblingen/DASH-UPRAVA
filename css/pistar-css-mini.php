@@ -21,17 +21,25 @@ body, font {
 }
 
 .header {
-    display: none;
     background : <?php echo $backgroundBanners; ?>;
     text-decoration : none;
     color : <?php echo $textBanners; ?>;
     font-family : 'Source Sans Pro', sans-serif;
     text-align : left;
-    padding : 5px 0px 5px 0px;
+    padding : 3px 0px 5px 0px;
  }
 
 .header h1 {
    font-weight: 500;
+   font-size: 1.1em;
+}
+
+.headerClock {
+    font-size: 0.7em;
+    text-align: left;
+    padding-left: 8px;
+    padding-top: 5px;
+    float: left;
 }
 
 .nav {
@@ -550,8 +558,17 @@ input.toggle-round-flat:focus + label {
     visibility: hidden;
 }
 
-.menuconfig .menuadmin .menudashboard .menuupdate .menuupgrade .menupower .menulogs .menubackup .menuexpert .menureset .menusysinfo {
+.menuconfig .menuadmin .menudashboard .menuupdate .menuupgrade .menupower .menulogs .menubackup .menuexpert .menureset, .menulive, .menusysinfo {
     position: relative;
+}
+
+.menulive:before {
+    content: "\f21e";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    padding-right: 0.2em;
 }
 
 .menuconfig:before {
@@ -712,6 +729,7 @@ paused-mode-cell {
 }
 
 #lhTGN,
+#liveCallerDeets,
 #lhCN,
 #lhAc,
 .noMob {

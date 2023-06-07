@@ -103,8 +103,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/update.php") {
 	      <div class="SmallHeader shLeft">Hostname: <?php echo exec('cat /etc/hostname'); ?></div>
 	      <div class="SmallHeader shRight"><?php echo $version; ?></div><br />
 	      <h1>Pi-Star - <?php echo $lang['digital_voice']." ".$lang['dashboard']." - ".$lang['update'];?></h1>
-	      <p>
-		  <div class="navbar">
+	      <div class="navbar">
               <script type= "text/javascript">
                $(document).ready(function() {
                  setInterval(function() {
@@ -126,7 +125,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/update.php") {
                  update();
                });
               </script>
-              <div style="text-align: left; padding-left: 8px; padding-top: 5px; float: left;"> 
+              <div class="headerClock"> 
                 <span id="timer"></span>
             </div>
 		      <a class="menuconfig" href="/admin/configure.php"><?php echo $lang['configuration'];?></a>
@@ -138,7 +137,6 @@ if ($_SERVER["PHP_SELF"] == "/admin/update.php") {
 		      <?php } ?>
 		      <a class="menudashboard" href="/"><?php echo $lang['dashboard'];?></a>
 		  </div>
-	      </p>
 	  </div>
   <div class="contentwide">
   <table width="100%">

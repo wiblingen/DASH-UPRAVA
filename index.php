@@ -262,8 +262,8 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 		<code><p id="mqtt-message" style="white-space: normal"></p></code>
 		
 <hr />
-               <div class="SmallHeader shLeft"><a style="border-bottom: 1px dotted;" class="tooltip" href="#"><?php echo $lang['hostname'].": ";?> <span><strong>System IP Address<br /></strong><?php echo str_replace(',', ',<br />', exec('hostname -I'));?> </span>  <?php echo exec('cat /etc/hostname'); ?></a></div>
-		<div class="SmallHeader shRight">
+               <div class="SmallHeader shLeft noMob"><a style="border-bottom: 1px dotted;" class="tooltip" href="#"><?php echo $lang['hostname'].": ";?> <span><strong>System IP Address<br /></strong><?php echo str_replace(',', ',<br />', exec('hostname -I'));?> </span>  <?php echo exec('cat /etc/hostname'); ?></a></div>
+		<div class="SmallHeader shRight noMob">
 		<div id="CheckUpdate">
 		<?php
 		    include('includes/checkupdates.php');
@@ -278,18 +278,17 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 		?>
 		</div>
 
-		<p>
  		<div class="navbar">
-		<div style="text-align: left; padding-left: 8px; padding-top: 5px; float: left;">
+		<div class="headerClock">
 		    <span id="DateTime"></span>
 		</div>
 			<a class="menuconfig" href="/admin/configure.php"><?php echo $lang['configuration'];?></a>
 			<?php if ($_SERVER["PHP_SELF"] == "/admin/index.php") {
-			    echo ' <a class="menuupdate" href="/admin/update.php">'.$lang['update'].'</a>'."\n";
-			    echo ' <a class="menuexpert" href="/admin/advanced/">Advanced</a>'."\n";
+			    echo ' <a class="menuupdate noMob" href="/admin/update.php">'.$lang['update'].'</a>'."\n";
+			    echo ' <a class="menuexpert noMob" href="/admin/advanced/">Advanced</a>'."\n";
 			    echo ' <a class="menupower" href="/admin/power.php">'.$lang['power'].'</a>'."\n";
-			    echo ' <a class="menusysinfo" href="/admin/sysinfo.php">System Details</a>'."\n";
-			    echo ' <a class="menulogs" href="/admin/live_log.php">'.$lang['live_logs'].'</a>'."\n";
+			    echo ' <a class="menusysinfo noMob" href="/admin/sysinfo.php">System Details</a>'."\n";
+			    echo ' <a class="menulogs noMob" href="/admin/live_log.php">'.$lang['live_logs'].'</a>'."\n";
 			}
                         if ($_SERVER["PHP_SELF"] !== "/admin/index.php") {
                             echo '<a class="menuadmin" href="/admin/">'.$lang['admin'].'</a>'."\n";
@@ -297,11 +296,10 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 			<?php if (file_exists("/etc/dstar-radio.mmdvmhost")) { ?>
 			<a class="menulive" href="/live/">Live Caller</a>
 			<?php } ?>
-			<a class="menuhwinfo" href='#'>SysInfo</a>
-			<a class="menusimple" href="/simple/">Simple View</a>
+			<a class="menuhwinfo noMob" href='#'>SysInfo</a>
+			<a class="menusimple noMob" href="/simple/">Simple View</a>
 			<a class="menudashboard" href="/"><?php echo $lang['dashboard'];?></a>
 		    </div> 
-		</p>
 	    </div>
 
 	    <?php

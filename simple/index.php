@@ -144,7 +144,6 @@ if(empty($_POST['func'])) {
 		?>
 		</div>
 
-		<p>
  		<div class="navbar">
                 <script type= "text/javascript">
                  $(document).ready(function() {
@@ -167,7 +166,7 @@ if(empty($_POST['func'])) {
                    update();
                  });
                 </script>
-		<div style="text-align: left; padding-left: 8px; padding-top: 5px; float: left;">
+		<div class="headerClock">
 		    <span id="timer"></span>
 		</div>
 			<a class="menuradioinfo" href='#'>Radio Info</a>
@@ -176,7 +175,6 @@ if(empty($_POST['func'])) {
 			<?php } ?>
 			<a class="menudashboard" href="/"><?php echo $lang['dashboard'];?></a>
 		    </div> 
-		</p>
 	    </div>
 	    <?php
             // Output some default features
