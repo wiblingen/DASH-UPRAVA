@@ -5865,18 +5865,20 @@ $ysfHosts = fopen("/usr/local/etc/YSFHosts.txt", "r"); ?>
                 }
         }
         fclose($ysfHosts);
-	if (file_exists("/usr/local/etc/FCSHosts.txt")) {
-                $fcsHosts = fopen("/usr/local/etc/FCSHosts.txt", "r");
-                while (!feof($fcsHosts)) {
-                        $ysfHostsLine = fgets($fcsHosts);
-                        $ysfHost = preg_split('/;/', $ysfHostsLine);
-			if (substr($ysfHost[0], 0, 3) == "FCS") {
-                                if ($testYSFHost == $ysfHost[0]) { echo "      <option value=\"$ysfHost[0],$ysfHost[0]\" selected=\"selected\">$ysfHost[0] - ".htmlspecialchars($ysfHost[1])."</option>\n"; }
-                                else { echo "      <option value=\"$ysfHost[0],$ysfHost[0]\">$ysfHost[0] - ".htmlspecialchars($ysfHost[1])."</option>\n"; }
-                        }
-                }
-                fclose($fcsHosts);
-        }
+	if ($_SESSION['YSFGatewayConfigs']['FCS Network']['Enable'] == 1) {
+	    if (file_exists("/usr/local/etc/FCSHosts.txt")) {
+                    $fcsHosts = fopen("/usr/local/etc/FCSHosts.txt", "r");
+                    while (!feof($fcsHosts)) {
+                            $ysfHostsLine = fgets($fcsHosts);
+                            $ysfHost = preg_split('/;/', $ysfHostsLine);
+			    if (substr($ysfHost[0], 0, 3) == "FCS") {
+                                    if ($testYSFHost == $ysfHost[0]) { echo "      <option value=\"$ysfHost[0],$ysfHost[0]\" selected=\"selected\">$ysfHost[0] - ".htmlspecialchars($ysfHost[1])."</option>\n"; }
+                                    else { echo "      <option value=\"$ysfHost[0],$ysfHost[0]\">$ysfHost[0] - ".htmlspecialchars($ysfHost[1])."</option>\n"; }
+                            }
+                    }
+                    fclose($fcsHosts);
+            }
+	}
         ?>
     </select></td>
     </tr>
