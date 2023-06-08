@@ -43,7 +43,7 @@ function purgeLogs() {
 	    <meta http-equiv="pragma" content="no-cache" />
 	    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
 	    <meta http-equiv="Expires" content="0" />
-	    <title>Pi-Star - <?php echo $lang['digital_voice']." ".$lang['dashboard']." - ".$lang['power'];?></title>
+	    <title>WPSD <?php echo $lang['digital_voice']." ".$lang['dashboard']." - ".$lang['power'];?></title>
 	    <link rel="stylesheet" type="text/css" href="/css/font-awesome-4.7.0/css/font-awesome.min.css" />
 <?php include_once $_SERVER['DOCUMENT_ROOT'].'/config/browserdetect.php'; ?>
         <script type="text/javascript" src="/js/jquery.min.js?version=<?php echo $versionCmd; ?>"></script>
@@ -63,7 +63,7 @@ function purgeLogs() {
                       ?>
                       </div><br />
                     </div>
-		    <h1>Pi-Star <?php echo $lang['digital_voice']." - ".$lang['power'];?></h1>
+		    <h1>WPSD <?php echo $lang['digital_voice']." - ".$lang['power'];?></h1>
 			<div class="navbar">
               <script type= "text/javascript">
                $(document).ready(function() {
