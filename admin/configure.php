@@ -637,7 +637,7 @@ if (file_exists($bmAPIkeyFile) && fopen($bmAPIkeyFile,'r')) {
   ?>
   </div><br />
 </div>
-<h1>Pi-Star <?php echo $lang['digital_voice']." - ".$lang['configuration'];?></h1>
+<h1>WPSD <?php echo $lang['digital_voice']." - ".$lang['configuration'];?></h1>
         <div class="navbar">
               <script type= "text/javascript">
                $(document).ready(function() {
