@@ -83,7 +83,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/live_log.php") {
     <meta http-equiv="pragma" content="no-cache" />
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
     <meta http-equiv="Expires" content="0" />
-    <title>Pi-Star - <?php echo $lang['digital_voice']." ".$lang['dashboard']." - ".$lang['live_logs'];?></title>
+    <title>WPSD <?php echo $lang['digital_voice']." ".$lang['dashboard']." - ".$lang['live_logs'];?></title>
 <?php include_once $_SERVER['DOCUMENT_ROOT'].'/config/browserdetect.php'; ?>
     <link rel="stylesheet" type="text/css" href="/css/font-awesome-4.7.0/css/font-awesome.min.css" />
     <script type="text/javascript" src="/js/jquery.min.js?version=<?php echo $versionCmd; ?>"></script>
@@ -114,7 +114,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/live_log.php") {
                 ?>
                 </div><br />
               </div>
-	      <h1>Pi-Star <?php echo $lang['digital_voice']." - ".$lang['live_logs'];?></h1>
+	      <h1>WPSD <?php echo $lang['digital_voice']." - ".$lang['live_logs'];?></h1>
 	      <p>
 		  <div class="navbar">
               <script type= "text/javascript">

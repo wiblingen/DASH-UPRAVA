@@ -38,7 +38,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/config_backup.php") {
 	    <meta http-equiv="pragma" content="no-cache" />
 	    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
 	    <meta http-equiv="Expires" content="0" />
-	    <title>Pi-Star - <?php echo $lang['digital_voice']." ".$lang['dashboard']." - ".$lang['backup_restore'];?></title>
+	    <title>WPSD <?php echo $lang['digital_voice']." ".$lang['dashboard']." - ".$lang['backup_restore'];?></title>
 	    <link rel="stylesheet" type="text/css" href="/css/font-awesome-4.7.0/css/font-awesome.min.css" />
 <?php include_once $_SERVER['DOCUMENT_ROOT'].'/config/browserdetect.php'; ?>
 	</head>
@@ -53,7 +53,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/config_backup.php") {
                       ?>
                       </div><br />
                     </div>
-		    <h1>Pi-Star <?php echo $lang['digital_voice']." - ".$lang['backup_restore'];?></h1>
+		    <h1>WPSD <?php echo $lang['digital_voice']." - ".$lang['backup_restore'];?></h1>
 		    <p>
 			<div class="navbar">
 			    <a class="menuconfig" href="/admin/configure.php"><?php echo $lang['configuration'];?></a>
