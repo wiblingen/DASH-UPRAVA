@@ -27,7 +27,7 @@ echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 include_once $_SERVER['DOCUMENT_ROOT'].'/config/browserdetect.php';
 echo '<link rel="stylesheet" type="text/css" href="/admin/wifi/styles.php?version='.$versionCmd.'" />
 <script type="text/Javascript" src="/admin//wifi/functions.js?version='.$versionCmd.'"></script>
-<title>Pi-Star - Digital Voice Dashboard - WiFi Config</title>
+<title>WPSD - Digital Voice Dashboard - WiFi Config</title>
 </head>
 <body>'."\n";
 switch($page) {
