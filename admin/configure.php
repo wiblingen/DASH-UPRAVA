@@ -704,7 +704,7 @@ if (!empty($is_paused)) {
     echo '</div>';
     echo '<div class="footer">';
     echo 'Pi-Star web config, &copy; Andy Taylor (MW0MWZ) 2014-'.date("Y").'.<br />';
-    echo '<a href="https://w0chp.net/w0chp-pistar-dash/" style="color: #ffffff; text-decoration:underline;">W0CHP-PiStar-Dash</a> by W0CHP';
+    echo '<a href="https://w0chp.net/w0chp-pistar-dash/" style="color: #ffffff; text-decoration:underline;">W0CHP-PiStar-Dash (WPSD)</a> by W0CHP';
     echo '<br />';
     echo '</div>';
     echo '</div>';
@@ -811,7 +811,7 @@ if (!empty($_POST)):
 	    echo '<script type="text/javascript">setTimeout(function() { window.location=window.location;},5000);</script>';
 	    echo "<br />\n</div>\n";
 	    echo "<div class=\"footer\">\nPi-Star web config, &copy; Andy Taylor (MW0MWZ) 2014-".date("Y").".<br />\n";
-	    echo '<a href="https://w0chp.net/w0chp-pistar-dash/" style="color: #ffffff; text-decoration:underline;">W0CHP-PiStar-Dash</a> by W0CHP';
+	    echo '<a href="https://w0chp.net/w0chp-pistar-dash/" style="color: #ffffff; text-decoration:underline;">W0CHP-PiStar-Dash (WPSD)</a> by W0CHP';
 	    echo "<br />\n</div>\n</div>\n</body>\n</html>\n";
 	    die();
 	} // End SysX migration
@@ -830,7 +830,7 @@ if (!empty($_POST)):
 	  echo '<script type="text/javascript">setTimeout(function() { window.location=window.location;},5000);</script>';
 	  echo "<br />\n</div>\n";
           echo "<div class=\"footer\">\nPi-Star web config, &copy; Andy Taylor (MW0MWZ) 2014-".date("Y").".<br />\n";
-		  echo '<a href="https://w0chp.net/w0chp-pistar-dash/" style="color: #ffffff; text-decoration:underline;">W0CHP-PiStar-Dash</a> by W0CHP';
+		  echo '<a href="https://w0chp.net/w0chp-pistar-dash/" style="color: #ffffff; text-decoration:underline;">W0CHP-PiStar-Dash (WPSD)</a> by W0CHP';
           echo "<br />\n</div>\n</div>\n</body>\n</html>\n";
 	  die();
 	}
@@ -849,7 +849,7 @@ if (!empty($_POST)):
 	  echo '<script type="text/javascript">setTimeout(function() { window.location=window.location;},5000);</script>';
 	  echo "<br />\n</div>\n";
           echo "<div class=\"footer\">\nPi-Star web config, &copy; Andy Taylor (MW0MWZ) 2014-".date("Y").".<br />\n";
-		  echo '<a href="https://w0chp.net/w0chp-pistar-dash/" style="color: #ffffff; text-decoration:underline;">W0CHP-PiStar-Dash</a> by W0CHP';
+		  echo '<a href="https://w0chp.net/w0chp-pistar-dash/" style="color: #ffffff; text-decoration:underline;">W0CHP-PiStar-Dash (WPSD)</a> by W0CHP';
           echo "<br />\n</div>\n</div>\n</body>\n</html>\n";
 	  die();
 	}
@@ -881,7 +881,7 @@ if (!empty($_POST)):
           echo '<script type="text/javascript">setTimeout(function() { window.location=window.location;},5000);</script>';
 	  echo "<br />\n</div>\n";
           echo "<div class=\"footer\">\nPi-Star web config, &copy; Andy Taylor (MW0MWZ) 2014-".date("Y").".<br />\n";
-		  echo '<a href="https://w0chp.net/w0chp-pistar-dash/" style="color: #ffffff; text-decoration:underline;">W0CHP-PiStar-Dash</a> by W0CHP';
+		  echo '<a href="https://w0chp.net/w0chp-pistar-dash/" style="color: #ffffff; text-decoration:underline;">W0CHP-PiStar-Dash (WPSD)</a> by W0CHP';
           echo "<br />\n</div>\n</div>\n</body>\n</html>\n";
 	  die();
 	}
@@ -898,7 +898,7 @@ if (!empty($_POST)):
 	  echo '<script type="text/javascript">setTimeout(function() { window.location=window.location;},5000);</script>';
 	  echo "<br />\n</div>\n";
           echo "<div class=\"footer\">\nPi-Star web config, &copy; Andy Taylor (MW0MWZ) 2014-".date("Y").".<br />\n";
-		  echo '<a href="https://w0chp.net/w0chp-pistar-dash/" style="color: #ffffff; text-decoration:underline;">W0CHP-PiStar-Dash</a> by W0CHP';
+		  echo '<a href="https://w0chp.net/w0chp-pistar-dash/" style="color: #ffffff; text-decoration:underline;">W0CHP-PiStar-Dash (WPSD)</a> by W0CHP';
           echo "<br />\n</div>\n</div>\n</body>\n</html>\n";
 	  die();
 	}
@@ -4451,7 +4451,7 @@ else:
         echo '</div>';
         echo '<div class="footer">';
         echo 'Pi-Star web config, &copy; Andy Taylor (MW0MWZ) 2014-'.date("Y").'.<br />';
-        echo '<a href="https://w0chp.net/w0chp-pistar-dash/" style="color: #ffffff; text-decoration:underline;">W0CHP-PiStar-Dash</a> by W0CHP';
+        echo '<a href="https://w0chp.net/w0chp-pistar-dash/" style="color: #ffffff; text-decoration:underline;">W0CHP-PiStar-Dash (WPSD)</a> by W0CHP';
         echo '<br />';
         echo '</div>';
         echo '</div>';
@@ -6490,7 +6490,7 @@ echo '
 </div>
 <div class="footer">
 Pi-Star web config, &copy; Andy Taylor (MW0MWZ) 2014-<?php echo date("Y"); ?>.<br />
-<a href="https://w0chp.net/w0chp-pistar-dash/" style="color: #ffffff; text-decoration:underline;">W0CHP-PiStar-Dash</a> by W0CHP
+<a href="https://w0chp.net/w0chp-pistar-dash/" style="color: #ffffff; text-decoration:underline;">W0CHP-PiStar-Dash (WPSD)</a> by W0CHP
 <br />
 </div>
 </div>
@@ -6505,7 +6505,7 @@ Pi-Star web config, &copy; Andy Taylor (MW0MWZ) 2014-<?php echo date("Y"); ?>.<b
 </div>
 <div class="footer">
 Pi-Star web config, &copy; Andy Taylor (MW0MWZ) 2014-<?php echo date("Y"); ?>.<br />
-<a href="https://w0chp.net/w0chp-pistar-dash/" style="color: #ffffff; text-decoration:underline;">W0CHP-PiStar-Dash</a> by W0CHP
+<a href="https://w0chp.net/w0chp-pistar-dash/" style="color: #ffffff; text-decoration:underline;">W0CHP-PiStar-Dash (WPSD)</a> by W0CHP
 <br />
 </div>
 </div>
