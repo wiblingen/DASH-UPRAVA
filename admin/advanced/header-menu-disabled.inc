@@ -8,7 +8,7 @@
        ?>
        </div><br />
     </div>
-    <h1>Pi-Star Digital Voice - Advanced</h1>
+    <h1>WPSD - Digital Voice Dashboard Advanced</h1>
     <p>
 	<div class="navbar">
 	    <a class="menuconfig" href="/admin/configure.php"><?php echo $lang['configuration'];?></a>
