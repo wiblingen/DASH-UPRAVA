@@ -5075,7 +5075,7 @@ else:
 
             exec('ls /dev/ | egrep -h "ttyA|ttyUSB"', $availablePorts);
             foreach($availablePorts as $port) {
-                 echo "     <option value=\"$port\">/dev/$port</option>\n";
+		 echo "     <option value=\"/dev/$port\">/dev/$port</option>\n";
             }
 	    ?>
 	    <?php if (file_exists('/dev/ttyS2')) { ?>
