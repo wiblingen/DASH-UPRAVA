@@ -3119,13 +3119,17 @@ if (!empty($_POST)):
 	$configmmdvm['NextionDriver']['Port'] = "0";
 	$configmmdvm['Transparent Data']['Enable'] = "0";
 
-	if  (empty($_POST['mmdvmDisplayType']) != TRUE ) {
+	if (empty($_POST['mmdvmDisplayType']) != TRUE ) {
 	    if (substr($_POST['mmdvmDisplayType'] , 0, 4 ) === "OLED") {
 		$configmmdvm['General']['Display'] = "OLED";
 		$configmmdvm['OLED']['Type'] = substr($_POST['mmdvmDisplayType'] , 4, 1);
+	    	// Function to disable scrolling on type 6 (1.3") OLED ...
+	    	// 1.3" OLEDs "tear" sometimes when scrolling is enabled. We'll disable this function to see if anyone bitches.
+		/*
 		if ($configmmdvm['OLED']['Type'] == "6") {
 		    $configmmdvm['OLED']['Scroll'] = "0";
 		}
+		*/
 	    }
 	    else if (substr($_POST['mmdvmDisplayType'] , 0, 13) === "NextionDriver") {
 		$configmmdvm['General']['Display'] = "Nextion";
@@ -3371,7 +3375,6 @@ if (!empty($_POST)):
 	if (!isset($configmmdvm['DMR Network']['Type'])) { $configmmdvm['DMR Network']['Type'] = "Gateway"; }
 	if (!isset($configmmdvm['P25']['RemoteGateway'])) { $configmmdvm['P25']['RemoteGateway'] = "0"; }
 	if (!isset($configmmdvm['P25']['TXHang'])) { $configmmdvm['P25']['TXHang'] = "5"; }
-	if (!isset($configmmdvm['OLED']['Scroll'])) { $configmmdvm['OLED']['Scroll'] = "0"; }
 	if (!isset($configmmdvm['NXDN']['Enable'])) { $configmmdvm['NXDN']['Enable'] = "0"; }
 	if (!isset($configmmdvm['NXDN']['RAN'])) { $configmmdvm['NXDN']['RAN'] = "1"; }
 	if (!isset($configmmdvm['NXDN']['SelfOnly'])) { $configmmdvm['NXDN']['SelfOnly'] = "1"; }
@@ -3414,9 +3417,13 @@ if (!empty($_POST)):
 	if (!isset($configdmrgateway['GPSD']['Enable'])) { $configdmrgateway['GPSD']['Enable'] = "0"; }
  	if (!isset($configdmrgateway['GPSD']['Address'])) { $configdmrgateway['GPSD']['Address'] = "127.0.0.1"; }
 	if (!isset($configdmrgateway['GPSD']['Port'])) { $configdmrgateway['GPSD']['Port'] = "2947"; }
+	if (!isset($configmmdvm['OLED']['Type'])) { $configmmdvm['OLED']['Type'] = "3"; }
+	if (!isset($configmmdvm['OLED']['Scroll'])) { $configmmdvm['OLED']['Scroll'] = "1"; }
+	if (!isset($configmmdvm['OLED']['LogoScreensaver'])) { $configmmdvm['OLED']['LogoScreensaver'] = "1"; }
+	if (!isset($configmmdvm['OLED']['Brightness'])) { $configmmdvm['OLED']['Brightness'] = "0"; }
+	if (!isset($configmmdvm['OLED']['Invert'])) { $configmmdvm['OLED']['Invert'] = "0"; }
 	if (!isset($configmmdvm['OLED']['Rotate'])) { $configmmdvm['OLED']['Rotate'] = "0"; }
 	if (!isset($configmmdvm['OLED']['Cast'])) { $configmmdvm['OLED']['Cast'] = "0"; }
-	if (!isset($configmmdvm['OLED']['LogoScreensaver'])) { $configmmdvm['OLED']['LogoScreensaver'] = "0"; }
 	if (isset($configmmdvm['Remote Control']['Enable'])) { $configmmdvm['Remote Control']['Enable'] = "1"; }
 	if (!isset($configmmdvm['Remote Control']['Port'])) { $configmmdvm['Remote Control']['Port'] = "7642"; }
 	if (!isset($configmmdvm['Remote Control']['Address'])) { $configmmdvm['Remote Control']['Address'] = "127.0.0.1"; }
@@ -5035,8 +5042,8 @@ else:
     <td align="left"><a class="tooltip2" href="#"><?php echo $lang['mmdvm_display'];?>:<span><b>Display Type</b>Choose your display type, if you have one.</span></a></td>
     <td align="left" colspan="2"><select name="mmdvmDisplayType">
 	    <option <?php if (($configmmdvm['General']['Display'] == "None") || ($configmmdvm['General']['Display'] == "") ) {echo 'selected="selected" ';}; ?>value="None">None</option>
-	    <option <?php if (($configmmdvm['General']['Display'] == "OLED") && ($configmmdvm['OLED']['Type'] == "3")) {echo 'selected="selected" ';}; ?>value="OLED3">OLED Type 3</option>
-	    <option <?php if (($configmmdvm['General']['Display'] == "OLED") && ($configmmdvm['OLED']['Type'] == "6")) {echo 'selected="selected" ';}; ?>value="OLED6">OLED Type 6</option>
+	    <option <?php if (($configmmdvm['General']['Display'] == "OLED") && ($configmmdvm['OLED']['Type'] == "3")) {echo 'selected="selected" ';}; ?>value="OLED3">OLED Type 3 (0.96" screen)</option>
+	    <option <?php if (($configmmdvm['General']['Display'] == "OLED") && ($configmmdvm['OLED']['Type'] == "6")) {echo 'selected="selected" ';}; ?>value="OLED6">OLED Type 6 (1.3" screen)</option>
 	    <option <?php if ($configmmdvm['General']['Display'] == "Nextion") {echo 'selected="selected" ';}; ?>value="Nextion">Nextion</option>
 	    <option <?php if ($configmmdvm['General']['Display'] == "NextionDriver") {echo 'selected="selected" ';}; ?>value="NextionDriver">Nextion (enhanced w/driver)</option>
 	    <option <?php if ($configmmdvm['General']['Display'] == "NextionDriverTrans") {echo 'selected="selected" ';}; ?>value="NextionDriverTrans">Nextion (enhanced w/driver, attached to modem)</option>
