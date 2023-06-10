@@ -146,7 +146,7 @@ The Bullseye disk images are ready-to-go; with `W0CHP-PiStar-Dash` installed.
 
 : This is an *official* and custom-built disk image specific to the ZUMspot Mini 1.3 Hotspot.
 
-: ZUMSpot Mini Disk Image Download: [<code>**WPSD_ZUMspot-Mini_Latest.img.xz**</code>](https://w1chp.net/WPSD_ZUMspot-Mini_Latest.img.xz)
+: ZUMSpot Mini Disk Image Download: [<code>**WPSD_ZUMspot-Mini_Latest.img.xz**</code>](https://w0chp.net/WPSD_ZUMspot-Mini_Latest.img.xz)
 
 
 **ZUMSpot Elite 3.5 Disk Image:**
