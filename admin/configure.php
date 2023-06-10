@@ -3708,7 +3708,7 @@ if (!empty($_POST)):
 	$configysfgateway['YSF Network']['YSF2NXDNPort'] = "42014";
 	$configysfgateway['YSF Network']['YSF2P25Address'] = "127.0.0.1";
 	$configysfgateway['YSF Network']['YSF2P25Port'] = "42015";
-	$configysfgateway['FCS Network']['Enable'] = "1";
+	//$configysfgateway['FCS Network']['Enable'] = "1"; # Disabled per new 6/2023 toggle sw.
 	$configysfgateway['FCS Network']['Port'] = "42001";
 	$configysfgateway['FCS Network']['Rooms'] = "/usr/local/etc/FCSHosts.txt";
 	if (!isset($configysfgateway['Remote Commands']['Enable'])) { $configysfgateway['Remote Commands']['Enable'] = "1"; }
