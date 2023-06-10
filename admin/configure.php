@@ -1640,6 +1640,12 @@ if (!empty($_POST)):
 	  if (escapeshellcmd($_POST['wiresXCommandPassthrough']) == 'OFF' ) { $configysfgateway['General']['WiresXCommandPassthrough'] = "0"; }
 	}
 
+	// Toggle for the annoying FCS network
+        if (empty($_POST['FCSEnable']) != TRUE ) {
+                if (escapeshellcmd($_POST['FCSEnable']) == 'ON' )  { $configysfgateway['FCS Network']['Enable'] = "1"; }
+                if (escapeshellcmd($_POST['FCSEnable']) == 'OFF' ) { $configysfgateway['FCS Network']['Enable'] = "0"; }
+        }
+
 	// Remove hostfiles.ysfupper and use the new YSFGateway Feature
 	if (empty($_POST['confHostFilesYSFUpper']) != TRUE ) {
 		if (escapeshellcmd($_POST['confHostFilesYSFUpper']) == 'ON' )   { $configysfgateway['General']['WiresXMakeUpper'] = "1"; }
@@ -3702,7 +3708,7 @@ if (!empty($_POST)):
 	$configysfgateway['YSF Network']['YSF2NXDNPort'] = "42014";
 	$configysfgateway['YSF Network']['YSF2P25Address'] = "127.0.0.1";
 	$configysfgateway['YSF Network']['YSF2P25Port'] = "42015";
-	$configysfgateway['FCS Network']['Enable'] = "1";
+	//$configysfgateway['FCS Network']['Enable'] = "1"; # Disabled per new 6/2023 toggle sw.
 	$configysfgateway['FCS Network']['Port'] = "42001";
 	$configysfgateway['FCS Network']['Rooms'] = "/usr/local/etc/FCSHosts.txt";
 	if (!isset($configysfgateway['Remote Commands']['Enable'])) { $configysfgateway['Remote Commands']['Enable'] = "1"; }
@@ -5825,6 +5831,7 @@ $ysfHosts = fopen("/usr/local/etc/YSFHosts.txt", "r"); ?>
 	<input type="hidden" name="confHostFilesYSFUpper" value="OFF" />
         <input type="hidden" name="useDGIdGateway" value="OFF" />
 	<input type="hidden" name="wiresXCommandPassthrough" value="OFF" />
+	<input type="hidden" name="FCSEnable" value="OFF" />
 	<h2 class="ConfSec"><?php echo $lang['ysf_config'];?></h2>
     <table>
     <tr>
@@ -5872,18 +5879,20 @@ $ysfHosts = fopen("/usr/local/etc/YSFHosts.txt", "r"); ?>
                 }
         }
         fclose($ysfHosts);
-	if (file_exists("/usr/local/etc/FCSHosts.txt")) {
-                $fcsHosts = fopen("/usr/local/etc/FCSHosts.txt", "r");
-                while (!feof($fcsHosts)) {
-                        $ysfHostsLine = fgets($fcsHosts);
-                        $ysfHost = preg_split('/;/', $ysfHostsLine);
-			if (substr($ysfHost[0], 0, 3) == "FCS") {
-                                if ($testYSFHost == $ysfHost[0]) { echo "      <option value=\"$ysfHost[0],$ysfHost[0]\" selected=\"selected\">$ysfHost[0] - ".htmlspecialchars($ysfHost[1])."</option>\n"; }
-                                else { echo "      <option value=\"$ysfHost[0],$ysfHost[0]\">$ysfHost[0] - ".htmlspecialchars($ysfHost[1])."</option>\n"; }
-                        }
-                }
-                fclose($fcsHosts);
-        }
+	if ($_SESSION['YSFGatewayConfigs']['FCS Network']['Enable'] == 1) {
+	    if (file_exists("/usr/local/etc/FCSHosts.txt")) {
+                    $fcsHosts = fopen("/usr/local/etc/FCSHosts.txt", "r");
+                    while (!feof($fcsHosts)) {
+                            $ysfHostsLine = fgets($fcsHosts);
+                            $ysfHost = preg_split('/;/', $ysfHostsLine);
+			    if (substr($ysfHost[0], 0, 3) == "FCS") {
+                                    if ($testYSFHost == $ysfHost[0]) { echo "      <option value=\"$ysfHost[0],$ysfHost[0]\" selected=\"selected\">$ysfHost[0] - ".htmlspecialchars($ysfHost[1])."</option>\n"; }
+                                    else { echo "      <option value=\"$ysfHost[0],$ysfHost[0]\">$ysfHost[0] - ".htmlspecialchars($ysfHost[1])."</option>\n"; }
+                            }
+                    }
+                    fclose($fcsHosts);
+            }
+	}
         ?>
     </select></td>
     </tr>
@@ -5902,6 +5911,20 @@ $ysfHosts = fopen("/usr/local/etc/YSFHosts.txt", "r"); ?>
 	}
     ?>
     </tr>
+        <tr>
+        <td align="left"><a class="tooltip2" href="#">FCS Network:<span><b>FCS Network</b>Enable the FCS Network and Hosts</span></a></td>
+        <?php
+        if ( isset($configysfgateway['FCS Network']['Enable']) ) {
+                if ( $configysfgateway['FCS Network']['Enable'] ) {
+                        echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-FCSEnable\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"FCSEnable\" value=\"ON\" checked=\"checked\" /><label for=\"toggle-FCSEnable\"></label></div></td>\n";
+                }
+                else {
+                        echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-FCSEnable\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"FCSEnable\" value=\"ON\" /><label for=\"toggle-FCSEnable\"></label></div></td>\n";
+                }
+        } else {
+                echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-FCSEnable\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"FCSEnable\" value=\"ON\" /><label for=\"toggle-FCSEnable\"></label></div></td>\n";
+        }
+        ?>
     <tr>
     <td align="left"><a class="tooltip2" href="#">WiresX Passthrough:<span><b>WiresX Auto Passthrough</b>Use this to automatically send WiresX commands through to YSF2xxx cross-over modes.</span></a></td>
     <?php
