@@ -46,13 +46,15 @@ its own beast, so-to-speak.
   * You *may* be directed to file an issue report here by developers when necessary.
 
 ## Known Issues
-* If you have a first-generation Raspberry Pi Zero (Pi Zero Rev.1.1 armv6l) with the
-  single-core processor (some Zumspots use these boards), and have downloaded my RPi Bullseye
+* If you have a first-generation Raspberry Pi Zero (Pi Zero (W) Rev.1.1 armv6l) with the
+  single-core processor\*, and have downloaded my RPi Bullseye
   disk image, you need to do a couple of things before you can access it:
     1. [Install a WiFi config file before you boot the image](https://w0chp.net/wpa-config-generator/), or connect it to Ethernet. Network connectivity is required for first boot-up.
     2. Let the image boot and configure for about 30 minutes, otherwise you will not be able to access the dashboard.
 
   If you fail to do these things, you will get a "502 Bad Gateway" error when attempting to access the dashboard.
+
+  \* *Note:* The official ZUMSpot Mini 1.3 Disk Image (below) does not have this issue, since I built the disk image for that specific hardware.
 * If you have a DVmega EuroNode or the like, and install my NanoPi NEO Bullseye
   disk image on it, you will likely lose all wireless functionality (Ethernet still works,
   however). This is because the DVmega folks create their own older Buster image,
@@ -128,19 +130,33 @@ uses.
 
 The Bullseye disk images are ready-to-go; with `W0CHP-PiStar-Dash` installed.
 
-**Raspberry Pi Disk Image:**
+**Raspberry Pi Disk Image (for RPi Zero, Zero 2 and Models 2, 3, 4, etc.):**
 
-: Raspberry Pi Disk Image Download: [<code>**WPSD_RPi_Latest.img.xz**</code>](https://w0chp.net/WPSD_RPi_Latest.img.xz) (804MB compressed; 2.8GB decompressed)
+: Raspberry Pi Disk Image Download: [<code>**WPSD_RPi_Latest.img.xz**</code>](https://w0chp.net/WPSD_RPi_Latest.img.xz)
 
 **Orange Pi Zero Disk Image:**
 
-: Orange Pi Zero Disk Image Download: [<code>**WPSD_OrangePiZero_Latest.img.xz**</code>](https://w0chp.net/WPSD_OrangePiZero_Latest.img.xz) (497MB compressed; 2.6GB decompressed)
+: Orange Pi Zero Disk Image Download: [<code>**WPSD_OrangePiZero_Latest.img.xz**</code>](https://w0chp.net/WPSD_OrangePiZero_Latest.img.xz)
 
 **Nano Pi Neo Disk Image:**
 
-: Nanook Neo Disk Image Download: [<code>**WPSD_NanoPiNeo_Latest.img.xz**</code>](https://w0chp.net/WPSD_NanoPiNeo_Latest.img.xz) (790MB compressed; 2.7GB decompressed)
+: Nanook Neo Disk Image Download: [<code>**WPSD_NanoPiNeo_Latest.img.xz**</code>](https://w0chp.net/WPSD_NanoPiNeo_Latest.img.xz)
 
-**SHA-256 Checksums for Image Files:**
+**ZUMSpot Mini 1.3 Disk Image:**
+
+: This is an *official* and custom-built disk image specific to the ZUMspot Mini 1.3 Hotspot.
+
+: ZUMSpot Mini Disk Image Download: [<code>**WPSD_ZUMspot-Mini_Latest.img.xz**</code>](https://w1chp.net/WPSD_ZUMspot-Mini_Latest.img.xz)
+
+
+**ZUMSpot Elite 3.5 Disk Image:**
+
+: This is an *official* and custom-built disk image specific to the ZUMspot Elite 3.5 Hotspot.
+
+: ZUMSpot Elite Disk Image Download: [<code>**WPSD_ZUMspot-Elite_Latest.img.xz**</code>](https://w0chp.net/WPSD_ZUMspot-Elite_Latest.img.xz)
+
+
+**SHA-256 Checksums for Disk Image Files:**
 
 : [<code>WPSD_SHA256-SUMS.txt</code>](https://w0chp.net/WPSD_SHA256-SUMS.txt)
 
@@ -152,7 +168,7 @@ The setup of the Bullseye image is similar to that of Pi-Star's:
 1. Download the image.
 2. Use a tool such as [Balena Etcher](https://www.balena.io/etcher) to write the image to your SD-Card. This tool will automatically decompress the `.xz` file as well.
 3. Optional: Use my [WPA Config File Generator](https://w0chp.net/wpa-config-generator/) to automatically connect the dashboard to your WiFi...
-4. Otherwise: After about 5+ minutes post-bootup, you can connect to the "`Pi-Star Setup`" WiFi network to login to the dashboard and configure your hotspot after it's booted...
+4. Otherwise: After about 5+ minutes post-bootup, you can connect to the "`Pi-Star-Setup`" WiFi network to login to the dashboard and configure your hotspot after it's booted...
 5. Insert the SD-Card into your hotspot and bootup!
 6. The default login is;
 
