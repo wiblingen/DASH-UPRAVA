@@ -3415,7 +3415,7 @@ if (!empty($_POST)):
  	if (!isset($configdmrgateway['GPSD']['Address'])) { $configdmrgateway['GPSD']['Address'] = "127.0.0.1"; }
 	if (!isset($configdmrgateway['GPSD']['Port'])) { $configdmrgateway['GPSD']['Port'] = "2947"; }
 	if (!isset($configmmdvm['OLED']['Type'])) { $configmmdvm['OLED']['Type'] = "3"; }
-	if (!isset($configmmdvm['OLED']['Scroll'])) { $configmmdvm['OLED']['Scroll'] = "1"; }
+	if (!isset($configmmdvm['OLED']['Scroll'])) { $configmmdvm['OLED']['Scroll'] = "0"; }
 	if (!isset($configmmdvm['OLED']['LogoScreensaver'])) { $configmmdvm['OLED']['LogoScreensaver'] = "1"; }
 	if (!isset($configmmdvm['OLED']['Brightness'])) { $configmmdvm['OLED']['Brightness'] = "0"; }
 	if (!isset($configmmdvm['OLED']['Invert'])) { $configmmdvm['OLED']['Invert'] = "0"; }
