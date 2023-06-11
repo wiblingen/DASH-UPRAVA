@@ -605,7 +605,7 @@ select {
 .navbar {
     overflow: hidden;
     background-color: <?php echo $backgroundNavbar; ?>;
-    padding-bottom: 10px;
+    padding: 10px 10px 10px  2px;
 }
 
 .navbar a {
@@ -654,7 +654,7 @@ select {
 
 .dropdown {
     position: absolute;
-    top: 127px;
+    top: 134px;
     width: 270px;
     opacity: 0;
     visibility: hidden;
@@ -756,7 +756,7 @@ select {
 /* Second Level */
 .has-subs .has-subs .dropdown .subs {
     position: relative;
-    top: -133px;
+    top: -144px;
     width: 270px;
     border-style: none none none solid;
     border-width: 1px;
