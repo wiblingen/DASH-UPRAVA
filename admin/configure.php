@@ -3124,12 +3124,9 @@ if (!empty($_POST)):
 		$configmmdvm['General']['Display'] = "OLED";
 		$configmmdvm['OLED']['Type'] = substr($_POST['mmdvmDisplayType'] , 4, 1);
 	    	// Function to disable scrolling on type 6 (1.3") OLED ...
-	    	// 1.3" OLEDs "tear" sometimes when scrolling is enabled. We'll disable this function to see if anyone bitches.
-		/*
 		if ($configmmdvm['OLED']['Type'] == "6") {
 		    $configmmdvm['OLED']['Scroll'] = "0";
 		}
-		*/
 	    }
 	    else if (substr($_POST['mmdvmDisplayType'] , 0, 13) === "NextionDriver") {
 		$configmmdvm['General']['Display'] = "Nextion";
