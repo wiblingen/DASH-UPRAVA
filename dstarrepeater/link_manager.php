@@ -11,9 +11,33 @@ if (!isset($_SESSION) || !is_array($_SESSION)) {
     checkSessionValidity();
 }
 
+
+function getActiveLink($linkLine, $linkLogPath) {
+    #$logContent = file_get_contents('/var/log/pi-star/Links.log');
+    $logContent = file_get_contents($linkLogPath);
+
+    $patterns = array(
+        '/DCS link - Type: Repeater Rptr: (\w+)  (\w+) Refl: (\w+) (\w+) Dir: (\w+)/',
+        '/DExtra link - Type: Repeater Rptr: (\w+)  (\w+) Refl: (\w+) (\w+) Dir: (\w+)/',
+        '/DPlus link - Type: Dongle Rptr: (\w+)  (\w+) Refl: (\w+) (\w+) Dir: (\w+)/'
+    );
+
+    foreach ($patterns as $pattern) {
+        if (preg_match($pattern, $logContent, $matches)) {
+            $refLink = isset($matches[3]) ? $matches[3] : '';
+            $modLink = isset($matches[4]) ? $matches[4] : '';
+
+            return array(
+                'refLink' => $refLink,
+                'modLink' => $modLink
+            );
+        }
+    }
+
+    return null;
+}
+
 if ($_SERVER["PHP_SELF"] == "/admin/index.php") {
-    include_once $_SERVER['DOCUMENT_ROOT'].'/config/language.php';	      // Translation Code
-    
     if (!empty($_POST) && isset($_POST["dstrMgrSubmit"])) { // :
 	//if (!empty($_POST)):
 	if (preg_match('/[^A-Z]/',$_POST["Link"])) {
@@ -126,11 +150,21 @@ if ($_SERVER["PHP_SELF"] == "/admin/index.php") {
 				      this.selectedIndex='0';
 				      } ">
 			    <?php
+			    $result = getActiveLink($linkLine, $linkLogPath);
+
+			    if ($result !== null) {
+				$refLink = $result['refLink'];
+				$modLink = $result['modLink'];
+			    } else {
+				$refLink = "None";
+				$modLink = "";
+			    }
+
 			    $dcsFile = fopen("/usr/local/etc/DCS_Hosts.txt", "r");
 			    $dplusFile = fopen("/usr/local/etc/DPlus_Hosts.txt", "r");
 			    $dextraFile = fopen("/usr/local/etc/DExtra_Hosts.txt", "r");
 			    
-			    echo "    <option value=\"".substr($_SESSION['ircDDBConfigs']['reflector1'], 0, 6)."\" selected=\"selected\">".substr($_SESSION['ircDDBConfigs']['reflector1'], 0, 6)."</option>\n";
+			    echo "    <option value=\"".$refLink."\" selected=\"selected\">".$refLink."</option>\n";
 			    //echo "    <option value=\"customOption\">Text Entry</option>\n";
 			    
 			    while (!feof($dcsFile)) {
@@ -166,7 +200,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/index.php") {
 			</select><input name="RefName" style="display:none;" disabled="disabled" type="text" size="7" maxlength="7"
 					onblur="if(this.value==''){toggleField(this,this.previousSibling);}" />
 			<select name="Letter" class="ModSel">
-			    <?php echo "  <option value=\"".substr($_SESSION['ircDDBConfigs']['reflector1'], 7)."\" selected=\"selected\">".substr($_SESSION['ircDDBConfigs']['reflector1'], 7)."</option>\n"; ?>
+			    <?php echo "    <option value=\"".$modLink."\" selected=\"selected\">".$modLink."</option>\n"; ?>
 			    <option>A</option>
 			    <option>B</option>
 			    <option>C</option>
