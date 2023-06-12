@@ -189,14 +189,20 @@ The setup of the Bullseye image is similar to that of Pi-Star's:
 
 Once you install `W0CHP-PiStar-Dash`, it will automatically be kept up-to-date
 with any new features/versions/etc. This is made possible via the native,
-nightly Pi-Star updating process.[^3]
+nightly updating process.[^3]
 
-You can also manually invoke the update process via the dashboard admin section
-(`Admin -> Update`), or by command line:
+If you do not leave your hotspot powered on during the night, you can also
+manually invoke the update process via the dashboard admin section (`Admin ->
+Update`), or by command line:
 
 ```text
 sudo pistar-update
 ```
+
+*Tip:* It is recommended that you simply leave your
+hotspot(s) powered on at night, since WPSD is [rolling release
+software](https://w0chp.net/musings/new-w0chp-pistar-dash-versioning-scheme/) - updates are
+rapid and frequent!
 
 ## Uninstalling `W0CHP-PiStar-Dash`
 
@@ -208,7 +214,7 @@ If you installed my software over an existing Pi-Star installation, it's super-s
     sudo WPSD-Installer -rd
     ```
 
-    ...And the original Pi-Star Dashboard will be restored.
+    ...And the original Pi-Star Dashboard will be restored. Not sure why anyone would want to do this, though. `;^)`
 
 ## Features, Enhancements and Omissions (not an exhaustive list)
 
@@ -400,13 +406,16 @@ and gifts to the ham community.
       the full & actual source code of the installer](https://repo.w0chp.net/WPSD-Dev/W0CHP-PiStar-Installer/src/branch/master/WPSD-Installer)
       prior to piping to `bash` or installing.
 
-[^3]: `W0CHP-PiStar-Dash` occasionally queries the git repository server in
+[^3]: `W0CHP-PiStar-Dash` occasionally queries our servers in
       order to determine if updates are available. In the spirit of full-disclosure,
       I wanted to mention this. This is no different than how the official Pi-Star
       software functions (but doesn't make this well-known). Additionally, every
       `W0CHP-PiStar-Dash` installation has a unique UUID generated for it; for
       web/repo-traffic capacity planning/analytics, as well as for troubleshooting
-      purposes. You can find the unique UUID within the `/etc/pistar-release` file.
+      user issues and bugs.
+      This data is used internally, exclusively; and is *not* shared. If you do not
+      want this data collected, simply do not install or use `W0CHP-PiStar-Dash`.
+      You can find the unique UUID within the `/etc/pistar-release` file.
       The UUID is derived from the devices' unique processor serial number:
       ```
       $ cat /proc/cpuinfo | grep Serial | cut -d ' ' -f 2
