@@ -13,7 +13,6 @@ if (!isset($_SESSION) || !is_array($_SESSION)) {
 
 
 function getActiveLink($linkLine, $linkLogPath) {
-    #$logContent = file_get_contents('/var/log/pi-star/Links.log');
     $logContent = file_get_contents($linkLogPath);
 
     $patterns = array(
