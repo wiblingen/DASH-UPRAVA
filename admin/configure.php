@@ -3169,6 +3169,16 @@ if (!empty($_POST)):
 	    if (escapeshellcmd($_POST['mmdvmNextionDisplayType']) == "ON7LDSL3HS") { $configmmdvm['Nextion']['ScreenLayout'] = "4"; }
 	}
 
+	// Set OLED options
+        if (empty($_POST['oledScreenSaverEnable']) != TRUE ) {
+                if (escapeshellcmd($_POST['oledScreenSaverEnable']) == 'ON' )  { $configmmdvm['OLED']['LogoScreensaver'] = "1"; }
+                if (escapeshellcmd($_POST['oledScreenSaverEnable']) == 'OFF' )  { $configmmdvm['OLED']['LogoScreensaver'] = "0"; }
+        }
+	if (empty($_POST['oledScrollEnable']) != TRUE ) {
+                if (escapeshellcmd($_POST['oledScrollEnable']) == 'ON' && escapeshellcmd($_POST['mmdvmDisplayType']) == 'OLED3') { $configmmdvm['OLED']['Scroll'] = "1"; } // no scrolling for type6
+                if (escapeshellcmd($_POST['oledScrollEnable']) == 'OFF' )  { $configmmdvm['OLED']['Scroll'] = "0"; }
+        }
+
 	// Set MMDVMHost DMR Colour Code
 	if (empty($_POST['dmrColorCode']) != TRUE ) {
           $configmmdvm['DMR']['ColorCode'] = escapeshellcmd($_POST['dmrColorCode']);
@@ -5035,6 +5045,18 @@ else:
     <td align="left">POCSAG Mode Hangtime: <input type="text" name="POCSAGHangTime" size="7" maxlength="3" value="<?php if (isset($configmmdvm['POCSAG Network']['ModeHang'])) { echo $configmmdvm['POCSAG Network']['ModeHang']; } else { echo "5"; } ?>"></td>
     </tr>
     <?php } ?>
+    </table>
+	<div><input type="button" value="<?php echo $lang['apply'];?>" onclick="submitform()" /><br /><br /></div>
+
+    <h2 class="ConfSec">MMDVMHost/Modem Display Configuration</h2>
+    <input type="hidden" name="oledScreenSaverEnable" value="ON" />
+    <input type="hidden" name="oledScrollEnable" value="OFF" />
+    <table>
+    <tr>
+    <th width="200"><a class="tooltip" href="#"><?php echo $lang['setting'];?><span><b>Setting</b></span></a></th>
+    <th colspan="4"><a class="tooltip" href="#"><?php echo $lang['value'];?><span><b>Value</b>The current value from the<br />configuration files</span></a></th>
+    </tr>
+
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo $lang['mmdvm_display'];?>:<span><b>Display Type</b>Choose your display type, if you have one.</span></a></td>
     <td align="left" colspan="2"><select name="mmdvmDisplayType">
@@ -5048,7 +5070,7 @@ else:
 	    <option <?php if ($configmmdvm['General']['Display'] == "TFT Serial") {echo 'selected="selected" ';}; ?>value="TFT Serial">TFT Serial</option>
 	    <option <?php if ($configmmdvm['General']['Display'] == "LCDproc") {echo 'selected="selected" ';}; ?>value="LCDproc">LCDproc</option>
 	    </select>
-	    Port: <select name="mmdvmDisplayPort">
+	    <b>Port:</b> <select name="mmdvmDisplayPort">
 	    <?php
             if (($configmmdvm['General']['Display'] == "None") || ($configmmdvm['General']['Display'] == "")) {
                 echo '      <option selected="selected" value="None">None</option>'."\n";
@@ -5086,7 +5108,27 @@ else:
 	    	<option <?php if ($configmmdvm['Nextion']['Port'] == "/dev/ttyS2") {echo 'selected="selected" ';}; ?>value="ttyS2">/dev/ttyS2</option>
     	    <?php } ?>
 	    </select>
-	    Nextion Layout: <select name="mmdvmNextionDisplayType">
+
+    </tr>
+
+    <tr>
+    <td align="left"><a class="tooltip2" href="#">OLED Display Options:<span><b>OLED Display Options</b>If you have an OLED display, choose your options here.</span></a></td>
+    <td align="left" colspan="2" style="word-wrap: break-word;white-space: normal;padding-left: 5px;"><b>Screensaver: </b>
+      <input type="radio" name="oledScreenSaverEnable" value="ON" id="oledScreenSaver1" <?php if ($configmmdvm['OLED']['LogoScreensaver'] == "1") {  echo 'checked="checked"'; } ?> />
+      <label for="oledScreenSaver1">Enabled</label>
+      <input type="radio" name="oledScreenSaverEnable" value="OFF" id="oledScreenSaver0" <?php if ($configmmdvm['OLED']['LogoScreensaver'] == "0") {  echo 'checked="checked"'; } ?> />
+      <label for="oledScreenSaver0">Disabled</label>&nbsp;&nbsp;|&nbsp;&nbsp;<b>Scroll Display: </b> <small><em>(Note: OLED Type-3 [0.96"] displays only)</em></small> 
+
+      <input type="radio" name="oledScrollEnable" value="ON" id="oledScroll1" <?php if ($configmmdvm['OLED']['Scroll'] == "1") {  echo 'checked="checked"'; } if ($configmmdvm['OLED']['Type'] == "6") {  echo 'disabled="disabled"'; } ?> />
+      <label for="oledScroll1">Enabled</label>
+      <input type="radio" name="oledScrollEnable" value="OFF" id="oledScroll0" <?php if ($configmmdvm['OLED']['Scroll'] == "0") {  echo 'checked="checked"'; }  if ($configmmdvm['OLED']['Type'] == "6") {  echo 'disabled="disabled"'; } ?> />
+      <label for="oledScroll0">Disabled</label> 
+    </td>
+    </tr>
+    <tr>
+    <td align="left"><a class="tooltip2" href="#">Nextion Display Settings:<span><b>Nextion Display Settings</b>If you have a Nextion display, choose your settings here.</span></a></td>
+    <td align="left" colspan="2">
+	    <b>Layout Type: </b><select name="mmdvmNextionDisplayType">
 	    <option <?php if ($configmmdvm['Nextion']['ScreenLayout'] == "0") {echo 'selected="selected" ';}; ?>value="G4KLX">G4KLX</option>
 	    <option <?php if ($configmmdvm['Nextion']['ScreenLayout'] == "2") {echo 'selected="selected" ';}; ?>value="ON7LDSL2">ON7LDS L2</option>
 	    <option <?php if ($configmmdvm['Nextion']['ScreenLayout'] == "3") {echo 'selected="selected" ';}; ?>value="ON7LDSL3">ON7LDS L3</option>
@@ -5099,7 +5141,7 @@ else:
 
     <?php if (file_exists('/etc/dstar-radio.mmdvmhost') && $configmmdvm['DMR']['Enable'] == 1) {
     $dmrMasterFile = fopen("/usr/local/etc/DMR_Hosts.txt", "r"); ?>
-	<h2 class="ConfSec"><?php echo $lang['dmr_config'];?></h2>
+    <h2 class="ConfSec"><?php echo $lang['dmr_config'];?></h2>
     <input type="hidden" name="dmrEmbeddedLCOnly" value="OFF" />
     <input type="hidden" name="dmrBeacon" value="OFF" />
     <input type="hidden" name="dmrDumpTAData" value="OFF" />
