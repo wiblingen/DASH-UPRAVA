@@ -21,7 +21,7 @@ $lang = array (
   // Config page section headdings
   "hardware_info"               =>  "Gateway Hardware Information",
   "control_software"            =>  "Control Software",
-  "mmdvmhost_config"            =>  "MMDVMHost Configuration",
+  "mmdvmhost_config"            =>  "MMDVMHost Modem Configuration",
   "general_config"              =>  "General Configuration",
   "dmr_config"                  =>  "DMR Configuration",
   "dstar_config"                =>  "D-Star Configuration",

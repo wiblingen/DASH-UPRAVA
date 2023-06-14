@@ -51,8 +51,6 @@ function AddScanned(network) {
   Networks++;
 }
 
-
-
 function CheckSSID(ssid) {
         if(ssid.value.length>31) {
                 ssid.style.background='#FFD0D0';

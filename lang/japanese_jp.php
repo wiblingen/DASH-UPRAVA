@@ -145,8 +145,8 @@ $lang = array (
   "utot"                        =>  "UTOT",       // Short for User Timeout
   "gtot"                        =>  "GTOT",       // Short for Group Timeout
   // Dashboard Front Page / Admin - Section Headders
-  "last_heard_list"             =>  "受信リスト(最新20局)",
-  "local_tx_list"               =>  "送信リスト(最新20局)",
+  "last_heard_list"             =>  "受信リスト",
+  "local_tx_list"               =>  "送信リスト",
   "active_starnet_groups"       =>  "Active Starnet Groups",
   "active_starnet_members"      =>  "Active Starnet Group Members",
   "d-star_link_manager"         =>  "D-Star接続マネージャー",
