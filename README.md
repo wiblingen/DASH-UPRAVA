@@ -140,7 +140,7 @@ The Bullseye disk images are ready-to-go; with `W0CHP-PiStar-Dash` installed.
 
 **Nano Pi Neo Disk Image:**
 
-: Nanook Neo Disk Image Download: [<code>**WPSD_NanoPiNeo_Latest.img.xz**</code>](https://w0chp.net/WPSD_NanoPiNeo_Latest.img.xz)
+: Nano Pi Neo Disk Image Download: [<code>**WPSD_NanoPiNeo_Latest.img.xz**</code>](https://w0chp.net/WPSD_NanoPiNeo_Latest.img.xz)
 
 **ZUMSpot Mini 1.3 Disk Image:**
 
