@@ -3338,6 +3338,7 @@ if (!empty($_POST)):
 	$configm17gateway['General']['LocalPort'] = '17010';
 	$configm17gateway['General']['Debug'] = '0';
 	$configm17gateway['General']['Daemon'] = '1';
+	if(!isset($configm17gateway['General']['Suffix'])) { $configm17gateway['General']['Suffix'] = 'H'; }
 	$configm17gateway['Info']['Power'] = $configmmdvm['Info']['Power'];
 	$configm17gateway['Info']['Height'] = $configmmdvm['Info']['Height'];
 	$configm17gateway['Network']['HostsFile1'] = "/usr/local/etc/M17Hosts.txt";
