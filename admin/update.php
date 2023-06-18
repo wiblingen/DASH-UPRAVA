@@ -99,11 +99,13 @@ if ($_SERVER["PHP_SELF"] == "/admin/update.php") {
   </head>
   <body>
       <div class="container">
-	  <div class="header">
-	      <div class="SmallHeader shLeft">Hostname: <?php echo exec('cat /etc/hostname'); ?></div>
-	      <div class="SmallHeader shRight"><?php echo $version; ?></div><br />
-	      <h1>WPSD <?php echo $lang['digital_voice']." ".$lang['dashboard']." - ".$lang['update'];?></h1>
-	      <div class="navbar">
+	<div class="header">
+	   <div class="SmallHeader shLeft">Hostname: <?php echo exec('cat /etc/hostname'); ?></div>
+	     <div class="SmallHeader shRight noMob">
+               <div id="CheckUpdate"><?php echo $version; ?></div><br />
+             </div>
+             <h1>WPSD <?php echo $lang['digital_voice']." ".$lang['dashboard']." - ".$lang['update'];?></h1>
+             <div class="navbar">
               <script type= "text/javascript">
                $(document).ready(function() {
                  setInterval(function() {
@@ -128,16 +130,16 @@ if ($_SERVER["PHP_SELF"] == "/admin/update.php") {
               <div class="headerClock"> 
                 <span id="timer"></span>
             </div>
-		      <a class="menuconfig" href="/admin/configure.php"><?php echo $lang['configuration'];?></a>
-		      <a class="menubackup" href="/admin/config_backup.php"><?php echo $lang['backup_restore'];?></a>
-		      <a class="menupower" href="/admin/power.php"><?php echo $lang['power'];?></a>
-		      <a class="menuadmin" href="/admin/"><?php echo $lang['admin'];?></a>
-		      <?php if (file_exists("/etc/dstar-radio.mmdvmhost")) { ?>
-		      <a class="menulive" href="/live/">Live Caller</a>
-		      <?php } ?>
-		      <a class="menudashboard" href="/"><?php echo $lang['dashboard'];?></a>
-		  </div>
-	  </div>
+	    <a class="menuconfig" href="/admin/configure.php"><?php echo $lang['configuration'];?></a>
+	    <a class="menubackup" href="/admin/config_backup.php"><?php echo $lang['backup_restore'];?></a>
+	    <a class="menupower" href="/admin/power.php"><?php echo $lang['power'];?></a>
+	    <a class="menuadmin" href="/admin/"><?php echo $lang['admin'];?></a>
+	    <?php if (file_exists("/etc/dstar-radio.mmdvmhost")) { ?>
+	    <a class="menulive" href="/live/">Live Caller</a>
+	    <?php } ?>
+	    <a class="menudashboard" href="/"><?php echo $lang['dashboard'];?></a>
+	</div>
+  </div>
   <div class="contentwide">
   <table width="100%">
   <tr><td align="left"><div id="tail">Starting update, please wait...<br /></div></td></tr>
