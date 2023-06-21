@@ -1458,7 +1458,6 @@ if (!empty($_POST)):
 	  $confignxdngateway['aprs.fi']['Description'] = $newCallsignUpper."_W0CHP-PiStar-Dash";
 	  $confignxdngateway['aprs.fi']['Password'] = aprspass($newCallsignUpper);
 	  $confignxdngateway['General']['Callsign'] = $newCallsignUpper;
-	  $configm17gateway['General']['Callsign'] = $newCallsignUpper;
 	  $configysfgateway['Info']['Name'] = $newCallsignUpper."_W0CHP-PiStar-Dash";
 	  $configysf2dmr['Info']['Description'] = $newCallsignUpper."_W0CHP-PiStar-Dash";
 	  $configysf2nxdn['Info']['Description'] = $newCallsignUpper."_W0CHP-PiStar-Dash";
@@ -1573,12 +1572,12 @@ if (!empty($_POST)):
 	}
 
 	// Set M17 CAN
-	if (!empty($_POST['m17can']) && '' !== $_POST['m17can']) {
-		$m17canNew = strtolower(escapeshellcmd($_POST['m17can']));
-		$m17canNew = (int) preg_replace('/[^0-9]/', '', $m17canNew);
-		if (($m17canNew >= 0) && ($m17canNew <= 15)) {
-			$configmmdvm['M17']['CAN'] = $m17canNew;
-		}
+	if (isset($_POST['m17can']) && $_POST['m17can'] !== '') {
+	    $m17canNew = strtolower(escapeshellcmd($_POST['m17can']));
+	    $m17canNew = (int) preg_replace('/[^0-9]/', '', $m17canNew);
+	    if (($m17canNew >= 0) && ($m17canNew <= 15)) {
+	        $configmmdvm['M17']['CAN'] = $m17canNew;
+	    }
 	}
 
 	// Set M17 Callsign Suffix
@@ -1589,6 +1588,14 @@ if (!empty($_POST)):
 			$configm17gateway['General']['Suffix'] = $m17SuffixNew;
 			$configm17gateway['APRS']['Suffix'] = $m17SuffixNew;
 		}
+	}
+
+	// Set M17 Callsign Station ID
+	if ('' !== $_POST['m17StationID']) {
+		$m17StationIDnew = escapeshellcmd($_POST['m17StationID']);
+		$configm17gateway['General']['Callsign'] = "$newCallsignUpper-$m17StationIDnew";
+	} else {
+		$configm17gateway['General']['Callsign'] = $newCallsignUpper;
 	}
 
 	// Set the DMR2M17 Startup Reflector
@@ -3826,6 +3833,12 @@ if (!empty($_POST)):
 	if (isset($configysf2dmr['DMR Network']['Options'])) {
 		ensureOptionsIsQuoted($configysf2dmr['DMR Network']['Options']);
 	}
+	if (isset($configmmdvm['Info']['Location'])) {
+		ensureOptionsIsQuoted($configmmdvm['Info']['Location']);
+	}
+	if (isset($configmmdvm['Info']['Description'])) {
+		ensureOptionsIsQuoted($configmmdvm['Info']['Description']);
+	}
 
 	$mmdvmContent = "";
 	foreach($configmmdvm as $mmdvmSection=>$mmdvmValues) {
@@ -4623,28 +4636,36 @@ else:
     </select></td>
     </tr>
 	<tr id="modem_speed">
-	    <td align="left"><a class="tooltip2" href="#">Modem Baud Rate:<span><b>Baudrate</b>Serial speed (most Hats are using 115200)</span></a></td>
+	    <td align="left"><a class="tooltip2" href="#">Modem Baud Rate:<span><b>Baudrate</b>Serial speed (most HATS use 115200)</span></a></td>
             <?php if(in_array($configModem['Modem']['Hardware'], array("stm32dvmv3+","stm32usbv3+"))) { ?>
-            <td align="left" colspan="3"><select disabled="disabled" name="confHardwareSpeed">
-		<option value=\"$modemSpeed\">460800</option>
-			<?php } elseif(in_array($configModem['Modem']['Hardware'], array("stm32dvmmtr2kopi"))) { ?>
-            <td align="left" colspan="3"><select disabled="disabled" name="confHardwareSpeed">
-		<option value=\"$modemSpeed\">500000</option>
-	    </select></td>
+            <td align="left" colspan="3">
+		<select disabled="disabled" name="confHardwareSpeed">
+		  <option value=\"$modemSpeed\">460800</option>
+	    <?php } elseif(in_array($configModem['Modem']['Hardware'], array("stm32dvmmtr2kopi"))) { ?>
+            <td align="left" colspan="3">
+		<select disabled="disabled" name="confHardwareSpeed">
+		  <option value=\"$modemSpeed\">500000</option>
+		</select>
+	    </td>
             <?php } else { ?>
 	    <td align="left" colspan="3"><select name="confHardwareSpeed">
 		<?php 
+		//$modemSpeeds = [500000, 460800, 115200, 57600, 38400, 19200, 9600, 4800, 2400, 1200]; // will enable when we see more 500000 & 460800 baud modems out there.
 		$modemSpeeds = [115200, 57600, 38400, 19200, 9600, 4800, 2400, 1200];
 		foreach($modemSpeeds as $modemSpeed) {
 		    if ($configmmdvm['Modem']['UARTSpeed'] == $modemSpeed) {
 			echo " <option value=\"$modemSpeed\" selected=\"selected\">$modemSpeed</option>\n";
+		    } else {
+			if(in_array($modemSpeed, array("500000", "460800"))) { // little warning for the n00bz who may think their little HS_HAT can go above 115200 baud.
+			    echo " <option value=\"$modemSpeed\">$modemSpeed (for select repeaters only!)</option>\n";
+			} else {
+			    echo " <option value=\"$modemSpeed\">$modemSpeed</option>\n";
+			}
 		    } 
-		    else {
-			echo " <option value=\"$modemSpeed\">$modemSpeed</option>\n";
-		    }
 		}
 		?>
-		</select></td>
+		</select>
+	    </td>
 	    <?php } ?>
 	</tr>
 <?php } ?>
@@ -6337,18 +6358,81 @@ $p25Hosts = fopen("/usr/local/etc/P25Hosts.txt", "r");
 				    
 				    </td>
 				</tr>
+				<?php if (isset($configm17gateway['General']['Suffix'])) { ?>
+					<tr>
+					<td align="left"><a class="tooltip2" href="#">M17 Callsign Suffix:<span><b>Callsign Suffix</b>Set your preferred callsign suffix here. Typical values are "H" for Hotspots, "R" for Repeaters.</span></a></td>
+					<td align="left">
+					<select name="m17CallsignSuffix">
+					<?php 
+					$m17SuffixList = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+					foreach ($m17SuffixList as $suffix) {
+					    if ($configm17gateway['General']['Suffix'] == $suffix) {
+						echo "  <option value=\"".$suffix."\" selected=\"selected\">".$suffix."</option>\n";
+					    }
+					    else {
+						echo "  <option value=\"".$suffix."\">".$suffix."</option>\n";
+					    }
+					}
+					?>
+					</td>
+					</tr>
+				<?php } ?>
+				<?php if (isset($configm17gateway['General']['Callsign'])) {
+				     $m17SID = substr($configm17gateway['General']['Callsign'], strpos($configm17gateway['General']['Callsign'], '-') + 1);
+				     if (preg_match('/^\d$/', $m17SID)) {
+					$m17SID = $m17SID;
+				     } else {
+					$m17SID = "";
+				     }
+				?>
+					<tr>
+						<td align="left"><a class="tooltip2" href="#">M17 Station ID:<span><b>Station ID</b>Set your preferred station ID here, if applicable.</span></a></td>
+						<td align="left">
+						<select name="m17StationID">
+						<?php if($m17SID == "") { echo '<option value="" selected="selected">None</option>'; } else { echo "<option value='$m17SID' selected='selected'>$m17SID</option>"; } ?>
+						  <option value="">None</option>
+						  <option value="0">0</option>
+						  <option value="1">1</option>
+						  <option value="2">2</option>
+						  <option value="3">3</option>
+						  <option value="4">4</option>
+						  <option value="5">5</option>
+						  <option value="6">6</option>
+						  <option value="7">7</option>
+						  <option value="8">8</option>
+						  <option value="9">9</option>
+						</select>
+						</td>
+					</tr>
+				<?php } ?>
 				<?php if (isset($configmmdvm['M17']['CAN'])) { ?>
 					<tr>
 						<td align="left"><a class="tooltip2" href="#"><?php echo $lang['m17_can'];?>:<span><b>M17 CAN</b>Set your CAN (Channel Access Number) code here, sane values are 0-15</span></a></td>
-						<td align="left"><input type="text" name="m17can" size="13" maxlength="2" value="<?php echo $configmmdvm['M17']['CAN'];?>" /></td>
+						<td align="left">
+						<select name="m17can">
+						  <?php echo "<option value=\"".$configmmdvm['M17']['CAN']."\" 'selected='selected'>".$configmmdvm['M17']['CAN']."</option>"; ?>
+						  <option value="0">0</option>
+						  <option value="1">1</option>
+						  <option value="2">2</option>
+						  <option value="3">3</option>
+						  <option value="4">4</option>
+						  <option value="5">5</option>
+						  <option value="6">6</option>
+						  <option value="7">7</option>
+						  <option value="8">8</option>
+						  <option value="9">9</option>
+						  <option value="10">10</option>
+						  <option value="11">11</option>
+						  <option value="12">12</option>
+						  <option value="13">13</option>
+						  <option value="14">14</option>
+						  <option value="15">15</option>
+						</select>
+						</td>
 					</tr>
 				<?php } ?>
-				<?php if (isset($configm17gateway['General']['Suffix'])) { ?>
-					<tr>
-						<td align="left"><a class="tooltip2" href="#">M17 Callsign Suffix:<span><b>Callsign Suffix</b>Set your preferred callsign suffix here. Typical values are "H" for Hotspots, "R" for Repeaters.</span></a></td>
-						<td align="left"><input type="text" name="m17CallsignSuffix" size="2" maxlength="1" value="<?php echo $configm17gateway['General']['Suffix'];?>" /></td>
-					</tr>
-				<?php } ?>
+
+
 			    </table>
 			    <div><input type="button" value="<?php echo $lang['apply'];?>" onclick="submitform()" /><br /><br /></div>
 			<?php } ?>
