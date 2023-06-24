@@ -727,7 +727,7 @@ function showMode($mode, $configs) {
 	            }
 	        }
 	        else {
-	            if ($mode == "D-Star" || $mode == "DMR" || $mode == "System Fusion" || $mode == "P25" || $mode == "NXDN" || $mode == "POCSAG" || $mode == "M17" || $mode == "AX 25") {
+	            if ($mode == "D-Star" || $mode == "DMR" || $mode == "System Fusion" || $mode == "P25" || $mode == "NXDN" || $mode == "POCSAG" || $mode == "M17" || $mode == "AX.25") {
 		            getModeClass(isProcessRunning("MMDVMHost"));
 	            }
 	        }
@@ -760,7 +760,6 @@ function showMode($mode, $configs) {
     	}
 
         $mode = str_replace("System Fusion", "YSF", $mode);
-        $mode = str_replace("AX 25", "AX.25", $mode);
         $mode = str_replace("Network", "Net", $mode);
         if (strpos($mode, 'YSF2') > -1) {
 	        $mode = str_replace(" Net", "", $mode);
