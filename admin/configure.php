@@ -3667,8 +3667,8 @@ if (!empty($_POST)):
 
 	// Add P25Gateway Options
         $configp25gateway['Network']['InactivityTimeout'] = "1440";
-	if (!isset($configp25gateway['Remote Commands']['Enable'])) { $configp25gateway['Remote Commands']['Enable'] = "1"; }
-	if (!isset($configp25gateway['Remote Commands']['Port'])) { $configp25gateway['Remote Commands']['Port'] = "6074"; }
+	if (isset($configp25gateway['Remote Commands']['Enable'])) { $configp25gateway['Remote Commands']['Enable'] = "1"; }
+	if (isset($configp25gateway['Remote Commands']['Port'])) { $configp25gateway['Remote Commands']['Port'] = "6074"; }
 	if (isset($configp25gateway['General']['Announcements'])) { unset($configp25gateway['General']['Announcements']); }
 	if (!isset($configp25gateway['Log']['FilePath'])) { $configp25gateway['Log']['FilePath'] = "/var/log/pi-star"; }
 	if (!isset($configp25gateway['Log']['FileRoot'])) { $configp25gateway['Log']['FileRoot'] = "P25Gateway"; }
@@ -3682,8 +3682,8 @@ if (!empty($_POST)):
 	}
 
 	// Add NXDNGateway Options
-	if (!isset($confignxdngateway['Remote Commands']['Enable'])) { $confignxdngateway['Remote Commands']['Enable'] = "1"; }
-	if (!isset($confignxdngateway['Remote Commands']['Port'])) { $confignxdngateway['Remote Commands']['Port'] = "6075"; }
+	if (isset($confignxdngateway['Remote Commands']['Enable'])) { $confignxdngateway['Remote Commands']['Enable'] = "1"; }
+	if (isset($confignxdngateway['Remote Commands']['Port'])) { $confignxdngateway['Remote Commands']['Port'] = "6075"; }
 	if (isset($confignxdngateway['aprs.fi'])) { unset($confignxdngateway['aprs.fi']); }
 	if (!isset($confignxdngateway['General']['RptProtocol'])) { $confignxdngateway['General']['RptProtocol'] = "Icom"; }
         if (!isset($confignxdngateway['Log']['FilePath'])) { $confignxdngateway['Log']['FilePath'] = "/var/log/pi-star"; }
@@ -3726,8 +3726,8 @@ if (!empty($_POST)):
 	//$configysfgateway['FCS Network']['Enable'] = "1"; # Disabled per new 6/2023 toggle sw.
 	$configysfgateway['FCS Network']['Port'] = "42001";
 	$configysfgateway['FCS Network']['Rooms'] = "/usr/local/etc/FCSHosts.txt";
-	if (!isset($configysfgateway['Remote Commands']['Enable'])) { $configysfgateway['Remote Commands']['Enable'] = "1"; }
-	if (!isset($configysfgateway['Remote Commands']['Port'])) { $configysfgateway['Remote Commands']['Port'] = "6073"; }
+	if (isset($configysfgateway['Remote Commands']['Enable'])) { $configysfgateway['Remote Commands']['Enable'] = "1"; }
+	if (isset($configysfgateway['Remote Commands']['Port'])) { $configysfgateway['Remote Commands']['Port'] = "6073"; }
 	if (!isset($configysfgateway['General']['Debug'])) { $configysfgateway['General']['Debug'] = "0"; }
 	if (!isset($configysfgateway['GPSD']['Enable'])) { $configysfgateway['GPSD']['Enable'] = "0"; }
 	if (!isset($configysfgateway['GPSD']['Address'])) { $configysfgateway['GPSD']['Address'] = "127.0.0.1"; }
