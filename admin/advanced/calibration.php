@@ -143,11 +143,22 @@ if ($_SERVER["PHP_SELF"] == "/admin/advanced/calibration.php") {
     var tfrms=0; tbits=0, tberr=0;
     var eot=false;
 
+    function formatFreq(input) {
+      const inputString = String(input);
+      const digitsOnly = inputString.replace(/\D/g, '');
+      const groups = digitsOnly.match(/(\d{1,3})/g);
+      if (!groups || groups.length === 0) {
+        return '';
+      }
+      return groups.join('.');
+    }
+
+
     $(function() {
       $.repeat(1000, function() {
         $.get('/admin/advanced/calibration.php?ajax', function(data) {
          if (data.length > 0) {
-<?php if (isset($_GET['debug'])) { ?>
+<?php if (isset($_GET['verbose'])) { ?>
           var objDiv = document.getElementById("tail");
           var isScrolledToBottom = objDiv.scrollHeight - objDiv.clientHeight <= objDiv.scrollTop + 1;
           $('#tail').append(data);
@@ -222,12 +233,14 @@ if ($_SERVER["PHP_SELF"] == "/admin/advanced/calibration.php") {
             eot=true;
           }
 
-          var regex = / frequency: (\d+)/g
-          while (match = regex.exec(data)) {
-            $('#ledStart').attr("class", 'green_dot');
-            $("#lblFrequency").text(match[1] + ' Hz');
-            $("#lblOffset").text(~~match[1] - ~~'<?php echo $RXFrequency; ?>');
-          }
+	  var regex = / frequency: (\d+)/g;
+	  while (match = regex.exec(data)) {
+	    $('#ledStart').attr("class", 'green_dot');
+	    $("#lblOffset").text(~~match[1] - ~~'<?php echo $RXFrequency; ?>');
+	    const inputString = match[1];
+	    const formattedString = formatFreq(inputString) + ' MHz';
+	    $("#lblFrequency").text(formattedString);
+	  }
 
           var regex = /\% \((\d+)\/(\d+)\)/g
           while (match = regex.exec(data)) {
@@ -292,9 +305,11 @@ if ($_SERVER["PHP_SELF"] == "/admin/advanced/calibration.php") {
   <div class="contentwide">
   <p style="text-align:left;"><a style="color:#bebebe;text-decoration:underline;" href="#help_details" id="help_details">Display Calibration Help...</a><br />
   <div id="help_info" style="display:none;text-align:left;"><br />
-    First, click the "Start" button, then wait until the Start "LED" turns to green. Then, select the mode you wish to caibrate,
-    and then wait until the Mode "LED" turns green. TX from your radio until the BER% reaches its lowest value, while adjusting the offset by clicking  the "<code>+/-</code>"
-    offset buttons. Once happy with the value, click "Save Offset" and then click "Stop" and wait for the LED to turn red.
+    First, click the "Start" button, then wait until the Start "LED" turns to green (approx. 10 secs.). Then, select the mode you wish to caibrate,
+    and then wait until the Mode "LED" turns green.<br /><br />TX from your radio until the BER% reaches its lowest value, while adjusting the offset by clicking  the "<code>+/-</code>"
+    offset buttons. You can increase/decrease the Steps (in Hz) if you'd like (default is 50 Hz).<br /><br />
+    Once happy with the value, click "Save Offset" and then click "Stop" and wait for the LED to turn red, then you're done.<br /><br />
+    NOTE: The tests operate in simplex only; program your radio accordingly.
   </div></p>
   <table width="100%">
   <tr><th>MMDVM Calibration Tool</th></tr>
@@ -302,6 +317,9 @@ if ($_SERVER["PHP_SELF"] == "/admin/advanced/calibration.php") {
 <table width="800" border="0" cellspacing="0" cellpadding="5">
   <tr>
     <td align="center" valign="top"><table border="0" cellspacing="0" cellpadding="5">
+      <tr>
+	<th colspan="2">Main Operation</th>
+      </tr>
       <tr>
         <td><input name="btnStart" type="button" id="btnStart" onclick="sendaction('start');" value="Start" /></td>
         <td><span class="red_dot" name="ledStart" width="20" height="20" id="ledStart"></span></td>
@@ -313,6 +331,9 @@ if ($_SERVER["PHP_SELF"] == "/admin/advanced/calibration.php") {
     </table></td>
 
     <td align="center" valign="top"><table border="0" cellspacing="0" cellpadding="4">
+      <tr>
+        <th colspan="2">Select Mode</th>
+      </tr>
       <tr>
         <td><input name="btnDStar" type="button" id="btnDStar" onclick="sendcmd('k');" value="D-Star" /></td>
         <td><span class="red_dot" name="ledDStar" width="20" height="20" id="ledDStar"></span></td>
@@ -337,32 +358,35 @@ if ($_SERVER["PHP_SELF"] == "/admin/advanced/calibration.php") {
 
     <td align="center" valign="top"><table border="0" cellspacing="0" cellpadding="5">
       <tr>
-        <td align="left">Base Freq.:</td>
-        <td colspan="3" id="lblBaseFreq"><?php echo $RXFrequency; ?> Hz</td>
+        <th colspan="4">Parameters</th>
       </tr>
       <tr>
-        <td align="left">Frequency:</td>
-        <td colspan="3" id="lblFrequency"><?php echo $RXFrequency + $RXOffset; ?> Hz</td>
+        <td align="left">Base Freq.:</td>
+        <td colspan="3" id="lblBaseFreq"><?php echo number_format($RXFrequency, 0, '.', '.'); ?> MHz</td>
+      </tr>
+      <tr>
+        <td align="left">Freq. (with offset):</td>
+	<?php $freqWithOffsetRaw = $RXFrequency + $RXOffset; ?>
+        <td colspan="3" id="lblFrequency"><?php echo number_format($freqWithOffsetRaw, 0, '.', '.'); ?> MHz</td>
       </tr>
       <tr>
         <td align="left">Offset:</td>
         <td><input name="btnFreqM" type="button" id="btnFreqM" onclick="sendcmd('f');" value="-" /></td>
-        <td id="lblOffset" style="width:5ch"><?php echo $RXOffset; ?></td>
+        <td id="lblOffset"><?php echo $RXOffset; ?> Hz</td>
         <td><input name="btnFreqP" type="button" id="btnFreqP" onclick="sendcmd('F');" value="+" /></td>
       </tr>
       <tr>
-        <td align="left">Step:</td>
+        <td align="left">Step: (Hz)</td>
         <td colspan="3"><input type="button" onclick="sendcmd('z','25');" value="25" /> <input type="button" onclick="sendcmd('z','50');" value="50" /> <input type="button" onclick="sendcmd('z','100');" value="100" /></td>
       </tr>
       <tr>
-        <td align="left">&nbsp;</td>
-        <td colspan="3"><input name="button8" type="button" onclick="sendaction('saveoffset',$('#lblOffset').text());" value="Save Offset" /></td>
+        <td colspan="4"><input name="button8" type="button" onclick="sendaction('saveoffset',$('#lblOffset').text());" value="Save Offset" /></td>
       </tr>
     </table></td>
 
     <td align="center" valign="top"><table border="0" cellspacing="0" cellpadding="5">
       <tr>
-        <th style="width:8ch">&nbsp;</th>
+        <th style="width:8ch">Calibration Results:</th>
         <th style="width:9ch">Current</th>
         <th style="width:9ch">Total</th>
       </tr>
@@ -387,14 +411,14 @@ if ($_SERVER["PHP_SELF"] == "/admin/advanced/calibration.php") {
         <td id="lblTBER">&nbsp;</td>
       </tr>
       <tr>
-        <td align="left">Seconds:</td>
+        <td align="left">Chart Refresh Rate:</td>
         <td id="lblSec" style="padding:0;"><select name="sltUpdFrq" id="sltUpdFrq" style="margin:0;">
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="5" selected="selected">5</option>
-                          <option value="10">10</option>
-                          <option value="30">30</option>
+                          <option value="1" selected="selected">1 Sec.</option>
+                          <option value="2">2 Secs.</option>
+                          <option value="3">3 Secs.</option>
+                          <option value="5">5 Secs.</option>
+                          <option value="10">10 Secs.</option>
+                          <option value="30">30 Secs.</option>
                         </select>
         </td>
         <td id="lblTSec">&nbsp;</td>
@@ -406,18 +430,37 @@ if ($_SERVER["PHP_SELF"] == "/admin/advanced/calibration.php") {
   </td></tr>
   <tr><td align="left">
         <div id="chart"></div>
-        <script type="text/javascript">
-            Plotly.newPlot('chart', [{
-                x: [0],
-                y: [0],
-                type: 'scatter',
-                mode: 'lines',
-                fill: 'tozeroy',
-                line: {color: '#fff'}
-            }], {title:'Bit Error Rate (BER)', xaxis:{title:'Seconds',rangemode:'tozero'}, yaxis:{title:'%',rangemode:'tozero',range:[0,5]} }, {staticPlot: true});
-        </script>
+<script type="text/javascript">
+    Plotly.newPlot('chart', [{
+        x: [0],
+        y: [0],
+        type: 'scatter',
+        mode: 'lines',
+        fill: 'tozeroy',
+    }], {
+        title: {
+            text: 'Bit Error Rate (BER)',
+            font: { color: 'white' }
+        },
+        xaxis: {
+            title: 'Seconds',
+            rangemode: 'tozero',
+            tickfont: { color: 'white' },
+            titlefont: { color: 'white' }
+        },
+        yaxis: {
+            title: 'BER %',
+            rangemode: 'tozero',
+            range: [0, 5],
+            tickfont: { color: 'white' },
+            titlefont: { color: 'white' }
+        },
+        paper_bgcolor: 'black',
+        plot_bgcolor: 'black',
+    }, { staticPlot: true });
+</script>
       </td></tr>
-<?php if (isset($_GET['debug'])) { ?>
+<?php if (isset($_GET['verbose'])) { ?>
   <tr><td align="left"><div id="tail"></div></td></tr>
 <?php } ?>
   </table>
