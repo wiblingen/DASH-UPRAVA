@@ -884,7 +884,9 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 	</div>
 <?php
 include 'includes/execute-background-tasks.php';
-executeBackgroundTasks();
 ?>
+<script>
+executeBackgroundTasks();
+</script>
     </body>
 </html>
