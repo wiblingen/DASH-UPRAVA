@@ -45,8 +45,11 @@ its own beast, so-to-speak.
     3. Other topics not germane to bugs, issues, etc.
   * You *may* be directed to file an issue report here by developers when necessary.
 
-## Known Issues
-* If you have a first-generation Raspberry Pi Zero (Pi Zero (W) Rev.1.1 armv6l) with the
+## Known Issues & Incompatibilities
+
+**Raspberry Pi Zero v1.x (1st Gen, single-core)**
+
+: If you have a first-generation Raspberry Pi Zero (Pi Zero (W) Rev.1.1 armv6l) with the
   single-core processor\*, and have downloaded my RPi Bullseye
   disk image, you need to do a couple of things before you can access it:
     1. [Install a WiFi config file before you boot the image](https://w0chp.net/wpa-config-generator/), or connect it to Ethernet. Network connectivity is required for first boot-up.
@@ -55,13 +58,29 @@ its own beast, so-to-speak.
   If you fail to do these things, you will get a "502 Bad Gateway" error when attempting to access the dashboard.
 
   \* *Note:* The official ZUMSpot Mini 1.3 Disk Image (below) does not have this issue, since I built the disk image for that specific hardware.
-* If you have a DVmega EuroNode or the like, and install my NanoPi NEO Bullseye
+
+**DVMega**
+
+: If you have a DVmega EuroNode or the like, and install my NanoPi NEO Bullseye
   disk image on it, you will likely lose all wireless functionality (Ethernet still works,
   however). This is because the DVmega folks create their own older Buster image,
-  tailored to their custom hardware. If you still want to use my software on DVMega
+  tailored to their custom hardware.
+
+  If you still want to use my software on DVMega
   hardware, you absolutely can; and it's best to use the [existing hotspot installation
   method](#hotspot-installation), which will leave the operating system alone as
   the older Buster version and wireless functionality will remain intact.
+
+**TGIF Spots with Nextion Screens**
+
+: Using the WPSD installation script will detect this device and disallow installation; We don't support TGIF Spots running "buster".
+  This is because "buster" TGIF Spots use weird and hacky scripts and modifications etc., which WPSD does not support.
+
+  "Bullseye" [disk image installations *are* supported](#disk-image-installation), however, you may lose some of the superfluous Nextion screen
+  functionality.
+
+  If you install WPSD on TGIF Spots with Nextion screens, and the screens don't work the way you want, don't complain about it; as their strange hacks
+  are not a part of WPSD.
 
 ## Installing `W0CHP-PiStar-Dash`
 
