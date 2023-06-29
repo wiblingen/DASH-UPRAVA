@@ -32,6 +32,13 @@ function purgeLogs() {
     exec ('sudo systemctl stop mmdvm-log-shutdown.service');
     exec ("sudo rm -rf $log_dir/* $log_backup_dir/* > /dev/null");
 }
+
+if(isset($_SESSION['PiStarRelease']['Pi-Star']['ProcNum']) && ($_SESSION['PiStarRelease']['Pi-Star']['ProcNum'] >= 4)) {
+    $rbTime = "90";
+} else {
+    $rbTime = "120";
+}
+
 ?>
     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 	      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -107,9 +114,9 @@ function purgeLogs() {
 			    if ( escapeshellcmd($_POST["action"]) == "reboot" ) {
 				echo '<tr><td colspan="2" style="background: #000000; color: #00ff00;"><br /><br />Your Hotspot is rebooting...
 				   <br />You will be re-directed back to the
-				   <br />dashboard automatically in 90 seconds.<br /><br /><br />
+				   <br />dashboard automatically in ' .$rbTime. ' seconds.<br /><br /><br />
 				   <script language="JavaScript" type="text/javascript">
-                                   setTimeout("location.href = \'/\'", 90000);
+                                   setTimeout("location.href = \'/\'", '.$rbTime.'000);
 				   </script>
 				   </td></tr>'; 
 		if ( escapeshellcmd($_POST["purgeLogs"]) == "1" ) {
