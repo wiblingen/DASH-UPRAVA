@@ -89,57 +89,8 @@ install `W0CHP-PiStar-Dash`.
 
 There are two methods of installation...
 
-1. [Installation on an existing Pi-Star hotspot](#hotspot-installation)
-2. [Installation via a disk image](#disk-image-installation)
-
-### Installing `W0CHP-PiStar-Dash` on an Existing Pi-Star Hotspot {#hotspot-installation}
-
-<i class="fas fa-exclamation-triangle"></i> You need to have a Pi-Star hotspot
-**running at least v4.1.6!**[^1]
-
-1. Make a backup of your configuration if you wish -- just in case.
-
-2. Open an SSH session to your Pi-Star instance.
-
-3. Run this to familiarize yourself with the available options/arguments:[^2]
-
-    ```text
-    curl -Ls https://w0chp.net/WPSD-Install | sudo env NO_SELF_UPDATE=1 bash -s -- -h
-    ```
-
-    You will be presented with...
-
-    ```
-	[i] W0CHP PiStar-Dash Installer Command Usage:
-
-	  -h,   --help                   :  Display this help text
-
-
-	  -id,  --install-dashboard      :  Install W0CHP dashboard
-
-
-	  -idc, --install-dashboard-css  :  Install W0CHP dashboard
-                                   	    WITH custom stylesheet
-
-	  -rd,  --restore-dashboard      :  Restore original dashboard
-
-
-	  -s,   --status                 :  Display version status/info
-    ```
-
-4. When ready to install, run the above command again with the option/argument you wish...e.g:
-
-    ```text
-    curl -Ls https://w0chp.net/WPSD-Install | sudo env NO_SELF_UPDATE=1 bash -s -- -id
-    ```
-
-	(...to install the dashboard *without* the `W0CHP` custom CSS)
-
-5. When the installer completes, refresh your dashboard home page to see the changes.
-
-<i class="fas fa-exclamation-triangle"></i> You **must** run the aforementioned
-commands with the exact syntax. Note the spaces and extra `--` (dashes), etc.
-Otherwise, the commands will fail.
+1. [Installation via a disk image](#disk-image-installation)
+2. [Installation on an existing Pi-Star hotspot](#hotspot-installation)
 
 ### Installing `W0CHP-PiStar-Dash` from a Bullseye-based Disk Image {#disk-image-installation}
 
@@ -203,6 +154,55 @@ The setup of the Bullseye image is similar to that of Pi-Star's:
 2. When installing from the Bullseye-based disk image, it's a best practice (and better) to *run an update
    **before** setting up or making configuration changes* to your hotspot. This ensures that setup/configuration changes you make
    are the most tested and up-to-date.
+
+### Installing `W0CHP-PiStar-Dash` on an Existing Pi-Star Hotspot {#hotspot-installation}
+
+<i class="fas fa-exclamation-triangle"></i> You need to have a Pi-Star hotspot
+**running at least v4.1.6!**[^1]
+
+1. Make a backup of your configuration if you wish -- just in case.
+
+2. Open an SSH session to your Pi-Star instance.
+
+3. Run this to familiarize yourself with the available options/arguments:[^2]
+
+    ```text
+    curl -Ls https://w0chp.net/WPSD-Install | sudo env NO_SELF_UPDATE=1 bash -s -- -h
+    ```
+
+    You will be presented with...
+
+    ```
+	[i] W0CHP PiStar-Dash Installer Command Usage:
+
+	  -h,   --help                   :  Display this help text
+
+
+	  -id,  --install-dashboard      :  Install W0CHP dashboard
+
+
+	  -idc, --install-dashboard-css  :  Install W0CHP dashboard
+                                   	    WITH custom stylesheet
+
+	  -rd,  --restore-dashboard      :  Restore original dashboard
+
+
+	  -s,   --status                 :  Display version status/info
+    ```
+
+4. When ready to install, run the above command again with the option/argument you wish...e.g:
+
+    ```text
+    curl -Ls https://w0chp.net/WPSD-Install | sudo env NO_SELF_UPDATE=1 bash -s -- -id
+    ```
+
+	(...to install the dashboard *without* the `W0CHP` custom CSS)
+
+5. When the installer completes, refresh your dashboard home page to see the changes.
+
+<i class="fas fa-exclamation-triangle"></i> You **must** run the aforementioned
+commands with the exact syntax. Note the spaces and extra `--` (dashes), etc.
+Otherwise, the commands will fail.
 
 ## Updating `W0CHP-PiStar-Dash`
 
