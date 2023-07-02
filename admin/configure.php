@@ -1446,6 +1446,7 @@ if (!empty($_POST)):
 	  $configysfgateway['aprs.fi']['Description'] = $newCallsignUpper."_W0CHP-PiStar-Dash";
 	  $configysf2dmr['aprs.fi']['Password'] = aprspass($newCallsignUpper);
 	  $configysf2dmr['aprs.fi']['Description'] = $newCallsignUpper."_W0CHP-PiStar-Dash";
+	  $configysf2dmr['aprs.fi']['AprsCallsign'] = $newCallsignUpper;
 	  $configysf2dmr['YSF Network']['Callsign'] = $newCallsignUpper;
 	  $configysf2nxdn['aprs.fi']['Password'] = aprspass($newCallsignUpper);
 	  $configysf2nxdn['aprs.fi']['Description'] = $newCallsignUpper."_W0CHP-PiStar-Dash";
@@ -5977,13 +5978,13 @@ $ysfHosts = fopen("/usr/local/etc/YSFHosts.txt", "r"); ?>
         <?php
         if ( isset($configysfgateway['FCS Network']['Enable']) ) {
                 if ( $configysfgateway['FCS Network']['Enable'] ) {
-                        echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-FCSEnable\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"FCSEnable\" value=\"ON\" checked=\"checked\" /><label for=\"toggle-FCSEnable\"></label></div></td>\n";
+                        echo "<td colspan='2' align=\"left\"><div class=\"switch\"><input id=\"toggle-FCSEnable\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"FCSEnable\" value=\"ON\" checked=\"checked\" /><label for=\"toggle-FCSEnable\"></label></div></td>\n";
                 }
                 else {
-                        echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-FCSEnable\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"FCSEnable\" value=\"ON\" /><label for=\"toggle-FCSEnable\"></label></div></td>\n";
+                        echo "<td colspan='2' align=\"left\"><div class=\"switch\"><input id=\"toggle-FCSEnable\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"FCSEnable\" value=\"ON\" /><label for=\"toggle-FCSEnable\"></label></div></td>\n";
                 }
         } else {
-                echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-FCSEnable\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"FCSEnable\" value=\"ON\" /><label for=\"toggle-FCSEnable\"></label></div></td>\n";
+                echo "<td colspan='2' align=\"left\"><div class=\"switch\"><input id=\"toggle-FCSEnable\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"FCSEnable\" value=\"ON\" /><label for=\"toggle-FCSEnable\"></label></div></td>\n";
         }
         ?>
     <tr>
