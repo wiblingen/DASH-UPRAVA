@@ -48,6 +48,21 @@ if ($_SERVER["PHP_SELF"] == "/admin/live_log.php") {
 	case "DAPNETGateway":
 	    $logfile = "/var/log/pi-star/DAPNETGateway-".gmdate('Y-m-d').".log";
 	    break;
+	case "DMR2NXDN":
+	    $logfile = "/var/log/pi-star/DMR2NXDN-".gmdate('Y-m-d').".log";
+	    break;
+	case "DMR2YSF":
+	    $logfile = "/var/log/pi-star/DMR2YSF-".gmdate('Y-m-d').".log";
+	    break;
+	case "YSF2DMR":
+	    $logfile = "/var/log/pi-star/YSF2DMR-".gmdate('Y-m-d').".log";
+	    break;
+	case "YSF2NXDN":
+	    $logfile = "/var/log/pi-star/YSF2NXDN-".gmdate('Y-m-d').".log";
+	    break;
+	case "YSF2P25":
+	    $logfile = "/var/log/pi-star/YSF2P25-".gmdate('Y-m-d').".log";
+	    break;
     }
     
     if (isset($_GET['ajax'])) {
@@ -171,6 +186,11 @@ if ($_SERVER["PHP_SELF"] == "/admin/live_log.php") {
 	<option name="NXDNGateway">NXDNGateway</option>
 	<option name="M17Gateway">M17Gateway</option>
 	<option name="DAPNETGateway">DAPNETGateway</option>
+	<option name="DMR2NXDN">DMR2NXDN</option>
+	<option name="DMR2YSF">DMR2YSF</option>
+	<option name="YSF2DMR">YSF2DMR</option>
+	<option name="YSF2NXDN">YSF2NXDN</option>
+	<option name="YSF2P25">YSF2P25</option>
     </select>
     <input type="submit" name="sumbit" value="Select" />
   </form>
@@ -204,6 +224,11 @@ if ($_SERVER["PHP_SELF"] == "/admin/live_log.php") {
         <option name="NXDNGateway" <?php if ($log == "NXDNGateway") { echo "selected='selected'"; } ?>>NXDNGateway</option>
         <option name="M17Gateway" <?php if ($log == "M17Gateway") { echo "selected='selected'"; } ?>>M17Gateway</option>
         <option name="DAPNETGateway" <?php if ($log == "DAPNETGateway") { echo "selected='selected'"; } ?>>DAPNETGateway</option>
+        <option name="DMR2NXDN" <?php if ($log == "DMR2NXDN") { echo "selected='selected'"; } ?>>DMR2NXDN</option>
+        <option name="DMR2YSF" <?php if ($log == "DMR2YSF") { echo "selected='selected'"; } ?>>DMR2YSF</option>
+        <option name="YSF2DMR" <?php if ($log == "YSF2DMR") { echo "selected='selected'"; } ?>>YSF2DMR</option>
+        <option name="YSF2NXDN" <?php if ($log == "YSF2NXDN") { echo "selected='selected'"; } ?>>YSF2NXDN</option>
+        <option name="YSF2P25" <?php if ($log == "YSF2P25") { echo "selected='selected'"; } ?>>YSF2P25</option>
     </select>
     <input type="submit" name="sumbit" value="Select" />
   </form>

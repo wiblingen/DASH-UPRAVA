@@ -42,6 +42,22 @@ if ($_SERVER["PHP_SELF"] == "/admin/download_log.php") {
 	    case "DAPNETGateway":
 		$logfile = "/var/log/pi-star/DAPNETGateway-".gmdate('Y-m-d').".log";
 		break;
+	    case "DMR2NXDN":
+		$logfile = "/var/log/pi-star/DMR2NXDN-".gmdate('Y-m-d').".log";
+		break;
+	    case "DMR2YSF":
+		$logfile = "/var/log/pi-star/DMR2YSF-".gmdate('Y-m-d').".log";
+		break;
+	    case "YSF2DMR":
+		$logfile = "/var/log/pi-star/YSF2DMR-".gmdate('Y-m-d').".log";
+		break;
+	    case "YSF2NXDN":
+		$logfile = "/var/log/pi-star/YSF2NXDN-".gmdate('Y-m-d').".log";
+		break;
+	    case "YSF2P25":
+		$logfile = "/var/log/pi-star/YSF2P25-".gmdate('Y-m-d').".log";
+		break;
+
 	}
 	$hostNameInfo = exec('cat /etc/hostname');
 
@@ -51,9 +67,9 @@ if ($_SERVER["PHP_SELF"] == "/admin/download_log.php") {
 	header('Cache-Control: private', false);
 	header('Content-Type: text/plain');
 	if ($hostNameInfo != "pi-star") {
-		header('Content-Disposition: attachment; filename="Pi-Star_'.$hostNameInfo.'_'.basename($logfile).'";');
+		header('Content-Disposition: attachment; filename="WPSD_'.$hostNameInfo.'_'.basename($logfile).'";');
 	} else {
-		header('Content-Disposition: attachment; filename="Pi-Star_'.basename($logfile).'";');
+		header('Content-Disposition: attachment; filename="WPSD_'.basename($logfile).'";');
 	}
 	header('Content-Length: '.filesize($logfile));
 	header('Accept-Ranges: bytes');
