@@ -34,10 +34,10 @@ if ($_SERVER["PHP_SELF"] == "/admin/download_all_logs.php") {
 	header('Content-Description: File Transfer');
 	header('Content-Type: application/octet-stream');
 	if ($hostNameInfo != "pi-star") {
-	    header('Content-Disposition: attachment; filename="'.basename("Pi-Star_Logs_".$hostNameInfo."_".$local_time.".zip").'"');
+	    header('Content-Disposition: attachment; filename="'.basename("WPSD_Logs_".$hostNameInfo."_".$local_time.".zip").'"');
 	}
 	else {
-	    header('Content-Disposition: attachment; filename="'.basename("Pi-Star_Logs_$local_time.zip").'"');
+	    header('Content-Disposition: attachment; filename="'.basename("WPSD_Logs_$local_time.zip").'"');
 	}
 	header('Content-Transfer-Encoding: binary');
 	header('Expires: 0');
