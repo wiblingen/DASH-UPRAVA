@@ -82,6 +82,12 @@ its own beast, so-to-speak.
   If you install WPSD on TGIF Spots with Nextion screens, and the screens don't work the way you want, don't complain about it; as their strange hacks
   are not a part of WPSD.
 
+**Restoring and/or Using Configurations from "OG" Pi-Star Software May Not Always Work**
+
+: Sometimes, configurations from the original Pi-Star software are *not* compatible with WPSD. This is because
+  WPSD always uses the latest versions of upstream software, like MMDVHhost and its related ancillary gateway programs; and these newer versions are not always backward-compatible with
+  old configurations. The best ways to deal with this, it to use an appropriate disk image and setup/configure from scratch, or perform a "Factory Reset" and configure from scratch.
+
 ## Installing `W0CHP-PiStar-Dash`
 
 Now that you've been adequately informed of the rules, caveats and the risks, keep reading to learn how to
