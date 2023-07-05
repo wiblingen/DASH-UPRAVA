@@ -383,7 +383,13 @@ newer MMDVM firmware.
 
 ## Credits
 
-Of course, most of the credit goes to the venerable and skilled, Andy Taylor,
+`W0CHP-PiStar-Dash` (WPSD) *used* to be a one-man show (me), but many people
+have contributed code, etc. to the project, and we now have an official [core
+dev.  team](https://repo.w0chp.net/org/WPSD-Dev/teams/dev-peepz).  Thank you
+all! With the exponential growth, doing this alone would have sucked. I am
+grateful for all of you!
+
+Of course, lots of credit goes to the venerable and skilled, Andy Taylor,
 `MW0MWZ`, for creating the wonderful Pi-Star software in the first place.
 
 Credit also goes to the awesome Daniel Caujolle-Bert, `F1RMB`, for creating his
