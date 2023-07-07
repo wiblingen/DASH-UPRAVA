@@ -49,6 +49,7 @@ if(empty($_POST['func'])) {
     $_POST['func'] = "main";
 }
 
+// Vendor-specific funcs
 // ZUMradio image init:
 $iniFile = '/etc/dstar-radio.mmdvmhost';
 $section = 'ZUM';
@@ -56,6 +57,13 @@ $key = 'NewInstall';
 $expectedValue = '1';
 $iniData = parse_ini_file($iniFile, true);
 $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] === $expectedValue;
+// SkyBridge image init:
+$iniFile = '/etc/dstar-radio.mmdvmhost';
+$section = 'SkyBridge';
+$key = 'NewInstall';
+$expectedValue = '1';
+$iniData = parse_ini_file($iniFile, true);
+$isNewSkyBridgeInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] === $expectedValue;
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -362,8 +370,15 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 		echo "<H1>New ZUMspot Installation...</H1>\n";
 		echo "<p>You will be redirected to the configuration portal in 10 seconds to setup your ZUMspot...</p>\n";
 		echo '<script type="text/javascript">setTimeout(function() { window.location="/admin/configure.php";},10000);</script>'."\n";
+	// New SkyBridge image?
+	    } else if ($isNewSkyBridgeInstall) {
+		echo '<div class="contentwide">'."\n";
+		echo "<H1>New SkyBridge Installation...</H1>\n";
+		echo "<p>You will be redirected to the configuration portal in 10 seconds to setup your SkyBridge...</p>\n";
+		echo '<script type="text/javascript">setTimeout(function() { window.location="/admin/configure.php";},10000);</script>'."\n";
+
+
         // First lets figure out if we are in MMDVMHost mode, or dstarrepeater mode;
-	
 	    } else if (file_exists('/etc/dstar-radio.mmdvmhost')) {
 		echo '<div class="nav">'."\n";					// Start the Side Menu
 		echo '<script type="text/javascript">'."\n";
