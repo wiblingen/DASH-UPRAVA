@@ -4375,8 +4375,8 @@ if (!empty($_POST)):
                         exec('sudo mv /tmp/sja7hFRkw4euG7.tmp '.$modemConfigFileMMDVMHost);		// Move the file back
                         exec('sudo chmod 644 $modemConfigFileMMDVMHost');				// Set the correct runtime permissions
                         exec('sudo chown root:root $modemConfigFileMMDVMHost');			// Set the owner
-			exec('sudo sed -i "s/NewInstall=1/NewInstall=0/g" '.$modemConfigFileMMDVMHost);			// ZUMspot configured
-			exec("sudo sed -i 's/OnStartupSec=0/OnStartupSec=120/g' /lib/systemd/system/pistar-ap.timer");	// ZUMspot configured
+			exec('sudo sed -i "s/NewInstall=1/NewInstall=0/g" '.$modemConfigFileMMDVMHost);			// ZUMspot/SkyBridge configured
+			exec("sudo sed -i 's/OnStartupSec=0/OnStartupSec=120/g' /lib/systemd/system/pistar-ap.timer");	// ZUMspot/SkyBridge configured
                     }
 		}
         }
