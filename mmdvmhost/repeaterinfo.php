@@ -839,16 +839,16 @@ if (getConfigItem("NXDN", "RAN", $_SESSION['MMDVMHostConfigs'])) {
 	} else {
 	    $NXDNtg = str_replace("TG", "", getActualLink($logLinesNXDNGateway, "NXDN"));
 	    if (strpos($NXDNtg, 'Not Linked') || strpos($NXDNtg, 'Service Not Started')) {
-		echo "<div class='divTableCell cell_content'><div ".GetActiveConnectionStyle($remoteNXDNGResults, "nxdn").">$NXDNtg</div></div>\n";
+		echo "<div class='divTableCell cell_content'>$NXDNtg</div>\n";
 	    } else {
 		if (empty($NXDNtg)) {
 		    echo "<div class='divTableCell cell_content'><div class='inactive-mode-cell'>Not Linked</div></div>\n";
 		} else {
 		    if (file_exists("/etc/.TGNAMES")) {
 			$NXDN_target = preg_replace('#\((.*?)\)#', "<br><small>($1)</small>", tgLookup("NXDN", $NXDNtg));
-			echo "<div class='divTableCell cell_content'><div ".GetActiveConnectionStyle($remoteNXDNGResults, "nxdn").">$NXDN_target</div></div>\n";
+			echo "<div class='divTableCell cell_content'>$NXDN_target</div>\n";
 		    } else {
-			echo "<div class='divTableCell cell_content'><div ".GetActiveConnectionStyle($remoteNXDNGResults, "nxdn").">TG $NXDNtg</div></div>\n";
+			echo "<div class='divTableCell cell_content'>TG $NXDNtg</div>\n";
 		    }
 		}
 	    }
