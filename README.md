@@ -35,8 +35,7 @@ its own beast, so-to-speak.
   a [Facebook Group](https://www.facebook.com/groups/w0chppistardash/) and a
   [Discord Server](https://discord.gg/mjgUky8hze) to get community support, etc. These are the only *official* online support mediums for my software.
 * [<code>XLX-493</code> ; Module <code>E</code>](https://w0chp.net/xlx493-reflector/) is the `W0CHP-PiStar-Dash` Chat Module.
-  A direct DMR conference to this module/room is bridged with BrandMeister 
-  and TGIF Networks; BM: simply call TalkGroup `3170603`, and TGIF: simply call TalkGroup `493`.
+  A direct DMR conference to this module/room is bridged with BrandMeister; simply call TalkGroup `3170603`.
 * **Issue / Bug Tracker and Pull Requests / Patches:**
   * *DO NOT ASK FOR SUPPORT.* Repo and issue tracker access is for developers/hackers and contributors only, as well as *verified* bugs.
   * The issue tracker is *NOT* for:
