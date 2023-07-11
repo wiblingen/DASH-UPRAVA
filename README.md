@@ -290,6 +290,7 @@ If you installed my software over an existing Pi-Star installation, it's super-s
 
 * Upgrade notice/nag in header (unnecessary and a hacky implementation). This has been replaced by my own
   unobtrusive and configurable dashboard update notifier; displayed in the upper-right hand side of the top header.
+* "Upgrade" feature via the dashboard and command line (`pistar-upgrade`) is removed. The "Update" feature via the dashboard and command line (`pistar-update`) takes care of all upgrades/updates.
 * Custom `BannerH2` (etc.) text options have been removed (added clutter and I never used it). Instead, the hostname is displayed in the browser title.
 * "GPS" link in Call Sign column of dashboard (superfluous and unreliable).
 * CPU Temp. in header; when CPU is running "cool" or "normal" recommended temps, the cell background
