@@ -894,14 +894,14 @@ if (!empty($_POST)):
 	  if ($modemMatch && $modemValue === 'sbhsdualbandgpio') { // SkyBridge+ unit
 	      exec('sudo mkdir /tmp/reset/ ; sudo unzip -o /usr/local/bin/.config_skybridge.zip -d /tmp/reset/; sudo mv /tmp/reset/*.php /var/www/dashboard/config/ ; sudo mv /tmp/reset/hostapd.conf /etc/hostapd/ ; sudo mv /tmp/reset/* /etc/ ; sudo rm -rf /tmp/reset');
 	  } elseif ($modemMatch && strpos($modemValue, 'zum') === 0 && strpos($modemValue, 'usb') !== false) { // ZUMRadio USB stick
-	      exec('sudo unzip -o /usr/local/bin/.config_zumusb.zip -d /etc/');
+	      exec('sudo mkdir /tmp/reset/ ; sudo unzip -o /usr/local/bin/.config_zumusb.zip -d /tmp/reset/; sudo mv /tmp/reset/*.php /var/www/dashboard/config/ ; sudo mv /tmp/reset/hostapd.conf /etc/hostapd/ ; sudo mv /tmp/reset/* /etc/ ; sudo rm -rf /tmp/reset');
 	  } elseif ($modemMatch && strpos($modemValue, 'zum') === 0 && strpos($modemValue, 'usb') === false) { // ZUMradio GPIO HAT
 	      switch ($display) {
 	          case "Nextion": // ZUMspot Elite unit
-		      exec('sudo unzip -o /usr/local/bin/.config_zumgpio-nx.zip -d /etc/');
+	      	      exec('sudo mkdir /tmp/reset/ ; sudo unzip -o /usr/local/bin/.config_zumgpio-nx.zip -d /tmp/reset/; sudo mv /tmp/reset/*.php /var/www/dashboard/config/ ; sudo mv /tmp/reset/hostapd.conf /etc/hostapd/ ; sudo mv /tmp/reset/* /etc/ ; sudo rm -rf /tmp/reset');
 	              break;
 	          default: // ZUMspot Mini unit
-		      exec('sudo unzip -o /usr/local/bin/.config_zumgpio-oled.zip -d /etc/');
+	              exec('sudo mkdir /tmp/reset/ ; sudo unzip -o /usr/local/bin/.config_zumgpio-oled.zip -d /tmp/reset/; sudo mv /tmp/reset/*.php /var/www/dashboard/config/ ; sudo mv /tmp/reset/hostapd.conf /etc/hostapd/ ; sudo mv /tmp/reset/* /etc/ ; sudo rm -rf /tmp/reset');
 	              break;
 	      }
 	  } else { // No-match ($modemValue = null): reset w/Generic hardware/setup configs
