@@ -495,7 +495,7 @@ $MYCALL=strtoupper($callsign);
 		document.getElementById("autoApPassForm").submit();
 	}
 	function factoryReset() {
-		if (confirm('WARNING: This will set all your settings back to factory defaults. WiFi setup will be retained to maintain network access to this Pi.\n\nAre you SURE you want to do this?\n\nPress OK to restore the factory configuration\nPress Cancel to go back.')) {
+		if (confirm('WARNING: This will reset all of your settings back to factory defaults. WiFi configuration will be retained to maintain network access to this hotspot.\n\nAre you SURE you want to do this?\n\nPress OK to restore the factory configuration\nPress Cancel to go back.')) {
 			document.getElementById("factoryReset").submit();
 		} else {
 			return false;
@@ -854,8 +854,8 @@ if (!empty($_POST)):
 	  die();
 	}
 
-	// Stop Cron and all serivices
-	system('sudo pistar-services fullstop > /dev/null 2>/dev/null');
+	// Stop Cron and all serivices (also kill NextionDriver for display feedback)
+	system('sudo /usr/local/sbin/nextion-driver-term ; sudo pistar-services fullstop > /dev/null 2>/dev/null');
 
 	echo "<table>\n";
 	echo "<tr><th>Working...</th></tr>\n";
@@ -866,22 +866,61 @@ if (!empty($_POST)):
 	if (empty($_POST['factoryReset']) != TRUE ) {
 	  echo "<br />\n";
           echo "<table>\n";
-          echo "<tr><th>Factory Reset</th></tr>\n";
-          echo "<tr><td>Loading fresh configuration files...</td><tr>\n";
+          echo "<tr><th>Resetting...</th></tr>\n";
+          echo "<tr><td>Loading factory configuration files...</td><tr>\n";
           echo "</table>\n";
           unset($_POST);
 
-	  // Over-write the config files with the clean copies
-	  exec('sudo unzip -o /usr/local/bin/config_clean.zip -d /etc/');
-	  exec('sudo rm -rf /etc/dstar-radio.*');
+	  // vendor handlers for specific hardware stock configs
+	  // we take reset actions based on specific modem vendor devices (and displays) that are already configured
+	  $display = exec("awk -F'=' '/\[General\]/{flag=1} flag && /Display/{print $2; flag=0}' /etc/mmdvmhost");
+	  $fileContents = @file_get_contents('/etc/dstar-radio.mmdvmhost');
+	  preg_match('/^Hardware=(.*)$/m', $fileContents, $matches);
+	  if (isset($matches[1])) {
+	      $modemValue = trim($matches[1]);
+	  } else {
+	      // Handle the case when "Hardware=" is not found, will take no-match action below.
+	      $modemValue = null;
+	  }
+	  $vendorHardwareArray = [
+	      'sbhsdualbandgpio', // SkyBridge dual-band GPIO HAT
+	      'zumspotgpio',      // ZUMspot single-band GPIO HAT
+	      'zumspotusb'  	  // ZUMspot USB stick
+	  ];
+	  $modemMatch = false;
+	  if ($modemValue !== null && in_array($modemValue, $vendorHardwareArray)) {
+	      $modemMatch = true;
+	  }
+	  if ($modemMatch && $modemValue === 'sbhsdualbandgpio') { // SkyBridge+ unit
+	      exec('sudo mkdir /tmp/reset/ ; sudo unzip -o /usr/local/bin/.config_skybridge.zip -d /tmp/reset/; sudo mv /tmp/reset/*.php /var/www/dashboard/config/ ; sudo mv /tmp/reset/hostapd.conf /etc/hostapd/ ; sudo mv /tmp/reset/* /etc/ ; sudo rm -rf /tmp/reset');
+	  } elseif ($modemMatch && strpos($modemValue, 'zum') === 0 && strpos($modemValue, 'usb') !== false) { // ZUMRadio USB stick
+	      exec('sudo unzip -o /usr/local/bin/.config_zumusb.zip -d /etc/');
+	  } elseif ($modemMatch && strpos($modemValue, 'zum') === 0 && strpos($modemValue, 'usb') === false) { // ZUMradio GPIO HAT
+	      switch ($display) {
+	          case "Nextion": // ZUMspot Elite unit
+		      exec('sudo unzip -o /usr/local/bin/.config_zumgpio-nx.zip -d /etc/');
+	              break;
+	          default: // ZUMspot Mini unit
+		      exec('sudo unzip -o /usr/local/bin/.config_zumgpio-oled.zip -d /etc/');
+	              break;
+	      }
+	  } else { // No-match ($modemValue = null): reset w/Generic hardware/setup configs
+	      exec('sudo unzip -o /usr/local/bin/config_clean.zip -d /etc/');
+	      exec('sudo rm -rf /etc/dstar-radio.*');
+	  }
+	  // reset repos
 	  exec('sudo git --work-tree=/usr/local/sbin --git-dir=/usr/local/sbin/.git update-index --assume-unchanged pistar-upnp.service');
 	  exec('sudo git --work-tree=/usr/local/sbin --git-dir=/usr/local/sbin/.git reset --hard origin/master');
 	  exec('sudo git --work-tree=/usr/local/bin --git-dir=/usr/local/bin/.git reset --hard origin/master');
 	  exec('sudo git --work-tree=/var/www/dashboard --git-dir=/var/www/dashboard/.git reset --hard origin/master');
+	  // reset logs
+	  $log_backup_dir = "/home/pi-star/.backup-mmdvmhost-logs/";
+	  $log_dir = "/var/log/pi-star/";
+          exec ("sudo rm -rf $log_dir/* $log_backup_dir/* > /dev/null");
           echo '<script type="text/javascript">setTimeout(function() { window.location=window.location;},5000);</script>';
 	  echo "<br />\n</div>\n";
           echo "<div class=\"footer\">\nPi-Star web config, &copy; Andy Taylor (MW0MWZ) 2014-".date("Y").".<br />\n";
-		  echo '<a href="https://w0chp.net/w0chp-pistar-dash/" style="color: #ffffff; text-decoration:underline;">W0CHP-PiStar-Dash (WPSD)</a> by W0CHP';
+	  echo '<a href="https://w0chp.net/w0chp-pistar-dash/" style="color: #ffffff; text-decoration:underline;">W0CHP-PiStar-Dash (WPSD)</a> by W0CHP';
           echo "<br />\n</div>\n</div>\n</body>\n</html>\n";
 	  die();
 	}
@@ -4365,8 +4404,8 @@ if (!empty($_POST)):
                 fclose($handleModemConfig);
 		if (file_exists('/etc/dstar-radio.dstarrepeater')) {
                     if (fopen($modemConfigFileDStarRepeater,'r')) {
-                        exec('sudo mv /tmp/sja7hFRkw4euG7.tmp '.$modemConfigFileDStarRepeater);	// Move the file back
-                        exec('sudo chmod 644 $modemConfigFileDStarRepeater');			// Set the correct runtime permissions
+                        exec('sudo mv /tmp/sja7hFRkw4euG7.tmp '.$modemConfigFileDStarRepeater);		// Move the file back
+                        exec('sudo chmod 644 $modemConfigFileDStarRepeater');				// Set the correct runtime permissions
                         exec('sudo chown root:root $modemConfigFileDStarRepeater');			// Set the owner
                     }
 		}
@@ -4374,9 +4413,10 @@ if (!empty($_POST)):
                     if (fopen($modemConfigFileMMDVMHost,'r')) {
                         exec('sudo mv /tmp/sja7hFRkw4euG7.tmp '.$modemConfigFileMMDVMHost);		// Move the file back
                         exec('sudo chmod 644 $modemConfigFileMMDVMHost');				// Set the correct runtime permissions
-                        exec('sudo chown root:root $modemConfigFileMMDVMHost');			// Set the owner
-			exec('sudo sed -i "s/NewInstall=1/NewInstall=0/g" '.$modemConfigFileMMDVMHost);			// ZUMspot/SkyBridge configured
-			exec("sudo sed -i 's/OnStartupSec=0/OnStartupSec=120/g' /lib/systemd/system/pistar-ap.timer");	// ZUMspot/SkyBridge configured
+                        exec('sudo chown root:root $modemConfigFileMMDVMHost');				// Set the owner
+			// Vendor-specific hardware/disk images: mark as configured...
+			exec('sudo sed -i "s/NewInstall=1/NewInstall=0/g" '.$modemConfigFileMMDVMHost);			// Vendor-specific HW configured
+			exec("sudo sed -i 's/OnStartupSec=0/OnStartupSec=120/g' /lib/systemd/system/pistar-ap.timer");	// Vendor-specific HW configured
                     }
 		}
         }
