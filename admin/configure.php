@@ -917,6 +917,7 @@ if (!empty($_POST)):
 	  $log_backup_dir = "/home/pi-star/.backup-mmdvmhost-logs/";
 	  $log_dir = "/var/log/pi-star/";
           exec ("sudo rm -rf $log_dir/* $log_backup_dir/* > /dev/null");
+	  system('sudo pistar-services start > /dev/null 2>/dev/null &');
           echo '<script type="text/javascript">setTimeout(function() { window.location=window.location;},5000);</script>';
 	  echo "<br />\n</div>\n";
           echo "<div class=\"footer\">\nPi-Star web config, &copy; Andy Taylor (MW0MWZ) 2014-".date("Y").".<br />\n";
