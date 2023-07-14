@@ -296,7 +296,7 @@ $isNewSkyBridgeInstall = isset($iniData[$section][$key]) && $iniData[$section][$
                     echo '<div class="contentwide">'."\n";
                     echo '<script type="text/javascript">'."\n";
                     echo 'function reloadHwInfo(){'."\n";
-                    echo '  $("#hwInfo").load("/included/hw_info.php",function(){ setTimeout(reloadHwInfo, 15000) });'."\n";
+                    echo '  $("#hwInfo").load("/includes/hw_info.php",function(){ setTimeout(reloadHwInfo, 15000) });'."\n";
                     echo '}'."\n";
                     echo 'setTimeout(reloadHwInfo, 15000);'."\n";
                     echo '$(window).trigger(\'resize\');'."\n";
