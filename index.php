@@ -296,7 +296,7 @@ $isNewSkyBridgeInstall = isset($iniData[$section][$key]) && $iniData[$section][$
                     echo '<div class="contentwide">'."\n";
                     echo '<script type="text/javascript">'."\n";
                     echo 'function reloadHwInfo(){'."\n";
-                    echo '  $("#hwInfo").load("/dstarrepeater/hw_info.php",function(){ setTimeout(reloadHwInfo, 15000) });'."\n";
+                    echo '  $("#hwInfo").load("/included/hw_info.php",function(){ setTimeout(reloadHwInfo, 15000) });'."\n";
                     echo '}'."\n";
                     echo 'setTimeout(reloadHwInfo, 15000);'."\n";
                     echo '$(window).trigger(\'resize\');'."\n";
@@ -310,7 +310,7 @@ $isNewSkyBridgeInstall = isset($iniData[$section][$key]) && $iniData[$section][$
                     echo '</script>'."\n";
                     echo "<div id='hw_info' class='hw_toggle'>\n";
                     echo '<div id="hwInfo">'."\n";
-                    include 'dstarrepeater/hw_info.php';
+                    include 'includes/hw_info.php';
                     echo '</div>'."\n";
                     echo '</div>'."\n";
                     echo '<div id="radioInfo">'."\n";
