@@ -322,20 +322,26 @@ $isNewSkyBridgeInstall = isset($iniData[$section][$key]) && $iniData[$section][$
 
 	// New ZUMspot image?
 	    if ($isNewZumInstall) {
-		echo '<div class="contentwide">'."\n";
-		echo "<H1>New ZUMspot Installation...</H1>\n";
-		echo "<p>You will be redirected to the configuration page in 10 seconds to setup your ZUMspot...</p>\n";
-		echo '<script type="text/javascript">setTimeout(function() { window.location="/admin/configure.php";},10000);</script>'."\n";
+		    echo '<div class="contentwide">'."\n";
+		    echo "<h1>New ZUMspot Installation...</h1>\n";
+		    echo "<p>You will be redirected to the configuration page in 10 seconds to setup your ZUMspot...</p>\n";
+		    echo '<script type="text/javascript">setTimeout(function() { window.location="/admin/configure.php";},10000);</script>'."\n";
 	/*
 	// New SkyBridge image?
 	    } else if ($isNewSkyBridgeInstall) {
-		echo '<div class="contentwide">'."\n";
-		echo "<H1>New SkyBridge Installation...</H1>\n";
-		echo "<p>You will be redirected to the configuration page in 10 seconds to setup your SkyBridge...</p>\n";
-		echo '<script type="text/javascript">setTimeout(function() { window.location="/admin/configure.php";},10000);</script>'."\n";
+		    echo '<div class="contentwide">'."\n";
+		    echo "<h1>New SkyBridge Installation...</h1>\n";
+		    echo "<p>You will be redirected to the configuration page in 10 seconds to setup your SkyBridge...</p>\n";
+		    echo '<script type="text/javascript">setTimeout(function() { window.location="/admin/configure.php";},10000);</script>'."\n";
 	*/
 
-        // First lets figure out if we are in MMDVMHost mode, or dstarrepeater mode;
+        } else if (file_exists('/etc/dstar-radio.dstarrepeater')) { //dstarrepeater migration
+		echo '<div class="contentwide">'."\n";
+		echo "<h1>NOTE: Migration Required...</h1>\n";
+		echo "<p>DSTARrepeater mode is unsupported and has been removed. You will need to re-configure using the (now default) MMDVMHost controller mode.</p>\n";
+		echo "<p>You will be redirected to the configuration page in 30 seconds to setup your installation... Or <a href='admin/configure.php'>configure now...</a></p>\n";
+		echo '<script type="text/javascript">setTimeout(function() { window.location="/admin/configure.php";},30000);</script>'."\n";
+
 	    } else if (file_exists('/etc/dstar-radio.mmdvmhost')) {
 		echo '<div class="nav">'."\n";					// Start the Side Menu
 		echo '<script type="text/javascript">'."\n";

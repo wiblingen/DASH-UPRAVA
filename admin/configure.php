@@ -4528,7 +4528,7 @@ else:
 <?php
     echo '<form id="config" action="'.htmlspecialchars($_SERVER["PHP_SELF"]).'" method="post">';
 ?>
-    <input type="hidden" name="controllerSoftt" value="MMDVM" />
+    <input type="hidden" name="controllerSoft" value="MMDVM" />
     <h2 class="ConfSec"><?php echo $lang['general_config'];?></h2>
     <table>
     <tr>
