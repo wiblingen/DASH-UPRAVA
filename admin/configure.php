@@ -4554,6 +4554,17 @@ else:
       <td align="left" colspan="2"><input type="text" name="nxdnId" size="13" maxlength="5" value="<?php if (isset($configmmdvm['NXDN']['Id'])) { echo $configmmdvm['NXDN']['Id']; } ?>" /></td>
     <td align="left"><a href="https://radioid.net/account/register" target="_new">(Get an NXDN ID from RadioID.Net)</a></td>
     </tr><?php } ?>
+    <tr>
+    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['controller_mode'];?>:<span><b>TRX Mode</b>Choose the mode type Simplex node or Duplex repeater.</span></a></td>
+    <?php
+        if ($configmmdvm['Info']['RXFrequency'] === $configmmdvm['Info']['TXFrequency']) {
+                echo "   <td align=\"left\" colspan=\"3\"><input type=\"radio\" name=\"trxMode\" value=\"SIMPLEX\" checked=\"checked\" /> Simplex  <input type=\"radio\" name=\"trxMode\" value=\"DUPLEX\" /> Duplex </td>\n";
+                }
+        else {
+                echo "   <td align=\"left\" colspan=\"3\"><input type=\"radio\" name=\"trxMode\" value=\"SIMPLEX\" /> Simplex  <input type=\"radio\" name=\"trxMode\" value=\"DUPLEX\" checked=\"checked\" /> Duplex</td>\n";
+                }
+    ?>
+    </tr>
 <?php if ($configmmdvm['Info']['TXFrequency'] === $configmmdvm['Info']['RXFrequency']) {
 	echo "    <tr>\n";
 	echo "    <td align=\"left\"><a class=\"tooltip2\" href=\"#\">".$lang['radio_freq'].":<span><b>Radio Frequency</b>This is the Frequency your<br />hotspot radio is on</span></a></td>\n";
@@ -4572,17 +4583,6 @@ else:
 	}
 ?>
 <?php if ( (file_exists('/etc/dstar-radio.dstarrepeater')) || (file_exists('/etc/dstar-radio.mmdvmhost')) ) { ?>
-    <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['controller_mode'];?>:<span><b>TRX Mode</b>Choose the mode type Simplex node or Duplex repeater.</span></a></td>
-    <?php
-        if ($configmmdvm['Info']['RXFrequency'] === $configmmdvm['Info']['TXFrequency']) {
-                echo "   <td align=\"left\" colspan=\"3\"><input type=\"radio\" name=\"trxMode\" value=\"SIMPLEX\" checked=\"checked\" /> Simplex  <input type=\"radio\" name=\"trxMode\" value=\"DUPLEX\" /> Duplex </td>\n";
-                }
-        else {
-                echo "   <td align=\"left\" colspan=\"3\"><input type=\"radio\" name=\"trxMode\" value=\"SIMPLEX\" /> Simplex  <input type=\"radio\" name=\"trxMode\" value=\"DUPLEX\" checked=\"checked\" /> Duplex</td>\n";
-                }
-    ?>
-    </tr>
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo $lang['radio_type'];?>:<span><b>Radio/Modem</b>What kind of radio or modem hardware do you have?</span></a></td>
     <td align="left" colspan="3"><select name="confHardware" class="confHardware">
