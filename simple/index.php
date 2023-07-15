@@ -322,51 +322,6 @@ if(empty($_POST['func'])) {
 		    }
     		}
 	    }
-	    else if (file_exists('/etc/dstar-radio.dstarrepeater')) {
-                echo '<div class="contentwide">'."\n";
-		include '../dstarrepeater/gateway_software_config.php';		// dstarrepeater gateway config
-		echo '<script type="text/javascript">'."\n";
-		echo 'function reloadrefLinks(){'."\n";
-		echo '  $("#refLinks").load("/dstarrepeater/active_reflector_links.php",function(){ setTimeout(reloadrefLinks,2500) });'."\n";
-		echo '}'."\n";
-		echo 'setTimeout(reloadrefLinks,2500);'."\n";
-		echo '$(window).trigger(\'resize\');'."\n";
-		echo '</script>'."\n";
-		echo '<br />'."\n";
-		echo '<div id="refLinks">'."\n";
-		include '../dstarrepeater/active_reflector_links.php';		// dstarrepeater gateway config
-		echo '</div>'."\n";
-		
-		echo '<script type="text/javascript">'."\n";
-		echo 'function reloadccsConnections(){'."\n";
-		echo '  $("#ccsConnects").load("/dstarrepeater/ccs_connections.php",function(){ setTimeout(reloadccsConnections,15000) });'."\n";
-		echo '}'."\n";
-		echo 'setTimeout(reloadccsConnections,15000);'."\n";
-		echo '$(window).trigger(\'resize\');'."\n";
-		echo '</script>'."\n";
-		echo '<div id="ccsConnects">'."\n";
-		include '../dstarrepeater/ccs_connections.php';			// dstarrepeater gateway config
-		echo '</div>'."\n";
-		
-		echo '<script type="text/javascript">'."\n";
-		echo 'function reloadLocalTx(){'."\n";
-		echo '  $("#localTx").load("/dstarrepeater/local_tx.php",function(){ setTimeout(reloadLocalTx,3000) });'."\n";
-		echo '}'."\n";
-		echo 'setTimeout(reloadLocalTx,3000);'."\n";
-		echo 'function reloadLastHeard(){'."\n";
-		echo '  $("#lhdstar").load("/dstarrepeater/last_heard.php",function(){ setTimeout(reloadLastHeard,3000) });'."\n";
-		echo '}'."\n";
-		echo 'setTimeout(reloadLastHeard,3000);'."\n";
-		echo '$(window).trigger(\'resize\');'."\n";
-		echo '</script>'."\n";
-		echo '<div id="lhdstar">'."\n";
-		include '../dstarrepeater/last_heard.php';				//dstarrepeater Last Heard
-		echo '</div>'."\n";
-		echo "<br />\n";
-		echo '<div id="localTx">'."\n";
-		include '../dstarrepeater/local_tx.php';				//dstarrepeater Local Transmissions
-		echo '</div>'."\n";
-		echo '<br />'."\n";
 	    } else {
 		echo '<div class="contentwide">'."\n";
 		//We dont know what mode we are in - fail...

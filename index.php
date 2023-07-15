@@ -324,14 +324,14 @@ $isNewSkyBridgeInstall = isset($iniData[$section][$key]) && $iniData[$section][$
 	    if ($isNewZumInstall) {
 		echo '<div class="contentwide">'."\n";
 		echo "<H1>New ZUMspot Installation...</H1>\n";
-		echo "<p>You will be redirected to the configuration portal in 10 seconds to setup your ZUMspot...</p>\n";
+		echo "<p>You will be redirected to the configuration page in 10 seconds to setup your ZUMspot...</p>\n";
 		echo '<script type="text/javascript">setTimeout(function() { window.location="/admin/configure.php";},10000);</script>'."\n";
 	/*
 	// New SkyBridge image?
 	    } else if ($isNewSkyBridgeInstall) {
 		echo '<div class="contentwide">'."\n";
 		echo "<H1>New SkyBridge Installation...</H1>\n";
-		echo "<p>You will be redirected to the configuration portal in 10 seconds to setup your SkyBridge...</p>\n";
+		echo "<p>You will be redirected to the configuration page in 10 seconds to setup your SkyBridge...</p>\n";
 		echo '<script type="text/javascript">setTimeout(function() { window.location="/admin/configure.php";},10000);</script>'."\n";
 	*/
 
@@ -418,26 +418,26 @@ $isNewSkyBridgeInstall = isset($iniData[$section][$key]) && $iniData[$section][$
 		    if ($_SERVER["PHP_SELF"] == "/admin/index.php" && $_POST["func"] == "ds_man" || $_GET["func"] == "ds_man") {	// Admin Only Option (D-Star Mgr)
 			echo '<script type="text/javascript">'."\n";
 			echo 'function reloadrefLinks(){'."\n";
-			echo '  $("#refLinks").load("/dstarrepeater/active_reflector_links.php",function(){ setTimeout(reloadrefLinks,2500) });'."\n";
+			echo '  $("#refLinks").load("/mmdvmhost/dstar_reflector_links.php",function(){ setTimeout(reloadrefLinks,2500) });'."\n";
 			echo '}'."\n";
 			echo 'setTimeout(reloadrefLinks,2500);'."\n";
 			echo '$(window).trigger(\'resize\');'."\n";
 			echo '</script>'."\n";
 			echo '<div id="refLinks">'."\n";
-			include 'dstarrepeater/active_reflector_links.php';	// dstarrepeater gateway config
+			include 'mmdvmhost/dstar_reflector_links.php';
 			echo '</div>'."\n";
-			include 'dstarrepeater/link_manager.php';		// D-Star Link Manager
+			include 'admin/dstar_link_manager.php';		// D-Star Link Manager
 		    }
 		    
 		    echo '<script type="text/javascript">'."\n";
 		    echo 'function reloadccsConnections(){'."\n";
-		    echo '  $("#ccsConnects").load("/dstarrepeater/ccs_connections.php",function(){ setTimeout(reloadccsConnections,15000) });'."\n";
+		    echo '  $("#ccsConnects").load("/mmdvmhost/dstar_ccs_connections.php",function(){ setTimeout(reloadccsConnections,15000) });'."\n";
 		    echo '}'."\n";
 		    echo 'setTimeout(reloadccsConnections,15000);'."\n";
 		    echo '$(window).trigger(\'resize\');'."\n";
 		    echo '</script>'."\n";
 		    echo '<div id="ccsConnects">'."\n";
-		    include 'dstarrepeater/ccs_connections.php';			// dstarrepeater gateway config
+		    include 'mmdvmhost/ccs_connections.php';
 		    echo '</div>'."\n";
 		}
 		if ($_SERVER["PHP_SELF"] == "/admin/index.php" && $_POST["func"] == "mode_man" || $_GET["func"] == "mode_man") {	// Admin Only Option (instant mode mgr)	
@@ -570,14 +570,14 @@ $isNewSkyBridgeInstall = isset($iniData[$section][$key]) && $iniData[$section][$
 		echo '<div class="contentwide">'."\n";
 	    	echo '<script type="text/javascript">'."\n";
 	    	echo 'function reloadSysInfo(){'."\n";
-	    	echo '  $("#sysInfo").load("/dstarrepeater/system.php",function(){ setTimeout(reloadSysInfo,5000) });'."\n";
+	    	echo '  $("#sysInfo").load("/includes/system.php",function(){ setTimeout(reloadSysInfo,5000) });'."\n";
 	    	echo '}'."\n";
 	    	echo 'setTimeout(reloadSysInfo,5000);'."\n";
 	    	echo '$(window).trigger(\'resize\');'."\n";
 	    	echo '</script>'."\n";
 	    	if ($_GET['func'] == "main") {				// only show services on main admin page
 		    echo '<div id="sysInfo">'."\n";
-		    include 'dstarrepeater/system.php';				// Basic System Info
+		    include 'includes/system.php';				// Basic System Info
 		    echo '</div></div>'."\n";
                 }
             }
@@ -829,66 +829,16 @@ $isNewSkyBridgeInstall = isset($iniData[$section][$key]) && $iniData[$section][$
 		    echo '</div>'."\n";
 		}
 	    }
-    }
-	    else if (file_exists('/etc/dstar-radio.dstarrepeater')) {
-		echo '<div class="contentwide">'."\n";
-		include 'dstarrepeater/gateway_software_config.php';		// dstarrepeater gateway config
-		echo '<script type="text/javascript">'."\n";
-		echo 'function reloadrefLinks(){'."\n";
-		echo '  $("#refLinks").load("/dstarrepeater/active_reflector_links.php",function(){ setTimeout(reloadrefLinks,2500) });'."\n";
-		echo '}'."\n";
-		echo 'setTimeout(reloadrefLinks,2500);'."\n";
-		echo '$(window).trigger(\'resize\');'."\n";
-		echo '</script>'."\n";
-		echo '<br />'."\n";
-		echo '<div id="refLinks">'."\n";
-		include 'dstarrepeater/active_reflector_links.php';		// dstarrepeater gateway config
-		echo '</div>'."\n";
-		if ($_SERVER["PHP_SELF"] == "/admin/index.php") {        // Admin Only Option (D-Star Mgr)
-		    include 'dstarrepeater/link_manager.php';		// D-Star Link Manager
-		    echo "<br />\n";
-		}
-		
-		echo '<script type="text/javascript">'."\n";
-		echo 'function reloadccsConnections(){'."\n";
-		echo '  $("#ccsConnects").load("/dstarrepeater/ccs_connections.php",function(){ setTimeout(reloadccsConnections,15000) });'."\n";
-		echo '}'."\n";
-		echo 'setTimeout(reloadccsConnections,15000);'."\n";
-		echo '$(window).trigger(\'resize\');'."\n";
-		echo '</script>'."\n";
-		echo '<div id="ccsConnects">'."\n";
-		include 'dstarrepeater/ccs_connections.php';			// dstarrepeater gateway config
-		echo '</div>'."\n";
-		
-		echo '<script type="text/javascript">'."\n";
-		echo 'function reloadLocalTx(){'."\n";
-		echo '  $("#localTx").load("/dstarrepeater/local_tx.php",function(){ setTimeout(reloadLocalTx,3000) });'."\n";
-		echo '}'."\n";
-		echo 'setTimeout(reloadLocalTx,3000);'."\n";
-		echo 'function reloadLastHeard(){'."\n";
-		echo '  $("#lhdstar").load("/dstarrepeater/last_heard.php",function(){ setTimeout(reloadLastHeard,3000) });'."\n";
-		echo '}'."\n";
-		echo 'setTimeout(reloadLastHeard,3000);'."\n";
-		echo '$(window).trigger(\'resize\');'."\n";
-		echo '</script>'."\n";
-		echo '<div id="lhdstar">'."\n";
-		include 'dstarrepeater/last_heard.php';				//dstarrepeater Last Heard
-		echo '</div>'."\n";
-		echo "<br />\n";
-		echo '<div id="localTx">'."\n";
-		include 'dstarrepeater/local_tx.php';				//dstarrepeater Local Transmissions
-		echo '</div>'."\n";
-		echo '<br />'."\n";
-            }
-	    else {
-		echo '<div class="contentwide">'."\n";
-		//We dont know what mode we are in - fail...
-		echo "<H1>No Mode Defined...</H1>\n";
-		echo "<p>I don't know what mode I am in, you probably just need to configure me.</p>\n";
-		echo "<p>You will be redirected to the configuration portal in 10 seconds...</p>\n";
-		echo '<script type="text/javascript">setTimeout(function() { window.location="/admin/configure.php";},10000);</script>'."\n";
-	    }
-	    ?>
+        }
+	else {
+	    echo '<div class="contentwide">'."\n";
+	    // Instance not configured...
+	    echo "<h1>New Installation...</h1>\n";
+	    echo "<p>Your installation needs to be configured.</p>\n";
+	    echo "<p>You will be redirected to the configuration page in 10 seconds...</p>\n";
+	    echo '<script type="text/javascript">setTimeout(function() { window.location="/admin/configure.php";},10000);</script>'."\n";
+	}
+	?>
 	</div>
 	
 	<div class="footer">
