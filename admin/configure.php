@@ -4522,12 +4522,13 @@ else:
     }
 ?>
 <form id="factoryReset" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-	<div><input type="hidden" name="factoryReset" value="1" /></div>
+	<input type="hidden" name="factoryReset" value="1" />
 </form>
 
 <?php
     echo '<form id="config" action="'.htmlspecialchars($_SERVER["PHP_SELF"]).'" method="post">';
 ?>
+    <input type="hidden" name="controllerSoftt" value="MMDVM" />
     <h2 class="ConfSec"><?php echo $lang['general_config'];?></h2>
     <table>
     <tr>
