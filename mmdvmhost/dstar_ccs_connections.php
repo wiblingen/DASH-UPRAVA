@@ -76,8 +76,7 @@ for($i = 1;$i < 6; $i++) {
     }
 }
 if($stn_is_set > 0) {
-    include_once $_SERVER['DOCUMENT_ROOT'].'/dstarrepeater/active_starnet_groups.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/mmdvmhost/active_starnet_groups.php';
 }
 ?>
 
-	

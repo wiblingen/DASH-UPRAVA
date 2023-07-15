@@ -45,7 +45,7 @@ $lang = array (
   "cpu_temp"                    =>  "CPU Temp",
   // Config Page - Control Software
   "controller_software"         =>  "Controller Software",
-  "controller_mode"             =>  "Controller Mode",
+  "controller_mode"             =>  "Radio Mode",
   // Config Page - MMDVMHost Configuration
   "dmr_mode"                    =>  "DMR Mode",
   "d-star_mode"                 =>  "D-Star Mode",

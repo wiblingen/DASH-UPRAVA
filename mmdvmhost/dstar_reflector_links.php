@@ -24,10 +24,10 @@ if (isset($_SESSION['CSSConfigs']['Background'])) {
 <table id="activeLinks">
     <tr>
 	<th><a class="tooltip" href="#">Radio<span><b>Radio Module</b></span></a></th>
-	<th><a class="tooltip" href="#">Default<span><b>Default Link Destination</b></span></a></th>
-	<th><a class="tooltip" href="#">Auto<span><b>Automatic Link Connection</b></span></a></th>
+	<th><a class="tooltip" href="#">Default Ref.<span><b>Default Link Destination</b></span></a></th>
+	<th><a class="tooltip" href="#">Auto-Link<span><b>Automatic Link Connection</b></span></a></th>
 	<th><a class="tooltip" href="#">Timer<span><b>Reset/Restart Timer</b></span></a></th>
-	<th><a class="tooltip" href="#">Link<span><b>Link Status</b></span></a></th>
+	<th><a class="tooltip" href="#">Link Status<span><b>Link Status</b></span></a></th>
 	<th><a class="tooltip" href="#">Linked to<span><b>Linked Destination</b></span></a></th>
 	<th><a class="tooltip" href="#">Mode<span><b>Mode or Protocol used</b></span></a></th>
 	<th><a class="tooltip" href="#">Direction<span><b>Direction of Connection</b></span></a></th>
@@ -69,7 +69,7 @@ if (isset($_SESSION['CSSConfigs']['Background'])) {
 		print "<td><span title='Yes' class='green_dot style='font-weight:bold;'></span></td>";
 	    }
 	    else {
-		print "<td><span title='No' class='$red_dot' style='font-weight:bold;'></span></td>";
+		print "<td><span title='No' class='red_dot' style='font-weight:bold;'></span></td>";
 	    }
 	    $param="reconnect" . $i;
 	    if(isset($_SESSION['ircDDBConfigs'][$param])) {
@@ -86,7 +86,7 @@ if (isset($_SESSION['CSSConfigs']['Background'])) {
 	    if (file_exists($linkLogPath) && (($linkLog = fopen($linkLogPath,'r')))) {
 		while ($linkLine = fgets($linkLog)) {
 		    $statimg = "Down";
-		    $color = "red_dot";
+		    $color    = "red_dot";
                     $linkDate = "&nbsp;";
                     $protocol = "&nbsp;";
                     $linkType = "&nbsp;";
@@ -138,7 +138,7 @@ if (isset($_SESSION['CSSConfigs']['Background'])) {
 	    if (file_exists($linkLogPath)  && ($linkLog = fopen($linkLogPath,'r'))) {
 		while ($linkLine = fgets($linkLog)) {
 		    $statimg = "Down";
-		    $color = "red_dot";
+		    $color   = "red_dot";
                     $linkDate = "&nbsp;";
                     $protocol = "&nbsp;";
                     $linkType = "&nbsp;";
@@ -189,7 +189,7 @@ if (isset($_SESSION['CSSConfigs']['Background'])) {
             if (file_exists($linkLogPath) && ($linkLog = fopen($linkLogPath,'r'))) {
                 while ($linkLine = fgets($linkLog)) {
                     $statimg = "Down";
-		    $color = "red_dot";
+		    $color   = "red_dot";
                     $linkDate = "&nbsp;";
                     $protocol = "&nbsp;";
                     $linkType = "&nbsp;";

@@ -62,7 +62,6 @@ function checkSessionValidity() {
 
     }
 
-    loadSessionConfigFile('DStarRepeaterConfigs', '/etc/dstarrepeater');
     loadSessionConfigFile('DMRGatewayConfigs', '/etc/dmrgateway');
     loadSessionConfigFile('YSFGatewayConfigs', '/etc/ysfgateway');
     loadSessionConfigFile('DGIdGatewayConfigs', '/etc/dgidgateway');
