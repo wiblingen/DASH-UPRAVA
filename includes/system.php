@@ -45,7 +45,7 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/mmdvmhost/tools.php';
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('NXDNParrot')); ?>">NXDNParrot</div> 
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('NXDN2DMR')); ?>">NXDN2DMR</div> 
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('APRSGateway')); ?>">APRSGateway</div>
-  <div class="grid-item <?php getServiceStatusClass(isProcessRunning('dstarrepeaterd')); ?>">D-Star Repeater</div> 
+  <div class="grid-item <?php getServiceStatusClass(isProcessRunning('systemd-timesyncd')); ?>">TimeSync Service</div> 
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('YSFParrot')); ?>">YSFParrot</div>
 
   <div class="grid-item <?php getServiceStatusClass(autoAPenabled()); ?>">Auto AP</div>
