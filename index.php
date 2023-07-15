@@ -437,7 +437,7 @@ $isNewSkyBridgeInstall = isset($iniData[$section][$key]) && $iniData[$section][$
 		    echo '$(window).trigger(\'resize\');'."\n";
 		    echo '</script>'."\n";
 		    echo '<div id="ccsConnects">'."\n";
-		    include 'mmdvmhost/ccs_connections.php';
+		    include 'mmdvmhost/dstar_ccs_connections.php';
 		    echo '</div>'."\n";
 		}
 		if ($_SERVER["PHP_SELF"] == "/admin/index.php" && $_POST["func"] == "mode_man" || $_GET["func"] == "mode_man") {	// Admin Only Option (instant mode mgr)	
