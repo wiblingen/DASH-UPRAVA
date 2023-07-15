@@ -16,7 +16,6 @@ unset($_SESSION['DAPNETAPIKeyConfigs']);
 unset($_SESSION['PiStarRelease']);
 unset($_SESSION['MMDVMHostConfigs']);
 unset($_SESSION['ircDDBConfigs']);
-unset($_SESSION['DStarRepeaterConfigs']);
 unset($_SESSION['DMRGatewayConfigs']);
 unset($_SESSION['YSFGatewayConfigs']);
 unset($_SESSION['DGIdGatewayConfigs']);
@@ -163,7 +162,6 @@ if (file_exists('/etc/dstar-radio.dstarrepeater')) {
 	$modemConfigFileDStarRepeater = '/etc/dstar-radio.dstarrepeater';
 	if (fopen($modemConfigFileDStarRepeater,'r')) { $configModem = parse_ini_file($modemConfigFileDStarRepeater, true); }
 }
-
 if (file_exists('/etc/dstar-radio.mmdvmhost')) {
 	$modemConfigFileMMDVMHost = '/etc/dstar-radio.mmdvmhost';
 	if (fopen($modemConfigFileMMDVMHost,'r')) { $configModem = parse_ini_file($modemConfigFileMMDVMHost, true); }
@@ -946,7 +944,6 @@ if (!empty($_POST)):
 	// Change Radio Control Software
 	if (empty($_POST['controllerSoft']) != TRUE ) {
 	  system('sudo rm -rf /etc/dstar-radio.*');
-	  if (escapeshellcmd($_POST['controllerSoft']) == 'DSTAR') { system('sudo touch /etc/dstar-radio.dstarrepeater'); }
 	  if (escapeshellcmd($_POST['controllerSoft']) == 'MMDVM') { system('sudo touch /etc/dstar-radio.mmdvmhost'); }
 	}
 
@@ -4403,13 +4400,6 @@ if (!empty($_POST)):
 	else {
                 $success = fwrite($handleModemConfig, $configModemContent);
                 fclose($handleModemConfig);
-		if (file_exists('/etc/dstar-radio.dstarrepeater')) {
-                    if (fopen($modemConfigFileDStarRepeater,'r')) {
-                        exec('sudo mv /tmp/sja7hFRkw4euG7.tmp '.$modemConfigFileDStarRepeater);		// Move the file back
-                        exec('sudo chmod 644 $modemConfigFileDStarRepeater');				// Set the correct runtime permissions
-                        exec('sudo chown root:root $modemConfigFileDStarRepeater');			// Set the owner
-                    }
-		}
 		if (file_exists('/etc/dstar-radio.mmdvmhost')) {
                     if (fopen($modemConfigFileMMDVMHost,'r')) {
                         exec('sudo mv /tmp/sja7hFRkw4euG7.tmp '.$modemConfigFileMMDVMHost);		// Move the file back
@@ -4531,45 +4521,13 @@ else:
     }
 ?>
 <form id="factoryReset" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-	<div><input type="hidden" name="factoryReset" value="1" /></div>
+	<input type="hidden" name="factoryReset" value="1" />
 </form>
 
 <?php
     echo '<form id="config" action="'.htmlspecialchars($_SERVER["PHP_SELF"]).'" method="post">';
 ?>
-    <h2 class="ConfSec"><?php echo $lang['control_software'];?></h2>
-    <table>
-    <tr>
-    <th width="200"><a class="tooltip" href="#"><?php echo $lang['setting'];?><span><b>Setting</b></span></a></th>
-    <th colspan="2"><a class="tooltip" href="#"><?php echo $lang['value'];?><span><b>Value</b>The current value from<br />the configuration files</span></a></th>
-    </tr>
-    <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['controller_software'];?>:<span><b>Radio Control Software</b>Choose the software used to control the DV Radio Module.</span></a></td>
-    <?php
-	if (file_exists('/etc/dstar-radio.mmdvmhost')) {
-		echo "   <td align=\"left\" colspan=\"2\"><input type=\"radio\" name=\"controllerSoft\" value=\"MMDVM\" checked=\"checked\" /> MMDVMHost | <input type=\"radio\" name=\"controllerSoft\" value=\"DSTAR\" onclick=\"alert('After applying your Configuration Settings, you will need to powercycle your Pi.');\" /> DStarRepeater</td>\n";
-		}
-	elseif (file_exists('/etc/dstar-radio.dstarrepeater')) {
-		echo "   <td align=\"left\" colspan=\"2\"><input type=\"radio\" name=\"controllerSoft\" value=\"MMDVM\" onclick=\"alert('After applying your Configuration Settings, you will need to powercycle your Pi.');\" /> MMDVMHost | <input type=\"radio\" name=\"controllerSoft\" value=\"DSTAR\" onclick=\"alert('After applying your Configuration Settings, you will need to powercycle your Pi.');\" /> DStarRepeater | </td>\n";
-	}
-	else { // Not set - default to MMDVMHost
-		echo "   <td align=\"left\" colspan=\"2\"><input type=\"radio\" name=\"controllerSoft\" value=\"MMDVM\" checked=\"checked\" /> MMDVMHost | <input type=\"radio\" name=\"controllerSoft\" value=\"DSTAR\" onclick=\"alert('After applying your Configuration Settings, you will need to powercycle your Pi.');\" /> DStarRepeater</td>\n";
-	}
-    ?>
-    </tr>
-    <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['controller_mode'];?>:<span><b>TRX Mode</b>Choose the mode type Simplex node or Duplex repeater.</span></a></td>
-    <?php
-	if ($configmmdvm['Info']['RXFrequency'] === $configmmdvm['Info']['TXFrequency']) {
-		echo "   <td align=\"left\" colspan=\"2\"><input type=\"radio\" name=\"trxMode\" value=\"SIMPLEX\" checked=\"checked\" /> Simplex | <input type=\"radio\" name=\"trxMode\" value=\"DUPLEX\" /> Duplex </td>\n";
-		}
-	else {
-		echo "   <td align=\"left\" colspan=\"2\"><input type=\"radio\" name=\"trxMode\" value=\"SIMPLEX\" /> Simplex | <input type=\"radio\" name=\"trxMode\" value=\"DUPLEX\" checked=\"checked\" /> Duplex</td>\n";
-		}
-    ?>
-    </tr>
-    </table>
-    <div><input type="button" value="<?php echo $lang['apply'];?>" onclick="submitform()" /><br /><br /></div>
+    <input type="hidden" name="controllerSoft" value="MMDVM" />
     <h2 class="ConfSec"><?php echo $lang['general_config'];?></h2>
     <table>
     <tr>
@@ -4596,6 +4554,17 @@ else:
       <td align="left" colspan="2"><input type="text" name="nxdnId" size="13" maxlength="5" value="<?php if (isset($configmmdvm['NXDN']['Id'])) { echo $configmmdvm['NXDN']['Id']; } ?>" /></td>
     <td align="left"><a href="https://radioid.net/account/register" target="_new">(Get an NXDN ID from RadioID.Net)</a></td>
     </tr><?php } ?>
+    <tr>
+    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['controller_mode'];?>:<span><b>TRX Mode</b>Choose the mode type Simplex node or Duplex repeater.</span></a></td>
+    <?php
+        if ($configmmdvm['Info']['RXFrequency'] === $configmmdvm['Info']['TXFrequency']) {
+                echo "   <td align=\"left\" colspan=\"3\"><input type=\"radio\" name=\"trxMode\" value=\"SIMPLEX\" checked=\"checked\" /> Simplex  <input type=\"radio\" name=\"trxMode\" value=\"DUPLEX\" /> Duplex </td>\n";
+                }
+        else {
+                echo "   <td align=\"left\" colspan=\"3\"><input type=\"radio\" name=\"trxMode\" value=\"SIMPLEX\" /> Simplex  <input type=\"radio\" name=\"trxMode\" value=\"DUPLEX\" checked=\"checked\" /> Duplex</td>\n";
+                }
+    ?>
+    </tr>
 <?php if ($configmmdvm['Info']['TXFrequency'] === $configmmdvm['Info']['RXFrequency']) {
 	echo "    <tr>\n";
 	echo "    <td align=\"left\"><a class=\"tooltip2\" href=\"#\">".$lang['radio_freq'].":<span><b>Radio Frequency</b>This is the Frequency your<br />hotspot radio is on</span></a></td>\n";

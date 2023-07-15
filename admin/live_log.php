@@ -21,9 +21,6 @@ if ($_SERVER["PHP_SELF"] == "/admin/live_log.php") {
 	case "MMDVMHost":
 	    $logfile = "/var/log/pi-star/MMDVM-".gmdate('Y-m-d').".log";
 	    break;
-	case "DStarRepeater":
-	    $logfile = "/var/log/pi-star/DStarRepeater-".gmdate('Y-m-d').".log";
-	    break;
 	case "DMRGateway":
 	    $logfile = "/var/log/pi-star/DMRGateway-".gmdate('Y-m-d').".log";
 	    break;
@@ -177,7 +174,6 @@ if ($_SERVER["PHP_SELF"] == "/admin/live_log.php") {
    <b>Select a log to view:</b>
     <select name="log" value="log">
 	<option name="MMDVMHost">MMDVMHost</option>
-	<option name="DStarRepeater">DStarRepeater</option>
 	<option name="ircDDBGateway">ircDDBGateway</option>
 	<option name="DMRGateway">DMRGateway</option>
 	<option name="YSFGateway">YSFGateway</option>
@@ -215,7 +211,6 @@ if ($_SERVER["PHP_SELF"] == "/admin/live_log.php") {
   <b>Select a log to view:</b>
     <select name="log" value="log">
 	<option name="MMDVMHost" <?php if ($log == "MMDVMHost") { echo "selected='selected'"; } ?>>MMDVMHost</option>
-	<option name="DStarRepeater" <?php if ($log == "DStarRepeater") { echo "selected='selected'"; } ?>>DStarRepeater</option>
         <option name="ircDDBGateway" <?php if ($log == "ircDDBGateway") { echo "selected='selected'"; } ?>>ircDDBGateway</option>
         <option name="DMRGateway" <?php if ($log == "DMRGateway") { echo "selected='selected'"; } ?>>DMRGateway</option>
         <option name="YSFGateway" <?php if ($log == "YSFGateway") { echo "selected='selected'"; } ?>>YSFGateway</option>
