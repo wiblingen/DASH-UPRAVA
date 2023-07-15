@@ -288,6 +288,7 @@ If you installed my software over an existing Pi-Star installation, it's super-s
 
 ### Features in Official Pi-Star Which are Intentionally Omitted in `W0CHP-PiStar-Dash`
 
+* DSTARrepeater mode/controller type removed: WPSD operates in the more modern and updated/supported MMDVM mode only, and the legacy DSTARrepeater functionality is gone. You can still run WPSD as a D-Star hotspot/repeater, of course.
 * Upgrade notice/nag in header (unnecessary and a hacky implementation). This has been replaced by my own
   unobtrusive and configurable dashboard update notifier; displayed in the upper-right hand side of the top header.
 * "Upgrade" feature via the dashboard and command line (`pistar-upgrade`) is removed. The "Update" feature via the dashboard and command line (`pistar-update`) takes care of all upgrades/updates.
