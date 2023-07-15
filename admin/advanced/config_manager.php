@@ -92,7 +92,6 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
                             	   exec("sudo cp /etc/aprsgateway $backupDir > /dev/null")."\n";
                             	   exec("sudo cp /etc/ircddbgateway $backupDir > /dev/null")."\n";
                             	   exec("sudo cp /etc/mmdvmhost $backupDir > /dev/null")."\n";
-                            	   exec("sudo cp /etc/dstarrepeater $backupDir > /dev/null")."\n";
                             	   exec("sudo cp /etc/dapnetgateway $backupDir > /dev/null")."\n";
                             	   exec("sudo cp /etc/pistar-css.ini $backupDir > /dev/null");
                             	   exec("sudo cp /etc/p25gateway $backupDir > /dev/null")."\n";

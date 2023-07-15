@@ -248,10 +248,6 @@ function timesyncdProc() {
 			$DGIdGateway_Ver = exec('/usr/local/bin/DGIdGateway -v | cut -d\' \' -f 3-');
 			echo "  <tr>";getStatusClass(isProcessRunning("DGIdGateway"), true); echo "DGIdGateway</td><td align=\"left\">".$DGIdGateway_Ver."</td></tr>\n";
 		    }
-		    if (is_executable('/usr/local/bin/dstarrepeaterd')) {
-			$dstarrepeater_Ver = $_SESSION['PiStarRelease']['Pi-Star']['dstarrepeater'];
-			echo "  <tr>";getStatusClass(isProcessRunning("dstarrepeaterd"), true); echo "dstarrepeaterd</td><td align=\"left\">".$dstarrepeater_Ver."</td></tr>\n";
-		    }
 		    if (is_executable('/usr/local/bin/ircddbgatewayd')) {
 			$ircDDBGateway_Ver = $_SESSION['PiStarRelease']['Pi-Star']['ircddbgateway'];
 			echo "  <tr>";getStatusClass(isProcessRunning("ircddbgatewayd"), true); echo "ircDDBGateway</td><td align=\"left\">".$ircDDBGateway_Ver."</td></tr>\n";

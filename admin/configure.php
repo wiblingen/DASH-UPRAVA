@@ -16,7 +16,6 @@ unset($_SESSION['DAPNETAPIKeyConfigs']);
 unset($_SESSION['PiStarRelease']);
 unset($_SESSION['MMDVMHostConfigs']);
 unset($_SESSION['ircDDBConfigs']);
-unset($_SESSION['DStarRepeaterConfigs']);
 unset($_SESSION['DMRGatewayConfigs']);
 unset($_SESSION['YSFGatewayConfigs']);
 unset($_SESSION['DGIdGatewayConfigs']);
