@@ -26,13 +26,13 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/mmdvmhost/tools.php';
   <?php } ?>
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('MMDVMHost')); ?>">MMDVMHost</div>
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('DMRGateway')); ?>">DMRGateway</div>
-  <div class="grid-item <?php getServiceStatusClass(isProcessRunning('ircddbgatewayd')); ?>">ircDDBGateway</div>  
+  <div class="grid-item <?php getServiceStatusClass(isProcessRunning('ircddbgatewayd')); ?>">ircDDBGateway (D-Star)</div>  
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('YSFGateway')); ?>">YSFGateway</div>
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('YSF2DMR')); ?>">YSF2DMR</div>
   <?php if (getPSRState()=='0' ) { ?>
-  <div class='grid-item paused-mode-cell' title="Disabled">Pi-Star Remote</div>
+  <div class='grid-item paused-mode-cell' title="Disabled">RF Remote Control</div>
   <?php } else { ?>
-  <div class="grid-item <?php getServiceStatusClass(isProcessRunning('/usr/local/sbin/pistar-remote',true)); ?>">Pi-Star Remote</div> 
+  <div class="grid-item <?php getServiceStatusClass(isProcessRunning('/usr/local/sbin/pistar-remote',true)); ?>">RF Remote Control</div> 
   <?php } ?>
 
   <?php if (getCronState()=='0' ) { ?>
@@ -45,24 +45,24 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/mmdvmhost/tools.php';
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('NXDNParrot')); ?>">NXDNParrot</div> 
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('NXDN2DMR')); ?>">NXDN2DMR</div> 
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('APRSGateway')); ?>">APRSGateway</div>
-  <div class="grid-item <?php getServiceStatusClass(isProcessRunning('/lib/systemd/systemd-timesyncd',true)); ?>">TimeSync Service</div> 
+  <div class="grid-item <?php getServiceStatusClass(isProcessRunning('/lib/systemd/systemd-timesyncd',true)); ?>">Time Sync Service</div> 
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('YSFParrot')); ?>">YSFParrot</div>
 
   <div class="grid-item <?php getServiceStatusClass(autoAPenabled()); ?>">Auto AP</div>
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('P25Gateway')); ?>">P25Gateway</div> 
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('P25Parrot')); ?>">P25Parrot</div> 
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('DAPNETGateway')); ?>">DAPNETGateway</div> 
-  <div class="grid-item <?php getServiceStatusClass(isProcessRunning('timeserverd')); ?>">TimeServer</div>
+  <div class="grid-item <?php getServiceStatusClass(isProcessRunning('timeserverd')); ?>">TimeServer (D-Star)</div>
   <?php if (getPSWstate()=='0' ) { ?>
-  <div class='grid-item paused-mode-cell' title="Disabled">Pi-Star Watchdog</div>
+  <div class='grid-item paused-mode-cell' title="Disabled">Service Watchdog</div>
   <?php } else { ?>
-  <div class="grid-item <?php getServiceStatusClass(isProcessRunning('/usr/local/sbin/pistar-watchdog',true)); ?>">Pi-Star Watchdog</div> 
+  <div class="grid-item <?php getServiceStatusClass(isProcessRunning('/usr/local/sbin/pistar-watchdog',true)); ?>">Service Watchdog</div> 
   <?php } ?>
 
   <div class="grid-item <?php getServiceStatusClass(UPnPenabled()); ?>">UPnP</div>  
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('gpsd'));  ?>">GPSd</div>  
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('NextionDriver'));  ?>">NextionDriver</div>  
-  <div class="grid-item <?php getServiceStatusClass(isProcessRunning('/usr/local/sbin/pistar-keeper',true)); ?>">PiStar-Keeper</div>
+  <div class="grid-item <?php getServiceStatusClass(isProcessRunning('/usr/local/sbin/pistar-keeper',true)); ?>">Sysop/Keeper Service</div>
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('DGIdGateway')); ?>">DGIdGateway</div> 
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('DMR2YSF')); ?>">DMR2YSF</div>
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('YSF2P25')); ?>">YSF2P25</div>
