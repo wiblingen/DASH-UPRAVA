@@ -123,6 +123,7 @@ if(isset($_SESSION['PiStarRelease']['Pi-Star']['ProcNum']) && ($_SESSION['PiStar
 		    purgeLogs();
 		}
                 system('sudo sync && sudo sync && sudo sync && sudo mount -o remount,ro / > /dev/null &');
+		sleep(5);
                 exec('sudo reboot > /dev/null &');
 			    }
 			    else if ( escapeshellcmd($_POST["action"]) == "shutdown" ) {
@@ -132,6 +133,7 @@ if(isset($_SESSION['PiStarRelease']['Pi-Star']['ProcNum']) && ($_SESSION['PiStar
 		    purgeLogs();
 		}
                 system('sudo sync && sudo sync && sudo sync && sudo mount -o remount,ro / > /dev/null &');
+		sleep(5);
                 exec('sudo shutdown -h now > /dev/null &');
 			    }
 
