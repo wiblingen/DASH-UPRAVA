@@ -321,7 +321,6 @@ if(empty($_POST['func'])) {
 		    	echo '</div>'."\n";
 		    }
     		}
-	    }
 	    } else {
 		echo '<div class="contentwide">'."\n";
 		//We dont know what mode we are in - fail...
