@@ -299,11 +299,11 @@ if ( $testMMDVModeDSTAR == 1 || isPaused("D-Star") ) { //Hide the D-Star Reflect
   <div class="divTableBody">
     <div class="divTableRow center">
       <div class="divTableHeadCell">RPT1</div>
-      <div class="divTableCell cell_content mono" style="background: <?php echo $tableRowEvenBg; ?>;"><?php echo str_replace(' ', '&nbsp;', $_SESSION['DStarRepeaterConfigs']['callsign']); ?></div>
+      <div class="divTableCell cell_content mono" style="background: <?php echo $tableRowEvenBg; ?>;"><?php echo($_SESSION['ircDDBConfigs']['repeaterCall1'] ."&nbsp ".$_SESSION['ircDDBConfigs']['repeaterBand1']); ?></div>
     </div>    
     <div class="divTableRow center">
       <div class="divTableHeadCell">RPT2</div>
-      <div class="divTableCell cell_content mono" style="background: <?php echo $tableRowEvenBg; ?>;"><?php echo str_replace(' ', '&nbsp;', $_SESSION['DStarRepeaterConfigs']['gateway']); ?></div>
+      <div class="divTableCell cell_content mono" style="background: <?php echo $tableRowEvenBg; ?>;"><?php echo($_SESSION['ircDDBConfigs']['repeaterCall1'] ."&nbsp G"); ?></div>
     </div>	
   </div>
 </div>
