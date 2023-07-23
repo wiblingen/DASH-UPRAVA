@@ -5720,9 +5720,9 @@ if (!file_exists($bmAPIkeyFile) && !fopen($bmAPIkeyFile,'r')) {
     </tr>
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo $lang['dstar_rpt1'];?>:<span><b>RPT1 Callsign</b>This is the RPT1 field for your radio</span></a></td>
-    <td align="left" colspan="2"><?php echo str_replace(' ', '&nbsp;', substr($configdstar['callsign'], 0, 7)) ?>
+    <td align="left" colspan="2"><?php echo $configs['repeaterCall1']; ?>
 	<select name="confDStarModuleSuffix" class="ModSel">
-	<?php echo "  <option value=\"".substr($configdstar['callsign'], 7)."\" selected=\"selected\">".substr($configdstar['callsign'], 7)."</option>\n"; ?>
+	<?php echo "  <option value=\"".$configs['repeaterBand1']."\" selected=\"selected\">".$configs['repeaterBand1']."</option>\n"; ?>
         <option>A</option>
         <option>B</option>
         <option>C</option>
@@ -5753,7 +5753,7 @@ if (!file_exists($bmAPIkeyFile) && !fopen($bmAPIkeyFile,'r')) {
     </tr>
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo $lang['dstar_rpt2'];?>:<span><b>RPT2 Callsign</b>This is the RPT2 field for your radio</span></a></td>
-    <td align="left" colspan="2"><?php echo str_replace(' ', '&nbsp;', $configdstar['gateway']) ?></td>
+    <td align="left" colspan="2"><?php echo $configs['repeaterCall1']; ?>&nbsp; G</td>
     </tr>
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo $lang['dstar_irc_password'];?>:<span><b>Remote Password</b>Used for ircDDBGateway remote control access</span></a></td>
