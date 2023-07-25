@@ -97,7 +97,7 @@ if (!is_dir($config_dir) || count(glob("$config_dir/*")) < 1) {
             		<p>
 			Advanced  editors &amp; tools have been created to make editing some of the extra settings in the<br />
 			config files more simple, allowing you to update some areas of the config files without the<br />
-			need to login to your Pi over SSH.<br />
+			need to login to your instance over SSH.<br />
 			<br />
 			Please keep in mind when making your edits here, that these config files can be updated by<br />
 			the dashboard, and that your edits can be over-written. It is assumed that you already know<br />

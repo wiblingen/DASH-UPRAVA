@@ -114,15 +114,16 @@ if ($_SERVER["PHP_SELF"] == "/admin/config_backup.php") {
 			    $output .= shell_exec("sudo cp /etc/hostname $backupDir > /dev/null")."\n";
 			    $output .= shell_exec("sudo cp /etc/bmapi.key $backupDir > /dev/null")."\n";
 			    $output .= shell_exec("sudo cp /etc/dapnetapi.key $backupDir > /dev/null")."\n";
-                            $output .= shell_exec("sudo cp /etc/default/gpsd $backupDir > /dev/null")."\n";
+			    $output .= shell_exec("sudo cp /etc/default/gpsd $backupDir > /dev/null")."\n";
 			    $output .= shell_exec("sudo cp /etc/*_paused $backupDir > /dev/null")."\n";
+			    $output .= shell_exec("sudo cp /etc/.bm_tgs.json.saved $backupDir > /dev/null")."\n";
 			    $output .= shell_exec("sudo cp /usr/local/etc/RSSI.dat $backupDir > /dev/null")."\n";
 			    $output .= shell_exec("sudo cp /var/www/dashboard/config/ircddblocal.php $backupDir > /dev/null")."\n";
 			    $output .= shell_exec("sudo cp /var/www/dashboard/config/config.php $backupDir > /dev/null")."\n";
 			    $output .= shell_exec("sudo cp /var/www/dashboard/config/language.php $backupDir > /dev/null")."\n";
 			    $output .= shell_exec('sudo find /root/ -maxdepth 1 -name "*Hosts.txt" -exec cp {} /tmp/config_backup \; > /dev/null')."\n";
 			    $output .= "Compressing backup files\n";
-			    $output .= shell_exec("sudo zip -j $backupZip $backupDir/* > /dev/null")."\n";
+			    $output .= shell_exec("sudo zip -rj $backupZip $backupDir > /dev/null")."\n";
 			    $output .= "Starting download\n";
 
 			    echo "<tr><td align=\"left\"><pre>$output</pre></td></tr>\n";
@@ -194,7 +195,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/config_backup.php") {
 			            $zip->close();
 			            unlink($target_path);
 				}
-				$output .= "Your .zip file was uploaded and unpacked.\n";
+				$output .= "Your zip file was uploaded and unpacked.\n";
 				$output .= "Stopping Services.\n";
 				
 				// Stop the DV Services
@@ -205,17 +206,18 @@ if ($_SERVER["PHP_SELF"] == "/admin/config_backup.php") {
 				
 				// Overwrite the configs
 				$output .= "Writing new Config\n";
-				$output .= shell_exec("sudo rm -f /etc/dstar-radio.* /etc/bmapi.key /etc/dapnetapi.key > /dev/null")."\n";
-                                $output .= shell_exec("sudo mv -fv /tmp/config_restore/gpsd /etc/default/ > /dev/null")."\n";
-				$output .= shell_exec("sudo mv -fv /tmp/config_restore/RSSI.dat /usr/local/etc/ > /dev/null")."\n";
-				$output .= shell_exec("sudo mv -fv /tmp/config_restore/ircddblocal.php /var/www/dashboard/config/ > /dev/null")."\n";
-				$output .= shell_exec("sudo mv -fv /tmp/config_restore/config.php /var/www/dashboard/config/ > /dev/null")."\n";
-				$output .= shell_exec("sudo mv -fv /tmp/config_restore/language.php /var/www/dashboard/config/ > /dev/null")."\n";
-				$output .= shell_exec('sudo find /tmp/config_restore/ -maxdepth 1 -name "*Hosts.txt" -exec mv -fv {} /root \; > /dev/null')."\n";
-				$output .= shell_exec("sudo mv -fv /tmp/config_restore/wpa_supplicant.conf /etc/wpa_supplicant/ > /dev/null")."\n";
-                		$output .= shell_exec("sudo mv -fv /tmp/config_restore/hostapd.conf /etc/hostapd/ > /dev/null")."\n";
-				$output .= shell_exec("sudo mv -fv /tmp/config_restore/*_paused /etc/ > /dev/null")."\n";
-				$output .= shell_exec("sudo mv -fv /tmp/config_restore/* /etc/ > /dev/null")."\n";
+				$output .= shell_exec("sudo rm -f /etc/dstar-radio.* /etc/bmapi.key /etc/dapnetapi.key > /dev/null");
+                                $output .= shell_exec("sudo mv -fv /tmp/config_restore/gpsd /etc/default/ > /dev/null");
+				$output .= shell_exec("sudo mv -fv /tmp/config_restore/RSSI.dat /usr/local/etc/ > /dev/null");
+				$output .= shell_exec("sudo mv -fv /tmp/config_restore/ircddblocal.php /var/www/dashboard/config/ > /dev/null");
+				$output .= shell_exec("sudo mv -fv /tmp/config_restore/config.php /var/www/dashboard/config/ > /dev/null");
+				$output .= shell_exec("sudo mv -fv /tmp/config_restore/language.php /var/www/dashboard/config/ > /dev/null");
+				$output .= shell_exec('sudo find /tmp/config_restore/ -maxdepth 1 -name "*Hosts.txt" -exec mv -fv {} /root \; > /dev/null');
+				$output .= shell_exec("sudo mv -fv /tmp/config_restore/wpa_supplicant.conf /etc/wpa_supplicant/ > /dev/null");
+                		$output .= shell_exec("sudo mv -fv /tmp/config_restore/hostapd.conf /etc/hostapd/ > /dev/null");
+				$output .= shell_exec("sudo mv -fv /tmp/config_restore/*_paused /etc/ > /dev/null");
+				$output .= shell_exec("sudo cp -av /tmp/config_restore/.bm_tgs.json.saved /etc/ > /dev/null");
+				$output .= shell_exec("sudo mv -fv /tmp/config_restore/* /etc/ > /dev/null");
 				
 				//Restore the Timezone Config
 				$timeZone = shell_exec('grep date /var/www/dashboard/config/config.php | grep -o "\'.*\'" | sed "s/\'//g"');
@@ -237,7 +239,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/config_backup.php") {
 			    	shell_exec('sudo pistar-services start > /dev/null');
 	
 				// Complete
-				$output .= "Configuration Restore Complete.\n";
+				$output .= "Configuration Restoration Complete.\n";
 			    }
 			    else {
 				$output .= "There was a problem with the upload. Please try again.<br />";
@@ -271,10 +273,10 @@ if ($_SERVER["PHP_SELF"] == "/admin/config_backup.php") {
 				    <td colspan="2" align="justify">
 					<br />
 					<b>WARNING:</b><br />
-					Editing the files outside of Pi-Star *could* have un-desireable side effects.<br />
+					Editing the files outside of WPSD *could* have un-desireable side effects.<br />
 					<br />
 					This backup and restore tool, will backup your config files to a Zip file, and allow you to restore them later<br />
-					either to this Pi-Star or another one.<br />
+					either to this WPSD instance, or another one.<br />
 					<ul>
 					    <li>System Passwords / Dashboard passwords are NOT backed up / restored.</li>
 					    <li>Wireless Configuration IS backed up and restored</li>

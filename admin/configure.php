@@ -4588,9 +4588,9 @@ else:
     <td align="left" colspan="3"><select name="confHardware" class="confHardware">
 		<option<?php if (!$configModem['Modem']['Hardware']) { echo ' selected="selected"';}?> value="">--</option>
 	        <?php if (file_exists('/dev/icom_ta')) { ?>
-	    	<option<?php if ($configModem['Modem']['Hardware'] === 'icomTerminalAuto') {		echo ' selected="selected"';}?> value="icomTerminalAuto">Icom Radio in Terminal Mode (DStarRepeater Only)</option>
+	    	<!--<option<?php if ($configModem['Modem']['Hardware'] === 'icomTerminalAuto') {		echo ' selected="selected"';}?> value="icomTerminalAuto">Icom Radio in Terminal Mode (DStarRepeater Only)</option>-->
 	        <?php } ?>
-	        <option<?php if ($configModem['Modem']['Hardware'] === 'idrp2c') {		echo ' selected="selected"';}?> value="idrp2c">Icom Repeater Controller ID-RP2C (DStarRepeater Only)</option>
+	        <!--<option<?php if ($configModem['Modem']['Hardware'] === 'idrp2c') {		echo ' selected="selected"';}?> value="idrp2c">Icom Repeater Controller ID-RP2C (DStarRepeater Only)</option>-->
 		<option<?php if ($configModem['Modem']['Hardware'] === 'dvmpis') {		echo ' selected="selected"';}?> value="dvmpis">DV-Mega Raspberry Pi Hat (GPIO) - Single Band (70cm)</option>
 		<option<?php if ($configModem['Modem']['Hardware'] === 'dvmpid') {		echo ' selected="selected"';}?> value="dvmpid">DV-Mega Raspberry Pi Hat (GPIO) - Dual Band</option>
 		<option<?php if ($configModem['Modem']['Hardware'] === 'dvmuadu') {		echo ' selected="selected"';}?> value="dvmuadu">DV-Mega on Arduino (USB - /dev/ttyUSB0) - Dual Band</option>
@@ -4604,17 +4604,17 @@ else:
 	    	<option<?php if ($configModem['Modem']['Hardware'] === 'dvmpicasths') {	echo ' selected="selected"';}?> value="dvmpicasths">DV-Mega Cast Hotspot - Single Band (70cm)</option>
 	    	<option<?php if ($configModem['Modem']['Hardware'] === 'dvmpicasthd') {	echo ' selected="selected"';}?> value="dvmpicasthd">DV-Mega Cast Hotspot - Dual Band (2m/70cm)</option>
 	    	<?php } ?>
-		<option<?php if ($configModem['Modem']['Hardware'] === 'gmsk_modem') {		echo ' selected="selected"';}?> value="gmsk_modem">GMSK Modem (USB DStarRepeater Only)</option>
+		<!--<option<?php if ($configModem['Modem']['Hardware'] === 'gmsk_modem') {		echo ' selected="selected"';}?> value="gmsk_modem">GMSK Modem (USB DStarRepeater Only)</option>-->
 	        <option<?php if ($configModem['Modem']['Hardware'] === 'dvrptr1') {		echo ' selected="selected"';}?> value="dvrptr1">DV-RPTR V1 (USB)</option>
 		<option<?php if ($configModem['Modem']['Hardware'] === 'dvrptr2') {		echo ' selected="selected"';}?> value="dvrptr2">DV-RPTR V2 (USB)</option>
 		<option<?php if ($configModem['Modem']['Hardware'] === 'dvrptr3') {		echo ' selected="selected"';}?> value="dvrptr3">DV-RPTR V3 (USB)</option>
 		<option<?php if ($configModem['Modem']['Hardware'] === 'dvap') {		echo ' selected="selected"';}?> value="dvap">DVAP (USB)</option>
 		<option<?php if ($configModem['Modem']['Hardware'] === 'zum') {			echo ' selected="selected"';}?> value="zum">MMDVM / MMDVM_HS / Teensy / ZUM (USB)</option>
 		<option<?php if ($configModem['Modem']['Hardware'] === 'stm32dvm') {		echo ' selected="selected"';}?> value="stm32dvm">STM32-DVM / MMDVM_HS - Raspberry Pi Hat (GPIO)</option>
-		<option<?php if ($configModem['Modem']['Hardware'] === 'stm32dvmv3+') {		echo ' selected="selected"';}?> value="stm32dvmv3+">STM32-DVM (GPIO v3+ 460800 baud)</option>
-		<option<?php if ($configModem['Modem']['Hardware'] === 'stm32usb') {		echo ' selected="selected"';}?> value="stm32usb">STM32-DVM (USB)</option>
-		<option<?php if ($configModem['Modem']['Hardware'] === 'stm32usbv3+') {		echo ' selected="selected"';}?> value="stm32usbv3+">STM32-DVM (USB v3+ 460800 baud)</option>
-		<option<?php if ($configModem['Modem']['Hardware'] === 'stm32dvmmtr2kopi') {		echo ' selected="selected"';}?> value="stm32dvmmtr2kopi">STM32-DVM-MTR2k (GPIO v3+ 500000 baud)</option>
+		<option<?php if ($configModem['Modem']['Hardware'] === 'stm32dvmv3+') {		echo ' selected="selected"';}?> value="stm32dvmv3+">RB STM32-DVM (GPIO v3+ forced @ 460800 baud)</option>
+		<option<?php if ($configModem['Modem']['Hardware'] === 'stm32usb') {		echo ' selected="selected"';}?> value="stm32usb">RB STM32-DVM (USB)</option>
+		<option<?php if ($configModem['Modem']['Hardware'] === 'stm32usbv3+') {		echo ' selected="selected"';}?> value="stm32usbv3+">RB STM32-DVM (USB v3+ forced @ 460800 baud)</option>
+		<option<?php if ($configModem['Modem']['Hardware'] === 'stm32dvmmtr2kopi') {		echo ' selected="selected"';}?> value="stm32dvmmtr2kopi">RB STM32-DVM-MTR2k (GPIO v3+ forced @ 500000 baud)</option>
 	        <option<?php if ($configModem['Modem']['Hardware'] === 'zumspotlibre') {	echo ' selected="selected"';}?> value="zumspotlibre">ZUMspot - Libre (USB)</option>
 		<option<?php if ($configModem['Modem']['Hardware'] === 'zumspotusb') {		echo ' selected="selected"';}?> value="zumspotusb">ZUMspot - USB Stick</option>
 		<option<?php if ($configModem['Modem']['Hardware'] === 'zumspotgpio') {		echo ' selected="selected"';}?> value="zumspotgpio">ZUMspot - Single Band Raspberry Pi Hat (GPIO)</option>
@@ -4651,11 +4651,11 @@ else:
             <?php if(in_array($configModem['Modem']['Hardware'], array("stm32dvmv3+","stm32usbv3+"))) { ?>
             <td align="left" colspan="3">
 		<select disabled="disabled" name="confHardwareSpeed">
-		  <option value=\"$modemSpeed\">460800</option>
+		  <option value="460800">460800</option>
 	    <?php } elseif(in_array($configModem['Modem']['Hardware'], array("stm32dvmmtr2kopi"))) { ?>
             <td align="left" colspan="3">
 		<select disabled="disabled" name="confHardwareSpeed">
-		  <option value=\"$modemSpeed\">500000</option>
+		  <option value="500000">500000</option>
 		</select>
 	    </td>
             <?php } else { ?>
