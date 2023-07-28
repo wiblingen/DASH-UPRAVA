@@ -579,29 +579,16 @@ $MYCALL=strtoupper($callsign);
 </head>
 <body onload="checkFrequency(); return false;">
 <?php
-if ( (file_exists('/etc/dstar-radio.mmdvmhost') && $configmmdvm['DMR']['Enable'] == 1 && $configmmdvm['DMR']['SelfOnly'] == 0 && strlen($configmmdvm['General']['Id']) >= 7 ) && (!isset($configmmdvm['DMR']['WhiteList'])) ) {
-?>
-<div>
-  <table align="center" width="760px" style="margin: 0px 0px 10px 0px; width: 100%;">
-    <tr>
-    <td align="center" valign="top" style="background-color: #ffff90; color: #906000;">Alert: You are running a hotspot in public mode without an access list for DMR, this setup *could* participate in network loops!</td>
-    </tr>
-  </table>
-</div>
-<?php
-}
-?>
-<?php
 // warn to backup configs, only if this is not a new installation.
 $config_dir = "/etc/WPSD_config_mgr";
 if (!is_dir($config_dir) || count(glob("$config_dir/*")) < 1) { // no saved configs
-    if (file_exists('/etc/dstar-radio.mmdvmhost') || file_exists('/etc/dstar-radio.dstarrepeater')) { // NOT a new installaion
+    if (file_exists('/etc/dstar-radio.mmdvmhost') || file_exists('/etc/dstar-radio.dstarrepeater')) { // NOT a new installaion, so display message...
 ?>
 <div>
   <table align="center"style="margin: 0px 0px 10px 0px; width: 100%;border-collapse:collapse; table-layout:fixed;white-space: normal!important;">
     <tr>
     <td align="center" valign="top" style="background-color: #ffff90; color: #906000; word-wrap: break-all;padding:20px;">Notice! You do not have any saved configuration / profiles.<br /><br />
-    It is recommended that you <b><a href="/admin/advanced/config_manager.php">save your configuration / profile before making any changes</a>.</b></td>
+    It is recommended that you <b><a href="/admin/advanced/config_manager.php">save your configuration / profile</a>.</b></td>
     </tr>
   </table>
 </div>
