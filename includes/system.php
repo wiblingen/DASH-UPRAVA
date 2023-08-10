@@ -15,6 +15,7 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/config/ircddblocal.php';
 include_once $_SERVER['DOCUMENT_ROOT'].'/config/language.php';	      // Translation Code
 include_once $_SERVER['DOCUMENT_ROOT'].'/mmdvmhost/tools.php';
 
+$os_ver = trim( exec( 'cat /etc/debian_version' ) );
 ?>
 
 <div style="text-align:left;font-weight:bold;"><?php echo $lang['service_status'];?></div>
@@ -45,7 +46,13 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/mmdvmhost/tools.php';
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('NXDNParrot')); ?>">NXDNParrot</div> 
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('NXDN2DMR')); ?>">NXDN2DMR</div> 
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('APRSGateway')); ?>">APRSGateway</div>
+  <?php
+  if ($system['os_ver'] >= 11) {
+  ?>
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('/lib/systemd/systemd-timesyncd',true)); ?>">Time Sync Service</div> 
+  <?php } else { ?>
+  <div class="grid-item <?php getServiceStatusClass(isProcessRunning('/usr/sbin/ntpd',true)); ?>">Time Sync Service</div> 
+  <?php } ?>
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('YSFParrot')); ?>">YSFParrot</div>
 
   <div class="grid-item <?php getServiceStatusClass(autoAPenabled()); ?>">Auto AP</div>
