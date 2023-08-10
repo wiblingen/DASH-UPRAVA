@@ -102,7 +102,7 @@ function timesyncdProc() {
 	<meta http-equiv="pragma" content="no-cache" />
 	<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
 	<meta http-equiv="Expires" content="0" />
-	<title>Pi-Star - Hardware/Software Details</title>
+	<title>WPSD - Hardware/Software Details</title>
 <?php include_once $_SERVER['DOCUMENT_ROOT'].'/config/browserdetect.php'; ?>
 	<link rel="stylesheet" type="text/css" href="/css/font-awesome-4.7.0/css/font-awesome.min.css" />
 	<script type="text/javascript" src="/js/jquery.min.js?version=<?php echo $versionCmd; ?>"></script>
@@ -306,11 +306,15 @@ function timesyncdProc() {
 		    echo "<tr>";
 		    echo "<td align='left' colspan='2'>";
 		    echo "<pre>";
-		    system("timedatectl | sed -e 's/^[ \t]*/  /' | sed '/RTC/d'");
+		    if ($system['os_ver'] >= 11) {
+		        system("timedatectl | sed -e 's/^[ \t]*/  /' | sed '/RTC/d'");
+		    } else {
+		        system("timedatectl | sed -e 's/^[ \t]*/  /' | sed '/RTC/d' | sed '/NTP service/d'");
+		    }
 		    echo "</pre>";
-		    echo "<pre>";
 		    if ($system['os_ver'] >= 11) {
 		        if (timesyncdProc() == "1") {
+		    	    echo "<pre>";
 			    system("timedatectl timesync-status | sed -e 's/^[ \t]*/  /'");
 			    echo "</pre>";
 			    echo "</td>";
