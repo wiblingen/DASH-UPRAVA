@@ -304,20 +304,21 @@ function timesyncdProc() {
 		    // time sync status
 		    echo "<tr><th colspan='2' align='left'>Time Synchronization Status</th></tr>";
 		    echo "<tr>";
-		    if (timesyncdProc() == "1") {
-			echo "<td align='left' colspan='2'>";
-			echo "<pre>";
-			system("timedatectl | sed -e 's/^[ \t]*/  /' | sed '/RTC/d'");
-			echo "</pre>";
-			echo "<pre>";
-			system("timedatectl timesync-status | sed -e 's/^[ \t]*/  /'");
-			echo "</pre>";
-			echo "</td>";
-		    } else {
-			echo "<td align='left' class='inactive-service-cell' colspan='2'>TimeSync Deamon not running!</td>";
+		    echo "<td align='left' colspan='2'>";
+		    echo "<pre>";
+		    system("timedatectl | sed -e 's/^[ \t]*/  /' | sed '/RTC/d'");
+		    echo "</pre>";
+		    echo "<pre>";
+		    if ($system['os_ver'] >= 11) {
+		        if (timesyncdProc() == "1") {
+			    system("timedatectl timesync-status | sed -e 's/^[ \t]*/  /'");
+			    echo "</pre>";
+			    echo "</td>";
+		        } else {
+			    echo "<td align='left' class='inactive-service-cell' colspan='2'>TimeSync Deamon not running!</td>";
+		        }
+		        echo "</tr>";
 		    }
-		    echo "</tr>";
-
 		    ?>
 		</table>
 	    </div>
