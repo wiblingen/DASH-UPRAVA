@@ -55,12 +55,14 @@ $rootfsTip = "<strong>Used:</strong> $diskPercent%<br><strong>Free:</strong> ".f
 // Get the CPU temp and colour the box accordingly...
 // Values/thresholds gathered from: 
 // <https://www.rs-online.com/designspark/how-does-raspberry-pi-deal-with-overheating>
-$cpuTempCRaw = exec('cat /sys/class/thermal/thermal_zone0/temp');
-if ($cpuTempCRaw > 1000) { $cpuTempC = sprintf('%.0f',round($cpuTempCRaw / 1000, 1)); } else { $cpuTempC = sprintf('%.0f',round($cpuTempCRaw, 1)); }
-$cpuTempF = sprintf('%.0f',round(+$cpuTempC * 9 / 5 + 32, 1));
-if ($cpuTempC <= 59) { $cpuTempHTML = "<div class=\"divTableCell cell_content\" style=\"background: inherit\">".$cpuTempF."&deg;F / ".$cpuTempC."&deg;C</div>\n"; }
-if ($cpuTempC >= 60) { $cpuTempHTML = "<div class=\"divTableCell cell_content\" style=\"background: #fa0;color:black;\">".$cpuTempF."&deg;F / ".$cpuTempC."&deg;C</div>\n"; }
-if ($cpuTempC >= 80) { $cpuTempHTML = "<div class=\"divTableCell cell_content\" style=\"background: #f00;color:black;font-weight:bold;\">".$cpuTempF."&deg;F / ".$cpuTempC."&deg;C</div>\n"; }
+if (is_file('/sys/class/thermal/thermal_zone0/temp')) {
+    $cpuTempCRaw = exec('cat /sys/class/thermal/thermal_zone0/temp');
+    if ($cpuTempCRaw > 1000) { $cpuTempC = sprintf('%.0f',round($cpuTempCRaw / 1000, 1)); } else { $cpuTempC = sprintf('%.0f',round($cpuTempCRaw, 1)); }
+    $cpuTempF = sprintf('%.0f',round(+$cpuTempC * 9 / 5 + 32, 1));
+    if ($cpuTempC <= 59) { $cpuTempHTML = "<div class=\"divTableCell cell_content\" style=\"background: inherit\">".$cpuTempF."&deg;F / ".$cpuTempC."&deg;C</div>\n"; }
+    if ($cpuTempC >= 60) { $cpuTempHTML = "<div class=\"divTableCell cell_content\" style=\"background: #fa0;color:black;\">".$cpuTempF."&deg;F / ".$cpuTempC."&deg;C</div>\n"; }
+    if ($cpuTempC >= 80) { $cpuTempHTML = "<div class=\"divTableCell cell_content\" style=\"background: #f00;color:black;font-weight:bold;\">".$cpuTempF."&deg;F / ".$cpuTempC."&deg;C</div>\n"; }
+}
 
 $loads = sys_getloadavg();
 $core_nums = trim(shell_exec("grep -c '^processor' /proc/cpuinfo"));
@@ -96,8 +98,10 @@ if (empty($VNStatGetData) == false) {
       <div class="divTableHeadCell"><a class="tooltip" href="#">Network Traffic<span><strong>Total Network Traffic Today</strong></a></span></div>
     </div>
     <div class="divTableRow">
+    <?php if (is_file('/sys/class/thermal/thermal_zone0/temp')) { ?>
       <div class="divTableCell cell_content middle"><a class="tooltip" href="#" style="border-bottom:1px solid; color:<?php echo $textContent; ?>;"><?php echo $load; ?>%<span><strong>Hardware:</strong> <?php echo $_SESSION['PiStarRelease']['Pi-Star']['Hardware'];?><br /><strong>Platform:</strong> <?php echo $_SESSION['PiStarRelease']['Pi-Star']['Platform'];?><br /><strong><?php echo 'OS:</strong> ' . $system['os'] . " (release ver. " . $system['os_ver']; ?>)<br /><strong>Linux Kernel:</strong> <?php echo php_uname('r');?><br /><strong>Uptime:</strong> <?php  echo(str_replace("up", "", exec('uptime -p')));?></a></span></div>
       <?php echo $cpuTempHTML; ?>
+    <?php } ?>
       <div class="divTableCell cell_content middle"><a class="tooltip" href="#" style="border-bottom:1px dotted;color: <?php echo $textContent;?>;"><?php echo $ramDeetz; ?><span><?php echo $ramTip; ?></span></a></div>
       <div class="divTableCell cell_content middle;"><a class="tooltip" href="#" style="border-bottom:1px dotted;color: <?php echo $textContent;?>;"><?php echo $rootfs_stats;?><span><?php echo $rootfsTip; ?></span></a></div>
       <div class="divTableCell cell_content middle;"><a class="tooltip" href="#" style="border-bottom:1px dotted;color: <?php echo $textContent;?>;"><?php echo $NetworkTraffic;?><span><strong>Total Network Traffic</strong><br /><?php echo "$NetTrafficTotal $NetTrafficAvg"; ?>(Interface: <?php echo($iface); ?>)</a></span></div>
