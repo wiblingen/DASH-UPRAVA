@@ -55,7 +55,7 @@ $rootfsTip = "<strong>Used:</strong> $diskPercent%<br><strong>Free:</strong> ".f
 // Get the CPU temp and colour the box accordingly...
 // Values/thresholds gathered from: 
 // <https://www.rs-online.com/designspark/how-does-raspberry-pi-deal-with-overheating>
-if (is_file('/sys/class/thermal/thermal_zone0/temp')) {
+if (file_exists('/sys/class/thermal/thermal_zone0/temp')) {
     $cpuTempCRaw = exec('cat /sys/class/thermal/thermal_zone0/temp');
     if ($cpuTempCRaw > 1000) { $cpuTempC = sprintf('%.0f',round($cpuTempCRaw / 1000, 1)); } else { $cpuTempC = sprintf('%.0f',round($cpuTempCRaw, 1)); }
     $cpuTempF = sprintf('%.0f',round(+$cpuTempC * 9 / 5 + 32, 1));
@@ -98,7 +98,7 @@ if (empty($VNStatGetData) == false) {
       <div class="divTableHeadCell"><a class="tooltip" href="#">Network Traffic<span><strong>Total Network Traffic Today</strong></a></span></div>
     </div>
     <div class="divTableRow">
-    <?php if (is_file('/sys/class/thermal/thermal_zone0/temp')) { ?>
+    <?php if (file_exists('/sys/class/thermal/thermal_zone0/temp')) { ?>
       <div class="divTableCell cell_content middle"><a class="tooltip" href="#" style="border-bottom:1px solid; color:<?php echo $textContent; ?>;"><?php echo $load; ?>%<span><strong>Hardware:</strong> <?php echo $_SESSION['PiStarRelease']['Pi-Star']['Hardware'];?><br /><strong>Platform:</strong> <?php echo $_SESSION['PiStarRelease']['Pi-Star']['Platform'];?><br /><strong><?php echo 'OS:</strong> ' . $system['os'] . " (release ver. " . $system['os_ver']; ?>)<br /><strong>Linux Kernel:</strong> <?php echo php_uname('r');?><br /><strong>Uptime:</strong> <?php  echo(str_replace("up", "", exec('uptime -p')));?></a></span></div>
       <?php echo $cpuTempHTML; ?>
     <?php } ?>
