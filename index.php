@@ -57,16 +57,6 @@ $key = 'NewInstall';
 $expectedValue = '1';
 $iniData = parse_ini_file($iniFile, true);
 $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] === $expectedValue;
-/*
-// SkyBridge image init:
-$iniFile = '/etc/dstar-radio.mmdvmhost';
-$section = 'SkyBridge';
-$key = 'NewInstall';
-$expectedValue = '1';
-$iniData = parse_ini_file($iniFile, true);
-$isNewSkyBridgeInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] === $expectedValue;
-*/
-
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 	  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -372,16 +362,7 @@ $isNewSkyBridgeInstall = isset($iniData[$section][$key]) && $iniData[$section][$
 		    echo "<h1>New ZUMspot Installation...</h1>\n";
 		    echo "<p>You will be redirected to the configuration page in 10 seconds to setup your ZUMspot...</p>\n";
 		    echo '<script type="text/javascript">setTimeout(function() { window.location="/admin/configure.php";},10000);</script>'."\n";
-	/*
-	// New SkyBridge image?
-	    } else if ($isNewSkyBridgeInstall) {
-		    echo '<div class="contentwide">'."\n";
-		    echo "<h1>New SkyBridge Installation...</h1>\n";
-		    echo "<p>You will be redirected to the configuration page in 10 seconds to setup your SkyBridge...</p>\n";
-		    echo '<script type="text/javascript">setTimeout(function() { window.location="/admin/configure.php";},10000);</script>'."\n";
-	*/
-
-        } else if (file_exists('/etc/dstar-radio.dstarrepeater')) { //dstarrepeater migration
+            } else if (file_exists('/etc/dstar-radio.dstarrepeater')) { //dstarrepeater migration
 		echo '<div class="contentwide">'."\n";
 		echo "<h1>NOTE: Migration Required...</h1>\n";
 		echo "<p>DSTARrepeater mode is unsupported and has been removed. You will need to re-configure using the (now default) MMDVMHost controller mode.</p>\n";
