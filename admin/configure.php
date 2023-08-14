@@ -3751,8 +3751,8 @@ if (!empty($_POST)):
 	//$configysfgateway['FCS Network']['Enable'] = "1"; # Disabled per new 6/2023 toggle sw.
 	$configysfgateway['FCS Network']['Port'] = "42001";
 	$configysfgateway['FCS Network']['Rooms'] = "/usr/local/etc/FCSHosts.txt";
-	$configysfgateway['Remote Commands']['Enable'] = "1"; }
-	$configysfgateway['Remote Commands']['Port'] = "6073"; }
+	$configysfgateway['Remote Commands']['Enable'] = "1";
+	$configysfgateway['Remote Commands']['Port'] = "6073";
 	if (!isset($configysfgateway['General']['Debug'])) { $configysfgateway['General']['Debug'] = "0"; }
 	if (!isset($configysfgateway['GPSD']['Enable'])) { $configysfgateway['GPSD']['Enable'] = "0"; }
 	if (!isset($configysfgateway['GPSD']['Address'])) { $configysfgateway['GPSD']['Address'] = "127.0.0.1"; }
