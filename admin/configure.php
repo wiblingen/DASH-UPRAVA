@@ -1042,12 +1042,8 @@ if (!empty($_POST)):
 	   }
 
             // Set GPSD daemon On or Off
-            $GPSDsvcOn = 'sudo systemctl unmask gpsd.service ; sudo systemctl unmask gpsd.socket ; sudo systemctl enable gpsd.service ; sudo systemctl enable gpsd.socket';
-            $GPSDsvcOff = 'sudo systemctl disable gpsd.service ; sudo systemctl disable gpsd.socket ; sudo systemctl mask gpsd.service ; sudo systemctl mask gpsd.socket';
-            $GPSDsvcStop = '(sudo systemctl stop gpsd.service ; sudo systemctl stop gpsd gpsd.socket) > /dev/null 2>&1 &';
-
-            if ($configdmrgateway['GPSD']['Enable'] == "1") { system($GPSDsvcOn); }
-            if ($configdmrgateway['GPSD']['Enable'] == "0")  { system($GPSDsvcStop); system($GPSDsvcOff); }
+            if (escapeshellcmd($_POST['GPSD']) == 'ON') { system('sudo systemctl unmask gpsd.service ; sudo systemctl unmask gpsd.socket ; sudo systemctl enable gpsd.service ; sudo systemctl enable gpsd.socket'); }
+            if (escapeshellcmd($_POST['GPSD']) == 'OFF')  { system('sudo systemctl stop gpsd.service ; sudo systemctl stop gpsd gpsd.socket ; sudo systemctl disable gpsd.service ; sudo systemctl disable gpsd.socket ; sudo systemctl mask gpsd.service ; sudo systemctl mask gpsd.socket'); }
 
 	    // Port and Address for YSF, DGId, M17 and NXDN gateways
 	    $configysfgateway['GPSD']['Port'] = $configdmrgateway['GPSD']['Port'];
