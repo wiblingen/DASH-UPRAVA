@@ -123,13 +123,23 @@ The Bullseye disk images are ready-to-go; with `W0CHP-PiStar-Dash` installed.
 
 : ZUMSpot Mini Disk Image Download: [<code>**WPSD_ZUMspot-Mini_Latest.img.xz**</code>](https://w0chp.net/WPSD_ZUMspot-Mini_Latest.img.xz)
 
-
 **ZUMSpot Elite 3.5 Disk Image:**
 
 : This is an *official* and custom-built disk image specific to the ZUMspot Elite 3.5 Hotspot.
 
 : ZUMSpot Elite Disk Image Download: [<code>**WPSD_ZUMspot-Elite_Latest.img.xz**</code>](https://w0chp.net/WPSD_ZUMspot-Elite_Latest.img.xz)
 
+**ZUMSpot USB Stick Disk Image:**
+
+: This is an *official* and custom-built disk image specific to the ZUMspot USB Stick Hotspot for use on a Raspberry Pi. *A Raspberry Pi computer is required.*
+
+: ZUMSpot USB Stick Hotspot Disk Image Download: [<code>**WPSD_ZUMspot-USB_Latest.xz**</code>](https://w0chp.net/WPSD_ZUMspot-USB_Latest.xz)
+
+**BridgeCom SkyBridge Plus Disk Image:**
+
+: This is an *official* and custom-built disk image specific to the SkyBridge Plus  Hotspot.
+
+: SkyBridge Plus Hotspot Disk Image Download: [<code>**WPSD_SkyBridge-Plus_Latest.img.xz**</code>](https://w0chp.net/WPSD_SkyBridge-Plus_Latest.img.xz)
 
 **SHA-256 Checksums for Disk Image Files:**
 
