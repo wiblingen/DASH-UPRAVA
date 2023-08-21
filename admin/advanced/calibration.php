@@ -16,7 +16,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/advanced/calibration.php") {
   if (isset($_GET['action'])) {
     if ($_GET['action'] === 'start') {
       system('sudo fuser -k 33273/udp > /dev/null 2>&1');
-      system('nc -ulp 33273 | sudo -i script -qfc "/usr/local/sbin/pistar-mmdvmcal" /tmp/pi-star_mmdvmcal.log > /dev/null 2>&1 &');
+      system('nc -ulp 33273 | sudo -i script -qfc "/usr/local/sbin/pistar-mmdvmcal" /tmp/mmdvmcal.log > /dev/null 2>&1 &');
     }
     else if (($_GET['action'] === 'saveoffset')) {
       if (isset($_GET['param']) && strlen($_GET['param'])) {
@@ -50,8 +50,8 @@ if ($_SERVER["PHP_SELF"] == "/admin/advanced/calibration.php") {
 
   if (!isset($_GET['ajax'])) {
     //unset($_SESSION['mmdvmcal_offset']);
-    if (file_exists('/tmp/pi-star_mmdvmcal.log')) {
-      $_SESSION['mmdvmcal_offset'] = filesize('/tmp/pi-star_mmdvmcal.log');
+    if (file_exists('/tmp/mmdvmcal.log')) {
+      $_SESSION['mmdvmcal_offset'] = filesize('/tmp/mmdvmcal.log');
     } else {
       $_SESSION['mmdvmcal_offset'] = 0;
     }
@@ -59,11 +59,11 @@ if ($_SERVER["PHP_SELF"] == "/admin/advanced/calibration.php") {
   
   if (isset($_GET['ajax'])) {
     //session_start();
-    if (!file_exists('/tmp/pi-star_mmdvmcal.log')) {
+    if (!file_exists('/tmp/mmdvmcal.log')) {
       exit();
     }
     
-    $handle = fopen('/tmp/pi-star_mmdvmcal.log', 'rb');
+    $handle = fopen('/tmp/mmdvmcal.log', 'rb');
     if (isset($_SESSION['mmdvmcal_offset'])) {
       fseek($handle, 0, SEEK_END);
       if ($_SESSION['mmdvmcal_offset'] > ftell($handle)) //log rotated/truncated
