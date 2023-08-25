@@ -8,12 +8,13 @@ https://w0chp.net/w0chp-pistar-dash/.**
 
 ## About `W0CHP-PiStar-Dash`, and Some Warnings
 
-This is my very highly modified and customized fork of MW0MWZ’s Pi-Star
-software, and I call it “W0CHP-PiStar-Dash”. There are so many large changes,
-divergences and new features, it merited my own fork/version.
+This is my very highly modified and customized fork  of `MW0MWZ`'s Pi-Star
+software, and I call it "`W0CHP-PiStar-Dash`" (abbreviated as WPSD). There are
+so many large changes, divergences and new features, it merited my own
+fork/version.
 
 In fact, it’s pretty much its own distribution at this point; especially now
-that the W0CHP-PiStar-Dash disk/OS images are now bullseye-based; and is now
+that the `W0CHP-PiStar-Dash` disk/OS images are now bullseye-based; and is now
 its own beast, so-to-speak.
 
 ## Warnings, Caveats and FAQs {#caveats}
@@ -46,7 +47,7 @@ its own beast, so-to-speak.
 
 ## Known Issues & Incompatibilities
 
-**Raspberry Pi Zero v1.x (1st Gen, single-core)**
+**Raspberry Pi Zero v1.x (1st Gen, single-core) [^1]**
 
 : If you have a first-generation Raspberry Pi Zero (Pi Zero (W) Rev.1.1 armv6l) with the
   single-core processor\*, and have downloaded my RPi Bullseye
@@ -55,6 +56,11 @@ its own beast, so-to-speak.
     2. Let the image boot and configure for about 30 minutes, otherwise you will not be able to access the dashboard.
 
   If you fail to do these things, you will get a "502 Bad Gateway" error when attempting to access the dashboard.
+
+  If 30 minutes passes, and you still cannot access the dashboard, simply SSH into the hotspot and run:
+  ```text
+  sudo pistar-update
+  ```
 
   \* *Note:* The official ZUMSpot Mini 1.3 Disk Image (below) does not have this issue, since I built the disk image for that specific hardware.
 
@@ -65,20 +71,14 @@ its own beast, so-to-speak.
   however). This is because the DVmega folks create their own older Buster image,
   tailored to their custom hardware.
 
-  If you still want to use my software on DVMega
-  hardware, you absolutely can; and it's best to use the [existing hotspot installation
-  method](#hotspot-installation), which will leave the operating system alone as
-  the older Buster version and wireless functionality will remain intact.
+  However, USB-type WiFi dongles/adaptors that are Debian/Raspbian compatible *do* work.
 
 **TGIF Spots with Nextion Screens**
 
-: Using the WPSD installation script will detect this device and disallow installation; We don't support TGIF Spots running "buster".
-  This is because "buster" TGIF Spots use weird and hacky scripts and modifications etc., which WPSD does not support.
-
-  "Bullseye" [disk image installations *are* supported](#disk-image-installation), however, you may lose some of the superfluous Nextion screen
+: "Bullseye" [disk image installations *are* supported](#disk-image-installation), however, you may lose some of the superfluous TGIF Spot Nextion screen
   functionality.
 
-  If you install WPSD on TGIF Spots with Nextion screens, and the screens don't work the way you want, don't complain about it; as their strange hacks
+  If you install WPSD on TGIF Spots with Nextion screens, and the screens don't work the way you want, don't complain about it or ask us about it; as their strange hacks
   are not a part of WPSD.
 
 **Restoring and/or Using Configurations from "OG" Pi-Star Software May Not Always Work**
@@ -91,11 +91,6 @@ its own beast, so-to-speak.
 
 Now that you've been adequately informed of the rules, caveats and the risks, keep reading to learn how to
 install `W0CHP-PiStar-Dash`.
-
-There are two methods of installation...
-
-1. [Installation via a disk image](#disk-image-installation)
-2. [Installation on an existing Pi-Star hotspot](#hotspot-installation)
 
 ### Installing `W0CHP-PiStar-Dash` from a Bullseye-based Disk Image {#disk-image-installation}
 
@@ -170,60 +165,11 @@ The setup of the Bullseye image is similar to that of Pi-Star's:
    **before** setting up or making configuration changes* to your hotspot. This ensures that setup/configuration changes you make
    are the most tested and up-to-date.
 
-### Installing `W0CHP-PiStar-Dash` on an Existing Pi-Star Hotspot {#hotspot-installation}
-
-<i class="fas fa-exclamation-triangle"></i> You need to have a Pi-Star hotspot
-**running at least v4.1.6!**[^1]
-
-1. Make a backup of your configuration if you wish -- just in case.
-
-2. Open an SSH session to your Pi-Star instance.
-
-3. Run this to familiarize yourself with the available options/arguments:[^2]
-
-    ```text
-    curl -Ls https://w0chp.net/WPSD-Install | sudo env NO_SELF_UPDATE=1 bash -s -- -h
-    ```
-
-    You will be presented with...
-
-    ```
-	[i] W0CHP PiStar-Dash Installer Command Usage:
-
-	  -h,   --help                   :  Display this help text
-
-
-	  -id,  --install-dashboard      :  Install W0CHP dashboard
-
-
-	  -idc, --install-dashboard-css  :  Install W0CHP dashboard
-                                   	    WITH custom stylesheet
-
-	  -rd,  --restore-dashboard      :  Restore original dashboard
-
-
-	  -s,   --status                 :  Display version status/info
-    ```
-
-4. When ready to install, run the above command again with the option/argument you wish...e.g:
-
-    ```text
-    curl -Ls https://w0chp.net/WPSD-Install | sudo env NO_SELF_UPDATE=1 bash -s -- -id
-    ```
-
-	(...to install the dashboard *without* the `W0CHP` custom CSS)
-
-5. When the installer completes, refresh your dashboard home page to see the changes.
-
-<i class="fas fa-exclamation-triangle"></i> You **must** run the aforementioned
-commands with the exact syntax. Note the spaces and extra `--` (dashes), etc.
-Otherwise, the commands will fail.
-
 ## Updating `W0CHP-PiStar-Dash`
 
 Once you install `W0CHP-PiStar-Dash`, it will automatically be kept up-to-date
 with any new features/versions/etc. This is made possible via the native,
-nightly updating process.[^3]
+nightly updating process.[^2]
 
 If you do not leave your hotspot powered on during the night, you can also
 manually invoke the update process via the dashboard admin section (`Admin ->
@@ -237,18 +183,6 @@ sudo pistar-update
 hotspot(s) powered on at night, since WPSD is [rolling release
 software](https://w0chp.net/musings/new-w0chp-pistar-dash-versioning-scheme/) - updates are
 rapid and frequent!
-
-## Uninstalling `W0CHP-PiStar-Dash`
-
-If you installed my software over an existing Pi-Star installation, it's super-simple...
-
-1. Run:
-
-    ```text
-    sudo WPSD-Installer -rd
-    ```
-
-    ...And the original Pi-Star Dashboard will be restored. Not sure why anyone would want to do this, though. `;^)`
 
 ## Features, Enhancements and Omissions (not an exhaustive list)
 
@@ -314,34 +248,6 @@ If you installed my software over an existing Pi-Star installation, it's super-s
   utilize my Instant Mode Manager, where the default cell is amber colored for
   paused modes [color is user-configurable].).
   Instead, the *actual* network name is highlighted in red when there's a login issue.
-
-## Notes about CSS, and custom CSS you may have previously applied {#css-notes}
-
-<i class="fa fa-info-circle" aria-hidden="true"></i> These notes only apply to installations that used my installation script; not the disk images.
-
-1. When using the `-id` option, the "normal" Pi-Star colors are used, and no CSS is installed. Any custom CSS
-   you may have had, is removed but backed up. See bullet #4 below.
-2. When using the `-idc` option, the `W0CHP` CSS is installed, and any of your custom CSS settings
-  before installing the `W0CHP` dashboard, are backed up in the event you want to restore the official dashboard
-  (see bullet #4). This is done because the CSS in the official Pi-Star is incompatible. You can still
-  manually map/change your CSS back when running `W0CHP-PiStar-Dash` (see bullet #4 for details).
-3. If you are already running `W0CHP-PiStar-Dash`, AND you have custom or `W0CHP-PiStar-Dash` CSS, no CSS changes, no matter which
-  option you run this command with.
-4. When using the `-id` option, your custom CSS settings are backed up (in the event you want to revert back
-  to the official dashboard -- see  bullet #6), and the `W0CHP` dashboard uses the standard Pi-Star colors.
-  This means that if you want your previous custom CSS applied to the `W0CHP` dashboard, you will need to manually
-  customize your colors; You can reference the color values you had previously used, by viewing the backup file of
-  your custom CSS...
-
-        /etc/.pistar-css.ini.user
-
-5. ...the reason for bullets #4 and #1, is because the `W0CHP` dashboard is vastly different than the official upstream version
-  (completely different CSS mappings). Since this is for my personal use, I haven't added any logic to suck-in
-  the user CSS values to the new mappings.
-6. If you had customized CSS settings before installing the `W0CHP` dashboard, they will be restored when
-  using the `-rd` option.
-7. You can at any time start over and reset to the "normal" Pi-Star colors, by performing a CSS Factory Reset (`Configuration -> Advanced -> Tools -> CSS Tool`).
-8. If you'd like to start over with the custom `W0CHP` colors/CSS, you can copy/paste [the following values](https://repo.w0chp.net/WPSD-Dev/W0CHP-PiStar-Installer/src/branch/master/supporting-files/pistar-css-W0CHP.ini) into your `/etc/pistar-css.ini`.
 
 ## Notes about M17 Protocol Support {#m17-notes}
 
@@ -443,12 +349,7 @@ and gifts to the ham community.
       have no idea what goes on under the hood in order to display meaningful info on the
       dashboard. Hint: it's a lot, and it's very resource-intensive. Ignore them...they have no idea what they are talking about.
 
-[^2]: Piping to `bash`/shells/etc. from an online source is controversial (do
-      a google search about it). However it's convenient, and one can [view & inspect
-      the full & actual source code of the installer](https://repo.w0chp.net/WPSD-Dev/W0CHP-PiStar-Installer/src/branch/master/WPSD-Installer)
-      prior to piping to `bash` or installing.
-
-[^3]: `W0CHP-PiStar-Dash` occasionally queries our servers in
+[^2]: `W0CHP-PiStar-Dash` occasionally queries our servers in
       order to determine if updates are available. In the spirit of full-disclosure,
       I wanted to mention this. This is no different than how the official Pi-Star
       software functions (but doesn't make this well-known). Additionally, every
