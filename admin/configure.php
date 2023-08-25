@@ -894,8 +894,8 @@ if (!empty($_POST)):
 	      exec('sudo rm -rf /etc/dstar-radio.*');
 	  }
 	  // reset state of d-star time announcements
-	  if (file_exists('/etc/timeserver.dissable'))
-	      system('sudo rm /etc/timeserver.dissable');
+	  if (file_exists('/etc/timeserver.disable'))
+	      system('sudo rm /etc/timeserver.disable');
 	  // reset repos
 	  exec('sudo git --work-tree=/usr/local/sbin --git-dir=/usr/local/sbin/.git update-index --assume-unchanged pistar-upnp.service');
 	  exec('sudo git --work-tree=/usr/local/sbin --git-dir=/usr/local/sbin/.git reset --hard origin/master');
