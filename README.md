@@ -14,7 +14,7 @@ so many large changes, divergences and new features, it merited my own
 fork/version.
 
 In fact, it’s pretty much its own distribution at this point; especially now
-that the `W0CHP-PiStar-Dash` disk/OS images are now bullseye-based; and is now
+that the `W0CHP-PiStar-Dash` disk/OS images are now "Bullseye"-based; and is now
 its own beast, so-to-speak.
 
 ## Warnings, Caveats and FAQs {#caveats}
@@ -50,7 +50,7 @@ its own beast, so-to-speak.
 **Raspberry Pi Zero v1.x (1st Gen, single-core) [^1]**
 
 : If you have a first-generation Raspberry Pi Zero (Pi Zero (W) Rev.1.1 armv6l) with the
-  single-core processor\*, and have downloaded my RPi Bullseye
+  single-core processor\*, and have downloaded my RPi WPSD
   disk image, you need to do a couple of things before you can access it:
     1. [Install a WiFi config file before you boot the image](https://w0chp.net/wpa-config-generator/), or connect it to Ethernet. Network connectivity is required for first boot-up.
     2. Let the image boot and configure for about 30 minutes, otherwise you will not be able to access the dashboard.
@@ -66,7 +66,7 @@ its own beast, so-to-speak.
 
 **DVMega**
 
-: If you have a DVmega EuroNode or the like, and install my NanoPi NEO Bullseye
+: If you have a DVmega EuroNode or the like, and install my NanoPi NEO WPSD
   disk image on it, you will likely lose all wireless functionality (Ethernet still works,
   however). This is because the DVmega folks create their own older Buster image,
   tailored to their custom hardware.
@@ -75,7 +75,7 @@ its own beast, so-to-speak.
 
 **TGIF Spots with Nextion Screens**
 
-: "Bullseye" [disk image installations *are* supported](#disk-image-installation), however, you may lose some of the superfluous TGIF Spot Nextion screen
+: [WPSD disk image installations *are* supported](#installing-w0chp-pistar-dash), however, you may lose some of the superfluous TGIF Spot Nextion screen
   functionality.
 
   If you install WPSD on TGIF Spots with Nextion screens, and the screens don't work the way you want, don't complain about it or ask us about it; as their strange hacks
@@ -92,13 +92,7 @@ its own beast, so-to-speak.
 Now that you've been adequately informed of the rules, caveats and the risks, keep reading to learn how to
 install `W0CHP-PiStar-Dash`.
 
-### Installing `W0CHP-PiStar-Dash` from a Bullseye-based Disk Image {#disk-image-installation}
-
-The `W0CHP-PiStar-Dash` disk images use "Bullseye" as the core operating
-system; far newer and better than the legacy "Buster"-based OS that Pi-Star
-uses.
-
-The Bullseye disk images are ready-to-go; with `W0CHP-PiStar-Dash` installed.
+First, you will want to choose the disk installation image that was created for your hardware...
 
 **Raspberry Pi Disk Image (for RPi Zero, Zero 2 and Models 2, 3, 4, etc.):**
 
@@ -140,10 +134,8 @@ The Bullseye disk images are ready-to-go; with `W0CHP-PiStar-Dash` installed.
 
 : [<code>WPSD_SHA256-SUMS.txt</code>](https://w0chp.net/WPSD_SHA256-SUMS.txt)
 
-<i class="fas fa-exclamation-triangle"></i>  You will need an SD card of at
+<i class="fas fa-exclamation-triangle"></i>  [ ! ] You will need an SD card of at
 least 4GB to install these disk images.
-
-The setup of the Bullseye image is similar to that of Pi-Star's:
 
 1. Download the image.
 2. Use a tool such as [Balena Etcher](https://www.balena.io/etcher) to write the image to your SD-Card. This tool will automatically decompress the `.xz` file as well.
@@ -156,7 +148,7 @@ The setup of the Bullseye image is similar to that of Pi-Star's:
 
    Password: `raspberry`
 
-**<i class="fas fa-exclamation-circle"></i> Important Info for First Bootup:**
+**<i class="fas fa-exclamation-circle"></i> [ ! ] Important Info for First Bootup:**
 
 1. When first booting from the Bullseye-based disk image, go grab a coffee,
    drink, etc. and let the file-system auto-expand and the rest of the system
@@ -179,7 +171,7 @@ Update`), or by command line:
 sudo pistar-update
 ```
 
-*Tip:* It is recommended that you simply leave your
+[ i ] *Tip:* It is recommended that you simply leave your
 hotspot(s) powered on at night, since WPSD is [rolling release
 software](https://w0chp.net/musings/new-w0chp-pistar-dash-versioning-scheme/) - updates are
 rapid and frequent!
@@ -256,19 +248,6 @@ Firmware of at least v1.6.0. Ergo, you will need to download, compile and
 install the [MMDVM modem firmware](https://github.com/g4klx/MMDVM) or the
 [MMDVM hotspot firmware](https://github.com/juribeparada/MMDVM_HS) yourself in
 order to gain full M17 protocol support.
-
-Please note, that if you uninstall `W0CHP-PiStar-Dash`, you will need to
-downgrade the MMDVM modem or hotspot firmware back to its original firmware. For MMDVM HS
-HAT users, you can simply run the following command:
-
-```text
-sudo pistar-mmdvmhshatdowngrade
-```
-
-<i class="fas fa-exclamation-triangle"></i> Failure to downgrade the modem
-firmware when uninstalling `W0CHP-PiStar-Dash` will result in a non-functional
-hot spot, since the official current Pi-Star `MMDVMHost` binary is not compatible with
-newer MMDVM firmware.
 
 ## Screenshots
 
