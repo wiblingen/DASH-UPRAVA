@@ -33,8 +33,8 @@ function checkSessionValidity() {
 	}
     }
 
-    if ( ! isset( $_SESSION['BMAPIKey'] ) || ( is_countable( $_SESSION['BMAPIKey'] ) && count( $_SESSION['BMAPIKey'], COUNT_RECURSIVE) < 1 ) && file_exists( '/etc/bmapi.key' ) ) {
-	$configBMapi = parse_ini_file('/etc/bmapi.key', true);
+    if ( ! isset( $_SESSION['BMAPIKey'] ) || ( is_countable( $_SESSION['BMAPIKey'] ) && count( $_SESSION['BMAPIKey'], COUNT_RECURSIVE) < 1 ) && @file_exists( '/etc/bmapi.key' ) ) {
+	$configBMapi = @parse_ini_file('/etc/bmapi.key', true);
 	if (isset($configBMapi['key']['apikey']) && !empty($configBMapi['key']['apikey'])) {
 	    $_SESSION['BMAPIKey'] = $configBMapi['key']['apikey'];
 	    // Check the BM API Key
@@ -774,6 +774,7 @@ function getMMDVMLog() {
     $logLines = array();
     $logLines1 = array();
     $logLines2 = array();
+    $lineNos = "";
     if (file_exists(MMDVMLOGPATH."/".MMDVMLOGPREFIX."-".gmdate("Y-m-d").".log")) {
         $logPath = MMDVMLOGPATH."/".MMDVMLOGPREFIX."-".gmdate("Y-m-d").".log";
         $fileList = array_filter(array("/etc/.GETNAMES", "/etc/.CALLERDETAILS", "/etc/.SHOWDMRTA", "/etc/.TGNAMES"), 'file_exists');
