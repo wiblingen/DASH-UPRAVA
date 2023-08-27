@@ -5284,7 +5284,7 @@ fclose($dmrMasterFile);
     </tr>
 <?php
 $bmAPIkeyFile = '/etc/bmapi.key';
-if (!file_exists($bmAPIkeyFile) && !fopen($bmAPIkeyFile,'r')) {
+if (!@file_exists($bmAPIkeyFile) && !@fopen($bmAPIkeyFile,'r')) {
 ?>
     <tr>
     <td align="left"><a href="#" class="tooltip2">Brandmeister Manager:<span><b>Brandmeister Manager</b>BrandMeister Manager API Info</span></a></td>

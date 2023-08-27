@@ -15,7 +15,11 @@ if ($_SERVER["PHP_SELF"] == "/admin/live_log.php") {
 	//$_SESSION['offset'] = 0;
     }
 
-   $log = $_GET['log'];
+    if (!isset($_GET['log'])) {
+	$log = "";
+    } else {
+	$log = $_GET['log'];
+    }
 
     switch ($log) {
 	case "MMDVMHost":
