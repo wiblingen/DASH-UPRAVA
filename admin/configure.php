@@ -4522,7 +4522,7 @@ else:
     </tr>
     <tr>
     <td align="left"><a class="tooltip2" href="#">Hostname:<span><b>System Hostname</b>This is the system hostname, used for access to the dashboard etc.</span></a></td>
-    <td align="left" colspan="3"><input type="text" name="confHostame" size="13" maxlength="15" value="<?php echo exec('cat /etc/hostname'); ?>" /> Do not add suffixes such as ".local"</td>
+    <td align="left" colspan="3" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'><input type="text" name="confHostame" size="13" maxlength="15" value="<?php echo exec('cat /etc/hostname'); ?>" /> Do not add suffixes such as ".local", etc. <strong>Note:</strong> A reboot is required for this change to take effect.</td>
     </tr>
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo $lang['node_call'];?>:<span><b>Gateway Callsign</b>This is your licenced callsign for use on this gateway. Do not append any suffix.</span></a></td>
