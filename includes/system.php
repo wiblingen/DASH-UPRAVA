@@ -31,7 +31,7 @@ $os_ver = trim( exec( 'cat /etc/debian_version' ) );
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('YSFGateway')); ?>">YSFGateway</div>
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('YSF2DMR')); ?>">YSF2DMR</div>
   <?php if (getPSRState()=='0' ) { ?>
-  <div class='grid-item paused-mode-cell' title="Disabled">RF Remote Control</div>
+  <div class='grid-item disabled-mode-cell'>RF Remote Control</div>
   <?php } else { ?>
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('/usr/local/sbin/pistar-remote',true)); ?>">RF Remote Control</div> 
   <?php } ?>
@@ -47,7 +47,7 @@ $os_ver = trim( exec( 'cat /etc/debian_version' ) );
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('NXDN2DMR')); ?>">NXDN2DMR</div> 
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('APRSGateway')); ?>">APRSGateway</div>
   <?php
-  if ($system['os_ver'] >= 11) {
+  if ($os_ver >= 11) {
   ?>
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('/lib/systemd/systemd-timesyncd',true)); ?>">Time Sync Service</div> 
   <?php } else { ?>
