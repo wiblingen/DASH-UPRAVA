@@ -44,7 +44,7 @@ if (!empty($_POST["submit_service"]) && empty($_POST["service_sel"])) { //handle
 } elseif
     (!empty($_POST['submit_service']) && escapeshellcmd($_POST['service_action'] == "Disable")) {
     $mode = escapeshellcmd($_POST['service_sel']); // get selected mode from for post
-    if ($mode == "Cron" && (getCronState() == 0) || $mode == "PiStar-Remote" && (getPSRState() == 0) || $mode == "Firewall" && (getFWstate() == 0) || $mode == "PiStar-Watchdog" && (getPSWState() == 0)) { //check if already disabled
+    if ($mode == "Cron" && (getCronState() == 0) || $mode == "RF Remote Control" && (getPSRState() == 0) || $mode == "Firewall" && (getFWstate() == 0) || $mode == "Service Watchdog" && (getPSWState() == 0)) { //check if already disabled
         // Output to the browser
 	echo '<div style="text-align:left;font-weight:bold;">System Manager</div>'."\n";
         echo "<table>\n";
@@ -63,9 +63,9 @@ if (!empty($_POST["submit_service"]) && empty($_POST["service_sel"])) { //handle
 	        system($cron_disable);
 	    } elseif ($mode == "Firewall") {
 	        system($fw_disable);
-	    } elseif ($mode == "PiStar-Remote") {
+	    } elseif ($mode == "RF Remote Control") {
 	        system($psr_disable);
-	    } elseif ($mode == "PiStar-Watchdog") {
+	    } elseif ($mode == "Service Watchdog") {
 	        system($psw_disable);
 	    } else {
 	        die;
@@ -87,7 +87,7 @@ if (!empty($_POST["submit_service"]) && empty($_POST["service_sel"])) { //handle
     } elseif
         (!empty($_POST['submit_service']) && escapeshellcmd($_POST['service_action'] == "Enable")) {
         $mode = escapeshellcmd($_POST['service_sel']); // get selected mode from for post
-	if ($mode == "Cron" && (getCronState() == 1) || $mode == "PiStar-Remote" && (getPSRState() == 1) || $mode == "Firewall" && (getFWstate() == 1) || $mode == "PiStar-Watchdog" && (getPSWState() == 1)) {
+	if ($mode == "Cron" && (getCronState() == 1) || $mode == "RF Remote Control" && (getPSRState() == 1) || $mode == "Firewall" && (getFWstate() == 1) || $mode == "Service Watchdog" && (getPSWState() == 1)) {
             // Output to the browser
 	    echo '<div style="text-align:left;font-weight:bold;">System Manager</div>'."\n";
             echo "<table>\n";
@@ -107,9 +107,9 @@ if (!empty($_POST["submit_service"]) && empty($_POST["service_sel"])) { //handle
 	    } elseif ($mode == "Firewall") {
 		sleep(5);
 		system($fw_enable);
-	    } elseif ($mode == "PiStar-Remote") {
+	    } elseif ($mode == "RF Remote Control") {
 		system($psr_enable);
-	    } elseif ($mode == "PiStar-Watchdog") {
+	    } elseif ($mode == "Service Watchdog") {
 		system($psw_enable);
 	    } else {
 		die;
@@ -151,10 +151,10 @@ if (!empty($_POST["submit_service"]) && empty($_POST["service_sel"])) { //handle
 	    <label for="service-sel-0"'.((getFWstate()=='0'? "class='paused-mode-span'":"")). 'title="Disabled">Firewall</label>
 	    &nbsp;| <input name="service_sel" id="service-sel-1"  value="Cron" type="radio">
 	    <label for="service-sel-1"'.((getCronstate()=='0'? "class='paused-mode-span'":"")). 'title="Disabled">Cron</label>
-	    &nbsp;| <input name="service_sel" id="service-sel-2"  value="PiStar-Remote" type="radio">
-	    <label for="service-sel-2"'.((getPSRState()=='0'? "class='paused-mode-span'":"")). 'title="Disabled">Pi-Star Remote</label>
-	    &nbsp;| <input name="service_sel" id="service-sel-3"  value="PiStar-Watchdog" type="radio">
-	    <label for="service-sel-3"'.((getPSWState()=='0'? "class='paused-mode-span'":"")). 'title="Disabled">Pi-Star Watchdog</label>
+	    &nbsp;| <input name="service_sel" id="service-sel-2"  value="RF Remote Control" type="radio">
+	    <label for="service-sel-2"'.((getPSRState()=='0'? "class='paused-mode-span'":"")). 'title="Disabled">RF Remote Control</label>
+	    &nbsp;| <input name="service_sel" id="service-sel-3"  value="Service Watchdog" type="radio">
+	    <label for="service-sel-3"'.((getPSWState()=='0'? "class='paused-mode-span'":"")). 'title="Disabled">Service Watchdog</label>
 	    <br />
 	  </td>
 	  <td>
