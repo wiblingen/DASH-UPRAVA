@@ -846,7 +846,7 @@ if (!empty($_POST)):
 
 	echo "<table>\n";
 	echo "<tr><th>INFO:</th></tr>\n";
-	echo "<tr><td><h3>Please Wait...</h3><h4>Applying changes and realoading page once complete...</h4></td></tr>\n";
+	echo "<tr><td><h3>Please Wait...</h3><h4>Applying changes and reloading page once complete...</h4></td></tr>\n";
 	echo "</table>\n";
 
 	// Factory Reset Handler Here
