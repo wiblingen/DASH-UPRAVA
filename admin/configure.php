@@ -472,24 +472,26 @@ $MYCALL=strtoupper($callsign);
     <script src="/js/select2/js/select2.full.min.js?version=<?php echo $versionCmd; ?>"></script>
     <script src="/js/select2/js/select2-searchInputPlaceholder.js?version=<?php echo $versionCmd; ?>"></script>  
     <script type="text/javascript">
-	function disablesubmitbuttons() {
-		var inputs = document.getElementsByTagName('input');
-		for (var i = 0; i < inputs.length; i++) {
-			if (inputs[i].type === 'button') {
-				inputs[i].disabled = true;
-			}
-		}
-	}
+        function disableSubmitButtons() {
+                var inputs = document.getElementsByTagName('input');
+                for (var i = 0; i < inputs.length; i++) {
+                        if (inputs[i].type === 'button') {
+                                inputs[i].disabled = true;
+				inputs[i].value = 'Please Wait...';
+                        }
+                }
+        }
+
 	function submitform() {
-		disablesubmitbuttons();
+		disableSubmitButtons();
 		document.getElementById("config").submit();
 	}
 	function submitPassform() {
-		disablesubmitbuttons();
+		disableSubmitButtons();
 		document.getElementById("adminPassForm").submit();
 	}
 	function submitPskform() {
-		disablesubmitbuttons();
+		disableSubmitButtons();
 		document.getElementById("autoApPassForm").submit();
 	}
 	function factoryReset() {
@@ -843,8 +845,8 @@ if (!empty($_POST)):
 	system('sudo /usr/local/sbin/nextion-driver-term ; sudo pistar-services fullstop > /dev/null 2>/dev/null');
 
 	echo "<table>\n";
-	echo "<tr><th>Working...</th></tr>\n";
-	echo "<tr><td>Stopping services and applying your configuration changes...</td></tr>\n";
+	echo "<tr><th>INFO:</th></tr>\n";
+	echo "<tr><td><h3>Please Wait...</h3><h4>Applying changes and realoading page once complete...</h4></td></tr>\n";
 	echo "</table>\n";
 
 	// Factory Reset Handler Here
@@ -3815,13 +3817,6 @@ if (!empty($_POST)):
 		}
 	}
 
-	// Continue Page Output
-	echo "<br />";
-	echo "<table>\n";
-	echo "<tr><th>Done...</th></tr>\n";
-	echo "<tr><td>Changes applied, starting services...</td></tr>\n";
-	echo "</table>\n";
-
 	// MMDVMHost config file wrangling
         //
 	// Removes empty sections
@@ -4418,11 +4413,11 @@ if (!empty($_POST)):
         }
 
 	// Start all services
-	system('sudo systemctl daemon-reload > /dev/null 2>/dev/null &');	// Restart Systemd to account for any service changes
-	system('sudo pistar-services start > /dev/null 2>/dev/null &');
+	system('sudo systemctl daemon-reload > /dev/null 2>/dev/null');	// Restart Systemd to account for any service changes
+	system('sudo pistar-services start > /dev/null 2>/dev/null');
 
 	unset($_POST);
-	echo '<script type="text/javascript">setTimeout(function() { window.location=window.location;},7500);</script>';
+	echo '<script type="text/javascript">setTimeout(function() { window.location=window.location;},5000);</script>';
 
 else:
 	// Output the HTML Form here
