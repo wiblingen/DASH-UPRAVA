@@ -28,8 +28,8 @@ its own beast, so-to-speak.
 * [Read The FAQs again!](https://w0chp.net/wpsd-faqs/)
 
 ## Getting Help/Support
-* Do *NOT* ask for support for `W0CHP-PiStar-Dash` on any official or unofficial
-  Pi-Star support page/forum/medium/etc. This is not Andy’s (`MW0MWZ`) Pi-Star
+* Do *NOT* ask for for `W0CHP-PiStar-Dash` support in any official or unofficial
+  Pi-Star support page/forum/medium/etc. This is not Andy’s (`MW0MWZ`) original Pi-Star
   software!
 * Before you ask for help, [**read how to *properly* ask for help**](https://w0chp.net/musings/how-to-report-a-wpsd-issue/).
 * Some really great users, fans and contributors of `W0CHP-PiStar-Dash` have setup
