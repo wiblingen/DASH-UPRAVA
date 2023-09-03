@@ -59,7 +59,7 @@ checkSessionValidity();
 	 
 	 function cssReset()
 	 {
-	     if (confirm('WARNING: This will set these settings back to factory defaults.\n\nAre you SURE you want to do this?\n\nPress OK to restore the factory CSS configuration\nPress Cancel to go back.')) {
+	     if (confirm('WARNING: This will reset the CSS/Look & Feel  settings back to factory defaults.\n\nAre you SURE you want to do this?\n\nPress OK to restore the factory CSS configuration\nPress Cancel to go back.')) {
 		 document.getElementById("cssReset").submit();
 	     } else {
 		 return false;
@@ -120,13 +120,14 @@ checkSessionValidity();
 			die();
 		    }
 		}
-
 		if (!file_exists('/etc/pistar-css.ini')) {
 		    //The source file does not exist, lets create it....
 		    $outFile = fopen("/tmp/bW1kd4jg6b3N0DQo.tmp", "w") or die("Unable to open file!");
-		    $fileContent = "[Background]\nPageColor=#edf0f5\nContentColor=#ffffff\nBannersColor=#dd4b39\nNavbarColor=#242d31\nNavbarHoverColor=#a60000\nDropdownColor=#f9f9f9\nDropdownHoverColor=#d0d0d0\nServiceCellActiveColor=#11DD11\nServiceCellInactiveColor=#BB5555\nModeCellDisabledColor=#606060\nModeCellActiveColor=#00BB00\nModeCellInactiveColor=#BB0000\nModeCellPausedColor=#ff9933\nNavPanelColor=#edf0f5\nTableRowBgEvenColor=#f7f7f7\nTableRowBgOddColor=#d0d0d0\n\n";
-		    $fileContent .= "[Text]\nTextColor=#000000\nTextSectionColor=#000000\nTextLinkColor=#0000e0\nTableHeaderColor=#ffffff\nBannersColor=#ffffff\nNavbarColor=#ffffff\nNavbarHoverColor=#ffffff\nDropdownColor=#000000\nDropdownHoverColor=#000000\nServiceCellActiveColor=#000000\nServiceCellInactiveColor=#000000\nModeCellDisabledColor=#b0b0b0\nModeCellActiveColor=#003300\nModeCellInactiveColor=#550000\n\n";
-		    $fileContent .= "[ExtraSettings]\nLastHeardRows=40\nMainFontSize=18\nBodyFontSize=17\nHeaderFontSize=34\nTableBorderColor=#000000\n\n";
+		    $headers = stream_context_create(Array("http" => Array("method"  => "GET",
+							    		   "timeout" => 10,
+							    		    "header"  => "User-agent: WPSD-CSS-Reset - $versionCmd",
+							    		    'request_fulluri' => True )));
+		    $fileContent = @file_get_contents("https://repo.w0chp.net/WPSD-Dev/W0CHP-PiStar-Installer/raw/branch/master/supporting-files/pistar-css-W0CHP.ini", false, $headers);
 		    fwrite($outFile, $fileContent);
 		    fclose($outFile);
 		    
@@ -136,7 +137,6 @@ checkSessionValidity();
 		    exec('sudo chmod 644 /etc/pistar-css.ini');                     // Set the correct runtime permissions
 		    exec('sudo chown root:root /etc/pistar-css.ini');               // Set the owner
 		}
-		
 		//Do some file wrangling...
 		exec('sudo cp /etc/pistar-css.ini /tmp/bW1kd4jg6b3N0DQo.tmp');
 		exec('sudo chown www-data:www-data /tmp/bW1kd4jg6b3N0DQo.tmp');
@@ -153,13 +153,13 @@ checkSessionValidity();
 			echo "<br />\n";
 			echo "<table>\n";
 			echo "<tr><th>CSS Configuration Reset</th></tr>\n";
-			echo "<tr><td>Loading fresh configuration file(s)...</td><tr>\n";
+			echo "<tr><td>Resetting Look & Feel...</td><tr>\n";
 			echo "</table>\n";
 			unset($_POST);
 			//Reset the config
 			exec('sudo mount -o remount,rw /');                             // Make rootfs writable
 			exec('sudo rm -rf /etc/pistar-css.ini');                        // Delete the Config
-			echo '<script type="text/javascript">setTimeout(function() { window.location=window.location;},0);</script>';
+			echo '<script type="text/javascript">setTimeout(function() { window.location=window.location;},2000);</script>';
 			die();
 		    }
 		    else if (empty($_POST['cssDownload']) != TRUE)
