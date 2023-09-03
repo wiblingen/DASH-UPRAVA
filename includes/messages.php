@@ -7,7 +7,7 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/mmdvmhost/functions.php';    // MMDVMDa
 include_once $_SERVER['DOCUMENT_ROOT'].'/config/language.php';        // Translation Code
 
 $headers = stream_context_create(Array("http" => Array("method"  => "GET",
-                                                       "timeout" => 1,
+                                                       "timeout" => 10,
                                                        "header"  => "User-agent: WPSD-Messages - $versionCmd",
                                                        'request_fulluri' => True )));
 // older wpsd with very old uuid scheme
