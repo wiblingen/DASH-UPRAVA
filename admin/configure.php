@@ -841,8 +841,7 @@ if (!empty($_POST)):
 	  die();
 	}
 
-	// Stop Cron and all serivices (also kill NextionDriver for display feedback)
-	system('sudo /usr/local/sbin/nextion-driver-term ; sudo pistar-services fullstop > /dev/null 2>/dev/null');
+	system('sudo pistar-services fullstop > /dev/null 2>/dev/null');
 
 	echo "<table>\n";
 	echo "<tr><th>INFO:</th></tr>\n";
