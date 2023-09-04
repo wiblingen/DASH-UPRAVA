@@ -303,6 +303,10 @@ for `W0CHP-PiStar-Dash`, ergo, I am very grateful.
 The excellent country flag images are courtesy of [Hampus Joakim
 Borgos](https://github.com/hampusborgos/country-flags).
 
+A big "thank you" goes to the wonderful people/devs/sysadmins from the
+wonderful [M17 Project](https://m17project.org/) for hosting the WPSD disk
+image mirror server!
+
 Credit must also be given to to Kim Heinz Hübel; `DG9VH`, and Hans-Juergen
 Barthen; `DL5DI`, both of whom arguably created the very first MMDVM and
 ircDDBGateway dashboards (respectively); of which, spawned the entire Pi-Star
