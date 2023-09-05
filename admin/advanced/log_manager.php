@@ -39,7 +39,7 @@ $status = exec('systemctl status mmdvm-log-backup.timer | grep masked');
 	    <meta http-equiv="pragma" content="no-cache" />
 	    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
 	    <meta http-equiv="Expires" content="0" />
-	    <title>WPSD <?php echo $lang['digital_voice']." ".$lang['dashboard']."";?> - MMDVM Log Manager</title>
+	    <title>WPSD <?php echo $lang['digital_voice']." ".$lang['dashboard']."";?> - MMDVMHost Log Manager</title>
 	    <link rel="stylesheet" type="text/css" href="/css/font-awesome-4.7.0/css/font-awesome.min.css" />
 <?php include_once $_SERVER['DOCUMENT_ROOT'].'/config/browserdetect.php'; ?>
         <script type="text/javascript" src="/js/jquery.min.js?version=<?php echo $versionCmd; ?>"></script>
@@ -51,7 +51,7 @@ $status = exec('systemctl status mmdvm-log-backup.timer | grep masked');
 		<div class="contentwide">
 		    <?php if (!empty($_POST)) { ?>
 			<table width="100%">
-			    <tr><th colspan="2">MMDVM Log Manager</th></tr>
+			    <tr><th colspan="2">MMDVMHost Log Manager</th></tr>
 			    <?php
 			    if ( escapeshellcmd($_POST["purge_logs"]) ) {
 				   echo '<tr><td colspan="2"><br />Purging all logs...
@@ -125,7 +125,7 @@ $status = exec('systemctl status mmdvm-log-backup.timer | grep masked');
 			<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 			    <table width="100%">
 				<tr>
-				    <th colspan="2">MMDVM Log Manager</th>
+				    <th colspan="2">MMDVMHost Log Manager</th>
 				</tr>
 				<tr>
 				    <th>Enable Auto Log Backups/Restores</th>
@@ -153,8 +153,8 @@ $status = exec('systemctl status mmdvm-log-backup.timer | grep masked');
 					</td>
 				</tr>
 				<tr>
-                                        <td style="white-space:normal;padding: 3px;">This will enable the automatic MMDVM log backup/restore on reboot functionality.</td>
-                                        <td style="white-space:normal;padding: 3px;">This will DISABLE the automatic MMDVM log backup/restore on reboot functionality. Note that existing log backups will be retained.</td>
+                                        <td style="white-space:normal;padding: 3px;">This will enable the automatic MMDVMHost log backup/restore on reboot functionality.</td>
+                                        <td style="white-space:normal;padding: 3px;">This will DISABLE the automatic MMDVMHost log backup/restore on reboot functionality. Note that existing log backups will be retained.</td>
 				</tr>
 			</table>
 		</form>
@@ -163,7 +163,7 @@ $status = exec('systemctl status mmdvm-log-backup.timer | grep masked');
 
 	<table>
 		<tr>
-			<th colspan="2">Purge All MMDVM Logs</th>
+			<th colspan="2">Purge All MMDVMHost Logs</th>
 		</tr>
 		<tr>
 			<td colspan="2">
@@ -174,7 +174,7 @@ $status = exec('systemctl status mmdvm-log-backup.timer | grep masked');
 			</td>
 		</tr>
                 <tr>
-                     <td style="white-space:normal;padding: 3px;">This will purge ALL MMDVM logs and start fresh; including current live logs and backup logs (if service enabled).</td>
+                     <td style="white-space:normal;padding: 3px;">This will purge ALL MMDVMHost logs and start fresh; including current live logs and backup logs (if service enabled).</td>
                 </tr>
 
 	</table>
