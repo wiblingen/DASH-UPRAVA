@@ -5287,10 +5287,10 @@ if (!@file_exists($bmAPIkeyFile) && !@fopen($bmAPIkeyFile,'r')) {
     </td>
     <tr>
 <?php } ?>
-    <th align="left" colspan="4">DMR+ / FreeDMR / HBlink Network Settings</th>
+    <th align="left" colspan="4">DMR+/FreeDMR/HBlink/Custom Network Settings</th>
     </tr>
     <tr>
-    <td align="left"><a class="tooltip2" href="#">DMR+ / FreeDMR / HBlink Master:<span><b>DMR+ / FreeDMR / HBlink Master</b>Set your preferred DMR master here</span></a></td>
+    <td align="left"><a class="tooltip2" href="#">DMR+ / FreeDMR / HBlink / Custom Master:<span><b>DMR+ / FreeDMR / HBlink / Custom Master</b>Set your preferred DMR master here</span></a></td>
     <td style="text-align: left;" colspan="3"><select name="dmrMasterHost2" class="dmrMasterHost2">
 <?php
 	$dmrMasterFile2 = fopen("/usr/local/etc/DMR_Hosts.txt", "r");
@@ -5299,7 +5299,15 @@ if (!@file_exists($bmAPIkeyFile) && !@fopen($bmAPIkeyFile,'r')) {
 	while (!feof($dmrMasterFile2)) {
 		$dmrMasterLine2 = fgets($dmrMasterFile2);
                 $dmrMasterHost2 = preg_split('/\s+/', $dmrMasterLine2);
-                if ((strpos($dmrMasterHost2[0], '#') === FALSE ) && (substr($dmrMasterHost2[0], 0, 4) == "DMR+") || (substr($dmrMasterHost2[0], 0, 7) == "FreeDMR") || (substr($dmrMasterHost2[0], 0, 3) == "FD_") || (substr($dmrMasterHost2[0], 0, 3) == "HB_") && ($dmrMasterHost2[0] != '')) {
+	if ((strpos($dmrMasterHost2[0], '#') === FALSE ) &&
+	    (substr($dmrMasterHost2[0], 0, 3) != "BM_" &&
+	    substr($dmrMasterHost2[0], 0, 4) != "XLX_" &&
+	    substr($dmrMasterHost2[0], 0, 8) != "SystemX_" &&
+	    $dmrMasterHost2[0] != "DMRGateway" &&
+	    $dmrMasterHost2[0] != "DMR2YSF" &&
+	    $dmrMasterHost2[0] != "DMR2NXDN" &&
+	    substr($dmrMasterHost2[0], 0, 5) != "TGIF_") &&
+	    $dmrMasterHost2[0] != '') {
                         if (($testMMDVMdmrMaster2 == $dmrMasterHost2[2]) && ($testMMDVMdmrMaster2Port == $dmrMasterHost2[4])) { echo "      <option value=\"$dmrMasterHost2[2],$dmrMasterHost2[3],$dmrMasterHost2[4],$dmrMasterHost2[0]\" selected=\"selected\">$dmrMasterHost2[0]</option>\n"; }
                         else { echo "      <option value=\"$dmrMasterHost2[2],$dmrMasterHost2[3],$dmrMasterHost2[4],$dmrMasterHost2[0]\">$dmrMasterHost2[0]</option>\n"; }
                 }
@@ -5308,13 +5316,13 @@ if (!@file_exists($bmAPIkeyFile) && !@fopen($bmAPIkeyFile,'r')) {
 ?>
     </select></td></tr>
     <tr>
-    <td align="left"><a class="tooltip2" href="#">Network Options:<span><b>DMR+ / FreeDMR / HBlink Network</b>Set your options= for DMR+ / FreeDMR / HBlink here</span></a></td>
+    <td align="left"><a class="tooltip2" href="#">Network Options:<span><b>DMR+ / FreeDMR / HBlink / Custom Network</b>Set your options= for DMR+ / FreeDMR / HBlink / Custom Host here</span></a></td>
     <td align="left" colspan="3">
     Options=<input type="text" name="dmrNetworkOptions" size="85" maxlength="250" value="<?php if (isset($configdmrgateway['DMR Network 2']['Options'])) { echo $configdmrgateway['DMR Network 2']['Options']; } ?>" />
     </td>
     </tr>
     <tr>
-    <td align="left"><a class="tooltip2" href="#">ESSID:<span><b>DMR+ / FreeDMR / HBlink Extended ID</b>This is the extended ID, to make your DMR ID 8 digits long</span></a></td>
+    <td align="left"><a class="tooltip2" href="#">ESSID:<span><b>DMR+ / FreeDMR / HBlink / Custom Host Extended ID</b>This is the extended ID, to make your DMR ID 8 digits long</span></a></td>
     <td align="left" colspan="3">
 <?php
 	if (isset($configdmrgateway['DMR Network 2']['Id'])) {
