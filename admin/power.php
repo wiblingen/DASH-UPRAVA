@@ -154,7 +154,7 @@ if(isset($_SESSION['PiStarRelease']['Pi-Star']['ProcNum']) && ($_SESSION['PiStar
 				    </td>
 				</tr>
 				<tr>
-				    <td colspan="2"><input type="checkbox" name="purgeLogs" value="1" id="purge" /> <label for="purge">Purge Logs on Shutdown / Reboot</label></td>
+				    <td colspan="2"><input type="checkbox" name="purgeLogs" value="1" id="purge" /> <label for="purge">Purge MMDVMHost Logs on Shutdown / Reboot</label></td>
 				</tr>
 			    </table>
 			</form>
