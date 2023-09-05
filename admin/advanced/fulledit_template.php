@@ -81,7 +81,11 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/config/version.php';
 		    $theData = fread($fh, filesize($filepath));
 		}
 		fclose($fh);
-		
+
+		if (strpos($editorname, 'Hosts') !== false) { // if it's a host file edit, update the hostfiles...
+		    exec('sudo /usr/local/sbin/HostFilesUpdate.sh > /dev/null 2>&1 &');
+		}
+
 		?>
 		
 		<form name="test" method="post" action="">
