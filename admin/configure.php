@@ -4511,8 +4511,6 @@ else:
     <h2 class="ConfSec"><?php echo $lang['general_config'];?></h2>
     <table>
     <tr>
-    <th width="200"><a class="tooltip" href="#"><?php echo $lang['setting'];?><span><b>Setting</b></span></a></th>
-    <th colspan="4"><a class="tooltip" href="#"><?php echo $lang['value'];?><span><b>Value</b>The current value from the<br />configuration files</span></a></th>
     </tr>
     <tr>
     <td align="left"><a class="tooltip2" href="#">Hostname:<span><b>System Hostname</b>This is the system hostname, used for access to the dashboard etc.</span></a></td>
@@ -4715,8 +4713,6 @@ else:
     <input type="hidden" name="APRSGatewayEnable" value="OFF" />
     <table>
     <tr>
-    <th width="200"><a class="tooltip" href="#"><?php echo $lang['setting'];?><span><b>Setting</b></span></a></th>
-    <th colspan="4"><a class="tooltip" href="#"><?php echo $lang['value'];?><span><b>Value</b>The current value from the<br />configuration files</span></a></th>
     </tr>
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo $lang['lattitude'];?>:<span><b>Gateway Latitude</b>This is the latitude where the gateway is located (positive number for North, negative number for South) - Set to 0 to hide your hotspot location</span></a></td>
@@ -4848,8 +4844,6 @@ else:
     <h2 class="ConfSec"><?php echo $lang['mmdvmhost_config'];?></h2>
     <table>
     <tr>
-    <th width="200"><a class="tooltip" href="#"><?php echo $lang['setting'];?><span><b>Setting</b></span></a></th>
-    <th colspan="2"><a class="tooltip" href="#"><?php echo $lang['value'];?><span><b>Value</b>The current value from<br />the configuration files</span></a></th>
     </tr>
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo $lang['dmr_mode'];?>:<span><b>DMR Mode</b>Turn on DMR Features</span></a></td>
@@ -5066,8 +5060,6 @@ else:
     <input type="hidden" name="oledScrollEnable" value="OFF" />
     <table>
     <tr>
-    <th width="200"><a class="tooltip" href="#"><?php echo $lang['setting'];?><span><b>Setting</b></span></a></th>
-    <th colspan="4"><a class="tooltip" href="#"><?php echo $lang['value'];?><span><b>Value</b>The current value from the<br />configuration files</span></a></th>
     </tr>
 
     <tr>
@@ -5166,11 +5158,9 @@ else:
     <input type="hidden" name="dmrDMRnetJitterBufer" value="OFF" />
     <table>
     <tr>
-    <th width="200"><a class="tooltip" href="#"><?php echo $lang['setting'];?><span><b>Setting</b></span></a></th>
-    <th colspan="4"><a class="tooltip" href="#"><?php echo $lang['value'];?><span><b>Value</b>The current value from the<br />configuration files</span></a></th>
     </tr>
     <tr>
-    <th align="left" colspan="4">Main DMR Network Settings</th>
+    <th class='config_head' align="left" colspan="4">Main DMR Network Settings</th>
     </tr>
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo $lang['dmr_master'];?>:<span><b>DMR Master (MMDVMHost)</b>Set your preferred DMR master here</span></a></td>
@@ -5199,7 +5189,7 @@ fclose($dmrMasterFile);
     </tr>
 <?php if ($dmrMasterNow == "DMRGateway") { ?>
     <tr>
-    <th align="left"colspan="4">BrandMeister Network Settings</th>
+    <th class='config_head' align="left"colspan="4">BrandMeister Network Settings</th>
     </tr>
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo $lang['bm_master'];?>:<span><b>BrandMeister Master</b>Set your preferred DMR master here</span></a></td>
@@ -5287,7 +5277,7 @@ if (!@file_exists($bmAPIkeyFile) && !@fopen($bmAPIkeyFile,'r')) {
     </td>
     <tr>
 <?php } ?>
-    <th align="left" colspan="4">DMR+/FreeDMR/HBlink/Custom Network Settings</th>
+    <th class='config_head' align="left" colspan="4">DMR+/FreeDMR/HBlink/Custom Network Settings</th>
     </tr>
     <tr>
     <td align="left"><a class="tooltip2" href="#">DMR+ / FreeDMR / HBlink / Custom Master:<span><b>DMR+ / FreeDMR / HBlink / Custom Master</b>Set your preferred DMR master here</span></a></td>
@@ -5358,7 +5348,7 @@ if (!@file_exists($bmAPIkeyFile) && !@fopen($bmAPIkeyFile,'r')) {
 ?>
     </td></tr>
     <tr>
-    <td align="left"><a class="tooltip2" href="#">DMR+ / FreeDMR / HBlink Enable:<span><b>DMR+ / FreeDMR / HBlink Network Enable</b></span></a></td>
+    <td align="left"><a class="tooltip2" href="#">DMR+ / FreeDMR / HBlink / Custom Network Enable:<span><b>DMR+ / FreeDMR / HBlink / Custom Network Enable</b></span></a></td>
     <td align="left" colspan="2">
     <?php if ($configdmrgateway['DMR Network 2']['Enabled'] == 1) { echo "<div class=\"switch\"><input id=\"toggle-dmrGatewayNet2En\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"dmrGatewayNet2En\" value=\"ON\" checked=\"checked\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDmrGatewayNet2EnCheckboxCr." /><label id=\"aria-toggle-dmrGatewayNet2En\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Enable DMR+ / FreeDMR / HBlink\" aria-checked=\"true\" onKeyPress=\"toggleDmrGatewayNet2EnCheckbox()\" onclick=\"toggleDmrGatewayNet2EnCheckbox()\" for=\"toggle-dmrGatewayNet2En\"><font style=\"font-size:0px\">Enable DMR+ / FreeDMR / HBlink</font></label></div>\n"; }
     else { echo "<div class=\"switch\"><input id=\"toggle-dmrGatewayNet2En\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"dmrGatewayNet2En\" value=\"ON\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDmrGatewayNet2EnCheckboxCr." /><label id=\"aria-toggle-dmrGatewayNet2En\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Enable DMR+ / FreeDMR / HBlink\" aria-checked=\"false\" onKeyPress=\"toggleDmrGatewayNet2EnCheckbox()\" onclick=\"toggleDmrGatewayNet2EnCheckbox()\" for=\"toggle-dmrGatewayNet2En\"><font style=\"font-size:0px\">Enable DMR+ / FreeDMR / HBlink</font></label></div>\n"; } ?>
@@ -5367,7 +5357,7 @@ if (!@file_exists($bmAPIkeyFile) && !@fopen($bmAPIkeyFile,'r')) {
     </tr>
 
     <tr>
-    <th align="left" colspan="4">SystemX Network Settings</th>
+    <th class='config_head' align="left" colspan="4">SystemX Network Settings</th>
     </tr>
     <tr>
     <td align="left"><a class="tooltip2" href="#">SystemX Master:<span><b>SystemX Master</b>Set your preferred DMR master here</span></a></td>
@@ -5446,7 +5436,7 @@ if (!@file_exists($bmAPIkeyFile) && !@fopen($bmAPIkeyFile,'r')) {
     </tr>
 
     <tr>
-    <th align="left" colspan="4">TGIF Network Settings</th>
+    <th class='config_head' align="left" colspan="4">TGIF Network Settings</th>
     <input type="hidden" name="dmrMasterHost4" value="OFF" />
     <tr>
     <td align="left"><a class="tooltip2" href="#">ESSID:<span><b>TGIF Extended ID</b>This is the extended ID, to make your DMR ID 8 digits long</span></a></td>
@@ -5508,7 +5498,7 @@ if (!@file_exists($bmAPIkeyFile) && !@fopen($bmAPIkeyFile,'r')) {
     </tr>
 
     <tr>
-    <th align="left" colspan="4">XLX Network Settings</th>
+    <th class='config_head' align="left" colspan="4">XLX Network Settings</th>
     </tr>
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo $lang['xlx_master'];?>:<span><b>XLX Master</b>Set your preferred XLX master here</span></a></td>
@@ -5622,7 +5612,7 @@ if (!@file_exists($bmAPIkeyFile) && !@fopen($bmAPIkeyFile,'r')) {
     </td></tr>
 <?php } ?>
     <tr>
-    <th align="left" colspan="4">System-Wide DMR Settings</th>
+    <th class='config_head' align="left" colspan="4">System-Wide DMR Settings</th>
     </tr>
     <tr>
     <td align="left"><a class="tooltip2" href="#">DMR Roaming Beacon:<span><b>Enable DMR Roaming Beacon</b>Enable DMR Roaming Beacons; Used for repeaters</span></a></td>
@@ -5703,8 +5693,6 @@ if (!@file_exists($bmAPIkeyFile) && !@fopen($bmAPIkeyFile,'r')) {
 	<input type="hidden" name="confHostFilesNoDExtra" value="OFF" />
     <table>
     <tr>
-    <th width="200"><a class="tooltip" href="#"><?php echo $lang['setting'];?><span><b>Setting</b></span></a></th>
-    <th colspan="2"><a class="tooltip" href="#"><?php echo $lang['value'];?><span><b>Value</b>The current value from the<br />configuration files</span></a></th>
     </tr>
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo $lang['dstar_rpt1'];?>:<span><b>RPT1 Callsign</b>This is the RPT1 field for your radio</span></a></td>
@@ -5895,8 +5883,6 @@ $ysfHosts = fopen("/usr/local/etc/YSFHosts.txt", "r"); ?>
 	<h2 class="ConfSec"><?php echo $lang['ysf_config'];?></h2>
     <table>
     <tr>
-    <th width="200"><a class="tooltip" href="#"><?php echo $lang['setting'];?><span><b>Setting</b></span></a></th>
-    <th colspan="2"><a class="tooltip" href="#"><?php echo $lang['value'];?><span><b>Value</b>The current value from the<br />configuration files</span></a></th>
     </tr>
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo $lang['ysf_startup_host'];?>:<span><b>YSF Host</b>Set your preferred YSF Host here</span></a></td>
@@ -6192,8 +6178,6 @@ $p25Hosts = fopen("/usr/local/etc/P25Hosts.txt", "r");
 	<h2 class="ConfSec"><?php echo $lang['p25_config'];?></h2>
     <table>
     <tr>
-    <th width="200"><a class="tooltip" href="#"><?php echo $lang['setting'];?><span><b>Setting</b></span></a></th>
-    <th colspan="2"><a class="tooltip" href="#"><?php echo $lang['value'];?><span><b>Value</b>The current value from the<br />configuration files</span></a></th>
     </tr>
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo $lang['p25_hosts'];?>:<span><b>P25 Host</b>Set your preferred P25 Host here</span></a></td>
@@ -6244,8 +6228,6 @@ $p25Hosts = fopen("/usr/local/etc/P25Hosts.txt", "r");
 	<h2 class="ConfSec"><?php echo $lang['nxdn_config'];?></h2>
     <table>
       <tr>
-        <th width="200"><a class="tooltip" href="#"><?php echo $lang['setting'];?><span><b>Setting</b></span></a></th>
-        <th colspan="2"><a class="tooltip" href="#"><?php echo $lang['value'];?><span><b>Value</b>The current value from the<br />configuration files</span></a></th>
       </tr>
       <tr>
         <td align="left"><a class="tooltip2" href="#"><?php echo $lang['nxdn_hosts'];?>:<span><b>NXDN Host</b>Set your preferred NXDN Host here</span></a></td>
@@ -6301,8 +6283,6 @@ $p25Hosts = fopen("/usr/local/etc/P25Hosts.txt", "r");
 			    <h2 class="ConfSec">M17 Configuration</h2>
 			    <table>
 				<tr>
-				    <th width="200"><a class="tooltip" href="#"><?php echo $lang['setting'];?><span><b>Setting</b></span></a></th>
-				    <th colspan="2"><a class="tooltip" href="#"><?php echo $lang['value'];?><span><b>Value</b>The current value from the<br />configuration files</span></a></th>
 				</tr>
 				<tr>
 				    <td align="left"><a class="tooltip2" href="#">M17 Startup Reflector:<span><b>Startup Reflector</b>Set your preferred M17 reflector here</span></a></td>
@@ -6442,8 +6422,6 @@ $p25Hosts = fopen("/usr/local/etc/P25Hosts.txt", "r");
 			    <h2 class="ConfSec"><?php echo $lang['gpsd_config'];?></h2>
 			    <table>
 				<tr>
-				    <th width="200"><a class="tooltip" href="#"><?php echo $lang['setting'];?><span><b>Setting</b></span></a></th>
-				    <th colspan="2"><a class="tooltip" href="#"><?php echo $lang['value'];?><span><b>Value</b>The current value from the<br />configuration files</span></a></th>
 				</tr>
 				<tr>
 				    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['gpsd_port'];?>:<span><b>GPSd Server Port</b>Define the GPSd server port here</span></a></td>
@@ -6463,8 +6441,6 @@ $p25Hosts = fopen("/usr/local/etc/P25Hosts.txt", "r");
 	<h2 class="ConfSec"><?php echo $lang['pocsag_config'];?></h2>
     <table>
       <tr>
-        <th width="200"><a class="tooltip" href="#"><?php echo $lang['setting'];?><span><b>Setting</b></span></a></th>
-        <th colspan="2"><a class="tooltip" href="#"><?php echo $lang['value'];?><span><b>Value</b>The current value from the<br />configuration files</span></a></th>
       </tr>
       <tr>
         <td align="left"><a class="tooltip2" href="#">POCSAG Server:<span><b>POCSAG Server</b>Set the POCSAG Network here</span></a></td>
@@ -6504,8 +6480,6 @@ $p25Hosts = fopen("/usr/local/etc/P25Hosts.txt", "r");
     <h2 class="ConfSec"><?php echo $lang['fw_config'];?></h2>
     <table>
     <tr>
-    <th width="200"><a class="tooltip" href="#"><?php echo $lang['setting'];?><span><b>Setting</b></span></a></th>
-    <th colspan="2"><a class="tooltip" href="#"><?php echo $lang['value'];?><span><b>Value</b>The current value from the<br />configuration files</span></a></th>
     </tr>
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo $lang['fw_dash'];?>:<span><b>Dashboard Access</b>Do you want the dashboard access to be publicly available? This modifies the uPNP firewall configuration.</span></a></td>
@@ -6587,7 +6561,7 @@ echo '
     <br />
     <form id="autoApPassForm" action="'.htmlspecialchars($_SERVER["PHP_SELF"]).'" method="post">
     <table>
-    <tr><th width="200">Auto AP SSID</th><th colspan="3">PSK</th></tr>
+    <tr><th class="config_head" width="200">Auto AP SSID</th><th class="config_head" colspan="3">PSK</th></tr>
     <tr>
     <td align="left"><b>'.php_uname('n').'</b></td>
     <td align="left"><label for="psk1">PSK:</label><input type="password" name="autoapPsk" id="psk1" onkeyup="checkPsk(); return false;" size="20" />
@@ -6604,7 +6578,7 @@ echo '
     <h2 class="ConfSec"><?php echo $lang['remote_access_pw'];?></h2>
     <form id="adminPassForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
     <table>
-    <tr><th width="200"><?php echo $lang['user'];?></th><th colspan="3"><?php echo $lang['password'];?></th></tr>
+    <tr><th class='config_head' width="200"><?php echo $lang['user'];?></th><th class='config_head' colspan="3"><?php echo $lang['password'];?></th></tr>
     <tr>
     <td align="left"><b>pi-star</b></td>
     <td align="left"><label for="pass1">Password:</label><input type="password" name="adminPassword" id="pass1" onkeyup="checkPass(); return false;" size="20" />
