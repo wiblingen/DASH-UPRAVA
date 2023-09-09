@@ -87,7 +87,7 @@ its own beast, so-to-speak.
   WPSD always uses the latest versions of upstream software, like MMDVHhost and its related ancillary gateway programs; and these newer versions are not always backward-compatible with
   old configurations. The best ways to deal with this, it to use an appropriate disk image and setup/configure from scratch, or perform a "Factory Reset" and configure from scratch.
 
-## Installing `W0CHP-PiStar-Dash`
+## Getting `W0CHP-PiStar-Dash`
 
 Now that you've been adequately informed of the rules, caveats and the risks, keep reading to learn how to
 install `W0CHP-PiStar-Dash`.
@@ -136,6 +136,10 @@ First, you will want to choose the disk installation image that was created for 
 
 <i class="fas fa-exclamation-triangle"></i>  [ ! ] You will need an SD card of at
 least 4GB to install these disk images.
+
+## Installing `W0CHP-PiStar-Dash`
+
+The setup of the WPSD disk image is similar to that of Pi-Star’s:
 
 1. Download the image.
 2. Use a tool such as [Balena Etcher](https://www.balena.io/etcher) to write the image to your SD-Card. This tool will automatically decompress the `.xz` file as well.
