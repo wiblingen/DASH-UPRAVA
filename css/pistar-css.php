@@ -89,8 +89,9 @@ body, font {
 }
 
 h2.ConfSec {
-    font-size: 1.3em;
+    font-size: 1.8em;
     text-align: left;
+    padding-bottom: 1rem;
 }
 
 .left {
@@ -1031,6 +1032,11 @@ input.filter-activity-max {
 
 .table-container {
     position: relative;
+}
+
+.config_head {
+    font-size: 1.5em;
+    font-weight: normal;
 }
 
 /* Tame Firefox Buttons */
