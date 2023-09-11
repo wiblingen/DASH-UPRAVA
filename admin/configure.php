@@ -4664,7 +4664,13 @@ else:
 <?php
   exec('timedatectl list-timezones', $tzList);
   if (!in_array("UTC", $tzList)) { array_push($tzList, "UTC"); }
-  exec('cat /etc/timezone', $tzCurrent);
+    // bookworm no longer relies on /etc/timezone, so we nees to parse the TZ name a bit diff...
+    $lsbReleaseOutput = trim(shell_exec('lsb_release -rs | cut -d "." -f 1'));
+    if ($lsbReleaseOutput > "11") {
+        exec("ls -al /etc/localtime | awk -F'zoneinfo/' '{print $2}'", $tzCurrent);
+    } else {
+        exec('cat /etc/timezone', $tzCurrent);
+    }
     foreach ($tzList as $timeZone) {
       if ($timeZone == $tzCurrent[0]) { echo "      <option selected=\"selected\" value=\"".$timeZone."\">".$timeZone."</option>\n"; }
       else { echo "      <option value=\"".$timeZone."\">".$timeZone."</option>\n"; }
