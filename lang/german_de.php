@@ -8,14 +8,14 @@ $lang = array (
   // Banner texts
   "digital_voice"               =>  "Digital Voice",
   "configuration"               =>  "Konfiguration",
-  "dashboard_for"               =>  "Tableau f&uuml;r",
+  "dashboard_for"               =>  "Dashboard f&uuml;r",
   // Banner links
-  "dashboard"                   =>  "Tableau",
+  "dashboard"                   =>  "Dashboard",
   "admin"                       =>  "Admin",
-  "power"                       =>  "Strom",
+  "power"                       =>  "Power",
   "update"                      =>  "Aktualisieren",
   "upgrade"                     =>  "Upgrade",
-  "backup_restore"              =>  "Datensicherung/Wiederherstellung",
+  "backup_restore"              =>  "Datensicherung",
   "factory_reset"               =>  "Werkseinstellung",
   "live_logs"                   =>  "Protokoll",
   // Config page section headdings
@@ -29,7 +29,7 @@ $lang = array (
   "p25_config"                  =>  "P25 Konfiguration",
   "nxdn_config"                 =>  "NXDN Konfiguration",
   "pocsag_config"               =>  "POCSAG Konfiguration",
-  "gpsd_config"            =>  "GPSd Configuration",
+  "gpsd_config"                 =>  "GPSd Konfiguration",
   "wifi_config"                 =>  "Wlan Konfiguration",
   "fw_config"                   =>  "Firewall Konfiguration",
   "remote_access_pw"            =>  "Fernzugriff",
@@ -67,7 +67,7 @@ $lang = array (
   "baudrate"                    =>  "Baudrate",
   "node_type"                   =>  "Node Typ",
   "timezone"                    =>  "Systemzeit Zone",
-  "dash_lang"                   =>  "Tableau Sprache",
+  "dash_lang"                   =>  "Dashboard Sprache",
   // Config Page - DMR Configuration
   "dmr_master"                  =>  "DMR Master",
   "bm_master"                   =>  "BrandMeister Master",
@@ -97,14 +97,14 @@ $lang = array (
   "p25_static"                  =>  "P25 Static",
   // Config Page - NXDN Configuration
   "nxdn_hosts"                  =>  "NXDN Hosts",
-  "nxdn_ran"                     =>  "NXDN RAN",
-  "nxdn_static"                 => "NXDN Static",
+  "nxdn_ran"                    =>  "NXDN RAN",
+  "nxdn_static"                 =>  "NXDN Static",
   // Config Page - GPSd Configuration
-  "gpsd_enable"            =>  "GPSd Enable",
-  "gpsd_port"              =>  "GPSd Port",
-  "gpsd_address"                =>  "GPSd Address",
+  "gpsd_enable"                 =>  "GPSd aktivieren",
+  "gpsd_port"                   =>  "GPSd Port",
+  "gpsd_address"                =>  "GPSd Addresse",
   // Config Page - Firewall Configuration
-  "fw_dash"                     =>  "Tableau Zugriff",
+  "fw_dash"                     =>  "Dashboard Zugriff",
   "fw_irc"                      =>  "ircDDBGateway Remote",
   "fw_ssh"                      =>  "SSH Zugriff",
   // Config Page - Password
@@ -134,28 +134,28 @@ $lang = array (
   "loss"                        =>  "Verlust",
   "ber"                         =>  "BER",        // Short version of "Bit Error Rate"
   // POCSAG Specific
-  "pocsag_list"                 =>  "DAPNET Activity",
-  "pocsag_persolist"            =>  "DAPNET Personnal Messages",
+  "pocsag_list"                 =>  "DAPNET Aktivit&auml;t",
+  "pocsag_persolist"            =>  "DAPNET Pers. Nachrichten",
   "pocsag_timeslot"             =>  "Time Slot",
-  "pocsag_msg"                  =>  "Message",
+  "pocsag_msg"                  =>  "Nachricht",
   // Dashboard - Extra Info
   "group"                       =>  "Gruppe",
-  "logoff"                      =>  "LogOff",
+  "logoff"                      =>  "Abmelden",
   "info"                        =>  "Information",
   "utot"                        =>  "UTOT",       // Short for User Timeout
   "gtot"                        =>  "GTOT",       // Short for Group Timeout
   // Dashboard Front Page / Admin - Section Headders
-  "last_heard_list"             =>  "LetztenRufzeichen, die geh&ouml;rt wurden",
-  "local_tx_list"               =>  "LetztenRufzeichen, die dieses Gateway nutzten",
+  "last_heard_list"             =>  "Letzte Rufzeichen, die geh&ouml;rt wurden",
+  "local_tx_list"               =>  "Letzte Rufzeichen, die dieses Gateway nutzten",
   "active_starnet_groups"       =>  "Aktive Starnet Gruppen",
   "active_starnet_members"      =>  "Aktive Starnet Gruppen Mitglieder",
   "d-star_link_manager"         =>  "D-Star Link Manager",
   "d-star_link_status"          =>  "D-Star Link Information",
   "service_status"              =>  "Service Status",
   // M17
-  "m17_config"                  =>  "M17 Configuration",
+  "m17_config"                  =>  "M17 Konfiguration",
   "m17_mode"                    =>  "M17 Mode",
-  "m17_startup_reflector"       =>  "M17 Startup Reflector",
+  "m17_startup_reflector"       =>  "M17 Startup Reflektor",
   "m17_can"                     =>  "M17 CAN",
   "m17_repeater"                =>  "M17 Status",
   "m17_net"                     =>  "M17 Network"
