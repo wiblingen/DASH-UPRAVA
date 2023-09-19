@@ -14,13 +14,13 @@ $headers = stream_context_create(Array("http" => Array("method"  => "GET",
 $UUID = $_SESSION['PiStarRelease']['Pi-Star']['UUID'];
 $uuidNeedle = "-";
 if (strpos($UUID, $uuidNeedle) !== false) {
-    $result = @file_get_contents('https://repo.w0chp.net/WPSD-Dev/WPSD_Messages/raw/branch/master/update-req-uuid.html', false, $headers);
+    $result = @file_get_contents('https://wpsd-swd.w0chp.net/WPSD-SWD/WPSD_Messages/raw/branch/master/update-req-uuid.html', false, $headers);
     echo $result;
 }
 
 // F1RMB detected
 if( strpos(file_get_contents("/etc/pistar-release"),"-RMB") !== false) {
-    $result = @file_get_contents('https://repo.w0chp.net/WPSD-Dev/WPSD_Messages/raw/branch/master/f1rmb-detected.html', false, $headers);
+    $result = @file_get_contents('https://wpsd-swd.w0chp.net/WPSD-SWD/WPSD_Messages/raw/branch/master/f1rmb-detected.html', false, $headers);
     echo $result;
 }
 ?>
