@@ -122,6 +122,8 @@ $status = exec('systemctl status mmdvm-log-backup.timer | grep masked');
 			</table>
 		    <?php }
 		    else { ?>
+			<h3>This function enables/disables the Last Heard data from being restored to the dashboard on (re-)boot.</h2>
+			<br />
 			<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 			    <table width="100%">
 				<tr>
