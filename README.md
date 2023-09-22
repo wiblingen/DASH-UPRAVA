@@ -87,7 +87,7 @@ its own beast, so-to-speak.
   WPSD always uses the latest versions of upstream software, like MMDVHhost and its related ancillary gateway programs; and these newer versions are not always backward-compatible with
   old configurations. The best ways to deal with this, it to use an appropriate disk image and setup/configure from scratch, or perform a "Factory Reset" and configure from scratch.
 
-## Getting `W0CHP-PiStar-Dash`
+## Download `W0CHP-PiStar-Dash`
 
 Now that you've been adequately informed of the rules, caveats and the risks, keep reading to learn how to
 install `W0CHP-PiStar-Dash`.
