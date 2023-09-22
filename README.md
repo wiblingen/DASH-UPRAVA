@@ -124,11 +124,11 @@ First, you will want to choose the disk installation image that was created for 
 
 : ZUMSpot USB Stick Hotspot Disk Image Download: [<code>**WPSD_ZUMspot-USB_Latest.xz**</code>](https://w0chp.net/WPSD_ZUMspot-USB_Latest.xz)
 
-**BridgeCom SkyBridge Plus Disk Image:**
+**BridgeCom SkyBridge Max/Plus Disk Image:**
 
-: This is an *official* and custom-built disk image specific to the SkyBridge Plus  Hotspot.
+: This is an *official* and custom-built disk image specific to the SkyBridge Max and newer Plus Hotspots.
 
-: SkyBridge Plus Hotspot Disk Image Download: [<code>**WPSD_SkyBridge-Plus_Latest.img.xz**</code>](https://w0chp.net/WPSD_SkyBridge-Plus_Latest.img.xz)
+: SkyBridge Max/Plus Hotspot Disk Image Download: [<code>**WPSD_SkyBridge-Max_Latest.img.xz**</code>](https://w0chp.net/WPSD_SkyBridge-Max_Latest.img.xz)
 
 **SHA-256 Checksums for Disk Image Files:**
 
