@@ -247,11 +247,38 @@ rapid and frequent!
 
 ## Notes about M17 Protocol Support {#m17-notes}
 
-M17 protocol support requires updated MMDVM Modem Firmware or MMDVM HotSpot
-Firmware of at least v1.6.0. Ergo, you will need to download, compile and
-install the [MMDVM modem firmware](https://github.com/g4klx/MMDVM) or the
-[MMDVM hotspot firmware](https://github.com/juribeparada/MMDVM_HS) yourself in
-order to gain full M17 protocol support.
+M17 protocol support requires updated MMDVM Modem Firmware or MMDVM_HS HotSpot
+Firmware of at least v1.6.0. Ergo, you may need to update your firmware using 
+the included MMDVM_HS firmware flash/update programs in WPSD.
+
+If you have an obscure modem or an MMDVM repeater board, you will need to
+download, compile and install the [MMDVM modem
+firmware](https://github.com/g4klx/MMDVM) or the [MMDVM_HS hotspot
+firmware](https://github.com/g4klx/MMDVM_HS) yourself in order to gain full M17
+protocol support.
+
+[!] *Please note, that we are not firmware developers, and we offer no support for
+firmware. We simply provide scripts to update the firmware. For actual firmware
+support, you will need to utilize other support resources from the firmware
+developers/maintainers.*
+
+The relevant MMDVM_HS etc. device firmware upgrade scripts are as follows:
+
+* Common MMDVM_HS_HAT devices:
+
+                pistar-mmdvmhshatflash
+
+* ZUMspot devices:
+
+                pistar-zumspotflash
+
+* BridgeCom SkyBridge devices:
+
+                pistar-skybridgeflash
+
+* NANO_DV devices:
+        
+                pistar-nanodvflash
 
 ## Screenshots
 
