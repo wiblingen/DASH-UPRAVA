@@ -14,8 +14,8 @@ so many large changes, divergences and new features, it merited my own
 fork/version.
 
 In fact, it’s pretty much its own distribution at this point; especially now
-that the `W0CHP-PiStar-Dash` disk/OS images are now "Bullseye"-based; and is now
-its own beast, so-to-speak.
+that the WPSD disk/OS images are now based on newer operating systems and
+software.
 
 ## Warnings, Caveats and FAQs {#caveats}
 
@@ -154,10 +154,10 @@ The setup of the WPSD disk image is similar to that of Pi-Star’s:
 
 **<i class="fas fa-exclamation-circle"></i> [ ! ] Important Info for First Bootup:**
 
-1. When first booting from the Bullseye-based disk image, go grab a coffee,
+1. When first booting from the disk image, go grab a coffee,
    drink, etc. and let the file-system auto-expand and the rest of the system
    initialize. Be patient.
-2. When installing from the Bullseye-based disk image, it's a best practice (and better) to *run an update
+2. When installing from the disk image, it's a best practice (and better) to *run an update
    **before** setting up or making configuration changes* to your hotspot. This ensures that setup/configuration changes you make
    are the most tested and up-to-date.
 
