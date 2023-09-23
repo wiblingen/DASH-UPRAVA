@@ -862,7 +862,7 @@ select {
 }
 
 .menulive:before {
-    content: "\f21e";
+    content: "\f2a0";
     font-family: FontAwesome;
     font-style: normal;
     font-weight: normal;
