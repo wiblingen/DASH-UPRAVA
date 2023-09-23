@@ -17,7 +17,7 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/config/version.php';
 require_once $_SERVER['DOCUMENT_ROOT'].'/config/config.php';
 
 // Sanity Check that this file has been opened correctly
-if ($_SERVER["PHP_SELF"] == "/admin/advanced/log_manager.php") {
+if ($_SERVER["PHP_SELF"] == "/admin/advanced/lh_manager.php") {
     // Sanity Check Passed.
     header('Cache-Control: no-cache');
 
@@ -54,7 +54,7 @@ $status = exec('systemctl status mmdvm-log-backup.timer | grep masked');
 			    <tr><th colspan="2">Last Heard Manager</th></tr>
 			    <?php
 			    if ( escapeshellcmd($_POST["purge_logs"]) ) {
-				   echo '<tr><td colspan="2"><br />Purging all logs...
+				   echo '<tr><td colspan="2"><br />Purging all Last Heard Data...
 				   <br />Page reloading...<br /><br />
 				   <script language="JavaScript" type="text/javascript">
                                    setTimeout("location.href = \''.$_SERVER["PHP_SELF"].'\'", 3000);
@@ -130,10 +130,6 @@ $status = exec('systemctl status mmdvm-log-backup.timer | grep masked');
 				    <th colspan="2">Last Heard Manager</th>
 				</tr>
 				<tr>
-				    <th>Enable Auto Last Heard Data Backups/Restores</th>
-				    <th>Disable Auto Last Heard Data Backups/Restores</th>
-				</tr>
-				<tr>
 					<td>
 						<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" id="backups_func">
 							<label for="config">Enable Auto Backup Service:</label>
@@ -155,8 +151,8 @@ $status = exec('systemctl status mmdvm-log-backup.timer | grep masked');
 					</td>
 				</tr>
 				<tr>
-                                        <td style="white-space:normal;padding: 3px;">This will enable the automatic MMDVMHost log backup/restore on reboot functionality.</td>
-                                        <td style="white-space:normal;padding: 3px;">This will DISABLE the automatic MMDVMHost log backup/restore on reboot functionality. Note that existing log backups will be retained.</td>
+                                        <td style="white-space:normal;padding: 3px;">This will enable the automatic Last Heard Data backup/restore on reboot functionality.</td>
+                                        <td style="white-space:normal;padding: 3px;">This will DISABLE the automatic Last Heard Data backup/restore on reboot functionality. Note that existing Last Heard Data backups will be retained.</td>
 				</tr>
 			</table>
 		</form>
