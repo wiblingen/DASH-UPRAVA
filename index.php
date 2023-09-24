@@ -300,6 +300,7 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 		    <a class="menusimple noMob" href="/simple/">Simple View</a>
 		    <a class="menudashboard" href="/"><?php echo $lang['dashboard'];?></a>
 	    	</div>
+		</div>
 
 	    <?php
 	    // Check if config files need updating but supress if new installation
