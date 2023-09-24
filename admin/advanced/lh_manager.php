@@ -17,7 +17,7 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/config/version.php';
 require_once $_SERVER['DOCUMENT_ROOT'].'/config/config.php';
 
 // Sanity Check that this file has been opened correctly
-if ($_SERVER["PHP_SELF"] == "/admin/advanced/log_manager.php") {
+if ($_SERVER["PHP_SELF"] == "/admin/advanced/lh_manager.php") {
     // Sanity Check Passed.
     header('Cache-Control: no-cache');
 
@@ -39,7 +39,7 @@ $status = exec('systemctl status mmdvm-log-backup.timer | grep masked');
 	    <meta http-equiv="pragma" content="no-cache" />
 	    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
 	    <meta http-equiv="Expires" content="0" />
-	    <title>WPSD <?php echo $lang['digital_voice']." ".$lang['dashboard']."";?> - MMDVMHost Log Manager</title>
+	    <title>WPSD <?php echo $lang['digital_voice']." ".$lang['dashboard']."";?> - Last Heard anager</title>
 	    <link rel="stylesheet" type="text/css" href="/css/font-awesome-4.7.0/css/font-awesome.min.css" />
 <?php include_once $_SERVER['DOCUMENT_ROOT'].'/config/browserdetect.php'; ?>
         <script type="text/javascript" src="/js/jquery.min.js?version=<?php echo $versionCmd; ?>"></script>
@@ -51,10 +51,10 @@ $status = exec('systemctl status mmdvm-log-backup.timer | grep masked');
 		<div class="contentwide">
 		    <?php if (!empty($_POST)) { ?>
 			<table width="100%">
-			    <tr><th colspan="2">MMDVMHost Log Manager</th></tr>
+			    <tr><th colspan="2">Last Heard Manager</th></tr>
 			    <?php
 			    if ( escapeshellcmd($_POST["purge_logs"]) ) {
-				   echo '<tr><td colspan="2"><br />Purging all logs...
+				   echo '<tr><td colspan="2"><br />Purging all Last Heard Data...
 				   <br />Page reloading...<br /><br />
 				   <script language="JavaScript" type="text/javascript">
                                    setTimeout("location.href = \''.$_SERVER["PHP_SELF"].'\'", 3000);
@@ -74,7 +74,7 @@ $status = exec('systemctl status mmdvm-log-backup.timer | grep masked');
                                    exec ('sudo systemctl restart mmdvm-log-shutdown.service');
 			    }
 			    else if ( escapeshellcmd($_POST["disable_backups"]) ) {
-				   echo '<tr><td colspan="2"><br />Disabling Automatic Log Backups...
+				   echo '<tr><td colspan="2"><br />Disabling Automatic Last Heard Data Backups...
 				   <br />Page reloading...<br /><br />
 				   <script language="JavaScript" type="text/javascript">
                                    setTimeout("location.href = \''.$_SERVER["PHP_SELF"].'\'", 3000);
@@ -96,7 +96,7 @@ $status = exec('systemctl status mmdvm-log-backup.timer | grep masked');
 				   exec ('sudo systemctl daemon-reload');
 			    }
 			    else if ( escapeshellcmd($_POST["enable_backups"]) ) {
-				   echo '<tr><td colspan="2"><br />Enabling Automatic Log Backups...
+				   echo '<tr><td colspan="2"><br />Enabling Automatic Last Heard Data Backups...
 				   <br />Page reloading...<br /><br />
 				   <script language="JavaScript" type="text/javascript">
                                    setTimeout("location.href = \''.$_SERVER["PHP_SELF"].'\'", 3000);
@@ -127,11 +127,7 @@ $status = exec('systemctl status mmdvm-log-backup.timer | grep masked');
 			<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 			    <table width="100%">
 				<tr>
-				    <th colspan="2">MMDVMHost Log Manager</th>
-				</tr>
-				<tr>
-				    <th>Enable Auto Log Backups/Restores</th>
-				    <th>Disable Auto Log Backups/Restores</th>
+				    <th colspan="2">Last Heard Manager</th>
 				</tr>
 				<tr>
 					<td>
@@ -155,8 +151,8 @@ $status = exec('systemctl status mmdvm-log-backup.timer | grep masked');
 					</td>
 				</tr>
 				<tr>
-                                        <td style="white-space:normal;padding: 3px;">This will enable the automatic MMDVMHost log backup/restore on reboot functionality.</td>
-                                        <td style="white-space:normal;padding: 3px;">This will DISABLE the automatic MMDVMHost log backup/restore on reboot functionality. Note that existing log backups will be retained.</td>
+                                        <td style="white-space:normal;padding: 3px;">This will enable the automatic Last Heard Data backup/restore on reboot functionality.</td>
+                                        <td style="white-space:normal;padding: 3px;">This will DISABLE the automatic Last Heard Data backup/restore on reboot functionality. Note that existing Last Heard Data backups will be retained.</td>
 				</tr>
 			</table>
 		</form>
@@ -165,18 +161,18 @@ $status = exec('systemctl status mmdvm-log-backup.timer | grep masked');
 
 	<table>
 		<tr>
-			<th colspan="2">Purge All MMDVMHost Logs</th>
+			<th colspan="2">Purge Last Heard Data</th>
 		</tr>
 		<tr>
 			<td colspan="2">
 				<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" id="purgelogs">
-					<label for="delete_configs">Purge All Logs:</label>
+					<label for="delete_configs">Purge All Last Heard Datas:</label>
 					<input style="background:crimson;color:white;" type="submit" name="purge_logs" value="Purge!">
 				</form>
 			</td>
 		</tr>
                 <tr>
-                     <td style="white-space:normal;padding: 3px;">This will purge ALL MMDVMHost logs and start fresh; including current live logs and backup logs (if service enabled).</td>
+                     <td style="white-space:normal;padding: 3px;">This will purge ALL Last Heard Data and start fresh; including current live data and backup data (if service enabled).</td>
                 </tr>
 
 	</table>
