@@ -22,8 +22,8 @@ software.
 * [Read The FAQs!](https://w0chp.net/wpsd-faqs/)
 * This code/project is a moving target, has bugs (like any code does) and can be
   unstable. It also consumes more system resources due to the myriad improvements.
-* If you plan on running my software on a single-core Pi-Zero 1st gen. or very old hardware, be prepared
-  for my software to run terribly slowly. I created this software specifically for
+* If you plan on running my software on a single-core Pi-Zero 1st gen. or very old hardware[^1], be prepared
+  for my software to run slowly sometimes. I created this software specifically for
   modern, multi-core CPU hardware.
 * [Read The FAQs again!](https://w0chp.net/wpsd-faqs/)
 
@@ -47,7 +47,7 @@ software.
 
 ## Known Issues & Incompatibilities
 
-**Raspberry Pi Zero v1.x (1st Gen, single-core) [^1]**
+**Raspberry Pi Zero v1.x (1st Gen, single-core)**
 
 : If you have a first-generation Raspberry Pi Zero (Pi Zero (W) Rev.1.1 armv6l) with the
   single-core processor\*, and have downloaded my RPi WPSD
