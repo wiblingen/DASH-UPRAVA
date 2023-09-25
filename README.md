@@ -182,6 +182,9 @@ rapid and frequent!
 
 ## Features, Enhancements and Omissions (not an exhaustive list)
 
+The following lists describe the features, enhancements and omissions as compared to the
+original Pi-Star software. It's important to learn about and explore these differences.
+
 ### Functionality Features
 
 * Full APRSGateway Support: Selectable APRS Data Sharing with specific modes.
