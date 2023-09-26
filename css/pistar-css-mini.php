@@ -54,17 +54,21 @@ body, font {
 }
 
 #hwInfo,
-#radioInfo,
 #pocsag-sec {
     display: none;
 }
+
+.divTableHeadCell {
+    font-weight: bold;
+}
+
 
 .content {
     padding : 5px 5px 5px 5px;
     color : <?php echo $textSections; ?>;
     background : <?php echo $backgroundContent; ?>;
     text-align: center;
-    font-size: 1.4em;
+    font-size: 1.7em;
 }
 
 .contentwide {
@@ -126,7 +130,9 @@ table {
 }
 
 table th {
-    font-family: 'Inconsolata', monospace;
+    font-family:  'Source Sans Pro', sans-serif;
+    border: .5px solid <?php echo $tableBorderColor; ?>;
+    font-weight: 600;
     text-decoration: none;
     color : <?php echo $textBanners; ?>;
     background: <?php echo $backgroundBanners; ?>;
@@ -137,7 +143,7 @@ table tr:nth-child(even) {
     background: <?php echo $tableRowEvenBg; ?>;
 }
 
-table tr:nth-child(odd) {
+table tr:nth-child(odd), .divTableCell {
     background: <?php echo $tableRowOddBg; ?>;
 }
 

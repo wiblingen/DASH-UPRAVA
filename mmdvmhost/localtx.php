@@ -37,7 +37,7 @@ if ($callsignLookupSvc == "QRZ") {
       <th><a class="tooltip" href="#"><?php echo $lang['target'];?><span><b>Target, D-Star Reflector, DMR Talk Group etc</b></span></a></th>
       <th><a class="tooltip" href="#"><?php echo $lang['dur'];?>(s)<span><b>Duration in Seconds</b></span></a></th>
       <th style="min-width:5ch"><a class="tooltip" href="#"><?php echo $lang['ber'];?><span><b>Bit Error Rate</b></span></a></th>
-      <th style="min-width:8ch"><a class="tooltip" href="#">RSSI<span><b>Received Signal Strength Indication</b></span></a></th>
+      <th class="noMob" style="min-width:8ch"><a class="tooltip" href="#">RSSI<span><b>Received Signal Strength Indication</b></span></a></th>
     </tr>
 <?php
 $counter = 0;
@@ -142,7 +142,7 @@ for ($i = 0; $i < $TXListLim; $i++) {
 				elseif (floatval($listElem[8]) >= 2.0 && floatval($listElem[8]) <= 4.9) { echo "<td><span style='color:$backgroundModeCellPausedColor;font-weight:bold'>$listElem[8]</span></td>"; }
 				else { echo "<td><span style='color:$backgroundModeCellInactiveColor;font-weight:bold;'>$listElem[8]</span></td>"; }
 
-				echo"<td>$listElem[9]</td>"; //rssi
+				echo"<td class='noMob'>$listElem[9]</td>"; //rssi
 			}
 			echo"</tr>\n";
 			$counter++; }
