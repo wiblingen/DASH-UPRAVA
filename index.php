@@ -507,18 +507,17 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 			  </table>
 			</div>
 		    <?php
-		    } else {
-		        if ( strlen($bmAPIkey) <= 200 ) { // good API key found, but it's a lehacy BM v1. API key. Warn, but allow to continue...
+		        } elseif ( strlen($bmAPIkey) <= 200 ) { // Legacy API v1 key; warn, instruct and bail
 		    ?>
 			   <div>
 			     <table align="center"style="margin: 0px 0px 10px 0px; width: 100%;border-collapse:collapse; table-layout:fixed;white-space: normal!important;">
 			       <tr>
-			         <td align="center" valign="top" style="background-color: #ffff90; color: #906000; word-wrap: break-all;padding:20px;">Notice! You have a legacy Brandmeister API v1 Key. Read the announcement on how to migrate: <a href="https://news.brandmeister.network/introducing-user-api-keys/" target="new" alt="BM API Keys">BM API Key Announcement and Migration Instructions</a>; and then <a href="/admin/advanced/fulledit_bmapikey.php">Update your API Key</a> to delete this message and to ensure BM Manager continues to work properly.</td>
+			         <td align="center" valign="top" style="background-color: #ffff90; color: #906000; word-wrap: break-all;padding:20px;">Notice! You have a legacy Brandmeister API Key, which will not work any longer. Read the announcement on how to migrate: <a href="https://news.brandmeister.network/introducing-user-api-keys/" target="new" alt="BM API Keys">BM API Key Announcement and Migration Instructions</a>; and then <a href="/admin/advanced/fulledit_bmapikey.php">Update your API Key</a> to enable this page.</td>
 			       </tr>
 			     </table>
 			   </div>
 		    <?php
-			} // valid v2 key found! continue w/out warnings...
+		    	} else { // Yay! good API key!
 			    echo '<script type="text/javascript">'."\n";
         	    	    echo 'function reloadbmConnections(){'."\n";
         	    	    echo '  $("#bmConnects").load("/mmdvmhost/bm_links.php",function(){ setTimeout(reloadbmConnections,20000) });'."\n";
@@ -534,7 +533,9 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 		    }
 		}
 
-		// will re-enable if/when TGIF provides a public API for their new (2022) platform
+		// Will re-enable if/when TGIF provides a public API for
+		// their new (2022) platform - if they ever do FFS. It's
+		// 9/23 now :(
 		/*
 		if ($_SERVER["PHP_SELF"] == "/admin/index.php" && $_POST["func"] == "tgif_man" || $_GET["func"] == "tgif_man") {	// Admin Only Option (tgif links)
 		    echo '<script type="text/javascript">'."\n";
@@ -550,7 +551,7 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 		}
 		*/
 
-		if ($_SERVER["PHP_SELF"] == "/admin/index.php" && $_POST["func"] == "tgif_man" || $_GET["func"] == "tgif_man") {	// Admin Only Options (tgi mgr)
+		if ($_SERVER["PHP_SELF"] == "/admin/index.php" && $_POST["func"] == "tgif_man" || $_GET["func"] == "tgif_man") {	// Admin Only Options (tgif mgr)
         	include 'mmdvmhost/tgif_manager.php';			// TGIF DMR Link Manager
 		}
 		

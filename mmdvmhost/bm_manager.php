@@ -29,9 +29,6 @@ if ( $testMMDVModeDMR == 1 ) {
       $configBMapi = parse_ini_file($bmAPIkeyFile, true);
       $bmAPIkey = $configBMapi['key']['apikey'];
       $sanitizedKey = str_replace('$', '\$', $bmAPIkey);
-      // Check the BM API Key
-      if ( strlen($bmAPIkey) <= 20 ) { unset($bmAPIkey); }
-      if ( strlen($bmAPIkey) >= 200 ) { $bmAPIkeyV2 = $bmAPIkey; unset($bmAPIkey); }
     }
 
     // Get the current DMR Master from the config
@@ -207,63 +204,8 @@ if ( $testMMDVModeDMR == 1 ) {
                 }
             }
  	} else { 
-	    // begin single TG management / native api funcs
-      if ( (isset($bmAPIkey)) && ( !empty($_POST) && ( isset($_POST["dropDyn"]) || isset($_POST["dropQso"]) || isset($_POST["tgSubmit"]) ) ) ) { // Data has been posted for this page
-          $bmAPIurl = 'https://api.brandmeister.network/v1.0/repeater/';
-          // Are we a repeater
-          if ( getConfigItem("DMR Network", "Slot1", $mmdvmconfigs) == "0" ) {
-              unset($_POST["TS"]);
-              $targetSlot = "0";
-            } else {
-              $targetSlot = $_POST["TS"];
-          }
-          // Figure out what has been posted
-          if (isset($_POST["dropDyn"])) { $bmAPIurl = $bmAPIurl."setRepeaterTarantool.php?action=dropDynamicGroups&slot=".$targetSlot."&q=".$dmrID; }
-          if (isset($_POST["dropQso"])) { $bmAPIurl = $bmAPIurl."setRepeaterDbus.php?action=dropCallRoute&slot=".$targetSlot."&q=".$dmrID; }
-          if ( ($_POST["TGmgr"] == "ADD") && (isset($_POST["tgSubmit"])) ) { $bmAPIurl = $bmAPIurl."talkgroup/?action=ADD&id=".$dmrID; }
-          if ( ($_POST["TGmgr"] == "DEL") && (isset($_POST["tgSubmit"])) ) { $bmAPIurl = $bmAPIurl."talkgroup/?action=DEL&id=".$dmrID; }
-          if ( (isset($_POST["tgNr"])) && (isset($_POST["tgSubmit"])) ) { $targetTG = preg_replace("/[^0-9]/", "", $_POST["tgNr"]); }
-          // Build the Data
-          if ( (!isset($_POST["dropDyn"])) && (!isset($_POST["dropQso"])) && isset($targetTG) ) {
-            $postDataTG = array(
-              'talkgroup' => $targetTG,
-              'timeslot' => $targetSlot,
-            );
-          }
-          // Build the Query
-          $postData = '';
-          if (isset($_POST["tgSubmit"])) { $postData = http_build_query($postDataTG); }
-          $postHeaders = array(
-            'Content-Type: application/x-www-form-urlencoded',
-            'Content-Length: '.strlen($postData),
-            'Authorization: Basic '.base64_encode($bmAPIkey.':'),
-            'User-Agent: Pi-Star Dashboard for '.$dmrID,
-          );
-
-          $opts = array(
-            'http' => array(
-            'header'  => $postHeaders,
-            'method'  => 'POST',
-            'content' => $postData,
-            'password' => '',
-            'success' => '',
-            'timeout' => 2,
-            ),
-          );
-          $context = stream_context_create($opts);
-          $result = @file_get_contents($bmAPIurl, false, $context);
-          $feedback=json_decode($result);
-          // Output to the browser
-	  echo '<br /><div style="text-align:left;font-weight:bold;" id="cmdOut">BrandMeister Manager</div>'."\n";
-          echo "<table>\n<tr><th>Command Output</th></tr>\n<tr><td><p>";
-          //echo "Sending command to BrandMeister API";
-          if (isset($feedback)) { print "BrandMeister APIv1: ".$feedback->{'message'}; } else { print "BrandMeister APIv1: No Response"; }
-          echo " <br />Page reloading...</p></td></tr>\n</table>\n";
-          // Clean up...
-          unset($_POST);
-          echo '<script type="text/javascript">setTimeout(function() { window.location.href = "./?func=bm_man";},3000);</script>';
-	  }
-      elseif ( (isset($bmAPIkeyV2)) && ( (isset($bmAPIkeyV2)) && ( !empty($_POST) && ( isset($_POST["dropDyn"]) || isset($_POST["dropQso"]) || isset($_POST["tgSubmit"]) ) ) ) ) { // Data has been posted for this page
+      // begin single TG management / native api funcs
+      if ( (isset($bmAPIkey)) && ( (isset($bmAPIkey)) && ( !empty($_POST) && ( isset($_POST["dropDyn"]) || isset($_POST["dropQso"]) || isset($_POST["tgSubmit"]) ) ) ) ) { // Data has been posted for this page
           $bmAPIurl = 'https://api.brandmeister.network/v2/device/';
           // Are we a repeater
           if ( getConfigItem("DMR Network", "Slot1", $mmdvmconfigs) == "0" ) {
@@ -299,8 +241,8 @@ if ( $testMMDVModeDMR == 1 ) {
           $postHeaders = array(
             'Content-Type: accept: application/json',
             'Content-Length: '.strlen($postData),
-            'Authorization: Bearer '.$bmAPIkeyV2,
-            'User-Agent: Pi-Star Dashboard for '.$dmrID,
+            'Authorization: Bearer '.$bmAPIkey,
+            'User-Agent: WPSD Dashboard for '.$dmrID,
           );
 
           $opts = array(
@@ -310,7 +252,7 @@ if ( $testMMDVModeDMR == 1 ) {
             'content' => $postData,
             'password' => '',
             'success' => '',
-            'timeout' => 2,
+            'timeout' => 6,
             ),
           );
           $context = stream_context_create($opts);
@@ -320,13 +262,13 @@ if ( $testMMDVModeDMR == 1 ) {
 	  echo '<br /><div style="text-align:left;font-weight:bold;" id="cmdOut">BrandMeister Manager</div>'."\n";
           echo "<table>\n<tr><th>Command Output</th></tr>\n<tr><td><p>";
           //echo "Sending command to BrandMeister API";
-          //if (isset($feedback)) { print "BrandMeister APIv2: ".$feedback->{'message'}; } else { print "BrandMeister APIv2: No Response"; }
+          //if (isset($feedback)) { print "BrandMeister API: ".$feedback->{'message'}; } else { print "BrandMeister API: No Response"; }
 	  if ($targetSlot == "0") {
 	      $dispSlot= "2";
           } else {
 	      $dispSlot = $targetSlot;
 	  }
-          if (isset($feedback)) { print "TG $targetTG on Timeslot $dispSlot $v2fb;<br />BrandMeister APIv2: Success."; } else { print "BrandMeister APIv2: No Response"; }
+          if (isset($feedback)) { print "TG $targetTG on Timeslot $dispSlot $v2fb;<br />BrandMeister API: Success."; } else { print "BrandMeister API: No Response"; }
           echo " <br />Page reloading...</p></td></tr>\n</table>\n";
           // Clean up...
           unset($_POST);
@@ -334,14 +276,10 @@ if ( $testMMDVModeDMR == 1 ) {
 	    }
 	    else { // Do this when we are not handling post data
 		    // If there is a BM API Key
-            if (isset($bmAPIkey) || isset($bmAPIkeyV2)) {
+            if (isset($bmAPIkey)) {
 
-	    $jsonContext = stream_context_create(array('http'=>array('timeout' => 2, 'header' => 'User-Agent: Pi-Star '.$_SESSION['PiStarRelease']['Pi-Star']['Version'].'W0CHP-Dashboard for '.$dmrID) )); // Add Timout and User Agent to include DMRID
-	    if (isset($bmAPIkeyV2)) {
-		$json = json_decode(@file_get_contents("https://api.brandmeister.network/v2/device/$dmrID/profile", true, $jsonContext));
-	    } else {
-		$json = json_decode(@file_get_contents("https://api.brandmeister.network/v1.0/repeater/?action=PROFILE&q=$dmrID", true, $jsonContext));
-	    }  
+	    $jsonContext = stream_context_create(array('http'=>array('timeout' => 6, 'header' => 'User-Agent: WPSD Dashboard for '.$dmrID) )); // Add Timout and User Agent to include DMRID
+	    $json = json_decode(@file_get_contents("https://api.brandmeister.network/v2/device/$dmrID/profile", true, $jsonContext));
 	    // Set some Variables
 	    $bmStaticTGList = "";
 	    if (isset($json->staticSubscriptions)) { $bmStaticTGListJson = $json->staticSubscriptions; }
