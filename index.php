@@ -600,26 +600,10 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 		    }
         	}
 
-	    if ($_SERVER["PHP_SELF"] == "/admin/index.php") {
-		echo '<div class="contentwide">'."\n";
-	    	echo '<script type="text/javascript">'."\n";
-	    	echo 'function reloadSysInfo(){'."\n";
-	    	echo '  $("#sysInfo").load("/includes/system.php",function(){ setTimeout(reloadSysInfo,5000) });'."\n";
-	    	echo '}'."\n";
-	    	echo 'setTimeout(reloadSysInfo,5000);'."\n";
-	    	echo '$(window).trigger(\'resize\');'."\n";
-	    	echo '</script>'."\n";
-	    	if ($_GET['func'] == "main") {				// only show services on main admin page
-		    echo '<div id="sysInfo">'."\n";
-		    include 'includes/system.php';				// Basic System Info
-		    echo '</div></div>'."\n";
-                }
-            }
-    
 		// begin admin selection form
 		if ($_SERVER["PHP_SELF"] == "/admin/index.php") {
 		    if ($_GET['func'] != 'main') { echo '<br />'; }
-                    echo '<div style="text-align:left;font-weight:bold;">Admin Sections</div>'."\n";
+                    echo '<h3 style="text-align:left;font-weight:bold;margin:-5px 0 2px 0;">Select an Admin Section/Page:</h3>'."\n";
 		    echo '<form method="get" id="admin_sel" name="admin_sel" action="/admin/" style="padding-bottom:10px;">'."\n";
 		    echo '      <div class="mode_flex">'."\n";
 		    echo '        <div class="mode_flex row">'."\n";
@@ -631,7 +615,7 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
                         echo '		<button form="admin_sel" type="submit" value="ds_man" name="func"><span>D-Star Manager</span></button>'."\n";
                     }
                     else {
-                        echo '		<button form="admin_sel" disabled="disabled" type="submit" value="ds_man" name="func"><span>D-Star Manager</span></button>'."\n";
+                        echo '		<button form="admin_sel" disabled="disabled" title="Mode is Disabled" type="submit" value="ds_man" name="func"><span>D-Star Manager</span></button>'."\n";
                     } 
 		    echo '          </div><div class="mode_flex column">'."\n";
                     $testMMDVModeDMR = getConfigItem("DMR", "Enable", $_SESSION['MMDVMHostConfigs']);
@@ -639,14 +623,14 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 		        echo '		<button form="admin_sel" type="submit" value="bm_man" name="func"><span>BrandMeister Manager</span></button>'."\n";
 		    }
 		    else {
-			echo '		<button form="admin_sel" disabled="disabled" type="submit" value="bm_man" name="func"><span>BrandMeister Manager</span></button>'."\n";
+			echo '		<button form="admin_sel" disabled="disabled" title="Mode is Disabled" type="submit" value="bm_man" name="func"><span>BrandMeister Manager</span></button>'."\n";
 		    }
 		    echo '          </div><div class="mode_flex column">'."\n";
                    if ( isset( $tgifEnabled ) && $tgifEnabled == 1 && $testMMDVModeDMR == 1 ) {
 		        echo '		<button form="admin_sel" type="submit" value="tgif_man" name="func"><span>TGIF Manager</span></button>'."\n";
 		    }
 		    else {
-			echo '		<button form="admin_sel" disabled="disabled" type="submit" value="tgif_man" name="func"><span>TGIF Manager</span></button>'."\n";
+			echo '		<button form="admin_sel" disabled="disabled" title="Mode is Disabled" type="submit" value="tgif_man" name="func"><span>TGIF Manager</span></button>'."\n";
 		    }
 		    echo '          </div><div class="mode_flex column">'."\n";
         	    $testMMDVModeYSF = getConfigItem("System Fusion", "Enable", $_SESSION['MMDVMHostConfigs']);
@@ -655,7 +639,7 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 		        echo '		<button form="admin_sel" type="submit" value="ysf_man" name="func"><span>YSF Manager</span></button>'."\n";
 		    }
 		    else {
-		        echo '		<button form="admin_sel" disabled="disabled" type="submit" value="ysf_man" name="func"><span>YSF Manager</span></button>'."\n";
+		        echo '		<button form="admin_sel" disabled="disabled" title="Mode is Disabled" type="submit" value="ysf_man" name="func"><span>YSF Manager</span></button>'."\n";
 		    }
 		    echo '          </div><div class="mode_flex column">'."\n";
                     $testMMDVModeDMR = getConfigItem("DMR", "Enable", $_SESSION['MMDVMHostConfigs']);
@@ -663,7 +647,7 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
                         echo '          <button form="admin_sel" type="submit" value="dmr_man" name="func"><span>DMR Network Manager</span></button>'."\n";
                     }
                     else {
-                        echo '          <button form="admin_sel" disabled="disabled" type="submit" value="dmr_man" name="func"><span>DMR Network Manager</span></button>'."\n";
+                        echo '          <button form="admin_sel" disabled="disabled" title="Mode is Disabled" type="submit" value="dmr_man" name="func"><span>DMR Network Manager</span></button>'."\n";
                     } 
 		    echo '      </div></div>'."\n";
                     echo '        <div class="mode_flex row">'."\n";
@@ -674,7 +658,7 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 		    	echo '		<button form="admin_sel" type="submit" value="p25_man" name="func"><span>P25 Manager</span></button>'."\n";
 		    }
 		    else {
-		    	echo '		<button form="admin_sel" disabled="disabled" type="submit" value="p25_man" name="func"><span>P25 Manager</span></button>'."\n";
+		    	echo '		<button form="admin_sel" disabled="disabled" title="Mode is Disabled" type="submit" value="p25_man" name="func"><span>P25 Manager</span></button>'."\n";
 		    }
 		    echo '          </div><div class="mode_flex column">'."\n";
 		    $testMMDVModeNXDN = getConfigItem("NXDN Network", "Enable", $_SESSION['MMDVMHostConfigs']);
@@ -684,7 +668,7 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 		    	echo '		<button form="admin_sel" type="submit" value="nxdn_man" name="func"><span>NXDN Manager</span></button>'."\n";
 		    }
 		    else {
-		    	echo '		<button form="admin_sel" disabled="disabled" type="submit" value="nxdn_man" name="func"><span>NXDN Manager</span></button>'."\n";
+		    	echo '		<button form="admin_sel" disabled="disabled" title="Mode is Disabled" type="submit" value="nxdn_man" name="func"><span>NXDN Manager</span></button>'."\n";
 		    }
 		    echo '          </div><div class="mode_flex column">'."\n";
                     $testMMDVModeM17 = getConfigItem("M17 Network", "Enable", $_SESSION['MMDVMHostConfigs']);
@@ -692,7 +676,7 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 		    	echo '		<button form="admin_sel" type="submit" value="m17_man" name="func"><span>M17 Manager</span></button>'."\n";
 		    }
 		    else {
-		    	echo '		<button form="admin_sel" disabled="disabled" type="submit" value="m17_man" name="func"><span>M17 Manager</span></button>'."\n";
+		    	echo '		<button form="admin_sel" disabled="disabled" title="Mode is Disabled" type="submit" value="m17_man" name="func"><span>M17 Manager</span></button>'."\n";
                     }
 		    echo '          </div><div class="mode_flex column">'."\n";
                     $testMMDVModePOCSAG = getConfigItem("POCSAG", "Enable", $_SESSION['MMDVMHostConfigs']);
@@ -700,7 +684,7 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 		        echo '		<button form="admin_sel" type="submit" value="pocsag_man" name="func"><span>POCSAG Manager</span></button>'."\n";
 		    }
 		    else {
-		        echo '		<button form="admin_sel" disabled="disabled" type="submit" value="pocsag_man" name="func"><span>POCSAG Manager</span></button>'."\n";
+		        echo '		<button form="admin_sel" disabled="disabled" title="Mode is Disabled" type="submit" value="pocsag_man" name="func"><span>POCSAG Manager</span></button>'."\n";
 		    }
 		    echo '          </div><div class="mode_flex column">'."\n";
  		    echo '            <button form="admin_sel" type="submit" value="mode_man" name="func"><span>Instant Mode Manager</span></button>'."\n";
@@ -713,6 +697,22 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 			echo "</div>\n";
 		    }
 		}
+
+            if ($_SERVER["PHP_SELF"] == "/admin/index.php") {
+                echo '<div class="contentwide">'."\n";
+                echo '<script type="text/javascript">'."\n";
+                echo 'function reloadSysInfo(){'."\n";
+                echo '  $("#sysInfo").load("/includes/system.php",function(){ setTimeout(reloadSysInfo,5000) });'."\n";
+                echo '}'."\n";
+                echo 'setTimeout(reloadSysInfo,5000);'."\n";
+                echo '$(window).trigger(\'resize\');'."\n";
+                echo '</script>'."\n";
+                if ($_GET['func'] == "main") {                          // only show services on main admin page
+                    echo '<div id="sysInfo">'."\n";
+                    include 'includes/system.php';                              // Basic System Info
+                    echo '</div></div>'."\n";
+                }
+            }
 
 	if ($_SERVER["PHP_SELF"] == "/index.php" || $_SERVER["PHP_SELF"] == "/admin/index.php") {
 		echo '<script type="text/javascript">'."\n";
