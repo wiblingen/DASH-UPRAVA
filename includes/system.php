@@ -17,8 +17,7 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/mmdvmhost/tools.php';
 
 $os_ver = trim( exec( 'cat /etc/debian_version' ) );
 ?>
-
-<div style="text-align:left;font-weight:bold;"><?php echo $lang['service_status'];?></div>
+<h3 style="text-align:left;font-weight:bold;margin:5px 0 2px 0;"><?php echo $lang['service_status'];?></h3>
 <div class="status-grid">
   <?php if (getFWstate()=='0' ) { ?>
   <div class='grid-item paused-mode-cell' title="Disabled">Firewall</div>
