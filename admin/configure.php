@@ -3211,6 +3211,10 @@ if (!empty($_POST)):
                 if (escapeshellcmd($_POST['oledScrollEnable']) == 'ON' && escapeshellcmd($_POST['mmdvmDisplayType']) == 'OLED3') { $configmmdvm['OLED']['Scroll'] = "1"; } // no scrolling for type6
                 if (escapeshellcmd($_POST['oledScrollEnable']) == 'OFF' )  { $configmmdvm['OLED']['Scroll'] = "0"; }
         }
+	if (empty($_POST['oledRotateEnable']) != TRUE ) {
+                if (escapeshellcmd($_POST['oledRotateEnable']) == 'ON' )  { $configmmdvm['OLED']['Rotate'] = "1"; }
+                if (escapeshellcmd($_POST['oledRotateEnable']) == 'OFF' )  { $configmmdvm['OLED']['Rotate'] = "0"; }
+        }
 
 	// Set MMDVMHost DMR Colour Code
 	if (empty($_POST['dmrColorCode']) != TRUE ) {
@@ -5065,9 +5069,8 @@ else:
     <h2 class="ConfSec">MMDVMHost/Modem Display Configuration</h2>
     <input type="hidden" name="oledScreenSaverEnable" value="ON" />
     <input type="hidden" name="oledScrollEnable" value="OFF" />
+    <input type="hidden" name="oledRotateEnable" value="OFF" />
     <table>
-    <tr>
-    </tr>
 
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo $lang['mmdvm_display'];?>:<span><b>Display Type</b>Choose your display type, if you have one.</span></a></td>
@@ -5125,16 +5128,21 @@ else:
 
     <tr>
     <td align="left"><a class="tooltip2" href="#">OLED Display Options:<span><b>OLED Display Options</b>If you have an OLED display, choose your options here.</span></a></td>
-    <td align="left" colspan="2" style="word-wrap: break-word;white-space: normal;padding-left: 5px;"><b>Screensaver: </b>
+    <td align="left" colspan="2" style="word-wrap: break-word;white-space: normal;padding-left: 5px;"><b>Keep Display On: </b> <small><em>(Displays data when modem is idle)</em></small>
       <input type="radio" name="oledScreenSaverEnable" value="ON" id="oledScreenSaver1" <?php if ($configmmdvm['OLED']['LogoScreensaver'] == "1") {  echo 'checked="checked"'; } ?> />
       <label for="oledScreenSaver1">Enabled</label>
       <input type="radio" name="oledScreenSaverEnable" value="OFF" id="oledScreenSaver0" <?php if ($configmmdvm['OLED']['LogoScreensaver'] == "0") {  echo 'checked="checked"'; } ?> />
-      <label for="oledScreenSaver0">Disabled</label>&nbsp;&nbsp;|&nbsp;&nbsp;<b>Scroll Display: </b> <small><em>(Note: OLED Type-3 [0.96"] displays only)</em></small> 
-
+      <label for="oledScreenSaver0">Disabled</label>&nbsp;&nbsp;|&nbsp;
+      <b>Scroll Display: </b> <small><em>(Note: OLED Type-3 [0.96"] displays only)</em></small> 
       <input type="radio" name="oledScrollEnable" value="ON" id="oledScroll1" <?php if ($configmmdvm['OLED']['Scroll'] == "1") {  echo 'checked="checked"'; } if ($configmmdvm['OLED']['Type'] == "6") {  echo 'disabled="disabled"'; } ?> />
       <label for="oledScroll1">Enabled</label>
       <input type="radio" name="oledScrollEnable" value="OFF" id="oledScroll0" <?php if ($configmmdvm['OLED']['Scroll'] == "0") {  echo 'checked="checked"'; }  if ($configmmdvm['OLED']['Type'] == "6") {  echo 'disabled="disabled"'; } ?> />
-      <label for="oledScroll0">Disabled</label> 
+      <label for="oledScroll0">Disabled</label><br />
+      <b>Rotate Display: </b> <small><em>(Rotates display orientation 180 deg.)</em></small>
+      <input type="radio" name="oledRotateEnable" value="ON" id="oledRotate1" <?php if ($configmmdvm['OLED']['Rotate'] == "1") {  echo 'checked="checked"'; } ?> />
+      <label for="oledRotate1">Enabled</label>
+      <input type="radio" name="oledRotateEnable" value="OFF" id="oledRotate0" <?php if ($configmmdvm['OLED']['Rotate'] == "0") {  echo 'checked="checked"'; } ?> />
+      <label for="oledRotate1">Disabled</label>
     </td>
     </tr>
     <tr>
