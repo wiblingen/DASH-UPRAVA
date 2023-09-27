@@ -31,7 +31,7 @@ if (isset($_SESSION['CSSConfigs']['Background']['TableRowBgEvenColor'])) {
 <div class="divTable">
   <div class="divTableBody">
     <div class="divTableRow center">
-      <div class="divTableHeadCell">Radio Status:</div>
+      <div class="divTableHeadCell" style="width:250px;">Radio Status:</div>
       <div class="divTableHeadCell noMob">TX Freq.</div>
       <div class="divTableHeadCell noMob">RX Freq.</div>
       <div class="divTableHeadCell noMob">Radio Mode</div>
