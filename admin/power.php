@@ -112,7 +112,7 @@ if(isset($_SESSION['PiStarRelease']['Pi-Star']['ProcNum']) && ($_SESSION['PiStar
 			    <tr><th colspan="2"><?php echo $lang['power'];?></th></tr>
 			    <?php
 			    if ( escapeshellcmd($_POST["action"]) == "reboot" ) {
-				echo '<tr><td colspan="2" style="background: #000000; color: #00ff00;"><br /><br />Your Hotspot is rebooting...
+				echo '<tr><td colspan="2" style="background: #000000; color: #4DEEEA;"><br /><br />Your Hotspot is rebooting...
 				   <br />You will be re-directed back to the
 				   <br />dashboard automatically in ' .$rbTime. ' seconds.<br /><br /><br />
 				   <script language="JavaScript" type="text/javascript">
@@ -125,7 +125,7 @@ if(isset($_SESSION['PiStarRelease']['Pi-Star']['ProcNum']) && ($_SESSION['PiStar
 		exec("sudo sync && sudo reboot > /dev/null 2>&1 &");
 			    }
 			    else if ( escapeshellcmd($_POST["action"]) == "shutdown" ) {
-				echo '<tr><td colspan="2" style="background: #000000; color: #00ff00;"><br /><br />Shutdown command has been sent to your Hotspot.
+				echo '<tr><td colspan="2" style="background: #000000; color: #4DEEEA;"><br /><br />Shutdown command has been sent to your Hotspot.
 				   <br />Please wait at least 60 seconds for it to fully shutdown<br />before removing the power.<br /><br /><br /></td></tr>';
 		if ( escapeshellcmd($_POST["purgeLogs"]) == "1" ) {
 		    purgeLogs();
