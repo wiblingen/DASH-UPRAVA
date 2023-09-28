@@ -154,7 +154,7 @@ Test Complete.
   </div>
   <div class="footer">
   Original Pi-Star / Pi-Star Dashboard, &copy; Andy Taylor (<code>MW0MWZ</code>) 2014-<?php echo date("Y"); ?>.<br />
-  <a href="https://w0chp.net/w0chp-pistar-dash/" style="color: #ffffff; text-decoration:underline;">W0CHP-PiStar-Dash (WPSD)</a> by W0CHP
+  <a href="https://w0chp.net/w0chp-pistar-dash/">W0CHP-PiStar-Dash (WPSD)</a> &copy; <code>W0CHP</code> 2020-<?php echo date("Y"); ?>
   <br />
   </div>
   </div>
@@ -182,7 +182,7 @@ Test Complete.
   </div>
   <div class="footer">
   Original Pi-Star / Pi-Star Dashboard, &copy; Andy Taylor (<code>MW0MWZ</code>) 2014-<?php echo date("Y"); ?>.<br />
-  <a href="https://w0chp.net/w0chp-pistar-dash/" style="color: #ffffff; text-decoration:underline;">W0CHP-PiStar-Dash (WPSD)</a> by W0CHP
+  <a href="https://w0chp.net/w0chp-pistar-dash/">W0CHP-PiStar-Dash (WPSD)</a> &copy; <code>W0CHP</code> 2020-<?php echo date("Y"); ?>
   <br />
   </div>
   </div>
