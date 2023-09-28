@@ -690,8 +690,9 @@ if (!empty($is_paused)) {
     echo '<br />';
     echo '</div>';
     echo '<div class="footer">';
-    echo 'Original Pi-Star / Pi-Star Dashboard, &copy; Andy Taylor (<code>MW0MWZ</code>) 2014-'.date("Y").'.<br />';
-    echo '<a href="https://w0chp.net/w0chp-pistar-dash/">W0CHP-PiStar-Dash (WPSD)</a> &copy; <code>W0CHP</code> 2020-<?php echo date("Y"); ?>';
+    echo 'Original Pi-Star / Pi-Star Dashboard, &copy; Andy Taylor (<code>MW0MWZ</code>) 2014-'.date("Y").'<br />'."\n";
+    echo '<a href="https://w0chp.net/w0chp-pistar-dash/">W0CHP-PiStar-Dash (WPSD)</a> by <code>W0CHP</code> &copy; 2020-'.date("Y").' -- ';
+    echo 'Get Help: <a href="https://www.facebook.com/groups/w0chppistardash/" target="_new">Facebook Group</a> | <a href="https://discord.gg/mjgUky8hze" target="_new">Discord Server</a>';
     echo '<br />';
     echo '</div>';
     echo '</div>';
@@ -797,8 +798,9 @@ if (!empty($_POST)):
 	    echo "</table>\n";
 	    echo '<script type="text/javascript">setTimeout(function() { window.location=window.location;},5000);</script>';
 	    echo "<br />\n</div>\n";
-	    echo "<div class=\"footer\">\nOriginal Pi-Star / Pi-Star Dashboard, &copy; Andy Taylor (<code>MW0MWZ</code>) 2014-".date("Y").".<br />\n";
-	    echo '<a href="https://w0chp.net/w0chp-pistar-dash/">W0CHP-PiStar-Dash (WPSD)</a> &copy; <code>W0CHP</code> 2020-<?php echo date("Y"); ?>';
+	    echo 'Original Pi-Star / Pi-Star Dashboard, &copy; Andy Taylor (<code>MW0MWZ</code>) 2014-'.date("Y").'<br />'."\n";
+	    echo '<a href="https://w0chp.net/w0chp-pistar-dash/">W0CHP-PiStar-Dash (WPSD)</a> by <code>W0CHP</code> &copy; 2020-'.date("Y").' -- ';
+    	    echo 'Get Help: <a href="https://www.facebook.com/groups/w0chppistardash/" target="_new">Facebook Group</a> | <a href="https://discord.gg/mjgUky8hze" target="_new">Discord Server</a>';
 	    echo "<br />\n</div>\n</div>\n</body>\n</html>\n";
 	    die();
 	} // End SysX migration
@@ -816,8 +818,9 @@ if (!empty($_POST)):
 	  echo "</table>\n";
 	  echo '<script type="text/javascript">setTimeout(function() { window.location=window.location;},5000);</script>';
 	  echo "<br />\n</div>\n";
-          echo "<div class=\"footer\">\nOriginal Pi-Star / Pi-Star Dashboard, &copy; Andy Taylor (<code>MW0MWZ</code>) 2014-".date("Y").".<br />\n";
-		  echo '<a href="https://w0chp.net/w0chp-pistar-dash/">W0CHP-PiStar-Dash (WPSD)</a> &copy; <code>W0CHP</code> 2020-<?php echo date("Y"); ?>';
+	  echo 'Original Pi-Star / Pi-Star Dashboard, &copy; Andy Taylor (<code>MW0MWZ</code>) 2014-'.date("Y").'<br />'."\n";
+	  echo '<a href="https://w0chp.net/w0chp-pistar-dash/">W0CHP-PiStar-Dash (WPSD)</a> by <code>W0CHP</code> &copy; 2020-'.date("Y").' -- ';
+	  echo 'Get Help: <a href="https://www.facebook.com/groups/w0chppistardash/" target="_new">Facebook Group</a> | <a href="https://discord.gg/mjgUky8hze" target="_new">Discord Server</a>';
           echo "<br />\n</div>\n</div>\n</body>\n</html>\n";
 	  die();
 	}
@@ -835,8 +838,9 @@ if (!empty($_POST)):
 	  echo "</table>\n";
 	  echo '<script type="text/javascript">setTimeout(function() { window.location=window.location;},5000);</script>';
 	  echo "<br />\n</div>\n";
-          echo "<div class=\"footer\">\nOriginal Pi-Star / Pi-Star Dashboard, &copy; Andy Taylor (<code>MW0MWZ</code>) 2014-".date("Y").".<br />\n";
-		  echo '<a href="https://w0chp.net/w0chp-pistar-dash/">W0CHP-PiStar-Dash (WPSD)</a> &copy; <code>W0CHP</code> 2020-<?php echo date("Y"); ?>';
+	  echo 'Original Pi-Star / Pi-Star Dashboard, &copy; Andy Taylor (<code>MW0MWZ</code>) 2014-'.date("Y").'<br />'."\n";
+	  echo '<a href="https://w0chp.net/w0chp-pistar-dash/">W0CHP-PiStar-Dash (WPSD)</a> by <code>W0CHP</code> &copy; 2020-'.date("Y").' -- ';
+	  echo 'Get Help: <a href="https://www.facebook.com/groups/w0chppistardash/" target="_new">Facebook Group</a> | <a href="https://discord.gg/mjgUky8hze" target="_new">Discord Server</a>';
           echo "<br />\n</div>\n</div>\n</body>\n</html>\n";
 	  die();
 	}
@@ -909,8 +913,9 @@ if (!empty($_POST)):
 	  system('sudo pistar-services start > /dev/null 2>/dev/null &');
           echo '<script type="text/javascript">setTimeout(function() { window.location=window.location;},5000);</script>';
 	  echo "<br />\n</div>\n";
-          echo "<div class=\"footer\">\nOriginal Pi-Star / Pi-Star Dashboard, &copy; Andy Taylor (<code>MW0MWZ</code>) 2014-".date("Y").".<br />\n";
-	  echo '<a href="https://w0chp.net/w0chp-pistar-dash/">W0CHP-PiStar-Dash (WPSD)</a> &copy; <code>W0CHP</code> 2020-<?php echo date("Y"); ?>';
+	  echo 'Original Pi-Star / Pi-Star Dashboard, &copy; Andy Taylor (<code>MW0MWZ</code>) 2014-'.date("Y").'<br />'."\n";
+ 	  echo '<a href="https://w0chp.net/w0chp-pistar-dash/">W0CHP-PiStar-Dash (WPSD)</a> by <code>W0CHP</code> &copy; 2020-'.date("Y").' -- ';
+	  echo 'Get Help: <a href="https://www.facebook.com/groups/w0chppistardash/" target="_new">Facebook Group</a> | <a href="https://discord.gg/mjgUky8hze" target="_new">Discord Server</a>';
           echo "<br />\n</div>\n</div>\n</body>\n</html>\n";
 	  die();
 	}
@@ -926,8 +931,9 @@ if (!empty($_POST)):
 	  unset($_POST);
 	  echo '<script type="text/javascript">setTimeout(function() { window.location=window.location;},5000);</script>';
 	  echo "<br />\n</div>\n";
-          echo "<div class=\"footer\">\nOriginal Pi-Star / Pi-Star Dashboard, &copy; Andy Taylor (<code>MW0MWZ</code>) 2014-".date("Y").".<br />\n";
-		  echo '<a href="https://w0chp.net/w0chp-pistar-dash/">W0CHP-PiStar-Dash (WPSD)</a> &copy; <code>W0CHP</code> 2020-<?php echo date("Y"); ?>';
+	  echo 'Original Pi-Star / Pi-Star Dashboard, &copy; Andy Taylor (<code>MW0MWZ</code>) 2014-'.date("Y").'<br />'."\n";
+	  echo '<a href="https://w0chp.net/w0chp-pistar-dash/">W0CHP-PiStar-Dash (WPSD)</a> by <code>W0CHP</code> &copy; 2020-'.date("Y").' -- ';
+	  echo 'Get Help: <a href="https://www.facebook.com/groups/w0chppistardash/" target="_new">Facebook Group</a> | <a href="https://discord.gg/mjgUky8hze" target="_new">Discord Server</a>';
           echo "<br />\n</div>\n</div>\n</body>\n</html>\n";
 	  die();
 	}
@@ -4495,8 +4501,9 @@ else:
         echo "</form><br />";
         echo '</div>';
         echo '<div class="footer">';
-        echo 'Original Pi-Star / Pi-Star Dashboard, &copy; Andy Taylor (<code>MW0MWZ</code>) 2014-'.date("Y").'.<br />';
-        echo '<a href="https://w0chp.net/w0chp-pistar-dash/">W0CHP-PiStar-Dash (WPSD)</a> &copy; <code>W0CHP</code> 2020-<?php echo date("Y"); ?>';
+	echo 'Original Pi-Star / Pi-Star Dashboard, &copy; Andy Taylor (<code>MW0MWZ</code>) 2014-'.date("Y").'<br />'."\n";
+	echo '<a href="https://w0chp.net/w0chp-pistar-dash/">W0CHP-PiStar-Dash (WPSD)</a> by <code>W0CHP</code> &copy; 2020-'.date("Y").' -- ';
+	echo 'Get Help: <a href="https://www.facebook.com/groups/w0chppistardash/" target="_new">Facebook Group</a> | <a href="https://discord.gg/mjgUky8hze" target="_new">Discord Server</a>';
         echo '<br />';
         echo '</div>';
         echo '</div>';
@@ -5175,7 +5182,7 @@ else:
     <tr>
     </tr>
     <tr>
-    <th class='config_head' align="left" colspan="4">Main DMR Network Settings</th>
+    <th class='config_head' colspan="4">Main DMR Network Settings</th>
     </tr>
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo $lang['dmr_master'];?>:<span><b>DMR Master (MMDVMHost)</b>Set your preferred DMR master here</span></a></td>
@@ -5204,7 +5211,7 @@ fclose($dmrMasterFile);
     </tr>
 <?php if ($dmrMasterNow == "DMRGateway") { ?>
     <tr>
-    <th class='config_head' align="left"colspan="4">BrandMeister Network Settings</th>
+    <th class='config_head' colspan="4">BrandMeister Network Settings</th>
     </tr>
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo $lang['bm_master'];?>:<span><b>BrandMeister Master</b>Set your preferred DMR master here</span></a></td>
@@ -5292,7 +5299,7 @@ if (!@file_exists($bmAPIkeyFile) && !@fopen($bmAPIkeyFile,'r')) {
     </td>
     <tr>
 <?php } ?>
-    <th class='config_head' align="left" colspan="4">DMR+/FreeDMR/HBlink/Custom Network Settings</th>
+    <th class='config_head' colspan="4">DMR+/FreeDMR/HBlink/Custom Network Settings</th>
     </tr>
     <tr>
     <td align="left"><a class="tooltip2" href="#">DMR+ / FreeDMR / HBlink / Custom Master:<span><b>DMR+ / FreeDMR / HBlink / Custom Master</b>Set your preferred DMR master here</span></a></td>
@@ -5372,7 +5379,7 @@ if (!@file_exists($bmAPIkeyFile) && !@fopen($bmAPIkeyFile,'r')) {
     </tr>
 
     <tr>
-    <th class='config_head' align="left" colspan="4">SystemX Network Settings</th>
+    <th class='config_head' colspan="4">SystemX Network Settings</th>
     </tr>
     <tr>
     <td align="left"><a class="tooltip2" href="#">SystemX Master:<span><b>SystemX Master</b>Set your preferred DMR master here</span></a></td>
@@ -5451,7 +5458,7 @@ if (!@file_exists($bmAPIkeyFile) && !@fopen($bmAPIkeyFile,'r')) {
     </tr>
 
     <tr>
-    <th class='config_head' align="left" colspan="4">TGIF Network Settings</th>
+    <th class='config_head' colspan="4">TGIF Network Settings</th>
     <input type="hidden" name="dmrMasterHost4" value="OFF" />
     <tr>
     <td align="left"><a class="tooltip2" href="#">ESSID:<span><b>TGIF Extended ID</b>This is the extended ID, to make your DMR ID 8 digits long</span></a></td>
@@ -5513,7 +5520,7 @@ if (!@file_exists($bmAPIkeyFile) && !@fopen($bmAPIkeyFile,'r')) {
     </tr>
 
     <tr>
-    <th class='config_head' align="left" colspan="4">XLX Network Settings</th>
+    <th class='config_head' colspan="4">XLX Network Settings</th>
     </tr>
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo $lang['xlx_master'];?>:<span><b>XLX Master</b>Set your preferred XLX master here</span></a></td>
@@ -5627,7 +5634,7 @@ if (!@file_exists($bmAPIkeyFile) && !@fopen($bmAPIkeyFile,'r')) {
     </td></tr>
 <?php } ?>
     <tr>
-    <th class='config_head' align="left" colspan="4">System-Wide DMR Settings</th>
+    <th class='config_head' colspan="4">System-Wide DMR Settings</th>
     </tr>
     <tr>
     <td align="left"><a class="tooltip2" href="#">DMR Roaming Beacon:<span><b>Enable DMR Roaming Beacon</b>Enable DMR Roaming Beacons; Used for repeaters</span></a></td>
@@ -6609,7 +6616,8 @@ echo '
 </div>
 <div class="footer">
 Original Pi-Star / Pi-Star Dashboard, &copy; Andy Taylor (<code>MW0MWZ</code>) 2014-<?php echo date("Y"); ?>.<br />
-<a href="https://w0chp.net/w0chp-pistar-dash/">W0CHP-PiStar-Dash (WPSD)</a> &copy; <code>W0CHP</code> 2020-<?php echo date("Y"); ?>
+<a href="https://w0chp.net/w0chp-pistar-dash/">W0CHP-PiStar-Dash (WPSD)</a> &copy; <code>W0CHP</code> 2020-<?php echo date("Y"); ?> -- 
+Get Help: <a href="https://www.facebook.com/groups/w0chppistardash/" target="_new">Facebook Group</a> | <a href="https://discord.gg/mjgUky8hze" target="_new">Discord Server</a>
 <br />
 </div>
 </div>
@@ -6624,7 +6632,8 @@ Original Pi-Star / Pi-Star Dashboard, &copy; Andy Taylor (<code>MW0MWZ</code>) 2
 </div>
 <div class="footer">
 Original Pi-Star / Pi-Star Dashboard, &copy; Andy Taylor (<code>MW0MWZ</code>) 2014-<?php echo date("Y"); ?>.<br />
-<a href="https://w0chp.net/w0chp-pistar-dash/">W0CHP-PiStar-Dash (WPSD)</a> &copy; <code>W0CHP</code> 2020-<?php echo date("Y"); ?>
+<a href="https://w0chp.net/w0chp-pistar-dash/">W0CHP-PiStar-Dash (WPSD)</a> &copy; <code>W0CHP</code> 2020-<?php echo date("Y"); ?> -- 
+Get Help: <a href="https://www.facebook.com/groups/w0chppistardash/" target="_new">Facebook Group</a> | <a href="https://discord.gg/mjgUky8hze" target="_new">Discord Server</a>
 <br />
 </div>
 </div>
