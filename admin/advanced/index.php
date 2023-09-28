@@ -75,7 +75,7 @@ if (!is_dir($config_dir) || count(glob("$config_dir/*")) < 1) {
 
         </div>
             <div class="footer">
-                Pi-Star web config, &copy; Andy Taylor (MW0MWZ) 2014-'.date("Y").'.<br />
+                Original Pi-Star / Pi-Star Dashboard, &copy; Andy Taylor (<code>MW0MWZ</code>) 2014-'.date("Y").'.<br />
                 <a href="https://w0chp.net/w0chp-pistar-dash/" style="color: #ffffff; text-decoration:underline;">W0CHP-PiStar-Dash (WPSD)</a> by W0CHP<br />
             </div>
 
@@ -114,7 +114,7 @@ if (!is_dir($config_dir) || count(glob("$config_dir/*")) < 1) {
 
 	</div>
 	    <div class="footer">
-		Pi-Star web config, &copy; Andy Taylor (MW0MWZ) 2014-<?php echo date("Y"); ?>.<br />
+		Original Pi-Star / Pi-Star Dashboard, &copy; Andy Taylor (<code>MW0MWZ</code>) 2014-<?php echo date("Y"); ?>.<br />
 		<a href="https://w0chp.net/w0chp-pistar-dash/" style="color: #ffffff; text-decoration:underline;">W0CHP-PiStar-Dash (WPSD)</a> by W0CHP<br />
 	    </div>
 	    
