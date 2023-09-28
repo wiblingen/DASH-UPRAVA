@@ -88,7 +88,7 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
             $('.nxdnLinkHost').select2({searchInputPlaceholder: 'Search...'});
             $(".RefName").select2({
               tags: true,
-	      width: '125px',
+              width: '125px',
               dropdownAutoWidth : false,
               createTag: function (params) {
                 return {
@@ -122,98 +122,83 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
             });
             $('.hw_toggle').toggle(localStorage.getItem('hwinfo_visible') === 'true');
           });
-	  jQuery(document).ready(function() {
-            jQuery('#lh_details').click(function(){
-              jQuery('#lh_info').slideToggle('slow');
-              if(jQuery(this).text() == 'Hide Last Heard...'){
-                  jQuery(this).text('Display Last Heard...');
-              } else {
-                  jQuery(this).text('Hide Last Heard...');
-             }
+          function clear_activity() {
+            if ( 'true' === localStorage.getItem('filter_activity') ) {
+              max = localStorage.getItem( 'filter_activity_max') || 1;
+              jQuery('.filter-activity-max').attr('value',max);
+              jQuery('.activity-duration').each( function(i,el) {
+                duration = parseFloat( jQuery(this).text() );
+                if ( duration < max ) {
+                  jQuery(this).closest('tr').hide();
+                } else {
+                  jQuery(this).closest('tr').addClass('good-activity');
+                }
+              });
+              jQuery('.good-activity').each( function( i,el ) {
+                if (i % 2 === 0) {
+                  /* we are even */
+                  jQuery(el).addClass('even');
+                } else {
+                  jQuery(el).addClass('odd');
+                }
+              });
+            }
+          };
+          function setFilterActivity(obj) {
+            localStorage.setItem('filter_activity', obj.checked);
+            $.ajax({
+              type: "POST",
+              url: '/mmdvmhost/filteractivity_ajax.php',
+              data:{
+                action: obj.checked
+              },
             });
-          });
-    function clear_activity() {
-      if ( 'true' === localStorage.getItem('filter_activity') ) {
-        max = localStorage.getItem( 'filter_activity_max') || 1;
-        jQuery('.filter-activity-max').attr('value',max);
-        jQuery('.activity-duration').each( function(i,el) {
-          duration = parseFloat( jQuery(this).text() );
-          if ( duration < max ) {
-            jQuery(this).closest('tr').hide();
-          } else {
-            jQuery(this).closest('tr').addClass('good-activity');
           }
-        });
-        
+          function setFilterActivityMax(obj) {
+            max = obj.value || 1;
+            localStorage.setItem('filter_activity_max', obj.value);
+          }
 
-        jQuery('.good-activity').each( function( i,el ) {
-          if (i % 2 === 0) {
-          /* we are even */
-          jQuery(el).addClass('even');
-        } else {
-          jQuery(el).addClass('odd');
-        }
-        });
-      }
-    };
-    function setFilterActivity(obj) {
-      localStorage.setItem('filter_activity', obj.checked);
-      $.ajax({
-        type: "POST",
-        url: '/mmdvmhost/filteractivity_ajax.php',
-        data:{
-          action: obj.checked
-        },
-      });
-    }
-    function setFilterActivityMax(obj) {
-      max = obj.value || 1;
-      localStorage.setItem('filter_activity_max', obj.value);
-    }
+          function reloadUpdateCheck(){
+            $("#CheckUpdate").load("/includes/checkupdates.php",function(){
+              setTimeout(reloadUpdateCheck,10000) });
+          }
+          setTimeout(reloadUpdateCheck,10000);
+          $(window).trigger('resize');
 
-    function reloadUpdateCheck(){
-      $("#CheckUpdate").load("/includes/checkupdates.php",function(){
-        setTimeout(reloadUpdateCheck,10000) });
-    }
-    setTimeout(reloadUpdateCheck,10000);
-    $(window).trigger('resize');
+          function reloadMessageCheck(){
+            $("#CheckMessage").load("/includes/messages.php",function(){
+              setTimeout(reloadMessageCheck,10000) });
+          }
+          setTimeout(reloadMessageCheck,10000);
+          $(window).trigger('resize');
 
-    function reloadMessageCheck(){
-      $("#CheckMessage").load("/includes/messages.php",function(){
-        setTimeout(reloadMessageCheck,10000) });
-    }
-    setTimeout(reloadMessageCheck,10000);
-    $(window).trigger('resize');
+          function reloadDateTime(){
+            $("#DateTime").load("/includes/datetime.php",function(){
+              setTimeout(reloadDateTime,1000) });
+          }
+          setTimeout(reloadDateTime,1000);
+          $(window).trigger('resize');
+          function executeBackgroundTasks() {
+            $.ajax({
+              url: 'includes/execute-background-tasks.php',
+              success: function(data) {
+                console.log('Background tasks executed successfully.');
+              },
+              error: function() {
+                console.log('Error executing background tasks.');
+              }
+            });
+          }
 
-    function reloadDateTime(){
-      $("#DateTime").load("/includes/datetime.php",function(){
-        setTimeout(reloadDateTime,1000) });
-    }
-    setTimeout(reloadDateTime,1000);
-    $(window).trigger('resize');
-
-    </script>
-<script>
-  function executeBackgroundTasks() {
-    $.ajax({
-      url: 'includes/execute-background-tasks.php',
-      success: function(data) {
-        console.log('Background tasks executed successfully.');
-      },
-      error: function() {
-        console.log('Error executing background tasks.');
-      }
-    });
-  }
-
-  $(document).ready(function() {
-    setInterval(function() {
-      executeBackgroundTasks();
-    }, 300000); // 5 mins
-  });
-</script>
+          $(document).ready(function() {
+            setInterval(function() {
+              executeBackgroundTasks();
+            }, 300000); // 5 mins
+          });
+      </script>
     </head>
-    <body>
+   <body>
 	<div class="container">
 	    <div class="header">
                <div class="SmallHeader shLeft noMob"><a style="border-bottom: 1px dotted;" class="tooltip" href="#"><?php echo $lang['hostname'].": ";?> <span><strong>System IP Address<br /></strong><?php echo str_replace(',', ',<br />', exec('hostname -I'));?> </span>  <?php echo exec('cat /etc/hostname'); ?></a></div>
@@ -767,34 +752,19 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 
     }
 
-		if ($_SERVER["PHP_SELF"] == "/admin/index.php") {
-		    echo '<div style="text-align:left;font-weight:bold;"><a style="color:'.$textSections.';text-decoration:underline;" href="#lh_info" id="lh_details">Display Last Heard...</a></div><br />';
-		    echo '<div id="lh_info" style="display:none;">';
-                    echo '<div id="liveCallerDeets">'."\n";
-                    include 'mmdvmhost/live_caller_table.php';
-                    echo '</div>'."\n";
+	if ($_SERVER["PHP_SELF"] != "/admin/index.php") {
+            echo '<div id="liveCallerDeets">'."\n";
+            include 'mmdvmhost/live_caller_table.php';
+            echo '</div>'."\n";
 
-                    echo '<div id="localTxs">'."\n";
-                    include 'mmdvmhost/localtx.php';                            // MMDVMDash Local Trasmissions
-                    echo '</div>'."\n";
+            echo '<div id="localTxs">'."\n";
+            include 'mmdvmhost/localtx.php';
+            echo '</div>'."\n";
 
-                    echo '<div id="lastHeard">'."\n";
-                    include 'mmdvmhost/lh.php';                                 // MMDVMDash Last Heard
-                    echo '</div>'."\n";
-                    echo '</div>'."\n";
-                } else {
-                    echo '<div id="liveCallerDeets">'."\n";
-                    include 'mmdvmhost/live_caller_table.php';
-                    echo '</div>'."\n";
-
-                    echo '<div id="localTxs">'."\n";
-                    include 'mmdvmhost/localtx.php';                            // MMDVMDash Local Trasmissions
-                    echo '</div>'."\n";
-
-                    echo '<div id="lastHeard">'."\n";
-                    include 'mmdvmhost/lh.php';                                 // MMDVMDash Last Heard
-                    echo '</div>'."\n";
-		}
+            echo '<div id="lastHeard">'."\n";
+            include 'mmdvmhost/lh.php';
+            echo '</div>'."\n";
+	}
 
 		// If POCSAG is enabled, show the information panel
         if ( $testMMDVModePOCSAG == 1 ) {
