@@ -31,13 +31,6 @@ if (constant("TIME_FORMAT") == "24") {
     $local_time = 'h:i:s A';
 }
 
-// BM uses stupid comments in TG names. Delete them...
-function StripStupidComments($target) {
-    $stupid_bm = ['/ - 10 Minute Limit/', '/ NOT A CALL CHANNEL/', '/ NO NETS(.*?)/', '/!/'];
-    $clean = preg_replace($stupid_bm, "", $target);
-    return $clean;
-}
-
 // Check if DMR is Enabled
 $testMMDVModeDMR = getConfigItem("DMR", "Enable", $_SESSION['MMDVMHostConfigs']);
 
@@ -96,15 +89,15 @@ if ( $testMMDVModeDMR == 1 ) {
 
                 if (getConfigItem("DMR Network", "Slot1", $_SESSION['MMDVMHostConfigs']) && $staticTG->slot == "1") {
                     $bmStaticTGname = exec("grep -w \"$staticTG->talkgroup\" /usr/local/etc/BM_TGs.json | cut -d\":\" -f2- | tr -cd \"'[:alnum:]\/ -\"");
-                    $bmStaticTGList .= "<tr><td align='left' style='padding-left: 8px;'>TG ".$staticTG->talkgroup."</td><td align='left' style='padding-left: 8px;'>".StripStupidComments($bmStaticTGname)."</td><td align='left' style='padding-left: 8px;'>".$staticTG->slot."</td></tr>";
+                    $bmStaticTGList .= "<tr><td align='left' style='padding-left: 8px;'>TG ".$staticTG->talkgroup."</td><td align='left' style='padding-left: 8px;'>$bmStaticTGname</td><td align='left' style='padding-left: 8px;'>".$staticTG->slot."</td></tr>";
                 }
                 else if (getConfigItem("DMR Network", "Slot2", $_SESSION['MMDVMHostConfigs']) && $staticTG->slot == "2") {
                     $bmStaticTGname = exec("grep -w \"$staticTG->talkgroup\" /usr/local/etc/BM_TGs.json | cut -d\":\" -f2- | tr -cd \"'[:alnum:]\/ -\"");
-                    $bmStaticTGList .= "<tr><td align='left' style='padding-left: 8px;'>TG ".$staticTG->talkgroup."</td><td align='left' style='padding-left: 8px;'>".StripStupidComments($bmStaticTGname)."</td><td align='left' style='padding-left: 8px;'>".$staticTG->slot."</td></tr>";
+                    $bmStaticTGList .= "<tr><td align='left' style='padding-left: 8px;'>TG ".$staticTG->talkgroup."</td><td align='left' style='padding-left: 8px;'>$bmStaticTGname</td><td align='left' style='padding-left: 8px;'>".$staticTG->slot."</td></tr>";
                 }
                 else if (getConfigItem("DMR Network", "Slot1", $_SESSION['MMDVMHostConfigs']) == "0" && getConfigItem("DMR Network", "Slot2", $_SESSION['MMDVMHostConfigs']) && $staticTG->slot == "0") {
                     $bmStaticTGname = exec("grep -w \"$staticTG->talkgroup\" /usr/local/etc/BM_TGs.json | cut -d\":\" -f2- | tr -cd \"'[:alnum:]\/ -\"");
-                    $bmStaticTGList .= "<tr><td align='left' style='padding-left: 8px;'>TG ".$staticTG->talkgroup."</td><td align='left' style='padding-left: 8px;'>".StripStupidComments($bmStaticTGname)."</td><td align='left' style='padding-left: 8px;'>2</td></tr>";
+                    $bmStaticTGList .= "<tr><td align='left' style='padding-left: 8px;'>TG ".$staticTG->talkgroup."</td><td align='left' style='padding-left: 8px;'>$bmStaticTGname</td><td align='left' style='padding-left: 8px;'>2</td></tr>";
                 }
             }
             $bmStaticTGList = wordwrap($bmStaticTGList, 135, "\n");
@@ -119,7 +112,7 @@ if ( $testMMDVModeDMR == 1 ) {
 		    $diff = $then->diff($now);
 		    $bmDynanicTGexpire = $diff->format('%i:%S mins');
 		    $bmDynamicTGname = exec("grep -w \"$dynamicTG->talkgroup\" /usr/local/etc/BM_TGs.json | cut -d\":\" -f2- | tr -cd \"'[:alnum:]\/ -\"");
-		    $bmDynamicTGList .= "<tr><td align='left' style='padding-left: 8px;'>TG ".$dynamicTG->talkgroup."</td><td align='left' style='padding-left: 8px;'>".StripStupidComments($bmDynamicTGname)."</td><td align='left' style='padding-left: 8px;'>".$dynamicTG->slot."</td><td align='left' style='padding-left: 8px;' id='tgTimeout'>".date("$local_time", substr($dynamicTG->timeout, 0, 10))." ".date('T'). " ($bmDynanicTGexpire remaining)</td></tr>";
+		    $bmDynamicTGList .= "<tr><td align='left' style='padding-left: 8px;'>TG ".$dynamicTG->talkgroup."</td><td align='left' style='padding-left: 8px;'>$bmDynamicTGname</td><td align='left' style='padding-left: 8px;'>".$dynamicTG->slot."</td><td align='left' style='padding-left: 8px;' id='tgTimeout'>".date("$local_time", substr($dynamicTG->timeout, 0, 10))." ".date('T'). " ($bmDynanicTGexpire remaining)</td></tr>";
                 }
                 else if (getConfigItem("DMR Network", "Slot2", $_SESSION['MMDVMHostConfigs']) && $dynamicTG->slot == "2") {
 		    $now = new DateTime();
@@ -127,11 +120,11 @@ if ( $testMMDVModeDMR == 1 ) {
 		    $diff = $then->diff($now);
 		    $bmDynanicTGexpire = $diff->format('%i:%S mins');
 		    $bmDynamicTGname = exec("grep -w \"$dynamicTG->talkgroup\" /usr/local/etc/BM_TGs.json | cut -d\":\" -f2- | tr -cd \"'[:alnum:]\/ -\"");
-		    $bmDynamicTGList .= "<tr><td align='left' style='padding-left: 8px;'>TG ".$dynamicTG->talkgroup."</td><td align='left' style='padding-left: 8px;'>".StripStupidComments($bmDynamicTGname)."</td><td align='left' style='padding-left: 8px;'>".$dynamicTG->slot."</td><td align='left' style='padding-left: 8px;'>".date("$local_time", substr($dynamicTG->timeout, 0, 10))." ".date('T')." ($bmDynanicTGexpire remaining)</td></tr>";
+		    $bmDynamicTGList .= "<tr><td align='left' style='padding-left: 8px;'>TG ".$dynamicTG->talkgroup."</td><td align='left' style='padding-left: 8px;'>$bmDynamicTGname</td><td align='left' style='padding-left: 8px;'>".$dynamicTG->slot."</td><td align='left' style='padding-left: 8px;'>".date("$local_time", substr($dynamicTG->timeout, 0, 10))." ".date('T')." ($bmDynanicTGexpire remaining)</td></tr>";
                 }
                 else if (getConfigItem("DMR Network", "Slot1", $_SESSION['MMDVMHostConfigs']) == "0" && getConfigItem("DMR Network", "Slot2", $_SESSION['MMDVMHostConfigs']) && $dynamicTG->slot == "0") {
                     $bmDynamicTGname = exec("grep -w \"$dynamicTG->talkgroup\" /usr/local/etc/BM_TGs.json | cut -d\":\" -f2- | tr -cd \"'[:alnum:]\/ -\"");
-	            $bmDynamicTGList .= "<tr><td align='left' style='padding-left: 8px;'>TG ".$dynamicTG->talkgroup."</td><td align='left' style='padding-left: 8px;'>".StripStupidComments($bmDynamicTGname)."</td><td align='left' style='padding-left: 8px;'>2</td><td align='left' style='padding-left: 8px;'>".date("$local_time", substr($dynamicTG->timeout, 0, 10))." ".date('T')."</td></tr>";
+	            $bmDynamicTGList .= "<tr><td align='left' style='padding-left: 8px;'>TG ".$dynamicTG->talkgroup."</td><td align='left' style='padding-left: 8px;'>$bmDynamicTGname</td><td align='left' style='padding-left: 8px;'>2</td><td align='left' style='padding-left: 8px;'>".date("$local_time", substr($dynamicTG->timeout, 0, 10))." ".date('T')."</td></tr>";
                 }
             }
             $bmDynamicTGList = wordwrap($bmDynamicTGList, 135, "\n");
