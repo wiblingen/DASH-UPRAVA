@@ -64,6 +64,9 @@ if ($_SERVER["PHP_SELF"] == "/admin/live_log.php") {
 	case "YSF2P25":
 	    $logfile = "/var/log/pi-star/YSF2P25-".gmdate('Y-m-d').".log";
 	    break;
+	case "APRSGateway":
+	    $logfile = "/var/log/pi-star/APRSGateway-".gmdate('Y-m-d').".log";
+	    break;
     }
     
     if (isset($_GET['ajax'])) {
@@ -191,6 +194,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/live_log.php") {
 	<option name="YSF2DMR">YSF2DMR</option>
 	<option name="YSF2NXDN">YSF2NXDN</option>
 	<option name="YSF2P25">YSF2P25</option>
+	<option name="APRSGateway">APRSGateway</option>
     </select>
     <input type="submit" name="sumbit" value="Select" />
   </form>
@@ -228,6 +232,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/live_log.php") {
         <option name="YSF2DMR" <?php if ($log == "YSF2DMR") { echo "selected='selected'"; } ?>>YSF2DMR</option>
         <option name="YSF2NXDN" <?php if ($log == "YSF2NXDN") { echo "selected='selected'"; } ?>>YSF2NXDN</option>
         <option name="YSF2P25" <?php if ($log == "YSF2P25") { echo "selected='selected'"; } ?>>YSF2P25</option>
+        <option name="APRSGateway" <?php if ($log == "APRSGateway") { echo "selected='selected'"; } ?>>APRSGateway</option>
     </select>
     <input type="submit" name="sumbit" value="Select" />
   </form>
