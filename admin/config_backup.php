@@ -122,9 +122,10 @@ if ($_SERVER["PHP_SELF"] == "/admin/config_backup.php") {
 			    $output .= shell_exec("sudo cp /var/www/dashboard/config/ircddblocal.php $backupDir > /dev/null")."\n";
 			    $output .= shell_exec("sudo cp /var/www/dashboard/config/config.php $backupDir > /dev/null")."\n";
 			    $output .= shell_exec("sudo cp /var/www/dashboard/config/language.php $backupDir > /dev/null")."\n";
-			    $output .= shell_exec('sudo find /root/ -maxdepth 1 -name "*Hosts.txt" -exec cp {} /tmp/config_backup \; > /dev/null')."\n";
+			    $output .= shell_exec("sudo find /root/ -maxdepth 1 -name '*Hosts.txt' -exec cp {} $backupDir \; > /dev/null")."\n";
+			    $output .= shell_exec("sudo cp -a /etc/WPSD_config_mgr $backupDir > /dev/null")."\n";
 			    $output .= "Compressing backup files\n";
-			    $output .= shell_exec("sudo zip -rj $backupZip $backupDir > /dev/null")."\n";
+			    $output .= shell_exec("sudo zip -r $backupZip $backupDir > /dev/null")."\n";
 			    $output .= "Starting download\n";
 
 			    echo "<tr><td align=\"left\"><pre>$output</pre></td></tr>\n";
@@ -153,7 +154,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/config_backup.php") {
 			};
 			if ( escapeshellcmd($_POST["action"]) == "restore" ) {
 			    echo "<tr><th colspan=\"2\">Config Restore</th></tr>\n";
-			    $output = "Uploading your Config data\n";
+			    //$output = "Uploading your Config data\n";
 			    
 			    $target_dir = "/tmp/config_restore/";
 			    shell_exec("sudo rm -rf $target_dir > /dev/null");
@@ -196,8 +197,8 @@ if ($_SERVER["PHP_SELF"] == "/admin/config_backup.php") {
 			            $zip->close();
 			            unlink($target_path);
 				}
-				$output .= "Your zip file was uploaded and unpacked.\n";
-				$output .= "Stopping Services.\n";
+				//$output .= "Your zip file was uploaded and unpacked.\n";
+				//$output .= "Stopping Services.\n";
 				
 				// Stop the DV Services
 			    	shell_exec('sudo pistar-services fullstop > /dev/null');
@@ -206,8 +207,11 @@ if ($_SERVER["PHP_SELF"] == "/admin/config_backup.php") {
 				shell_exec('sudo mount -o remount,rw / > /dev/null');
 				
 				// Overwrite the configs
-				$output .= "Writing new Config\n";
-				$output .= shell_exec("sudo rm -f /etc/dstar-radio.* /etc/bmapi.key /etc/dapnetapi.key /etc/timeserver.disable > /dev/null");
+				//$output .= "Writing new Config\n";
+				$output .= shell_exec("sudo rm -rf /etc/dstar-radio.* /etc/bmapi.key /etc/dapnetapi.key /etc/timeserver.disable /etc/WPSD_config_mgr > /dev/null");
+				$output .= shell_exec("sudo mv -fv /tmp/config_restore/tmp/config_backup/* /tmp/config_restore/ > /dev/null");
+				$output .= shell_exec("sudo rm -rf /tmp/config_restore/tmp > /dev/null");
+                                $output .= shell_exec("sudo cp -av /tmp/config_restore/WPSD_config_mgr /etc/ > /dev/null");
                                 $output .= shell_exec("sudo mv -fv /tmp/config_restore/gpsd /etc/default/ > /dev/null");
 				$output .= shell_exec("sudo mv -fv /tmp/config_restore/RSSI.dat /usr/local/etc/ > /dev/null");
 				$output .= shell_exec("sudo mv -fv /tmp/config_restore/ircddblocal.php /var/www/dashboard/config/ > /dev/null");
@@ -221,7 +225,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/config_backup.php") {
 				$output .= shell_exec("sudo mv -fv /tmp/config_restore/* /etc/ > /dev/null");
 				
 				//Restore the Timezone Config
-				$timeZone = shell_exec('grep date /var/www/dashboard/config/config.php | grep -o "\'.*\'" | sed "s/\'//g"');
+				$timeZone = shell_exec("grep -o -P \"date_default_timezone_set\\('\\K[^']+\" /var/www/dashboard/config/config.php");
 				$timeZone = preg_replace( "/\r|\n/", "", $timeZone);                    //Remove the linebreaks
 				shell_exec('sudo timedatectl set-timezone '.$timeZone.' > /dev/null');
 				
@@ -230,17 +234,15 @@ if ($_SERVER["PHP_SELF"] == "/admin/config_backup.php") {
 				shell_exec('sudo sed -i "/password=/c\\password='.$ircRemotePassword.'" /root/.Remote\ Control');
 				
 				// Update the hosts files
-				$output .= "Updating Hostfiles.\n";
+				//$output .= "Updating Hostfiles.\n";
 				shell_exec('sudo /usr/local/sbin/HostFilesUpdate.sh > /dev/null');
 				
-				// Make the disk Read-Only
-				
 				// Start the services
-				$output .= "Starting Services.\n";
-			    	shell_exec('sudo pistar-services start > /dev/null');
+				//$output .= "Starting Services.\n";
+			    	shell_exec('sudo pistar-services start > /dev/null &');
 	
 				// Complete
-				$output .= "Configuration Restoration Complete.\n";
+				$output .= "<h3 style='text-align:center'>Configuration Restoration Complete.</h3>\n";
 			    }
 			    else {
 				$output .= "There was a problem with the upload. Please try again.<br />";
@@ -251,7 +253,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/config_backup.php") {
 				$output .= '}'."\n";
 				$output .= '</script>'."\n";
 			    }
-			    echo "<tr><td align=\"left\"><pre>$output</pre></td></tr>\n";
+			    echo "<tr><td>$output</td></tr>\n";
 			};
 			
 			echo "</table>\n";
