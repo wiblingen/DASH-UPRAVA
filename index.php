@@ -122,81 +122,86 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
             });
             $('.hw_toggle').toggle(localStorage.getItem('hwinfo_visible') === 'true');
           });
-          function clear_activity() {
-            if ( 'true' === localStorage.getItem('filter_activity') ) {
-              max = localStorage.getItem( 'filter_activity_max') || 1;
-              jQuery('.filter-activity-max').attr('value',max);
-              jQuery('.activity-duration').each( function(i,el) {
-                duration = parseFloat( jQuery(this).text() );
-                if ( duration < max ) {
-                  jQuery(this).closest('tr').hide();
-                } else {
-                  jQuery(this).closest('tr').addClass('good-activity');
-                }
-              });
-              jQuery('.good-activity').each( function( i,el ) {
-                if (i % 2 === 0) {
-                  /* we are even */
-                  jQuery(el).addClass('even');
-                } else {
-                  jQuery(el).addClass('odd');
-                }
-              });
-            }
-          };
-          function setFilterActivity(obj) {
-            localStorage.setItem('filter_activity', obj.checked);
-            $.ajax({
-              type: "POST",
-              url: '/mmdvmhost/filteractivity_ajax.php',
-              data:{
-                action: obj.checked
-              },
-            });
+    function clear_activity() {
+      if ( 'true' === localStorage.getItem('filter_activity') ) {
+        max = localStorage.getItem( 'filter_activity_max') || 1;
+        jQuery('.filter-activity-max').attr('value',max);
+        jQuery('.activity-duration').each( function(i,el) {
+          duration = parseFloat( jQuery(this).text() );
+          if ( duration < max ) {
+            jQuery(this).closest('tr').hide();
+          } else {
+            jQuery(this).closest('tr').addClass('good-activity');
           }
-          function setFilterActivityMax(obj) {
-            max = obj.value || 1;
-            localStorage.setItem('filter_activity_max', obj.value);
-          }
+        });
+        
 
-          function reloadUpdateCheck(){
-            $("#CheckUpdate").load("/includes/checkupdates.php",function(){
-              setTimeout(reloadUpdateCheck,10000) });
-          }
-          setTimeout(reloadUpdateCheck,10000);
-          $(window).trigger('resize');
+        jQuery('.good-activity').each( function( i,el ) {
+          if (i % 2 === 0) {
+          /* we are even */
+          jQuery(el).addClass('even');
+        } else {
+          jQuery(el).addClass('odd');
+        }
+        });
+      }
+    };
+    function setFilterActivity(obj) {
+      localStorage.setItem('filter_activity', obj.checked);
+      $.ajax({
+        type: "POST",
+        url: '/mmdvmhost/filteractivity_ajax.php',
+        data:{
+          action: obj.checked
+        },
+      });
+    }
+    function setFilterActivityMax(obj) {
+      max = obj.value || 1;
+      localStorage.setItem('filter_activity_max', obj.value);
+    }
 
-          function reloadMessageCheck(){
-            $("#CheckMessage").load("/includes/messages.php",function(){
-              setTimeout(reloadMessageCheck,10000) });
-          }
-          setTimeout(reloadMessageCheck,10000);
-          $(window).trigger('resize');
+    function reloadUpdateCheck(){
+      $("#CheckUpdate").load("/includes/checkupdates.php",function(){
+        setTimeout(reloadUpdateCheck,10000) });
+    }
+    setTimeout(reloadUpdateCheck,10000);
+    $(window).trigger('resize');
 
-          function reloadDateTime(){
-            $("#DateTime").load("/includes/datetime.php",function(){
-              setTimeout(reloadDateTime,1000) });
-          }
-          setTimeout(reloadDateTime,1000);
-          $(window).trigger('resize');
-          function executeBackgroundTasks() {
-            $.ajax({
-              url: 'includes/execute-background-tasks.php',
-              success: function(data) {
-                console.log('Background tasks executed successfully.');
-              },
-              error: function() {
-                console.log('Error executing background tasks.');
-              }
-            });
-          }
+    function reloadMessageCheck(){
+      $("#CheckMessage").load("/includes/messages.php",function(){
+        setTimeout(reloadMessageCheck,10000) });
+    }
+    setTimeout(reloadMessageCheck,10000);
+    $(window).trigger('resize');
 
-          $(document).ready(function() {
-            setInterval(function() {
-              executeBackgroundTasks();
-            }, 300000); // 5 mins
-          });
-      </script>
+    function reloadDateTime(){
+      $("#DateTime").load("/includes/datetime.php",function(){
+        setTimeout(reloadDateTime,1000) });
+    }
+    setTimeout(reloadDateTime,1000);
+    $(window).trigger('resize');
+
+    </script>
+<script>
+  function executeBackgroundTasks() {
+    $.ajax({
+      url: 'includes/execute-background-tasks.php',
+      success: function(data) {
+        console.log('Background tasks executed successfully.');
+      },
+      error: function() {
+        console.log('Error executing background tasks.');
+      }
+    });
+  }
+
+  $(document).ready(function() {
+    setInterval(function() {
+      executeBackgroundTasks();
+    }, 300000); // 5 mins
+  });
+</script>
     </head>
    <body>
 	<div class="container">
