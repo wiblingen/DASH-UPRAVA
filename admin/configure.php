@@ -798,9 +798,6 @@ if (!empty($_POST)):
 	    echo "</table>\n";
 	    echo '<script type="text/javascript">setTimeout(function() { window.location=window.location;},5000);</script>';
 	    echo "<br />\n</div>\n";
-	    echo 'Original Pi-Star / Pi-Star Dashboard, &copy; Andy Taylor (<code>MW0MWZ</code>) 2014-'.date("Y").'<br />'."\n";
-	    echo '<a href="https://w0chp.net/w0chp-pistar-dash/">W0CHP-PiStar-Dash (WPSD)</a> by <code>W0CHP</code> &copy; 2020-'.date("Y").' -- ';
-    	    echo 'Get Help: <a href="https://www.facebook.com/groups/w0chppistardash/" target="_new">Facebook Group</a> | <a href="https://discord.gg/mjgUky8hze" target="_new">Discord Server</a>';
 	    echo "<br />\n</div>\n</div>\n</body>\n</html>\n";
 	    die();
 	} // End SysX migration
@@ -818,9 +815,6 @@ if (!empty($_POST)):
 	  echo "</table>\n";
 	  echo '<script type="text/javascript">setTimeout(function() { window.location=window.location;},5000);</script>';
 	  echo "<br />\n</div>\n";
-	  echo 'Original Pi-Star / Pi-Star Dashboard, &copy; Andy Taylor (<code>MW0MWZ</code>) 2014-'.date("Y").'<br />'."\n";
-	  echo '<a href="https://w0chp.net/w0chp-pistar-dash/">W0CHP-PiStar-Dash (WPSD)</a> by <code>W0CHP</code> &copy; 2020-'.date("Y").' -- ';
-	  echo 'Get Help: <a href="https://www.facebook.com/groups/w0chppistardash/" target="_new">Facebook Group</a> | <a href="https://discord.gg/mjgUky8hze" target="_new">Discord Server</a>';
           echo "<br />\n</div>\n</div>\n</body>\n</html>\n";
 	  die();
 	}
@@ -838,9 +832,6 @@ if (!empty($_POST)):
 	  echo "</table>\n";
 	  echo '<script type="text/javascript">setTimeout(function() { window.location=window.location;},5000);</script>';
 	  echo "<br />\n</div>\n";
-	  echo 'Original Pi-Star / Pi-Star Dashboard, &copy; Andy Taylor (<code>MW0MWZ</code>) 2014-'.date("Y").'<br />'."\n";
-	  echo '<a href="https://w0chp.net/w0chp-pistar-dash/">W0CHP-PiStar-Dash (WPSD)</a> by <code>W0CHP</code> &copy; 2020-'.date("Y").' -- ';
-	  echo 'Get Help: <a href="https://www.facebook.com/groups/w0chppistardash/" target="_new">Facebook Group</a> | <a href="https://discord.gg/mjgUky8hze" target="_new">Discord Server</a>';
           echo "<br />\n</div>\n</div>\n</body>\n</html>\n";
 	  die();
 	}
@@ -913,9 +904,6 @@ if (!empty($_POST)):
 	  system('sudo pistar-services start > /dev/null 2>/dev/null &');
           echo '<script type="text/javascript">setTimeout(function() { window.location=window.location;},5000);</script>';
 	  echo "<br />\n</div>\n";
-	  echo 'Original Pi-Star / Pi-Star Dashboard, &copy; Andy Taylor (<code>MW0MWZ</code>) 2014-'.date("Y").'<br />'."\n";
- 	  echo '<a href="https://w0chp.net/w0chp-pistar-dash/">W0CHP-PiStar-Dash (WPSD)</a> by <code>W0CHP</code> &copy; 2020-'.date("Y").' -- ';
-	  echo 'Get Help: <a href="https://www.facebook.com/groups/w0chppistardash/" target="_new">Facebook Group</a> | <a href="https://discord.gg/mjgUky8hze" target="_new">Discord Server</a>';
           echo "<br />\n</div>\n</div>\n</body>\n</html>\n";
 	  die();
 	}
@@ -931,9 +919,6 @@ if (!empty($_POST)):
 	  unset($_POST);
 	  echo '<script type="text/javascript">setTimeout(function() { window.location=window.location;},5000);</script>';
 	  echo "<br />\n</div>\n";
-	  echo 'Original Pi-Star / Pi-Star Dashboard, &copy; Andy Taylor (<code>MW0MWZ</code>) 2014-'.date("Y").'<br />'."\n";
-	  echo '<a href="https://w0chp.net/w0chp-pistar-dash/">W0CHP-PiStar-Dash (WPSD)</a> by <code>W0CHP</code> &copy; 2020-'.date("Y").' -- ';
-	  echo 'Get Help: <a href="https://www.facebook.com/groups/w0chppistardash/" target="_new">Facebook Group</a> | <a href="https://discord.gg/mjgUky8hze" target="_new">Discord Server</a>';
           echo "<br />\n</div>\n</div>\n</body>\n</html>\n";
 	  die();
 	}
