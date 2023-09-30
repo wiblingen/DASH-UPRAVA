@@ -143,6 +143,12 @@ function listDAPNETGWMessages($logLinesDAPNETGateway, $tillMYRIC) {
 	if (strpos($pocsag_msg, ' ') == 0 && strlen($pocsag_msg) >= 45) {
             $pocsag_msg = wordwrap($pocsag_msg, 45, ' ', true);
 	}
+	// page dah log text sanity
+	if (isset($local_time)) { $local_time = htmlspecialchars($local_time, ENT_QUOTES, 'UTF-8'); }
+	if (isset($pocsag_timeslot)) { $pocsag_timeslot = htmlspecialchars($pocsag_timeslot, ENT_QUOTES, 'UTF-8'); }
+	if (isset($pocsag_ric)) { $pocsag_ric = htmlspecialchars($pocsag_ric, ENT_QUOTES, 'UTF-8'); }
+	if (isset($pocsag_msg)) { $pocsag_msg = htmlspecialchars($pocsag_msg, ENT_QUOTES, 'UTF-8'); }
+
 	echo "<tr>\n";
 	echo "  <td style=\"width: 140px; vertical-align: top; text-align: left;\">".$local_time."</td>\n";
 	echo "  <td style=\"width: 70px; vertical-align: top; text-align: center;\">Slot ".$pocsag_timeslot."</td>\n";
