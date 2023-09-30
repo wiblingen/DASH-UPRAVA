@@ -293,7 +293,7 @@ for ($i = 0;  ($i <= $lastHeardRows - 1); $i++) {
 		} else if ($listElem[6] == "DMR Data") {
 			echo "<td class='noMob' colspan =\"3\" style=\"background:#00718F;color:#fff;\">DMR Data</td>";
 		} else if ($listElem[6] == "POCSAG") {
-			echo "<td class='noMob' colspan=\"3\" style=\"background:#00718F;color:#fff;\">POCSAG</td>";
+			echo "<td class='noMob' colspan=\"3\" style=\"background:#00718F;color:#fff;\">POCSAG Data</td>";
 		} else {
 			echo "<td class='activity-duration'>$listElem[6]</td>";
 
