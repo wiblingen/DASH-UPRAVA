@@ -833,13 +833,13 @@ function getYSFGatewayLog() {
     $logLines2 = array();
     if (file_exists(YSFGATEWAYLOGPATH."/".YSFGATEWAYLOGPREFIX."-".gmdate("Y-m-d").".log")) {
 	$logPath1 = YSFGATEWAYLOGPATH."/".YSFGATEWAYLOGPREFIX."-".gmdate("Y-m-d").".log";
-	$logLines1 = preg_split('/\r\n|\r|\n/', `egrep -h "^M.*(onnection to|onnect to|ink|isconnect|Opening YSF network)" $logPath1 | sed '/Linked to MMDVM/d' | sed '/Link successful to MMDVM/d' | sed '/*Link/d' | tail -1`);
+	$logLines1 = preg_split('/\r\n|\r|\n/', `egrep -h "^M.*(Link has failed|Closing|onnection to|onnect to|ink|isconnect|Opening YSF network)" $logPath1 | sed '/Linked to MMDVM/d' | sed '/Link successful to MMDVM/d' | sed '/*Link/d' | tail -1`);
     }
     $logLines1 = array_filter($logLines1);
     if (sizeof($logLines1) == 0) {
 	if (file_exists(YSFGATEWAYLOGPATH."/".YSFGATEWAYLOGPREFIX."-".gmdate("Y-m-d", time() - 86340).".log")) {
 	    $logPath2 = YSFGATEWAYLOGPATH."/".YSFGATEWAYLOGPREFIX."-".gmdate("Y-m-d", time() - 86340).".log";
-	    $logLines2 = preg_split('/\r\n|\r|\n/', `egrep -h "^M.*(onnection to|onnect to|ink|isconnect|Opening YSF network)" $logPath2 | sed '/Linked to MMDVM/d' | sed '/Link successful to MMDVM/d' | sed '/*Link/d' | tail -1`);
+	    $logLines2 = preg_split('/\r\n|\r|\n/', `egrep -h "^M.*(Link has failed|Closing|onnection to|onnect to|ink|isconnect|Opening YSF network)" $logPath2 | sed '/Linked to MMDVM/d' | sed '/Link successful to MMDVM/d' | sed '/*Link/d' | tail -1`);
 	}
 	$logLines2 = array_filter($logLines2);
     }
@@ -1591,6 +1591,7 @@ function getActualLink($logLines, $mode) {
 	    // M: 0000-00-00 00:00:00.000 Disconnect via DTMF has been requested by M1ABC
 	    // M: 0000-00-00 00:00:00.000 Connect to 00003 - "YSF2NXDN        " has been requested by M1ABC
 	    // M: 0000-00-00 00:00:00.000 Link has failed, polls lost
+	    // M: 2023-09-30 15:08:05.143 Closing YSF network connection
 	    if (isProcessRunning("YSFGateway")) {
 		$to = "";
 		foreach($logLines as $logLine) {
@@ -1600,30 +1601,25 @@ function getActualLink($logLines, $mode) {
 			    $to = str_replace(' ', '', str_replace('-', '', $to));
 			}
 		    }
-            else if (strpos($logLine,"Automatic (re-)connection to")) {
+		    else if (strpos($logLine,"Automatic (re-)connection to")) {
 			if (strpos($logLine,"Automatic (re-)connection to FCS")) {
 			    $to = substr($logLine, 56, 8);
+			} else {
+			    $to = substr($logLine, 56, 5);
 			}
-			else {
-                  	    $to = substr($logLine, 56, 5);
-			}
-		    }
-            else if (strpos($logLine,"Connect to")) {
+		    } else if (strpos($logLine,"Connect to")) {
 			$to = substr($logLine, 38, 5);
-		    }
-			else if (strpos($logLine,"Automatic connection to")) {
+		    }  else if (strpos($logLine,"Automatic connection to")) {
 			$to = substr($logLine, 51, 5);
-		    }
-			else if (strpos($logLine,"Disconnect via DTMF")) {
+		    }  else if (strpos($logLine,"Disconnect via DTMF")) {
 			$to = "Not Linked";
-		    }
-			else if (strpos($logLine,"Opening YSF network connection")) {
+		    }  else if (strpos($logLine,"Opening YSF network connection")) {
 			$to = "Not Linked";
-		    }
-			else if (strpos($logLine,"Link has failed")) {
+		    }  else if (strpos($logLine,"Link has failed, polls lost")) {
 			$to = "Not Linked";
-		    }
-			else if (strpos($logLine,"DISCONNECT Reply")) {
+		    }  else if (strpos($logLine,"Closing YSF network connection")) {
+			$to = "Not Linked";
+		    }  else if (strpos($logLine,"DISCONNECT Reply")) {
 			$to = "Not Linked";
 		    }
 		    if ($to !== "") {
