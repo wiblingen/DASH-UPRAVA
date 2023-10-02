@@ -58,9 +58,9 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
 	    <div class="container">
 <?php include './header-menu.inc'; ?>
 		<div class="contentwide">
+		    <h3>Configuration / Profile Manager</h3><br />
 		    <?php if (!empty($_POST)) { ?>
 			<table width="100%">
-			    <tr><th colspan="3">Configuration / Profile Manager</th></tr>
 			    <?php
 			    if ( escapeshellcmd($_POST["save_current_config"]) ) {
 				if (!ctype_alnum($_POST['config_desc'])) {
@@ -187,9 +187,6 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
                         ?>
 			<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 			    <table width="100%">
-				<tr>
-				    <th colspan="3">Configuration / Profile Manager</th>
-				</tr>
 				<tr>
 				    <th>Current Running Config / Profile</th>
 				    <th>Save Current Config</th>
