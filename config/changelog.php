@@ -29,7 +29,7 @@ if ($_SERVER["PHP_SELF"] == "/config/changelog.php") {
 	    <meta http-equiv="pragma" content="no-cache" />
 	    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
 	    <meta http-equiv="Expires" content="0" />
-	    <title>W0CHP-PiStar Dash ChangeLog</title>
+	    <title>WPSD ChangeLog</title>
 	    <link rel="stylesheet" type="text/css" href="/css/font-awesome-4.7.0/css/font-awesome.min.css" />
 <?php include_once $_SERVER['DOCUMENT_ROOT'].'/config/browserdetect.php'; ?>
         <script type="text/javascript" src="/js/jquery.min.js?version=<?php echo $versionCmd; ?>"></script>
@@ -85,7 +85,7 @@ if ($_SERVER["PHP_SELF"] == "/config/changelog.php") {
 		       ?>
 		       </div><br />
 		    </div>
-		    <h1><code>W0CHP-PiStar-Dash</code> ChangeLog</h1>
+		    <h1>WPSD ChangeLog</h1>
 		    <p>
 			<div class="navbar">
 			    <a class="menuconfig" href="/admin/configure.php"><?php echo $lang['configuration'];?></a>
