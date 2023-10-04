@@ -251,8 +251,25 @@ original Pi-Star software. It's important to learn about and explore these diffe
 ## Notes about M17 Protocol Support {#m17-notes}
 
 M17 protocol support requires updated MMDVM Modem Firmware or MMDVM_HS HotSpot
-Firmware of at least v1.6.0. Ergo, you may need to update your firmware using 
-the included MMDVM_HS firmware flash/update programs in WPSD.
+Firmware of at least v1.6. Ergo, you may need to update your firmware using
+the included MMDVM_HS (etc.) firmware flash/update programs in WPSD.
+
+The relevant device firmware upgrade commands are as follows:
+
+| Command                                  | Description                                      |
+| ---------------------------------------- | ------------------------------------------------ |
+| `sudo pistar-zumspotflash rpi`           | ZUMspot RPi GPIO board                           |
+| `sudo pistar-zumspotflash rpi_duplex`    | ZUMSpot duplex board connected to GPIO           |
+| `sudo pistar-zumspotflash usb`           | ZUMspot USB stick                                |
+| `sudo pistar-zumspotflash libre`         | ZUMspot Libre Kit or generic MMDVM_HS board     |
+| `sudo pistar-mmdvmhshatflash hs_hat`     | MMDVM_HS_Hat board (14.7456MHz TCXO)            |
+| `sudo pistar-mmdvmhshatflash hs_dual_hat` | HS_DUAL_HAT board (14.7456MHz TCXO)            |
+| `sudo pistar-mmdvmhshatflash hs_hat-12mhz`| MMDVM_HS_Hat board (12.288MHz TCXO)            |
+| `sudo pistar-mmdvmhshatflash hs_dual_hat-12mhz` | HS_DUAL_HAT board (12.288MHz TCXO)       |
+| `sudo pistar-nanohsflash nano_hs`         | Nano hotSPOT board                               |
+| `sudo pistar-nanodvflash pi`              | NanoDV NPi board                                 |
+| `sudo pistar-nanodvflash usb`             | NanoDV USB board                                 |
+| `sudo pistar-skybridgeflash skybridge`    | BridgeCom SkyBridge GPIO Hotspot board/SkyBridge devices |
 
 If you have an obscure modem or an MMDVM repeater board, you will need to
 download, compile and install the [MMDVM modem
@@ -260,28 +277,10 @@ firmware](https://github.com/g4klx/MMDVM) or the [MMDVM_HS hotspot
 firmware](https://github.com/g4klx/MMDVM_HS) yourself in order to gain full M17
 protocol support.
 
-[!] *Please note, that we are not firmware developers, and we offer no support for
-firmware. We simply provide scripts to update the firmware. For actual firmware
-support, you will need to utilize other support resources from the firmware
-developers/maintainers.*
-
-The relevant MMDVM_HS etc. device firmware upgrade scripts are as follows:
-
-* Common MMDVM_HS_HAT devices:
-
-                pistar-mmdvmhshatflash
-
-* ZUMspot devices:
-
-                pistar-zumspotflash
-
-* BridgeCom SkyBridge devices:
-
-                pistar-skybridgeflash
-
-* NANO_DV devices:
-        
-                pistar-nanodvflash
+[ ! ] **Please note**, that we are not firmware developers, and we offer no
+support for firmware. We simply provide programs to update the firmware. For
+actual firmware support, you will need to utilize other support resources from
+the firmware developers/maintainers.*
 
 ## Screenshots
 
