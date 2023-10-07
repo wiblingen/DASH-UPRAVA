@@ -10,6 +10,21 @@ $headers = stream_context_create(Array("http" => Array("method"  => "GET",
                                                        "timeout" => 10,
                                                        "header"  => "User-agent: WPSD-Messages - $versionCmd",
                                                        'request_fulluri' => True )));
+// buster EOL!!!! YAY!!!!!!! \o/
+$osReleaseFile = '/etc/os-release';
+if (file_exists($osReleaseFile)) {
+    $osReleaseContents = file_get_contents($osReleaseFile);
+    $pattern = '/VERSION_CODENAME=(\w+)/';
+    if (preg_match($pattern, $osReleaseContents, $matches)) {
+        $debianCodename = $matches[1];
+    }
+    //if ($debianCodename === "bullseye") {
+    if ($debianCodename === "f00b4rb4z") { // placeholder for the above string until EoL of buster-WPSD is official
+	$result = @file_get_contents('https://wpsd-swd.w0chp.net/WPSD-SWD/WPSD_Messages/raw/branch/master/no-mo-busta-yo.html', false, $headers);
+	echo $result;
+    }
+}
+
 // older wpsd with very old uuid scheme
 $UUID = $_SESSION['PiStarRelease']['Pi-Star']['UUID'];
 $uuidNeedle = "-";
