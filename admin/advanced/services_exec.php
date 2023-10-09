@@ -31,7 +31,7 @@ switch ($action) {
 	$cmdresult = exec('sudo /usr/bin/killall -q -9 MMDVMHost', $cmdoutput, $retvalue);
 	break;
     case "updatehostsfiles":
-	$cmdresult = exec('sudo -- /bin/bash -c "/usr/local/sbin/pistar-services fullstop; mount -o remount,rw /; /usr/local/sbin/HostFilesUpdate.sh; /usr/local/sbin/pistar-services restart;"', $cmdoutput, $retvalue);
+	$cmdresult = exec('sudo -- /bin/bash -c "env FORCE=1 /usr/local/sbin/HostFilesUpdate.sh; /usr/local/sbin/pistar-services restart;"', $cmdoutput, $retvalue);
 	break;
     default:
 	$cmdoutput = array('error !');
@@ -39,6 +39,7 @@ switch ($action) {
 echo "<br />";
 foreach ($cmdoutput as $l) {
     echo $l."<br />";
+    echo "<br />";
 }
 if ($retvalue == 0) {
     echo "<h2>** Success **</h2>";
