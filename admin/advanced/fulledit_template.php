@@ -83,7 +83,7 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/config/version.php';
 		fclose($fh);
 
 		if (strpos($editorname, 'Hosts') !== false) { // if it's a host file edit, update the hostfiles...
-		    exec('sudo /usr/local/sbin/HostFilesUpdate.sh > /dev/null 2>&1 &');
+		    exec('sudo env FORCE=1 /usr/local/sbin/HostFilesUpdate.sh > /dev/null 2>&1 &');
 		}
 
 		?>
