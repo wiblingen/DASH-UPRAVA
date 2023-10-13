@@ -5073,7 +5073,7 @@ else:
       <label for="nodePub" style="display: inline-block;">Public</label>
 <?php } ?>
     </td>
-    <td align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'><em><b>Note:</b> Public mode cannot be enabled without entering at least one allowed DMR/CCs7 ID in the access list below and applying the changes FIRST.</em></td>
+    <td align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'><em><b>Note:</b> Public mode cannot be enabled without entering at least one allowed DMR/CCS7 ID in the access list below and applying the changes FIRST.</em></td>
     </tr>
     <tr>
     <td align="left"><a class="tooltip2" href="#">Access List:<span><b>DMR/CCS7 IDs</b>Set the DMR/CCS7 IDs here that should have access to your hotspot, using a comma seperated list.</span></a></td>
