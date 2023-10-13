@@ -4561,15 +4561,10 @@ else:
 	echo "    </tr>\n";
 	}
 ?>
-<?php if ( (file_exists('/etc/dstar-radio.dstarrepeater')) || (file_exists('/etc/dstar-radio.mmdvmhost')) ) { ?>
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo $lang['radio_type'];?>:<span><b>Radio/Modem</b>What kind of radio or modem hardware do you have?</span></a></td>
     <td align="left" colspan="3"><select name="confHardware" class="confHardware">
 		<option<?php if (!$configModem['Modem']['Hardware']) { echo ' selected="selected"';}?> value="">--</option>
-	        <?php if (file_exists('/dev/icom_ta')) { ?>
-	    	<!--<option<?php if ($configModem['Modem']['Hardware'] === 'icomTerminalAuto') {		echo ' selected="selected"';}?> value="icomTerminalAuto">Icom Radio in Terminal Mode (DStarRepeater Only)</option>-->
-	        <?php } ?>
-	        <!--<option<?php if ($configModem['Modem']['Hardware'] === 'idrp2c') {		echo ' selected="selected"';}?> value="idrp2c">Icom Repeater Controller ID-RP2C (DStarRepeater Only)</option>-->
 		<option<?php if ($configModem['Modem']['Hardware'] === 'dvmpis') {		echo ' selected="selected"';}?> value="dvmpis">DV-Mega Raspberry Pi Hat (GPIO) - Single Band (70cm)</option>
 		<option<?php if ($configModem['Modem']['Hardware'] === 'dvmpid') {		echo ' selected="selected"';}?> value="dvmpid">DV-Mega Raspberry Pi Hat (GPIO) - Dual Band</option>
 		<option<?php if ($configModem['Modem']['Hardware'] === 'dvmuadu') {		echo ' selected="selected"';}?> value="dvmuadu">DV-Mega on Arduino (USB - /dev/ttyUSB0) - Dual Band</option>
@@ -4583,7 +4578,6 @@ else:
 	    	<option<?php if ($configModem['Modem']['Hardware'] === 'dvmpicasths') {	echo ' selected="selected"';}?> value="dvmpicasths">DV-Mega Cast Hotspot - Single Band (70cm)</option>
 	    	<option<?php if ($configModem['Modem']['Hardware'] === 'dvmpicasthd') {	echo ' selected="selected"';}?> value="dvmpicasthd">DV-Mega Cast Hotspot - Dual Band (2m/70cm)</option>
 	    	<?php } ?>
-		<!--<option<?php if ($configModem['Modem']['Hardware'] === 'gmsk_modem') {		echo ' selected="selected"';}?> value="gmsk_modem">GMSK Modem (USB DStarRepeater Only)</option>-->
 	        <option<?php if ($configModem['Modem']['Hardware'] === 'dvrptr1') {		echo ' selected="selected"';}?> value="dvrptr1">DV-RPTR V1 (USB)</option>
 		<option<?php if ($configModem['Modem']['Hardware'] === 'dvrptr2') {		echo ' selected="selected"';}?> value="dvrptr2">DV-RPTR V2 (USB)</option>
 		<option<?php if ($configModem['Modem']['Hardware'] === 'dvrptr3') {		echo ' selected="selected"';}?> value="dvrptr3">DV-RPTR V3 (USB)</option>
@@ -4658,7 +4652,6 @@ else:
 	    </td>
 	    <?php } ?>
 	</tr>
-<?php } ?>
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo $lang['timezone'];?>:<span><b>System TimeZone</b>Set the system timezone</span></a></td>
     <td style="text-align: left;"><select name="systemTimezone" class="systemTimezone">
@@ -4714,32 +4707,6 @@ else:
     </tr>
     </table>
 
-    <div><input type="button" value="<?php echo $lang['apply'];?>" onclick="submitform()" /><br /><br /></div>
-    <h2 class="ConfSec">Node Access Mode</h2>
-
-<?php if (file_exists('/etc/dstar-radio.mmdvmhost')) { ?>
-    <table>
-    <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['node_type'];?>:<span><b>Node Lock</b>Set the public/private node type. &quot;Private&quot; limits access to your system to your ID/Callsign only, this may be a licence requirement for your country and helps prevent network loops.</span></a></td>
-    <td align="left" colspan="2">
-    <input type="radio" name="nodeMode" id="nodePriv" value="prv"<?php if ($configmmdvm['DMR']['SelfOnly'] == 1) {echo ' checked="checked"';} ?> />
-      <label for="nodePriv" style="display: inline-block;">Private</label>
-<?php if (empty($configmmdvm['DMR']['WhiteList'])) { ?>    <input type="radio" name="nodeMode" id="nodePub" value="pub" disabled="diabled" />
-      <label for="nodePub" style="display: inline-block;">Public</label>
-<?php } else { ?>
-    <input type="radio" name="nodeMode" id="nodePub" value="pub"<?php if ($configmmdvm['DMR']['SelfOnly'] == 0) {echo ' checked="checked"';} ?> />
-      <label for="nodePub" style="display: inline-block;">Public</label>
-<?php } ?>
-    </td>
-    <td align="left"style='word-wrap: break-word;white-space: normal;padding-left: 5px;'><em><b>Note:</b> Public mode cannot be enabled without entering at least one allowed DMR ID in the access list below and applying the changes FIRST.</em></td>
-    </tr>
-    <tr>
-    <td align="left"><a class="tooltip2" href="#">Access List:<span><b>DMR/CCS7 IDs</b>Set the DMR/CCS7 IDs here that should have access to your hotspot, using a comma seperated list.</span></a></td>
-    <td align="left" colspan="2"><input type="text" placeholder="7654321" name="confDMRWhiteList" size="30" maxlength="50" value="<?php if (isset($configmmdvm['DMR']['WhiteList'])) { echo $configmmdvm['DMR']['WhiteList']; } ?>" /></td>
-    <td align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'>Enter one, or a comma-separated list of DMR/CCS7 IDs which are allowed access to this hotspot/repeater (required for public functionality).</td>
-    </tr>
-    </table>
-<?php } ?>
     <div><input type="button" value="<?php echo $lang['apply'];?>" onclick="submitform()" /><br /><br /></div>
 
     <h2 class="ConfSec">Location and Hotspot Info Settings</h2>
@@ -5087,6 +5054,35 @@ else:
     <?php } ?>
     </table>
 	<div><input type="button" value="<?php echo $lang['apply'];?>" onclick="submitform()" /><br /><br /></div>
+
+<?php if (file_exists('/etc/dstar-radio.mmdvmhost')) { ?>
+    <h2 class="ConfSec">Node Access Mode</h2>
+    <table>
+    <tr>
+    <td colspan="4" align="left" style='word-wrap: break-word;white-space: normal;font-size:larger;color:#840C24;padding-left: 5px;'><em><b>Note:</b></em> This section is for advanced multi-user hotspot or repeater usage only!</td>
+    </tr>
+    <tr>
+    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['node_type'];?>:<span><b>Node Lock</b>Set the public/private node type. &quot;Private&quot; limits access to your system to your ID/Callsign only, this may be a licence requirement for your country and helps prevent network loops.</span></a></td>
+    <td align="left" colspan="2">
+    <input type="radio" name="nodeMode" id="nodePriv" value="prv"<?php if ($configmmdvm['DMR']['SelfOnly'] == 1) {echo ' checked="checked"';} ?> />
+      <label for="nodePriv" style="display: inline-block;">Private</label>
+<?php if (empty($configmmdvm['DMR']['WhiteList'])) { ?>    <input type="radio" name="nodeMode" id="nodePub" value="pub" disabled="diabled" />
+      <label for="nodePub" style="display: inline-block;">Public</label>
+<?php } else { ?>
+    <input type="radio" name="nodeMode" id="nodePub" value="pub"<?php if ($configmmdvm['DMR']['SelfOnly'] == 0) {echo ' checked="checked"';} ?> />
+      <label for="nodePub" style="display: inline-block;">Public</label>
+<?php } ?>
+    </td>
+    <td align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'><em><b>Note:</b> Public mode cannot be enabled without entering at least one allowed DMR/CCs7 ID in the access list below and applying the changes FIRST.</em></td>
+    </tr>
+    <tr>
+    <td align="left"><a class="tooltip2" href="#">Access List:<span><b>DMR/CCS7 IDs</b>Set the DMR/CCS7 IDs here that should have access to your hotspot, using a comma seperated list.</span></a></td>
+    <td align="left" colspan="2"><input type="text" placeholder="7654321" name="confDMRWhiteList" size="50" maxlength="100" value="<?php if (isset($configmmdvm['DMR']['WhiteList'])) { echo $configmmdvm['DMR']['WhiteList']; } ?>" /></td>
+    <td align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'>Enter one, or a comma-separated list of DMR/CCS7 IDs which are allowed access to this hotspot/repeater (required for public functionality).</td>
+    </tr>
+    </table>
+    <div><input type="button" value="<?php echo $lang['apply'];?>" onclick="submitform()" /><br /><br /></div>
+<?php } ?>
 
     <h2 class="ConfSec">MMDVMHost/Modem Display Configuration</h2>
     <input type="hidden" name="oledScreenSaverEnable" value="ON" />

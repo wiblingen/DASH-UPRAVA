@@ -128,11 +128,7 @@ if (isset($_SESSION['CSSConfigs']['Background']['TableRowBgEvenColor'])) {
       <div class="divTableCell cell_content middle noMob" style="background: <?php echo $tableRowEvenBg; ?>;"><?php echo $_SESSION['DvModemFWVersion']; ?></div>
       <div class="divTableCell cell_content middle noMob" style="background: <?php echo $tableRowEvenBg; ?>;"><?php echo $_SESSION['DvModemTCXOFreq']; ?></div>
       <div class="divTableCell cell_content middle noMob" style="background: <?php echo $tableRowEvenBg; ?>;"><?php echo getConfigItem("Modem", "UARTPort", $_SESSION['MMDVMHostConfigs']); ?></div>
-<?php if (!empty(getConfigItem("Modem", "UARTSpeed", $_SESSION['MMDVMHostConfigs']))) { ?>
       <div class="divTableCell cell_content middle noMob" style="background: <?php echo $tableRowEvenBg; ?>;"><?php echo number_format(getConfigItem("Modem", "UARTSpeed", $_SESSION['MMDVMHostConfigs'])); ?> bps</div>
-<?php } else { ?>
-      <div class="divTableCell cell_content middle noMob" style="background: <?php echo $tableRowEvenBg; ?>;"><a href="/admin/configure.php#modem_speed">Please Set Modem Speed...</a></div>
-<?php } ?>
     </div>
   </div>
 </div>
