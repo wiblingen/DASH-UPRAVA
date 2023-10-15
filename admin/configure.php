@@ -1458,29 +1458,29 @@ if (!empty($_POST)):
 	  $configysfgateway['General']['Callsign'] = $newCallsignUpper;
 	  $configmmdvm['General']['Callsign'] = $newCallsignUpper;
 	  $configysfgateway['aprs.fi']['Password'] = aprspass($newCallsignUpper);
-	  $configysfgateway['aprs.fi']['Description'] = $newCallsignUpper."_W0CHP-PiStar-Dash";
+	  $configysfgateway['aprs.fi']['Description'] = $newCallsignUpper."_WPSD";
 	  $configysf2dmr['aprs.fi']['Password'] = aprspass($newCallsignUpper);
-	  $configysf2dmr['aprs.fi']['Description'] = $newCallsignUpper."_W0CHP-PiStar-Dash";
+	  $configysf2dmr['aprs.fi']['Description'] = $newCallsignUpper."_WPSD";
 	  $configysf2dmr['aprs.fi']['AprsCallsign'] = $newCallsignUpper;
 	  $configysf2dmr['YSF Network']['Callsign'] = $newCallsignUpper;
 	  $configysf2nxdn['aprs.fi']['Password'] = aprspass($newCallsignUpper);
-	  $configysf2nxdn['aprs.fi']['Description'] = $newCallsignUpper."_W0CHP-PiStar-Dash";
+	  $configysf2nxdn['aprs.fi']['Description'] = $newCallsignUpper."_WPSD";
 	  $configysf2nxdn['YSF Network']['Callsign'] = $newCallsignUpper;
 	  $configysf2p25['aprs.fi']['Password'] = aprspass($newCallsignUpper);
-	  $configysf2p25['aprs.fi']['Description'] = $newCallsignUpper."_W0CHP-PiStar-Dash";
+	  $configysf2p25['aprs.fi']['Description'] = $newCallsignUpper."_WPSD";
 	  $configysf2p25['YSF Network']['Callsign'] = $newCallsignUpper;
 	  $configdmr2ysf['YSF Network']['Callsign'] = $newCallsignUpper;
 	  $configp25gateway['General']['Callsign'] = $newCallsignUpper;
-	  $confignxdngateway['aprs.fi']['Description'] = $newCallsignUpper."_W0CHP-PiStar-Dash";
+	  $confignxdngateway['aprs.fi']['Description'] = $newCallsignUpper."_WPSD";
 	  $confignxdngateway['aprs.fi']['Password'] = aprspass($newCallsignUpper);
 	  $confignxdngateway['General']['Callsign'] = $newCallsignUpper;
-	  $configysfgateway['Info']['Name'] = $newCallsignUpper."_W0CHP-PiStar-Dash";
-	  $configysf2dmr['Info']['Description'] = $newCallsignUpper."_W0CHP-PiStar-Dash";
-	  $configysf2nxdn['Info']['Description'] = $newCallsignUpper."_W0CHP-PiStar-Dash";
-	  $configysf2p25['Info']['Description'] = $newCallsignUpper."_W0CHP-PiStar-Dash";
+	  $configysfgateway['Info']['Name'] = $newCallsignUpper."_WPSD";
+	  $configysf2dmr['Info']['Description'] = $newCallsignUpper."_WPSD";
+	  $configysf2nxdn['Info']['Description'] = $newCallsignUpper."_WPSD";
+	  $configysf2p25['Info']['Description'] = $newCallsignUpper."_WPSD";
 	  $configdgidgateway['General']['Callsign'] = $newCallsignUpper;
-	  $configdgidgateway['Info']['Description'] = $newCallsignUpper."_W0CHP-PiStar-Dash";
-	  $configm17gateway['Info']['Description'] = $newCallsignUpper."_W0CHP-PiStar-Dash";
+	  $configdgidgateway['Info']['Description'] = $newCallsignUpper."_WPSD";
+	  $configm17gateway['Info']['Description'] = $newCallsignUpper."_WPSD";
 	  if ($configPistarRelease['Pi-Star']['Version'] >= "4.1.4") {
 	    $rollAPRSGatewayCallsign = 'sudo sed -i "/Callsign=/c\\Callsign='.$newCallsignUpper.'" /etc/aprsgateway';
 	    system($rollAPRSGatewayCallsign);
@@ -4735,7 +4735,10 @@ else:
     <td align="left" colspan="2"><input type="text" name="confURL" size="30" maxlength="30" value="<?php echo $configs['url'] ?>" /></td>
     <td align="left">
     <input type="radio" name="urlAuto" value="auto"<?php if (strpos($configs['url'], 'www.qrz.com/db/'.$configmmdvm['General']['Callsign']) !== FALSE) {echo ' checked="checked"';} ?> />Auto
-    <input type="radio" name="urlAuto" value="man"<?php if (strpos($configs['url'], 'www.qrz.com/db/'.$configmmdvm['General']['Callsign']) == FALSE) {echo ' checked="checked"';} ?> />Manual</td>
+    <input type="radio" name="urlAuto" value="man"<?php if (strpos($configs['url'], 'www.qrz.com/db/'.$configmmdvm['General']['Callsign']) == FALSE) {echo ' checked="checked"';} ?> />Manual
+    <br />
+        <small>(Auto vs. Manual: Auto simply creates a URL to your QRZ.com callsign page. Manual allows you to specify your own custom URL/site.</small>
+    </td>
     </tr>
     <tr>
     <td align="left"><a class="tooltip2" href="#">GPSd:<span><b>GPS daemon support</b>Read NMEA data from a serially connected GPS unit and then to make that data available for other programs.</span></a></td>
