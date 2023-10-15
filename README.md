@@ -1,24 +1,23 @@
-**NOTE: If you are reading this on a site other than its official
-*https://repo.w0chp.net* domain (such as GitHub etc.), then this is not my
-official program / code, and is likely outdated, and is unsupported. The
-canonical and official site for this program is:
-https://w0chp.net/w0chp-pistar-dash/.**
+**NOTE: If you are reading this on a site other than its official *W0CHP/WPSD
+.radio* domains (such as GitHub, CodeBerg, SourceHut,  etc.), then it is
+**not** my official program / code, and is likely outdated, and is unsupported.
+The canonical and official site for this program is: https://wpsd.radio/.**
 
 [Please don’t upload my code to GitHub](https://nogithub.codeberg.page) [![Please don't upload my code to GitHub](https://nogithub.codeberg.page/badge.svg)](https://nogithub.codeberg.page)
 
-## About `W0CHP-PiStar-Dash` ("WPSD")
+## About WPSD (`W0CHP-PiStar-Dash`)
 
-This is my very highly modified and customized fork  of `MW0MWZ`'s Pi-Star
-software, and I call it "`W0CHP-PiStar-Dash`" (abbreviated as WPSD). There are
-so many large changes, divergences and new features, it merited my own
-fork/version.
+WPSD ("W0CHP-PiStar-Dash") is a next-generation, digital voice software suite
+for amateur radio use. It is used for personal hotspots and repeaters alike. It
+supports M17, DMR, D-Star, Yaesu System Fusion (YSF/C4FM), P25, NXDN digital
+voice modes & POCSAG data/paging.
 
-In fact, it’s pretty much its own distribution at this point; especially now
-that the WPSD disk/OS images are now based on newer operating systems and
-software.
+WPSD began as a derivative/“fork” of the popular Pi-Star software, and has
+evolved into its very own software and distribution over the years. It is
+available as a disk image, and multiple platforms are supported.
 
 ## How to Install WPSD
 
 For the sake of having to maintain only one authoritative document, it's all
-documented here: http://wpsd.w0chp.net
+documented here: http://wpsd.radio
 
