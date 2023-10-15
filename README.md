@@ -1,7 +1,7 @@
-**NOTE: If you are reading this on a site other than its official *W0CHP/WPSD
+**NOTE**: If you are reading this on a site other than its official *W0CHP/WPSD
 .radio* domains (such as GitHub, CodeBerg, SourceHut,  etc.), then it is
 **not** my official program / code, and is likely outdated, and is unsupported.
-The canonical and official site for this program is: https://wpsd.radio/.**
+The canonical and official site for this program is: https://wpsd.radio/.
 
 [Please don’t upload my code to GitHub](https://nogithub.codeberg.page) [![Please don't upload my code to GitHub](https://nogithub.codeberg.page/badge.svg)](https://nogithub.codeberg.page)
 
