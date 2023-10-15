@@ -477,7 +477,7 @@ $MYCALL=strtoupper($callsign);
                 for (var i = 0; i < inputs.length; i++) {
                         if (inputs[i].type === 'button') {
                                 inputs[i].disabled = true;
-				inputs[i].value = 'Please Wait...';
+				inputs[i].value = 'Please Wait...Page will reload once complete.';
                         }
                 }
         }
