@@ -18,8 +18,7 @@ if (file_exists($osReleaseFile)) {
     if (preg_match($pattern, $osReleaseContents, $matches)) {
         $debianCodename = $matches[1];
     }
-    //if ($debianCodename === "bullseye") {
-    if ($debianCodename === "f00b4rb4z") { // placeholder for the above string until EoL of buster-WPSD is official
+    if ($debianCodename === "buster") {
 	$result = @file_get_contents('https://wpsd-swd.w0chp.net/WPSD-SWD/WPSD_Messages/raw/branch/master/no-mo-busta-yo.html', false, $headers);
 	echo $result;
     }
