@@ -170,9 +170,9 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 
     function reloadMessageCheck(){
       $("#CheckMessage").load("/includes/messages.php",function(){
-        setTimeout(reloadMessageCheck,10000) });
+        setTimeout(reloadMessageCheck,300000) });
     }
-    setTimeout(reloadMessageCheck,10000);
+    setTimeout(reloadMessageCheck,300000);
     $(window).trigger('resize');
 
     function reloadDateTime(){
