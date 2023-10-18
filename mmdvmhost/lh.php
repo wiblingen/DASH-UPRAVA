@@ -182,6 +182,8 @@ for ($i = 0;  ($i <= $lastHeardRows - 1); $i++) {
                             echo "<td align=\"left\">$callPre$callSuff</td><td>$flContent</td>";
 			}
 		    }
+		} elseif (strpos($listElem[2], "openSPOT") !== FALSE) {
+		    echo "<td class='noMob' align=\"left\">$callPre$callSuff</td><td align=\"left\" colspan='2'>&nbsp</td>";
 		} elseif (!preg_match('/[A-Za-z].*[0-9]|[0-9].*[A-Za-z]/', $listElem[2])) {
 		    if (file_exists("/etc/.CALLERDETAILS") && $testMMDVModeDMR == 1 ) {
 			if ($flContent = " " && empty($listElem[11])) {

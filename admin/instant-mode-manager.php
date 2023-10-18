@@ -23,7 +23,7 @@ $configmmdvm = parse_ini_file($mmdvmConfigFile, true);
 $aprsConfigFile = '/etc/aprsgateway';
 $configaprsgw = parse_ini_file($aprsConfigFile, true);
 
-function manageGateways($func,$service) { // we need to also stop the associated mode gateways when pausing modes...
+function manageGateways($action,$service) { // we need to also stop the associated mode gateways when pausing modes...
 // ...otherwise if the mode is TX'ing when paused, it will show infinite TX in the dashboard.
     $service = escapeshellcmd($_POST['mode_sel']);
     $service = strtolower($service);
@@ -38,15 +38,15 @@ function manageGateways($func,$service) { // we need to also stop the associated
     }
 
     // manage the services...
-    exec("sudo systemctl $func $service"."gateway.timer");
-    exec("sudo systemctl $func $service"."gateway.service");
+    exec("sudo systemctl $action $service"."gateway.timer");
+    exec("sudo systemctl $action $service"."gateway.service");
 
     // check that no other modes are paused. If so, we can manage the watchdog service.
     // if we don't stop the watchdog, it will (re-)start the stopped gateway for the paused mode. We don't want that...
     $is_paused = glob('/etc/*_paused');
     if (empty($is_paused) == TRUE) {
-        exec("sudo systemctl $func pistar-watchdog.timer");
-        exec("sudo systemctl $func pistar-watchdog.service");
+        exec("sudo systemctl $action pistar-watchdog.timer");
+        exec("sudo systemctl $action pistar-watchdog.service");
     }
 }
 
