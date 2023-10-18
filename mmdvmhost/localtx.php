@@ -73,6 +73,8 @@ for ($i = 0; $i < $TXListLim; $i++) {
 			    } else {
 				echo "<td align=\"left\">$listElem[2]</td>";
 			    }
+			} elseif (strpos($listElem[2], "openSPOT") !== FALSE) {
+			    echo "<td align=\"left\">$listElem[2]</td>";
 			} elseif (!preg_match('/[A-Za-z].*[0-9]|[0-9].*[A-Za-z]/', $listElem[2])) {
 			    echo "<td align=\"left\">$listElem[2]</td>";
 			} else {
