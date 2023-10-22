@@ -296,7 +296,7 @@ if ( $testMMDVModeDMR == 1 ) {
 		    echo '    <th><a class=tooltip href="#">Add / Remove<span><b>Add or Remove</b></span></a></th>'."\n";
 		    echo '  </tr>'."\n";
 		    echo '  <tr>';
-		    echo '    <td><input type="text" id="tgNr" name="tgNr" size="10" maxlength="7" oninput="enableOnNonEmpty(\'tgNr\', \'tgSubmit\', \'tgAdd\', \'tgDel\'); return false;"/></td>'."\n";
+		    echo '    <td><input type="text" id="tgNr" name="tgNr" size="10" maxlength="7" oninput="disableOnEmpty(\'tgNr\', \'tgSubmit\', \'tgAdd\', \'tgDel\'); return false;"/></td>'."\n";
 		    if (getConfigItem("DMR Network", "Slot1", $_SESSION['MMDVMHostConfigs']) == "1") {
 		        echo '    <td><input type="radio" id="ts1" name="TS" value="1" /><label for="ts1"/>TS1</label>&nbsp;';
 		    } else {
@@ -315,12 +315,12 @@ if ( $testMMDVModeDMR == 1 ) {
 		    if (!file_exists("/etc/.bm_tgs.json.saved") && !empty($bmStaticTGListJson)) {
 			echo '    <td><input type="submit" value="Drop All Static TGs" id="tgStaticDropAll" name="tgStaticDropAll" /><br />'."\n";
 		    } else {
-			echo '    <td><input type="button" disabled value="Drop All Static TGs" id="tgStaticDropAll" name="tgStaticDropAll" /><br />'."\n";
+			echo '    <td><input type="button" disabled value="Drop All Static TGs" id="tgStaticDropAll" name="tgStaticDropAll" title="Previous list of static TG(s) exists. You must delete any current static TGs first (using the form above) before using this function for the previous list." /><br />'."\n";
 		    }
 		    if (file_exists("/etc/.bm_tgs.json.saved") && empty($bmStaticTGListJson)) { 
 			echo '      <input type="submit" value="Re-Add All Previous  Static TGs" id="tgStaticReAdd" name="tgStaticReAdd"/></td>'."\n";
 		    } else {
-			echo '      <input type="button" disabled value="Re-Add All Previous  Static TGs" id="tgStaticReAdd" name="tgStaticReAdd"/></td>'."\n";
+			echo '      <input type="button" disabled value="Re-Add All Previous  Static TGs" id="tgStaticReAdd" name="tgStaticReAdd" title="Previous list of static TG(s) exists. You must delete any current static TGs first (using the form above) before using this function for the previous list." /></td>'."\n";
 		    }
 		    echo '    <td><b>Enter Talkgroups:</b><br /><small>(max. 10)</small><p><textarea style="vertical-align: middle; resize: none;" rows="5" cols="20" name="massTGlist" placeholder="One per line."></textarea></p></td>'."\n";
 		    echo '    <td><b>Timeslot:</b><br /><br />';

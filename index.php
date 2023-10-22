@@ -186,7 +186,7 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 <script>
   function executeBackgroundTasks() {
     $.ajax({
-      url: 'includes/execute-background-tasks.php',
+      url: '/includes/execute-background-tasks.php',
       success: function(data) {
         console.log('Background tasks executed successfully.');
       },

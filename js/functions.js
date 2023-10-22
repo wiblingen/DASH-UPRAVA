@@ -18,6 +18,22 @@ function checkPass(){                   //used in confirm matching password entr
     document.getElementById('submitpwd').setAttribute("disabled","disabled");
   }
 }
+function disableOnEmpty() {
+    if (arguments.length >= 2)
+    {
+    var ti = document.getElementById(arguments[0]);
+    if(ti.value.replace(/ /g,'') != '') {
+        for (i = 1; i < arguments.length; i++) {
+        document.getElementById(arguments[i]).removeAttribute("disabled");
+        }
+    }
+    else {
+        for (i = 1; i < arguments.length; i++) {
+        document.getElementById(arguments[i]).setAttribute("disabled", "disabled");
+        }
+    }
+    }
+}
 function checkPsk() {
 	if(psk1.value.length > 0 && psk1.value.length < 8) {
 		psk1.style.background='#ff6666';
