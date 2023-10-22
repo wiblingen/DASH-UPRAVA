@@ -178,7 +178,7 @@ if (empty($dmrID) == false)
       <th><a class=tooltip href="#">Action<span><b>Take Action</b></span></a></th>
     </tr>
     <tr>
-      <td><input type="text" id="tgifNumber" name="tgifNumber" size="10" maxlength="7" oninput="enableOnNonEmpty(\'tgifNumber\', \'tgifActionLink\'); return false;"/></td>';
+      <td><input type="text" id="tgifNumber" name="tgifNumber" size="10" maxlength="7" oninput="disableOnEmpty(\'tgifNumber\', \'tgifActionLink\'); return false;"/></td>';
     if (getConfigItem("DMR Network", "Slot1", $_SESSION['MMDVMHostConfigs']) == "1") {
         echo '<td><input type="radio" id="ts1" name="tgifSlot" value="1" /><label for="ts1"/>TS1</label> &nbsp;';
     } else {
