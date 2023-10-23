@@ -48,7 +48,7 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
 	    <meta http-equiv="pragma" content="no-cache" />
 	    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
 	    <meta http-equiv="Expires" content="0" />
-	    <title>WPSD <?php echo $lang['digital_voice']." ".$lang['dashboard']."";?> - Configuration/Profile Manager</title>
+	    <title>WPSD <?php echo $lang['digital_voice']." ".$lang['dashboard']."";?> - Profile/Configuration Manager</title>
 	    <link rel="stylesheet" type="text/css" href="/css/font-awesome-4.7.0/css/font-awesome.min.css" />
 <?php include_once $_SERVER['DOCUMENT_ROOT'].'/config/browserdetect.php'; ?>
 	    <script type="text/javascript" src="/js/jquery.min.js?version=<?php echo $versionCmd; ?>"></script>
@@ -58,7 +58,7 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
 	    <div class="container">
 <?php include './header-menu.inc'; ?>
 		<div class="contentwide">
-		    <h3>Configuration / Profile Manager</h3><br />
+		    <h3>Profile / Configuration Manager</h3><br />
 		    <?php if (!empty($_POST)) { ?>
 			<table width="100%">
 			    <?php
@@ -186,9 +186,9 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
 			<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 			    <table width="100%">
 				<tr>
-				    <th>Current Running Config / Profile</th>
-				    <th>Save Current Config</th>
-                                    <th>Restore Config / Profile</th>
+				    <th>Current Running Profile</th>
+				    <th>Save Current Profile / Config</th>
+                                    <th>Restore Profile / Config</th>
 				</tr>
 				<tr>
 				  <td style="white-space:normal;"><?php echo $curr_config; ?></td>
@@ -196,7 +196,7 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
 						<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" id="save_config">
 							<label for="config">Description:</label>
 							<input type="text" placeholder="Enter Short Description" name="config_desc" size="27" maxlength="27">
-							<input type="submit" name="save_current_config" value="Save Config/Profile">
+							<input type="submit" name="save_current_config" value="Save Profile">
 						</form>
 					</td>
 
@@ -216,14 +216,14 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
 							}
 							?>
 							</select>
-							<input type="submit" name="restore_config" value="Restore &amp; Apply Config/Profile">
+							<input type="submit" name="restore_config" value="Restore &amp; Apply Profile">
 						</form>
 						<?php } ?>
 					</td>
 				</tr>
 
 				<tr>
-					<td colspan="3" style="white-space:normal;padding: 3px;">This function allows you save multiple versions and configurations ("profiles") of your setup;  and then restore/re-apply them as-needed for different uses, etc.<br />Restoring and re-applying a configuration / profile is instant.</td>
+					<td colspan="3" style="white-space:normal;padding: 3px;">This function allows you save multiple versions and configurations ("profiles") of your setup;  and then restore/re-apply them as-needed for different uses, etc. <em>Restoring and re-applying profile is instant.</em></td>
 				</tr>
 			</table>
 		</form>
@@ -232,7 +232,7 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
 
 	<table>
 		<tr>
-			<th colspan="3">Delete a Saved Config / Profile</th>
+			<th colspan="3">Delete Profile</th>
 		</tr>
 		<tr>
 			<td colspan="3">
@@ -251,7 +251,7 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
 				}
 				?>
 					</select>
-					<input style="background:crimson;color:white;" type="submit" name="remove_config" value="Delete Config/Profile">
+					<input style="background:crimson;color:white;" type="submit" name="remove_config" value="Delete Profile">
 				</form>
 				<?php } ?>
 			</td>

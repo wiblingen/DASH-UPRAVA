@@ -527,7 +527,7 @@ $MYCALL=strtoupper($callsign);
           $('.p25StartupHost').select2({searchInputPlaceholder: 'Search...'});
           $('.nxdnStartupHost').select2({searchInputPlaceholder: 'Search...'});
           $('.systemTimezone').select2({searchInputPlaceholder: 'Search...', width: '175px'});
-          $('.confHardware').select2({searchInputPlaceholder: 'Search...', width: '400px'});
+          $('.confHardware').select2({searchInputPlaceholder: 'Search...', width: '500px'});
 	  $(".confDefRef").select2({
 	    tags: true,
 	    width: '125px',
