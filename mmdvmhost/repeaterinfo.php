@@ -445,6 +445,7 @@ if ( $testMMDVModeDSTAR == 1 || isPaused("D-Star") ) { //Hide the D-Star Reflect
 <div class="divTable">
   <div class="divTableHead"><?php echo $lang['dmr_repeater'];?></div>
   <div class="divTableBody">
+   <?php if (getConfigItem("DMR Network", "Slot1", $_SESSION['MMDVMHostConfigs']) == 1) { ?>
     <div class="divTableRow center">
       <div class="divTableHeadCell">TS1</div>
 	    <?php
@@ -470,6 +471,7 @@ if ( $testMMDVModeDSTAR == 1 || isPaused("D-Star") ) { //Hide the D-Star Reflect
 	    }
 	    ?>
     </div>
+    <?php } ?>
     <div class="divTableRow center">
       <div class="divTableHeadCell">TS2</div>
            <?php
