@@ -30,12 +30,12 @@ $curr_config = trim(file_get_contents('/etc/.WPSD_config'));
 $saved = date("M d Y @ h:i A", filemtime("$config_dir" . "/". "$curr_config"));
 if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
     if (is_dir("$config_dir" . "/" ."$curr_config") != false ) {
-    	 $curr_config = "<span style='color:$backgroundModeCellActiveColor;'>".trim(file_get_contents('/etc/.WPSD_config'))."</span><br /><small>(Saved: ".$saved."</small>)";
+    	 $curr_config = "<span style='font-weight:bold;color:$backgroundModeCellActiveColor;'>".trim(file_get_contents('/etc/.WPSD_config'))."</span><br /><small>(Saved: ".$saved."</small>)";
     } else {
-	$curr_config = "Current Config Deleted! You may want to restore a saved config, or save a new config.";
+	$curr_config = "Current Profile Deleted! You may want to restore a saved profile, or save a new profile.";
     }
 } else {
-    $curr_config = "No saved configs yet!";
+    $curr_config = "No saved profiles yet.";
 }
 ?>
     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -196,8 +196,8 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
 				  <td style="white-space:normal;"><?php echo $curr_config; ?></td>
 					<td>
 						<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" id="save_config">
-							<label for="config">Description:</label>
-							<input type="text" placeholder="Enter Short Description" name="config_desc" size="27" maxlength="27">
+							<label for="profile_desc">Description:</label>
+							<input type="text" placeholder="Enter Short Description" name="config_desc" id="profile_desc" size="27" maxlength="27">
 							<input type="submit" name="save_current_config" value="Save Profile">
 						</form>
 					</td>
@@ -206,11 +206,11 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
 						<?php
 						if (count(glob("$config_dir/*")) == 0) {
 						?>
-							No saved configs yet!
+							No saved profiles yet.
 						<?php } else { ?>
 						<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" id="list_configs">
-							<label for="configs">Select:</label>
-							<select name="configs" id="configs" form="list_configs">
+							<label for="list_profiles">Select:</label>
+							<select name="configs" id="list_profiles" form="list_configs">
 							<?php
 							foreach ( glob("$config_dir/*") as $dir ) {
 								$config_file = str_replace("$config_dir/", "", $dir);
@@ -241,11 +241,11 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
                                 <?php
                                 if (count(glob("$config_dir/*")) == 0) {
                                 ?>
-				No saved configs yet!
+				No saved profiles yet.
 				<?php } else { ?>
 				<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" id="del_configs">
-					<label for="delete_configs">Select:</label>
-					<select name="delete_configs" id="configs" form="del_configs">
+					<label for="profiles_avail">Select:</label>
+					<select name="delete_configs" id="profiles_avail" form="del_configs">
 				<?php
 				foreach ( glob("$config_dir/*") as $dir ) {
 					$config_file = str_replace("$config_dir/", "", $dir);
