@@ -39,20 +39,6 @@ checkSessionValidity();
 $pistarReleaseConfig = '/etc/pistar-release';
 $configPistarRelease = parse_ini_file($pistarReleaseConfig, true);
 
-// Load the dstarrepeater config file
-$configdstar = array();
-if ($configdstarfile = fopen('/etc/dstarrepeater','r')) {
-        while ($line1 = fgets($configdstarfile)) {
-		if (strpos($line1, '=') !== false) {
-                	list($key1,$value1) = preg_split('/=/',$line1);
-                	$value1 = trim(str_replace('"','',$value1));
-                	if (strlen($value1) > 0)
-                	$configdstar[$key1] = $value1;
-		}
-        }
-        fclose($configdstarfile);
-}
-
 // Load the ircDDBGateway config file
 $configs = array();
 if ($configfile = fopen($gatewayConfigPath,'r')) {
@@ -158,13 +144,11 @@ $dmrGatewayConfigFile = '/etc/dmrgateway';
 if (fopen($dmrGatewayConfigFile,'r')) { $configdmrgateway = parse_ini_file($dmrGatewayConfigFile, true); }
 
 // Load the modem config information
-if (file_exists('/etc/dstar-radio.dstarrepeater')) {
-	$modemConfigFileDStarRepeater = '/etc/dstar-radio.dstarrepeater';
-	if (fopen($modemConfigFileDStarRepeater,'r')) { $configModem = parse_ini_file($modemConfigFileDStarRepeater, true); }
-}
 if (file_exists('/etc/dstar-radio.mmdvmhost')) {
 	$modemConfigFileMMDVMHost = '/etc/dstar-radio.mmdvmhost';
 	if (fopen($modemConfigFileMMDVMHost,'r')) { $configModem = parse_ini_file($modemConfigFileMMDVMHost, true); }
+} else { // init on 1st load
+	system('sudo touch /etc/dstar-radio.mmdvmhost');
 }
 
 //
@@ -584,7 +568,7 @@ $MYCALL=strtoupper($callsign);
 // warn to backup configs, only if this is not a new installation.
 $config_dir = "/etc/WPSD_config_mgr";
 if (!is_dir($config_dir) || count(glob("$config_dir/*")) < 1) { // no saved configs
-    if (file_exists('/etc/dstar-radio.mmdvmhost') || file_exists('/etc/dstar-radio.dstarrepeater')) { // NOT a new installaion, so display message...
+    if (file_exists('/etc/dstar-radio.mmdvmhost')) { // NOT a new installaion, so display message...
 ?>
 <div>
   <table align="center"style="margin: 0px 0px 10px 0px; width: 100%;border-collapse:collapse; table-layout:fixed;white-space: normal!important;">
@@ -941,7 +925,7 @@ if (!empty($_POST)):
 	  system($rollDashLang);
 	}
 
-	// Set the ircDDBGAteway Remote Password and Port
+	// Set the ircDDBGateway Remote Password and Port
 	if (empty($_POST['confPassword']) != TRUE ) {
 	  $rollConfPassword0 = 'sudo sed -i "/remotePassword=/c\\remotePassword='.escapeshellcmd($_POST['confPassword']).'" /etc/ircddbgateway';
 	  $rollConfPassword1 = 'sudo sed -i "/password=/c\\password='.escapeshellcmd($_POST['confPassword']).'" /root/.Remote\ Control';
@@ -1231,10 +1215,6 @@ if (!empty($_POST)):
 	  $newFREQOffset = ($newFREQrx - $newFREQtx)/1000000;
 	  $newFREQOffset = number_format($newFREQOffset, 4, '.', '');
 	  $rollFREQirc = 'sudo sed -i "/frequency1=/c\\frequency1='.$newFREQirc.'" /etc/ircddbgateway';
-	  $rollFREQdvap = 'sudo sed -i "/dvapFrequency=/c\\dvapFrequency='.$newFREQrx.'" /etc/dstarrepeater';
-	  $rollFREQdvmegaRx = 'sudo sed -i "/dvmegaRXFrequency=/c\\dvmegaRXFrequency='.$newFREQrx.'" /etc/dstarrepeater';
-	  $rollFREQdvmegaTx = 'sudo sed -i "/dvmegaTXFrequency=/c\\dvmegaTXFrequency='.$newFREQtx.'" /etc/dstarrepeater';
-	  $rollModeDuplex = 'sudo sed -i "/mode=/c\\mode=0" /etc/dstarrepeater';
 	  $rollGatewayType = 'sudo sed -i "/gatewayType=/c\\gatewayType=0" /etc/ircddbgateway';
 	  $rollFREQOffset = 'sudo sed -i "/offset1=/c\\offset1='.$newFREQOffset.'" /etc/ircddbgateway';
 	  $configmmdvm['Info']['RXFrequency'] = $newFREQrx;
@@ -1264,9 +1244,6 @@ if (!empty($_POST)):
 	  $confignxdngateway['General']['Suffix'] = "N";
 
 	  system($rollFREQirc);
-	  system($rollFREQdvap);
-	  system($rollFREQdvmegaRx);
-	  system($rollFREQdvmegaTx);
 	  system($rollModeDuplex);
 	  system($rollGatewayType);
 	  system($rollFREQOffset);
@@ -1316,15 +1293,9 @@ if (!empty($_POST)):
 	  $confRPT1 = strtoupper($confRPT1);
 	  $confRPT2 = strtoupper($confRPT2);
 
-	  $rollRPT1 = 'sudo sed -i "/callsign=/c\\callsign='.$confRPT1.'" /etc/dstarrepeater';
-	  $rollRPT2 = 'sudo sed -i "/gateway=/c\\gateway='.$confRPT2.'" /etc/dstarrepeater';
-	  $rollBEACONTEXT = 'sudo sed -i "/beaconText=/c\\beaconText='.$confRPT1.'" /etc/dstarrepeater';
 	  $rollIRCrepeaterBand1 = 'sudo sed -i "/repeaterBand1=/c\\repeaterBand1='.$confIRCrepeaterBand1.'" /etc/ircddbgateway';
 	  $rollIRCrepeaterCall1 = 'sudo sed -i "/repeaterCall1=/c\\repeaterCall1='.$newCallsignUpper.'" /etc/ircddbgateway';
 
-	  system($rollRPT1);
-	  system($rollRPT2);
-	  system($rollBEACONTEXT);
 	  system($rollIRCrepeaterBand1);
 	  system($rollIRCrepeaterCall1);
 	}
@@ -1339,10 +1310,6 @@ if (!empty($_POST)):
 	  $newFREQirc = mb_strimwidth($newFREQirc, 0, 9);
 	  $newFREQOffset = "0.0000";
 	  $rollFREQirc = 'sudo sed -i "/frequency1=/c\\frequency1='.$newFREQirc.'" /etc/ircddbgateway';
-	  $rollFREQdvap = 'sudo sed -i "/dvapFrequency=/c\\dvapFrequency='.$newFREQ.'" /etc/dstarrepeater';
-	  $rollFREQdvmegaRx = 'sudo sed -i "/dvmegaRXFrequency=/c\\dvmegaRXFrequency='.$newFREQ.'" /etc/dstarrepeater';
-	  $rollFREQdvmegaTx = 'sudo sed -i "/dvmegaTXFrequency=/c\\dvmegaTXFrequency='.$newFREQ.'" /etc/dstarrepeater';
-	  $rollModeSimplex = 'sudo sed -i "/mode=/c\\mode=1" /etc/dstarrepeater';
 	  $rollGatewayType = 'sudo sed -i "/gatewayType=/c\\gatewayType=1" /etc/ircddbgateway';
 	  $rollFREQOffset = 'sudo sed -i "/offset1=/c\\offset1='.$newFREQOffset.'" /etc/ircddbgateway';
 	  $configmmdvm['Info']['RXFrequency'] = $newFREQ;
@@ -1372,10 +1339,6 @@ if (!empty($_POST)):
 	  $confignxdngateway['General']['Suffix'] = "N";
 
 	  system($rollFREQirc);
-	  system($rollFREQdvap);
-	  system($rollFREQdvmegaRx);
-	  system($rollFREQdvmegaTx);
-	  system($rollModeSimplex);
 	  system($rollGatewayType);
 	  system($rollFREQOffset);
 
@@ -1424,15 +1387,9 @@ if (!empty($_POST)):
 	  $confRPT1 = strtoupper($confRPT1);
 	  $confRPT2 = strtoupper($confRPT2);
 
-	  $rollRPT1 = 'sudo sed -i "/callsign=/c\\callsign='.$confRPT1.'" /etc/dstarrepeater';
-	  $rollRPT2 = 'sudo sed -i "/gateway=/c\\gateway='.$confRPT2.'" /etc/dstarrepeater';
-	  $rollBEACONTEXT = 'sudo sed -i "/beaconText=/c\\beaconText='.$confRPT1.'" /etc/dstarrepeater';
 	  $rollIRCrepeaterBand1 = 'sudo sed -i "/repeaterBand1=/c\\repeaterBand1='.$confIRCrepeaterBand1.'" /etc/ircddbgateway';
 	  $rollIRCrepeaterCall1 = 'sudo sed -i "/repeaterCall1=/c\\repeaterCall1='.$newCallsignUpper.'" /etc/ircddbgateway';
 
-	  system($rollRPT1);
-	  system($rollRPT2);
-	  system($rollBEACONTEXT);
 	  system($rollIRCrepeaterBand1);
 	  system($rollIRCrepeaterCall1);
 	}
@@ -2178,11 +2135,8 @@ if (!empty($_POST)):
 	$configModem['Modem']['Hardware'] = $confHardware;
 	$confHardwareSpeed = escapeshellcmd($_POST['confHardwareSpeed']);
 	// Set the Start delay
-	$rollDstarRepeaterStartDelay = 'sudo sed -i "/OnStartupSec=/c\\OnStartupSec=30" /lib/systemd/system/dstarrepeater.timer';
 	$rollMMDVMHostStartDelay = 'sudo sed -i "/OnStartupSec=/c\\OnStartupSec=30" /lib/systemd/system/mmdvmhost.timer';
-	// Turn on RPT1 Validation in DStarRepeater
-	$rollRpt1Validation = 'sudo sed -i "/rpt1Validation=/c\\rpt1Validation=1" /etc/dstarrepeater';
-	// Set Standard IP/Port for DStarRepeater/MMDVMHost
+	// Set Standard IP/Port for /MMDVMHost
 	$rollRepeaterAddress1 = 'sudo sed -i "/repeaterAddress1=/c\\repeaterAddress1=127.0.0.1" /etc/ircddbgateway';
 	$rollRepeaterPort1 = 'sudo sed -i "/repeaterPort1=/c\\repeaterPort1=20011" /etc/ircddbgateway';
 	$configmmdvm['Modem']['UARTSpeed'] = $confHardwareSpeed;
@@ -2200,25 +2154,9 @@ if (!empty($_POST)):
 	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
 	  }
 
-	  if ( $confHardware == 'icomTerminalAuto' ) {
-	    $rollModemType = 'sudo sed -i "/modemType=/c\\modemType=Icom Access Point\/Terminal Mode" /etc/dstarrepeater';
-	    $rollIcomPort = 'sudo sed -i "/icomPort=/c\\icomPort=/dev/icom_ta" /etc/dstarrepeater';
-	    $rollRpt1Validation = 'sudo sed -i "/rpt1Validation=/c\\rpt1Validation=0" /etc/dstarrepeater';
-	    system($rollModemType);
-	    system($rollIcomPort);
-	    $configmmdvm['Modem']['Protocol'] = "uart";
-	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
-	  }
-
 	  if ( $confHardware == 'dvmpis' ) {
-	    $rollModemType = 'sudo sed -i "/modemType=/c\\modemType=DVMEGA" /etc/dstarrepeater';
-	    $rollDVMegaPort = 'sudo sed -i "/dvmegaPort=/c\\dvmegaPort=/dev/ttyAMA0" /etc/dstarrepeater';
-	    $rollDVMegaVariant = 'sudo sed -i "/dvmegaVariant=/c\\dvmegaVariant=2" /etc/dstarrepeater';
 	    $configmmdvm['Modem']['Port'] = "/dev/ttyAMA0";
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
-	    system($rollModemType);
-	    system($rollDVMegaPort);
-	    system($rollDVMegaVariant);
 	    system($rollRepeaterType1);
 	    $configmmdvm['General']['Duplex'] = 0;
 	    $configmmdvm['DMR Network']['Slot1'] = 0;
@@ -2227,14 +2165,8 @@ if (!empty($_POST)):
 	  }
 
 	  if ( $confHardware == 'dvmpid' ) {
-	    $rollModemType = 'sudo sed -i "/modemType=/c\\modemType=DVMEGA" /etc/dstarrepeater';
-	    $rollDVMegaPort = 'sudo sed -i "/dvmegaPort=/c\\dvmegaPort=/dev/ttyAMA0" /etc/dstarrepeater';
-	    $rollDVMegaVariant = 'sudo sed -i "/dvmegaVariant=/c\\dvmegaVariant=3" /etc/dstarrepeater';
 	    $configmmdvm['Modem']['Port'] = "/dev/ttyAMA0";
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
-	    system($rollModemType);
-	    system($rollDVMegaPort);
-	    system($rollDVMegaVariant);
 	    system($rollRepeaterType1);
 	    $configmmdvm['General']['Duplex'] = 0;
 	    $configmmdvm['DMR Network']['Slot1'] = 0;
@@ -2243,14 +2175,8 @@ if (!empty($_POST)):
 	  }
 
 	  if ( $confHardware == 'dvmuadu' ) {
-	    $rollModemType = 'sudo sed -i "/modemType=/c\\modemType=DVMEGA" /etc/dstarrepeater';
-	    $rollDVMegaPort = 'sudo sed -i "/dvmegaPort=/c\\dvmegaPort=/dev/ttyUSB0" /etc/dstarrepeater';
-	    $rollDVMegaVariant = 'sudo sed -i "/dvmegaVariant=/c\\dvmegaVariant=3" /etc/dstarrepeater';
 	    $configmmdvm['Modem']['Port'] = "/dev/ttyUSB0";
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
-	    system($rollModemType);
-	    system($rollDVMegaPort);
-	    system($rollDVMegaVariant);
 	    system($rollRepeaterType1);
 	    $configmmdvm['General']['Duplex'] = 0;
 	    $configmmdvm['DMR Network']['Slot1'] = 0;
@@ -2259,14 +2185,8 @@ if (!empty($_POST)):
 	  }
 
 	  if ( $confHardware == 'dvmuada' ) {
-	    $rollModemType = 'sudo sed -i "/modemType=/c\\modemType=DVMEGA" /etc/dstarrepeater';
-	    $rollDVMegaPort = 'sudo sed -i "/dvmegaPort=/c\\dvmegaPort=/dev/ttyACM0" /etc/dstarrepeater';
-	    $rollDVMegaVariant = 'sudo sed -i "/dvmegaVariant=/c\\dvmegaVariant=3" /etc/dstarrepeater';
 	    $configmmdvm['Modem']['Port'] = "/dev/ttyACM0";
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
-	    system($rollModemType);
-	    system($rollDVMegaPort);
-	    system($rollDVMegaVariant);
 	    system($rollRepeaterType1);
 	    $configmmdvm['General']['Duplex'] = 0;
 	    $configmmdvm['DMR Network']['Slot1'] = 0;
@@ -2275,16 +2195,9 @@ if (!empty($_POST)):
 	  }
 
 	  if ( $confHardware == 'dvmbss' ) {
-	    $rollModemType = 'sudo sed -i "/modemType=/c\\modemType=DVMEGA" /etc/dstarrepeater';
-	    $rollDVMegaPort = 'sudo sed -i "/dvmegaPort=/c\\dvmegaPort=/dev/ttyUSB0" /etc/dstarrepeater';
-	    $rollDVMegaVariant = 'sudo sed -i "/dvmegaVariant=/c\\dvmegaVariant=2" /etc/dstarrepeater';
-	    $rollDstarRepeaterStartDelay = 'sudo sed -i "/OnStartupSec=/c\\OnStartupSec=60" /lib/systemd/system/dstarrepeater.timer';
 	    $rollMMDVMHostStartDelay = 'sudo sed -i "/OnStartupSec=/c\\OnStartupSec=60" /lib/systemd/system/mmdvmhost.timer';
 	    $configmmdvm['Modem']['Port'] = "/dev/ttyUSB0";
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
-	    system($rollModemType);
-	    system($rollDVMegaPort);
-	    system($rollDVMegaVariant);
 	    system($rollRepeaterType1);
 	    $configmmdvm['General']['Duplex'] = 0;
 	    $configmmdvm['DMR Network']['Slot1'] = 0;
@@ -2293,16 +2206,9 @@ if (!empty($_POST)):
 	  }
 
 	  if ( $confHardware == 'dvmbsd' ) {
-	    $rollModemType = 'sudo sed -i "/modemType=/c\\modemType=DVMEGA" /etc/dstarrepeater';
-	    $rollDVMegaPort = 'sudo sed -i "/dvmegaPort=/c\\dvmegaPort=/dev/ttyUSB0" /etc/dstarrepeater';
-	    $rollDVMegaVariant = 'sudo sed -i "/dvmegaVariant=/c\\dvmegaVariant=3" /etc/dstarrepeater';
-	    $rollDstarRepeaterStartDelay = 'sudo sed -i "/OnStartupSec=/c\\OnStartupSec=60" /lib/systemd/system/dstarrepeater.timer';
 	    $rollMMDVMHostStartDelay = 'sudo sed -i "/OnStartupSec=/c\\OnStartupSec=60" /lib/systemd/system/mmdvmhost.timer';
 	    $configmmdvm['Modem']['Port'] = "/dev/ttyUSB0";
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
-	    system($rollModemType);
-	    system($rollDVMegaPort);
-	    system($rollDVMegaVariant);
 	    system($rollRepeaterType1);
 	    $configmmdvm['General']['Duplex'] = 0;
 	    $configmmdvm['DMR Network']['Slot1'] = 0;
@@ -2311,72 +2217,46 @@ if (!empty($_POST)):
 	  }
 
 	  if ( $confHardware == 'dvmuagmsku' ) {
-	    $rollModemType = 'sudo sed -i "/modemType=/c\\modemType=DVMEGA" /etc/dstarrepeater';
-	    $rollDVMegaPort = 'sudo sed -i "/dvmegaPort=/c\\dvmegaPort=/dev/ttyUSB0" /etc/dstarrepeater';
-	    $rollDVMegaVariant = 'sudo sed -i "/dvmegaVariant=/c\\dvmegaVariant=0" /etc/dstarrepeater';
 	    $configmmdvm['Modem']['Port'] = "/dev/ttyUSB0";
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
-	    system($rollModemType);
-	    system($rollDVMegaPort);
-	    system($rollDVMegaVariant);
 	    system($rollRepeaterType1);
 	    $configmmdvm['Modem']['Protocol'] = "uart";
 	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
 	  }
 
 	  if ( $confHardware == 'dvmuagmska' ) {
-	    $rollModemType = 'sudo sed -i "/modemType=/c\\modemType=DVMEGA" /etc/dstarrepeater';
-	    $rollDVMegaPort = 'sudo sed -i "/dvmegaPort=/c\\dvmegaPort=/dev/ttyACM0" /etc/dstarrepeater';
-	    $rollDVMegaVariant = 'sudo sed -i "/dvmegaVariant=/c\\dvmegaVariant=0" /etc/dstarrepeater';
 	    $configmmdvm['Modem']['Port'] = "/dev/ttyACM0";
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
-	    system($rollModemType);
-	    system($rollDVMegaPort);
-	    system($rollDVMegaVariant);
 	    system($rollRepeaterType1);
 	    $configmmdvm['Modem']['Protocol'] = "uart";
 	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
 	  }
 
 	  if ( $confHardware == 'dvrptr1' ) {
-	    $rollModemType = 'sudo sed -i "/modemType=/c\\modemType=DV-RPTR V1" /etc/dstarrepeater';
-	    $rollDVRPTRPort = 'sudo sed -i "/dvrptr1Port=/c\\dvrptr1Port=/dev/ttyACM0" /etc/dstarrepeater';
 	    $configmmdvm['Modem']['Port'] = "/dev/ttyACM0";
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
-	    system($rollModemType);
-	    system($rollDVRPTRPort);
 	    system($rollRepeaterType1);
 	    $configmmdvm['Modem']['Protocol'] = "uart";
 	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
 	  }
 
 	  if ( $confHardware == 'dvrptr2' ) {
-	    $rollModemType = 'sudo sed -i "/modemType=/c\\modemType=DV-RPTR V2" /etc/dstarrepeater';
-	    $rollDVRPTRPort = 'sudo sed -i "/dvrptr1Port=/c\\dvrptr1Port=/dev/ttyACM0" /etc/dstarrepeater';
 	    $configmmdvm['Modem']['Port'] = "/dev/ttyACM0";
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
-	    system($rollModemType);
-	    system($rollDVRPTRPort);
 	    system($rollRepeaterType1);
 	    $configmmdvm['Modem']['Protocol'] = "uart";
 	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
 	  }
 
 	  if ( $confHardware == 'dvrptr3' ) {
-	    $rollModemType = 'sudo sed -i "/modemType=/c\\modemType=DV-RPTR V3" /etc/dstarrepeater';
-	    $rollDVRPTRPort = 'sudo sed -i "/dvrptr1Port=/c\\dvrptr1Port=/dev/ttyACM0" /etc/dstarrepeater';
 	    $configmmdvm['Modem']['Port'] = "/dev/ttyACM0";
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
-	    system($rollModemType);
-	    system($rollDVRPTRPort);
 	    system($rollRepeaterType1);
 	    $configmmdvm['Modem']['Protocol'] = "uart";
 	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
 	  }
 
 	  if ( $confHardware == 'gmsk_modem' ) {
-	    $rollModemType = 'sudo sed -i "/modemType=/c\\modemType=GMSK Modem" /etc/dstarrepeater';
-	    system($rollModemType);
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
 	    $configmmdvm['Modem']['Protocol'] = "uart";
@@ -2384,19 +2264,15 @@ if (!empty($_POST)):
 	  }
 
 	  if ( $confHardware == 'dvap' ) {
-	    $rollModemType = 'sudo sed -i "/modemType=/c\\modemType=DVAP" /etc/dstarrepeater';
 	    $configmmdvm['Modem']['Port'] = "/dev/ttyUSB0";
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
-	    system($rollModemType);
 	    system($rollRepeaterType1);
 	    $configmmdvm['Modem']['Protocol'] = "uart";
 	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
 	  }
 
 	  if ( $confHardware == 'zumspotlibre' ) {
-	    $rollModemType = 'sudo sed -i "/modemType=/c\\modemType=MMDVM" /etc/dstarrepeater';
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
-	    system($rollModemType);
 	    system($rollRepeaterType1);
 	    $configmmdvm['Modem']['Port'] = "/dev/ttyACM0";
 	    $configmmdvm['General']['Duplex'] = 0;
@@ -2406,9 +2282,7 @@ if (!empty($_POST)):
 	  }
 
 	  if ( $confHardware == 'zumspotusb' ) {
-	    $rollModemType = 'sudo sed -i "/modemType=/c\\modemType=MMDVM" /etc/dstarrepeater';
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
-	    system($rollModemType);
 	    system($rollRepeaterType1);
 	    $configmmdvm['Modem']['Port'] = "/dev/ttyACM0";
 	    $configmmdvm['General']['Duplex'] = 0;
@@ -2418,9 +2292,7 @@ if (!empty($_POST)):
 	  }
 
 	  if ( $confHardware == 'lsusb' ) {
-	    $rollModemType = 'sudo sed -i "/modemType=/c\\modemType=MMDVM" /etc/dstarrepeater';
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
-	    system($rollModemType);
 	    system($rollRepeaterType1);
 	    $configmmdvm['Modem']['Port'] = "/dev/ttyACM0";
 	    $configmmdvm['General']['Duplex'] = 0;
@@ -2430,9 +2302,7 @@ if (!empty($_POST)):
 	  }
 
 	  if ( $confHardware == 'zumspotgpio' ) {
-	    $rollModemType = 'sudo sed -i "/modemType=/c\\modemType=MMDVM" /etc/dstarrepeater';
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
-	    system($rollModemType);
 	    system($rollRepeaterType1);
 	    $configmmdvm['Modem']['Port'] = "/dev/ttyAMA0";
 	    $configmmdvm['General']['Duplex'] = 0;
@@ -2442,9 +2312,7 @@ if (!empty($_POST)):
 	  }
 
 	  if ( $confHardware == 'zumspotdualgpio' ) {
-	    $rollModemType = 'sudo sed -i "/modemType=/c\\modemType=MMDVM" /etc/dstarrepeater';
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
-	    system($rollModemType);
 	    system($rollRepeaterType1);
 	    $configmmdvm['Modem']['Port'] = "/dev/ttyAMA0";
 	    $configmmdvm['General']['Duplex'] = 0;
@@ -2454,9 +2322,7 @@ if (!empty($_POST)):
 	  }
 
 	  if ( $confHardware == 'zumspotduplexgpio' ) {
-	    $rollModemType = 'sudo sed -i "/modemType=/c\\modemType=MMDVM" /etc/dstarrepeater';
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
-	    system($rollModemType);
 	    system($rollRepeaterType1);
 	    $configmmdvm['Modem']['Port'] = "/dev/ttyAMA0";
 	    $configmmdvm['General']['Duplex'] = 1;
@@ -2465,7 +2331,6 @@ if (!empty($_POST)):
 	  }
 
           if ( $confHardware == 'zumradiopiusb' ) {
-            $rollModemType = 'sudo sed -i "/modemType=/c\\modemType=MMDVM" /etc/dstarrepeater';
             $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
             system($rollRepeaterType1);
             $configmmdvm['Modem']['Port'] = "/dev/ttyACM0";
@@ -2476,11 +2341,7 @@ if (!empty($_POST)):
           }
 
 	  if ( $confHardware == 'zumradiopigpio' ) {
-	    $rollModemType = 'sudo sed -i "/modemType=/c\\modemType=MMDVM" /etc/dstarrepeater';
-	    $rollMMDVMPort = 'sudo sed -i "/mmdvmPort=/c\\mmdvmPort=/dev/ttyAMA0" /etc/dstarrepeater';
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
-	    system($rollModemType);
-	    system($rollMMDVMPort);
 	    system($rollRepeaterType1);
 	    $configmmdvm['Modem']['Port'] = "/dev/ttyAMA0";
 	    $configmmdvm['Modem']['Protocol'] = "uart";
@@ -2489,11 +2350,7 @@ if (!empty($_POST)):
 	  }
 
 	  if ( $confHardware == 'zum' ) {
-	    $rollModemType = 'sudo sed -i "/modemType=/c\\modemType=MMDVM" /etc/dstarrepeater';
-	    $rollMMDVMPort = 'sudo sed -i "/mmdvmPort=/c\\mmdvmPort=/dev/ttyACM0" /etc/dstarrepeater';
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
-	    system($rollModemType);
-	    system($rollMMDVMPort);
 	    system($rollRepeaterType1);
 	    $configmmdvm['Modem']['Port'] = "/dev/ttyACM0";
 	    $configmmdvm['Modem']['Protocol'] = "uart";
@@ -2501,11 +2358,7 @@ if (!empty($_POST)):
 	  }
 
 	  if ( $confHardware == 'stm32dvm' ) {
-	    $rollModemType = 'sudo sed -i "/modemType=/c\\modemType=MMDVM" /etc/dstarrepeater';
-	    $rollMMDVMPort = 'sudo sed -i "/mmdvmPort=/c\\mmdvmPort=/dev/ttyAMA0" /etc/dstarrepeater';
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
-	    system($rollModemType);
-	    system($rollMMDVMPort);
 	    system($rollRepeaterType1);
 	    $configmmdvm['Modem']['Port'] = "/dev/ttyAMA0";
 	    $configmmdvm['Modem']['Protocol'] = "uart";
@@ -2513,11 +2366,7 @@ if (!empty($_POST)):
 	  }
 
 	  if ( $confHardware == 'stm32dvmv3+' ) {
-	    $rollModemType = 'sudo sed -i "/modemType=/c\\modemType=MMDVM" /etc/dstarrepeater';
-	    $rollMMDVMPort = 'sudo sed -i "/mmdvmPort=/c\\mmdvmPort=/dev/ttyAMA0" /etc/dstarrepeater';
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
-	    system($rollModemType);
-	    system($rollMMDVMPort);
 	    system($rollRepeaterType1);
 	    $configmmdvm['Modem']['Port'] = "/dev/ttyAMA0";
 	    $configmmdvm['Modem']['Protocol'] = "uart";
@@ -2526,11 +2375,7 @@ if (!empty($_POST)):
 	  }
 
 	  if ( $confHardware == 'stm32usb' ) {
-	    $rollModemType = 'sudo sed -i "/modemType=/c\\modemType=MMDVM" /etc/dstarrepeater';
-	    $rollMMDVMPort = 'sudo sed -i "/mmdvmPort=/c\\mmdvmPort=/dev/ttyUSB0" /etc/dstarrepeater';
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
-	    system($rollModemType);
-	    system($rollMMDVMPort);
 	    system($rollRepeaterType1);
 	    $configmmdvm['Modem']['Port'] = "/dev/ttyUSB0";
 	    $configmmdvm['Modem']['Protocol'] = "uart";
@@ -2538,11 +2383,7 @@ if (!empty($_POST)):
 	  }
 
 	  if ( $confHardware == 'stm32usbv3+' ) {
-	    $rollModemType = 'sudo sed -i "/modemType=/c\\modemType=MMDVM" /etc/dstarrepeater';
-	    $rollMMDVMPort = 'sudo sed -i "/mmdvmPort=/c\\mmdvmPort=/dev/ttyUSB0" /etc/dstarrepeater';
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
-	    system($rollModemType);
-	    system($rollMMDVMPort);
 	    system($rollRepeaterType1);
 	    $configmmdvm['Modem']['Port'] = "/dev/ttyUSB0";
 	    $configmmdvm['Modem']['Protocol'] = "uart";
@@ -2551,11 +2392,7 @@ if (!empty($_POST)):
 	  }
 
 	  if ( $confHardware == 'stm32dvmmtr2kopi' ) {
-	    $rollModemType = 'sudo sed -i "/modemType=/c\\modemType=MMDVM" /etc/dstarrepeater';
-	    $rollMMDVMPort = 'sudo sed -i "/mmdvmPort=/c\\mmdvmPort=/dev/ttyAMA0" /etc/dstarrepeater';
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
-	    system($rollModemType);
-	    system($rollMMDVMPort);
 	    system($rollRepeaterType1);
 	    $configmmdvm['Modem']['Port'] = "/dev/ttyAMA0";
 	    $configmmdvm['Modem']['Protocol'] = "uart";
@@ -2564,11 +2401,7 @@ if (!empty($_POST)):
 	  }
 
 	  if ( $confHardware == 'f4mgpio' ) {
-	    $rollModemType = 'sudo sed -i "/modemType=/c\\modemType=MMDVM" /etc/dstarrepeater';
-	    $rollMMDVMPort = 'sudo sed -i "/mmdvmPort=/c\\mmdvmPort=/dev/ttyAMA0" /etc/dstarrepeater';
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
-	    system($rollModemType);
-	    system($rollMMDVMPort);
 	    system($rollRepeaterType1);
 	    $configmmdvm['Modem']['Port'] = "/dev/ttyAMA0";
 	    $configmmdvm['Modem']['Protocol'] = "uart";
@@ -2576,9 +2409,7 @@ if (!empty($_POST)):
 	  }
 
 	  if ( $confHardware == 'f4mf7m' ) {
-	    $rollModemType = 'sudo sed -i "/modemType=/c\\modemType=MMDVM" /etc/dstarrepeater';
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
-	    system($rollModemType);
 	    system($rollRepeaterType1);
 	    $configmmdvm['Modem']['Port'] = "/dev/ttyUSB0";
 	    $configmmdvm['General']['Duplex'] = 1;
@@ -2587,9 +2418,7 @@ if (!empty($_POST)):
 	  }
 
 	  if ( $confHardware == 'mmdvmhshat' ) {
-	    $rollModemType = 'sudo sed -i "/modemType=/c\\modemType=MMDVM" /etc/dstarrepeater';
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
-	    system($rollModemType);
 	    system($rollRepeaterType1);
 	    $configmmdvm['Modem']['Port'] = "/dev/ttyAMA0";
 	    $configmmdvm['General']['Duplex'] = 0;
@@ -2599,9 +2428,7 @@ if (!empty($_POST)):
 	  }
 
 	  if ( $confHardware == 'lshshatgpio' ) {
-	    $rollModemType = 'sudo sed -i "/modemType=/c\\modemType=MMDVM" /etc/dstarrepeater';
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
-	    system($rollModemType);
 	    system($rollRepeaterType1);
 	    $configmmdvm['Modem']['Port'] = "/dev/ttyAMA0";
 	    $configmmdvm['General']['Duplex'] = 0;
@@ -2611,9 +2438,7 @@ if (!empty($_POST)):
 	  }
 
 	  if ( $confHardware == 'mmdvmhshatambe' ) {
-	    $rollModemType = 'sudo sed -i "/modemType=/c\\modemType=MMDVM" /etc/dstarrepeater';
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
-	    system($rollModemType);
 	    system($rollRepeaterType1);
 	    $configmmdvm['Modem']['Port'] = "/dev/ttySC0";
 	    $configmmdvm['General']['Duplex'] = 0;
@@ -2623,9 +2448,7 @@ if (!empty($_POST)):
 	  }
 
 	  if ( $confHardware == 'mmdvmhsdualbandgpio' ) {
-	    $rollModemType = 'sudo sed -i "/modemType=/c\\modemType=MMDVM" /etc/dstarrepeater';
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
-	    system($rollModemType);
 	    system($rollRepeaterType1);
 	    $configmmdvm['Modem']['Port'] = "/dev/ttyAMA0";
 	    $configmmdvm['General']['Duplex'] = 0;
@@ -2635,9 +2458,7 @@ if (!empty($_POST)):
 	  }
 
 	  if ( $confHardware == 'sbhsdualbandgpio' ) {
-	    $rollModemType = 'sudo sed -i "/modemType=/c\\modemType=MMDVM" /etc/dstarrepeater';
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
-	    system($rollModemType);
 	    system($rollRepeaterType1);
 	    $configmmdvm['Modem']['Port'] = "/dev/ttyAMA0";
 	    $configmmdvm['General']['Duplex'] = 0;
@@ -2647,9 +2468,7 @@ if (!empty($_POST)):
 	  }
 
 	   if ( $confHardware == 'genesishat' ) {
-	     $rollModemType = 'sudo sed -i "/modemType=/c\\modemType=MMDVM" /etc/dstarrepeater';
 	     $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
-	     system($rollModemType);
 	     system($rollRepeaterType1);
 	     $configmmdvm['Modem']['Port'] = "/dev/ttyAMA0";
 	     $configmmdvm['General']['Duplex'] = 0;
@@ -2659,9 +2478,7 @@ if (!empty($_POST)):
 	   }
 
 	   if ( $confHardware == 'genesisdualhat' ) {
-	     $rollModemType = 'sudo sed -i "/modemType=/c\\modemType=MMDVM" /etc/dstarrepeater';
 	     $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
-	     system($rollModemType);
 	     system($rollRepeaterType1);
 	     $configmmdvm['Modem']['Port'] = "/dev/ttyAMA0";
 	     $configmmdvm['General']['Duplex'] = 1;
@@ -2670,9 +2487,7 @@ if (!empty($_POST)):
 	   }
 
 	  if ( $confHardware == 'mmdvmhsdualhatgpio' ) {
-	    $rollModemType = 'sudo sed -i "/modemType=/c\\modemType=MMDVM" /etc/dstarrepeater';
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
-	    system($rollModemType);
 	    system($rollRepeaterType1);
 	    $configmmdvm['Modem']['Port'] = "/dev/ttyAMA0";
 	    $configmmdvm['General']['Duplex'] = 1;
@@ -2681,9 +2496,7 @@ if (!empty($_POST)):
 	  }
 
 	  if ( $confHardware == 'lshsdualhatgpio' ) {
-	    $rollModemType = 'sudo sed -i "/modemType=/c\\modemType=MMDVM" /etc/dstarrepeater';
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
-	    system($rollModemType);
 	    system($rollRepeaterType1);
 	    $configmmdvm['Modem']['Port'] = "/dev/ttyAMA0";
 	    $configmmdvm['General']['Duplex'] = 1;
@@ -2692,18 +2505,14 @@ if (!empty($_POST)):
 	  }
 
 	  if ( $confHardware == 'mmdvmhsdualhatusb' ) {
-	    $rollModemType = 'sudo sed -i "/modemType=/c\\modemType=MMDVM" /etc/dstarrepeater';
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
-	    system($rollModemType);
 	    system($rollRepeaterType1);
 	    $configmmdvm['Modem']['Port'] = "/dev/ttyACM0";
 	    $configmmdvm['General']['Duplex'] = 1;
 	  }
 
 	  if ( $confHardware == 'mmdvmrpthat' ) {
-	    $rollModemType = 'sudo sed -i "/modemType=/c\\modemType=MMDVM" /etc/dstarrepeater';
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
-	    system($rollModemType);
 	    system($rollRepeaterType1);
 	    $configmmdvm['Modem']['Port'] = "/dev/ttyAMA0";
 	    $configmmdvm['General']['Duplex'] = 1;
@@ -2712,9 +2521,7 @@ if (!empty($_POST)):
 	  }
 
 	  if ( $confHardware == 'mmdvmmdohat' ) {
-	    $rollModemType = 'sudo sed -i "/modemType=/c\\modemType=MMDVM" /etc/dstarrepeater';
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
-	    system($rollModemType);
 	    system($rollRepeaterType1);
 	    $configmmdvm['Modem']['Port'] = "/dev/ttyAMA0";
 	    $configmmdvm['General']['Duplex'] = 0;
@@ -2724,9 +2531,7 @@ if (!empty($_POST)):
 	  }
 
 	  if ( $confHardware == 'mmdvmvyehat' ) {
-	    $rollModemType = 'sudo sed -i "/modemType=/c\\modemType=MMDVM" /etc/dstarrepeater';
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
-	    system($rollModemType);
 	    system($rollRepeaterType1);
 	    $configmmdvm['Modem']['Port'] = "/dev/ttyAMA0";
 	    $configmmdvm['General']['Duplex'] = 0;
@@ -2736,9 +2541,7 @@ if (!empty($_POST)):
 	  }
 
 	  if ( $confHardware == 'mmdvmvyehatdual' ) {
-	    $rollModemType = 'sudo sed -i "/modemType=/c\\modemType=MMDVM" /etc/dstarrepeater';
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
-	    system($rollModemType);
 	    system($rollRepeaterType1);
 	    $configmmdvm['Modem']['Port'] = "/dev/ttyAMA0";
 	    $configmmdvm['General']['Duplex'] = 1;
@@ -2747,9 +2550,7 @@ if (!empty($_POST)):
 	  }
 
 	  if ( $confHardware == 'mnnano-spot' ) {
-	    $rollModemType = 'sudo sed -i "/modemType=/c\\modemType=MMDVM" /etc/dstarrepeater';
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
-	    system($rollModemType);
 	    system($rollRepeaterType1);
 	    $configmmdvm['Modem']['Port'] = "/dev/ttyAMA0";
 	    $configmmdvm['General']['Duplex'] = 0;
@@ -2759,11 +2560,7 @@ if (!empty($_POST)):
 	  }
 
 	  if ( $confHardware == 'mnnano-teensy' ) {
-	    $rollModemType = 'sudo sed -i "/modemType=/c\\modemType=MMDVM" /etc/dstarrepeater';
-	    $rollMMDVMPort = 'sudo sed -i "/mmdvmPort=/c\\mmdvmPort=/dev/ttyUSB0" /etc/dstarrepeater';
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
-	    system($rollModemType);
-	    system($rollMMDVMPort);
 	    system($rollRepeaterType1);
 	    $configmmdvm['Modem']['Port'] = "/dev/ttyUSB0";
 	    $configmmdvm['General']['Duplex'] = 0;
@@ -2773,9 +2570,7 @@ if (!empty($_POST)):
 	  }
 
 	  if ( $confHardware == 'nanodv' ) {
-	    $rollModemType = 'sudo sed -i "/modemType=/c\\modemType=MMDVM" /etc/dstarrepeater';
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
-	    system($rollModemType);
 	    system($rollRepeaterType1);
 	    $configmmdvm['Modem']['Port'] = "/dev/ttyAMA0";
 	    $configmmdvm['General']['Duplex'] = 0;
@@ -2785,9 +2580,7 @@ if (!empty($_POST)):
 	  }
 
 	  if ( $confHardware == 'nanodvusb' ) {
-	    $rollModemType = 'sudo sed -i "/modemType=/c\\modemType=MMDVM" /etc/dstarrepeater';
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
-	    system($rollModemType);
 	    system($rollRepeaterType1);
 	    $configmmdvm['Modem']['Port'] = "/dev/ttyACM0";
 	    $configmmdvm['General']['Duplex'] = 0;
@@ -2797,14 +2590,8 @@ if (!empty($_POST)):
 	  }
 
 	  if ( $confHardware == 'dvmpicast' ) {
-	    $rollModemType = 'sudo sed -i "/modemType=/c\\modemType=DVMEGA" /etc/dstarrepeater';
-	    $rollDVMegaPort = 'sudo sed -i "/dvmegaPort=/c\\dvmegaPort=/dev/ttyAMA0" /etc/dstarrepeater';
-	    $rollDVMegaVariant = 'sudo sed -i "/dvmegaVariant=/c\\dvmegaVariant=2" /etc/dstarrepeater';
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    $configmmdvm['Modem']['Port'] = "/dev/ttyAMA0";
-	    system($rollModemType);
-	    system($rollDVMegaPort);
-	    system($rollDVMegaVariant);
 	    system($rollRepeaterType1);
 	    $configmmdvm['General']['Duplex'] = 0;
 	    $configmmdvm['DMR Network']['Slot1'] = 0;
@@ -2813,14 +2600,8 @@ if (!empty($_POST)):
 	  }
 
 	  if ( $confHardware == 'dvmpicasths' ) {
-	    $rollModemType = 'sudo sed -i "/modemType=/c\\modemType=DVMEGA" /etc/dstarrepeater';
-	    $rollDVMegaPort = 'sudo sed -i "/dvmegaPort=/c\\dvmegaPort=/dev/ttyS2" /etc/dstarrepeater';
-	    $rollDVMegaVariant = 'sudo sed -i "/dvmegaVariant=/c\\dvmegaVariant=3" /etc/dstarrepeater';
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    $configmmdvm['Modem']['Port'] = "/dev/ttyS2";
-	    system($rollModemType);
-	    system($rollDVMegaPort);
-	    system($rollDVMegaVariant);
 	    system($rollRepeaterType1);
 	    $configmmdvm['General']['Duplex'] = 0;
 	    $configmmdvm['DMR Network']['Slot1'] = 0;
@@ -2829,14 +2610,8 @@ if (!empty($_POST)):
 	  }
 
 	  if ( $confHardware == 'dvmpicasthd' ) {
-	    $rollModemType = 'sudo sed -i "/modemType=/c\\modemType=DVMEGA" /etc/dstarrepeater';
-	    $rollDVMegaPort = 'sudo sed -i "/dvmegaPort=/c\\dvmegaPort=/dev/ttyS2" /etc/dstarrepeater';
-	    $rollDVMegaVariant = 'sudo sed -i "/dvmegaVariant=/c\\dvmegaVariant=3" /etc/dstarrepeater';
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    $configmmdvm['Modem']['Port'] = "/dev/ttyS2";
-	    system($rollModemType);
-	    system($rollDVMegaPort);
-	    system($rollDVMegaVariant);
 	    system($rollRepeaterType1);
 	    $configmmdvm['General']['Duplex'] = 0;
 	    $configmmdvm['DMR Network']['Slot1'] = 0;
@@ -2845,9 +2620,7 @@ if (!empty($_POST)):
 	  }
 	  
 	  if ( $confHardware == 'opengd77' ) {
-	    $rollModemType = 'sudo sed -i "/modemType=/c\\modemType=MMDVM" /etc/dstarrepeater';
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
-	    system($rollModemType);
 	    system($rollRepeaterType1);
 	    $configmmdvm['Modem']['Port'] = "/dev/ttyACM0";
 	    $configmmdvm['General']['Duplex'] = 0;
@@ -2857,10 +2630,7 @@ if (!empty($_POST)):
 	  }
 
 	  // Set the Service start delay
-	  system($rollDstarRepeaterStartDelay);
 	  system($rollMMDVMHostStartDelay);
-	  // Turn on RPT1 validation on DStarRepeater
-	  system($rollRpt1Validation);
 	  // Set Standard IP/Port for ircDDBGateway
 	  system($rollRepeaterAddress1);
 	  system($rollRepeaterPort1);
@@ -3234,7 +3004,6 @@ if (!empty($_POST)):
 	    $configmmdvm['P25']['SelfOnly'] = 1;
 	    $configmmdvm['NXDN']['SelfOnly'] = 1;
 	    $configmmdvm['M17']['SelfOnly'] = 1;
-	    system('sudo sed -i "/restriction=/c\\restriction=1" /etc/dstarrepeater');
 	    if (empty($_POST['confDMRWhiteList'] == TRUE)) { // user cleared out ACL, so delete them from mmdvm config and force mode to private
 		unset($configmmdvm['DMR']['WhiteList']);
 		$configmmdvm['DMR']['SelfOnly'] = 1;
@@ -3243,7 +3012,6 @@ if (!empty($_POST)):
 		$configmmdvm['P25']['SelfOnly'] = 1;
  		$configmmdvm['NXDN']['SelfOnly'] = 1;
 		$configmmdvm['M17']['SelfOnly'] = 1;
-		system('sudo sed -i "/restriction=/c\\restriction=1" /etc/dstarrepeater');
 	    }
 	  }
 	  if (escapeshellcmd($_POST['nodeMode']) == 'pub' ) { // public node
@@ -3254,7 +3022,6 @@ if (!empty($_POST)):
 		$configmmdvm['P25']['SelfOnly'] = 1;
 		$configmmdvm['NXDN']['SelfOnly'] = 1;
 		$configmmdvm['M17']['SelfOnly'] = 1;
-		system('sudo sed -i "/restriction=/c\\restriction=1" /etc/dstarrepeater');
 	    } else {  // OK we have DMRid(s) in the ACL, open her up...
 		$configmmdvm['DMR']['SelfOnly'] = 0;
 		$configmmdvm['D-Star']['SelfOnly'] = 0;
@@ -3262,7 +3029,6 @@ if (!empty($_POST)):
 		$configmmdvm['P25']['SelfOnly'] = 0;
 		$configmmdvm['NXDN']['SelfOnly'] = 0;
 		$configmmdvm['M17']['SelfOnly'] = 0;
-		system('sudo sed -i "/restriction=/c\\restriction=0" /etc/dstarrepeater');
 	    }
 	  }
 	}
@@ -3465,6 +3231,7 @@ if (!empty($_POST)):
 	if (!isset($configmmdvm['OLED']['Rotate'])) { $configmmdvm['OLED']['Rotate'] = "0"; }
 	if (!isset($configmmdvm['OLED']['Cast'])) { $configmmdvm['OLED']['Cast'] = "0"; }
 	if (isset($configmmdvm['Remote Control']['Enable'])) { $configmmdvm['Remote Control']['Enable'] = "1"; }
+	if (!isset($configmmdvm['Remote Control']['Enable'])) { $configmmdvm['Remote Control']['Enable'] = "1"; }
 	if (!isset($configmmdvm['Remote Control']['Port'])) { $configmmdvm['Remote Control']['Port'] = "7642"; }
 	if (!isset($configmmdvm['Remote Control']['Address'])) { $configmmdvm['Remote Control']['Address'] = "127.0.0.1"; }
 	if (isset($configmmdvm['TFT Serial']['Port'])) {
@@ -4420,7 +4187,7 @@ if (!empty($_POST)):
 
 else:
 	// Output the HTML Form here
-	if ((file_exists('/etc/dstar-radio.mmdvmhost') || file_exists('/etc/dstar-radio.dstarrepeater')) && !$configModem['Modem']['Hardware']) { echo "<script type\"text/javascript\">\n\talert(\"WARNING:\\nThe Modem selection section has been updated,\\nPlease re-select your modem from the list.\")\n</script>\n"; }
+	if (file_exists('/etc/dstar-radio.mmdvmhost') && !$configModem['Modem']['Hardware'] && $MYCALL != "M1ABC") { echo "<script type\"text/javascript\">\n\talert(\"NOTE:\\n\\nPlease (re-)select your modem from the 'Radio/Modem Type' drop-down list.\")\n</script>\n"; }
 	if (strpos($_SERVER['HTTP_USER_AGENT'], 'Chrome') !== false) {
 		$toggleDMRCheckboxCr			= 'onclick="toggleDMRCheckbox()"';
 		$toggleDSTARCheckboxCr			= 'onclick="toggleDSTARCheckbox()"';
@@ -5719,7 +5486,7 @@ if (!@file_exists($bmAPIkeyFile) && !@fopen($bmAPIkeyFile,'r')) {
 	<div><input type="button" value="<?php echo $lang['apply'];?>" onclick="submitform()" /><br /><br /></div>
 <?php } ?>
 
-<?php if (file_exists('/etc/dstar-radio.dstarrepeater') || $configmmdvm['D-Star']['Enable'] == 1) { ?>
+<?php if ($configmmdvm['D-Star']['Enable'] == 1) { ?>
 	<h2 class="ConfSec"><?php echo $lang['dstar_config'];?></h2>
 	<input type="hidden" name="confTimeAnnounce" value="OFF" />
 	<input type="hidden" name="confircddbEnabled" value="OFF" />
