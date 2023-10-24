@@ -132,13 +132,11 @@
 		<li class="has-subs"><a href="#">Tools</a>
 		    <ul class="dropdown">
 			<!-- Services Sub -->
-			<li class="subs has-subs"><a href="#">Pi-Star Services</a>
+			<li class="subs has-subs"><a href="#">WPSD Services</a>
 			    <ul class="dropdown">
-				<li class="subs"><a href="services.php?action=stop">Stop Services</a></li>
-				<li class="subs"><a href="services.php?action=fullstop">Full Stop Services</a></li>
-				<li class="subs"><a href="services.php?action=restart">Restart Services</a></li>
 				<li class="subs"><a href="services.php?action=status">Services Status</a></li>
-				<li class="subs"><a href="services.php?action=killmmdvmhost">Kill MMDVMHost</a></li>
+				<li class="subs"><a href="services.php?action=fullstop">Stop Services</a></li>
+				<li class="subs"><a href="services.php?action=restart">(Re-)Start Services</a></li>
 			    </ul>
 			</li>
 			<li class="subs"><a href="services.php?action=updatehostsfiles">Update Hosts Files</a></li>
