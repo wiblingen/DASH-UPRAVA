@@ -32,8 +32,12 @@ if (isset($_SESSION['CSSConfigs']['Background']['TableRowBgEvenColor'])) {
   <div class="divTableBody">
     <div class="divTableRow center">
       <div class="divTableHeadCell" style="width:250px;">Radio Status:</div>
+      <?php if(getConfigItem("General", "Duplex", $_SESSION['MMDVMHostConfigs']) == "1") { ?>
       <div class="divTableHeadCell noMob">TX Freq.</div>
       <div class="divTableHeadCell noMob">RX Freq.</div>
+      <?php } else { ?>
+      <div class="divTableHeadCell noMob">TX/RX Freq.</div>
+      <?php } ?>
       <div class="divTableHeadCell noMob">Radio Mode</div>
       <div class="divTableHeadCell noMob">Modem Firmware</div>
       <div class="divTableHeadCell noMob">TCXO Freq.</div>
@@ -122,8 +126,12 @@ if (isset($_SESSION['CSSConfigs']['Background']['TableRowBgEvenColor'])) {
             echo "<div class=\"divTableCell middle cell_content\" style=\"font-weight:bold;padding:2px;\">IDLE</div>\n";
         }
         ?>
+      <?php if(getConfigItem("General", "Duplex", $_SESSION['MMDVMHostConfigs']) == "1") { ?>
       <div class="divTableCell cell_content middle noMob" style="background: <?php echo $tableRowEvenBg; ?>;"><?php echo getMHZ(getConfigItem("Info", "TXFrequency", $_SESSION['MMDVMHostConfigs'])); ?></div>
       <div class="divTableCell cell_content middle noMob" style="background: <?php echo $tableRowEvenBg; ?>;"><?php echo getMHZ(getConfigItem("Info", "RXFrequency", $_SESSION['MMDVMHostConfigs'])); ?></div>
+      <?php } else { ?>
+      <div class="divTableCell cell_content middle noMob" style="background: <?php echo $tableRowEvenBg; ?>;"><?php echo getMHZ(getConfigItem("Info", "RXFrequency", $_SESSION['MMDVMHostConfigs'])); ?></div>
+      <?php } ?>
       <div class="divTableCell cell_content middle noMob" style="background: <?php echo $tableRowEvenBg; ?>;"><?php if(getConfigItem("General", "Duplex", $_SESSION['MMDVMHostConfigs']) == "1") { echo "Duplex"; } else { echo "Simplex"; } ?></div>
       <div class="divTableCell cell_content middle noMob" style="background: <?php echo $tableRowEvenBg; ?>;"><?php echo $_SESSION['DvModemFWVersion']; ?></div>
       <div class="divTableCell cell_content middle noMob" style="background: <?php echo $tableRowEvenBg; ?>;"><?php echo $_SESSION['DvModemTCXOFreq']; ?></div>
