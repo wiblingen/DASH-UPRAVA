@@ -71,7 +71,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/advanced/ssh_access.php") {
   </div>
   <div class="contentwide">
     <?php if (isset($shellPort)) {
-      echo "<iframe src=\"http://".$_SERVER['HTTP_HOST'].":".$shellPort."\" style=\"border:1px solid #ffffff; background:#000; color:#00ff00; padding:5px;margin:5px;\" name=\"Pi-Star_SSH\" scrolling=\"no\" frameborder=\"0\" marginheight=\"0px\" marginwidth=\"0px\" height=\"600px\" width=\"860px\"></iframe>";
+      echo "<iframe src=\"http://".$_SERVER['HTTP_HOST'].":".$shellPort."\" style=\"border:1px solid #999; background:#000; color:#00ff00; padding:5px;margin:5px;\" name=\"WPSD_SSH\" scrolling=\"no\" frameborder=\"0\" marginheight=\"0px\" marginwidth=\"0px\" height=\"700px\" width=\"1024px\"></iframe>";
     }
     else {
       echo "SSH Feature not yet installed";
