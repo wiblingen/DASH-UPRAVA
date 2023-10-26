@@ -1565,6 +1565,7 @@ if (isset($_GET['settings']) && !FM_READONLY) {
                             </select>
                         </div>
                     </div>
+		    <!--
                     <div class="mt-3 mb-3 row ">
                         <label for="js-error-report" class="col-sm-3 col-form-label"><?php echo lng('ErrorReporting') ?></label>
                         <div class="col-sm-9">
@@ -1573,7 +1574,7 @@ if (isset($_GET['settings']) && !FM_READONLY) {
                             </div>
                         </div>
                     </div>
-
+		    -->
                     <div class="mb-3 row">
                         <label for="js-show-hidden" class="col-sm-3 col-form-label"><?php echo lng('ShowHiddenFiles') ?></label>
                         <div class="col-sm-9">
@@ -3574,10 +3575,9 @@ function fm_show_nav_path($path)
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
             <?php
             $path = fm_clean_path($path);
-            $root_url = "<a href='?p='><i class='fa fa-home' aria-hidden='true' title='" . FM_ROOT_PATH . "'></i></a> <a href='/'><i class='fa fa-tachometer' title='Main Dashboard'></a></i>";
+            $root_url = "<a href='?p='><i class='fa fa-home' aria-hidden='true' title='" . FM_ROOT_PATH . "'></i></a>";
             $sep = '<i class="bread-crumb"> / </i>';
             if ($path != '') {
                 $exploded = explode('/', $path);
@@ -3591,7 +3591,7 @@ function fm_show_nav_path($path)
                 }
                 $root_url .= $sep . implode($sep, $array);
             }
-            echo '<div class="col-xs-6 col-sm-5">' . $root_url . $editFile . '</div>';
+            echo '<div class="col-xs-6 col-sm-5"><a href="/"><i class="fa fa-tachometer" title="Main Dashboard"></a></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . $root_url . $editFile . '</div>';
             ?>
 
             <div class="col-xs-6 col-sm-7">
@@ -3612,7 +3612,7 @@ function fm_show_nav_path($path)
                     </li>
                     <?php if (!FM_READONLY): ?>
                     <li class="nav-item">
-		      	<a title="Back to Advanced Dashboard" class="nav-link" href="/admin/advanced/"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Advanced Dashboard </a>
+		      	<a title="Back to Advanced Config. Area" class="nav-link" href="/admin/advanced/"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back to Advanced Area</a>
                     </li>
                     <li class="nav-item">
                         <a title="<?php echo lng('Upload') ?>" class="nav-link" href="?p=<?php echo urlencode(FM_PATH) ?>&amp;upload"><i class="fa fa-cloud-upload" aria-hidden="true"></i> <?php echo lng('Upload') ?></a>
