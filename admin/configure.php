@@ -568,12 +568,12 @@ $MYCALL=strtoupper($callsign);
 // warn to backup configs, only if this is not a new installation.
 $config_dir = "/etc/WPSD_config_mgr";
 if (!is_dir($config_dir) || count(glob("$config_dir/*")) < 1) { // no saved configs
-    if (file_exists('/etc/dstar-radio.mmdvmhost')) { // NOT a new installaion, so display message...
+    if (file_exists('/etc/dstar-radio.mmdvmhost') && $MYCALL != "M1ABC") { // NOT a new installaion, so display message...
 ?>
 <div>
   <table align="center"style="margin: 0px 0px 10px 0px; width: 100%;border-collapse:collapse; table-layout:fixed;white-space: normal!important;">
     <tr>
-    <td align="center" valign="top" style="background-color: #ffff90; color: #906000; word-wrap: break-all;padding:20px;">Notice! You do not have any saved configuration / profiles.<br /><br />
+    <td align="center" valign="top" style="background-color: #ffff90; color: #906000; word-wrap: break-all;padding:20px;">Notice! You do not have any saved configurations / profiles.<br /><br />
     It is recommended that you <b><a href="/admin/advanced/config_manager.php">save your configuration / profile</a>.</b></td>
     </tr>
   </table>
