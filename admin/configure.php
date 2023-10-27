@@ -4697,7 +4697,7 @@ else:
     <?php
 	if ($configdgidgateway['Enabled']['Enabled'] == 1) {
 	    echo "<td colspan=\"1\" align=\"left\"><div class=\"switch\"><input id=\"toggle-ysf2dmr\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeYSF2DMR\" value=\"OFF\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleYSF2DMRCheckboxCr." disabled=\"disabled\"/><label id=\"aria-toggle-ysf2dmr\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Y S F 2 DMR Mode\" aria-checked=\"false\" onKeyPress=\"toggleYSF2DMRCheckbox()\" onclick=\"toggleYSF2DMRCheckbox()\" for=\"toggle-ysf2dmr\"><font style=\"font-size:0px\">Y S F 2 DMR Mode</font></label></div></td>\n";
-	    echo "<td align='left'><em>Note: YSF2DMR cannot be enabled along with DGIdGateway</em></td>\n";
+	    echo "<td align='left'><em>Note: YSF2DMR cannot be enabled in conjunction with DGIdGateway</em></td>\n";
 	} else if
 	    ($configmmdvm['System Fusion']['Enable'] != 1) {
 	    echo "<td colspan=\"1\" align=\"left\"><div class=\"switch\"><input id=\"toggle-ysf2dmr\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeYSF2DMR\" value=\"OFF\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleYSF2DMRCheckboxCr." disabled=\"disabled\"/><label id=\"aria-toggle-ysf2dmr\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Y S F 2 DMR Mode\" aria-checked=\"false\" onKeyPress=\"toggleYSF2DMRCheckbox()\" onclick=\"toggleYSF2DMRCheckbox()\" for=\"toggle-ysf2dmr\"><font style=\"font-size:0px\">Y S F 2 DMR Mode</font></label></div></td>\n";
@@ -4717,7 +4717,7 @@ else:
     <?php
 	if ($configdgidgateway['Enabled']['Enabled'] == 1) {
 	    echo "<td colspan=\"1\" align=\"left\"><div class=\"switch\"><input id=\"toggle-ysf2nxdn\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeYSF2NXDN\" value=\"OFF\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleYSF2NXDNCheckboxCr." disabled=\"disabled\" /><label id=\"aria-toggle-ysf2nxdn\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Y S F 2 NXDN Mode\" aria-checked=\"false\" onKeyPress=\"toggleYSF2NXDNCheckbox()\" onclick=\"toggleYSF2NXDNCheckbox()\" for=\"toggle-ysf2nxdn\"><font style=\"font-size:0px\">Y S F 2 NXDN Mode</font></label></div></td>\n";
-	    echo "<td align='left'><em>Note: YSF2NXDN cannot be enabled along with DGIdGateway</em></td>\n";
+	    echo "<td align='left'><em>Note: YSF2NXDN cannot be enabled in conjunction with DGIdGateway</em></td>\n";
 	} else if
 	    ($configmmdvm['System Fusion']['Enable'] != 1) {
 	    echo "<td colspan=\"1\" align=\"left\"><div class=\"switch\"><input id=\"toggle-ysf2nxdn\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeYSF2NXDN\" value=\"OFF\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleYSF2NXDNCheckboxCr." disabled=\"disabled\" /><label id=\"aria-toggle-ysf2nxdn\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Y S F 2 NXDN Mode\" aria-checked=\"false\" onKeyPress=\"toggleYSF2NXDNCheckbox()\" onclick=\"toggleYSF2NXDNCheckbox()\" for=\"toggle-ysf2nxdn\"><font style=\"font-size:0px\">Y S F 2 NXDN Mode</font></label></div></td>\n";
@@ -4738,7 +4738,7 @@ else:
     <?php
 	if ($configdgidgateway['Enabled']['Enabled'] == 1) {
 	    echo "<td colspan=\"1\" align=\"left\"><div class=\"switch\"><input id=\"toggle-ysf2p25\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeYSF2P25\" value=\"OFF\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleYSF2P25CheckboxCr." disabled=\"disabled\"/><label id=\"aria-toggle-ysf2p25\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Y S F 2 P 25 Mode\" aria-checked=\"false\" onKeyPress=\"toggleYSF2P25Checkbox()\" onclick=\"toggleYSF2P25Checkbox()\" for=\"toggle-ysf2p25\"><font style=\"font-size:0px\">Y S F 2 P 25 Mode</font></label></div></td>\n";
-	    echo "<td align='left'><em>Note: YSF2P25 cannot be enabled along with DGIdGateway</em></td>\n";
+	    echo "<td align='left'><em>Note: YSF2P25 cannot be enabled in conjunction with DGIdGateway</em></td>\n";
         } else if
             ($configmmdvm['System Fusion']['Enable'] != 1) {
 	    echo "<td colspan=\"1\" align=\"left\"><div class=\"switch\"><input id=\"toggle-ysf2p25\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeYSF2P25\" value=\"OFF\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleYSF2P25CheckboxCr." disabled=\"disabled\"/><label id=\"aria-toggle-ysf2p25\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Y S F 2 P 25 Mode\" aria-checked=\"false\" onKeyPress=\"toggleYSF2P25Checkbox()\" onclick=\"toggleYSF2P25Checkbox()\" for=\"toggle-ysf2p25\"><font style=\"font-size:0px\">Y S F 2 P 25 Mode</font></label></div></td>\n";
@@ -4762,15 +4762,15 @@ else:
 	    echo "<td align='left'><em>Note: DMR Mode must be enabled first.</em></td>\n";
 	} else if ( $configdmr2nxdn['Enabled']['Enabled'] == 1 ) {
 	    echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-dmr2ysf\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeDMR2YSF\" value=\"OFF\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDMR2YSFCheckboxCr." disabled='disabled' /><label id=\"aria-toggle-dmr2ysf\" role=\"checkbox\" tabindex=\"0\" aria-label=\"DMR 2 Y S F Mode\" aria-checked=\"true\" onKeyPress=\"toggleDMR2YSFCheckbox()\" onclick=\"toggleDMR2YSFCheckbox()\" for=\"toggle-dmr2ysf\"><font style=\"font-size:0px\">DMR 2 Y S F Mode</font></label></div></td>\n";
-	    echo "<td align='left'><em>Note: Cannot be enabed when DMR2NXDN is enabled.</em></td>\n";
+	    echo "<td align='left'><em>Note: Cannot be enabled in conjunction with DMR2NXDN.</em></td>\n";
 	} else {
 	    if ( $configdmr2ysf['Enabled']['Enabled'] == 1 ) {
 		echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-dmr2ysf\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeDMR2YSF\" value=\"ON\" checked=\"checked\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDMR2YSFCheckboxCr." /><label id=\"aria-toggle-dmr2ysf\" role=\"checkbox\" tabindex=\"0\" aria-label=\"DMR 2 Y S F Mode\" aria-checked=\"true\" onKeyPress=\"toggleDMR2YSFCheckbox()\" onclick=\"toggleDMR2YSFCheckbox()\" for=\"toggle-dmr2ysf\"><font style=\"font-size:0px\">DMR 2 Y S F Mode</font></label></div></td>\n";
-		echo '<td align="left" style="word-wrap: break-word;white-space: normal">Uses "7" talkgroup prefix on DMRGateway. Cannot be enabled with DMR2NXDN.</td>';
+		echo '<td align="left" style="word-wrap: break-word;white-space: normal">Uses "7" talkgroup prefix on DMRGateway. Cannot be enabled in conjunction with DMR2NXDN.</td>';
 	    }
 	    else {
 		echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-dmr2ysf\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeDMR2YSF\" value=\"ON\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDMR2YSFCheckboxCr." /><label id=\"aria-toggle-dmr2ysf\" role=\"checkbox\" tabindex=\"0\" aria-label=\"DMR 2 Y S F Mode\" aria-checked=\"false\" onKeyPress=\"toggleDMR2YSFCheckbox()\" onclick=\"toggleDMR2YSFCheckbox()\" for=\"toggle-dmr2ysf\"><font style=\"font-size:0px\">DMR 2 Y S F Mode</font></label></div></td>\n";
-		echo '<td align="left" style="word-wrap: break-word;white-space: normal">Uses "7" talkgroup prefix on DMRGateway. Cannot be enabled with DMR2NXDN.</td>';
+		echo '<td align="left" style="word-wrap: break-word;white-space: normal">Uses "7" talkgroup prefix on DMRGateway. Cannot be enabled in conjunction with DMR2NXDN.</td>';
 	    }
 	}
     ?>
@@ -4785,15 +4785,15 @@ else:
 	    echo "<td align='left'><em>Note: DMR Mode must be enabled first.</em></td>\n";
 	} else if ( $configdmr2ysf['Enabled']['Enabled'] == 1 ) {
 	    echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-dmr2nxdn\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeDMR2NXDN\" value=\"OFF\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDMR2NXDNCheckboxCr." disabled='disabled'/><label id=\"aria-toggle-dmr2nxdn\" role=\"checkbox\" tabindex=\"0\" aria-label=\"DMR 2 NXDN Mode\" aria-checked=\"true\" onKeyPress=\"toggleDMR2NXDNCheckbox()\" onclick=\"toggleDMR2NXDNCheckbox()\" for=\"toggle-dmr2nxdn\"><font style=\"font-size:0px\">DMR 2 NXDN Mode</font></label></div></td>\n";
-	    echo "<td align='left'><em>Note: Cannot be enabed when DMR2YSF is enabled.</em></td>\n";
+	    echo "<td align='left'><em>Note: Cannot be enabled in conjunction with DMR2YSF.</em></td>\n";
 	} else {
 	    if ( $configdmr2nxdn['Enabled']['Enabled'] == 1 ) {
 		echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-dmr2nxdn\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeDMR2NXDN\" value=\"ON\" checked=\"checked\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDMR2NXDNCheckboxCr." /><label id=\"aria-toggle-dmr2nxdn\" role=\"checkbox\" tabindex=\"0\" aria-label=\"DMR 2 NXDN Mode\" aria-checked=\"true\" onKeyPress=\"toggleDMR2NXDNCheckbox()\" onclick=\"toggleDMR2NXDNCheckbox()\" for=\"toggle-dmr2nxdn\"><font style=\"font-size:0px\">DMR 2 NXDN Mode</font></label></div></td>\n";
-		echo '<td align="left" style="word-wrap: break-word;white-space: normal">Uses "7" talkgroup prefix on DMRGateway. Cannot be enabled with DMR2YSF.</td>';
+		echo '<td align="left" style="word-wrap: break-word;white-space: normal">Uses "7" talkgroup prefix on DMRGateway. Cannot be enabled in conjunction with DMR2YSF.</td>';
 	    }
 	    else {
 		echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-dmr2nxdn\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeDMR2NXDN\" value=\"ON\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDMR2NXDNCheckboxCr." /><label id=\"aria-toggle-dmr2nxdn\" role=\"checkbox\" tabindex=\"0\" aria-label=\"DMR 2 NXDN Mode\" aria-checked=\"false\" onKeyPress=\"toggleDMR2NXDNCheckbox()\" onclick=\"toggleDMR2NXDNCheckbox()\" for=\"toggle-dmr2nxdn\"><font style=\"font-size:0px\">DMR 2 NXDN Mode</font></label></div></td>\n";
-		echo '<td align="left" style="word-wrap: break-word;white-space: normal">Uses "7" talkgroup prefix on DMRGateway. Cannot be enabled with DMR2YSF.</td>';
+		echo '<td align="left" style="word-wrap: break-word;white-space: normal">Uses "7" talkgroup prefix on DMRGateway. Cannot be enabled in conjunction with DMR2YSF.</td>';
 	    }
 	}
     ?>
@@ -4917,7 +4917,7 @@ else:
     </td></tr>
     <tr>
 	<td align="left" rowspan="4"><a class="tooltip2" href="#">OLED Display Options:<span><b>OLED Display Options</b>If you have an OLED display, choose your options here.</span></a></td>
-	<td align="left">Keep Display On: <small><em>(Displays data when modem is idle)</em></small></td>
+	<td align="left"><strong>Display Always Active:</strong> <small><em>(Displays data even while modem is idle)</em></small></td>
 	<td align="left">
     	    <input type="radio" name="oledScreenSaverEnable" value="ON" id="oledScreenSaver1" <?php if ($configmmdvm['OLED']['LogoScreensaver'] == "1") { echo 'checked="checked"'; } ?> />
 	    <label for="oledScreenSaver1">Enabled</label>
@@ -4926,7 +4926,7 @@ else:
 	</td>
     </tr>
     <tr>
-	<td align="left">Scroll Display: <small><em>(Note: OLED Type-3 [0.96"] displays only)</em></small></td>
+	<td align="left"><strong>Scroll Display:</strong> <small><em>(Note: OLED Type-3 [0.96"] displays only)</em></small></td>
 	<td align="left">
 	    <input type="radio" name="oledScrollEnable" value="ON" id="oledScroll1" <?php if ($configmmdvm['OLED']['Scroll'] == "1") { echo 'checked="checked"'; } if ($configmmdvm['OLED']['Type'] == "6") { echo 'disabled="disabled"'; } ?> />
 	    <label for="oledScroll1">Enabled</label>
@@ -4935,7 +4935,7 @@ else:
 	</td>
     </tr>
     <tr>
-	<td align="left">Rotate Display: <small><em>(Rotates display orientation 180 deg.)</em></small></td>
+	<td align="left"><strong>Rotate Display:</strong> <small><em>(Rotates display orientation 180 deg.)</em></small></td>
 	<td align="left">
 	    <input type="radio" name="oledRotateEnable" value="ON" id="oledRotate1" <?php if ($configmmdvm['OLED']['Rotate'] == "1") { echo 'checked="checked"'; } ?> />
 	    <label for="oledRotate1">Enabled</label>
@@ -4944,7 +4944,7 @@ else:
 	</td>
     </tr>
     <tr>
-	<td align="left">Invert Display: <small><em>(Inverts display background/foreground))</em></small></td>
+	<td align="left"><strong>Invert Display:</strong> <small><em>(Inverts display background/foreground)</em></small></td>
 	<td align="left">
 	    <input type="radio" name="oledInvertEnable" value="ON" id="oledInvert1" <?php if ($configmmdvm['OLED']['Invert'] == "1") { echo 'checked="checked"'; } ?> />
 	    <label for="oledInvert1">Enabled</label>
@@ -5785,7 +5785,7 @@ $ysfHosts = fopen("/usr/local/etc/YSFHosts.txt", "r"); ?>
 				    <?php
 				    if ($configysf2dmr['Enabled']['Enabled'] == 1 || $configysf2p25['Enabled']['Enabled'] == 1 || $configysf2nxdn['Enabled']['Enabled'] == 1 ) {
 					echo "<td align=\"left\" colspan=\"1\"><div class=\"switch\"><input id=\"toggle-useDGIdGateway\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"useDGIdGateway\" value=\"OFF\" disabled=\"disabled\" /><label for=\"toggle-useDGIdGateway\"></label></div></td>\n";
-					echo "<td align='left'><em>Note: DGIdGateway cannot be enabled along with YSF2DMR/YSF2NXDN/YSF2P25 modes</em></td>\n";
+					echo "<td align='left'><em>Note: DGIdGateway cannot be enabled in conjunction with YSF2DMR/YSF2NXDN/YSF2P25 modes</em></td>\n";
 				    } else {
 					if (isset($configdgidgateway['Enabled']['Enabled'])) {
 					    if ($configdgidgateway['Enabled']['Enabled']) {
