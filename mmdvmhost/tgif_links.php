@@ -106,7 +106,7 @@ if (empty($dmrID) == false) {
 	      echo '  <td align="left" style="padding: 8px;">'.$slot2tg.'<span style="float:right;">'."$slot2TGname".'</span></td>';
 	      echo '</tr>'."\n";
           //echo '<tr>'."\n";
-          //echo '  <td colspan="3"><b><a href="https://w0chp.net/tgif-talkgroups/" target="_blank">List of All TGIF Talkgroups (sortable/searchable/downloadable)...</a></b></td>'."\n";
+          //echo '  <td colspan="3"><b><a href="https://w0chp.radio/tgif-talkgroups/" target="_blank">List of All TGIF Talkgroups (sortable/searchable/downloadable)...</a></b></td>'."\n";
           //echo '</tr>'."\n";
 	      echo '</table>'."\n";
     }

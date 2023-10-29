@@ -1947,7 +1947,7 @@ function getName($callsign) {
                 'http'=>array(
                     'method'=>"GET",
                     'header'=>"Accept-language: en\r\n" .
-                               "User-Agent: W0CHP-PiStar-Dash; Name Lookup Function - <https://w0chp.net/w0chp-pistar-dash/>\r\n"
+                               "User-Agent: WPSD; Name Lookup Function - <https://wpsd.radio>\r\n"
                 )
         );
         $context = stream_context_create($options);

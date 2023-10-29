@@ -288,7 +288,7 @@ if(getDMRnetStatus("xlx") == "disabled") {
 			</tr>
                         <tr>
                           <td colspan="5" style="white-space:normal;padding: 3px;">
-                            <b><a href="https://w0chp.net/xlx-reflectors/" target="_blank">List of XLX Reflectors (searchable/downloadable)</a></b>
+                            <b><a href="https://w0chp.radio/xlx-reflectors/" target="_blank">List of XLX Reflectors (searchable/downloadable)</a></b>
 			      (Note: Not all XLX Reflectors support DMR.)
                           </td>
                         </tr>
