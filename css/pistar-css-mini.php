@@ -99,6 +99,11 @@ body, font {
     clear: both;
 }
 
+.footer a {
+    text-decoration: underline !important;
+    color : <?php echo $textBanners; ?> !important;
+}
+
 #tail {
     height: 450px;
     width: 805px;
