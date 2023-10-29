@@ -4816,35 +4816,6 @@ else:
     </table>
 	<div><input type="button" value="<?php echo $lang['apply'];?>" onclick="submitform()" /><br /><br /></div>
 
-<?php if (file_exists('/etc/dstar-radio.mmdvmhost')) { ?>
-    <h2 class="ConfSec">Node Access Mode</h2>
-    <table>
-    <tr>
-    <td colspan="4" align="left" style='word-wrap: break-word;white-space: normal;font-size:larger;color:#840C24;padding-left: 5px;'><em><b>Note:</b></em> This section is for advanced multi-user hotspot or repeater usage only!</td>
-    </tr>
-    <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['node_type'];?>:<span><b>Node Lock</b>Set the public/private node type. &quot;Private&quot; limits access to your system to your ID/Callsign only, this may be a licence requirement for your country and helps prevent network loops.</span></a></td>
-    <td align="left" colspan="2">
-    <input type="radio" name="nodeMode" id="nodePriv" value="prv"<?php if ($configmmdvm['DMR']['SelfOnly'] == 1) {echo ' checked="checked"';} ?> />
-      <label for="nodePriv" style="display: inline-block;">Private</label>
-<?php if (empty($configmmdvm['DMR']['WhiteList'])) { ?>    <input type="radio" name="nodeMode" id="nodePub" value="pub" disabled="diabled" />
-      <label for="nodePub" style="display: inline-block;">Public</label>
-<?php } else { ?>
-    <input type="radio" name="nodeMode" id="nodePub" value="pub"<?php if ($configmmdvm['DMR']['SelfOnly'] == 0) {echo ' checked="checked"';} ?> />
-      <label for="nodePub" style="display: inline-block;">Public</label>
-<?php } ?>
-    </td>
-    <td align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'><em><b>Note:</b> Public mode cannot be enabled without entering at least one allowed DMR/CCS7 ID in the access list below and applying the changes FIRST.</em></td>
-    </tr>
-    <tr>
-    <td align="left"><a class="tooltip2" href="#">Access List:<span><b>DMR/CCS7 IDs</b>Set the DMR/CCS7 IDs here that should have access to your hotspot, using a comma seperated list.</span></a></td>
-    <td align="left" colspan="2"><input type="text" placeholder="7654321" name="confDMRWhiteList" size="50" maxlength="100" value="<?php if (isset($configmmdvm['DMR']['WhiteList'])) { echo $configmmdvm['DMR']['WhiteList']; } ?>" /></td>
-    <td align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'>Enter one, or a comma-separated list of DMR/CCS7 IDs which are allowed access to this hotspot/repeater (required for public functionality).</td>
-    </tr>
-    </table>
-    <div><input type="button" value="<?php echo $lang['apply'];?>" onclick="submitform()" /><br /><br /></div>
-<?php } ?>
-
     <h2 class="ConfSec">MMDVMHost/Modem Display Configuration</h2>
     <input type="hidden" name="oledScreenSaverEnable" value="ON" />
     <input type="hidden" name="oledScrollEnable" value="OFF" />
@@ -6266,6 +6237,35 @@ $p25Hosts = fopen("/usr/local/etc/P25Hosts.txt", "r");
       </tr>
     </table>
 	<div><input type="button" value="<?php echo $lang['apply'];?>" onclick="submitform()" /><br /><br /></div>
+<?php } ?>
+
+<?php if (file_exists('/etc/dstar-radio.mmdvmhost')) { ?>
+    <h2 class="ConfSec">Node Access Mode</h2>
+    <table>
+    <tr>
+    <td colspan="4" align="left" style='word-wrap: break-word;white-space: normal;font-size:larger;color:#840C24;padding-left: 5px;'><em><b>Note:</b></em> This section is for advanced multi-user hotspot or repeater usage only!</td>
+    </tr>
+    <tr>
+    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['node_type'];?>:<span><b>Node Lock</b>Set the public/private node type. &quot;Private&quot; limits access to your system to your ID/Callsign only, this may be a licence requirement for your country and helps prevent network loops.</span></a></td>
+    <td align="left" colspan="2">
+    <input type="radio" name="nodeMode" id="nodePriv" value="prv"<?php if ($configmmdvm['DMR']['SelfOnly'] == 1) {echo ' checked="checked"';} ?> />
+      <label for="nodePriv" style="display: inline-block;">Private</label>
+<?php if (empty($configmmdvm['DMR']['WhiteList'])) { ?>    <input type="radio" name="nodeMode" id="nodePub" value="pub" disabled="diabled" />
+      <label for="nodePub" style="display: inline-block;">Public</label>
+<?php } else { ?>
+    <input type="radio" name="nodeMode" id="nodePub" value="pub"<?php if ($configmmdvm['DMR']['SelfOnly'] == 0) {echo ' checked="checked"';} ?> />
+      <label for="nodePub" style="display: inline-block;">Public</label>
+<?php } ?>
+    </td>
+    <td align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'><em><b>Note:</b> Public mode cannot be enabled without entering at least one allowed DMR/CCS7 ID in the access list below and applying the changes FIRST.</em></td>
+    </tr>
+    <tr>
+    <td align="left"><a class="tooltip2" href="#">Access List:<span><b>DMR/CCS7 IDs</b>Set the DMR/CCS7 IDs here that should have access to your hotspot, using a comma seperated list.</span></a></td>
+    <td align="left" colspan="2"><input type="text" placeholder="7654321" name="confDMRWhiteList" size="50" maxlength="100" value="<?php if (isset($configmmdvm['DMR']['WhiteList'])) { echo $configmmdvm['DMR']['WhiteList']; } ?>" /></td>
+    <td align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'>Enter one, or a comma-separated list of DMR/CCS7 IDs which are allowed access to this hotspot/repeater (required for public functionality).</td>
+    </tr>
+    </table>
+    <div><input type="button" value="<?php echo $lang['apply'];?>" onclick="submitform()" /><br /><br /></div>
 <?php } ?>
 
     <h2 class="ConfSec"><?php echo $lang['fw_config'];?></h2>
