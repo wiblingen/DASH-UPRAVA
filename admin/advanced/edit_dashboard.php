@@ -362,7 +362,7 @@ checkSessionValidity();
 		    echo "<br />\n";
         }
 		echo "</form>\n";
-		echo "<p> * Because of the way Pi-Star parses log files to display last heard data, it is not guaranteed that the number of rows specified will be displayed.</p>\n";
+		echo "<p> * Because of the way WPSD parses log files to display last heard data, it is not guaranteed that the number of rows specified will be displayed.</p>\n";
 		echo '<p>Click below to reset the values to default...</p>'."\n";
 		echo '<form id="cssUpload" action="" method="POST" enctype="multipart/form-data">'."\n";
 		echo '  <div><input id="fileid" name="cssFile" type="file" hidden/></div>'."\n";
