@@ -233,8 +233,8 @@ if (isset($_SESSION['YSFGatewayConfigs']['Remote Commands']['Enable']) && (isset
 		    </tr>
                     <tr>
                       <td colspan="4" style="white-space:normal;padding: 3px;">
-                        [ <a href="https://w0chp.net/ysf-reflectors/" target="_blank">List of YSF Reflectors (searchable/downloadable)</a> |
-                        <a href="https://w0chp.net/fcs-reflectors/" target="_blank">List of FCS Reflectors (searchable/downloadable)</a> ]
+                        [ <a href="https://w0chp.radio/ysf-reflectors/" target="_blank">List of YSF Reflectors (searchable/downloadable)</a> |
+                        <a href="https://w0chp.radio/fcs-reflectors/" target="_blank">List of FCS Reflectors (searchable/downloadable)</a> ]
                       </td>
                     </tr>
                 </table>
