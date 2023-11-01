@@ -291,6 +291,36 @@ $DGIdGatewayAPRS    = $configdgidgateway['APRS']['Enable'];
 $NXDNGatewayAPRS    = $confignxdngateway['APRS']['Enable'];
 $M17GatewayAPRS     = $configm17gateway['APRS']['Enable'];
 
+// APRS symbol form option handler
+$aprs_symbol_map = '/var/www/dashboard/includes/aprs-symbols/aprs_symbols.txt';
+
+// Read the file line by line and create options
+$sym_options = '';
+$overlay = false; // Initialize the overlay variable as false
+$selectedSymbol = $configdmrgateway['APRS']['Symbol']; // Get the selected symbol from the configuration
+
+if (($handle = fopen($aprs_symbol_map, 'r')) !== false) {
+    while (($line = fgets($handle)) !== false) {
+        // Split the line by tabs
+        $parts = explode("\t", $line);
+        if (count($parts) >= 3) {
+            // Extract the first column (symbol) and third column (description)
+            $symbol = trim($parts[0]);
+            $description = trim($parts[2]);
+
+            // Check if the symbol starts with a backslash "\" and set $overlay to true
+            if (strpos($symbol, '\\') === 0) {
+                $overlay = true;
+            }
+
+            // Generate the <option> element and check if it should be selected
+            $selectedAttribute = ($symbol == $selectedSymbol) ? 'selected' : '';
+            $sym_options .= "<option value='$symbol' $selectedAttribute>$description</option>";
+        }
+    }
+    fclose($handle);
+}
+
 // form handler for DMR beacon
 $DMRBeaconEnable    = $configmmdvm['DMR']['Beacons'];
 $DMRBeaconModeNet   = "0" ;
@@ -566,26 +596,6 @@ $MYCALL=strtoupper($callsign);
     <link rel="stylesheet" href="/includes/aprs-symbols/aprs-symbols.css?version=<?php echo $versionCmd; ?>"/>
     <script src="/includes/aprs-symbols/aprs-symbols.js?version=<?php echo $versionCmd; ?>"></script>
     <script src="/includes/aprs-symbols/doc-ready.js?version=<?php echo $versionCmd; ?>"></script>
-    <script type="text/javascript">
-        function updateSymbolPreview(symbolCode) {
-            var symbolPreview = document.getElementById('aprs-symbol-preview');
-            var previewText = document.querySelector('.aprs-preview-text');
-            var previewContainer = document.querySelector('.aprs-preview-container');
-            var symbolImageTag = getAPRSSymbolImageTag(symbolCode, 48);
-            
-            if (symbolCode !== '') {
-                // Update the image container with the selected symbol and display "Preview:"
-                symbolPreview.innerHTML = symbolImageTag;
-                previewText.style.display = 'block';
-                previewContainer.classList.add('centered');
-            } else {
-                // Clear the image container and hide "Preview:" when no symbol is selected
-                symbolPreview.innerHTML = '';
-                previewText.style.display = 'none';
-                previewContainer.classList.remove('centered');
-            }
-        }
-    </script>
 </head>
 <body onload="checkFrequency(); return false;">
 <?php
@@ -4606,47 +4616,16 @@ else:
         </div>
        </div>
        <hr />
-<?php // APRS symbol form option handler
-$aprs_symbol_map = '/var/www/dashboard/includes/aprs-symbols/aprs_symbols.txt';
-
-// Read the file line by line and create options
-$sym_options = '';
-$overlay = false; // Initialize the overlay variable as false
-
-if (($handle = fopen($aprs_symbol_map, 'r')) !== false) {
-    while (($line = fgets($handle)) !== false) {
-        // Split the line by tabs
-        $parts = explode("\t", $line);
-        if (count($parts) >= 3) {
-            // Extract the first column (symbol) and third column
-            // (description)
-            $symbol = trim($parts[0]);
-            $description = trim($parts[2]);
-
-            // Check if the symbol starts with a backslash "\" and set
-            // $overlay to true
-            if (strpos($symbol, '\\') === 0) {
-                $overlay = true;
-            }
-
-            // Generate the <option> element
-            $sym_options .= "<option value='$symbol'>$description</option>";
-        }
-    }
-    fclose($handle);
-}
-?>
     <div class="aprs-preview-container">
-    <label for="symbol" style="padding-right:5px;">Select APRS Symbol:</label>
-    <select id="symbol" name="symbol" onchange="updateSymbolPreview(this.value);">
-        <option value="" disabled selected>Select...</option>
-        <?php echo $sym_options; ?>
-    </select>
-
+	<label for="symbol" style="padding-right:5px;">Select APRS Symbol:</label>
+	<select id="symbol" name="symbol" onchange="updateSymbolPreview(this.value);">
+	    <option value="" disabled selected>Select...</option>
+	    <?php echo $sym_options; ?>
+	</select>
         <div class="aprs-preview-text" style="display: none;">Preview:</div>
         <div class="aprs-symbol-preview" id="aprs-symbol-preview"></div>
     </div>
-      </td>
+    </td>
     </tr>
     </table>
 
@@ -6453,6 +6432,32 @@ Get Help: <a href="https://www.facebook.com/groups/w0chppistardash/" target="_ne
 <br />
 </div>
 </div>
+<script type="text/javascript">
+    function updateSymbolPreview(symbolCode) {
+        var symbolPreview = document.getElementById('aprs-symbol-preview');
+        var previewText = document.querySelector('.aprs-preview-text');
+        var previewContainer = document.querySelector('.aprs-preview-container');
+        var symbolImageTag = getAPRSSymbolImageTag(symbolCode, 48);
+        
+        if (symbolPreview && previewText && previewContainer) { 
+            if (symbolCode !== '') {
+                // Update the image container with the selected symbol and display "Preview:"
+                symbolPreview.innerHTML = symbolImageTag;
+                previewText.style.display = 'block';
+                previewContainer.classList.add('centered');
+            } else {
+                // Clear the image container and hide "Preview:" when no symbol is selected
+                symbolPreview.innerHTML = '';
+                previewText.style.display = 'none';
+                previewContainer.classList.remove('centered');
+            }
+        }
+    }
+
+    // Call updateSymbolPreview with the preselected symbol on page load
+    var preselectedSymbol = '<?php echo $selectedSymbol; ?>';
+    updateSymbolPreview(preselectedSymbol);
+</script>
 </body>
 </html>
 
