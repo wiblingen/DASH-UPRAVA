@@ -1199,3 +1199,18 @@ meter::-webkit-meter-even-less-good-value {
   background: var(--sub-sub-optimum);
 }
 
+.aprs-preview-container {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.aprs-preview-text {
+    margin: 0 10px 0 5px;
+}
+
+.aprs-symbol-preview {
+    /* add'l/ existing styles for the symbol preview */
+}
