@@ -384,6 +384,7 @@ function clearAprsDotFi(&$cfgFile, $suffix) {
     $cfgFile['APRS']['Port'] = "8673";
     $cfgFile['APRS']['Suffix'] = $cfgAprsSuffix;
     $cfgFile['APRS']['Description'] = $cfgAprsDescription;
+    $cfgFile['APRS']['Symbol'] = "\"Wi\"";
 }
 
 // Ensure NXDNGateway file contains the new APRS configuration
@@ -562,6 +563,29 @@ $MYCALL=strtoupper($callsign);
 
     </script>
     <script type="text/javascript" src="/js/functions.js?version=<?php echo $versionCmd; ?>"></script>
+    <link rel="stylesheet" href="/includes/aprs-symbols/aprs-symbols.css?version=<?php echo $versionCmd; ?>"/>
+    <script src="/includes/aprs-symbols/aprs-symbols.js?version=<?php echo $versionCmd; ?>"></script>
+    <script src="/includes/aprs-symbols/doc-ready.js?version=<?php echo $versionCmd; ?>"></script>
+    <script type="text/javascript">
+        function updateSymbolPreview(symbolCode) {
+            var symbolPreview = document.getElementById('aprs-symbol-preview');
+            var previewText = document.querySelector('.aprs-preview-text');
+            var previewContainer = document.querySelector('.aprs-preview-container');
+            var symbolImageTag = getAPRSSymbolImageTag(symbolCode, 48);
+            
+            if (symbolCode !== '') {
+                // Update the image container with the selected symbol and display "Preview:"
+                symbolPreview.innerHTML = symbolImageTag;
+                previewText.style.display = 'block';
+                previewContainer.classList.add('centered');
+            } else {
+                // Clear the image container and hide "Preview:" when no symbol is selected
+                symbolPreview.innerHTML = '';
+                previewText.style.display = 'none';
+                previewContainer.classList.remove('centered');
+            }
+        }
+    </script>
 </head>
 <body onload="checkFrequency(); return false;">
 <?php
@@ -1101,7 +1125,12 @@ if (!empty($_POST)):
 	  }
 	}
 
-	// grab user prefs from form submission (or current settings) so we can later update the configs.
+	// grab APRS user prefs from form submission (or current settings) so we can later update the configs.
+	if ($_POST['symbol'] == "") { // no user selection; use default symbol
+		$symbol = "Wi";
+	} else {
+		$symbol = $_POST['symbol'];
+	}
 	if (empty($_POST['DMRGatewayAPRS']) != TRUE) { // checked!
 		$DMRGatewayAPRS = "1";
 	} else {
@@ -2541,26 +2570,6 @@ if (!empty($_POST)):
        	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
 	  }
 
-	  if ( $confHardware == 'mnnano-spot' ) {
-	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
-	    system($rollRepeaterType1);
-	    $configmmdvm['Modem']['Port'] = "/dev/ttyAMA0";
-	    $configmmdvm['General']['Duplex'] = 0;
-	    $configmmdvm['DMR Network']['Slot1'] = 0;
-       	    $configmmdvm['Modem']['Protocol'] = "uart";
-       	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
-	  }
-
-	  if ( $confHardware == 'mnnano-teensy' ) {
-	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
-	    system($rollRepeaterType1);
-	    $configmmdvm['Modem']['Port'] = "/dev/ttyUSB0";
-	    $configmmdvm['General']['Duplex'] = 0;
-	    $configmmdvm['DMR Network']['Slot1'] = 0;
-       	    $configmmdvm['Modem']['Protocol'] = "uart";
-       	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
-	  }
-
 	  if ( $confHardware == 'nanodv' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
@@ -3105,7 +3114,14 @@ if (!empty($_POST)):
 		$configdmrgateway['APRS']['Address'] = "127.0.0.1";
 		$configdmrgateway['APRS']['Port'] = "8673";
 		$configdmrgateway['APRS']['Suffix'] = "R";
+		$configdmrgateway['APRS']['Symbol'] = "\"$symbol\"";
 		$configdmrgateway['APRS']['Description'] = "APRS for DMRGateway";
+	}
+	if (!isset($configdmrgateway['APRS']['Symbol'])) {
+		$configdmrgateway['APRS']['Symbol'] = "\"$symbol\"";
+	}
+	if (isset($configdmrgateway['APRS']['Symbol'])) {
+		$configdmrgateway['APRS']['Symbol'] = "\"$symbol\"";
 	}
 
 	// DMRGateway can break the lines with quotes in, when DMRGateway is off...
@@ -3142,6 +3158,7 @@ if (!empty($_POST)):
 	$configm17gateway['APRS']['Address'] = "127.0.0.1";
 	$configm17gateway['APRS']['Port'] = "8673";
 	$configm17gateway['APRS']['Description'] = "APRS for M17Gateway";
+	$configm17gateway['APRS']['Symbol'] = "\"$symbol\"";
 	$configm17gateway['Remote Commands']['Enable'] = "1";
 	$configm17gateway['Remote Commands']['Port'] = "6076";
 	$configm17gateway['Log']['DisplayLevel'] = "0";
@@ -3402,6 +3419,7 @@ if (!empty($_POST)):
 	$configdgidgateway['APRS']['Address'] = "127.0.0.1";
 	$configdgidgateway['APRS']['Port'] = "8673";
 	$configdgidgateway['APRS']['Suffix'] = "Y";
+	$configdgidgateway['APRS']['Symbol'] = "\"$symbol\"";
 	$configdgidgateway['APRS']['Description'] = "APRS for DGIdGateway";
 
 	// Clean up for NXDN Gateway
@@ -3438,6 +3456,8 @@ if (!empty($_POST)):
 		if(!isset($confignxdngateway['APRS']['Address'])) { $confignxdngateway['APRS']['Server'] = "127.0.0.1"; }
 		if(!isset($confignxdngateway['APRS']['Port'])) { $confignxdngateway['APRS']['Port'] = "8673"; }
 		if(!isset($confignxdngateway['APRS']['Suffix'])) { $confignxdngateway['APRS']['Suffix'] = "N"; }
+		if(!isset($confignxdngateway['APRS']['Symbol'])) { $confignxdngateway['APRS']['Symbol'] = "\"$symbol\""; }
+		if(isset($confignxdngateway['APRS']['Symbol'])) { $confignxdngateway['APRS']['Symbol'] = "\"$symbol\""; }
 		if(!isset($confignxdngateway['APRS']['Description'])) { $confignxdngateway['APRS']['Description'] = "APRS for NXDNGateway"; }
 		// GPSd stuff
 		if(!isset($confignxdngateway['GPSD']['Enable'])) { $confignxdngateway['GPSD']['Enable'] = "0"; }
@@ -3478,6 +3498,8 @@ if (!empty($_POST)):
 	if (!isset($confignxdngateway['APRS']['Address'])) { $confignxdngateway['APRS']['Address'] = "127.0.0.1"; }
 	if (!isset($confignxdngateway['APRS']['Port'])) { $confignxdngateway['APRS']['Port'] = "8673"; }
 	if (!isset($confignxdngateway['APRS']['Suffix'])) { $confignxdngateway['APRS']['Suffix'] = "N"; }
+	if (!isset($confignxdngateway['APRS']['Symbol'])) { $confignxdngateway['APRS']['Suffix'] = "\"$symbol\""; }
+	if (isset($confignxdngateway['APRS']['Symbol'])) { $confignxdngateway['APRS']['Suffix'] = "\"$symbol\""; }
 	if (!isset($confignxdngateway['APRS']['Description'])) { $confignxdngateway['APRS']['Description'] = "APRS for NXDNGateway"; }
 	if (!isset($confignxdngateway['GPSD']['Enable'])) { $confignxdngateway['GPSD']['Enable'] = "0"; }
 	if (!isset($confignxdngateway['GPSD']['Address'])) { $confignxdngateway['GPSD']['Address'] = "127.0.0.1"; }
@@ -3521,6 +3543,8 @@ if (!empty($_POST)):
 	if (!isset($configysfgateway['APRS']['Port'])) { $configysfgateway['APRS']['Port'] = "8673"; }
 	if (isset($configysfgateway['APRS']['Description'])) { $configysfgateway['APRS']['Description'] = "APRS for YSFGateway"; }
 	if (!isset($configysfgateway['APRS']['Suffix'])) { $configysfgateway['APRS']['Suffix'] = "Y"; }
+	if (!isset($configysfgateway['APRS']['Symbol'])) { $configysfgateway['APRS']['Symbol'] = "\"$symbol\""; }
+	if (isset($configysfgateway['APRS']['Symbol'])) { $configysfgateway['APRS']['Symbol'] = "\"$symbol\""; }
 	if (isset($configysfgateway['aprs.fi'])) { unset($configysfgateway['aprs.fi']); }
 	if (isset($configysfgateway['APRS']['Enable'])) { $configysfgateway['APRS']['Enable'] = $YSFGatewayAPRS; }
 
@@ -4353,8 +4377,6 @@ else:
 		<option<?php if ($configModem['Modem']['Hardware'] === 'zumspotduplexgpio') {	echo ' selected="selected"';}?> value="zumspotduplexgpio">ZUMspot - Duplex Raspberry Pi Hat (GPIO)</option>
 	        <option<?php if ($configModem['Modem']['Hardware'] === 'zumradiopigpio') {	echo ' selected="selected"';}?> value="zumradiopigpio">ZUM Radio-MMDVM for Pi (GPIO; forced @ 460800 baud)</option>
 	        <option<?php if ($configModem['Modem']['Hardware'] === 'zumradiopiusb') {	echo ' selected="selected"';}?> value="zumradiopiusb">ZUM Radio-MMDVM-Nucleo (USB)</option>
-	        <option<?php if ($configModem['Modem']['Hardware'] === 'mnnano-spot') {		echo ' selected="selected"';}?> value="mnnano-spot">MicroNode Nano-Spot (Built In)</option>
-	        <option<?php if ($configModem['Modem']['Hardware'] === 'mnnano-teensy') {	echo ' selected="selected"';}?> value="mnnano-teensy">MicroNode Teensy (USB)</option>
 	        <option<?php if ($configModem['Modem']['Hardware'] === 'f4mgpio') {		echo ' selected="selected"';}?> value="f4mgpio">MMDVM F4M-GPIO (GPIO)</option>
 	        <option<?php if ($configModem['Modem']['Hardware'] === 'f4mf7m') {		echo ' selected="selected"';}?> value="f4mf7m">MMDVM F4M/F7M (F0DEI) for USB</option>
 	        <option<?php if ($configModem['Modem']['Hardware'] === 'mmdvmhsdualbandgpio') {	echo ' selected="selected"';}?> value="mmdvmhsdualbandgpio">MMDVM_HS_Dual_Band for Pi (GPIO)</option>
@@ -4549,40 +4571,81 @@ else:
                 if ($configmmdvm['DMR Network']['Enable'] !== "1")  { echo(' disabled="disabled"'); }?> >
                 <label for="aprsgw-service-selection-0">DMR</label>
             </div>
-            <div style="display: inline-block;vertical-align: middle;">
+            <div style="display: inline-block;vertical-align: middle; margin-left:5px;">
                 <input name="YSFGatewayAPRS" id="aprsgw-service-selection-1" value="YSFGatewayAPRS" type="checkbox"
                 <?php if(($YSFGatewayAPRS == "1" && $configmmdvm['System Fusion Network']['Enable'] == "1") || ($YSFGatewayAPRS == "1" && $configdmr2ysf['Enabled']['Enabled'] == "1")) { echo(' checked="checked"'); }
                 if ($configmmdvm['System Fusion Network']['Enable'] !== "1" && $configdmr2ysf['Enabled']['Enabled'] !== "1")  { echo(' disabled="disabled"'); }?> >
                 <label for="aprsgw-service-selection-1">YSF</label>
             </div>
-            <div style="display: inline-block;vertical-align: middle;">
+            <div style="display: inline-block;vertical-align: middle; margin-left:5px;">
                 <input name="DGIdGatewayAPRS" id="aprsgw-service-selection-2" value="DGIdGatewayAPRS" type="checkbox"
                 <?php if($DGIdGatewayAPRS == "1" && $configaprsgateway['Enabled']['Enabled'] == "1") { echo(' checked="checked"'); }
                 if ($configdgidgateway['Enabled']['Enabled'] !== "1")  { echo(' disabled="disabled"'); }?> >
                 <label for="aprsgw-service-selection-2">DGId</label>
             </div>
-            <div style="display: inline-block;vertical-align: middle;">
+            <div style="display: inline-block;vertical-align: middle; margin-left:5px;">
                 <input name="NXDNGatewayAPRS"  id="aprsgw-service-selection-3" value="NXDNGatewayAPRS" type="checkbox"
                 <?php if($NXDNGatewayAPRS == "1" && $configmmdvm['NXDN Network']['Enable'] == "1") { echo(' checked="checked"'); }
                 if ($configmmdvm['NXDN Network']['Enable'] !== "1")  { echo(' disabled="disabled"'); }?> >
                 <label for="aprsgw-service-selection-3">NXDN</label>
             </div>
-            <div style="display: inline-block;vertical-align: middle;">
+            <div style="display: inline-block;vertical-align: middle; margin-left:5px;">
                 <input name="M17GatewayAPRS" id="aprsgw-service-selection-4" value="M17GatewayAPRS" type="checkbox"
                 <?php if($M17GatewayAPRS == "1" && $configmmdvm['M17 Network']['Enable'] == "1") { echo(' checked="checked"'); }
                 if ($configmmdvm['M17 Network']['Enable'] !== "1")  { echo(' disabled="disabled"'); }?> >
                 <label for="aprsgw-service-selection-4">M17</label>
             </div>
-            <div style="display: inline-block;vertical-align: middle;">
+            <div style="display: inline-block;vertical-align: middle; margin-left:5px;">
                 <input name="IRCDDBGatewayAPRS" id="aprsgw-service-selection-5" value="IRCDDBGatewayAPRS" type="checkbox"
                 <?php if($IRCDDBGatewayAPRS == "1" && $configs['ircddbEnabled'] == "1" && $configmmdvm['D-Star Network']['Enable'] == "1") { echo(' checked="checked"'); }
                 if ($configs['ircddbEnabled'] !== "1" || $configmmdvm['D-Star Network']['Enable'] !== "1")  { echo(' disabled="disabled"'); }?> >
-                <label for="aprsgw-service-selection-5">ircDDB</label>
+                <label for="aprsgw-service-selection-5">ircDDB (D-Star)</label>
             </div>
             <br /><em><small>(Note: Radio/MMDVM Mode must be enabled to select APRS mode publishing.)</small></em>
           </div>
         </div>
        </div>
+       <hr />
+<?php // APRS symbol form option handler
+$aprs_symbol_map = '/var/www/dashboard/includes/aprs-symbols/aprs_symbols.txt';
+
+// Read the file line by line and create options
+$sym_options = '';
+$overlay = false; // Initialize the overlay variable as false
+
+if (($handle = fopen($aprs_symbol_map, 'r')) !== false) {
+    while (($line = fgets($handle)) !== false) {
+        // Split the line by tabs
+        $parts = explode("\t", $line);
+        if (count($parts) >= 3) {
+            // Extract the first column (symbol) and third column
+            // (description)
+            $symbol = trim($parts[0]);
+            $description = trim($parts[2]);
+
+            // Check if the symbol starts with a backslash "\" and set
+            // $overlay to true
+            if (strpos($symbol, '\\') === 0) {
+                $overlay = true;
+            }
+
+            // Generate the <option> element
+            $sym_options .= "<option value='$symbol'>$description</option>";
+        }
+    }
+    fclose($handle);
+}
+?>
+    <div class="aprs-preview-container">
+    <label for="symbol" style="padding-right:5px;">Select APRS Symbol:</label>
+    <select id="symbol" name="symbol" onchange="updateSymbolPreview(this.value);">
+        <option value="" disabled selected>Select...</option>
+        <?php echo $sym_options; ?>
+    </select>
+
+        <div class="aprs-preview-text" style="display: none;">Preview:</div>
+        <div class="aprs-symbol-preview" id="aprs-symbol-preview"></div>
+    </div>
       </td>
     </tr>
     </table>
