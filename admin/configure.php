@@ -4493,7 +4493,7 @@ else:
     <input type="radio" name="autoUpdateCheck" value="false" <?php if (constant("AUTO_UPDATE_CHECK") == "false") { echo 'checked="checked"'; } ?> />Disabled
     <input type="radio" name="autoUpdateCheck" value="true" <?php if (constant("AUTO_UPDATE_CHECK") == "true") { echo 'checked="checked"'; } ?> />Enabled
     </td>
-    <td align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'>Enables / Disables automatic dashboard software update notifications. When enabled, software update availability is displayed in the dashboard header.</td>
+    <td align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'>Enables / Disables automatic dashboard software update notifications.<br>When enabled, software update availability is displayed in the dashboard header.</td>
     </tr>
     </table>
 
@@ -4513,6 +4513,9 @@ else:
     <td align="left" colspan="3"><input type="text" id="confLongitude" name="confLongitude" size="13" maxlength="9" value="<?php echo $configs['longitude'] ?>" /> degrees (positive value for East, negative for West)</td>
     </tr>
     <tr>
+    <td colspan="4" align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'><i class="fa fa-info-circle"></i> Hint: You can use <a href="https://w0chp.radio/get-your-location-coords/" target="_new">this tool to try and calculate your location coordinates.</a></td>
+    </tr>
+    <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo $lang['town'];?>:<span><b>Gateway City/State</b>The City/State where the gateway is located</span></a></td>
     <td align="left" colspan="3"><input type="text" name="confDesc1" size="30" maxlength="30" value="<?php echo $configs['description1'] ?>" /></td>
     </tr>
@@ -4527,7 +4530,7 @@ else:
     <input type="radio" name="urlAuto" value="auto"<?php if (strpos($configs['url'], 'www.qrz.com/db/'.$configmmdvm['General']['Callsign']) !== FALSE) {echo ' checked="checked"';} ?> />Auto
     <input type="radio" name="urlAuto" value="man"<?php if (strpos($configs['url'], 'www.qrz.com/db/'.$configmmdvm['General']['Callsign']) == FALSE) {echo ' checked="checked"';} ?> />Manual
     <br />
-        <small>(Auto vs. Manual: Auto simply creates a URL to your QRZ.com callsign page. Manual allows you to specify your own custom URL/site.</small>
+        <small>&nbsp;<i class="fa fa-question-circle"></i> Auto vs. Manual: Auto simply creates a URL to your QRZ.com callsign page. Manual allows you to specify your own custom URL/site.</small>
     </td>
     </tr>
     <tr>
@@ -4808,11 +4811,11 @@ else:
 	} else {
 	    if ( $configdmr2ysf['Enabled']['Enabled'] == 1 ) {
 		echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-dmr2ysf\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeDMR2YSF\" value=\"ON\" checked=\"checked\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDMR2YSFCheckboxCr." /><label id=\"aria-toggle-dmr2ysf\" role=\"checkbox\" tabindex=\"0\" aria-label=\"DMR 2 Y S F Mode\" aria-checked=\"true\" onKeyPress=\"toggleDMR2YSFCheckbox()\" onclick=\"toggleDMR2YSFCheckbox()\" for=\"toggle-dmr2ysf\"><font style=\"font-size:0px\">DMR 2 Y S F Mode</font></label></div></td>\n";
-		echo '<td align="left" style="word-wrap: break-word;white-space: normal">Uses "7" talkgroup prefix on DMRGateway. Cannot be enabled in conjunction with DMR2NXDN.</td>';
+		echo '<td align="left" style="word-wrap: break-word;white-space: normal"><i class="fa fa-exclamation-circle"></i> Uses "7" talkgroup prefix on DMRGateway. <em>Note: Cannot be enabled in conjunction with DMR2NXDN.</em></td>';
 	    }
 	    else {
 		echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-dmr2ysf\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeDMR2YSF\" value=\"ON\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDMR2YSFCheckboxCr." /><label id=\"aria-toggle-dmr2ysf\" role=\"checkbox\" tabindex=\"0\" aria-label=\"DMR 2 Y S F Mode\" aria-checked=\"false\" onKeyPress=\"toggleDMR2YSFCheckbox()\" onclick=\"toggleDMR2YSFCheckbox()\" for=\"toggle-dmr2ysf\"><font style=\"font-size:0px\">DMR 2 Y S F Mode</font></label></div></td>\n";
-		echo '<td align="left" style="word-wrap: break-word;white-space: normal">Uses "7" talkgroup prefix on DMRGateway. Cannot be enabled in conjunction with DMR2NXDN.</td>';
+		echo '<td align="left" style="word-wrap: break-word;white-space: normal"><i class="fa fa-exclamation-circle"></i> Uses "7" talkgroup prefix on DMRGateway. <em>Note: Cannot be enabled in conjunction with DMR2NXDN.</em></td>';
 	    }
 	}
     ?>
@@ -4831,11 +4834,11 @@ else:
 	} else {
 	    if ( $configdmr2nxdn['Enabled']['Enabled'] == 1 ) {
 		echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-dmr2nxdn\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeDMR2NXDN\" value=\"ON\" checked=\"checked\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDMR2NXDNCheckboxCr." /><label id=\"aria-toggle-dmr2nxdn\" role=\"checkbox\" tabindex=\"0\" aria-label=\"DMR 2 NXDN Mode\" aria-checked=\"true\" onKeyPress=\"toggleDMR2NXDNCheckbox()\" onclick=\"toggleDMR2NXDNCheckbox()\" for=\"toggle-dmr2nxdn\"><font style=\"font-size:0px\">DMR 2 NXDN Mode</font></label></div></td>\n";
-		echo '<td align="left" style="word-wrap: break-word;white-space: normal">Uses "7" talkgroup prefix on DMRGateway. Cannot be enabled in conjunction with DMR2YSF.</td>';
+		echo '<td align="left" style="word-wrap: break-word;white-space: normal"><i class="fa fa-exclamation-circle"></i> Uses "7" talkgroup prefix on DMRGateway. <em>Note: Cannot be enabled in conjunction with DMR2YSF.</em></td>';
 	    }
 	    else {
 		echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-dmr2nxdn\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeDMR2NXDN\" value=\"ON\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDMR2NXDNCheckboxCr." /><label id=\"aria-toggle-dmr2nxdn\" role=\"checkbox\" tabindex=\"0\" aria-label=\"DMR 2 NXDN Mode\" aria-checked=\"false\" onKeyPress=\"toggleDMR2NXDNCheckbox()\" onclick=\"toggleDMR2NXDNCheckbox()\" for=\"toggle-dmr2nxdn\"><font style=\"font-size:0px\">DMR 2 NXDN Mode</font></label></div></td>\n";
-		echo '<td align="left" style="word-wrap: break-word;white-space: normal">Uses "7" talkgroup prefix on DMRGateway. Cannot be enabled in conjunction with DMR2YSF.</td>';
+		echo '<td align="left" style="word-wrap: break-word;white-space: normal"><i class="fa fa-exclamation-circle"></i> Uses "7" talkgroup prefix on DMRGateway. <em>Note: Cannot be enabled in conjunction with DMR2YSF.</em></td>';
 	    }
 	}
     ?>
@@ -5179,7 +5182,7 @@ if (!@file_exists($bmAPIkeyFile) && !@fopen($bmAPIkeyFile,'r')) {
     <?php if ($configdmrgateway['DMR Network 2']['Enabled'] == 1) { echo "<div class=\"switch\"><input id=\"toggle-dmrGatewayNet2En\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"dmrGatewayNet2En\" value=\"ON\" checked=\"checked\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDmrGatewayNet2EnCheckboxCr." /><label id=\"aria-toggle-dmrGatewayNet2En\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Enable DMR+ / FreeDMR / HBlink\" aria-checked=\"true\" onKeyPress=\"toggleDmrGatewayNet2EnCheckbox()\" onclick=\"toggleDmrGatewayNet2EnCheckbox()\" for=\"toggle-dmrGatewayNet2En\"><font style=\"font-size:0px\">Enable DMR+ / FreeDMR / HBlink</font></label></div>\n"; }
     else { echo "<div class=\"switch\"><input id=\"toggle-dmrGatewayNet2En\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"dmrGatewayNet2En\" value=\"ON\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDmrGatewayNet2EnCheckboxCr." /><label id=\"aria-toggle-dmrGatewayNet2En\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Enable DMR+ / FreeDMR / HBlink\" aria-checked=\"false\" onKeyPress=\"toggleDmrGatewayNet2EnCheckbox()\" onclick=\"toggleDmrGatewayNet2EnCheckbox()\" for=\"toggle-dmrGatewayNet2En\"><font style=\"font-size:0px\">Enable DMR+ / FreeDMR / HBlink</font></label></div>\n"; } ?>
     </td>
-    <td align="left" colspan="1">Uses "8" talkgroup prefix</td>
+    <td align="left" colspan="1"><i class="fa fa-exclamation-circle"></i> Uses "8" talkgroup prefix</td>
     </tr>
 
     <tr>
@@ -5251,7 +5254,7 @@ if (!@file_exists($bmAPIkeyFile) && !@fopen($bmAPIkeyFile,'r')) {
     <?php if ($configdmrgateway['DMR Network 5']['Enabled'] == 1) { echo "<div class=\"switch\"><input id=\"toggle-dmrGatewayNet5En\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"dmrGatewayNet5En\" value=\"ON\" checked=\"checked\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDmrGatewayNet5EnCheckboxCr." /><label id=\"aria-toggle-dmrGatewayNet5En\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Enable SystemX\" aria-checked=\"true\" onKeyPress=\"toggleDmrGatewayNet5EnCheckbox()\" onclick=\"toggleDmrGatewayNet5EnCheckbox()\" for=\"toggle-dmrGatewayNet5En\"><font style=\"font-size:0px\">Enable SystemX</font></label></div>\n"; }
     else { echo "<div class=\"switch\"><input id=\"toggle-dmrGatewayNet5En\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"dmrGatewayNet5En\" value=\"ON\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDmrGatewayNet5EnCheckboxCr." /><label id=\"aria-toggle-dmrGatewayNet5En\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Enable SystemX\" aria-checked=\"false\" onKeyPress=\"toggleDmrGatewayNet5EnCheckbox()\" onclick=\"toggleDmrGatewayNet5EnCheckbox()\" for=\"toggle-dmrGatewayNet5En\"><font style=\"font-size:0px\">Enable SystemX</font></label></div>\n"; } ?>
     </td>
-    <td align="left" colspan="1">Uses "4" talkgroup prefix</td>
+    <td align="left" colspan="1"><i class="fa fa-exclamation-circle"></i> Uses "4" talkgroup prefix</td>
     </tr>
 	</tr>
 	<tr>
@@ -5314,7 +5317,7 @@ if (!@file_exists($bmAPIkeyFile) && !@fopen($bmAPIkeyFile,'r')) {
     <?php if ($configdmrgateway['DMR Network 4']['Enabled'] == 1) { echo "<div class=\"switch\"><input id=\"toggle-dmrGatewayNet4En\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"dmrGatewayNet4En\" value=\"ON\" checked=\"checked\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDmrGatewayNet4EnCheckboxCr." /><label id=\"aria-toggle-dmrGatewayNet4En\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Enable TGIF\" aria-checked=\"true\" onKeyPress=\"toggleDmrGatewayNet4EnCheckbox()\" onclick=\"toggleDmrGatewayNet4EnCheckbox()\" for=\"toggle-dmrGatewayNet4En\"><font style=\"font-size:0px\">Enable TGIF/font></label></div>\n"; }
     else { echo "<div class=\"switch\"><input id=\"toggle-dmrGatewayNet4En\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"dmrGatewayNet4En\" value=\"ON\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDmrGatewayNet4EnCheckboxCr." /><label id=\"aria-toggle-dmrGatewayNet4En\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Enable TGIF\" aria-checked=\"false\" onKeyPress=\"toggleDmrGatewayNet4EnCheckbox()\" onclick=\"toggleDmrGatewayNet4EnCheckbox()\" for=\"toggle-dmrGatewayNet4En\"><font style=\"font-size:0px\">Enable TGIF</font></label></div>\n"; } ?>
     </td>
-    <td align="left" colspan="1">Uses "5" talkgroup prefix</td>
+    <td align="left" colspan="1"><i class="fa fa-exclamation-circle"></i> Uses "5" talkgroup prefix</td>
     </tr>
     <tr>
     <td align="left"><a class="tooltip2" href="#">TGIF Network:<span><b>TGIF Dashboards</b>Direct links to your TGIF Dashboard</span></a></td>
