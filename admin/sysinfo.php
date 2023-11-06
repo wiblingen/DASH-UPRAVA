@@ -19,6 +19,8 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/config/language.php';
 require_once $_SERVER['DOCUMENT_ROOT'].'/config/version.php';
 include_once('mmdvmhost/tools.php');
 
+$instanceUUID = $_SESSION['PiStarRelease']['Pi-Star']['UUID'];
+
 function system_information() {
     @list($system, $host, $kernel) = preg_split('/[\s,]+/', php_uname('a'), 5);
     $meminfo = false;
@@ -218,6 +220,7 @@ function timesyncdProc() {
 		    echo "<tr><th align='left'>System</th><th align='left'>Details</th></tr>";
 		    echo "<tr><td align='left'>Operating System</td><td align='left'>{$system['os']}, release ver. {$system['os_ver']}</td></tr>";
 		    echo "<tr><td align='left'>Hardware &amp; Platform</td><td align='left'>".$_SESSION['PiStarRelease']['Pi-Star']['Hardware']."<br />".$_SESSION['PiStarRelease']['Pi-Star']['Platform']."</td></tr>";
+		    echo "<tr><td align='left'>Hardware UUID</td><td align='left'>$instanceUUID</td></tr>";
 		    // Binary Information
 		    echo "  <tr><th align='left'>Software Binaries</th><th align='left'>Version</th></tr>\n";
 		    if (is_executable('/usr/local/bin/MMDVMHost')) {
