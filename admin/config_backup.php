@@ -201,7 +201,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/config_backup.php") {
 				//$output .= "Stopping Services.\n";
 				
 				// Stop the DV Services
-			    	shell_exec('sudo pistar-services fullstop > /dev/null');
+			    	shell_exec('sudo wpsd-services fullstop > /dev/null');
 	
 				// Make the disk Writable
 				shell_exec('sudo mount -o remount,rw / > /dev/null');
@@ -239,7 +239,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/config_backup.php") {
 				
 				// Start the services
 				//$output .= "Starting Services.\n";
-			    	shell_exec('sudo pistar-services start > /dev/null &');
+			    	shell_exec('sudo wpsd-services start > /dev/null &');
 	
 				// Complete
 				$output .= "<h3 style='text-align:center'>Configuration Restoration Complete.</h3>\n";

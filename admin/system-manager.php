@@ -16,10 +16,10 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/mmdvmhost/tools.php';        // MMDVMDa
 include_once $_SERVER['DOCUMENT_ROOT'].'/mmdvmhost/functions.php';    // MMDVMDash Functions
 include_once $_SERVER['DOCUMENT_ROOT'].'/config/language.php';        // Translation Code
 
-$fw_enable    = "sudo /usr/local/sbin/pistar-system-manager -efw";
-$fw_disable   = "sudo /usr/local/sbin/pistar-system-manager -dfw";
-$cron_enable  = "sudo /usr/local/sbin/pistar-system-manager -ec";
-$cron_disable = "sudo /usr/local/sbin/pistar-system-manager -dc";
+$fw_enable    = "sudo /usr/local/sbin/wpsd-system-manager -efw";
+$fw_disable   = "sudo /usr/local/sbin/wpsd-system-manager -dfw";
+$cron_enable  = "sudo /usr/local/sbin/wpsd-system-manager -ec";
+$cron_disable = "sudo /usr/local/sbin/wpsd-system-manager -dc";
 $psr_enable   = "sudo mount -o remount,rw / ; sudo sed -i '/callsign=/c callsign=".$_SESSION['MYCALL']."' /etc/pistar-remote ; sudo sed -i '/enabled=/c enabled=true' /etc/pistar-remote ; sudo systemctl unmask pistar-remote.service ; sudo systemctl unmask pistar-remote.timer ; sudo systemctl enable pistar-remote.service ; sudo systemctl start pistar-remote.service; sudo systemctl start pistar-remote.timer";
 $psr_disable  = "sudo mount -o remount,rw / ; sudo sed -i '/enabled=/c enabled=false' /etc/pistar-remote ; sudo systemctl stop pistar-remote.timer ; sudo systemctl stop pistar-remote.service ; sudo systemctl disable pistar-remote.service; sudo systemctl disable pistar-remote.timer ; sudo systemctl mask pistar-remote.service ; sudo systemctl mask pistar-remote.timer";
 $psw_enable   = "sudo mount -o remount,rw / ; sudo systemctl unmask pistar-watchdog.service ; sudo systemctl enable pistar-watchdog.service ; sudo systemctl unmask pistar-watchdog.timer ; sudo systemctl enable pistar-watchdog.timer; sudo systemctl start pistar-watchdog.service ; sudo systemctl start pistar-watchdog.timer";
