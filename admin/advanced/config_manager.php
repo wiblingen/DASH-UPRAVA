@@ -151,7 +151,7 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
 				   exec("sudo chown www-data:www-data /var/www/dashboard/ > /dev/null");
 				   exec("sudo sh -c 'cp -a /root/*Hosts.txt $backupDir' > /dev/null");
 				   exec("sudo sh -c \"echo ".$_POST['configs']." > /etc/.WPSD_config\"");
-				   exec("sudo pistar-services restart > /dev/null &");
+				   exec("sudo wpsd-services restart > /dev/null &");
 			    }
 			    else if ( escapeshellcmd($_POST["remove_config"]) ) {
 				   echo '<tr><td colspan="3"><br />Deleting Config, "' .$_POST['delete_configs'].'"...

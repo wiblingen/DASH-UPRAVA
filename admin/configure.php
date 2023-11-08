@@ -854,7 +854,7 @@ if (!empty($_POST)):
 	  die();
 	}
 
-	system('sudo pistar-services fullstop > /dev/null 2>/dev/null');
+	system('sudo wpsd-services fullstop > /dev/null 2>/dev/null');
 
 	echo "<table>\n";
 	echo "<tr><th>INFO:</th></tr>\n";
@@ -919,7 +919,7 @@ if (!empty($_POST)):
 	  $log_backup_dir = "/home/pi-star/.backup-mmdvmhost-logs/";
 	  $log_dir = "/var/log/pi-star/";
           exec ("sudo rm -rf $log_dir/* $log_backup_dir/* > /dev/null");
-	  system('sudo pistar-services start > /dev/null 2>/dev/null &');
+	  system('sudo wpsd-services start > /dev/null 2>/dev/null &');
           echo '<script type="text/javascript">setTimeout(function() { window.location=window.location;},5000);</script>';
 	  echo "<br />\n</div>\n";
           echo "<br />\n</div>\n</div>\n</body>\n</html>\n";
@@ -4206,7 +4206,7 @@ if (!empty($_POST)):
 
 	// Start all services
 	system('sudo systemctl daemon-reload > /dev/null 2>/dev/null');	// Restart Systemd to account for any service changes
-	system('sudo pistar-services start > /dev/null 2>/dev/null');
+	system('sudo wpsd-services start > /dev/null 2>/dev/null');
 
 	unset($_POST);
 	echo '<script type="text/javascript">setTimeout(function() { window.location=window.location;},5000);</script>';
