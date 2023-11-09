@@ -833,13 +833,13 @@ function getYSFGatewayLog() {
     $logLines2 = array();
     if (file_exists(YSFGATEWAYLOGPATH."/".YSFGATEWAYLOGPREFIX."-".gmdate("Y-m-d").".log")) {
 	$logPath1 = YSFGATEWAYLOGPATH."/".YSFGATEWAYLOGPREFIX."-".gmdate("Y-m-d").".log";
-	$logLines1 = preg_split('/\r\n|\r|\n/', `egrep -h "^M.*(Link has failed|Closing|onnection to|onnect to|ink|isconnect|Opening YSF network)" $logPath1 | sed '/Linked to MMDVM/d' | sed '/Link successful to MMDVM/d' | sed '/*Link/d' | tail -1`);
+	$logLines1 = preg_split('/\r\n|\r|\n/', `egrep -h "^(M|W).*(Link has failed|Closing|onnection to|onnect to|ink|isconnect|Opening YSF network)" $logPath1 | sed '/Linked to MMDVM/d' | sed '/Link successful to MMDVM/d' | sed '/*Link/d' | tail -1`);
     }
     $logLines1 = array_filter($logLines1);
     if (sizeof($logLines1) == 0) {
 	if (file_exists(YSFGATEWAYLOGPATH."/".YSFGATEWAYLOGPREFIX."-".gmdate("Y-m-d", time() - 86340).".log")) {
 	    $logPath2 = YSFGATEWAYLOGPATH."/".YSFGATEWAYLOGPREFIX."-".gmdate("Y-m-d", time() - 86340).".log";
-	    $logLines2 = preg_split('/\r\n|\r|\n/', `egrep -h "^M.*(Link has failed|Closing|onnection to|onnect to|ink|isconnect|Opening YSF network)" $logPath2 | sed '/Linked to MMDVM/d' | sed '/Link successful to MMDVM/d' | sed '/*Link/d' | tail -1`);
+	    $logLines2 = preg_split('/\r\n|\r|\n/', `egrep -h "^(M|W).*(Link has failed|Closing|onnection to|onnect to|ink|isconnect|Opening YSF network)" $logPath2 | sed '/Linked to MMDVM/d' | sed '/Link successful to MMDVM/d' | sed '/*Link/d' | tail -1`);
 	}
 	$logLines2 = array_filter($logLines2);
     }
