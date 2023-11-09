@@ -108,18 +108,28 @@ if ($_SERVER["PHP_SELF"] == "/admin/live_log.php") {
     <script type="text/javascript" src="/js/jquery.min.js?version=<?php echo $versionCmd; ?>"></script>
     <script type="text/javascript" src="/js/jquery-timing.min.js?version=<?php echo $versionCmd; ?>"></script>
     <script type="text/javascript">
-    $(function() {
-      $.repeat(1000, function() {
-        $.get('/admin/live_log.php?log=<?php echo "$log";?>&ajax', function(data) {
-          if (data.length < 1) return;
-          var objDiv = document.getElementById("tail");
-          var isScrolledToBottom = objDiv.scrollHeight - objDiv.clientHeight <= objDiv.scrollTop + 1;
-          $('#tail').append(data);
-          if (isScrolledToBottom)
-            objDiv.scrollTop = objDiv.scrollHeight;
+      $(function() {
+        var placeholderVisible = true;
+
+        $.repeat(1000, function() {
+          $.get('/admin/live_log.php?log=<?php echo "$log";?>&ajax', function(data) {
+              if (data.length < 1) return;
+
+              var objDiv = document.getElementById("tail");
+              var isScrolledToBottom = objDiv.scrollHeight - objDiv.clientHeight <= objDiv.scrollTop + 1;
+
+              if (placeholderVisible) {
+                  $('#tail').empty(); // Remove placeholder text
+                  placeholderVisible = false;
+              }
+
+              $('#tail').append(data);
+
+              if (isScrolledToBottom)
+                  objDiv.scrollTop = objDiv.scrollHeight;
+          });
         });
       });
-    });
     </script>
   </head>
   <body>
