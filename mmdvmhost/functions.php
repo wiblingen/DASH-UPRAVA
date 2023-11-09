@@ -1615,7 +1615,7 @@ function getActualLink($logLines, $mode) {
 			$to = "Not Linked";
 		    }  else if (strpos($logLine,"Opening YSF network connection")) {
 			$to = "Not Linked";
-		    }  else if (strpos($logLine,"Link has failed, polls lost")) {
+		    }  else if (strpos($logLine,"Link has failed")) {
 			$to = "Not Linked";
 		    }  else if (strpos($logLine,"Closing YSF network connection")) {
 			$to = "Not Linked";
