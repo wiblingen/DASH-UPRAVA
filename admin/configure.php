@@ -4916,7 +4916,7 @@ else:
             }
 	    ?>
 	    <?php if (file_exists('/dev/ttyS2')) { ?>
-	    	<option <?php if ($configmmdvm['Nextion']['Port'] == "/dev/ttyS2") {echo 'selected="selected" ';}; ?>value="ttyS2">/dev/ttyS2</option>
+	    	<option <?php if ($configmmdvm['Nextion']['Port'] == "/dev/ttyS2") {echo 'selected="selected" ';}; ?>value="/dev/ttyS2">/dev/ttyS2</option>
     	    <?php } ?>
 	    </select>
 
