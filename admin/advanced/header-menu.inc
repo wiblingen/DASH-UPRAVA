@@ -13,7 +13,6 @@
 	<div class="navbar">
 	    <a class="menuconfig" href="/admin/configure.php"><?php echo $lang['configuration'];?></a>
 	    <a class="menubackup" href="/admin/config_backup.php"><?php echo $lang['backup_restore'];?></a>
-	    <!--<a class="menuupgrade" href="/admin/advanced/upgrade.php">Upgrade</a>-->
 	    <a class="menuupdate" href="/admin/update.php"><?php echo $lang['update'];?></a>
 	    <a class="menuadmin" href="/admin/"><?php echo $lang['admin'];?></a>
 	    <?php if (file_exists("/etc/dstar-radio.mmdvmhost")) { ?>
@@ -140,7 +139,6 @@
 			    </ul>
 			</li>
 			<li class="subs"><a href="services.php?action=updatehostsfiles">Update Hosts Files</a></li>
-			<li class="subs"><a href="security_upgrades.php">OS  Upgrades</a></li>
 			<li class="subs"><a href="edit_dashboard.php">Look &amp; Feel</a></li>
 			<li class="subs"><a href="ssh_access.php">SSH Access</a></li>
 			<li class="subs"><a href="jitter_test.php">DMR Jitter Test</a></li>
