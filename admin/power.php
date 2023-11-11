@@ -153,20 +153,6 @@ if(isset($_SESSION['PiStarRelease']['Pi-Star']['ProcNum']) && ($_SESSION['PiStar
 					<button style="border: none; background: none; margin: 15px 0px;" id="shutdown" name="action" value="shutdown"><img src="/images/shutdown.png" border="0" alt="Shutdown" /></button>					
 				    </td>
 				</tr>
-				<tr>
-				<?php
-				function isServiceActive($service_name) {
-				    $status_output = shell_exec("systemctl is-active $service_name");
-				    $status_output = trim($status_output);
-				    return ($status_output === "active");
-				}
-				$service_name = "mmdvm-log-backup.timer";
-				$is_active = isServiceActive($service_name);
-				if ($is_active) {
-				    echo '<td colspan="2"><input type="checkbox" name="purgeLogs" value="1" id="purge" /> <label for="purge">Purge Last Heard dashboard data on Shutdown / Reboot</label></td>';
-				}
-				?>
-				</tr>
 			    </table>
 			</form>
 		    <?php } ?>
