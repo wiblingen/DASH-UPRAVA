@@ -125,7 +125,8 @@ if ($_SERVER["PHP_SELF"] == "/admin/config_backup.php") {
 			    $output .= shell_exec("sudo find /root/ -maxdepth 1 -name '*Hosts.txt' -exec cp {} $backupDir \; > /dev/null")."\n";
 			    $output .= shell_exec("sudo cp -a /etc/WPSD_config_mgr $backupDir > /dev/null")."\n";
 			    $output .= "Compressing backup files\n";
-			    $output .= shell_exec("sudo zip -r $backupZip $backupDir > /dev/null")."\n";
+			    chdir($backupDir);
+			    $output .= shell_exec("sudo zip -r $backupZip * > /dev/null")."\n";
 			    $output .= "Starting download\n";
 
 			    echo "<tr><td align=\"left\"><pre>$output</pre></td></tr>\n";
