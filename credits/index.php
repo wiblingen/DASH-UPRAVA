@@ -76,8 +76,6 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/config/version.php';
 			Barthen; <code>DL5DI</code>, both of whom arguably created the very first MMDVM and
 			ircDDBGateway dashboards (respectively); of which, spawned the entire Pi-Star
 			concept.</p>
-			<p>The very cool and welcome MMDVMhost log backup/restore and re-application on
-			reboot code, is courtesy of Mark, <code>KN2TOD</code>.</p>
 			<p>So much credit goes toward the venerable José Uribe (&ldquo;Andy&rdquo;), <code>CA6JAU</code>, for his
 			amazing work and providing the game-changing <code>MMDVM_HS</code> hotspot firmware suite,
 			as well as his <code>MMDVM_CM</code> cross-mode suite.</p>
