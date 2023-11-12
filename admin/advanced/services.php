@@ -39,16 +39,16 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/config/version.php';
 		$action = isset($_GET['action']) ? $_GET['action'] : '';
 
 		if (strcmp($action, 'stop') == 0) {
-		    $action_msg = 'Stopping Services';
+		    $action_msg = 'Stopping WPSD Services';
 		}
 		else if (strcmp($action, 'fullstop') == 0) {
-		    $action_msg = 'Stopping Fully Services';
+		    $action_msg = 'Fully Stopping WPSD Services';
 		}
 		else if (strcmp($action, 'restart') == 0) {
-		    $action_msg = 'Restarting Services';
+		    $action_msg = 'Restarting WPSD Services';
 		}
 		else if (strcmp($action, 'status') == 0) {
-		    $action_msg = 'Services Status';
+		    $action_msg = 'WPSD Services Status';
 		}
 		else if (strcmp($action, 'updatehostsfiles') == 0) {
 		    $action_msg = 'Updating The Hosts Files';

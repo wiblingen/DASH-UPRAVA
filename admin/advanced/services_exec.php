@@ -42,10 +42,10 @@ foreach ($cmdoutput as $l) {
     echo "<br />";
 }
 if ($retvalue == 0) {
-    echo "<h2>** Success **</h2>";
+    echo "<p style='font-size:larger;'>** Success **</p>";
 }
 else {
-    echo "<h2>!! Failure !!</h2>";
+    echo "<p tyle='font-size:larger; >!! Failure !!</p>";
 }
 echo "<br />";
 ?>
