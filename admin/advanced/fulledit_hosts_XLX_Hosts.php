@@ -21,10 +21,6 @@ if ($retvalue != 0) {
     exec('sudo echo "create XLXHosts.txt" >> /tmp/debug.txt');
     exec('sudo touch /tmp/xGTcrAjxp2DN2.tmp');
     exec('sudo chown www-data:www-data /tmp/xGTcrAjxp2DN2.tmp');
-    exec('echo "#       XLXHosts.txt" > /tmp/xGTcrAjxp2DN2.tmp');
-    exec('echo "#" >> /tmp/xGTcrAjxp2DN2.tmp');
-    exec('echo "#       Written for Pi-Star Digital Voice Node by Andy Taylor (MW0MWZ)" >> /tmp/xGTcrAjxp2DN2.tmp');
-    exec('echo "#       Original idea from Jonathan Naylor (G4KLX)" >> /tmp/xGTcrAjxp2DN2.tmp');
     exec('echo "#" >> /tmp/xGTcrAjxp2DN2.tmp');
     exec('echo "#	The format of this file is:" >> /tmp/xGTcrAjxp2DN2.tmp');
     exec('echo "#	XLX Number;host;default" >> /tmp/xGTcrAjxp2DN2.tmp');
