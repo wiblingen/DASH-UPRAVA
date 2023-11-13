@@ -62,13 +62,13 @@ $os_ver = trim( exec( 'cat /etc/debian_version' ) );
   <?php if (getPSWstate()=='0' ) { ?>
   <div class='grid-item paused-mode-cell' title="Disabled">Service Watchdog</div>
   <?php } else { ?>
-  <div class="grid-item <?php getServiceStatusClass(isProcessRunning('/usr/local/sbin/pistar-watchdog',true)); ?>">Service Watchdog</div> 
+  <div class="grid-item <?php getServiceStatusClass(isProcessRunning('/usr/local/sbin/pistar-watchdog',true)); ?>">Services Watchdog</div> 
   <?php } ?>
 
   <div class="grid-item <?php getServiceStatusClass(UPnPenabled()); ?>">UPnP</div>  
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('gpsd'));  ?>">GPSd</div>  
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('NextionDriver'));  ?>">NextionDriver</div>  
-  <div class="grid-item <?php getServiceStatusClass(isProcessRunning('/usr/local/sbin/pistar-keeper',true)); ?>">Sysop/Keeper Service</div>
+  <div class="grid-item <?php getServiceStatusClass(isProcessRunning('starnetserverd')); ?>">Starnet Server (D-Star)</div>
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('DGIdGateway')); ?>">DGIdGateway</div> 
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('DMR2YSF')); ?>">DMR2YSF</div>
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('YSF2P25')); ?>">YSF2P25</div>

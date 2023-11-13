@@ -240,27 +240,5 @@ if ($_SERVER["PHP_SELF"] == "/admin/index.php") {
 	</form>
 <?php
     } //endif;
-?>
-    
-<?php
-    exec ("pgrep pistar-keeper", $pids);
-    if (!empty($pids))
-    {
-	echo "<br />\n";
-	echo "<b>PiStar-Keeper Logbook</b><input type=button onClick=\"location.href='/admin/pistar-keeper-download.php'\" value=\"Download Logbook\">\n";
-	echo "<table>\n";
-	echo "  <tr>\n";
-	echo "    <th><a class=\"tooltip\" href=\"#\">PiStar-Keeper Log Entries (UTC)<span><b>PiStar-Keeper Log Entries (UTC)</b></span></th>\n";
-	echo "  </tr>\n";
-	
-	exec ("tail -n 5 /var/pistar-keeper/pistar-keeper.log", $lines);
-	$counter = 0;
-	foreach ($lines as $line) {
-	    echo "<tr><td align=\"left\">".$lines[$counter]."</td></tr>\n";
-	    $counter++;
-	}
-	
-	echo "</table>\n";
-    }
 }
 ?>

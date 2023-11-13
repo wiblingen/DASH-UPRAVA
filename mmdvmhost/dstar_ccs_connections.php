@@ -15,6 +15,7 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/config/ircddblocal.php';
 
 if (exec('grep "CCS link" '.$linkLogPath.' | wc -l') >= 1) {
 ?>
+    <br />
     <div style="text-align:left;font-weight:bold;">Active CCS Connections</div>
     <table id="ccsConns">
 	<tr>

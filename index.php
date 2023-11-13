@@ -404,18 +404,17 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 			include 'mmdvmhost/dstar_reflector_links.php';
 			echo '</div>'."\n";
 			include 'admin/dstar_link_manager.php';		// D-Star Link Manager
+			echo '<script type="text/javascript">'."\n";
+			echo 'function reloadccsConnections(){'."\n";
+			echo '  $("#ccsConnects").load("/mmdvmhost/dstar_ccs_connections.php",function(){ setTimeout(reloadccsConnections,15000) });'."\n";
+			echo '}'."\n";
+			echo 'setTimeout(reloadccsConnections,15000);'."\n";
+			echo '$(window).trigger(\'resize\');'."\n";
+			echo '</script>'."\n";
+			echo '<div id="ccsConnects">'."\n";
+			include 'mmdvmhost/dstar_ccs_connections.php';
+			echo '</div>'."\n";
 		    }
-		    
-		    echo '<script type="text/javascript">'."\n";
-		    echo 'function reloadccsConnections(){'."\n";
-		    echo '  $("#ccsConnects").load("/mmdvmhost/dstar_ccs_connections.php",function(){ setTimeout(reloadccsConnections,15000) });'."\n";
-		    echo '}'."\n";
-		    echo 'setTimeout(reloadccsConnections,15000);'."\n";
-		    echo '$(window).trigger(\'resize\');'."\n";
-		    echo '</script>'."\n";
-		    echo '<div id="ccsConnects">'."\n";
-		    include 'mmdvmhost/dstar_ccs_connections.php';
-		    echo '</div>'."\n";
 		}
 		if ($_SERVER["PHP_SELF"] == "/admin/index.php" && $_POST["func"] == "mode_man" || $_GET["func"] == "mode_man") {	// Admin Only Option (instant mode mgr)	
                     include "admin/instant-mode-manager.php";
