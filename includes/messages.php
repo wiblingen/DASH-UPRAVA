@@ -22,20 +22,14 @@ if (file_exists($osReleaseFile)) {
         $debianCodename = $matches[1];
     }
     if ($debianCodename === "buster") {
-	$result = @file_get_contents('https://wpsd-swd.w0chp.net/WPSD-SWD/WPSD_Messages/raw/branch/master/no-mo-busta-yo.html', false, $headers);
+	$local_msg = '/var/www/dashboard/includes/.wpsd-legacy-msg.html';
+	if(file_exists($local_msg)) {
+	    $result = @file_get_contents($local_msg);
+	} else {
+	    $result = @file_get_contents('https://wpsd-swd.w0chp.net/WPSD-SWD/WPSD_Messages/raw/branch/master/no-mo-busta-yo.html', false, $headers);
+	}
 	echo $result;
     }
 }
-// older wpsd with very old uuid scheme
-$UUID = $_SESSION['PiStarRelease']['Pi-Star']['UUID'];
-$uuidNeedle = "-";
-if (strpos($UUID, $uuidNeedle) !== false) {
-    $result = @file_get_contents('https://wpsd-swd.w0chp.net/WPSD-SWD/WPSD_Messages/raw/branch/master/no-mo-busta-yo.html', false, $headers);
-    echo $result;
-}
-// F1RMB detected
-if( strpos(file_get_contents("/etc/pistar-release"),"-RMB") !== false) {
-    $result = @file_get_contents('https://wpsd-swd.w0chp.net/WPSD-SWD/WPSD_Messages/raw/branch/master/update-req-uuid.html', false, $headers);
-    echo $result;
-}
 ?>
+
