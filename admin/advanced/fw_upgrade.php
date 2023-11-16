@@ -28,8 +28,8 @@ if ($_SERVER["PHP_SELF"] == "/admin/advanced/fw_upgrade.php") {
     }
 
     if (!isset($_GET['ajax'])) {
-	//system('sudo touch /var/log/pi-star/WPSD-modemflash.log > /dev/null 2>&1 &');
-	//system('sudo echo "" > /var/log/pi-star/WPSD-modemflash.log  > /dev/null 2>&1 &');
+	system('sudo touch /var/log/pi-star/WPSD-modemflash.log > /dev/null 2>&1 &');
+	system('sudo echo "" > /var/log/pi-star/WPSD-modemflash.log  > /dev/null 2>&1 &');
 	system('sudo NP=1 /usr/local/sbin/wpsd-modemupgrade ' . escapeshellarg($selectedOption) . ' > /dev/null 2>&1 &');
 	$_SESSION['modemupgrade-isrunning'] = 1;
     }
