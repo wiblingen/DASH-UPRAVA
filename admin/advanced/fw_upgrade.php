@@ -28,8 +28,8 @@ if ($_SERVER["PHP_SELF"] == "/admin/advanced/fw_upgrade.php") {
     }
 
     if (!isset($_GET['ajax'])) {
-	system('sudo touch /var/log/pi-star/WPSD-modemflash.log > /dev/null 2>&1 &');
-	system('sudo echo "" > /var/log/pi-star/WPSD-modemflash.log  > /dev/null 2>&1 &');
+	//system('sudo touch /var/log/pi-star/WPSD-modemflash.log > /dev/null 2>&1 &');
+	//system('sudo echo "" > /var/log/pi-star/WPSD-modemflash.log  > /dev/null 2>&1 &');
 	system('sudo NP=1 /usr/local/sbin/wpsd-modemupgrade ' . escapeshellarg($selectedOption) . ' > /dev/null 2>&1 &');
 	$_SESSION['modemupgrade-isrunning'] = 1;
     }
@@ -168,7 +168,8 @@ if ($_SERVER["PHP_SELF"] == "/admin/advanced/fw_upgrade.php") {
 		      <p>This tool will attempt to upgrade your selected modem to the latest version available firmware version:<br />
 		        <?php echo $fw_ver_msg; ?>
 		      <p>When ready, select your modem type below and click, "Upgrade Modem". Do not interrupt the process or navigate away from the page while the process is running.</p>
-		      <p><em>(Please note that the WPSD project does not develop firmware, nor do we support firmware nor modems.</em></p>
+		      <p><strong>Please understand what you are doing, as well as the risks associated with flashing your modem.</strong></p>
+		      <p><em>(NOTE: The WPSD project does not develop firmware, nor do we support firmware nor modems.)</em></p>
 		    </div>
 	      </div>
 	    </div>
