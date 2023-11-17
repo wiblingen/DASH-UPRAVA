@@ -896,18 +896,18 @@ if (!empty($_POST)):
 	      $modemMatch = true;
 	  }
 	  if ($modemMatch && $modemValue === 'sbhsdualbandgpio') { // SkyBridge+ unit
-	      exec('sudo mkdir /tmp/reset/ ; sudo unzip -o /usr/local/bin/.config_skybridge.zip -d /tmp/reset/; sudo mv /tmp/reset/*.php /var/www/dashboard/config/ ; sudo mv /tmp/reset/hostapd.conf /etc/hostapd/ ; sudo mv /tmp/reset/* /etc/ ; sudo rm -rf /tmp/reset');
+	      exec('sudo mkdir /tmp/reset/ ; sudo mkdir /tmp/reset-configs ; sudo unzip -o /usr/local/bin/.config_dvmega.zip -d /tmp/reset/; sudo mv /tmp/reset/*.php /tmp/reset-configs/ ; sudo mv /tmp/reset/hostapd.conf /etc/hostapd/ ; sudo mv /tmp/reset/* /etc/ ; sudo rm -rf /tmp/reset ; sudo timedatectl set-timezone America/Chicago');
 	  } elseif ($modemMatch && $modemValue === 'dvmpis') { // DVMega units
-              exec('sudo mkdir /tmp/reset/ ; sudo unzip -o /usr/local/bin/.config_dvmega.zip -d /tmp/reset/; sudo mv /tmp/reset/*.php /var/www/dashboard/config/ ; sudo mv /tmp/reset/hostapd.conf /etc/hostapd/ ; sudo mv /tmp/reset/* /etc/ ; sudo rm -rf /tmp/reset');
+              exec('sudo mkdir /tmp/reset/ ; sudo mkdir /tmp/reset-configs ; sudo unzip -o /usr/local/bin/.config_dvmega.zip -d /tmp/reset/; sudo mv /tmp/reset/*.php /tmp/reset-configs/ ; sudo mv /tmp/reset/hostapd.conf /etc/hostapd/ ; sudo mv /tmp/reset/* /etc/ ; sudo rm -rf /tmp/reset ; sudo timedatectl set-timezone Europe/Amsterdam');
 	  } elseif ($modemMatch && strpos($modemValue, 'zum') === 0 && strpos($modemValue, 'usb') !== false) { // ZUMRadio USB stick
-	      exec('sudo mkdir /tmp/reset/ ; sudo unzip -o /usr/local/bin/.config_zumusb.zip -d /tmp/reset/; sudo mv /tmp/reset/*.php /var/www/dashboard/config/ ; sudo mv /tmp/reset/hostapd.conf /etc/hostapd/ ; sudo mv /tmp/reset/* /etc/ ; sudo rm -rf /tmp/reset');
+	      exec('sudo mkdir /tmp/reset/ ; sudo mkdir /tmp/reset-configs ; sudo unzip -o /usr/local/bin/.config_dvmega.zip -d /tmp/reset/; sudo mv /tmp/reset/*.php /tmp/reset-configs/ ; sudo mv /tmp/reset/hostapd.conf /etc/hostapd/ ; sudo mv /tmp/reset/* /etc/ ; sudo rm -rf /tmp/reset ; sudo timedatectl set-timezone America/Chicago');
 	  } elseif ($modemMatch && strpos($modemValue, 'zum') === 0 && strpos($modemValue, 'usb') === false) { // ZUMradio GPIO HAT
 	      switch ($display) {
 	          case "Nextion": // ZUMspot Elite unit
-	      	      exec('sudo mkdir /tmp/reset/ ; sudo unzip -o /usr/local/bin/.config_zumgpio-nx.zip -d /tmp/reset/; sudo mv /tmp/reset/*.php /var/www/dashboard/config/ ; sudo mv /tmp/reset/hostapd.conf /etc/hostapd/ ; sudo mv /tmp/reset/* /etc/ ; sudo rm -rf /tmp/reset');
+	      	      exec('sudo mkdir /tmp/reset/ ; sudo mkdir /tmp/reset-configs ; sudo unzip -o /usr/local/bin/.config_dvmega.zip -d /tmp/reset/; sudo mv /tmp/reset/*.php /tmp/reset-configs/ ; sudo mv /tmp/reset/hostapd.conf /etc/hostapd/ ; sudo mv /tmp/reset/* /etc/ ; sudo rm -rf /tmp/reset ; sudo timedatectl set-timezone America/Chicago');
 	              break;
 	          default: // ZUMspot Mini unit
-	              exec('sudo mkdir /tmp/reset/ ; sudo unzip -o /usr/local/bin/.config_zumgpio-oled.zip -d /tmp/reset/; sudo mv /tmp/reset/*.php /var/www/dashboard/config/ ; sudo mv /tmp/reset/hostapd.conf /etc/hostapd/ ; sudo mv /tmp/reset/* /etc/ ; sudo rm -rf /tmp/reset');
+	      	      exec('sudo mkdir /tmp/reset/ ; sudo mkdir /tmp/reset-configs ; sudo unzip -o /usr/local/bin/.config_dvmega.zip -d /tmp/reset/; sudo mv /tmp/reset/*.php /tmp/reset-configs/ ; sudo mv /tmp/reset/hostapd.conf /etc/hostapd/ ; sudo mv /tmp/reset/* /etc/ ; sudo rm -rf /tmp/reset ; sudo timedatectl set-timezone America/Chicago');
 	              break;
 	      }
 	  } else { // No-match ($modemValue = null): reset w/Generic hardware/setup configs
@@ -922,6 +922,7 @@ if (!empty($_POST)):
 	  exec('sudo git --work-tree=/usr/local/sbin --git-dir=/usr/local/sbin/.git reset --hard origin/master');
 	  exec('sudo git --work-tree=/usr/local/bin --git-dir=/usr/local/bin/.git reset --hard origin/master');
 	  exec('sudo git --work-tree=/var/www/dashboard --git-dir=/var/www/dashboard/.git reset --hard origin/master');
+	  exec('sudo mv /tmp/reset-configs/*.php /var/www/dashboard/config/ ; sudo rm -rf /tmp/reset-configs');
 	  // reset logs
 	  $log_backup_dir = "/home/pi-star/.backup-mmdvmhost-logs/";
 	  $log_dir = "/var/log/pi-star/";
