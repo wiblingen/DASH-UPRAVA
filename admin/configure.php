@@ -874,7 +874,7 @@ if (!empty($_POST)):
           echo "</table>\n";
           unset($_POST);
 
-	  // vendor handlers for specific hardware stock configs
+	  // Vendor handlers for specific hardware stock configs
 	  // we take reset actions based on specific modem vendor devices (and displays) that are already configured
 	  $display = exec("awk -F'=' '/\[General\]/{flag=1} flag && /Display/{print $2; flag=0}' /etc/mmdvmhost");
 	  $fileContents = @file_get_contents('/etc/dstar-radio.mmdvmhost');
@@ -897,7 +897,7 @@ if (!empty($_POST)):
 	  }
 	  if ($modemMatch && $modemValue === 'sbhsdualbandgpio') { // SkyBridge+ unit
 	      exec('sudo mkdir /tmp/reset/ ; sudo unzip -o /usr/local/bin/.config_skybridge.zip -d /tmp/reset/; sudo mv /tmp/reset/*.php /var/www/dashboard/config/ ; sudo mv /tmp/reset/hostapd.conf /etc/hostapd/ ; sudo mv /tmp/reset/* /etc/ ; sudo rm -rf /tmp/reset');
-	  } elseif ($modemMatch && $modemValue === 'sbhsdualbandgpio') { // DVMega units
+	  } elseif ($modemMatch && $modemValue === 'dvmpis') { // DVMega units
               exec('sudo mkdir /tmp/reset/ ; sudo unzip -o /usr/local/bin/.config_dvmega.zip -d /tmp/reset/; sudo mv /tmp/reset/*.php /var/www/dashboard/config/ ; sudo mv /tmp/reset/hostapd.conf /etc/hostapd/ ; sudo mv /tmp/reset/* /etc/ ; sudo rm -rf /tmp/reset');
 	  } elseif ($modemMatch && strpos($modemValue, 'zum') === 0 && strpos($modemValue, 'usb') !== false) { // ZUMRadio USB stick
 	      exec('sudo mkdir /tmp/reset/ ; sudo unzip -o /usr/local/bin/.config_zumusb.zip -d /tmp/reset/; sudo mv /tmp/reset/*.php /var/www/dashboard/config/ ; sudo mv /tmp/reset/hostapd.conf /etc/hostapd/ ; sudo mv /tmp/reset/* /etc/ ; sudo rm -rf /tmp/reset');
