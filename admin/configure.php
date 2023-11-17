@@ -381,6 +381,11 @@ if (($configmmdvm['General']['Display'] == "Nextion") && ($configmmdvm['NextionD
     $configmmdvm['Nextion']['Port'] = $configmmdvm['NextionDriver']['Port'];
 }
 
+// special (on init) handling for DV-Mega CAST's display udp service, which uses Transpaent Data from MMDVMhost...
+if ($configmmdvm['General']['Display'] == "CAST") {
+    $configmmdvm['Transparent Data']['Enable'] == "1";
+}
+
 // New MMDVMHost uart stuff
 if (!isset($configmmdvm['Modem']['Protocol']) ||
 !isset($configmmdvm['Modem']['UARTPort']) ||
@@ -881,6 +886,7 @@ if (!empty($_POST)):
 	      $modemValue = null;
 	  }
 	  $vendorHardwareArray = [
+	      'dvmpis',		  // DVMega single-band 70cm GPIO HAT (EuroNode, Cast, etc.)
 	      'sbhsdualbandgpio', // SkyBridge dual-band GPIO HAT
 	      'zumspotgpio',      // ZUMspot single-band GPIO HAT
 	      'zumspotusb'  	  // ZUMspot USB stick
@@ -891,6 +897,8 @@ if (!empty($_POST)):
 	  }
 	  if ($modemMatch && $modemValue === 'sbhsdualbandgpio') { // SkyBridge+ unit
 	      exec('sudo mkdir /tmp/reset/ ; sudo unzip -o /usr/local/bin/.config_skybridge.zip -d /tmp/reset/; sudo mv /tmp/reset/*.php /var/www/dashboard/config/ ; sudo mv /tmp/reset/hostapd.conf /etc/hostapd/ ; sudo mv /tmp/reset/* /etc/ ; sudo rm -rf /tmp/reset');
+	  } elseif ($modemMatch && $modemValue === 'sbhsdualbandgpio') { // DVMega units
+              exec('sudo mkdir /tmp/reset/ ; sudo unzip -o /usr/local/bin/.config_dvmega.zip -d /tmp/reset/; sudo mv /tmp/reset/*.php /var/www/dashboard/config/ ; sudo mv /tmp/reset/hostapd.conf /etc/hostapd/ ; sudo mv /tmp/reset/* /etc/ ; sudo rm -rf /tmp/reset');
 	  } elseif ($modemMatch && strpos($modemValue, 'zum') === 0 && strpos($modemValue, 'usb') !== false) { // ZUMRadio USB stick
 	      exec('sudo mkdir /tmp/reset/ ; sudo unzip -o /usr/local/bin/.config_zumusb.zip -d /tmp/reset/; sudo mv /tmp/reset/*.php /var/www/dashboard/config/ ; sudo mv /tmp/reset/hostapd.conf /etc/hostapd/ ; sudo mv /tmp/reset/* /etc/ ; sudo rm -rf /tmp/reset');
 	  } elseif ($modemMatch && strpos($modemValue, 'zum') === 0 && strpos($modemValue, 'usb') === false) { // ZUMradio GPIO HAT
@@ -1601,13 +1609,13 @@ if (!empty($_POST)):
 		}
 	}
 
-	// Set M17 Callsign Station ID
-	if ('' !== $_POST['m17StationID']) {
-		$m17StationIDnew = escapeshellcmd($_POST['m17StationID']);
-		$configm17gateway['General']['Callsign'] = "$newCallsignUpper-$m17StationIDnew";
-	} else {
-		$configm17gateway['General']['Callsign'] = $newCallsignUpper;
-	}
+        // Set M17 Callsign Station ID
+        if (!empty($_POST['m17StationID'])) {
+                $m17StationIDnew = escapeshellcmd($_POST['m17StationID']);
+                $configm17gateway['General']['Callsign'] = $newCallsignUpper . "-" . $m17StationIDnew;
+        } else {
+                $configm17gateway['General']['Callsign'] = $newCallsignUpper;
+        }
 
 	// Set the DMR2M17 Startup Reflector
 	if (empty($_POST['dmr2m17StartupRef']) != TRUE ) {
@@ -2939,6 +2947,18 @@ if (!empty($_POST)):
 	    else {
 		$configmmdvm['General']['Display'] = escapeshellcmd($_POST['mmdvmDisplayType']);
 	    }
+	}
+
+	// handle NONE display post
+	if ((empty($_POST['mmdvmDisplayType']) == TRUE) || (escapeshellcmd($_POST['mmdvmDisplayType']) == "None")) {
+	    $configmmdvm['General']['Display'] = "";
+	    unset($_POST['mmdvmDisplayType']);
+	}
+
+	// special handling for DV-Mega CAST's display udp service, which uses Transpaent Data from MMDVMhost...
+	    if (substr($_POST['mmdvmDisplayType'] , 0, 4) === "CAST") {
+	    $configmmdvm['General']['Display'] = "CAST";
+	    $configmmdvm['Transparent Data']['Enable'] == "1";
 	}
 
 	// Set the MMDVMHost Display Port
@@ -4365,9 +4385,9 @@ else:
 		<option<?php if ($configModem['Modem']['Hardware'] === 'dvmbss') {		echo ' selected="selected"';}?> value="dvmbss">DV-Mega on Bluestack (USB) - Single Band (70cm)</option>
 		<option<?php if ($configModem['Modem']['Hardware'] === 'dvmbsd') {		echo ' selected="selected"';}?> value="dvmbsd">DV-Mega on Bluestack (USB) - Dual Band</option>
 	    	<?php if (file_exists('/dev/ttyS2')) { ?>
-	    	<option<?php if ($configModem['Modem']['Hardware'] === 'dvmpicast') {	echo ' selected="selected"';}?> value="dvmpicast">DV-Mega Cast Base Radio (Main Unit)</option>
-	    	<option<?php if ($configModem['Modem']['Hardware'] === 'dvmpicasths') {	echo ' selected="selected"';}?> value="dvmpicasths">DV-Mega Cast Hotspot - Single Band (70cm)</option>
-	    	<option<?php if ($configModem['Modem']['Hardware'] === 'dvmpicasthd') {	echo ' selected="selected"';}?> value="dvmpicasthd">DV-Mega Cast Hotspot - Dual Band (2m/70cm)</option>
+	    	<option<?php if ($configModem['Modem']['Hardware'] === 'dvmpicast') {		echo ' selected="selected"';}?> value="dvmpicast">DV-Mega Cast Base Radio (Main Unit)</option>
+	    	<option<?php if ($configModem['Modem']['Hardware'] === 'dvmpicasths') {		echo ' selected="selected"';}?> value="dvmpicasths">DV-Mega Cast Hotspot - Single Band (70cm)</option>
+	    	<option<?php if ($configModem['Modem']['Hardware'] === 'dvmpicasthd') {		echo ' selected="selected"';}?> value="dvmpicasthd">DV-Mega Cast Hotspot - Dual Band (2m/70cm)</option>
 	    	<?php } ?>
 	        <option<?php if ($configModem['Modem']['Hardware'] === 'dvrptr1') {		echo ' selected="selected"';}?> value="dvrptr1">DV-RPTR V1 (USB)</option>
 		<option<?php if ($configModem['Modem']['Hardware'] === 'dvrptr2') {		echo ' selected="selected"';}?> value="dvrptr2">DV-RPTR V2 (USB)</option>
@@ -4377,7 +4397,7 @@ else:
 		<option<?php if ($configModem['Modem']['Hardware'] === 'stm32dvmv3+') {		echo ' selected="selected"';}?> value="stm32dvmv3+">RB STM32-DVM (GPIO v3+; forced @ 460800 baud)</option>
 		<option<?php if ($configModem['Modem']['Hardware'] === 'stm32usb') {		echo ' selected="selected"';}?> value="stm32usb">RB STM32-DVM (USB)</option>
 		<option<?php if ($configModem['Modem']['Hardware'] === 'stm32usbv3+') {		echo ' selected="selected"';}?> value="stm32usbv3+">RB STM32-DVM (USB v3+; forced @ 460800 baud)</option>
-		<option<?php if ($configModem['Modem']['Hardware'] === 'stm32dvmmtr2kopi') {		echo ' selected="selected"';}?> value="stm32dvmmtr2kopi">RB STM32-DVM-MTR2k (GPIO v3+; forced @ 500000 baud)</option>
+		<option<?php if ($configModem['Modem']['Hardware'] === 'stm32dvmmtr2kopi') {	echo ' selected="selected"';}?> value="stm32dvmmtr2kopi">RB STM32-DVM-MTR2k (GPIO v3+; forced @ 500000 baud)</option>
 	        <option<?php if ($configModem['Modem']['Hardware'] === 'zumspotlibre') {	echo ' selected="selected"';}?> value="zumspotlibre">ZUMspot - Libre (USB)</option>
 		<option<?php if ($configModem['Modem']['Hardware'] === 'zumspotusb') {		echo ' selected="selected"';}?> value="zumspotusb">ZUMspot - USB Stick</option>
 		<option<?php if ($configModem['Modem']['Hardware'] === 'zumspotgpio') {		echo ' selected="selected"';}?> value="zumspotgpio">ZUMspot - Single Band Raspberry Pi Hat (GPIO)</option>
@@ -4878,6 +4898,9 @@ else:
 	    <option <?php if ($configmmdvm['General']['Display'] == "HD44780") {echo 'selected="selected" ';}; ?>value="HD44780">HD44780</option>
 	    <option <?php if ($configmmdvm['General']['Display'] == "TFT Serial") {echo 'selected="selected" ';}; ?>value="TFT Serial">TFT Serial</option>
 	    <option <?php if ($configmmdvm['General']['Display'] == "LCDproc") {echo 'selected="selected" ';}; ?>value="LCDproc">LCDproc</option>
+	    <?php if (file_exists('/dev/ttyS2')) { ?>
+	    <option <?php if ($configmmdvm['General']['Display'] == "CAST") {echo 'selected="selected" ';}; ?>value="CAST">DVMega-CAST (Built-In Display)</option>
+	    <?php } ?>
 	    </select>
 	    <b>Port:</b> <select name="mmdvmDisplayPort">
 	    <?php
