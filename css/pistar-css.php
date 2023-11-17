@@ -1212,5 +1212,54 @@ meter::-webkit-meter-even-less-good-value {
 }
 
 .aprs-symbol-preview {
-    /* add'l/ existing styles for the symbol preview */
+    /* add'l/ any futureg styles for the symbol preview? */
+}
+
+/* Spinner animation for config pagei */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.spinner {
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top: 4px solid #ffffff;
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+  margin-left: 8px;
+}
+
+/* Config page unsaved changes alert stuff */
+#unsavedChanges {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  overflow: hidden;
+  background-color: #FFE5EF;
+  color: #333;
+  padding: 20px 10px 10px 10px;
+  text-align: center;
+  z-index: 1000;
+  font-size: 1.4rem;
+ }
+
+#applyButton {
+  margin-left: 10px;
+  background-color: #4caf50;
+  color: #fff;
+  padding: 8px 16px;
+  border: 1px solid #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#applyButton:hover {
+  background-color: #45a049;
 }

@@ -601,8 +601,47 @@ $MYCALL=strtoupper($callsign);
     <link rel="stylesheet" href="/includes/aprs-symbols/aprs-symbols.css?version=<?php echo $versionCmd; ?>"/>
     <script src="/includes/aprs-symbols/aprs-symbols.js?version=<?php echo $versionCmd; ?>"></script>
     <script src="/includes/aprs-symbols/doc-ready.js?version=<?php echo $versionCmd; ?>"></script>
+    <script>
+      // config page unsaved change logic, to well, bug the user and save!
+      $(document).ready(function() {
+        var formChanged = false;
+
+        // Listen for changes in the entire form
+        $('#config').on('input change', ':input, select, textarea', function() {
+          formChanged = true;
+          showUnsavedChanges();
+        });
+
+        // Save or apply changes function (call this when the user saves the changes)
+        function saveChanges() {
+          // Change the content and background color of the unsavedChanges div
+          $('#unsavedChanges').html('<strong>Saving and applying changes: page will reload once complete. Please wait... <span class="spinner"></span></strong>');
+          $('#unsavedChanges').css('background-color', '#5F88CC');
+          submitform();
+        }
+
+        // Show the floating div with the unsaved changes message
+        function showUnsavedChanges() {
+          $('#unsavedChanges').slideDown();
+        }
+
+        // Hide the floating div when changes are saved or discarded
+        function hideUnsavedChanges() {
+          $('#unsavedChanges').slideUp();
+        }
+
+        // Trigger the saveChanges function when the user clicks the apply button
+        $('#applyButton').on('click', function() {
+          saveChanges();
+        });
+      });
+    </script>
 </head>
 <body onload="checkFrequency(); return false;">
+<div id="unsavedChanges">
+  <strong>Unsaved changes</strong>: Click "<?php echo $lang['apply'];?>" when complete to save and apply your changes.
+  <button id="applyButton"><?php echo $lang['apply'];?></button>
+</div>
 <?php
 // warn to backup configs, only if this is not a new installation.
 $config_dir = "/etc/WPSD_config_mgr";
@@ -859,12 +898,6 @@ if (!empty($_POST)):
 	}
 
 	system('sudo wpsd-services fullstop > /dev/null 2>/dev/null');
-
-	echo "<table>\n";
-	echo "<tr><th>INFO:</th></tr>\n";
-	echo "<tr><td><h3>Please Wait...</h3><h4>Applying changes and reloading page once complete...</h4></td></tr>\n";
-	echo "</table>\n";
-
 	// Factory Reset Handler Here
 	if (empty($_POST['factoryReset']) != TRUE ) {
 	  echo "<br />\n";
@@ -4229,7 +4262,7 @@ if (!empty($_POST)):
 	system('sudo wpsd-services start > /dev/null 2>/dev/null');
 
 	unset($_POST);
-	echo '<script type="text/javascript">setTimeout(function() { window.location=window.location;},5000);</script>';
+	echo '<script type="text/javascript">window.location=window.location;</script>';
 
 else:
 	// Output the HTML Form here
@@ -4516,7 +4549,7 @@ else:
     </tr>
     </table>
 
-    <div><input type="button" value="<?php echo $lang['apply'];?>" onclick="submitform()" /><br /><br /></div>
+    <br /><br />
 
     <h2 class="ConfSec">Location and Hotspot Info Settings</h2>
     <input type="hidden" name="APRSGatewayEnable" value="OFF" />
@@ -4651,7 +4684,7 @@ else:
     </tr>
     </table>
 
-    <div><input type="button" value="<?php echo $lang['apply'];?>" onclick="submitform()" /><br /><br /></div>
+    <br /><br />
 
 <?php if (file_exists('/etc/dstar-radio.mmdvmhost')) { ?>
     <input type="hidden" name="MMDVMModeDMR" value="OFF" />
@@ -4878,7 +4911,8 @@ else:
     </tr>
     <?php } ?>
     </table>
-	<div><input type="button" value="<?php echo $lang['apply'];?>" onclick="submitform()" /><br /><br /></div>
+
+    <br /><br />
 
     <h2 class="ConfSec">MMDVMHost/Modem Display Configuration</h2>
     <input type="hidden" name="oledScreenSaverEnable" value="ON" />
@@ -4992,7 +5026,9 @@ else:
     </tr>
     </td></tr>
     </table>
-	<div><input type="button" value="<?php echo $lang['apply'];?>" onclick="submitform()" /><br /><br /></div>
+
+    <br /><br />
+
     <?php } ?>
 
     <?php if (file_exists('/etc/dstar-radio.mmdvmhost') && $configmmdvm['DMR']['Enable'] == 1) {
@@ -5512,7 +5548,9 @@ if (!@file_exists($bmAPIkeyFile) && !@fopen($bmAPIkeyFile,'r')) {
     else { echo "<div class=\"switch\"><input id=\"toggle-dmrDumpTAData\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"dmrDumpTAData\" value=\"ON\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDmrDumpTADataCr." /><label id=\"aria-toggle-dmrDumpTAData\" role=\"checkbox\" tabindex=\"0\" aria-label=\"DMR Dump TA Data\" aria-checked=\"false\" onKeyPress=\"toggleDmrDumpTAData()\" onclick=\"toggleDmrDumpTAData()\" for=\"toggle-dmrDumpTAData\"><font style=\"font-size:0px\">DMR Dump T-A Data</font></label></div>\n"; } ?>
     </td></tr>
     </table>
-	<div><input type="button" value="<?php echo $lang['apply'];?>" onclick="submitform()" /><br /><br /></div>
+
+    <br /><br />
+
 <?php } ?>
 
 <?php if ($configmmdvm['D-Star']['Enable'] == 1) { ?>
@@ -5701,7 +5739,9 @@ fclose($dextraFile);
     <td align="left"><em>Note: Update Required if changed</em></td>
     </tr>
     </table>
-	<div><input type="button" value="<?php echo $lang['apply'];?>" onclick="submitform()" /><br /><br /></div>
+
+    <br /><br />
+
 <?php } ?>
 <?php if (file_exists('/etc/dstar-radio.mmdvmhost') && ($configmmdvm['System Fusion Network']['Enable'] == 1 || $configdmr2ysf['Enabled']['Enabled'] == 1 )) {
 $ysfHosts = fopen("/usr/local/etc/YSFHosts.txt", "r"); ?>
@@ -5999,7 +6039,9 @@ $ysfHosts = fopen("/usr/local/etc/YSFHosts.txt", "r"); ?>
     <?php } ?>
  
     </table>
-	<div><input type="button" value="<?php echo $lang['apply'];?>" onclick="submitform()" /><br /><br /></div>
+
+    <br /><br />
+
 <?php } ?>
 <?php if (file_exists('/etc/dstar-radio.mmdvmhost') && $configmmdvm['P25 Network']['Enable'] == 1) {
 $p25Hosts = fopen("/usr/local/etc/P25Hosts.txt", "r");
@@ -6050,7 +6092,9 @@ $p25Hosts = fopen("/usr/local/etc/P25Hosts.txt", "r");
     </tr>
 <?php } ?>
     </table>
-	<div><input type="button" value="<?php echo $lang['apply'];?>" onclick="submitform()" /><br /><br /></div>
+
+    <br /><br />
+
 <?php } ?>
 	
 <?php if (file_exists('/etc/dstar-radio.mmdvmhost') && ($configmmdvm['NXDN Network']['Enable'] == 1 || $configdmr2nxdn['Enabled']['Enabled'] == 1) ) { ?>
@@ -6105,7 +6149,9 @@ $p25Hosts = fopen("/usr/local/etc/P25Hosts.txt", "r");
       </tr>
     <?php } ?>
     </table>
-	<div><input type="button" value="<?php echo $lang['apply'];?>" onclick="submitform()" /><br /><br /></div>
+
+    <br /><br />
+
 			<?php } ?>
 			<!-- M17 -->
 			<?php if (file_exists('/etc/dstar-radio.mmdvmhost') && $configmmdvm['M17 Network']['Enable'] == 1 ) { ?>
@@ -6242,9 +6288,10 @@ $p25Hosts = fopen("/usr/local/etc/P25Hosts.txt", "r");
 
 
 			    </table>
-			    <div><input type="button" value="<?php echo $lang['apply'];?>" onclick="submitform()" /><br /><br /></div>
+
+			    <br /><br />
+
 			<?php } ?>
-			<!-- M17 -->
 
 			<!-- GPSd -->
 			<?php if ( $configdmrgateway['GPSD']['Enable'] == 1 ) { ?>
@@ -6261,10 +6308,10 @@ $p25Hosts = fopen("/usr/local/etc/P25Hosts.txt", "r");
 				    <td align="left"><input type="text" name="gpsdAddress" size="13" maxlength="128" value="<?php echo $configdmrgateway['GPSD']['Address'];?>" /></td>
 				</tr>
 			    </table>
-			    <div><input type="button" value="<?php echo $lang['apply'];?>" onclick="submitform()" /><br /><br /></div>
+
+			    <br /><br />
+
 			<?php } ?>	
-			
-			<!-- GPSd -->
 
 <?php if ( $configmmdvm['POCSAG']['Enable'] == 1 ) { ?>
 	<h2 class="ConfSec"><?php echo $lang['pocsag_config'];?></h2>
@@ -6303,7 +6350,9 @@ $p25Hosts = fopen("/usr/local/etc/P25Hosts.txt", "r");
         <td align="left"><input type="text" name="pocsagBlacklist" size="60" maxlength="350" value="<?php if (isset($configdapnetgw['General']['BlackList'])) { echo $configdapnetgw['General']['BlackList']; } ?>" /></td>
       </tr>
     </table>
-	<div><input type="button" value="<?php echo $lang['apply'];?>" onclick="submitform()" /><br /><br /></div>
+
+    <br /><br />
+
 <?php } ?>
 
 <?php if (file_exists('/etc/dstar-radio.mmdvmhost')) { ?>
@@ -6332,7 +6381,9 @@ $p25Hosts = fopen("/usr/local/etc/P25Hosts.txt", "r");
     <td align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'>Enter one, or a comma-separated list of DMR/CCS7 IDs which are allowed access to this hotspot/repeater (required for public functionality).</td>
     </tr>
     </table>
-    <div><input type="button" value="<?php echo $lang['apply'];?>" onclick="submitform()" /><br /><br /></div>
+
+    <br /><br />
+
 <?php } ?>
 
     <h2 class="ConfSec"><?php echo $lang['fw_config'];?></h2>
@@ -6405,8 +6456,9 @@ $p25Hosts = fopen("/usr/local/etc/P25Hosts.txt", "r");
       ?>
     </tr>
     </table>
-	<div><input type="button" value="<?php echo $lang['apply'];?>" onclick="submitform()" /></div>
     </form>
+
+    <br />
 
 <?php
 	if ( file_exists('/sys/class/net/wlan0') || file_exists('/sys/class/net/wlan1') || file_exists('/sys/class/net/wlan0_ap') ) {
