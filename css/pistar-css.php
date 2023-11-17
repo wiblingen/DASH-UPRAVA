@@ -1263,10 +1263,11 @@ meter::-webkit-meter-even-less-good-value {
   background-color: #4caf50;
   color: #fff;
   padding: 8px 16px;
-  border: 1px solid #fff;
+  border: 4px solid #37803A;
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s;
+  font-weight: bold;
 }
 
 #applyButton:hover {
