@@ -639,7 +639,7 @@ $MYCALL=strtoupper($callsign);
 </head>
 <body onload="checkFrequency(); return false;">
 <div id="unsavedChanges">
-  <strong>Unsaved changes</strong>: Click "<?php echo $lang['apply'];?>" when complete to save and apply your changes.
+  <strong>Changes pending:</strong>: Click <em>"<?php echo $lang['apply'];?>"</em> to save and activate after making <strong>all</strong> necessary changes.
   <button id="applyButton"><?php echo $lang['apply'];?></button>
 </div>
 <?php
