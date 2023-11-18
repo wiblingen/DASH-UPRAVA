@@ -639,14 +639,14 @@ $MYCALL=strtoupper($callsign);
 </head>
 <body onload="checkFrequency(); return false;">
 <div id="unsavedChanges">
-  <strong>Changes pending:</strong>: Click <em>"<?php echo $lang['apply'];?>"</em> to save and activate after making <strong>all</strong> necessary changes.
+  <strong>Changes pending:</strong> Click <em>"<?php echo $lang['apply'];?>"</em> to save and activate after making <strong>all</strong> necessary changes.
   <button id="applyButton"><?php echo $lang['apply'];?></button>
 </div>
 <?php
 // warn to backup configs, only if this is not a new installation.
 $config_dir = "/etc/WPSD_config_mgr";
 if (!is_dir($config_dir) || count(glob("$config_dir/*")) < 1) { // no saved configs
-    if (file_exists('/etc/dstar-radio.mmdvmhost') && $MYCALL != "M1ABC") { // NOT a new installaion, so display message...
+    if (file_exists('/etc/dstar-radio.mmdvmhost') && $MYCALL != "M1ABC") { // NOT a new installation , so display message...
 ?>
 <div>
   <table align="center"style="margin: 0px 0px 10px 0px; width: 100%;border-collapse:collapse; table-layout:fixed;white-space: normal!important;">
