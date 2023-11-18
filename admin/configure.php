@@ -626,6 +626,10 @@ $MYCALL=strtoupper($callsign);
     function revertChanges() {
       // Restore the original form data
       $('#config').trigger('reset');
+      // reset select2
+      jQuery('.select2').each( function() {
+        jQuery(this).parent().find('select').select2();
+      });
       formChanged = false;
       hideUnsavedChanges();
     }
