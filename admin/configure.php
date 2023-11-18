@@ -601,42 +601,67 @@ $MYCALL=strtoupper($callsign);
     <link rel="stylesheet" href="/includes/aprs-symbols/aprs-symbols.css?version=<?php echo $versionCmd; ?>"/>
     <script src="/includes/aprs-symbols/aprs-symbols.js?version=<?php echo $versionCmd; ?>"></script>
     <script src="/includes/aprs-symbols/doc-ready.js?version=<?php echo $versionCmd; ?>"></script>
-    <script>
-      // config page unsaved change logic, to well, bug the user and save!
-      $(document).ready(function() {
-        var formChanged = false;
+<script>
+  // config page unsaved change logic, to well, bug the user and save!
+  $(document).ready(function() {
+    var formChanged = false;
+    var originalFormData; // Store the original form data for reverting
 
-        // Listen for changes in the entire form
-        $('#config').on('input change', ':input, select, textarea', function() {
-          formChanged = true;
-          showUnsavedChanges();
-        });
+    // Listen for changes in the entire form
+    $('#config').on('input change', ':input, select, textarea', function() {
+      formChanged = true;
+      showUnsavedChanges();
+    });
 
-        // Save or apply changes function (call this when the user saves the changes)
-        function saveChanges() {
-          // Change the content and background color of the unsavedChanges div
-          $('#unsavedChanges').html('<strong>Saving and applying changes: page will reload once complete. Please wait... <span class="spinner"></span></strong>');
-          $('#unsavedChanges').css('background-color', '#5F88CC');
-          $('#unsavedChanges').css('border-bottom', '4px solid #305696');
-          submitform();
-        }
+    // Save or apply changes function (call this when the user saves the changes)
+    function saveChanges() {
+      // Change the content and background color of the unsavedChanges div
+      $('#unsavedChanges').html('<strong>Saving and applying changes: page will reload once complete. Please wait... <span class="spinner"></span></strong>');
+      $('#unsavedChanges').css('background-color', '#5F88CC');
+      $('#unsavedChanges').css('border', '2px solid #305696');
+      submitform();
+    }
 
-        // Show the floating div with the unsaved changes message
-        function showUnsavedChanges() {
-          $('#unsavedChanges').slideDown();
-        }
+    // Revert changes function
+    function revertChanges() {
+      // Restore the original form data
+      $('#config').trigger('reset');
+      formChanged = false;
+      hideUnsavedChanges();
+    }
 
-        // Hide the floating div when changes are saved or discarded
-        function hideUnsavedChanges() {
-          $('#unsavedChanges').slideUp();
-        }
+    // Show the floating div with the unsaved changes message
+    function showUnsavedChanges() {
+      $('#unsavedChanges').slideDown();
+    }
 
-        // Trigger the saveChanges function when the user clicks the apply button
-        $('#applyButton').on('click', function() {
-          saveChanges();
-        });
-      });
-    </script>
+    // Hide the floating div when changes are saved or discarded
+    function hideUnsavedChanges() {
+      $('#unsavedChanges').slideUp();
+    }
+
+    // Trigger the saveChanges function when the user clicks the apply button
+    $('#applyButton').on('click', function() {
+      saveChanges();
+    });
+
+    // Trigger the revertChanges function when the user clicks the revert button
+    $('#revertButton').on('click', function() {
+      revertChanges();
+    });
+
+    // Store the original form data on page load
+    originalFormData = $('#config').serialize();
+  });
+</script>
+</head>
+<body onload="checkFrequency(); return false;">
+<div id="unsavedChanges">
+  <strong>Changes pending:</strong> Click <em>"Apply Changes"</em> to save and activate after making <strong>all</strong> necessary changes.
+  <button id="applyButton">Apply Changes</button>
+  <button id="revertButton">Revert Changes</button>
+</div>
+
 </head>
 <body onload="checkFrequency(); return false;">
 <div id="unsavedChanges">
