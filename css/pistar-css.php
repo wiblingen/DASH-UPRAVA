@@ -1225,8 +1225,8 @@ meter::-webkit-meter-even-less-good-value {
   border: 4px solid rgba(255, 255, 255, 0.3);
   border-top: 4px solid #ffffff;
   border-radius: 50%;
-  width: 10px;
-  height: 10px;
+  width: 20px;
+  height: 20px;
   animation: spin 1s linear infinite;
   display: inline-block;
   margin-left: 8px;
@@ -1241,8 +1241,8 @@ meter::-webkit-meter-even-less-good-value {
   width: 100%;
   height: 60px;
   overflow: hidden;
-  background-color: #FFE5EF;
-  color: #333;
+  background-color: #F4CCE0;
+  color: #000;
   padding: 20px 10px 10px 10px;
   text-align: center;
   z-index: 1000;
@@ -1262,5 +1262,6 @@ meter::-webkit-meter-even-less-good-value {
 }
 
 #applyButton:hover {
-  background-color: #45a049;
+  background-color: #37803A;
+  border: 4px solid #73A675;
 }
