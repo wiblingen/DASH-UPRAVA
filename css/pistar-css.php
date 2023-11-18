@@ -1256,6 +1256,7 @@ meter::-webkit-meter-even-less-good-value {
   text-align: center;
   z-index: 1000;
   font-size: 1.4rem;
+  border-bottom: 4px solid crimson;
  }
 
 #applyButton {
