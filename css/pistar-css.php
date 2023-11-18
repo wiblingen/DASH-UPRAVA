@@ -1245,26 +1245,28 @@ meter::-webkit-meter-even-less-good-value {
 #unsavedChanges {
   display: none;
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
+  top: 20px; /* Add top margin */
+  left: 50%;
+  transform: translateX(-50%); /* Center the div horizontally */
+  width: calc(100% - 40px);
   height: 60px;
   overflow: hidden;
   background-color: #F4CCE0;
   color: #000;
-  padding: 20px 10px 10px 10px;
+  padding: 15px 10px 0px 10px;
   text-align: center;
   z-index: 1000;
   font-size: 1.4rem;
-  border-bottom: 4px solid crimson;
- }
+  border: 2px solid crimson;
+  max-width: 95%;
+}
 
 #applyButton {
   margin-left: 10px;
   background-color: #4caf50;
   color: #fff;
   padding: 8px 16px;
-  border: 4px solid #37803A;
+  border: 2px solid #37803A;
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s;
@@ -1273,5 +1275,22 @@ meter::-webkit-meter-even-less-good-value {
 
 #applyButton:hover {
   background-color: #37803A;
-  border: 4px solid #73A675;
+  border: 2px solid #73A675;
+}
+
+#revertButton {
+  margin-left: 10px;
+  background-color: #ff9800;
+  color: #fff;
+  padding: 8px 16px;
+  border: 2px solid #e65100;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-weight: bold;
+}
+
+#revertButton:hover {
+  background-color: #e65100;
+  border: 2px solid #ffab40;
 }
