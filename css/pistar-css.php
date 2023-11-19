@@ -1262,11 +1262,11 @@ meter::-webkit-meter-even-less-good-value {
 }
 
 #applyButton {
+  background-color: #37803A;
+  border: 2px solid #73A675;
   margin-left: 10px;
-  background-color: #4caf50;
   color: #fff;
   padding: 8px 16px;
-  border: 2px solid #37803A;
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s;
@@ -1274,16 +1274,16 @@ meter::-webkit-meter-even-less-good-value {
 }
 
 #applyButton:hover {
-  background-color: #37803A;
-  border: 2px solid #73A675;
+  background-color: #4caf50;
+  border: 2px solid #37803A;
 }
 
 #revertButton {
+  background-color: #e65100;
+  border: 2px solid #ffab40;
   margin-left: 10px;
-  background-color: #ff9800;
   color: #fff;
   padding: 8px 16px;
-  border: 2px solid #e65100;
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s;
@@ -1291,6 +1291,6 @@ meter::-webkit-meter-even-less-good-value {
 }
 
 #revertButton:hover {
-  background-color: #e65100;
-  border: 2px solid #ffab40;
+  background-color: #ff9800;
+  border: 2px solid #e65100;
 }
