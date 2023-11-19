@@ -280,7 +280,7 @@ echo '<br />
 		}
 		$output .= '</div>'."\n";
 		$output .= '<div class="infobox">'."\n";
-		$output .= '<input type="submit" value="Scan for Networks (10 secs)" name="Scan" />'."\n";
+		$output .= '<input type="submit" value="Scan for Networks (~10-15 secs)" name="Scan" />'."\n";
 		$output .= '<input type="button" value="Add New WiFi Network" onclick="AddNetwork();" />'."\n";
 		if($netDefined ==1) {
 		    $output .= '<input type="submit" value="Save WiFi Settings" name="SaveWPAPSKSettings" onmouseover="UpdateNetworks(this)" />'."\n";
@@ -325,8 +325,9 @@ echo '<br />
 		exec('sudo wpa_cli scan -i wlan0',$return);
 		sleep(10);
 		exec('sudo wpa_cli scan_results -i wlan0',$return);
-		unset($return['0']); // This is a better way to clean up;
-		unset($return['1']); // This is a better way to clean up;
+		sleep(2);
+		unset($return[0]);
+		unset($return[1]);
 		echo "<br />\n";
 		echo "Networks found : <br />\n";
 		echo "<table>\n";
