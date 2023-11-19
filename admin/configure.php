@@ -1200,10 +1200,8 @@ if (!empty($_POST)):
 	  $configysf2dmr['aprs.fi']['Enable'] = "0";
 	  $configysf2nxdn['aprs.fi']['Enable'] = "0";
 	  $configysf2p25['aprs.fi']['Enable'] = "0";
-	  if ($configPistarRelease['Pi-Star']['Version'] >= "4.1.4") {
-	    $rollAPRSGatewayHost = 'sudo sed -i "/Server=/c\\Server='.escapeshellcmd($_POST['selectedAPRSHost']).'" /etc/aprsgateway';
-	    system($rollAPRSGatewayHost);
-	  }
+	  $rollAPRSGatewayHost = 'sudo sed -i "/Server=/c\\Server='.escapeshellcmd($_POST['selectedAPRSHost']).'" /etc/aprsgateway';
+	  system($rollAPRSGatewayHost);
 	}
 
 	// grab APRS user prefs from form submission (or current settings) so we can later update the configs.
@@ -1548,22 +1546,20 @@ if (!empty($_POST)):
 	  $configdgidgateway['General']['Callsign'] = $newCallsignUpper;
 	  $configdgidgateway['Info']['Description'] = $newCallsignUpper."_WPSD";
 	  $configm17gateway['Info']['Description'] = $newCallsignUpper."_WPSD";
-	  if ($configPistarRelease['Pi-Star']['Version'] >= "4.1.4") {
-	    $rollAPRSGatewayCallsign = 'sudo sed -i "/Callsign=/c\\Callsign='.$newCallsignUpper.'" /etc/aprsgateway';
-	    system($rollAPRSGatewayCallsign);
-	    $rollAPRSGatewayPassword = 'sudo sed -i "/Password=/c\\Password='.aprspass($newCallsignUpper).'" /etc/aprsgateway';
-	    system($rollAPRSGatewayPassword);
-	    $rollircDDBGatewayAprsPort = 'sudo sed -i "/aprsPort=/c\\aprsPort=8673" /etc/ircddbgateway';
-	    system($rollircDDBGatewayAprsPort);
-	    unset($configs['aprsPassword']);
-	    $rollircDDBGatewayAprsPass = 'sudo sed -i "/aprsPassword/d" /etc/ircddbgateway';
-	    system($rollircDDBGatewayAprsPass);
-	    if (empty($_POST['APRSGatewayEnable']) != TRUE ) {
+	  $rollAPRSGatewayCallsign = 'sudo sed -i "/Callsign=/c\\Callsign='.$newCallsignUpper.'" /etc/aprsgateway';
+	  system($rollAPRSGatewayCallsign);
+	  $rollAPRSGatewayPassword = 'sudo sed -i "/Password=/c\\Password='.aprspass($newCallsignUpper).'" /etc/aprsgateway';
+	  system($rollAPRSGatewayPassword);
+	  $rollircDDBGatewayAprsPort = 'sudo sed -i "/aprsPort=/c\\aprsPort=8673" /etc/ircddbgateway';
+	  system($rollircDDBGatewayAprsPort);
+	  unset($configs['aprsPassword']);
+	  $rollircDDBGatewayAprsPass = 'sudo sed -i "/aprsPassword/d" /etc/ircddbgateway';
+	  system($rollircDDBGatewayAprsPass);
+	  if (empty($_POST['APRSGatewayEnable']) != TRUE ) {
 		if (escapeshellcmd($_POST['APRSGatewayEnable']) == 'ON' )  { $rollAPRSGatewayEnable = 'sudo sed -i "/Enabled=/c\\Enabled=1" /etc/aprsgateway'; }
  		if (escapeshellcmd($_POST['APRSGatewayEnable']) == 'OFF' ) { $rollAPRSGatewayEnable = 'sudo sed -i "/Enabled=/c\\Enabled=0" /etc/aprsgateway'; }
-	    }
-	    system($rollAPRSGatewayEnable);
 	  }
+	  system($rollAPRSGatewayEnable);
 
 	  // If ircDDBGateway config supports APRS Password
 	  if (isset($configs['aprsPassword'])) {
@@ -6526,7 +6522,7 @@ echo '
     <br /><span id="confirmMessage" class="confirmMessage"></span></td>
     <td align="right"><input type="button" id="submitpwd" value="<?php echo $lang['set_password'];?>" onclick="submitPassform()" disabled="disabled" /></td>
     </tr>
-    <tr><td colspan="3"><b>WARNING:</b> This changes the password for this admin page<br />AND the "pi-star" SSH account</td></tr>
+    <tr><td colspan="3" align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'><i class="fa fa-exclamation-circle"></i> <strong>NOTE:</strong> This changes the password for  admin pages, this configuration page AND the '<code>pi-star</code>' SSH account.</td></tr>
     </table>
     </form>
 <?php endif; ?>
