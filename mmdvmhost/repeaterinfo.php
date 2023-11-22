@@ -451,23 +451,23 @@ if ( $testMMDVModeDSTAR == 1 || isPaused("D-Star") ) { //Hide the D-Star Reflect
 	    <?php
 	    if (getConfigItem("DMR Network", "Slot1", $_SESSION['MMDVMHostConfigs']) == 1) {
 		if (preg_match("/Not/",getActualLink($reverseLogLinesMMDVM, "DMR Slot 1"))) {
-		    echo "<div class='divTableCell cell_content middle' title='Unlinked'><div style=\"background: $tableRowEvenBg;\">Unlinked</div></div>\n";
+		    echo "<div class='divTableCell cell_content middle' title=''><div style=\"background: $tableRowEvenBg;\">$slot1Link</div></div>\n";
 		} else {
-		    $slot1Link = substr(getActualLink($reverseLogLinesMMDVM, "DMR Slot 1"), -11); 
+		    $slot1Link = substr(getActualLink($reverseLogLinesMMDVM, "DMR Slot 1"), -20); 
 		    if (file_exists("/etc/.TGNAMES")) {
 			$slot1Link = str_replace("TG ", "", $slot1Link);
-			if ($slot1Link == "Unlinked") {
-			    echo "<div class='divTableCell cell_content middle active-mode-cell' title='Time Slot 1 Enabled' style='border: .5px solid $tableBorderColor;'>$slot1Link</div>\n";
+			if (strpos($slot1Link, "Unlinked") !== false) {
+			    echo "<div class='divTableCell cell_content middle active-mode-cell' title='Time Slot 1 Enabled: Unlinked' style='border: .5px solid $tableBorderColor;'>$slot1Link</div>\n";
 			} else {
 			    $slot1Link = preg_replace('#\((.*?)\)#', "<br><small>($1)</small>", tgLookup("DMR", $slot1Link));
-			    echo "<div class='divTableCell cell_content middle active-mode-cell' title='Time Slot 1 Enabled' style='border: .5px solid $tableBorderColor;'>$slot1Link</div>\n";
+			    echo "<div class='divTableCell cell_content middle active-mode-cell' title='Rime Slot 1 Enabled' style='border: .5px solid $tableBorderColor;'>$slot1Link</div>\n";
 			}
 		    } else {
 			echo "<div class='divTableCell cell_content middle active-mode-cell' title='Time Slot 1 Enabled' style='border: .5px solid $tableBorderColor;'>$slot1Link</div>\n";
 		    }
 		}
 	    } else {
-		echo "<div class='divTableCell cell_content middle title='Time Slot 1 disabled' style='border: .5px solid $tableBorderColor;'>Disabled</div>\n";
+		echo "<div class='divTableCell cell_content middle title='Time Slot 1 Disabled' style='border: .5px solid $tableBorderColor;'>Disabled</div>\n";
 	    }
 	    ?>
     </div>
@@ -477,13 +477,13 @@ if ( $testMMDVModeDSTAR == 1 || isPaused("D-Star") ) { //Hide the D-Star Reflect
            <?php
 	    if (getConfigItem("DMR Network", "Slot2", $_SESSION['MMDVMHostConfigs']) == 1) {
 		if (preg_match("/Not/",getActualLink($reverseLogLinesMMDVM, "DMR Slot 2"))) {
-		    echo "<div class='divTableCell cell_content middle' title='Unlinked'><div style=\"background: $tableRowEvenBg;\">Unlinked</div></div>\n";
+		    echo "<div class='divTableCell cell_content middle' title=''><div style=\"background: $tableRowEvenBg;\">$slot2Link</div></div>\n";
 		} else {
-		    $slot2Link = substr(getActualLink($reverseLogLinesMMDVM, "DMR Slot 2"), -11); 
+		    $slot2Link = substr(getActualLink($reverseLogLinesMMDVM, "DMR Slot 2"), -20); 
 		    if (file_exists("/etc/.TGNAMES")) {
 			$slot2Link = str_replace("TG ", "", $slot2Link);
-			if ($slot2Link == "Unlinked") {
-			    echo "<div class='divTableCell cell_content middle active-mode-cell' title='Time Slot 2 Enabled' style='border: .5px solid $tableBorderColor;'>$slot2Link</div>\n";
+			if (strpos($slot2Link, "Unlinked") !== false) {
+			    echo "<div class='divTableCell cell_content middle active-mode-cell' title='Time Slot 2 Enabled: Unlinked' style='border: .5px solid $tableBorderColor;'>$slot2Link</div>\n";
 			} else {
 			    $slot2Link = preg_replace('#\((.*?)\)#', "<br><small>($1)</small>", tgLookup("DMR", $slot2Link));
 			    echo "<div class='divTableCell cell_content middle active-mode-cell' title='Time Slot 2 Enabled' style='border: .5px solid $tableBorderColor;'>$slot2Link</div>\n";
@@ -493,7 +493,7 @@ if ( $testMMDVModeDSTAR == 1 || isPaused("D-Star") ) { //Hide the D-Star Reflect
 		    }
 		}
 	    } else {
-		echo "<div class='divTableCell cell_content middle title='Time Slot 2 disabled' style='border: .5px solid $tableBorderColor;'>Disabled</div>\n";
+		echo "<div class='divTableCell cell_content middle title='Time Slot 2 Disabled' style='border: .5px solid $tableBorderColor;'>Disabled</div>\n";
 	    }
 	    ?>
     </div>
