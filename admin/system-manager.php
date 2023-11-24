@@ -18,12 +18,15 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/config/language.php';        // Transla
 
 $fw_enable    = "sudo /usr/local/sbin/wpsd-system-manager -efw";
 $fw_disable   = "sudo /usr/local/sbin/wpsd-system-manager -dfw";
+
 $cron_enable  = "sudo /usr/local/sbin/wpsd-system-manager -ec";
 $cron_disable = "sudo /usr/local/sbin/wpsd-system-manager -dc";
-$psr_enable   = "sudo mount -o remount,rw / ; sudo sed -i '/callsign=/c callsign=".$_SESSION['MYCALL']."' /etc/pistar-remote ; sudo sed -i '/enabled=/c enabled=true' /etc/pistar-remote ; sudo systemctl unmask pistar-remote.service ; sudo systemctl unmask pistar-remote.timer ; sudo systemctl enable pistar-remote.service ; sudo systemctl start pistar-remote.service; sudo systemctl start pistar-remote.timer";
-$psr_disable  = "sudo mount -o remount,rw / ; sudo sed -i '/enabled=/c enabled=false' /etc/pistar-remote ; sudo systemctl stop pistar-remote.timer ; sudo systemctl stop pistar-remote.service ; sudo systemctl disable pistar-remote.service; sudo systemctl disable pistar-remote.timer ; sudo systemctl mask pistar-remote.service ; sudo systemctl mask pistar-remote.timer";
-$psw_enable   = "sudo mount -o remount,rw / ; sudo systemctl unmask pistar-watchdog.service ; sudo systemctl enable pistar-watchdog.service ; sudo systemctl unmask pistar-watchdog.timer ; sudo systemctl enable pistar-watchdog.timer; sudo systemctl start pistar-watchdog.service ; sudo systemctl start pistar-watchdog.timer";
-$psw_disable  = "sudo mount -o remount,rw / ; sudo systemctl disable pistar-watchdog.timer ; sudo systemctl mask pistar-watchdog.timer ; sudo systemctl disable pistar-watchdog.service; sudo systemctl mask pistar-watchdog.service ; sudo systemctl stop pistar-watchdog.timer ; sudo systemctl stop pistar-watchdog.service";
+
+$rfc_enable   = "sudo /usr/local/sbin/wpsd-system-manager -erf";
+$rfc_disable  = "sudo /usr/local/sbin/wpsd-system-manager -drf";
+
+$wds_enable   = "sudo /usr/local/sbin/wpsd-system-manager -esw";
+$wds_disable  = "sudo /usr/local/sbin/wpsd-system-manager -dsw";
 
 // take action based on form submission
 if (!empty($_POST["submit_service"]) && empty($_POST["service_sel"])) { //handler for nothing selected
@@ -44,7 +47,7 @@ if (!empty($_POST["submit_service"]) && empty($_POST["service_sel"])) { //handle
 } elseif
     (!empty($_POST['submit_service']) && escapeshellcmd($_POST['service_action'] == "Disable")) {
     $mode = escapeshellcmd($_POST['service_sel']); // get selected mode from for post
-    if ($mode == "Cron" && (getCronState() == 0) || $mode == "RF Remote Control" && (getPSRState() == 0) || $mode == "Firewall" && (getFWstate() == 0) || $mode == "Service Watchdog" && (getPSWState() == 0)) { //check if already disabled
+    if ($mode == "Cron" && (getCronState() == 0) || $mode == "RF Remote Control" && (getPSRState() == 0) || $mode == "Firewall" && (getFWstate() == 0) || $mode == "WPSD Services Watchdog" && (getPSWState() == 0)) { //check if already disabled
         // Output to the browser
 	echo '<div style="text-align:left;font-weight:bold;">System Manager</div>'."\n";
         echo "<table>\n";
@@ -64,9 +67,9 @@ if (!empty($_POST["submit_service"]) && empty($_POST["service_sel"])) { //handle
 	    } elseif ($mode == "Firewall") {
 	        system($fw_disable);
 	    } elseif ($mode == "RF Remote Control") {
-	        system($psr_disable);
-	    } elseif ($mode == "Service Watchdog") {
-	        system($psw_disable);
+	        system($rfc_disable);
+	    } elseif ($mode == "WPSD Services Watchdog") {
+	        system($wds_disable);
 	    } else {
 	        die;
 	    }
@@ -87,7 +90,7 @@ if (!empty($_POST["submit_service"]) && empty($_POST["service_sel"])) { //handle
     } elseif
         (!empty($_POST['submit_service']) && escapeshellcmd($_POST['service_action'] == "Enable")) {
         $mode = escapeshellcmd($_POST['service_sel']); // get selected mode from for post
-	if ($mode == "Cron" && (getCronState() == 1) || $mode == "RF Remote Control" && (getPSRState() == 1) || $mode == "Firewall" && (getFWstate() == 1) || $mode == "Service Watchdog" && (getPSWState() == 1)) {
+	if ($mode == "Cron" && (getCronState() == 1) || $mode == "RF Remote Control" && (getPSRState() == 1) || $mode == "Firewall" && (getFWstate() == 1) || $mode == "WPSD Services Watchdog" && (getPSWState() == 1)) {
             // Output to the browser
 	    echo '<div style="text-align:left;font-weight:bold;">System Manager</div>'."\n";
             echo "<table>\n";
@@ -108,9 +111,9 @@ if (!empty($_POST["submit_service"]) && empty($_POST["service_sel"])) { //handle
 		sleep(5);
 		system($fw_enable);
 	    } elseif ($mode == "RF Remote Control") {
-		system($psr_enable);
-	    } elseif ($mode == "Service Watchdog") {
-		system($psw_enable);
+		system($rfc_enable);
+	    } elseif ($mode == "WPSD Services Watchdog") {
+		system($wds_enable);
 	    } else {
 		die;
 	    }
@@ -153,8 +156,8 @@ if (!empty($_POST["submit_service"]) && empty($_POST["service_sel"])) { //handle
 	    <label for="service-sel-1"'.((getCronstate()=='0'? "class='paused-mode-span'":"")). 'title="Disabled">Cron</label>
 	    &nbsp;| <input name="service_sel" id="service-sel-2"  value="RF Remote Control" type="radio">
 	    <label for="service-sel-2"'.((getPSRState()=='0'? "class='paused-mode-span'":"")). 'title="Disabled">RF Remote Control</label>
-	    &nbsp;| <input name="service_sel" id="service-sel-3"  value="Service Watchdog" type="radio">
-	    <label for="service-sel-3"'.((getPSWState()=='0'? "class='paused-mode-span'":"")). 'title="Disabled">Service Watchdog</label>
+	    &nbsp;| <input name="service_sel" id="service-sel-3"  value="WPSD Services Watchdog" type="radio">
+	    <label for="service-sel-3"'.((getPSWState()=='0'? "class='paused-mode-span'":"")). 'title="Disabled">WPSD Services Watchdog</label>
 	    <br />
 	  </td>
 	  <td>
