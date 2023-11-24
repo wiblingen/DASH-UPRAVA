@@ -60,9 +60,9 @@ $os_ver = trim( exec( 'cat /etc/debian_version' ) );
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('DAPNETGateway')); ?>">DAPNETGateway</div> 
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('timeserverd')); ?>">TimeServer (D-Star)</div>
   <?php if (getPSWstate()=='0' ) { ?>
-  <div class='grid-item paused-mode-cell' title="Disabled">Service Watchdog</div>
+  <div class='grid-item paused-mode-cell' title="Disabled">WPSD Services Watchdog</div>
   <?php } else { ?>
-  <div class="grid-item <?php getServiceStatusClass(isProcessRunning('/usr/local/sbin/pistar-watchdog',true)); ?>">Services Watchdog</div> 
+  <div class="grid-item <?php getServiceStatusClass(isProcessRunning('/usr/local/sbin/pistar-watchdog',true)); ?>">WPSD Servicess Watchdog</div> 
   <?php } ?>
 
   <div class="grid-item <?php getServiceStatusClass(UPnPenabled()); ?>">UPnP</div>  
