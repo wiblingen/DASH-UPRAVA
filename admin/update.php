@@ -89,7 +89,9 @@ if ($_SERVER["PHP_SELF"] == "/admin/update.php") {
           if (data.length < 1) return;
           var objDiv = document.getElementById("tail");
           var isScrolledToBottom = objDiv.scrollHeight - objDiv.clientHeight <= objDiv.scrollTop + 1;
-          $('#tail').append(data);
+	  $('#tail').append(data);
+	  //data = data.replace(/\\n/g, '').replace(/\n/g, ''); // strip linebreaks and literal '\n's
+	  //$('#tail').append('<pre>' + data + '</pre>'); // preformat it.
           if (isScrolledToBottom)
             objDiv.scrollTop = objDiv.scrollHeight;
         });
