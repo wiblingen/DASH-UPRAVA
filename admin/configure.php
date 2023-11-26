@@ -1670,7 +1670,7 @@ if (!empty($_POST)):
 	}
 
         // Set M17 Callsign Station ID
-        if (!empty($_POST['m17StationID'])) {
+        if (isset($_POST['m17StationID'])) {
                 $m17StationIDnew = escapeshellcmd($_POST['m17StationID']);
                 $configm17gateway['General']['Callsign'] = $newCallsignUpper . "-" . $m17StationIDnew;
         } else {
