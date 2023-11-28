@@ -78,7 +78,7 @@ switch ($action) {
         break;
 
     case 'update_hostfiles':
-        $result = executeCommand("sudo FORCE=1 HostFilesUpdate.sh");
+        $result = executeCommand("sudo FORCE=1 wpsd-hostfile-update");
         break;
 
     case 'reload_wifi':
