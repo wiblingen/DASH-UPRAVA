@@ -31,7 +31,7 @@ switch ($action) {
 	$cmdresult = exec('sudo /usr/bin/killall -q -9 MMDVMHost', $cmdoutput, $retvalue);
 	break;
     case "updatehostsfiles":
-	$cmdresult = exec('sudo -- /bin/bash -c "env FORCE=1 /usr/local/sbin/HostFilesUpdate.sh; /usr/local/sbin/wpsd-services restart;"', $cmdoutput, $retvalue);
+	$cmdresult = exec('sudo -- /bin/bash -c "env FORCE=1 /usr/local/sbin/wpsd-hostfile-update; /usr/local/sbin/wpsd-services restart;"', $cmdoutput, $retvalue);
 	break;
     default:
 	$cmdoutput = array('error !');
