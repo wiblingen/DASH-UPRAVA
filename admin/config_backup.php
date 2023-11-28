@@ -236,7 +236,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/config_backup.php") {
 				
 				// Update the hosts files
 				//$output .= "Updating Hostfiles.\n";
-				shell_exec('sudo /usr/local/sbin/HostFilesUpdate.sh > /dev/null');
+				shell_exec('sudo /usr/local/sbin/wpsd-hostfile-update > /dev/null');
 				
 				// Start the services
 				//$output .= "Starting Services.\n";
