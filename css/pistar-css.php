@@ -776,9 +776,9 @@ select {
     visibility: hidden;
 }
 
-.menuhwinfo .menuprofile, .menuconfig .menuadmin .menudashboard .menusimple,
-.menucaller .menulive .menuupdate .menuupgrade .menupower .menulogs
-.menubackup .menuadvanced, .menureset .menusysinfo .menuradioinfo {
+.menuhwinfo, .menuprofile, .menuconfig, .menuadmin, .menudashboard, .menusimple,
+.menucaller, .menulive, .menuupdate, .menuupgrade, .menupower, .menulogs,
+.menubackup, .menuadvanced, .menureset, .menusysinfo, .menuradioinfo {
     position: relative;
 }
 
