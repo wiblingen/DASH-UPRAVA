@@ -776,8 +776,19 @@ select {
     visibility: hidden;
 }
 
-.menuhwinfo .menuconfig .menuadmin .menudashboard .menusimple, .menucaller .menulive .menuupdate .menuupgrade .menupower .menulogs .menubackup .menuexpert .menureset .menusysinfo .menuradioinfo {
+.menuhwinfo .menuprofile, .menuconfig .menuadmin .menudashboard .menusimple,
+.menucaller .menulive .menuupdate .menuupgrade .menupower .menulogs
+.menubackup .menuadvanced, .menureset .menusysinfo .menuradioinfo {
     position: relative;
+}
+
+.menuprofile:before {
+    content: "\f0c0";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    padding-right: 0.2em;
 }
 
 .menuradioinfo:before {
@@ -799,7 +810,7 @@ select {
 }
 
 .menuadmin:before {
-    content: "\f2bd";
+    content: "\f023";
     font-family: FontAwesome;
     font-style: normal;
     font-weight: normal;
@@ -945,8 +956,8 @@ input.filter-activity-max {
     padding-right: 0.2em;
 }
 
-.menuexpert:before {
-    content: "\f0a3";
+.menuadvanced:before {
+    content: "\f013";
     font-family: FontAwesome;
     font-style: normal;
     font-weight: normal;
