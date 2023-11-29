@@ -683,6 +683,90 @@ input.toggle-round-flat:focus + label {
     padding-right: 0.2em;
 }
 
+.grid-item.filter-activity:before {
+    content: "\f131";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    padding-right: 0.2em;
+}
+
+tr.good-activity.even {
+  background: <?php echo $tableRowEvenBg; ?>;
+}
+tr.good-activity.odd {
+  background: <?php echo $tableRowOddBg; ?>;
+}
+
+input.filter-activity-max {
+  background-color: <?php echo $tableRowEvenBg; ?>;
+  color: <?php echo $textContent; ?>;
+  border: 2px solid <?php echo $backgroundContent; ?>;
+  border-radius: 5px;
+  height: 19px;
+}
+
+.filter-activity-max-wrap {
+  display: inline-block;
+  position: relative;
+  top: -3px;
+}
+
+.menutgnames:before {
+    content: "\f0c0";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    padding-right: 0.2em;
+}
+
+.menuhwinfo:before {
+    content: "\f03a";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    padding-right: 0.2em;
+}
+
+.menubackup:before {
+    content: "\f187";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    padding-right: 0.2em;
+}
+
+.menuadvanced:before {
+    content: "\f013";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    padding-right: 0.2em;
+}
+
+.menureset:before {
+    content: "\f1cd";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    padding-right: 0.2em;
+}
+
+.menusysinfo:before {
+    content: "\f0a0";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    padding-right: 0.2em;
+}
+
 .disabled-service-cell {
     color: <?php echo $textModeCellDisabledColor; ?>;
     background: <?php echo $backgroundModeCellDisabledColor; ?>;
