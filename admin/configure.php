@@ -745,7 +745,7 @@ if (file_exists($bmAPIkeyFile) && fopen($bmAPIkeyFile,'r')) {
 			<a class="noMob menureset" href="javascript:factoryReset();"><?php echo $lang['factory_reset'];?></a>
 			<a class="noMob menubackup" href="/admin/config_backup.php"><?php echo $lang['backup_restore'];?></a>
 			<a class="noMob menuupdate" href="/admin/update.php"><?php echo $lang['update'];?></a>
-			<a class="noMob menuexpert" href="/admin/advanced/">Advanced</a>
+			<a class="noMob menuadvanced" href="/admin/advanced/">Advanced</a>
 			<a class="menupower" href="/admin/power.php"><?php echo $lang['power'];?></a>
 			<a class="menuadmin" href="/admin/"><?php echo $lang['admin'];?></a>
 			<?php if (file_exists("/etc/dstar-radio.mmdvmhost")) { ?>

@@ -1,5 +1,5 @@
 <?php
-exec('sudo /usr/local/sbin/background-tasks.sh > /dev/null 2>&1 &');
-touch('/tmp/.last-index-bg-exec');
+exec('sudo /usr/local/sbin/.wpsd-background-tasks > /dev/null 2>&1 &');
+touch('/tmp/.last-index-bg-exec'); # for debugging
 ?>
 
