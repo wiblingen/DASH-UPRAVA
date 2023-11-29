@@ -569,13 +569,23 @@ input.toggle-round-flat:focus + label {
     visibility: hidden;
 }
 
-.menuconfig .menuadmin .menudashboard .menuupdate .menuupgrade .menupower
-.menulogs .menubackup .menuadvanced, .menureset, .menulive, .menusysinfo {
+.menuhwinfo, .menuprofile, .menuconfig, .menuadmin, .menudashboard, .menusimple,
+.menucaller, .menulive, .menuupdate, .menuupgrade, .menupower, .menulogs,
+.menubackup, .menuadvanced, .menureset, .menusysinfo, .menuradioinfo {
     position: relative;
 }
 
-.menulive:before {
-    content: "\f21e";
+.menuprofile:before {
+    content: "\f0c0";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    padding-right: 0.2em;
+}
+
+.menuradioinfo:before {
+    content: "\f012";
     font-family: FontAwesome;
     font-style: normal;
     font-weight: normal;
@@ -646,8 +656,8 @@ input.toggle-round-flat:focus + label {
     padding-right: 0.2em;
 }
 
-.menubackup:before {
-    content: "\f187";
+.menusimple:before {
+    content: "\f0ce";
     font-family: FontAwesome;
     font-style: normal;
     font-weight: normal;
@@ -655,8 +665,8 @@ input.toggle-round-flat:focus + label {
     padding-right: 0.2em;
 }
 
-.menuadvanced:before {
-    content: "\f013";
+.menulive:before {
+    content: "\f2a0";
     font-family: FontAwesome;
     font-style: normal;
     font-weight: normal;
@@ -664,17 +674,8 @@ input.toggle-round-flat:focus + label {
     padding-right: 0.2em;
 }
 
-.menureset:before {
-    content: "\f1cd";
-    font-family: FontAwesome;
-    font-style: normal;
-    font-weight: normal;
-    text-decoration: inherit;
-    padding-right: 0.2em;
-}
-
-.menusysinfo:before {
-    content: "\f05a";
+.menucaller:before {
+    content: "\f098";
     font-family: FontAwesome;
     font-style: normal;
     font-weight: normal;
