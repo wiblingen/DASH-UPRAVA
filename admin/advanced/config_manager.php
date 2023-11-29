@@ -129,7 +129,7 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
 			    }
 			    else if ( escapeshellcmd($_POST["restore_config"]) ) {
 				   $backupDir = '/etc/WPSD_config_mgr/'.$_POST['configs'].'';
-				   echo '<tr><td colspan="3"><br />Restoring and Applying Config, "' .$_POST['configs'].'"...
+				   echo '<tr><td colspan="3"><br />Swithinc to Profile, "' .$_POST['configs'].'"...
 				   <br />Page reloading...<br /><br />
 				   <script language="JavaScript" type="text/javascript">
                                    setTimeout("location.href = \''.$_SERVER["PHP_SELF"].'\'", 3000);
@@ -188,7 +188,7 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
 				<tr>
 				    <th>Current Running Profile</th>
 				    <th>Save Current Profile / Config</th>
-                                    <th>Restore Profile / Config</th>
+                                    <th>Switch Profile / Config</th>
 				</tr>
 				<tr>
 				  <td style="white-space:normal;"><?php echo $curr_config; ?></td>
@@ -216,14 +216,14 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
 							}
 							?>
 							</select>
-							<input type="submit" name="restore_config" value="Restore &amp; Apply Profile">
+							<input type="submit" name="restore_config" value="Switch &amp; Apply Profile">
 						</form>
 						<?php } ?>
 					</td>
 				</tr>
 
 				<tr>
-					<td colspan="3" style="white-space:normal;padding: 3px;">This function allows you save multiple versions and configurations ("profiles") of your setup;  and then restore/re-apply them as-needed for different uses, etc. <em>Restoring and re-applying profile is instant.</em></td>
+					<td colspan="3" style="white-space:normal;padding: 3px;"><p>This function allows you save multiple versions and configurations ("profiles") of your setup;  and then switch to/re-apply them as-needed for different uses, etc. <em>Switching profiles is instant.</p></em></td>
 				</tr>
 			</table>
 		</form>
