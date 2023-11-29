@@ -569,7 +569,8 @@ input.toggle-round-flat:focus + label {
     visibility: hidden;
 }
 
-.menuconfig .menuadmin .menudashboard .menuupdate .menuupgrade .menupower .menulogs .menubackup .menuexpert .menureset, .menulive, .menusysinfo {
+.menuconfig .menuadmin .menudashboard .menuupdate .menuupgrade .menupower
+.menulogs .menubackup .menuadvanced, .menureset, .menulive, .menusysinfo {
     position: relative;
 }
 
@@ -592,7 +593,7 @@ input.toggle-round-flat:focus + label {
 }
 
 .menuadmin:before {
-    content: "\f2bd";
+    content: "\f023";
     font-family: FontAwesome;
     font-style: normal;
     font-weight: normal;
@@ -654,8 +655,8 @@ input.toggle-round-flat:focus + label {
     padding-right: 0.2em;
 }
 
-.menuexpert:before {
-    content: "\f0a3";
+.menuadvanced:before {
+    content: "\f013";
     font-family: FontAwesome;
     font-style: normal;
     font-weight: normal;
