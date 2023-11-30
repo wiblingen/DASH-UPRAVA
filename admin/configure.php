@@ -4614,6 +4614,10 @@ else:
 		<?php 
 		//$modemSpeeds = [500000, 460800, 115200, 57600, 38400, 19200, 9600, 4800, 2400, 1200]; // will enable when we see more 500000 & 460800 baud modems out there.
 		$modemSpeeds = [115200, 57600, 38400, 19200, 9600, 4800, 2400, 1200];
+		// Add 460800 baud for modems which support it
+        if(in_array($configModem['Modem']['Hardware'], array("stm32dvm"))) {
+             array_unshift($modemSpeeds, 460800);
+        }
 		foreach($modemSpeeds as $modemSpeed) {
 		    if ($configmmdvm['Modem']['UARTSpeed'] == $modemSpeed) {
 			echo " <option value=\"$modemSpeed\" selected=\"selected\">$modemSpeed</option>\n";
