@@ -69,7 +69,7 @@ $lang = array (
   "timezone"                    =>  "Časovni pas",
   "dash_lang"                   =>  "Jezik nadzorne plošče",
   // Config Page - DMR Configuration
-  "dmr_master"                  =>  "DMR Master",
+  "dmr_master"                  =>  "DMR Mode",
   "bm_master"                   =>  "BrandMeister Master",
   "bm_network"                  =>  "BrandMeister omrežje",
   "dmr_plus_master"             =>  "DMR+ Master",
