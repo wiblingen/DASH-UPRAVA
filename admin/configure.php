@@ -598,96 +598,99 @@ $MYCALL=strtoupper($callsign);
 
 	/*
 	// Functions to auto-populate DMR and NXDN IDs for an inputted
-        // callsign if there's a match(es) in the local DMR and NXDN ID DB's/CSVs.
+	// callsign if there's a match(es) in the local DMR and NXDN ID DB's/CSVs.
 	*/
 	$(document).ready(function () {
 	    // Function to handle CSV lookup and populate fields
 	    function populateFields(callsign, csvPath, targetField) {
-	        // Retrieve the text input element
-	        var inputField = $("#" + targetField);
+		// Retrieve the text input element
+		var inputField = $("#" + targetField);
 
-	        // Disable the field during lookup
-	        inputField.prop("disabled", true);
+		// Disable the field during lookup
+		inputField.prop("disabled", true);
+		inputField.attr("placeholder", "Searching...");
 
-	        $.ajax({
-	            type: "GET",
-	            url: csvPath,
-	            dataType: "text",
-	            success: function (data) {
-	                var rows = data.split("\n");
-	                var matches = [];
+		$.ajax({
+		    type: "GET",
+		    url: csvPath,
+		    dataType: "text",
+		    success: function (data) {
+			var rows = data.split("\n");
+			var matches = [];
 
-	                for (var i = 0; i < rows.length; i++) {
-	                    var columns = rows[i].split(",");
-	                    if (columns.length >= 2 && columns[1] === callsign) {
-	                        matches.push(columns[0]);
-	                    }
-	                }
+			for (var i = 0; i < rows.length; i++) {
+			    var columns = rows[i].split(",");
+			    if (columns.length >= 2 && columns[1] === callsign) {
+				matches.push(columns[0]);
+			    }
+			}
 
-	                // Clear existing options or value
-	                if (inputField.is("select")) {
-	                    inputField.empty();
-	                } else {
-	                    inputField.val("");
-	                }
+			// Clear existing options or value
+			if (inputField.is("select")) {
+			    inputField.empty();
+			} else {
+			    inputField.val("");
+			}
 
-	                if (matches.length > 1) {
-	                    // If there are multiple matches, replace the text input with a select dropdown
-	                    if (!inputField.is("select")) {
-	                        var selectField = $("<select>", {
-	                            id: targetField,
-	                            name: targetField
-	                        });
+			if (matches.length > 1) {
+			    // If there are multiple matches, replace the text input with a select dropdown
+			    if (!inputField.is("select")) {
+				var selectField = $("<select>", {
+				    id: targetField,
+				    name: targetField
+				});
 
-	                        // Add a disabled, placeholder default option
-	                        selectField.append($('<option>', {
-	                            value: '',
-	                            text: 'Select ID...',
-	                            disabled: true,
-	                            selected: true
-	                        }));
+				// Add a disabled, placeholder default option
+				selectField.append($('<option>', {
+				    value: '',
+				    text: 'Select ID...',
+				    disabled: true,
+				    selected: true
+				}));
 
-	                        // Add options within the select dropdown
-	                        for (var j = 0; j < matches.length; j++) {
-	                            selectField.append($('<option>', {
-	                                value: matches[j],
-	                                text: matches[j]
-	                            }));
-	                        }
+				// Add options within the select dropdown
+				for (var j = 0; j < matches.length; j++) {
+				    selectField.append($('<option>', {
+					value: matches[j],
+					text: matches[j]
+				    }));
+				}
 
-	                        inputField.replaceWith(selectField);
-	                    }
-	                } else if (matches.length === 1) {
-	                    // If there is a single match, update the value of the text input
-	                    if (inputField.is("select")) {
-	                        inputField.replaceWith($("<input>", {
-	                            type: "text",
-	                            id: targetField,
-	                            name: targetField,
-	                            value: matches[0]
-	                        }));
-	                    } else {
-	                        inputField.val(matches[0]);
-	                    }
-	                } else {
-	                    // No match found, keep the text input as is
-	                }
+				inputField.replaceWith(selectField);
+			    }
+			} else if (matches.length === 1) {
+			    // If there is a single match, update the value of the text input
+			    if (inputField.is("select")) {
+				inputField.replaceWith($("<input>", {
+				    type: "text",
+				    id: targetField,
+				    name: targetField,
+				    value: matches[0]
+				}));
+			    } else {
+				inputField.val(matches[0]);
+			    }
+			} else {
+			    // No match found, keep the text input as-is
+			}
 
-	                // Enable the field after lookup
-	                inputField.prop("disabled", false);
-	            }
-	        });
+			// Enable the field after lookup
+			inputField.prop("disabled", false);
+			inputField.attr("placeholder", "");
+		    }
+		});
 	    }
 
 	    // Event handler for confCallsign input
 	    $("#confCallsign").on("input", function () {
-	        var callsign = $(this).val();
+		var callsign = $(this).val();
 
-	        // Clear and repopulate dmrId fields
-	        populateFields(callsign, "/includes/user.csv", "dmrId");
 
-	        // Clear and repopulate nxdnId fields
-	        populateFields(callsign, "/includes/NXDN.csv", "nxdnId");
+		// Clear and (re-)populate dmrId fields
+		populateFields(callsign, "/includes/user.csv", "dmrId");
+
+		// Clear and (re-)populate nxdnId fields
+		populateFields(callsign, "/includes/NXDN.csv", "nxdnId");
 	    });
 	});
     </script>
@@ -712,6 +715,7 @@ $MYCALL=strtoupper($callsign);
       // Change the content and background color of the unsavedChanges div
       $('#unsavedChanges').html('<strong>Saving and applying changes: page will reload once complete. Please wait... <span class="spinner"></span></strong>');
       $('#unsavedChanges').css('background-color', '#9FB7E0');
+      $('#unsavedChanges').css('color', '#000');
       $('#unsavedChanges').css('border', '2px solid #305696');
       submitform();
     }
@@ -4501,12 +4505,12 @@ else:
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo $lang['dmr_id'];?>:<span><b>DMR/CCS7 ID</b>Enter your DMR / CCS7 ID here</span></a></td>
     <td align="left" colspan="2"><input type="text" name="dmrId" id="dmrId" size="13" maxlength="9" value="<?php if (isset($configmmdvm['General']['Id'])) { echo $configmmdvm['General']['Id']; } else { echo $configmmdvm['DMR']['Id']; } ?>" /></td>
-    <td align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'><a href="https://radioid.net/account/register" target="_new">Required for DMR Mode (If you don't have one, get a DMR ID from RadioID.Net)</a></td>
+    <td align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'><i class="fa fa-info-circle"></i> <a href="https://radioid.net/account/register" target="_new">Required for DMR Mode (If you don't have one, get a DMR ID from RadioID.Net)</a></td>
     </tr>
     <tr>
       <td align="left"><a class="tooltip2" href="#">NXDN ID:<span><b>NXDN ID</b>Enter your NXDN ID here</span></a></td>
       <td align="left" colspan="2"><input type="text" name="nxdnId" id="nxdnId" size="13" maxlength="5" value="<?php if (isset($configmmdvm['NXDN']['Id'])) { echo $configmmdvm['NXDN']['Id']; } ?>" /></td>
-    <td align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'><a href="https://radioid.net/account/register" target="_new">Required for NXDN Mode (If you don't have one, get an NXDN ID from RadioID.Net)</a></td>
+      <td align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'><i class="fa fa-info-circle"></i> <a href="https://radioid.net/account/register" target="_new">Required for NXDN Mode (If you don't have one, get an NXDN ID from RadioID.Net)</a></td>
     </tr>
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo $lang['controller_mode'];?>:<span><b>TRX Mode</b>Choose the mode type Simplex node or Duplex repeater.</span></a></td>
