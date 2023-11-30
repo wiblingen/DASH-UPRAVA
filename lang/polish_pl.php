@@ -67,7 +67,7 @@ $lang = array (
   "timezone"                    =>  "Strefa czasowa",
   "dash_lang"                   =>  "Język panelu",
   // Config Page - DMR Configuration
-  "dmr_master"                  =>  "DMR Master (MMDVMHost)",
+  "dmr_master"                  =>  "DMR Mode",
   "bm_master"                   =>  "BrandMeister Master",
   "bm_network"                  =>  "Sieć BrandMeister",
   "dmr_plus_master"             =>  "DMR+ Master",
@@ -113,7 +113,7 @@ $lang = array (
   "dstar_repeater"              =>  "Przemiennik D-Star",
   "dstar_net"                   =>  "Sieć D-Star",
   "dmr_repeater"                =>  "Przemiennik DMR",
-  "dmr_master"                  =>  "DMR Master",
+  "dmr_master"                  =>  "DMR Mode",
   "ysf_net"                     =>  "Sieć YSF",
   "p25_radio"                   =>  "P25 Radio",
   "p25_net"                     =>  "Sieć P25",
