@@ -100,9 +100,6 @@ if(isset($_SESSION['PiStarRelease']['Pi-Star']['ProcNum']) && ($_SESSION['PiStar
 			    <a class="menubackup noMob" href="/admin/config_backup.php"><?php echo $lang['backup_restore'];?></a>
 			    <a class="menuupdate noMob" href="/admin/update.php"><?php echo $lang['update'];?></a>
 			    <a class="menuadmin noMob" href="/admin/"><?php echo $lang['admin'];?></a>
-			    <?php if (file_exists("/etc/dstar-radio.mmdvmhost")) { ?>
-			    <a class="menulive" href="/live/">Live Caller</a>
-			    <?php } ?>
 			    <a class="menudashboard" href="/"><?php echo $lang['dashboard'];?></a>
 			</div>
 		</div>
