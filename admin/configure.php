@@ -608,6 +608,7 @@ $MYCALL=strtoupper($callsign);
 
 	        // Disable the field during lookup
 	        inputField.prop("disabled", true);
+		inputField.attr("placeholder", "Searching...");
 
 	        $.ajax({
 	            type: "GET",
@@ -675,6 +676,7 @@ $MYCALL=strtoupper($callsign);
 
 	                // Enable the field after lookup
 	                inputField.prop("disabled", false);
+			inputField.attr("placeholder", "");
 	            }
 	        });
 	    }
@@ -712,6 +714,7 @@ $MYCALL=strtoupper($callsign);
       // Change the content and background color of the unsavedChanges div
       $('#unsavedChanges').html('<strong>Saving and applying changes: page will reload once complete. Please wait... <span class="spinner"></span></strong>');
       $('#unsavedChanges').css('background-color', '#9FB7E0');
+      $('#unsavedChanges').css('color', '#000');
       $('#unsavedChanges').css('border', '2px solid #305696');
       submitform();
     }

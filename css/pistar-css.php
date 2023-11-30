@@ -578,7 +578,6 @@ select {
     color: black;
     padding: 5px;
     text-decoration: none;
-    margin: 3px;
 }
 
 .select2-selection__rendered {
@@ -1234,7 +1233,7 @@ meter::-webkit-meter-even-less-good-value {
 
 .spinner {
   border: 4px solid rgba(255, 255, 255, 0.3);
-  border-top: 4px solid #ffffff;
+  border-top: 4px solid #666666;
   border-radius: 50%;
   width: 20px;
   height: 20px;
@@ -1251,15 +1250,16 @@ meter::-webkit-meter-even-less-good-value {
   left: 50%;
   transform: translateX(-50%); /* Center the div horizontally */
   width: calc(100% - 40px);
-  height: 60px;
+  height: 80px;
   overflow: hidden;
-  background-color: #F4CCE0;
-  color: #000;
-  padding: 15px 10px 0px 10px;
+  background-color: #000;
+  color: #fff;
+  padding: 34px 10px 0px 10px;
   text-align: center;
   z-index: 1000;
   font-size: 1.4rem;
-  border: 2px solid crimson;
+  border: 1px solid #fff;
+  border-radius: 10px;
   max-width: 95%;
 }
 
@@ -1272,12 +1272,14 @@ meter::-webkit-meter-even-less-good-value {
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s;
+  transition: color 0.3s;
   font-weight: bold;
 }
 
 #applyButton:hover {
   background-color: #4caf50;
   border: 2px solid #37803A;
+  color: black;
 }
 
 #revertButton {
@@ -1289,10 +1291,12 @@ meter::-webkit-meter-even-less-good-value {
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s;
+  transition: color 0.3s;
   font-weight: bold;
 }
 
 #revertButton:hover {
   background-color: #ff9800;
   border: 2px solid #e65100;
+  color: black;
 }
