@@ -69,7 +69,7 @@ $lang = array (
   "timezone"                    =>  "Tidssone",
   "dash_lang"                   =>  "Skrivebord Språk",
   // Config Page - DMR Configuration
-  "dmr_master"                  =>  "DMR Master",
+  "dmr_master"                  =>  "DMR Mode",
   "bm_master"                   =>  "BrandMeister Master",
   "bm_network"                  =>  "BrandMeister Nettverk",
   "dmr_plus_master"             =>  "DMR+ Master",

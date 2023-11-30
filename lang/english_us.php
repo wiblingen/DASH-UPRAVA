@@ -69,7 +69,7 @@ $lang = array (
   "timezone"                    =>  "System Time Zone",
   "dash_lang"                   =>  "Dashboard Language",
   // Config Page - DMR Configuration
-  "dmr_master"                  =>  "DMR Master",
+  "dmr_master"                  =>  "DMR Mode",
   "bm_master"                   =>  "BrandMeister Master",
   "bm_network"                  =>  "BrandMeister Network",
   "dmr_plus_master"             =>  "DMR+ Master",
