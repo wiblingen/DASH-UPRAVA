@@ -570,7 +570,7 @@ input.toggle-round-flat:focus + label {
 }
 
 .menuhwinfo, .menuprofile, .menuconfig, .menuadmin, .menudashboard, .menusimple,
-.menucaller, .menulive, .menuupdate, .menuupgrade, .menupower, .menulogs,
+.menucaller, .menulive, .menuupdate, .menupower, .menulogs,
 .menubackup, .menuadvanced, .menureset, .menusysinfo, .menuradioinfo {
     position: relative;
 }
@@ -612,16 +612,7 @@ input.toggle-round-flat:focus + label {
 }
 
 .menuupdate:before {
-    content: "\f021";
-    font-family: FontAwesome;
-    font-style: normal;
-    font-weight: normal;
-    text-decoration: inherit;
-    padding-right: 0.2em;
-}
-
-.menuupgrade:before {
-    content: "\f1b8";
+    content: "\f019";
     font-family: FontAwesome;
     font-style: normal;
     font-weight: normal;
