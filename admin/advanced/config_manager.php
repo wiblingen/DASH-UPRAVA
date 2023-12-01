@@ -129,7 +129,7 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
 			    }
 			    else if ( escapeshellcmd($_POST["restore_config"]) ) {
 				   $backupDir = '/etc/WPSD_config_mgr/'.$_POST['configs'].'';
-				   echo '<tr><td colspan="3"><br />Swithinc to Profile, "' .$_POST['configs'].'"...
+				   echo '<tr><td colspan="3"><br />Switching to Profile, "' .$_POST['configs'].'"...
 				   <br />Page reloading...<br /><br />
 				   <script language="JavaScript" type="text/javascript">
                                    setTimeout("location.href = \''.$_SERVER["PHP_SELF"].'\'", 3000);
