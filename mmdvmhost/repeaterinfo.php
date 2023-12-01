@@ -705,17 +705,18 @@ if (isPaused("YSF")) {
 ?>
     </div>
   </div>
-  </div>
+</div>
+<br />
 <?php
 }
 
 if (getServiceEnabled('/etc/dgidgateway') == 1 )  { // Hide DGId GW info when GW not enabled
 ?>
-
 <div class="divTable">
-  <div class="divTableHead">DG-ID Status</div>
-    <div class="divTableBody">
-      <div class="divTableRow center">
+  <div class="divTableHead">DG-ID Gateway Status</div>
+  <div class="divTableHead">Current DG-ID</div>
+  <div class="divTableBody">
+    <div class="divTableRow center">
 <?php
         if (isPaused("YSF")) {
             echo "<div class='divTableCell cell_content'><div style=\"background: $tableRowEvenBg;\" title=\"YSF Mode Paused\">YSF Mode Paused</div></div>\n";
@@ -726,17 +727,12 @@ if (getServiceEnabled('/etc/dgidgateway') == 1 )  { // Hide DGId GW info when GW
             echo "<div class='divTableCell cell_content'><div class='inactive-mode-cell'>Service Not Started</div></div>\n";
         }
 ?>
-  	</div>
-      </div>
     </div>
   </div>
+</div>
 <br />
 <?php
-} else {
-?>
-<br />
-<?php
-} 
+}
 
 	$testYSF2DMR = 0;
 	if ( isset($_SESSION['YSF2DMRConfigs']['Enabled']['Enabled']) ) {
