@@ -62,7 +62,7 @@ $os_ver = trim( exec( 'cat /etc/debian_version' ) );
   <?php if (getPSWstate()=='0' ) { ?>
   <div class='grid-item paused-mode-cell' title="Disabled">WPSD Services Watchdog</div>
   <?php } else { ?>
-  <div class="grid-item <?php getServiceStatusClass(isProcessRunning('/usr/local/sbin/pistar-watchdog',true)); ?>">WPSD Servicess Watchdog</div> 
+  <div class="grid-item <?php getServiceStatusClass(isProcessRunning('/usr/local/sbin/pistar-watchdog',true)); ?>">WPSD Services Watchdog</div> 
   <?php } ?>
 
   <div class="grid-item <?php getServiceStatusClass(UPnPenabled()); ?>">UPnP</div>  
