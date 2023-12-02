@@ -1767,8 +1767,9 @@ if (!empty($_POST)):
 	}
 
         // Set M17 Callsign Station ID
-        if (isset($_POST['m17StationID'])) {
+        if (isset($_POST['m17StationID']) && '' !== $_POST['m17StationID']) {
                 $m17StationIDnew = escapeshellcmd($_POST['m17StationID']);
+		$m17StationIDnew = str_replace(' ', '', $m17StationIDnew);
                 $configm17gateway['General']['Callsign'] = $newCallsignUpper . "-" . $m17StationIDnew;
         } else {
                 $configm17gateway['General']['Callsign'] = $newCallsignUpper;
@@ -6380,7 +6381,9 @@ $p25Hosts = fopen("/usr/local/etc/P25Hosts.txt", "r");
 						<td align="left">
 						<select name="m17StationID">
 						<?php if($m17SID == "") { echo '<option value="" selected="selected">None</option>'; } else { echo "<option value='$m17SID' selected='selected'>$m17SID</option>"; } ?>
+						  <?php if($m17SID != "") { ?>
 						  <option value="">None</option>
+						  <?php } ?>
 						  <option value="0">0</option>
 						  <option value="1">1</option>
 						  <option value="2">2</option>
