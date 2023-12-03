@@ -714,9 +714,9 @@ $MYCALL=strtoupper($callsign);
     function saveChanges() {
       // Change the content and background color of the unsavedChanges div
       $('#unsavedChanges').html('<strong>Saving and applying changes: page will reload once complete. Please wait... <span class="spinner"></span></strong>');
-      $('#unsavedChanges').css('background-color', '#9FB7E0');
+      $('#unsavedChanges').css('background-color', '#6CBA74');
       $('#unsavedChanges').css('color', '#000');
-      $('#unsavedChanges').css('border', '2px solid #305696');
+      $('#unsavedChanges').css('border', '2px solid #406F45');
       submitform();
     }
 
