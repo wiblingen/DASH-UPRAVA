@@ -6655,7 +6655,7 @@ Get WPSD Help: [ <a href="https://w0chp.radio/wpsd-faqs/" target="_new">FAQs</a>
 <br />
 </div>
 </div>
-<script type="text/javascript">
+<script>
     function updateSymbolPreview(symbolCode) {
         var symbolPreview = document.getElementById('aprs-symbol-preview');
         var previewText = document.querySelector('.aprs-preview-text');
@@ -6682,7 +6682,7 @@ Get WPSD Help: [ <a href="https://w0chp.radio/wpsd-faqs/" target="_new">FAQs</a>
     updateSymbolPreview(preselectedSymbol);
 
     // Function to enable/disable radio buttons based on uPNP selection
-    function toggleRadioButtons() {
+    function toggleFwRadioButtons() {
         var uPNPValue = document.querySelector('input[name="uPNP"]:checked').value;
         var dashAccessRadio = document.getElementsByName("dashAccess");
         var ircRCAccessRadio = document.getElementsByName("ircRCAccess");
@@ -6719,11 +6719,11 @@ Get WPSD Help: [ <a href="https://w0chp.radio/wpsd-faqs/" target="_new">FAQs</a>
     // Attach the function to the uPNP radio buttons' change event
     var uPNPRadioButtons = document.getElementsByName("uPNP");
     for (var i = 0; i < uPNPRadioButtons.length; i++) {
-        uPNPRadioButtons[i].addEventListener("change", toggleRadioButtons);
+        uPNPRadioButtons[i].addEventListener("change", toggleFwRadioButtons);
     }
 
     // Initial call to set the initial state
-    toggleRadioButtons();
+    toggleFwRadioButtons();
 </script>
 </body>
 </html>
