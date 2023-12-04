@@ -6495,10 +6495,10 @@ $p25Hosts = fopen("/usr/local/etc/P25Hosts.txt", "r");
 <?php } ?>
 
 <?php if (file_exists('/etc/dstar-radio.mmdvmhost')) { ?>
-    <h2 class="ConfSec">Node Access Mode</h2>
+    <h2 class="ConfSec">Node Access Control</h2>
     <table>
     <tr>
-    <td colspan="4" align="left" style='word-wrap: break-word;white-space: normal;font-size:larger;color:#840C24;padding-left: 5px;'><em><b>Note:</b></em> This section is for advanced multi-user hotspot or repeater usage only!</td>
+    <td colspan="4" align="left" style='word-wrap: break-word;white-space: normal;font-size:larger;color:#840C24;padding-left: 5px;'><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> <b>Caution: <em>This section is for advanced multi-user hotspot or repeater usage only!</em></b></td>
     </tr>
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo $lang['node_type'];?>:<span><b>Node Lock</b>Set the public/private node type. &quot;Private&quot; limits access to your system to your ID/Callsign only, this may be a licence requirement for your country and helps prevent network loops.</span></a></td>
@@ -6506,18 +6506,18 @@ $p25Hosts = fopen("/usr/local/etc/P25Hosts.txt", "r");
     <input type="radio" name="nodeMode" id="nodePriv" value="prv"<?php if ($configmmdvm['DMR']['SelfOnly'] == 1) {echo ' checked="checked"';} ?> />
       <label for="nodePriv" style="display: inline-block;">Private</label>
 <?php if (empty($configmmdvm['DMR']['WhiteList'])) { ?>    <input type="radio" name="nodeMode" id="nodePub" value="pub" disabled="diabled" />
-      <label for="nodePub" style="display: inline-block;">Public</label>
+      <label for="nodePub" style="display: inline-block;">Semi-Public</label>
 <?php } else { ?>
     <input type="radio" name="nodeMode" id="nodePub" value="pub"<?php if ($configmmdvm['DMR']['SelfOnly'] == 0) {echo ' checked="checked"';} ?> />
-      <label for="nodePub" style="display: inline-block;">Public</label>
+      <label for="nodePub" style="display: inline-block;">Semi-Public</label>
 <?php } ?>
     </td>
-    <td align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'><em><b>Note:</b> Public mode cannot be enabled without entering at least one allowed DMR/CCS7 ID in the access list below and applying the changes FIRST.</em></td>
+    <td align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'><i class="fa fa-exclamation-circle" aria-hidden="true"></i> <b>Note:</b> <em>Semi-Public mode cannot be enabled without entering at least one allowed DMR/CCS7 ID in the access list below and applying the changes FIRST.</em></td>
     </tr>
     <tr>
     <td align="left"><a class="tooltip2" href="#">Access List:<span><b>DMR/CCS7 IDs</b>Set the DMR/CCS7 IDs here that should have access to your hotspot, using a comma seperated list.</span></a></td>
     <td align="left" colspan="2"><input type="text" placeholder="7654321" name="confDMRWhiteList" size="50" maxlength="100" value="<?php if (isset($configmmdvm['DMR']['WhiteList'])) { echo $configmmdvm['DMR']['WhiteList']; } ?>" /></td>
-    <td align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'>Enter one, or a comma-separated list of DMR/CCS7 IDs which are allowed access to this hotspot/repeater (required for public functionality).</td>
+    <td align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'><i class="fa fa-question-circle"></i> Enter one, or a comma-separated list of DMR/CCS7 IDs which are allowed access to this hotspot/repeater (required for public functionality). For fully-public/fully-open access without adding each ID, ignore these settings and <a href="https://w0chp.radio/wpsd-faqs/" target="_new">see the FAQs</a>.</td>
     </tr>
     </table>
 
@@ -6530,71 +6530,79 @@ $p25Hosts = fopen("/usr/local/etc/P25Hosts.txt", "r");
     <tr>
     </tr>
     <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['fw_dash'];?>:<span><b>Dashboard Access</b>Do you want the dashboard access to be publicly available? This modifies the uPNP firewall configuration.</span></a></td>
-    <?php
-	$testPrvPubDash = exec('sudo grep "80 80" /etc/wpsd-upnp-rules | head -1 | cut -c 5');
-
-	if (substr($testPrvPubDash, 0, 1) === '#') {
-		echo "   <td align=\"left\" colspan=\"2\"><input type=\"radio\" name=\"dashAccess\" value=\"PRV\" checked=\"checked\" />Private <input type=\"radio\" name=\"dashAccess\" value=\"PUB\" />Public</td>\n";
-		}
-	else {
-		echo "   <td align=\"left\" colspan=\"2\"><input type=\"radio\" name=\"dashAccess\" value=\"PRV\" />Private <input type=\"radio\" name=\"dashAccess\" value=\"PUB\" checked=\"checked\" />Public</td>\n";
-	}
-    ?>
-    </tr>
-    <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['fw_irc'];?>:<span><b>ircDDB Remote Command Access</b>Do you want the ircDDB remote command access to be publicly available? This modifies the uPNP firewall Configuration.</span></a></td>
-    <?php
-	$testPrvPubIRC = exec('sudo grep "10022 10022" /etc/wpsd-upnp-rules | head -1 | cut -c 5');
-
-	if (substr($testPrvPubIRC, 0, 1) === '#') {
-		echo "   <td align=\"left\" colspan=\"2\"><input type=\"radio\" name=\"ircRCAccess\" value=\"PRV\" checked=\"checked\" />Private <input type=\"radio\" name=\"ircRCAccess\" value=\"PUB\" />Public</td>\n";
-		}
-	else {
-		echo "   <td align=\"left\" colspan=\"2\"><input type=\"radio\" name=\"ircRCAccess\" value=\"PRV\" />Private <input type=\"radio\" name=\"ircRCAccess\" value=\"PUB\" checked=\"checked\" />Public</td>\n";
-	}
-    ?>
-    </tr>
-    <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['fw_ssh'];?>:<span><b>SSH Access</b>Do you want access to be publicly available over SSH (used for support issues)? This modifies the uPNP firewall Configuration.</span></a></td>
-    <?php
-	$testPrvPubSSH = exec('sudo grep "22 22" /etc/wpsd-upnp-rules | head -1 | cut -c 5');
-
-	if (substr($testPrvPubSSH, 0, 1) === '#') {
-		echo "   <td align=\"left\" colspan=\"2\"><input type=\"radio\" name=\"sshAccess\" value=\"PRV\" checked=\"checked\" />Private <input type=\"radio\" name=\"sshAccess\" value=\"PUB\" />Public</td>\n";
-		}
-	else {
-		echo "   <td align=\"left\" colspan=\"2\"><input type=\"radio\" name=\"sshAccess\" value=\"PRV\" />Private <input type=\"radio\" name=\"sshAccess\" value=\"PUB\" checked=\"checked\" />Public</td>\n";
-	}
-    ?>
-    </tr>
-    <?php if (file_exists('/etc/default/hostapd')) { ?>
-    <tr>
-      <td align="left"><a class="tooltip2" href="#">Auto AP:<span><b>Auto AP</b>Do you want your Pi to create its own AP if it cannot connect to WiFi within 120 secs of boot</span></a></td>
-      <?php
-        if (file_exists('/etc/hostap.off')) {
-	  echo "   <td align=\"left\"><input type=\"radio\" name=\"autoAP\" value=\"ON\" />On <input type=\"radio\" name=\"autoAP\" value=\"OFF\" checked=\"checked\" />Off</td>\n";
-	}
-        else {
-	  echo "   <td align=\"left\"><input type=\"radio\" name=\"autoAP\" value=\"ON\" checked=\"checked\" />On <input type=\"radio\" name=\"autoAP\" value=\"OFF\" />Off</td>\n";
-	}
-      ?>
-      <td align="left"><em>Note: Reboot Required if changed</em></td>
-    </tr>
-    <?php } ?>
-    <tr>
-      <td align="left"><a class="tooltip2" href="#">uPNP:<span><b>uPNP</b>Do you want your Pi to create its own Firewall rules for use with D-Star.</span></a></td>
-      <?php
+        <td align="left"><a class="tooltip2" href="#">UPnP:<span><b>UPnP</b>Do you want this device to create its own Firewall rules?</span></a></td>
+        <?php
         $testupnp = exec('grep "pistar-upnp.service" /etc/crontab | cut -c 1');
-	if (substr($testupnp, 0, 1) === '#') {
-	  echo "   <td align=\"left\" colspan=\"2\"><input type=\"radio\" name=\"uPNP\" value=\"ON\" />On <input type=\"radio\" name=\"uPNP\" value=\"OFF\" checked=\"checked\" />Off</td>\n";
-	}
-        else {
-	  echo "   <td align=\"left\" colspan=\"2\"><input type=\"radio\" name=\"uPNP\" value=\"ON\" checked=\"checked\" />On <input type=\"radio\" name=\"uPNP\" value=\"OFF\" />Off</td>\n";
-	}
-      ?>
+        if (substr($testupnp, 0, 1) === '#') {
+            echo "   <td align=\"left\" colspan=\"2\"><input type=\"radio\" id=\"uPNP_enabled\" name=\"uPNP\" value=\"ON\" /> <label for=\"uPNP_enabled\">Enabled</label> <input type=\"radio\" id=\"uPNP_disabled\" name=\"uPNP\" value=\"OFF\" checked=\"checked\" /> <label for=\"uPNP_disabled\">Disabled</label></td>\n";
+        } else {
+            echo "   <td align=\"left\" colspan=\"2\"><input type=\"radio\" id=\"uPNP_enabled\" name=\"uPNP\" value=\"ON\" checked=\"checked\" /> <label for=\"uPNP_enabled\">Enabled</label> <input type=\"radio\" id=\"uPNP_disabled\" name=\"uPNP\" value=\"OFF\" /> <label for=\"uPNP_disabled\">Disabled</label></td>\n";
+        }
+        ?>
+    </tr>
+    <tr>
+        <td align="left" colspan="3" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'><i class="fa fa-info-circle" aria-hidden="true"></i> <b>Note:</b> <em>The following options cannot be made Public until UPnP is Enabled.</em></td>
+    </tr>
+    <tr>
+        <td align="left"><a class="tooltip2" href="#"><?php echo $lang['fw_dash'];?>:<span><b>Dashboard Access</b>Do you want the dashboard access to be publicly available? This modifies the uPNP firewall configuration.</span></a></td>
+        <?php
+        $testPrvPubDash = exec('sudo grep "80 80" /etc/wpsd-upnp-rules | head -1 | cut -c 5');
+
+        if (substr($testPrvPubDash, 0, 1) === '#') {
+            echo "   <td align=\"left\" colspan=\"2\"><input type=\"radio\" id=\"dashAccess_private\" name=\"dashAccess\" value=\"PRV\" checked=\"checked\" /> <label for=\"dashAccess_private\">Private</label> <input type=\"radio\" id=\"dashAccess_public\" name=\"dashAccess\" value=\"PUB\" /> <label for=\"dashAccess_public\">Public</label></td>\n";
+        } else {
+            echo "   <td align=\"left\" colspan=\"2\"><input type=\"radio\" id=\"dashAccess_private\" name=\"dashAccess\" value=\"PRV\" /> <label for=\"dashAccess_private\">Private</label> <input type=\"radio\" id=\"dashAccess_public\" name=\"dashAccess\" value=\"PUB\" checked=\"checked\" /> <label for=\"dashAccess_public\">Public</label></td>\n";
+        }
+        ?>
+    </tr>
+    <tr>
+        <td align="left"><a class="tooltip2" href="#"><?php echo $lang['fw_irc'];?>:<span><b>ircDDB Remote Command Access</b>Do you want the ircDDB remote command access to be publicly available? This modifies the uPNP firewall Configuration.</span></a></td>
+        <?php
+        $testPrvPubIRC = exec('sudo grep "10022 10022" /etc/wpsd-upnp-rules | head -1 | cut -c 5');
+
+        if (substr($testPrvPubIRC, 0, 1) === '#') {
+            echo "   <td align=\"left\" colspan=\"2\"><input type=\"radio\" id=\"ircRCAccess_private\" name=\"ircRCAccess\" value=\"PRV\" checked=\"checked\" /> <label for=\"ircRCAccess_private\">Private</label> <input type=\"radio\" id=\"ircRCAccess_public\" name=\"ircRCAccess\" value=\"PUB\" /> <label for=\"ircRCAccess_public\">Public</label></td>\n";
+        } else {
+            echo "   <td align=\"left\" colspan=\"2\"><input type=\"radio\" id=\"ircRCAccess_private\" name=\"ircRCAccess\" value=\"PRV\" /> <label for=\"ircRCAccess_private\">Private</label> <input type=\"radio\" id=\"ircRCAccess_public\" name=\"ircRCAccess\" value=\"PUB\" checked=\"checked\" /> <label for=\"ircRCAccess_public\">Public</label></td>\n";
+        }
+        ?>
+    </tr>
+    <tr>
+        <td align="left"><a class="tooltip2" href="#"><?php echo $lang['fw_ssh'];?>:<span><b>SSH Access</b>Do you want access to be publicly available over SSH (used for support issues)? This modifies the uPNP firewall Configuration.</span></a></td>
+        <?php
+        $testPrvPubSSH = exec('sudo grep "22 22" /etc/wpsd-upnp-rules | head -1 | cut -c 5');
+
+        if (substr($testPrvPubSSH, 0, 1) === '#') {
+            echo "   <td align=\"left\" colspan=\"2\"><input type=\"radio\" id=\"sshAccess_private\" name=\"sshAccess\" value=\"PRV\" checked=\"checked\" /> <label for=\"sshAccess_private\">Private</label> <input type=\"radio\" id=\"sshAccess_public\" name=\"sshAccess\" value=\"PUB\" /> <label for=\"sshAccess_public\">Public</label></td>\n";
+        } else {
+            echo "   <td align=\"left\" colspan=\"2\"><input type=\"radio\" id=\"sshAccess_private\" name=\"sshAccess\" value=\"PRV\" /> <label for=\"sshAccess_private\">Private</label> <input type=\"radio\" id=\"sshAccess_public\" name=\"sshAccess\" value=\"PUB\" checked=\"checked\" /> <label for=\"sshAccess_public\">Public</label></td>\n";
+        }
+        ?>
     </tr>
     </table>
+
+
+    <br /><br />
+
+    <h2 class="ConfSec">AccessPoint Mode</h2>
+    <table>
+    <?php if (file_exists('/etc/default/hostapd') && file_exists('/sys/class/net/wlan0') || file_exists('/sys/class/net/wlan1') || file_exists('/sys/class/net/wlan0_ap')) { ?>
+    <tr>
+      <td align="left"><a class="tooltip2" href="#">Auto AP:<span><b>Auto AccessPoint</b>Do you want this device to create its own WiFi AccessPoint if it cannot connect to WiFi within 120 seconds after booting?</span></a></td>
+      <?php
+        if (file_exists('/etc/hostap.off')) {
+          echo "   <td align=\"left\"><input type=\"radio\" name=\"autoAP\" value=\"ON\" />On <input type=\"radio\" name=\"autoAP\" value=\"OFF\" checked=\"checked\" />Off</td>\n";
+        }
+        else {
+          echo "   <td align=\"left\"><input type=\"radio\" name=\"autoAP\" value=\"ON\" checked=\"checked\" />On <input type=\"radio\" name=\"autoAP\" value=\"OFF\" />Off</td>\n";
+        }
+      ?>
+      <td align="left"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> <em>Note: Reboot Required if changed</em></td>
+    </tr>
+    <?php } ?>
+    </tr>
+    </table>
+
     </form>
 
     <br />
@@ -6672,6 +6680,50 @@ Get WPSD Help: [ <a href="https://w0chp.radio/wpsd-faqs/" target="_new">FAQs</a>
     // Call updateSymbolPreview with the preselected symbol on page load
     var preselectedSymbol = '<?php echo $selectedSymbol; ?>';
     updateSymbolPreview(preselectedSymbol);
+
+    // Function to enable/disable radio buttons based on uPNP selection
+    function toggleRadioButtons() {
+        var uPNPValue = document.querySelector('input[name="uPNP"]:checked').value;
+        var dashAccessRadio = document.getElementsByName("dashAccess");
+        var ircRCAccessRadio = document.getElementsByName("ircRCAccess");
+        var sshAccessRadio = document.getElementsByName("sshAccess");
+
+        if (uPNPValue === "OFF") {
+            // Disable radio buttons
+            for (var i = 0; i < dashAccessRadio.length; i++) {
+                dashAccessRadio[i].disabled = true;
+                dashAccessRadio[i].checked = false;
+            }
+            for (var i = 0; i < ircRCAccessRadio.length; i++) {
+                ircRCAccessRadio[i].disabled = true;
+                ircRCAccessRadio[i].checked = false;
+            }
+            for (var i = 0; i < sshAccessRadio.length; i++) {
+                sshAccessRadio[i].disabled = true;
+                sshAccessRadio[i].checked = false;
+            }
+        } else {
+            // Enable radio buttons
+            for (var i = 0; i < dashAccessRadio.length; i++) {
+                dashAccessRadio[i].disabled = false;
+            }
+            for (var i = 0; i < ircRCAccessRadio.length; i++) {
+                ircRCAccessRadio[i].disabled = false;
+            }
+            for (var i = 0; i < sshAccessRadio.length; i++) {
+                sshAccessRadio[i].disabled = false;
+            }
+        }
+    }
+
+    // Attach the function to the uPNP radio buttons' change event
+    var uPNPRadioButtons = document.getElementsByName("uPNP");
+    for (var i = 0; i < uPNPRadioButtons.length; i++) {
+        uPNPRadioButtons[i].addEventListener("change", toggleRadioButtons);
+    }
+
+    // Initial call to set the initial state
+    toggleRadioButtons();
 </script>
 </body>
 </html>
