@@ -67,7 +67,7 @@ if ( $testMMDVModeDMR == 1 ) {
 	if (!empty($_POST) && (!empty($_POST["tgStaticDropAll"]) || !empty($_POST["tgStaticReAdd"]) || !empty($_POST["tgStaticBatch"]))) {  // Data has been posted for this page
             // Static TG handling...
 	    // Drop all static:
-	    $bmStaticDropAllCmd = ("sudo /usr/local/sbin/bm_static_tgs_dropall $sanitizedKey $dmrID");
+	    $bmStaticDropAllCmd = ("sudo /usr/local/sbin/.bm_static_tgs_dropall $sanitizedKey $dmrID");
 	    if (!empty(escapeshellcmd($_POST["tgStaticDropAll"]))) {
 	        exec($bmStaticDropAllCmd);
                 // Output to the browser
@@ -80,7 +80,7 @@ if ( $testMMDVModeDMR == 1 ) {
                 echo '<script type="text/javascript">setTimeout(function() { window.location.href = "./?func=bm_man";},3000);</script>';
 	    }
 	    // re-add all static
-            $bmStaticAddAllCmd = ("sudo /usr/local/sbin/bm_static_tgs_addall $sanitizedKey $dmrID");
+            $bmStaticAddAllCmd = ("sudo /usr/local/sbin/.bm_static_tgs_addall $sanitizedKey $dmrID");
             if (!empty(escapeshellcmd($_POST["tgStaticReAdd"]))) {
 	        // make certain that a previous saved/dropped file actually exists
 	        if (file_exists("/etc/.bm_tgs.json.saved")) {
@@ -115,8 +115,8 @@ if ( $testMMDVModeDMR == 1 ) {
 		$dispSlot = $massTGslot;
 	    }
 	    
-            $bmStaticMassAddCmd = ("sudo /usr/local/sbin/bm_static_tgs_batchadd $sanitizedKey $dmrID $massTGslot");
-            $bmStaticMassDelCmd = ("sudo /usr/local/sbin/bm_static_tgs_batchdel $sanitizedKey $dmrID $massTGslot");
+            $bmStaticMassAddCmd = ("sudo /usr/local/sbin/.bm_static_tgs_batchadd $sanitizedKey $dmrID $massTGslot");
+            $bmStaticMassDelCmd = ("sudo /usr/local/sbin/.bm_static_tgs_batchdel $sanitizedKey $dmrID $massTGslot");
 	    if (!empty(escapeshellcmd($_POST["tgStaticBatch"]))) {
                 $massTGs = escapeshellcmd($_POST['massTGlist']);
                 if (strlen($massTGs)==0) {
