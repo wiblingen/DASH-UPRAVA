@@ -43,7 +43,9 @@ if (isset($_SESSION['CSSConfigs']['Background']['TableRowBgEvenColor'])) {
       <?php } ?>
       <div class="divTableHeadCell noMob">Radio Mode</div>
       <div class="divTableHeadCell noMob">Modem Firmware</div>
+      <?php if(!empty($_SESSION['DvModemTCXOFreq'])) { ?>
       <div class="divTableHeadCell noMob">TCXO Freq.</div>
+      <?php } ?>
       <div class="divTableHeadCell noMob">Modem Port</div>
       <div class="divTableHeadCell noMob">Modem Speed</div>
     </div>
@@ -137,7 +139,9 @@ if (isset($_SESSION['CSSConfigs']['Background']['TableRowBgEvenColor'])) {
       <?php } ?>
       <div class="divTableCell cell_content middle noMob" style="background: <?php echo $tableRowEvenBg; ?>;"><?php if(getConfigItem("General", "Duplex", $_SESSION['MMDVMHostConfigs']) == "1") { echo "Duplex"; } else { echo "Simplex"; } ?></div>
       <div class="divTableCell cell_content middle noMob" style="background: <?php echo $tableRowEvenBg; ?>;"><?php echo $_SESSION['DvModemFWVersion']; ?></div>
+      <?php if(!empty($_SESSION['DvModemTCXOFreq'])) { ?>
       <div class="divTableCell cell_content middle noMob" style="background: <?php echo $tableRowEvenBg; ?>;"><?php echo $_SESSION['DvModemTCXOFreq']; ?></div>
+      <?php } ?>
       <div class="divTableCell cell_content middle noMob" style="background: <?php echo $tableRowEvenBg; ?>;"><?php echo getConfigItem("Modem", "UARTPort", $_SESSION['MMDVMHostConfigs']); ?></div>
       <div class="divTableCell cell_content middle noMob" style="background: <?php echo $tableRowEvenBg; ?>;"><?php echo number_format(getConfigItem("Modem", "UARTSpeed", $_SESSION['MMDVMHostConfigs'])); ?> bps</div>
     </div>
