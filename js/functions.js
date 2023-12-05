@@ -354,3 +354,19 @@ function toggleDstarDplusHostfiles(event) {
   }
   if(event.keyCode == '32') { document.getElementById('aria-toggle-dplusHostFiles').click(); }
 }
+function toggleGpsdCheckbox(event) {
+  var gpsdCheckbox = document.getElementById('aria-toggle-GPSD');
+
+  switch (gpsdCheckbox.getAttribute('aria-checked')) {
+    case "true":
+      gpsdCheckbox.setAttribute('aria-checked', "false");
+      break;
+    case "false":
+      gpsdCheckbox.setAttribute('aria-checked', "true");
+      break;
+  }
+
+  if (event.keyCode == '32') {
+    gpsdCheckbox.click();
+  }
+}

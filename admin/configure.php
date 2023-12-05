@@ -4688,7 +4688,7 @@ else:
 
     <br /><br />
 
-    <h2 class="ConfSec">Location and Hotspot Info Settings</h2>
+    <h2 class="ConfSec">Location and General Node Info Settings</h2>
     <input type="hidden" name="APRSGatewayEnable" value="OFF" />
     <table>
     <tr>
@@ -4722,25 +4722,13 @@ else:
         <small>&nbsp;<i class="fa fa-question-circle"></i> Auto vs. Manual: Auto simply creates a URL to your QRZ.com callsign page. Manual allows you to specify your own custom URL/site.</small>
     </td>
     </tr>
-    <tr>
-    <td align="left"><a class="tooltip2" href="#">GPSd:<span><b>GPS daemon support</b>Read NMEA data from a serially connected GPS unit and then to make that data available for other programs.</span></a></td>
-    <input type="hidden" name="GPSD" value="OFF" />
-    <?php
-    if ( $configdmrgateway['GPSD']['Enable'] == 1 ) {
-        echo "<td align=\"left\" colspan='3'><div class=\"switch\"><input id=\"toggle-GPSD\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"GPSD\" value=\"ON\" checked=\"checked\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleGpsdCheckboxCr." /><label id=\"aria-toggle-GPSD\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Enable GPS Position Reporting\" aria-checked=\"true\" onKeyPress=\"toggleGpsdCheckbox()\" onclick=\"toggleGpsdCheckbox()\" for=\"toggle-GPSD\"><font style=\"font-size:0px\">Enable GPSD Position Reporting</font></label></div></td>\n";
-    } else {
-        echo "<td align=\"left\" colspan='3'><div class=\"switch\"><input id=\"toggle-GPSD\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"GPSD\" value=\"ON\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleGpsdCheckboxCr." /><label id=\"aria-toggle-GPSD\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Enable APRS Position Reporting\" aria-checked=\"false\" onKeyPress=\"toggleGpsdCheckbox()\" onclick=\"toggleGpsdCheckbox()\" for=\"toggle-GPSD\"><font style=\"font-size:0px\">Enable GPS Position Reporting</font></label></div></td>\n";
-    }
-    ?>
-    </td>
-    </tr>
 <?php if (file_exists('/etc/aprsgateway')) {
     echo "<tr id='APRSgw'>\n";
     echo "<td align=\"left\"><a class=\"tooltip2\" href=\"#\">APRS Gateway:<span><b>APRS Gateway</b>Enabling this feature will make your location public on the APRS Network.</span></a></td>\n";
     if ( $configaprsgateway['Enabled']['Enabled'] == 1 ) {
-        echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-aprsgateway\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"APRSGatewayEnable\" value=\"ON\" checked=\"checked\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleAPRSGatewayCheckboxCr." /><label id=\"aria-toggle-aprsgateway\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Enable APRS Position Reporting\" aria-checked=\"true\" onKeyPress=\"toggleAPRSGatewayCheckbox()\" onclick=\"toggleAPRSGatewayCheckbox()\" for=\"toggle-aprsgateway\"><font style=\"font-size:0px\">Enable APRS Position Reporting</font></label></div></td>\n";
+        echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-aprsgateway\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"APRSGatewayEnable\" value=\"ON\" checked=\"checked\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleAPRSGatewayCheckboxCr." onchange='toggleAPRSGatewayCheckbox()' /><label id=\"aria-toggle-aprsgateway\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Enable APRS Position Reporting\" aria-checked=\"true\" onKeyPress=\"toggleAPRSGatewayCheckbox()\" onclick=\"toggleAPRSGatewayCheckbox()\" for=\"toggle-aprsgateway\"><font style=\"font-size:0px\">Enable APRS Position Reporting</font></label></div></td>\n";
     } else {
-        echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-aprsgateway\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"APRSGatewayEnable\" value=\"ON\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleAPRSGatewayCheckboxCr." /><label id=\"aria-toggle-aprsgateway\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Enable APRS Position Reporting\" aria-checked=\"false\" onKeyPress=\"toggleAPRSGatewayCheckbox()\" onclick=\"toggleAPRSGatewayCheckbox()\" for=\"toggle-aprsgateway\"><font style=\"font-size:0px\">Enable APRS Position Reporting</font></label></div></td>\n";
+        echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-aprsgateway\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"APRSGatewayEnable\" value=\"ON\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleAPRSGatewayCheckboxCr." onchange='toggleAPRSGatewayCheckbox()' /><label id=\"aria-toggle-aprsgateway\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Enable APRS Position Reporting\" aria-checked=\"false\" onKeyPress=\"toggleAPRSGatewayCheckbox()\" onclick=\"toggleAPRSGatewayCheckbox()\" for=\"toggle-aprsgateway\"><font style=\"font-size:0px\">Enable APRS Position Reporting</font></label></div></td>\n";
     }
 } ?>
     <td align="left">APRS Host Pool:</a>
@@ -4818,6 +4806,22 @@ else:
         <div class="aprs-symbol-preview" id="aprs-symbol-preview"></div>
     </div>
     </td>
+    </tr>
+    <tr>
+    <td colspan="4" style='word-wrap: break-word;white-space: normal;padding-left: 5px;' align="left"><i class="fa fa-info-circle"></i> APRSGateway will use the location information (Lat./Lon.) you have entered above. However, If you have a GPS device connected and have enabled GPSd (below), it will use the GPS device location informaion.</td>
+    </tr>
+    <tr>
+    <td align="left"><a class="tooltip2" href="#">GPSd:<span><b>GPS daemon support</b>Read NMEA data from a serially connected GPS unit and then to make that data available for other programs.</span></a></td>
+    <input type="hidden" name="GPSD" value="OFF" />
+    <?php
+    if ( $configdmrgateway['GPSD']['Enable'] == 1 ) {
+        echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-GPSD\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"GPSD\" value=\"ON\" checked=\"checked\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleGpsdCheckboxCr." /><label id=\"aria-toggle-GPSD\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Enable GPS Position Reporting\" aria-checked=\"true\" onKeyPress=\"toggleGpsdCheckbox()\" onclick=\"toggleGpsdCheckbox()\" for=\"toggle-GPSD\"><font style=\"font-size:0px\">Enable GPSD Position Reporting</font></label></div></td>\n";
+    } else {
+        echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-GPSD\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"GPSD\" value=\"ON\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleGpsdCheckboxCr." /><label id=\"aria-toggle-GPSD\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Enable APRS Position Reporting\" aria-checked=\"false\" onKeyPress=\"toggleGpsdCheckbox()\" onclick=\"toggleGpsdCheckbox()\" for=\"toggle-GPSD\"><font style=\"font-size:0px\">Enable GPS Position Reporting</font></label></div></td>\n";
+    }
+    ?>
+    </td>
+    <td colspan="3" style='word-wrap: break-word;white-space: normal;padding-left: 5px;' align="left"><i class="fa fa-question-circle"></i> Enabling this option, allows an externally-connected GPS device to send your location information to APRS, vs. the location information (Lat./Lon.) you have entered above. This functionality requires that you also enable APRS Gateway (above).</td>
     </tr>
     </table>
 
@@ -4935,7 +4939,7 @@ else:
 	} else if
 	    ($configmmdvm['System Fusion']['Enable'] != 1) {
 	    echo "<td colspan=\"1\" align=\"left\"><div class=\"switch\"><input id=\"toggle-ysf2dmr\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeYSF2DMR\" value=\"OFF\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleYSF2DMRCheckboxCr." disabled=\"disabled\"/><label id=\"aria-toggle-ysf2dmr\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Y S F 2 DMR Mode\" aria-checked=\"false\" onKeyPress=\"toggleYSF2DMRCheckbox()\" onclick=\"toggleYSF2DMRCheckbox()\" for=\"toggle-ysf2dmr\"><font style=\"font-size:0px\">Y S F 2 DMR Mode</font></label></div></td>\n";
-	    echo "<td align='left'><em>Note: YSF Mode must be enabled first.</em></td>\n";
+	    echo "<td align='left'><em>Note: YSF Mode must be enabled &amp; applied first.</em></td>\n";
 	} else {
 	    if ( $configysf2dmr['Enabled']['Enabled'] == 1 ) {
 		echo "<td colspan=\"2\" align=\"left\"><div class=\"switch\"><input id=\"toggle-ysf2dmr\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeYSF2DMR\" value=\"ON\" checked=\"checked\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleYSF2DMRCheckboxCr." /><label id=\"aria-toggle-ysf2dmr\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Y S F 2 DMR Mode\" aria-checked=\"true\" onKeyPress=\"toggleYSF2DMRCheckbox()\" onclick=\"toggleYSF2DMRCheckbox()\" for=\"toggle-ysf2dmr\"><font style=\"font-size:0px\">Y S F 2 DMR Mode</font></label></div></td>\n";
@@ -4955,7 +4959,7 @@ else:
 	} else if
 	    ($configmmdvm['System Fusion']['Enable'] != 1) {
 	    echo "<td colspan=\"1\" align=\"left\"><div class=\"switch\"><input id=\"toggle-ysf2nxdn\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeYSF2NXDN\" value=\"OFF\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleYSF2NXDNCheckboxCr." disabled=\"disabled\" /><label id=\"aria-toggle-ysf2nxdn\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Y S F 2 NXDN Mode\" aria-checked=\"false\" onKeyPress=\"toggleYSF2NXDNCheckbox()\" onclick=\"toggleYSF2NXDNCheckbox()\" for=\"toggle-ysf2nxdn\"><font style=\"font-size:0px\">Y S F 2 NXDN Mode</font></label></div></td>\n";
-	    echo "<td align='left'><em>Note: YSF Mode must be enabled first.</em></td>\n";
+	    echo "<td align='left'><em>Note: YSF Mode must be enabled &amp; applied first.</em></td>\n";
 	} else {
 	    if ( $configysf2nxdn['Enabled']['Enabled'] == 1 ) {
 		echo "<td colspan=\"2\" align=\"left\"><div class=\"switch\"><input id=\"toggle-ysf2nxdn\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeYSF2NXDN\" value=\"ON\" checked=\"checked\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleYSF2NXDNCheckboxCr." /><label id=\"aria-toggle-ysf2nxdn\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Y S F 2 NXDN Mode\" aria-checked=\"true\" onKeyPress=\"toggleYSF2NXDNCheckbox()\" onclick=\"toggleYSF2NXDNCheckbox()\" for=\"toggle-ysf2nxdn\"><font style=\"font-size:0px\">Y S F 2 NXDN Mode</font></label></div></td>\n";
@@ -4976,7 +4980,7 @@ else:
         } else if
             ($configmmdvm['System Fusion']['Enable'] != 1) {
 	    echo "<td colspan=\"1\" align=\"left\"><div class=\"switch\"><input id=\"toggle-ysf2p25\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeYSF2P25\" value=\"OFF\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleYSF2P25CheckboxCr." disabled=\"disabled\"/><label id=\"aria-toggle-ysf2p25\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Y S F 2 P 25 Mode\" aria-checked=\"false\" onKeyPress=\"toggleYSF2P25Checkbox()\" onclick=\"toggleYSF2P25Checkbox()\" for=\"toggle-ysf2p25\"><font style=\"font-size:0px\">Y S F 2 P 25 Mode</font></label></div></td>\n";
-	    echo "<td align='left'><em>Note: YSF Mode must be enabled first.</em></td>\n";
+	    echo "<td align='left'><em>Note: YSF Mode must be enabled &amp; applied first.</em></td>\n";
 	} else {
 	    if ( $configysf2p25['Enabled']['Enabled'] == 1 ) {
 		echo "<td colspan=\"2\" align=\"left\"><div class=\"switch\"><input id=\"toggle-ysf2p25\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeYSF2P25\" value=\"ON\" checked=\"checked\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleYSF2P25CheckboxCr." /><label id=\"aria-toggle-ysf2p25\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Y S F 2 P 25 Mode\" aria-checked=\"true\" onKeyPress=\"toggleYSF2P25Checkbox()\" onclick=\"toggleYSF2P25Checkbox()\" for=\"toggle-ysf2p25\"><font style=\"font-size:0px\">Y S F 2 P 25 Mode</font></label></div></td>\n";
@@ -4993,7 +4997,7 @@ else:
     <?php
 	if ($configmmdvm['DMR']['Enable'] != 1) {
 	    echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-dmr2ysf\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeDMR2YSF\" value=\"OFF\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDMR2YSFCheckboxCr." disabled='disabled' /><label id=\"aria-toggle-dmr2ysf\" role=\"checkbox\" tabindex=\"0\" aria-label=\"DMR 2 Y S F Mode\" aria-checked=\"true\" onKeyPress=\"toggleDMR2YSFCheckbox()\" onclick=\"toggleDMR2YSFCheckbox()\" for=\"toggle-dmr2ysf\"><font style=\"font-size:0px\">DMR 2 Y S F Mode</font></label></div></td>\n";
-	    echo "<td align='left'><em>Note: DMR Mode must be enabled first.</em></td>\n";
+	    echo "<td align='left'><em>Note: DMR Mode must be enabled &amp; applied first.</em></td>\n";
 	} else if ( $configdmr2nxdn['Enabled']['Enabled'] == 1 ) {
 	    echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-dmr2ysf\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeDMR2YSF\" value=\"OFF\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDMR2YSFCheckboxCr." disabled='disabled' /><label id=\"aria-toggle-dmr2ysf\" role=\"checkbox\" tabindex=\"0\" aria-label=\"DMR 2 Y S F Mode\" aria-checked=\"true\" onKeyPress=\"toggleDMR2YSFCheckbox()\" onclick=\"toggleDMR2YSFCheckbox()\" for=\"toggle-dmr2ysf\"><font style=\"font-size:0px\">DMR 2 Y S F Mode</font></label></div></td>\n";
 	    echo "<td align='left'><em>Note: Cannot be enabled in conjunction with DMR2NXDN.</em></td>\n";
@@ -5016,7 +5020,7 @@ else:
     <?php
 	if ($configmmdvm['DMR']['Enable'] != 1) {
 	    echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-dmr2nxdn\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeDMR2NXDN\" value=\"OFF\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDMR2NXDNCheckboxCr." disabled='disabled'/><label id=\"aria-toggle-dmr2nxdn\" role=\"checkbox\" tabindex=\"0\" aria-label=\"DMR 2 NXDN Mode\" aria-checked=\"true\" onKeyPress=\"toggleDMR2NXDNCheckbox()\" onclick=\"toggleDMR2NXDNCheckbox()\" for=\"toggle-dmr2nxdn\"><font style=\"font-size:0px\">DMR 2 NXDN Mode</font></label></div></td>\n";
-	    echo "<td align='left'><em>Note: DMR Mode must be enabled first.</em></td>\n";
+	    echo "<td align='left'><em>Note: DMR Mode must be enabled &amp; applied first.</em></td>\n";
 	} else if ( $configdmr2ysf['Enabled']['Enabled'] == 1 ) {
 	    echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-dmr2nxdn\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeDMR2NXDN\" value=\"OFF\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDMR2NXDNCheckboxCr." disabled='disabled'/><label id=\"aria-toggle-dmr2nxdn\" role=\"checkbox\" tabindex=\"0\" aria-label=\"DMR 2 NXDN Mode\" aria-checked=\"true\" onKeyPress=\"toggleDMR2NXDNCheckbox()\" onclick=\"toggleDMR2NXDNCheckbox()\" for=\"toggle-dmr2nxdn\"><font style=\"font-size:0px\">DMR 2 NXDN Mode</font></label></div></td>\n";
 	    echo "<td align='left'><em>Note: Cannot be enabled in conjunction with DMR2YSF.</em></td>\n";
@@ -6724,6 +6728,19 @@ Get WPSD Help: [ <a href="https://w0chp.radio/wpsd-faqs/" target="_new">FAQs</a>
 
     // Initial call to set the initial state
     toggleFwRadioButtons();
+
+    function toggleAPRSGatewayCheckbox() {
+      var aprsGatewayCheckbox = document.getElementById('toggle-aprsgateway');
+      var gpsdCheckbox = document.getElementById('toggle-GPSD');
+
+      if (aprsGatewayCheckbox.checked) {
+        // If APRS Gateway is selected, enable GPSD button
+        gpsdCheckbox.disabled = false;
+      } else {
+        // If APRS Gateway is not selected, disable GPSD button
+        gpsdCheckbox.disabled = true;
+      }
+    }
 </script>
 </body>
 </html>
