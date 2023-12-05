@@ -152,9 +152,17 @@ if (empty($dmrID) == false)
 	    $targetTG = "4000";
 	    $command = "Unlink";
 	}
-	// Perform the GET request
+	// Perform the API request
 	$tgifApiUrl = "http://tgif.network:5040/api/sessions/update/".$dmrID."/".$targetSlot."/".$targetTG;
-	$result = file_get_contents($tgifApiUrl);
+
+	$options = [
+	    'http' => [
+	        'header' => "User-Agent: WPSD\r\n"
+	    ]
+	];
+
+	$context = stream_context_create($options);
+	$result = file_get_contents($tgifApiUrl, false, $context);
 
 	// Output to the browser
 	echo '<div style="text-align:left;font-weight:bold;">TGIF Manager</div>'."\n";
