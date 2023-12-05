@@ -879,7 +879,7 @@ if (!empty($is_paused)) {
     echo '<br />';
     echo '</div>';
     echo '<div class="footer">';
-    echo 'Get WPSD Help: [ <a href="https://w0chp.radio/wpsd-faqs/" target="_new">FAQs</a> ] &bull; [ <a href="https://wpsd-docs.w0chp.net/" target="_new">User Manual</a> ] &bull; [ <a href="https://www.facebook.com/groups/w0chppistardash/" target="_new">Facebook Group</a> ] &bull; [ <a href="https://discord.gg/b8Hv5ygPdF" target="_new">Discord Server</a> ]<br />';
+    echo 'Get WPSD Help: [ <a href="https://w0chp.radio/wpsd-faqs/" target="_new">FAQs</a> ] &bull; [ <a href="https://wpsd-docs.w0chp.net/" target="_new">User Manual</a> ] &bull; [ <a href="https://www.facebook.com/groups/wpsdproject/" target="_new">Facebook Group</a> ] &bull; [ <a href="https://discord.gg/b8Hv5ygPdF" target="_new">Discord Server</a> ]<br />';
     echo '<a href="https://wpsd.radio/">WPSD</a> by <code>W0CHP</code> &copy; 2020-'.date("Y").' -- WPSD Project <a href="https://w0chp.radio/wpsd/#credits" target="_new">Credits</a>';
     echo '<br />';
     echo '</div>';
@@ -4472,7 +4472,7 @@ else:
         echo "</form><br />";
         echo '</div>';
         echo '<div class="footer">';
-	echo 'Get WPSD Help: [ <a href="https://w0chp.radio/wpsd-faqs/" target="_new">FAQs</a> ] &bull; [ <a href="https://wpsd-docs.w0chp.net/" target="_new">User Manual</a> ] &bull; [ <a href="https://www.facebook.com/groups/w0chppistardash/" target="_new">Facebook Group</a> ] &bull; [ <a href="https://discord.gg/b8Hv5ygPdF" target="_new">Discord Server</a> ]<br />';
+	echo 'Get WPSD Help: [ <a href="https://w0chp.radio/wpsd-faqs/" target="_new">FAQs</a> ] &bull; [ <a href="https://wpsd-docs.w0chp.net/" target="_new">User Manual</a> ] &bull; [ <a href="https://www.facebook.com/groups/wpsdproject/" target="_new">Facebook Group</a> ] &bull; [ <a href="https://discord.gg/b8Hv5ygPdF" target="_new">Discord Server</a> ]<br />';
 	echo '<a href="https://wpsd.radio/">WPSD</a> by <code>W0CHP</code> &copy; 2020-'.date("Y").' -- WPSD Project <a href="https://w0chp.radio/wpsd/#credits" target="_new">Credits</a>';
         echo '<br />';
         echo '</div>';
@@ -6650,7 +6650,7 @@ echo '
 <br />
 </div>
 <div class="footer">
-Get WPSD Help: [ <a href="https://w0chp.radio/wpsd-faqs/" target="_new">FAQs</a> ] &bull; [ <a href="https://wpsd-docs.w0chp.net/" target="_new">User Manual</a> ] &bull; [ <a href="https://www.facebook.com/groups/w0chppistardash/" target="_new">Facebook Group</a> ] &bull; [ <a href="https://discord.gg/b8Hv5ygPdF" target="_new">Discord Server</a> ]<br />
+Get WPSD Help: [ <a href="https://w0chp.radio/wpsd-faqs/" target="_new">FAQs</a> ] &bull; [ <a href="https://wpsd-docs.w0chp.net/" target="_new">User Manual</a> ] &bull; [ <a href="https://www.facebook.com/groups/wpsdproject/" target="_new">Facebook Group</a> ] &bull; [ <a href="https://discord.gg/b8Hv5ygPdF" target="_new">Discord Server</a> ]<br />
 <a href="https://wpsd.radio/">WPSD</a> by <code>W0CHP</code> &copy; 2020-<?php echo date("Y"); ?> -- WPSD Project <a href="https://w0chp.radio/wpsd/#credits" target="_new">Credits</a>
 <br />
 </div>
@@ -6735,7 +6735,7 @@ Get WPSD Help: [ <a href="https://w0chp.radio/wpsd-faqs/" target="_new">FAQs</a>
 <br />
 </div>
 <div class="footer">
-Get WPSD Help: [ <a href="https://w0chp.radio/wpsd-faqs/" target="_new">FAQs</a> ] &bull; [ <a href="https://wpsd-docs.w0chp.net/" target="_new">User Manual</a> ] &bull; [ <a href="https://www.facebook.com/groups/w0chppistardash/" target="_new">Facebook Group</a> ] &bull; [ <a href="https://discord.gg/b8Hv5ygPdF" target="_new">Discord Server</a> ]<br />
+Get WPSD Help: [ <a href="https://w0chp.radio/wpsd-faqs/" target="_new">FAQs</a> ] &bull; [ <a href="https://wpsd-docs.w0chp.net/" target="_new">User Manual</a> ] &bull; [ <a href="https://www.facebook.com/groups/wpsdproject/" target="_new">Facebook Group</a> ] &bull; [ <a href="https://discord.gg/b8Hv5ygPdF" target="_new">Discord Server</a> ]<br />
 <a href="https://wpsd.radio/">WPSD</a> by <code>W0CHP</code> &copy; 2020-<?php echo date("Y"); ?> -- WPSD Project <a href="https://w0chp.radio/wpsd/#credits" target="_new">Credits</a>
 <br />
 </div>
