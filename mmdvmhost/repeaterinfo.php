@@ -607,12 +607,12 @@ if ( $testMMDVModeDSTAR == 1 || isPaused("D-Star") ) { //Hide the D-Star Reflect
 	    $testDMR2YSF = $_SESSION['DMR2YSFConfigs']['Enabled']['Enabled'];
 	}
 	if ( $testMMDVModeYSF == 1 || isPaused("YSF") || (isset($testDMR2YSF) && $testDMR2YSF == 1) ) { //Hide the YSF information when System Fusion Network mode not enabled.
-		if (isPaused("YSF")) {
-			$ysfLinkedTo = "Mode Paused";
-			$ysfLinkStateTooltip = $ysfLinkedTo;
-		} else {
-            		$ysfLinkedTo = getActualLink($reverseLogLinesYSFGateway, "YSF");
-		}
+	    if (isPaused("YSF")) {
+		$ysfLinkedTo = "Mode Paused";
+		$ysfLinkStateTooltip = $ysfLinkedTo;
+	    } else {
+            	$ysfLinkedTo = getActualLink($reverseLogLinesYSFGateway, "YSF");
+	    }
 	    if ($ysfLinkedTo == 'Not Linked' || $ysfLinkedTo == 'Service Not Started') {
                 $ysfLinkedToTxt = $ysfLinkedTo;
 		$ysfLinkState = '';
@@ -687,21 +687,21 @@ if (isPaused("YSF")) {
 ?>
   <div class="divTableHead"><?php echo $lang['ysf_net'];?></div>
   <div class="divTableBody">
+    <div class="divTableRow center">
 <?php
+    echo "<div class='divTableCell cell_content'><div style=\"background: $tableRowEvenBg;\" title=\"YSF Mode Paused\">Mode Paused</div></div>\n";
 } else {
 ?>
   <div class="divTableHead"><?php echo $lang['ysf_net']." ".$ysfLinkState; ?></div>
   <div class="divTableBody">
-<?php
-}
-?>
     <div class="divTableRow center">
 <?php
 	if (isProcessRunning("YSFGateway")) {
 	    echo "<div class='divTableCell cell_content'><div ".GetActiveConnectionStyle($remoteYSFGResults, "ysf")." title=\"".$ysfLinkedToTooltip."\">".$ysfTableData."</div></div>\n";
 	} else {
 	    echo "<div class='divTableCell cell_content'><div class='inactive-mode-cell'>Service Not Started</div></div>\n";
-	}	      
+	}
+    }      
 ?>
     </div>
   </div>
