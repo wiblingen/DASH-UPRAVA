@@ -2,16 +2,17 @@
 //
 // Portuguese BR Language Pack
 // Rubens H. Zolotujin (PU2LRZ)
-// Updated: 30-Aug-2017
+// Luzemario Dantas (PR7LDR)
+// Updated: 06-Dec-2023
 //
 $lang = array (
   // Banner texts
-  "digital_voice"               =>  "Digital Voz",
+  "digital_voice"               =>  "Voz Digital",
   "configuration"               =>  "Configuração",
   "dashboard_for"               =>  "Painel de Controle de",
   // Banner links
   "dashboard"                   =>  "Painel",
-  "admin"                       =>  "Admin",
+  "admin"                       =>  "Administração",
   "power"                       =>  "Ação",
   "update"                      =>  "Atualizar",
   "upgrade"                     =>  "Upgrade",
@@ -21,7 +22,7 @@ $lang = array (
   // Config page section headdings
   "hardware_info"               =>  "Informações Hardware do Gateway",
   "control_software"            =>  "Controle Software",
-  "mmdvmhost_config"            =>  "MMDVMHost Configuração",
+  "mmdvmhost_config"            =>  "Configuração MMDVMHost",
   "general_config"              =>  "Configurações Gerais",
   "dmr_config"                  =>  "Configuração do DMR",
   "dstar_config"                =>  "Configuração do D-Star",
@@ -29,7 +30,7 @@ $lang = array (
   "p25_config"                  =>  "Configuração do P25",
   "nxdn_config"                 =>  "Configuração do NXDN",
   "pocsag_config"               =>  "Configuração do POCSAG",
-  "gpsd_config"            =>  "GPSd Configuration",
+  "gpsd_config"            =>  "Configuração do GPSd",
   "wifi_config"                 =>  "Configuração do Wireless",
   "fw_config"                   =>  "Configuração do Firewall",
   "remote_access_pw"            =>  "Senha do Acesso Remoto",
@@ -53,10 +54,10 @@ $lang = array (
   "p25_mode"                    =>  "Modo P25",
   "nxdn_mode"                   =>  "Modo NXDN",
   "mmdvm_display"               =>  "Exibição MMDVM",
-  "mode_hangtime"               =>  "Modo Tempo de Espera",
+  "mode_hangtime"               =>  "Tempo de Espera do Modo",
   // Config Page - General Configuration
-  "node_call"                   =>  "Indicativo do Node",
-  "dmr_id"                      =>  "DMR/CCS7 ID",
+  "node_call"                   =>  "Indicativo do Nó",
+  "dmr_id"                      =>  "ID do DMR/CCS7",
   "radio_freq"                  =>  "Frequencia do Rádio",
   "lattitude"                   =>  "Latitude",
   "longitude"                   =>  "Longitude",
@@ -65,25 +66,25 @@ $lang = array (
   "url"                         =>  "URL",
   "radio_type"                  =>  "Tipo de Radio/Modem",
   "baudrate"                    =>  "Baudrate",
-  "node_type"                   =>  "Tipo de Node",
+  "node_type"                   =>  "Tipo de Nó",
   "timezone"                    =>  "Horário do Sistema",
   "dash_lang"                   =>  "Idioma do Painel de Controle",
   // Config Page - DMR Configuration
-  "dmr_master"                  =>  "DMR Mode",
-  "bm_master"                   =>  "BrandMeister Master",
-  "bm_network"                  =>  "BrandMeister Rede",
-  "dmr_plus_master"             =>  "DMR+ Master",
-  "dmr_plus_network"            =>  "DMR+ Network",
-  "xlx_master"                  =>  "XLX Master",
-  "xlx_enable"                  =>  "XLX Master Enable",
-  "xlx_startup_tg"              =>  "XLX Startup TG",
-  "xlx_startup_module"          =>  "XLX Startup Module",
+  "dmr_master"                  =>  "Modo DMR",
+  "bm_master"                   =>  "BrandMeister Mestre",
+  "bm_network"                  =>  "Rede BrandMeister",
+  "dmr_plus_master"             =>  "DMR+ Mestre",
+  "dmr_plus_network"            =>  "Rede DMR+",
+  "xlx_master"                  =>  "XLX Mestre",
+  "xlx_enable"                  =>  "Ativa XLX Mestre",
+  "xlx_startup_tg"              =>  "TG Inicial do XLX",
+  "xlx_startup_module"          =>  "Módulo inicial do XLX",
   "dmr_cc"                      =>  "Código de Cores DMR",
-  "dmr_embeddedlconly"          =>  "DMR EmbeddedLCOnly",
-  "dmr_dumptadata"              =>  "DMR DumpTAData",
+  "dmr_embeddedlconly"          =>  "DMR LC Embutido Somente",
+  "dmr_dumptadata"              =>  "DMR Mostra Dados TA",
   // Config Page - D-Star Configuration
-  "dstar_rpt1"                  =>  "RPT1 Indicativo",
-  "dstar_rpt2"                  =>  "RPT2 Indicativo",
+  "dstar_rpt1"                  =>  "Indicativo RPT1",
+  "dstar_rpt2"                  =>  "Indicativo RPT2",
   "dstar_irc_password"          =>  "Senha ircDDBGateway",
   "dstar_default_ref"           =>  "Refletor Principal",
   "aprs_host"                   =>  "Servidor APRS",
@@ -92,27 +93,27 @@ $lang = array (
   // Config Page - YSF Configuration
   "ysf_startup_host"            =>  "Servidor Inicial YSF",
   // Config Page - P25 Configuration
-  "p25_hosts"                   =>  "P25 Hosts",
-  "p25_nac"                     =>  "P25 NAC",
-  "p25_static"                  =>  "P25 Static",
+  "p25_hosts"                   =>  "Hosts P25",
+  "p25_nac"                     =>  "NAC P25",
+  "p25_static"                  =>  "P25 Estático",
   // Config Page - NXDN Configuration
-  "nxdn_hosts"                  =>  "NXDN Hosts",
-  "nxdn_ran"                     =>  "NXDN RAN",
-  "nxdn_static"                 => "NXDN Static",
+  "nxdn_hosts"                  =>  "Hosts NXDN",
+  "nxdn_ran"                     =>  "RAN NXDN",
+  "nxdn_static"                 => "NXDN Estático",
   // Config Page - GPSd Configuration
-  "gpsd_enable"            =>  "GPSd Enable",
-  "gpsd_port"              =>  "GPSd Port",
-  "gpsd_address"                =>  "GPSd Address",
+  "gpsd_enable"            =>  "Ativa GPSd",
+  "gpsd_port"              =>  "Porta GPSd",
+  "gpsd_address"                =>  "Endereço GPSd",
   // Config Page - Firewall Configuration
   "fw_dash"                     =>  "Acesso ao Painel",
-  "fw_irc"                      =>  "Remoto ircDDBGateway",
+  "fw_irc"                      =>  "ircDDBGateway Remoto",
   "fw_ssh"                      =>  "Acesso via SSH",
   // Config Page - Password
   "user"                        =>  "Nome do Usuário",
   "password"                    =>  "Senha",
   "set_password"                =>  "Modificar Senha",
   // Dashboard Front Page - Repeater Info Pannel
-  "modes_enabled"               =>  "Habilitar Modos",
+  "modes_enabled"               =>  "Modos Ativos",
   "net_status"                  =>  "Status de Rede",
   "internet"                    =>  "Internet",
   "radio_info"                  =>  "Info do Rádio",
@@ -129,15 +130,15 @@ $lang = array (
   "mode"                        =>  "Modo",
   "callsign"                    =>  "Indicativo",
   "target"                      =>  "Alvo",
-  "src"                         =>  "Src",        // Short version of "Source"
+  "src"                         =>  "Orig",        // Short version of "Source"
   "dur"                         =>  "Dur",        // Short version of "Duration"
-  "loss"                        =>  "Loss",
+  "loss"                        =>  "Perda",
   "ber"                         =>  "BER",        // Short version of "Bit Error Rate"
   // POCSAG Specific
-  "pocsag_list"                 =>  "DAPNET Activity",
-  "pocsag_persolist"            =>  "DAPNET Personnal Messages",
+  "pocsag_list"                 =>  "Atividade DAPNET",
+  "pocsag_persolist"            =>  "Mensagens Pessoais DAPNET",
   "pocsag_timeslot"             =>  "Time Slot",
-  "pocsag_msg"                  =>  "Message",
+  "pocsag_msg"                  =>  "Mensagem",
   // Dashboard - Extra Info
   "group"                       =>  "Grupo",
   "logoff"                      =>  "Sair",
@@ -145,19 +146,19 @@ $lang = array (
   "utot"                        =>  "UTOT",       // Short for User Timeout
   "gtot"                        =>  "GTOT",       // Short for Group Timeout
   // Dashboard Front Page / Admin - Section Headders
-  "last_heard_list"             =>  "Últimaschamadas via Gateway",
-  "local_tx_list"               =>  "Últimaschamadas por este Gateway",
-  "active_starnet_groups"       =>  "Grupo Ativos na Starnet",
-  "active_starnet_members"      =>  "Grupo de Membros Ativos na Starnet",
+  "last_heard_list"             =>  "Últimos Ouvidos",
+  "local_tx_list"               =>  "TX Local",
+  "active_starnet_groups"       =>  "Grupos Ativos na Starnet",
+  "active_starnet_members"      =>  "Membros Ativos na Starnet",
   "d-star_link_manager"         =>  "Gerenciar Conexão D-Star",
   "d-star_link_status"          =>  "Informações do Link D-Star",
   "service_status"              =>  "Status do Sistema",
   // M17
-  "m17_config"                  =>  "M17 Configuration",
-  "m17_mode"                    =>  "M17 Mode",
-  "m17_startup_reflector"       =>  "M17 Startup Reflector",
-  "m17_can"                     =>  "M17 CAN",
-  "m17_repeater"                =>  "M17 Status",
-  "m17_net"                     =>  "M17 Network"
+  "m17_config"                  =>  "Configuração do M17",
+  "m17_mode"                    =>  "Modo M17",
+  "m17_startup_reflector"       =>  "Refletor M17 Inicial",
+  "m17_can"                     =>  "CAN M17",
+  "m17_repeater"                =>  "Status M17",
+  "m17_net"                     =>  "Rede M17"
 );
 ?>
