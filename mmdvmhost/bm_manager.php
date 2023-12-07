@@ -252,7 +252,7 @@ if ( $testMMDVModeDMR == 1 ) {
             'content' => $postData,
             'password' => '',
             'success' => '',
-            'timeout' => 6,
+            'timeout' => 10,
             ),
           );
           $context = stream_context_create($opts);
@@ -278,7 +278,7 @@ if ( $testMMDVModeDMR == 1 ) {
 		    // If there is a BM API Key
             if (isset($bmAPIkey)) {
 
-	    $jsonContext = stream_context_create(array('http'=>array('timeout' => 6, 'header' => 'User-Agent: WPSD Dashboard for '.$dmrID) )); // Add Timout and User Agent to include DMRID
+	    $jsonContext = stream_context_create(array('http'=>array('timeout' => 10, 'header' => 'User-Agent: WPSD Dashboard for '.$dmrID) )); // Add Timout and User Agent to include DMRID
 	    $json = json_decode(@file_get_contents("https://api.brandmeister.network/v2/device/$dmrID/profile", true, $jsonContext));
 	    // Set some Variables
 	    $bmStaticTGList = "";
