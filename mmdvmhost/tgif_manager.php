@@ -155,14 +155,11 @@ if (empty($dmrID) == false)
 	// Perform the API request
 	$tgifApiUrl = "http://tgif.network:5040/api/sessions/update/".$dmrID."/".$targetSlot."/".$targetTG;
 
-	$options = [
-	    'http' => [
-	        'header' => "User-Agent: WPSD\r\n"
-	    ]
-	];
+	#$context = stream_context_create($options);
+	#$result = file_get_contents($tgifApiUrl, false, $context);
 
-	$context = stream_context_create($options);
-	$result = file_get_contents($tgifApiUrl, false, $context);
+	$context = stream_context_create(array('http'=>array('timeout' => 10, 'header' => 'User-Agent: WPSD Dashboard for '.$dmrID) )); // Add Timout and User Agent to include DMRID
+	$result = @file_get_contents($tgifApiUrl, true, $context);
 
 	// Output to the browser
 	echo '<div style="text-align:left;font-weight:bold;">TGIF Manager</div>'."\n";
