@@ -58,9 +58,6 @@ if ( $testMMDVModeDMR == 1 ) {
 	$dmrID = getConfigItem("General", "Id", $_SESSION['MMDVMHostConfigs']);
     }
     
-    // Store the DMR Master IP, we will need this for the JSON lookup
-    $dmrMasterHostIP = $dmrMasterHost;
-    
     // Make sure the master is a BrandMeister Master
     if (($dmrMasterFile = fopen("/usr/local/etc/DMR_Hosts.txt", "r")) != FALSE) {
 	while (!feof($dmrMasterFile)) {
@@ -76,9 +73,9 @@ if ( $testMMDVModeDMR == 1 ) {
     if ((substr($dmrMasterHost, 0, 3) == "BM ") && ($bmEnabled == true) && isset($_SESSION['BMAPIKey'])) { 
         $bmAPIkey = $_SESSION['BMAPIKey'];
 	// Use BM API to get information about current TGs
-	$jsonContext = stream_context_create(array('http'=>array('timeout' => 2, 'header' => 'User-Agent: WPSD Software for '.$dmrID) )); // Add Timout and User Agent to include DMRID
+	$jsonContext = stream_context_create(array('http'=>array('timeout' => 10, 'header' => 'User-Agent: WPSD Software for '.$dmrID) )); // Add Timout and User Agent to include DMRID
 	$json = json_decode(@file_get_contents("https://api.brandmeister.network/v2/device/$dmrID/profile", true, $jsonContext));
-	// Set some Variable
+	// Set some vars
 	$bmStaticTGList = "";
 	$bmDynamicTGList = "";
         $bmDynanicTGname = "";
