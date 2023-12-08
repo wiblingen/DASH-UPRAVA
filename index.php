@@ -764,8 +764,11 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
             include 'mmdvmhost/localtx.php';
             echo '</div>'."\n";
 
-            echo '<div id="lastHeard">'."\n";
-            include 'mmdvmhost/lh.php';
+            if (!file_exists('/etc/.CALLERDETAILS')) {
+                echo '<div id="lastHeard" style="margin-top:-20px;">'."\n";
+            } else {
+                echo '<div id="lastHeard">'."\n";
+            }
             echo '</div>'."\n";
 	}
 

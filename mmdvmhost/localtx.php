@@ -52,7 +52,7 @@ for ($i = 0; $i < $TXListLim; $i++) {
 				    $listElem[2] = preg_replace('/[\s+-]/', ' ', $listElem[2]);
 				}
 			    }
-			echo '  <div style="vertical-align: bottom; font-weight: bold; text-align:left;">'. $lang['local_tx_list'] . '</div>
+			echo '  <div style="vertical-align: bottom; font-weight: bold; text-align:left;margin-top:-12px;">'. $lang['local_tx_list'] . '</div>
   <table style="white-space:normal; word-wrap:break;">
     <tr>
       <th width="250px"><a class="tooltip" href="#">'. $lang['time'] . '  (' . date('T') . ')<span><b>Time in ' . date('T') . ' time zone</b></span></a></th>
@@ -145,7 +145,7 @@ for ($i = 0; $i < $TXListLim; $i++) {
 				echo"<td class='noMob'>$listElem[9]</td>"; //rssi
 			}
 			echo"</tr>\n";
-			echo"</table>\n";
+			echo"</table>\n<br />\n";
 			$counter++; }
 		}
 	}
