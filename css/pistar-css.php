@@ -818,7 +818,7 @@ select {
 }
 
 .menuupdate:before {
-    content: "\f019";
+    content: "\f0ed";
     font-family: FontAwesome;
     font-style: normal;
     font-weight: normal;
@@ -911,7 +911,7 @@ input.filter-activity-max {
 }
 
 .menutgnames:before {
-    content: "\f0c0";
+    content: "\f0e6";
     font-family: FontAwesome;
     font-style: normal;
     font-weight: normal;
@@ -956,7 +956,7 @@ input.filter-activity-max {
 }
 
 .menusysinfo:before {
-    content: "\f0a0";
+    content: "\f080";
     font-family: FontAwesome;
     font-style: normal;
     font-weight: normal;
