@@ -34,7 +34,7 @@ if (isset($_SESSION['CSSConfigs']['Background']['TableRowBgEvenColor'])) {
 <div class="divTable">
   <div class="divTableBody">
     <div class="divTableRow center">
-      <div class="divTableHeadCell" style="width:250px;">Radio Status:</div>
+      <div class="divTableHeadCell noMob" style="width:250px;">Radio Status:</div>
       <?php if(getConfigItem("General", "Duplex", $_SESSION['MMDVMHostConfigs']) == "1") { ?>
       <div class="divTableHeadCell noMob">TX Freq.</div>
       <div class="divTableHeadCell noMob">RX Freq.</div>
