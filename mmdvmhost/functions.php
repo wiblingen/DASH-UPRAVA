@@ -1860,13 +1860,13 @@ function tgLookup($mode, $target) {
 		    $target = "TG $target";
 		}
 	    } else if (strlen($target) >= 6 && substr( $target, 0, 1 ) === "7" && $_SESSION['DMRGatewayConfigs']['DMR Network 3']['Enabled'] == "1") {                             
-		if ($_SESSION['DMRGatewayConfigs']['DMR Network 3']['Name'] == "DMR2YSF_Cross-over") {                                                                             
+		if ($_SESSION['DMRGatewayConfigs']['DMR Network 3']['Name'] == "DMR2YSF_Cross-Mode") {                                                                             
 		    if (strpos($_SERVER["PHP_SELF"], 'lh.php') || strpos($_SERVER["PHP_SELF"], 'localtx.php') !== false) {
 		    	$target = "TG $target <span style='float:right;' class='noMob'>(DMR2YSF)</span>";
 		    } else {
 		    	$target = "TG $target <span class='noMob'>(DMR2YSF)</span>";
 		    }
-		} else if ($_SESSION['DMRGatewayConfigs']['DMR Network 3']['Name'] == "DMR2NXDN_Cross-over") {                                                                     
+		} else if ($_SESSION['DMRGatewayConfigs']['DMR Network 3']['Name'] == "DMR2NXDN_Cross-Mode") {                                                                     
 		    if (strpos($_SERVER["PHP_SELF"], 'lh.php') || strpos($_SERVER["PHP_SELF"], 'localtx.php') !== false) {
 		    	$target = "TG $target <span style='float:right;' class='noMob'>(DMR2NXDN)</span>";
 		    } else {
