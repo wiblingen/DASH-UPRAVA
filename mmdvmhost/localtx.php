@@ -80,9 +80,9 @@ for ($i = 0; $i < $TXListLim; $i++) {
 				$listElem[2] = substr($listElem[2], 0, strpos($listElem[2],"-"));
 			    }
 			    if ($listElem[3] && $listElem[3] != '    ' ) {
-				echo "<td align=\"left\"><a href=\"".$callsignLookupUrl.$listElem[2]."\" target=\"_blank\">$listElem[2]</a>/$listElem[3]</td>";
+				echo "<td align=\"left\" class='divTableCellMono'><a href=\"".$callsignLookupUrl.$listElem[2]."\" target=\"_blank\">$listElem[2]</a>/$listElem[3]</td>";
 			    } else {
-				echo "<td align=\"left\"><a href=\"".$callsignLookupUrl.$listElem[2]."\" target=\"_blank\">$listElem[2]</a></td>";
+				echo "<td align=\"left\" class='divTableCellMono'><a href=\"".$callsignLookupUrl.$listElem[2]."\" target=\"_blank\">$listElem[2]</a></td>";
 			    }
 			}
 			echo "<td align=\"left\">".str_replace('Slot ', 'TS', $listElem[1])."</td>";

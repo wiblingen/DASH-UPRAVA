@@ -164,48 +164,48 @@ for ($i = 0;  ($i <= $lastHeardRows - 1); $i++) {
 		    if (file_exists("/etc/.CALLERDETAILS") && $testMMDVModeDMR == 1 ) {
 			if ($flContent = " " && empty($listElem[11])) {
 			    if ($listElem[2] > 9999) {
-			    	echo "<td class='noMob' align=\"left\"><a href=\"".$idLookupUrl.$listElem[2]."\" target=\"_blank\">$listElem[2]</a></td><td align=\"left\" colspan='2'>&nbsp</td>";
+			    	echo "<td class='noMob divTableCellMono' align=\"left\"><a href=\"".$idLookupUrl.$listElem[2]."\" target=\"_blank\">$listElem[2]</a></td><td align=\"left\" colspan='2'>&nbsp</td>";
 			    } else {
-			    	echo "<td class='noMob' align=\"left\">$callPre$callSuff</td><td align=\"left\" colspan='2'>&nbsp</td>";
+			    	echo "<td class='noMob divTableCellMono' align=\"left\">$callPre$callSuff</td><td align=\"left\" colspan='2'>&nbsp</td>";
 			    }
 			} else {
 			    if ($listElem[2] > 9999) {
-                            	echo "<td align=\"left\"><a href=\"".$idLookupUrl.$listElem[2]."\" target=\"_blank\">$listElem[2]</a></td><td>$flContent</td><td align='left' class='noMob'>$listElem[11]</td>";
+                            	echo "<td align=\"left\" class='divTableCellMono'><a href=\"".$idLookupUrl.$listElem[2]."\" target=\"_blank\">$listElem[2]</a></td><td>$flContent</td><td align='left' class='noMob'>$listElem[11]</td>";
 			    } else {
-                            	echo "<td align=\"left\">$callPre$callSuff</td><td>$flContent</td><td align='left' class='noMob'>$listElem[11]</td>";
+                            	echo "<td align=\"left\" class='divTableCellMono'>$callPre$callSuff</td><td>$flContent</td><td align='left' class='noMob'>$listElem[11]</td>";
 			    }
 			}
 		    } else {
 			if ($listElem[2] > 9999) {
-                            echo "<td align=\"left\"><a href=\"".$idLookupUrl.$listElem[2]."\" target=\"_blank\">$listElem[2]</a></td><td>$flContent</td>";
+                            echo "<td align=\"left\" class='divTableCellMono'><a href=\"".$idLookupUrl.$listElem[2]."\" target=\"_blank\">$listElem[2]</a></td><td>$flContent</td>";
 			} else {
-                            echo "<td align=\"left\">$callPre$callSuff</td><td>$flContent</td>";
+                            echo "<td align=\"left\" class='divTableCellMono'>$callPre$callSuff</td><td>$flContent</td>";
 			}
 		    }
 		} elseif (strpos($listElem[2], "openSPOT") !== FALSE) {
-		    echo "<td align=\"left\">$callPre$callSuff</td><td align=\"left\"'>&nbsp</td>";
+		    echo "<td align=\"left\" class='divTableCellMono'>$callPre$callSuff</td><td align=\"left\"'>&nbsp</td>";
 		} elseif (!preg_match('/[A-Za-z].*[0-9]|[0-9].*[A-Za-z]/', $listElem[2])) {
 		    if (file_exists("/etc/.CALLERDETAILS") && $testMMDVModeDMR == 1 ) {
 			if ($flContent = " " && empty($listElem[11])) {
-			    echo "<td class='noMob' align=\"left\">$callPre$callSuff</td><td align=\"left\" colspan='2'>&nbsp</td>";
+			    echo "<td class='noMob divTableCellMono' align=\"left\">$callPre$callSuff</td><td align=\"left\" colspan='2'>&nbsp</td>";
 			} else {
-                            echo "<td align=\"left\">$callPre$callSuff</td><td>$flContent</td><td align='left' class='noMob'>$listElem[11]</td>";
+                            echo "<td align=\"left\" class='divTableCellMono'>$callPre$callSuff</td><td>$flContent</td><td align='left' class='noMob'>$listElem[11]</td>";
 			}
 		    } else {
-                        echo "<td align=\"left\">$callPre$callSuff</td><td>$flContent</td>";
+                        echo "<td align=\"left\" class='divTableCellMono'>$callPre$callSuff</td><td>$flContent</td>";
 		    }
 		} else {
 		    if ( $listElem[3] && $listElem[3] != '    ' ) {
 			if (file_exists("/etc/.CALLERDETAILS") && $testMMDVModeDMR == 1 ) {
-			    echo "<td align=\"left\"><a href=\"$callsignLookupUrl"."$callPre\" target=\"_blank\">$listElem[2]</a>/$listElem[3]</td><td>$flContent</td><td align='left' class='noMob'>$listElem[11]</td>";
+			    echo "<td align=\"left\" class='divTableCellMono'><a href=\"$callsignLookupUrl"."$callPre\" target=\"_blank\">$listElem[2]</a>/$listElem[3]</td><td>$flContent</td><td align='left' class='noMob'>$listElem[11]</td>";
 			} else {
-			    echo "<td align=\"left\"><a href=\"$callsignLookupUrl"."$listElem[2]\" target=\"_blank\">$listElem[2]</a>/$listElem[3]</td><td>$flContent</td>";
+			    echo "<td align=\"left\" class='divTableCellMono'><a href=\"$callsignLookupUrl"."$listElem[2]\" target=\"_blank\">$listElem[2]</a>/$listElem[3]</td><td>$flContent</td>";
 			}
 		    } else {
 			if (file_exists("/etc/.CALLERDETAILS") && $testMMDVModeDMR == 1 ) {
-			    echo "<td align=\"left\"><a href=\"$callsignLookupUrl"."$callPre\" target=\"_blank\">$callPre</a>$callSuff</td><td>$flContent</td><td align='left' class='noMob'>$listElem[11]</td>";
+			    echo "<td align=\"left\" class='divTableCellMono'><a href=\"$callsignLookupUrl"."$callPre\" target=\"_blank\">$callPre</a>$callSuff</td><td>$flContent</td><td align='left' class='noMob'>$listElem[11]</td>";
 			} else {
-			    echo "<td align=\"left\"><a href=\"$callsignLookupUrl"."$callPre\" target=\"_blank\">$callPre</a>$callSuff</td><td>$flContent</td></td>";
+			    echo "<td align=\"left\" class='divTableCellMono'><a href=\"$callsignLookupUrl"."$callPre\" target=\"_blank\">$callPre</a>$callSuff</td><td>$flContent</td></td>";
 			}
 		    }
 		}
