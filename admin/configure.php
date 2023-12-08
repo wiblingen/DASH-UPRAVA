@@ -6732,12 +6732,14 @@ Get WPSD Help: [ <a href="https://w0chp.radio/wpsd-faqs/" target="_new">FAQs</a>
     // Initial call to set the initial state
     toggleFwRadioButtons();
 
+    var aprsGatewayCheckbox;
+
     window.onload = function () {
         toggleAPRSGatewayCheckbox();
     };
 
     function toggleAPRSGatewayCheckbox() {
-        var aprsGatewayCheckbox = document.getElementById('toggle-aprsgateway');
+        aprsGatewayCheckbox = document.getElementById('toggle-aprsgateway');
         var gpsdCheckbox = document.getElementById('toggle-GPSD');
         var dmrCheckbox = document.getElementById('aprsgw-service-selection-0');
         var ysfCheckbox = document.getElementById('aprsgw-service-selection-1');
@@ -6764,7 +6766,9 @@ Get WPSD Help: [ <a href="https://w0chp.radio/wpsd-faqs/" target="_new">FAQs</a>
     }
 
     // Add an event listener to the toggle-aprsgateway checkbox to call the function when its state changes
-    aprsGatewayCheckbox.addEventListener('change', toggleAPRSGatewayCheckbox);
+    window.addEventListener('load', function () {
+        aprsGatewayCheckbox.addEventListener('change', toggleAPRSGatewayCheckbox);
+    });
 </script>
 </body>
 </html>
