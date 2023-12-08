@@ -88,6 +88,10 @@ body, font {
     color: <?php echo $textContent; ?>;
 }
 
+.divTableCellMono {
+    font: 1.3em 'Inconsolata', monospace !important;
+}
+
 h2.ConfSec {
     font-size: 1.6em;
     text-align: left;
@@ -189,7 +193,7 @@ table td {
     font-size: <?php echo "$mainFontSize"; ?>px;
 }
 
-#liveCallerDeets table td, #localTxs table td, #lastHeard table td, #ccsConns table td, #activeLinks table td, #starNetGrps table td, #infotable td, table.poc-lh-table td {
+#ccsConns table td, #activeLinks table td, #starNetGrps table td, #infotable td, table.poc-lh-table td {
     color: <?php echo $textContent; ?>;
     font-family: 'Inconsolata', monospace;
     font-weight: 500;
