@@ -2947,7 +2947,7 @@ if (!empty($_POST)):
 		  $configdmr2ysf['Enabled']['Enabled'] = "1";
 		  unset($configdmrgateway['DMR Network 3']);
 		  $configdmrgateway['DMR Network 3']['Enabled'] = "0";
-		  $configdmrgateway['DMR Network 3']['Name'] = "DMR2YSF_Cross-over";
+		  $configdmrgateway['DMR Network 3']['Name'] = "DMR2YSF_Cross-Mode";
 		  $configdmrgateway['DMR Network 3']['Id'] = $configdmrgateway['DMR Network 2']['Id'];
 		  $configdmrgateway['DMR Network 3']['Address'] = "127.0.0.1";
 		  $configdmrgateway['DMR Network 3']['Port'] = "62033";
@@ -2988,7 +2988,7 @@ if (!empty($_POST)):
 		  $configdmr2nxdn['Enabled']['Enabled'] = "1";
 		  unset($configdmrgateway['DMR Network 3']);
 		  $configdmrgateway['DMR Network 3']['Enabled'] = "0";
-		  $configdmrgateway['DMR Network 3']['Name'] = "DMR2NXDN_Cross-over";
+		  $configdmrgateway['DMR Network 3']['Name'] = "DMR2NXDN_Cross-Mode";
 		  $configdmrgateway['DMR Network 3']['Id'] = $configdmrgateway['DMR Network 2']['Id'];
 		  $configdmrgateway['DMR Network 3']['Address'] = "127.0.0.1";
 		  $configdmrgateway['DMR Network 3']['Port'] = "62035";
@@ -3026,7 +3026,7 @@ if (!empty($_POST)):
 		  $configdmr2m17['Enabled']['Enabled'] = "1";
 		  unset($configdmrgateway['DMR Network 3']);
 		  $configdmrgateway['DMR Network 3']['Enabled'] = "0";
-		  $configdmrgateway['DMR Network 3']['Name'] = "DMR2M17_Cross-over";
+		  $configdmrgateway['DMR Network 3']['Name'] = "DMR2M17_Cross-Mode";
 		  $configdmrgateway['DMR Network 3']['Id'] = $configdmrgateway['DMR Network 2']['Id'];
 		  $configdmrgateway['DMR Network 3']['Address'] = "127.0.0.1";
 		  $configdmrgateway['DMR Network 3']['Port'] = "62035";
