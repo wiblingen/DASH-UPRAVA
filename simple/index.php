@@ -129,8 +129,8 @@ if(empty($_POST['func'])) {
     <body>
 	<div class="container">
 	    <div class="header">
-               <div class="SmallHeader shLeft"><a style="border-bottom: 1px dotted;" class="tooltip" href="#"><?php echo $lang['hostname'].": ";?> <span><strong>System IP Address<br /></strong><?php echo str_replace(',', ',<br />', exec('hostname -I'));?> </span>  <?php echo exec('cat /etc/hostname'); ?></a></div>
-	       <div class="SmallHeader shRight">
+               <div class="SmallHeader shLeft noMob"><a style="border-bottom: 1px dotted;" class="tooltip" href="#"><?php echo $lang['hostname'].": ";?> <span><strong>System IP Address<br /></strong><?php echo str_replace(',', ',<br />', exec('hostname -I'));?> </span>  <?php echo exec('cat /etc/hostname'); ?></a></div>
+	       <div class="SmallHeader shRight noMob">
 	         <div id="CheckUpdate">
        		  <?php
           	      include $_SERVER['DOCUMENT_ROOT'].'/includes/checkupdates.php';

@@ -27,19 +27,6 @@ if ($callsignLookupSvc == "QRZ") {
     $callsignLookupUrl = "https://www.qrz.com/db/";
 }
 
-?>
-  <div style="vertical-align: bottom; font-weight: bold; text-align:left;"><?php echo $lang['local_tx_list'];?></div>
-  <table style="white-space:normal; word-wrap:break;">
-    <tr>
-      <th width="250px"><a class="tooltip" href="#"><?php echo $lang['time'];?> (<?php echo date('T')?>)<span><b>Time in <?php echo date('T')?> time zone</b></span></a></th>
-      <th><a class="tooltip" href="#"><?php echo $lang['callsign'];?><span><b>Callsign</b></span></a></th>
-      <th><a class="tooltip" href="#"><?php echo $lang['mode'];?><span><b>Transmitted Mode</b></span></a></th>
-      <th><a class="tooltip" href="#"><?php echo $lang['target'];?><span><b>Target, D-Star Reflector, DMR Talk Group etc</b></span></a></th>
-      <th><a class="tooltip" href="#"><?php echo $lang['dur'];?>(s)<span><b>Duration in Seconds</b></span></a></th>
-      <th style="min-width:5ch"><a class="tooltip" href="#"><?php echo $lang['ber'];?><span><b>Bit Error Rate</b></span></a></th>
-      <th class="noMob" style="min-width:8ch"><a class="tooltip" href="#">RSSI<span><b>Received Signal Strength Indication</b></span></a></th>
-    </tr>
-<?php
 $counter = 0;
 $i = 0;
 $TXListLim = count($localTXList);
@@ -65,6 +52,17 @@ for ($i = 0; $i < $TXListLim; $i++) {
 				    $listElem[2] = preg_replace('/[\s+-]/', ' ', $listElem[2]);
 				}
 			    }
+			echo '  <div style="vertical-align: bottom; font-weight: bold; text-align:left;">'. $lang['local_tx_list'] . '</div>
+  <table style="white-space:normal; word-wrap:break;">
+    <tr>
+      <th width="250px"><a class="tooltip" href="#">'. $lang['time'] . '  (' . date('T') . ')<span><b>Time in ' . date('T') . ' time zone</b></span></a></th>
+      <th><a class="tooltip" href="#">' . $lang['callsign'] . '<span><b>Callsign</b></span></a></th>
+      <th><a class="tooltip" href="#">' . $lang['mode'] . '<span><b>Transmitted Mode</b></span></a></th>
+      <th><a class="tooltip" href="#">' . $lang['target'] . '<span><b>Target, D-Star Reflector, DMR Talk Group etc</b></span></a></th>
+      <th><a class="tooltip" href="#">' . $lang['dur'] . '(s)<span><b>Duration in Seconds</b></span></a></th>
+      <th style="min-width:5ch"><a class="tooltip" href="#">' . $lang['ber'] . '<span><b>Bit Error Rate</b></span></a></th>
+      <th class="noMob" style="min-width:8ch"><a class="tooltip" href="#">RSSI<span><b>Received Signal Strength Indication</b></span></a></th>
+    </tr>';
 			echo"<tr>";
 			echo"<td align=\"left\">$local_time</td>";
 			if (is_numeric($listElem[2]) !== FALSE) {
@@ -147,9 +145,10 @@ for ($i = 0; $i < $TXListLim; $i++) {
 				echo"<td class='noMob'>$listElem[9]</td>"; //rssi
 			}
 			echo"</tr>\n";
+			echo"</table>\n";
+			echo"</table>\n";
 			$counter++; }
 		}
 	}
 
 ?>
-  </table>
