@@ -146,7 +146,6 @@ for ($i = 0; $i < $TXListLim; $i++) {
 			}
 			echo"</tr>\n";
 			echo"</table>\n";
-			echo"</table>\n";
 			$counter++; }
 		}
 	}
