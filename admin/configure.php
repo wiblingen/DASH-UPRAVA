@@ -728,6 +728,9 @@ $MYCALL=strtoupper($callsign);
       jQuery('.select2').each( function() {
         jQuery(this).parent().find('select').select2();
       });
+      // Trigger the toggleAPRSGatewayCheckbox function to handle checkbox state after reverting
+      toggleAPRSGatewayCheckbox();
+
       formChanged = false;
       hideUnsavedChanges();
     }
@@ -6729,18 +6732,39 @@ Get WPSD Help: [ <a href="https://w0chp.radio/wpsd-faqs/" target="_new">FAQs</a>
     // Initial call to set the initial state
     toggleFwRadioButtons();
 
-    function toggleAPRSGatewayCheckbox() {
-      var aprsGatewayCheckbox = document.getElementById('toggle-aprsgateway');
-      var gpsdCheckbox = document.getElementById('toggle-GPSD');
+    window.onload = function () {
+        toggleAPRSGatewayCheckbox();
+    };
 
-      if (aprsGatewayCheckbox.checked) {
-        // If APRS Gateway is selected, enable GPSD button
-        gpsdCheckbox.disabled = false;
-      } else {
-        // If APRS Gateway is not selected, disable GPSD button
-        gpsdCheckbox.disabled = true;
-      }
+    function toggleAPRSGatewayCheckbox() {
+        var aprsGatewayCheckbox = document.getElementById('toggle-aprsgateway');
+        var gpsdCheckbox = document.getElementById('toggle-GPSD');
+        var dmrCheckbox = document.getElementById('aprsgw-service-selection-0');
+        var ysfCheckbox = document.getElementById('aprsgw-service-selection-1');
+        var dgIdCheckbox = document.getElementById('aprsgw-service-selection-2');
+        var nxdnCheckbox = document.getElementById('aprsgw-service-selection-3');
+        var m17Checkbox = document.getElementById('aprsgw-service-selection-4');
+        var ircDDBCheckbox = document.getElementById('aprsgw-service-selection-5');
+
+        // Disable or enable GPSD based on the state of APRS Gateway checkbox
+        gpsdCheckbox.disabled = !aprsGatewayCheckbox.checked;
+
+        // Uncheck GPSD if APRS Gateway is unchecked
+        if (!aprsGatewayCheckbox.checked) {
+            gpsdCheckbox.checked = false;
+        }
+
+        // Disable or enable other checkboxes based on the state of APRS Gateway checkbox
+        dmrCheckbox.disabled = !aprsGatewayCheckbox.checked;
+        ysfCheckbox.disabled = !aprsGatewayCheckbox.checked;
+        dgIdCheckbox.disabled = !aprsGatewayCheckbox.checked;
+        nxdnCheckbox.disabled = !aprsGatewayCheckbox.checked;
+        m17Checkbox.disabled = !aprsGatewayCheckbox.checked;
+        ircDDBCheckbox.disabled = !aprsGatewayCheckbox.checked;
     }
+
+    // Add an event listener to the toggle-aprsgateway checkbox to call the function when its state changes
+    aprsGatewayCheckbox.addEventListener('change', toggleAPRSGatewayCheckbox);
 </script>
 </body>
 </html>
