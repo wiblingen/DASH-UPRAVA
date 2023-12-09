@@ -14,6 +14,7 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/config/version.php';
       <title><?php echo exec('cat /etc/hostname'); ?> Live Caller Display - W0CHP-PiStar-Dash</title>
       <script type="text/javascript" src="/js/jquery.min.js?version=<?php echo $versionCmd; ?>"></script>
       <script type="text/javascript" src="/js/functions.js?version=<?php echo $versionCmd; ?>"></script>
+      <link rel="stylesheet" type="text/css" href="/css/fonts.css?version=<?php echo $versionCmd; ?>" />
       <link rel="stylesheet" type="text/css" href="/css/live-caller.css?version=<?php echo $versionCmd; ?>" />
     </head>
     <body>
