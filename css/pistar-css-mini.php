@@ -2,8 +2,6 @@
 include_once('css-base.php');
 ?>
 
-@import url('/css/fonts.css');
-
 .container {
     width: 100%;
     text-align: left;
@@ -150,14 +148,6 @@ table tr:nth-child(even) {
 
 table tr:nth-child(odd), .divTableCell {
     background: <?php echo $tableRowOddBg; ?>;
-}
-
-table td {
-    font-family: 'Inconsolata', monospace;
-    text-decoration: none;
-    border: 1px solid #000000;
-    overflow-x: hidden;
-    font-weight: 600;
 }
 
 body {
