@@ -305,7 +305,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/advanced/calibration.php") {
   <div class="contentwide">
   <p style="text-align:left;"><a style="color:#bebebe;text-decoration:underline;" href="#help_details" id="help_details">Display Calibration Help...</a><br />
   <div id="help_info" style="display:none;text-align:left;"><br />
-    First, click the "Start" button, then wait until the Start "LED" turns to green (approx. 10 secs.). Then, select the mode you wish to caibrate,
+    First, click the "Start" button, then wait until the Start "LED" turns to green (approx. 10 secs.). Then, select the mode you wish to calibrate,
     and then wait until the Mode "LED" turns green.<br /><br />TX from your radio until the BER% reaches its lowest value, while adjusting the offset by clicking  the "<code>+/-</code>"
     offset buttons. You can increase/decrease the Steps (in Hz) if you'd like (default is 50 Hz).<br /><br />
     Once happy with the value, click "Save Offset" and then click "Stop" and wait for the LED to turn red, then you're done.<br /><br />
