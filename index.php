@@ -285,15 +285,15 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 		      echo ' <a class="menupower" href="/admin/power.php">'.$lang['power'].'</a>'."\n";
 		      echo ' <a class="menusysinfo noMob" href="/admin/sysinfo.php">System Details</a>'."\n";
 		      echo ' <a class="menulogs noMob" href="/admin/live_log.php">'.$lang['live_logs'].'</a>'."\n";
+		      echo ' <a class="menudashboard" href="/">'.$lang['dashboard'].'</a>'."\n";
 		    }
                     if ($_SERVER["PHP_SELF"] !== "/admin/index.php") {
                         echo '<a class="menuadmin" href="/admin/">'.$lang['admin'].'</a>'."\n";
-                        echo '<a class="menuprofile noMob" href="admin/advanced/config_manager.php">Profiles</a>'."\n";
 		    	echo '<a class="menuhwinfo noMob" href="#">SysInfo</a>';
 		        echo '<a class="menusimple noMob" href="/simple/">Simple View</a>';
 		    	echo '<a class="menulive" href="/live/">Live Caller</a>';
+                        echo '<a class="menuprofile noMob" href="/admin/profile_manager.php">Profiles</a>'."\n";
                     } ?>
-		    <a class="menudashboard" href="/"><?php echo $lang['dashboard'];?></a>
 	    	</div>
 		</div>
 
