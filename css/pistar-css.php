@@ -1295,3 +1295,11 @@ meter::-webkit-meter-even-less-good-value {
   border: 2px solid #e65100;
   color: black;
 }
+
+.smaller {
+    font-size: smaller;
+}
+
+.larger {
+    font-size: larger;
+}
