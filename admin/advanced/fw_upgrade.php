@@ -28,8 +28,6 @@ if ($_SERVER["PHP_SELF"] == "/admin/advanced/fw_upgrade.php") {
     }
 
     if (!isset($_GET['ajax'])) {
-	//system('sudo touch /var/log/pi-star/WPSD-modemflash.log > /dev/null 2>&1 &');
-	//system('sudo echo "" > /var/log/pi-star/WPSD-modemflash.log  > /dev/null 2>&1 &');
 	system('sudo NP=1 /usr/local/sbin/wpsd-modemupgrade ' . escapeshellarg($selectedOption) . ' > /dev/null 2>&1 &');
 	$_SESSION['modemupgrade-isrunning'] = 1;
     }
@@ -66,7 +64,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/advanced/fw_upgrade.php") {
 		$_SESSION['update_offset'] += strlen($data);
 		echo "<pre>$data</pre>";
 		
-		// we reach the end of the cmd
+		// we reached the end of the cmd
 		if (($oldOffset == $_SESSION['update_offset']) && (isset($_SESSION['modemupgrade-isrunning']) && ($_SESSION['modemupgrade-isrunning'] == 1)) && ($upgradeIsRunning == "NO"))
 		{
 		    unset($_SESSION['modemupgrade-isrunning']);
@@ -164,12 +162,12 @@ if ($_SERVER["PHP_SELF"] == "/admin/advanced/fw_upgrade.php") {
 	      <div class="divTable" class="left">
 		<div class="divTableBody">
 		  <div class="divTableRow">
-		    <div class="divTableCellSans">
+		    <div class="divTableCellSans larger">
 		      <p>This tool will attempt to upgrade your selected modem to the latest version available firmware version:<br />
 		        <?php echo $fw_ver_msg; ?>
 		      <p>When ready, select your modem type below and click, "Upgrade Modem". Do not interrupt the process or navigate away from the page while the process is running.</p>
 		      <p><strong>Please understand what you are doing, as well as the risks associated with flashing your modem.</strong></p>
-		      <p><em>(NOTE: The WPSD project does not develop firmware, nor do we support firmware nor modems.)</em></p>
+		      <p><em>(NOTES: The WPSD project does not develop firmware, nor do we support firmware nor modems. Not all modem types are available in this tool.)</em></p>
 		    </div>
 	      </div>
 	    </div>
@@ -206,7 +204,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/advanced/fw_upgrade.php") {
         $options = explode("\n", trim($output));
 
         // Create the select element
-        echo '<form method="post" id="up_fw">';
+        echo '<p><form method="post" id="up_fw">';
         echo '<label for="modem">Select Modem:</label>';
         echo '<select id="modem" name="modem">';
 	echo '<option value="" disabled selected>Please choose device type...</option>';
@@ -217,7 +215,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/advanced/fw_upgrade.php") {
  	}
         echo '</select>';
         echo '<input type="button" value="Upgrade Modem" onclick="submitform()">';
-        echo '</form>';
+        echo '</form></p>';
     } else {
         echo '<p>Error executing the command.</p>';
     }
