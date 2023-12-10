@@ -51,7 +51,7 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/config/version.php';
 		    $action_msg = 'WPSD Services Status';
 		}
 		else if (strcmp($action, 'updatehostsfiles') == 0) {
-		    $action_msg = 'Updating The Hosts Files';
+		    $action_msg = "Updating Hostfiles, User ID DB's & Talkgroup Lists...";
 		}
 		else {
 		    $action_msg = 'Unknown Action';
