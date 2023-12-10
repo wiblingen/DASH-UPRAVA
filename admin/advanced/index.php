@@ -40,7 +40,7 @@ if (!is_dir($config_dir) || count(glob("$config_dir/*")) < 1) {
   <table align="center"style="margin: 0px 0px 10px 0px; width: 100%;border-collapse:collapse; table-layout:fixed;white-space: normal!important;">
     <tr>
     <td align="center" valign="top" style="background-color: #ffff90; color: #906000; word-wrap: break-all;padding:20px;">Notice! You do not have any saved configurations / profiles.<br /><br />
-    It is recommended that you <b><a href="/admin/advanced/config_manager.php">save your configuration / profile before making any changes</a>.</b></td>
+    It is recommended that you <b><a href="/admin/profile_manager.php">save your configuration / profile before making any changes</a>.</b></td>
     </tr>
   </table>
 </div>
