@@ -71,7 +71,7 @@ if ( $testMMDVModeDMR == 1 ) {
 	    if (!empty(escapeshellcmd($_POST["tgStaticDropAll"]))) {
 	        exec($bmStaticDropAllCmd);
                 // Output to the browser
-		echo '<br /><div style="text-align:left;font-weight:bold;" id="cmdOut">BrandMeister Manager</div>'."\n";
+		echo '<br /><div style="text-align:left;font-weight:bold;" id="cmdOut" class="larger">BrandMeister Manager</div>'."\n";
                 echo "<table>\n<tr><th>Command Output</th></tr>\n<tr><td>";
                 print "<p>All Static Talkgroups Dropped!<br /> Page reloading...</p>";
                 echo "</td></tr>\n</table>\n";
@@ -86,7 +86,7 @@ if ( $testMMDVModeDMR == 1 ) {
 	        if (file_exists("/etc/.bm_tgs.json.saved")) {
             	    exec($bmStaticAddAllCmd);
             	    // Output to the browser
-		    echo '<br /><div style="text-align:left;font-weight:bold;" id="cmdOut">BrandMeister Manager</div>'."\n";
+		    echo '<br /><div style="text-align:left;font-weight:bold;" id="cmdOut" class="larger">BrandMeister Manager</div>'."\n";
             	    echo "<table>\n<tr><th>Command Output</th></tr>\n<tr><td>";
             	    print "<p>All Previous Static Talkgroups Re-Added!<br /> Page reloading...</p>";
             	    echo "</td></tr>\n</table>\n";
@@ -96,7 +96,7 @@ if ( $testMMDVModeDMR == 1 ) {
 	        }
 	        else {
             	    // Output to the browser
-		    echo '<br /><div style="text-align:left;font-weight:bold;" id="cmdOut">BrandMeister Manager</div>'."\n";
+		    echo '<br /><div style="text-align:left;font-weight:bold;" id="cmdOut" class="larger">BrandMeister Manager</div>'."\n";
             	    echo "<table>\n<tr><th>Command Output</th></tr>\n<tr><td>";
             	    print "<p>No Previous Static Talkgroups Dropped. Nothing To Do!!<br /> Page reloading...</p>";
             	    echo "</td></tr>\n</table>\n";
@@ -121,7 +121,7 @@ if ( $testMMDVModeDMR == 1 ) {
                 $massTGs = escapeshellcmd($_POST['massTGlist']);
                 if (strlen($massTGs)==0) {
                     // Output to the browser
-		    echo '<br /><div style="text-align:left;font-weight:bold;" id="cmdOut">BrandMeister Manager</div>'."\n";
+		    echo '<br /><div style="text-align:left;font-weight:bold;" id="cmdOut" class="larger">BrandMeister Manager</div>'."\n";
                     echo "<table>\n<tr><th>Command Output</th></tr>\n<tr><td>";
                     print "<p>No talkgroups defined! <br /> Page reloading...</p>";
                     echo "</td></tr>\n</table>\n";
@@ -141,7 +141,7 @@ if ( $testMMDVModeDMR == 1 ) {
                         $massTGcount = substr_count($massTGs, "\n") + 1;
 		        if ($massTGcount > "10") {
                             // Output to the browser
-		    	    echo '<br /><div style="text-align:left;font-weight:bold;" id="cmdOut">BrandMeister Manager</div>'."\n";
+		    	    echo '<br /><div style="text-align:left;font-weight:bold;" id="cmdOut" class="larger">BrandMeister Manager</div>'."\n";
                             echo "<table>\n<tr><th>Command Output</th></tr>\n<tr><td>";
                             print "<p>No more than 10 talkgroups can be defined at a time! <br /> Page reloading...</p>";
                             echo "</td></tr>\n</table>\n";
@@ -159,7 +159,7 @@ if ( $testMMDVModeDMR == 1 ) {
                             exec($bmStaticMassAddCmd);
                             // Output to the browser
 			    $str = preg_replace('#\s+#',', ',trim($massTGs));
-		    	    echo '<br /><div style="text-align:left;font-weight:bold;" id="cmdOut">BrandMeister Manager</div>'."\n";
+		    	    echo '<br /><div style="text-align:left;font-weight:bold;" id="cmdOut" class="larger">BrandMeister Manager</div>'."\n";
                             echo "<table>\n<tr><th>Command Output</th></tr>\n<tr><td>";
                             print "<p>All Submitted Static Talkgroups ($str) Added to slot $dispSlot! <br /> Page reloading...</p>";
                             echo "</td></tr>\n</table>\n";
@@ -175,7 +175,7 @@ if ( $testMMDVModeDMR == 1 ) {
                         $massTGcount = substr_count($massTGs, "\n") + 1;
 		        if ($massTGcount > "10") {
                             // Output to the browser
-		    	    echo '<br /><div style="text-align:left;font-weight:bold;" id="cmdOut">BrandMeister Manager</div>'."\n";
+		    	    echo '<br /><div style="text-align:left;font-weight:bold;" id="cmdOut" class="larger">BrandMeister Manager</div>'."\n";
                             echo "<table>\n<tr><th>Command Output</th></tr>\n<tr><td>";
                             print "<p>No more than 10 talkgroups can be defined at a time! <br /> Page reloading...</p>";
                             echo "</td></tr>\n</table>\n";
@@ -192,7 +192,7 @@ if ( $testMMDVModeDMR == 1 ) {
                             exec($bmStaticMassDelCmd);
                             // Output to the browser
 			    $str = preg_replace('#\s+#',', ',trim($massTGs)); 
-		    	    echo '<br /><div style="text-align:left;font-weight:bold;" id="cmdOut">BrandMeister Manager</div>'."\n";
+		    	    echo '<br /><div style="text-align:left;font-weight:bold;" id="cmdOut" class="larger">BrandMeister Manager</div>'."\n";
                             echo "<table>\n<tr><th>Command Output</th></tr>\n<tr><td>";
                             print "<p>All Submitted Static Talkgroups ($str) Deleted from slot $dispSlot!<br /> Page reloading...</p>";
                             echo "</td></tr>\n</table>\n";
@@ -259,7 +259,7 @@ if ( $testMMDVModeDMR == 1 ) {
           $result = @file_get_contents($bmAPIurl, false, $context);
           $feedback=json_decode($result);
           // Output to the browser
-	  echo '<br /><div style="text-align:left;font-weight:bold;" id="cmdOut">BrandMeister Manager</div>'."\n";
+	  echo '<br /><div style="text-align:left;font-weight:bold;" id="cmdOut" class="larger">BrandMeister Manager</div>'."\n";
           echo "<table>\n<tr><th>Command Output</th></tr>\n<tr><td><p>";
           //echo "Sending command to BrandMeister API";
           //if (isset($feedback)) { print "BrandMeister API: ".$feedback->{'message'}; } else { print "BrandMeister API: No Response"; }
@@ -283,7 +283,7 @@ if ( $testMMDVModeDMR == 1 ) {
 	    // Set some Variables
 	    $bmStaticTGList = "";
 	    if (isset($json->staticSubscriptions)) { $bmStaticTGListJson = $json->staticSubscriptions; }
-		    echo '<br /><div style="text-align:left;font-weight:bold;" id="cmdOut">BrandMeister Manager</div>'."\n";
+		    echo '<br /><div style="text-align:left;font-weight:bold;" id="cmdOut" class="larger">Talkgroup Management</div>'."\n";
 		    echo '<form id="bm_man" action="'.htmlentities($_SERVER['PHP_SELF']."?func=bm_man#cmdOut").'" method="post">'."\n";
 		    echo '<table style="white-space: normal;">'."\n";
 		    echo '  <tr>'."\n";
