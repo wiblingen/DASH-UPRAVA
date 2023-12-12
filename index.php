@@ -462,9 +462,9 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 		    	} else { // Yay! good API key!
 			    echo '<script type="text/javascript">'."\n";
         	    	    echo 'function reloadbmConnections(){'."\n";
-        	    	    echo '  $("#bmConnects").load("/mmdvmhost/bm_links.php",function(){ setTimeout(reloadbmConnections,20000) });'."\n";
+        	    	    echo '  $("#bmConnects").load("/mmdvmhost/bm_links.php",function(){ setTimeout(reloadbmConnections,15000) });'."\n";
         	    	    echo '}'."\n";
-        	    	    echo 'setTimeout(reloadbmConnections,20000);'."\n";
+        	    	    echo 'setTimeout(reloadbmConnections,15000);'."\n";
 		    	    echo '$(window).trigger(\'resize\');'."\n";
         	    	    echo '</script>'."\n";
         	    	    echo '<div id="bmConnects">'."\n";
