@@ -165,7 +165,7 @@ if ((strcmp($origin, "admin") == 0) && isset($_SESSION['DAPNETAPIKeyConfigs'])) 
     // Display personal messages only if RIC has been defined, and some personal messages are available
     if ($myRIC && (array_search('<MY_RIC>', $logLinesDAPNETGateway) != FALSE)) {
 ?>
-    <div>
+    <div style="margin-top: 20px;">
 	<!-- Personal messages-->
 	<div>
 	    <b>Personal Messages</b>
@@ -224,7 +224,7 @@ if ((strcmp($origin, "admin") == 0) && isset($_SESSION['DAPNETAPIKeyConfigs'])) 
 } // admin
 ?>
 
-<div id='pocsag-sec'>
+<div id='pocsag-sec' style="margin-top: 10px;">
         <div style="vertical-align: bottom; font-weight: bold; padding-top:14px;text-align:left;"><?php echo $lang['pocsag_list'];?></div>
 	<!-- Activity -->
 	<div class="table-container">
