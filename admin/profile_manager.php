@@ -286,7 +286,7 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
 			    <?php echo $curr_config; ?>
 			    <?php if ($no_raw_profile != true) { ?>
 				<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" id="save_running_config">
-				    <div<>Save Current Settings to This Runnning Profile: </div>
+				    <div<>Save Current Settings to This Running Profile: </div>
 				    <input type="hidden" name="curr_config" value="<?php echo $curr_config_raw; ?>">
 				    <button type="submit" name="running_config">Quick Save</button>
 				</form>
