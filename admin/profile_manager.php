@@ -34,7 +34,7 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
     	 $curr_config = "<span class='larger' style='font-weight:bold;color:$backgroundModeCellActiveColor;'>".trim(file_get_contents('/etc/.WPSD_config'))."</span><br /><small>(Saved: ".$saved."</small>)\n";
     } else {
 	$no_raw_profile = true;
-	$curr_config = "<p><i class='fa fa-exclamation-triangle'></i> Current Profile Deleted! You may want to switch to a saved profile, or save a new profile.</p>";
+	$curr_config = "<p><i class='fa fa-exclamation-circle'></i> Current Profile Deleted! You may want to switch to a saved profile, or save a new profile.</p>";
     }
 } else {
     $no_raw_profile = true;
@@ -110,69 +110,76 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
                                 } else if (escapeshellcmd($_POST['curr_config'])) { // current profile, use existing descr.
                                     $desc = $_POST['curr_config'];
                                 }
-				if (!preg_match('/^[a-zA-Z0-9\s]+$/', $desc)) {
-				   echo '<tr><td colspan="3"><p class="larger"><i class="fa fa-ban" aria-hidden="true"></i> Non-Alpha-Numeric/Special Characters are not Permitted...</p>
-				   Page reloading...<br /><br />
-				   <script language="JavaScript" type="text/javascript">
-                                   setTimeout("location.href = \''.$_SERVER["PHP_SELF"].'\'", 5000);
-				   </script>
-				   </td></tr>';
+				if ($desc == "") {
+				    echo '<tr><td colspan="3"><p class="larger"><i class="fa fa-times-circle" aria-hidden="true"></i> You need to provide a Profile Description!</p>
+				    Page reloading...<br /><br />
+				    <script language="JavaScript" type="text/javascript">
+				    setTimeout("location.href = \''.$_SERVER["PHP_SELF"].'\'", 5000);
+				    </script>
+				    </td></tr>';
+				} else if (!preg_match('/^[a-zA-Z0-9\s]+$/', $desc)) {
+				    echo '<tr><td colspan="3"><p class="larger"><i class="fa fa-ban" aria-hidden="true"></i> Non-Alpha-Numeric/Special Characters are not Permitted...</p>
+				    Page reloading...<br /><br />
+				    <script language="JavaScript" type="text/javascript">
+                                    setTimeout("location.href = \''.$_SERVER["PHP_SELF"].'\'", 5000);
+				    </script>
+				    </td></tr>';
 				} else {
-				   $desc = escapeshellarg($desc);
-				   echo '<tr><td colspan="3"><p class="larger"><i class="fa fa-check-square" aria-hidden="true"></i> Saved Current Settings to Profile, '.$desc.'</p>
-				   Page reloading...<br /><br />
-				   <script language="JavaScript" type="text/javascript">
-                                   setTimeout("location.href = \''.$_SERVER["PHP_SELF"].'\'", 3000);
-				   </script>
-				   </td></tr>';
-				   exec('sudo mount -o remount,rw /');
-				   exec("sudo mkdir -p /etc/WPSD_config_mgr/$desc > /dev/null");
-				   $profileDir = "/etc/WPSD_config_mgr/$desc";
-                            	   exec("sudo rm -rf $profileDir > /dev/null")."\n";
-                            	   exec("sudo mkdir $profileDir > /dev/null")."\n";
-                            	   if (exec('cat /etc/dhcpcd.conf | grep "static ip_address" | grep -v "#"')) {
-                                       exec("sudo cp /etc/dhcpcd.conf $profileDir > /dev/null")."\n";
-                            	   }
-                            	   exec("sudo cp /etc/wpa_supplicant/wpa_supplicant.conf $profileDir > /dev/null")."\n";
-                            	   exec("sudo cp /etc/hostapd/hostapd.conf $profileDir > /dev/null")."\n";
-                            	   exec("sudo cp /etc/pistar-css.ini $profileDir > /dev/null")."\n";
-                            	   exec("sudo cp /etc/aprsgateway $profileDir > /dev/null")."\n";
-                            	   exec("sudo cp /etc/ircddbgateway $profileDir > /dev/null")."\n";
-                            	   exec("sudo cp /etc/mmdvmhost $profileDir > /dev/null")."\n";
-                            	   exec("sudo cp /etc/dapnetgateway $profileDir > /dev/null")."\n";
-                            	   exec("sudo cp /etc/pistar-css.ini $profileDir > /dev/null");
-                            	   exec("sudo cp /etc/p25gateway $profileDir > /dev/null")."\n";
-                            	   exec("sudo cp /etc/ysfgateway $profileDir > /dev/null")."\n";
-                            	   exec("sudo cp /etc/dmr2nxdn $profileDir > /dev/null")."\n";
-                            	   exec("sudo cp /etc/dmr2ysf $profileDir > /dev/null")."\n";
-                            	   exec("sudo cp /etc/nxdn2dmr $profileDir > /dev/null")."\n";
-                            	   exec("sudo cp /etc/ysf2dmr $profileDir > /dev/null")."\n";
-                            	   exec("sudo cp /etc/dgidgateway $profileDir > /dev/null");
-                            	   exec("sudo cp /etc/nxdngateway $profileDir > /dev/null");
-                            	   exec("sudo cp /etc/m17gateway $profileDir > /dev/null");
-                            	   exec("sudo cp /etc/ysf2nxdn $profileDir > /dev/null")."\n";
-                            	   exec("sudo cp /etc/ysf2p25 $profileDir > /dev/null")."\n";
-                            	   exec("sudo cp /etc/dmrgateway $profileDir > /dev/null")."\n";
-                            	   exec("sudo cp /etc/starnetserver $profileDir > /dev/null")."\n";
-                            	   exec("sudo cp /etc/timeserver $profileDir > /dev/null")."\n";
-                            	   exec("sudo cp /etc/dstar-radio.* $profileDir > /dev/null")."\n";
-                            	   exec("sudo cp /etc/pistar-remote $profileDir > /dev/null")."\n";
-                            	   exec("sudo cp /etc/hosts $profileDir > /dev/null")."\n";
-                            	   exec("sudo cp /etc/hostname $profileDir > /dev/null")."\n";
-                            	   exec("sudo cp /etc/bmapi.key $profileDir > /dev/null")."\n";
-                            	   exec("sudo cp /etc/dapnetapi.key $profileDir > /dev/null")."\n";
-                            	   exec("sudo cp /etc/default/gpsd $profileDir > /dev/null")."\n";
-                            	   exec("sudo cp /etc/*_paused $profileDir > /dev/null")."\n";
-                            	   exec("sudo cp /etc/.CALLERDETAILS $profileDir > /dev/null")."\n";
-                            	   exec("sudo cp /etc/.pistar-css.ini.user $profileDir > /dev/null")."\n";
-                            	   exec("sudo cp /etc/.TGNAMES $profileDir > /dev/null")."\n";
-                            	   exec("sudo cp /usr/local/etc/RSSI.dat $profileDir > /dev/null")."\n";
-                            	   exec("sudo cp /var/www/dashboard/config/ircddblocal.php $profileDir > /dev/null")."\n";
-                            	   exec("sudo cp /var/www/dashboard/config/config.php $profileDir > /dev/null")."\n";
-			    	   exec("sudo cp /var/www/dashboard/config/language.php $profileDir > /dev/null")."\n";
-				   exec("sudo sh -c 'cp -a /root/*Hosts.txt' $profileDir > /dev/null")."\n";
-				   exec("sudo sh -c \"echo $desc > /etc/.WPSD_config\"");
-		}
+				    $desc = escapeshellarg($desc);
+				    exec('sudo mount -o remount,rw /');
+				    exec("sudo mkdir -p /etc/WPSD_config_mgr/$desc > /dev/null");
+				    $profileDir = "/etc/WPSD_config_mgr/$desc";
+                            	    exec("sudo rm -rf $profileDir > /dev/null")."\n";
+                            	    exec("sudo mkdir $profileDir > /dev/null")."\n";
+                            	    if (exec('cat /etc/dhcpcd.conf | grep "static ip_address" | grep -v "#"')) {
+                                        exec("sudo cp /etc/dhcpcd.conf $profileDir > /dev/null")."\n";
+                            	    }
+                            	    exec("sudo cp /etc/wpa_supplicant/wpa_supplicant.conf $profileDir > /dev/null")."\n";
+                            	    exec("sudo cp /etc/hostapd/hostapd.conf $profileDir > /dev/null")."\n";
+                            	    exec("sudo cp /etc/pistar-css.ini $profileDir > /dev/null")."\n";
+                            	    exec("sudo cp /etc/aprsgateway $profileDir > /dev/null")."\n";
+                            	    exec("sudo cp /etc/ircddbgateway $profileDir > /dev/null")."\n";
+                            	    exec("sudo cp /etc/mmdvmhost $profileDir > /dev/null")."\n";
+                            	    exec("sudo cp /etc/dapnetgateway $profileDir > /dev/null")."\n";
+                            	    exec("sudo cp /etc/pistar-css.ini $profileDir > /dev/null");
+                            	    exec("sudo cp /etc/p25gateway $profileDir > /dev/null")."\n";
+                            	    exec("sudo cp /etc/ysfgateway $profileDir > /dev/null")."\n";
+                            	    exec("sudo cp /etc/dmr2nxdn $profileDir > /dev/null")."\n";
+                            	    exec("sudo cp /etc/dmr2ysf $profileDir > /dev/null")."\n";
+                            	    exec("sudo cp /etc/nxdn2dmr $profileDir > /dev/null")."\n";
+                            	    exec("sudo cp /etc/ysf2dmr $profileDir > /dev/null")."\n";
+                            	    exec("sudo cp /etc/dgidgateway $profileDir > /dev/null");
+                            	    exec("sudo cp /etc/nxdngateway $profileDir > /dev/null");
+                            	    exec("sudo cp /etc/m17gateway $profileDir > /dev/null");
+                            	    exec("sudo cp /etc/ysf2nxdn $profileDir > /dev/null")."\n";
+                            	    exec("sudo cp /etc/ysf2p25 $profileDir > /dev/null")."\n";
+                            	    exec("sudo cp /etc/dmrgateway $profileDir > /dev/null")."\n";
+                            	    exec("sudo cp /etc/starnetserver $profileDir > /dev/null")."\n";
+                            	    exec("sudo cp /etc/timeserver $profileDir > /dev/null")."\n";
+                            	    exec("sudo cp /etc/dstar-radio.* $profileDir > /dev/null")."\n";
+                            	    exec("sudo cp /etc/pistar-remote $profileDir > /dev/null")."\n";
+                            	    exec("sudo cp /etc/hosts $profileDir > /dev/null")."\n";
+                            	    exec("sudo cp /etc/hostname $profileDir > /dev/null")."\n";
+                            	    exec("sudo cp /etc/bmapi.key $profileDir > /dev/null")."\n";
+                            	    exec("sudo cp /etc/dapnetapi.key $profileDir > /dev/null")."\n";
+                            	    exec("sudo cp /etc/default/gpsd $profileDir > /dev/null")."\n";
+                            	    exec("sudo cp /etc/*_paused $profileDir > /dev/null")."\n";
+                            	    exec("sudo cp /etc/.CALLERDETAILS $profileDir > /dev/null")."\n";
+                            	    exec("sudo cp /etc/.pistar-css.ini.user $profileDir > /dev/null")."\n";
+                            	    exec("sudo cp /etc/.TGNAMES $profileDir > /dev/null")."\n";
+                            	    exec("sudo cp /usr/local/etc/RSSI.dat $profileDir > /dev/null")."\n";
+                            	    exec("sudo cp /var/www/dashboard/config/ircddblocal.php $profileDir > /dev/null")."\n";
+                            	    exec("sudo cp /var/www/dashboard/config/config.php $profileDir > /dev/null")."\n";
+			    	    exec("sudo cp /var/www/dashboard/config/language.php $profileDir > /dev/null")."\n";
+				    exec("sudo sh -c 'cp -a /root/*Hosts.txt' $profileDir > /dev/null")."\n";
+				    exec("sudo sh -c \"echo $desc > /etc/.WPSD_config\"");
+				    echo '<tr><td colspan="3"><p class="larger"><i class="fa fa-check-square" aria-hidden="true"></i> Saved Current Settings to Profile, '.$desc.'</p>
+				    Page reloading...<br /><br />
+				    <script language="JavaScript" type="text/javascript">
+                                    setTimeout("location.href = \''.$_SERVER["PHP_SELF"].'\'", 3000);
+				    </script>
+				    </td></tr>';
+				}
 			    }
 			    else if ( escapeshellcmd($_POST["restore_config"]) ) {
 				if (empty($_POST['configs'])) {
@@ -183,29 +190,29 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
                                        </script>
                                        </td></tr>';
 				} else {
-				   $resto = escapeshellarg($_POST['configs']);
-				   $profileDir = "/etc/WPSD_config_mgr/$resto";
-				   echo '<tr><td colspan="3"><p class="larger"><i class="fa fa-check-square" aria-hidden="true"></i> Switched to Profile, '.$resto.'</p>
-				   Page reloading...<br /><br />
-				   <script language="JavaScript" type="text/javascript">
-                                   setTimeout("location.href = \''.$_SERVER["PHP_SELF"].'\'", 3000);
-				   </script>
-				   </td></tr>';
-				   exec('sudo mount -o remount,rw /');
-				   exec("sudo sh -c 'mv $profileDir/*.php /var/www/dashboard/config/' > /dev/null");
-				   exec("sudo sh -c 'cp -a $profileDir/*Hosts.txt /root/' > /dev/null");
-				   exec("sudo sh -c 'rm -rf $profileDir/*Hosts.txt' > /dev/null");
-				   exec("sudo sh -c 'cp -a $profileDir/* /etc/' > /dev/null");
-				   exec("sudo sh -c 'cp -a $profileDir/.CALLERDETAILS /etc/' > /dev/null");
-				   exec("sudo sh -c 'cp -a $profileDir/.TGNAMES /etc/' > /dev/null");
-				   exec("sudo sh -c 'cp -a $profileDir/.pistar-css.ini.user /etc/' > /dev/null");
-                                   exec("sudo cp /var/www/dashboard/config/ircddblocal.php $profileDir > /dev/null")."\n";
-                                   exec("sudo cp /var/www/dashboard/config/config.php $profileDir > /dev/null")."\n";
-                                   exec("sudo cp /var/www/dashboard/config/language.php $profileDir > /dev/null")."\n";
-				   exec("sudo chown www-data:www-data /var/www/dashboard/ > /dev/null");
-				   exec("sudo sh -c 'cp -a /root/*Hosts.txt $profileDir' > /dev/null");
-				   exec("sudo sh -c \"echo ".$_POST['configs']." > /etc/.WPSD_config\"");
-				   exec("sudo wpsd-services restart > /dev/null &");
+				    $resto = escapeshellarg($_POST['configs']);
+				    $profileDir = "/etc/WPSD_config_mgr/$resto";
+				    exec('sudo mount -o remount,rw /');
+				    exec("sudo sh -c 'mv $profileDir/*.php /var/www/dashboard/config/' > /dev/null");
+				    exec("sudo sh -c 'cp -a $profileDir/*Hosts.txt /root/' > /dev/null");
+				    exec("sudo sh -c 'rm -rf $profileDir/*Hosts.txt' > /dev/null");
+				    exec("sudo sh -c 'cp -a $profileDir/* /etc/' > /dev/null");
+				    exec("sudo sh -c 'cp -a $profileDir/.CALLERDETAILS /etc/' > /dev/null");
+				    exec("sudo sh -c 'cp -a $profileDir/.TGNAMES /etc/' > /dev/null");
+				    exec("sudo sh -c 'cp -a $profileDir/.pistar-css.ini.user /etc/' > /dev/null");
+                                    exec("sudo cp /var/www/dashboard/config/ircddblocal.php $profileDir > /dev/null")."\n";
+                                    exec("sudo cp /var/www/dashboard/config/config.php $profileDir > /dev/null")."\n";
+                                    exec("sudo cp /var/www/dashboard/config/language.php $profileDir > /dev/null")."\n";
+				    exec("sudo chown www-data:www-data /var/www/dashboard/ > /dev/null");
+				    exec("sudo sh -c 'cp -a /root/*Hosts.txt $profileDir' > /dev/null");
+				    exec("sudo sh -c \"echo ".$_POST['configs']." > /etc/.WPSD_config\"");
+				    exec("sudo wpsd-services restart > /dev/null &");
+				    echo '<tr><td colspan="3"><p class="larger"><i class="fa fa-check-square" aria-hidden="true"></i> Switched to Profile, '.$resto.'</p>
+				    Page reloading...<br /><br />
+				    <script language="JavaScript" type="text/javascript">
+                                    setTimeout("location.href = \''.$_SERVER["PHP_SELF"].'\'", 3000);
+				    </script>
+				    </td></tr>';
 				}
 			    }
 			    else if ( escapeshellcmd($_POST["remove_config"]) ) {
@@ -217,15 +224,15 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
 					</script>
 				</td></tr>';
 				} else {
-				   $del = escapeshellarg($_POST['delete_configs']);
-				   echo '<tr><td colspan="3"><p class="larger"><i class="fa fa-check-square" aria-hidden="true"></i> Deleted Profile, ' .$del.'</p>
-				   Page reloading...<br /><br />
-				   <script language="JavaScript" type="text/javascript">
-                                   setTimeout("location.href = \''.$_SERVER["PHP_SELF"].'\'", 3000);
-				   </script>
-				   </td></tr>';
-				   exec('sudo mount -o remount,rw /');
-				   exec("sudo rm -rf /etc/WPSD_config_mgr/$del > /dev/null");
+				    $del = escapeshellarg($_POST['delete_configs']);
+				    exec('sudo mount -o remount,rw /');
+				    exec("sudo rm -rf /etc/WPSD_config_mgr/$del > /dev/null");
+				    echo '<tr><td colspan="3"><p class="larger"><i class="fa fa-check-square" aria-hidden="true"></i> Deleted Profile, ' .$del.'</p>
+				    Page reloading...<br /><br />
+				    <script language="JavaScript" type="text/javascript">
+                                    setTimeout("location.href = \''.$_SERVER["PHP_SELF"].'\'", 3000);
+				    </script>
+				    </td></tr>';
 				}
 			    }
 			    unset($_POST);
@@ -252,13 +259,13 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
                         ?>
 		    <table width="100%">
 			<tr>
-			    <th class="larger">Switch Profile</th>
-			    <th class="larger">Current Running Profile</th>
-			    <th class="larger">Save a New Profile</th>
+			    <th width="33%" class="larger">Switch Profile</th>
+			    <th width="33%" class="larger">Current Running Profile</th>
+			    <th width="33%" class="larger">Save a New Profile</th>
 			</tr>
 
 			<tr>
-                            <td>
+                            <td style="white-space:normal;padding: 3px;">
                             <?php
                                 if (count(glob("$config_dir/*")) == 0) {
                             ?>
@@ -267,13 +274,18 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
                                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" id="list_configs">
                                     <label for="list_profiles">Select a Profile:</label>
                                     <select name="configs" id="list_profiles" form="list_configs">
-					<option value="" disabled selected>Select...</option>
-                            <?php
-                                foreach ( glob("$config_dir/*") as $dir ) {
-                                    $config_file = str_replace("$config_dir/", "", $dir);
-                                    echo "              <option name='selected_config' value='$config_file'>$config_file</option>\n";
-                                }
-                            ?>
+				    <?php
+				    if ($no_raw_profile != true) {
+					echo "              <option name='selected_config' value='$curr_config_raw' selected>$curr_config_raw</option>\n";
+				    } else{ 
+					echo '		    <option value="" disabled selected>Select...</option>';
+				    }
+					
+				    foreach ( glob("$config_dir/*") as $dir ) {
+					$config_file = str_replace("$config_dir/", "", $dir);
+					echo "              <option name='selected_config' value='$config_file'>$config_file</option>\n";
+				    }
+				    ?>
                                     </select>
                                     <input type="submit" name="restore_config" value="Switch to Profile">
                                 </form>
@@ -281,7 +293,7 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
                             <?php } ?>
                             </td>
 
-			    <td style="white-space:normal;">
+			    <td style="white-space:normal;padding: 3px;">
 			    <p>
 			    <?php echo $curr_config; ?>
 			    <?php if ($no_raw_profile != true) { ?>
@@ -294,7 +306,7 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
 			    </p>
 			    </td>
 
-			    <td>
+			    <td style="white-space:normal;padding: 3px;">
 				<p>
 				<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" id="save_config">
 				    <label for="profile_desc">Description:</label>
@@ -302,7 +314,7 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
 				    <input type="submit" name="save_current_config" value="Save Profile">
 				</form>
 				</p>
-				<p><i class='fa fa-question-circle'></i> Save Current Settings to a New Profile</p>
+				<p><i class='fa fa-question-circle'></i> Save Current Settings to a New Profile.<br /><small>(Spaces in Profile descriptions <em>are</em> permitted.)</small></p>
 			   </td>
 			</tr>
 
@@ -323,7 +335,7 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
 		    </tr>
 
 		    <tr>
-			<td colspan="3">
+			<td colspan="3" style="white-space:normal;padding: 3px;">
 			<p>
 			<?php
 			    if (count(glob("$config_dir/*")) == 0) {
