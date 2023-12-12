@@ -311,13 +311,13 @@ if(empty($_POST['func'])) {
 	            	echo '        pagesto = setTimeout(reloadPages, 10000, "?origin='.$myOrigin.'");'."\n";
 		    	echo '}'."\n";
 		    	echo 'function reloadPages(OptStr){'."\n";
-		    	echo '    $("#Pages").load("/mmdvmhost/pages.php"+OptStr, function(){ pagesto = setTimeout(reloadPages, 10000, "?origin='.$myOrigin.'") });'."\n";
+		    	echo '    $("#Pages").load("/mmdvmhost/pocsag_table.php"+OptStr, function(){ pagesto = setTimeout(reloadPages, 10000, "?origin='.$myOrigin.'") });'."\n";
 		    	echo '}'."\n";
 		    	echo 'pagesto = setTimeout(reloadPages, 10000, "?origin='.$myOrigin.'");'."\n";
 		    	echo '$(window).trigger(\'resize\');'."\n";
 		    	echo '</script>'."\n";
 		    	echo "\n".'<div id="Pages">'."\n";
-		    	include '../mmdvmhost/pages.php';				// POCSAG Messages
+		    	include '../mmdvmhost/pocsag_table.php';				// POCSAG Messages
 		    	echo '</div>'."\n";
 		    }
     		}
