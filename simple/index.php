@@ -236,11 +236,11 @@ if(empty($_POST['func'])) {
 		echo '  $("#liveCallerDeets").load("/mmdvmhost/live_caller_table.php",function(){ livecaller = setTimeout(reloadLiveCaller,1500) });'."\n";
 		echo '}'."\n";
 		echo 'function reloadLocalTX(){'."\n";
-		echo '  $("#localTxs").load("/mmdvmhost/localtx.php",function(){ ltxto = setTimeout(reloadLocalTX,1500) });'."\n";
+		echo '  $("#localTxs").load("/mmdvmhost/local_tx_table.php",function(){ ltxto = setTimeout(reloadLocalTX,1500) });'."\n";
 		echo '}'."\n";
 	
 		echo 'function reloadLastHeard(){'."\n";
-		echo '  $("#lastHeard").load("/mmdvmhost/lh.php",function(){ lhto = setTimeout(reloadLastHeard,1500) });'."\n";
+		echo '  $("#lastHeard").load("/mmdvmhost/last_heard_table.php",function(){ lhto = setTimeout(reloadLastHeard,1500) });'."\n";
 		echo '}'."\n";
 		
 		echo 'function setLCautorefresh(obj) {'."\n";
@@ -292,11 +292,11 @@ if(empty($_POST['func'])) {
                 echo '</div>'."\n";
 
                 echo '<div id="localTxs">'."\n";
-                include '../mmdvmhost/localtx.php';                            // MMDVMDash Local Trasmissions
+                include '../mmdvmhost/local_tx_table.php';                            // MMDVMDash Local Trasmissions
                 echo '</div>'."\n";
 
                 echo '<div id="lastHeard">'."\n";
-                include '../mmdvmhost/lh.php';                                 // MMDVMDash Last Heard
+                include '../mmdvmhost/last_heard_table.php';                                 // MMDVMDash Last Heard
                 echo '</div>'."\n";
 
 		// If POCSAG is enabled, show the information panel
