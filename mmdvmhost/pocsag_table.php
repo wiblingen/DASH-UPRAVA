@@ -168,7 +168,7 @@ if ((strcmp($origin, "admin") == 0) && isset($_SESSION['DAPNETAPIKeyConfigs'])) 
     <div style="margin-top: 20px;">
 	<!-- Personal messages-->
 	<div>
-	    <b>Personal Messages</b>
+	    <b class="larger">Personal Messages</b>
 	    <div class="table-container">
 		<table class="table poc-lh-table">
 		    <thead>
@@ -225,7 +225,7 @@ if ((strcmp($origin, "admin") == 0) && isset($_SESSION['DAPNETAPIKeyConfigs'])) 
 ?>
 
 <div id='pocsag-sec' style="margin-top: 10px;">
-        <div style="vertical-align: bottom; font-weight: bold; padding-top:14px;text-align:left;"><?php echo $lang['pocsag_list'];?></div>
+        <div class="larger" style="vertical-align: bottom; font-weight: bold; padding-top:14px;text-align:left;"><?php echo $lang['pocsag_list'];?></div>
 	<!-- Activity -->
 	<div class="table-container">
 	    <table class="table poc-lh-table">
