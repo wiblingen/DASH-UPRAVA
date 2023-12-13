@@ -150,3 +150,15 @@ if ( ! function_exists( 'is_countable' ) ) :
   }
 endif;
 
+function convertZuluToLocal($zuluTimestamp) {
+    $utcDateTime = new DateTime($zuluTimestamp, new DateTimeZone('UTC'));
+    $localTimeZone = new DateTimeZone(date_default_timezone_get());
+
+    $utcDateTime->setTimezone($localTimeZone);
+
+    $localTimestamp = $utcDateTime->format('Y-m-d H:i:s');
+    $localTimeZoneAbbr = $utcDateTime->format('T');
+
+    return $localTimestamp . ' (' . $localTimeZoneAbbr . ')';
+}
+

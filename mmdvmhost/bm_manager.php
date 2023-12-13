@@ -261,8 +261,6 @@ if ( $testMMDVModeDMR == 1 ) {
           // Output to the browser
 	  echo '<br /><div style="text-align:left;font-weight:bold;" id="cmdOut" class="larger">BrandMeister Manager</div>'."\n";
           echo "<table>\n<tr><th>Command Output</th></tr>\n<tr><td><p>";
-          //echo "Sending command to BrandMeister API";
-          //if (isset($feedback)) { print "BrandMeister API: ".$feedback->{'message'}; } else { print "BrandMeister API: No Response"; }
 	  if ($targetSlot == "0") {
 	      $dispSlot= "2";
           } else {
@@ -333,12 +331,15 @@ if ( $testMMDVModeDMR == 1 ) {
 		    echo '    <td><input type="radio" id="masstgAdd" name="massTGaction" value="ADD" /><label for="masstgAdd">Add</label> &nbsp;<input type="radio" id="masstgDel" name="massTGaction" value="DEL" checked="checked" /><label for="masstgDel">Delete</label>&nbsp;<input type="submit" value="Bulk Add/Delete Static TGs" id="tgStaticBatch" name="tgStaticBatch"/></td>'."\n";
 		    echo '  </tr>'."\n";
 		    echo '  <tr>'."\n";
-		    echo '    <td style="white-space:normal;padding: 3px;">This function drops all current static talkgroups, OR re-adds the previously-dropped static talkgroups.</td>'."\n";
-		    echo '    <td colspan="3" style="white-space:normal;padding: 3px;">This function mass/bulk-adds or deletes up to 10 static talkgroups. Enter one talkgroup per line.'."\n";
+		    echo '    <td style="white-space:normal;padding: 3px;"><i class="fa fa-question-circle"></i> This function drops all current static talkgroups, OR re-adds the previously-dropped static talkgroups.</td>'."\n";
+		    echo '    <td colspan="3" style="white-space:normal;padding: 3px;"><i class="fa fa-question-circle"></i> This function mass/bulk-adds or deletes up to 10 static talkgroups. Enter one talkgroup per line.'."\n";
 		    echo '  </tr>'."\n";
 		    echo '  <tr>'."\n";
-		    echo '    <td colspan="4" style="white-space:normal;padding: 3px;">(Note: Give all mass/bulk static talkgroup management functions some time to process, due to the nature of BrandMeister not natively supporting mass-management functions for static talkgroups.)'."\n";
+		    echo '    <td colspan="4" style="white-space:normal;padding: 3px;"><i class="fa fa-info-circle"></i> Note: Give all mass/bulk static talkgroup management functions some time to process, due to the nature of BrandMeister not natively supporting mass-management functions for static talkgroups.'."\n";
 		    echo '  </tr>'."\n";
+		    echo '    <tr>'."\n";
+		    echo '      <td colspan="4" style="white-space:normal;padding: 3px;">Your Hotspot/Repeater ID: <a href="https://brandmeister.network/?page=hotspot&amp;id='.$dmrID.'" target="_new" title="Click to view your hotspot info on BrandMeister">'.$dmrID.'</a>&nbsp;&nbsp;&bull;&nbsp;&nbsp;Connected To: '.$dmrMasterHost.'&nbsp;&nbsp;&bull;&nbsp;&nbsp;<a href="#deviceLogsContainer" id="showDeviceLogs">Display BM Device Logs</a>&nbsp;&nbsp;&bull;&nbsp;&nbsp;<a href="https://w0chp.radio/brandmeister-talkgroups/" target="_blank">List of All BrandMeister Talkgroups</a></td>'."\n";
+		    echo '    </tr>'."\n";
 		    echo '</table>'."\n";
 		    echo '</form>'."\n";
 	        }
@@ -347,3 +348,30 @@ if ( $testMMDVModeDMR == 1 ) {
     }
 }
 ?>
+<script>
+$(document).ready(function() {
+    $("#showDeviceLogs").click(function(event) {
+        event.preventDefault(); // Prevent the default link behavior (e.g., navigating to a different page)
+
+        // Your PHP script that retrieves and displays device logs
+        $.ajax({
+            type: "POST",
+            url: "/mmdvmhost/bm_device_logs.php", // Replace with the actual URL of your PHP script
+            data: {
+                bmAPIkey: "<?php echo $bmAPIkey; ?>",
+                MYCALL: "<?php echo $MYCALL; ?>",
+                dmrID: "<?php echo $dmrID; ?>",
+            },
+            success: function(response) {
+                // Append the device logs table to the container and slide it down
+                $("#deviceLogsContainer").html(response).slideDown();
+            },
+            error: function(xhr, status, error) {
+                console.error("Error fetching device logs:", error);
+            }
+        });
+    });
+});
+</script>
+<p id="deviceLogsContainer" style="padding-top:10px"></p>
+

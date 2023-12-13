@@ -206,9 +206,6 @@ if ( $testMMDVModeDMR == 1 ) {
 	echo "     </table>";
 	echo '     </td>';
 	echo '    </tr>'."\n";
-	echo '    <tr>'."\n";
-	echo '      <td colspan="3" style="white-space:normal;padding: 3px;background:'.$tableRowEvenBg.'">Your Hotspot/Repeater ID: <a href="https://brandmeister.network/?page=hotspot&amp;id='.$dmrID.'" target="_new" title="Click to view your hotspot info on BrandMeister">'.$dmrID.'</a> | Connected To: '.$dmrMasterHost.' |  <a href="https://w0chp.radio/brandmeister-talkgroups/" target="_blank">List of All BrandMeister Talkgroups</a></td>'."\n";
-	echo '    </tr>'."\n";
 	echo '  </table>'."\n";
     }
 }
