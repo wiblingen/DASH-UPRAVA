@@ -1216,6 +1216,8 @@ if (!empty($_POST)):
 	    $configdgidgateway['GPSD']['Enable'] = $gpsdEnabled;
 	    $confignxdngateway['GPSD']['Enable'] = $gpsdEnabled;
 	    $configm17gateway['GPSD']['Enable'] = $gpsdEnabled;
+	    $rollGpsd = 'sudo sed -i "/gpsdSEnabled=/c\\gpsdSEnabled='.$gpsdEnabled.'" /etc/ircddbgateway';
+	    system($rollGpsd);
 
 	   if (empty($_POST['gpsdPort']) != TRUE ) {
 		$configdmrgateway['GPSD']['Port'] = escapeshellcmd($_POST['gpsdPort']);
@@ -1225,9 +1227,9 @@ if (!empty($_POST)):
 		$configdmrgateway['GPSD']['Address'] = escapeshellcmd($_POST['gpsdServer']);
 	   }
 
-            // Set GPSD daemon On or Off
-            if (escapeshellcmd($_POST['GPSD']) == 'ON') { system('sudo systemctl unmask gpsd.service ; sudo systemctl unmask gpsd.socket ; sudo systemctl enable gpsd.service ; sudo systemctl enable gpsd.socket'); }
-            if (escapeshellcmd($_POST['GPSD']) == 'OFF')  { system('sudo systemctl stop gpsd.service ; sudo systemctl stop gpsd gpsd.socket ; sudo systemctl disable gpsd.service ; sudo systemctl disable gpsd.socket ; sudo systemctl mask gpsd.service ; sudo systemctl mask gpsd.socket'); }
+           // Set GPSD daemon On or Off
+           if (escapeshellcmd($_POST['GPSD']) == 'ON') { system('sudo systemctl unmask gpsd.service ; sudo systemctl unmask gpsd.socket ; sudo systemctl enable gpsd.service ; sudo systemctl enable gpsd.socket'); }
+           if (escapeshellcmd($_POST['GPSD']) == 'OFF')  { system('sudo systemctl stop gpsd.service ; sudo systemctl stop gpsd gpsd.socket ; sudo systemctl disable gpsd.service ; sudo systemctl disable gpsd.socket ; sudo systemctl mask gpsd.service ; sudo systemctl mask gpsd.socket'); }
 
 	    // Port and Address for YSF, DGId, M17 and NXDN gateways
 	    $configysfgateway['GPSD']['Port'] = $configdmrgateway['GPSD']['Port'];
@@ -5077,7 +5079,7 @@ else:
 	    <option <?php if ($configmmdvm['General']['Display'] == "HD44780") {echo 'selected="selected" ';}; ?>value="HD44780">HD44780</option>
 	    <option <?php if ($configmmdvm['General']['Display'] == "TFT Serial") {echo 'selected="selected" ';}; ?>value="TFT Serial">TFT Serial</option>
 	    <option <?php if ($configmmdvm['General']['Display'] == "LCDproc") {echo 'selected="selected" ';}; ?>value="LCDproc">LCDproc</option>
-	    <?php if (file_exists('/dev/ttyS2')) { ?>
+	    <?php if (file_exists('/dev/ttyS2')) { //  repl. w/CAST udpserver etc. existence logic  ?>
 	    <option <?php if ($configmmdvm['General']['Display'] == "CAST") {echo 'selected="selected" ';}; ?>value="CAST">DVMega-CAST (Built-In Display)</option>
 	    <?php } ?>
 	    </select>
