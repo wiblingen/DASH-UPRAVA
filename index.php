@@ -327,9 +327,9 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
                     echo '<div class="contentwide">'."\n";
                     echo '<script type="text/javascript">'."\n";
                     echo 'function reloadHwInfo(){'."\n";
-                    echo '  $("#hwInfo").load("/includes/hw_info.php",function(){ setTimeout(reloadHwInfo, 15000) });'."\n";
+                    echo '  $("#hwInfo").load("/includes/hw_info.php",function(){ setTimeout(reloadHwInfo, 30000) });'."\n";
                     echo '}'."\n";
-                    echo 'setTimeout(reloadHwInfo, 15000);'."\n";
+                    echo 'setTimeout(reloadHwInfo, 30000);'."\n";
                     echo '$(window).trigger(\'resize\');'."\n";
                     echo '</script>'."\n";
                     echo '<script type="text/javascript">'."\n";
@@ -446,9 +446,9 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 		    if ($_SERVER["PHP_SELF"] == "/admin/index.php" && $_POST["func"] == "ds_man" || $_GET["func"] == "ds_man") {	// Admin Only Option (D-Star Mgr)
 			echo '<script type="text/javascript">'."\n";
 			echo 'function reloadrefLinks(){'."\n";
-			echo '  $("#refLinks").load("/mmdvmhost/dstar_reflector_links.php",function(){ setTimeout(reloadrefLinks,2500) });'."\n";
+			echo '  $("#refLinks").load("/mmdvmhost/dstar_reflector_links.php",function(){ setTimeout(reloadrefLinks,5000) });'."\n";
 			echo '}'."\n";
-			echo 'setTimeout(reloadrefLinks,2500);'."\n";
+			echo 'setTimeout(reloadrefLinks,5000);'."\n";
 			echo '$(window).trigger(\'resize\');'."\n";
 			echo '</script>'."\n";
 			echo '<div id="refLinks">'."\n";
@@ -738,31 +738,24 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 	        echo '}'."\n";
     		echo '</script>'."\n";
 		echo '<div id="lcmsg" style="background:#d6d6d6;color:black; margin:0 0 10px 0;"></div>'."\n";
-    		echo '<script type="text/javascript">'."\n";
-    		echo 'function LiveCallerDetails(){'."\n";
-    		echo '  $("#liveCallerDeets").load("/mmdvmhost/live_caller_table.php");'."\n";
-    		echo '}'."\n";
-    		echo 'setInterval(function(){LiveCallerDetails()}, 1500);'."\n";
-    		echo '$(window).trigger(\'resize\');'."\n";
-    		echo '</script>'."\n";
  
 		echo '<script type="text/javascript">'."\n";
 		echo 'var lhto;'."\n";
 		echo 'var ltxto'."\n";
 
 		echo 'function reloadLiveCaller(){'."\n";
-		echo '  $("#liveCallerDeets").load("/mmdvmhost/live_caller_table.php",function(){ livecaller = setTimeout(reloadLiveCaller,1500) });'."\n";
+		echo '  $("#liveCallerDeets").load("/mmdvmhost/caller_details_table.php",function(){ livecaller = setTimeout(reloadLiveCaller,1500) });'."\n";
 		echo '}'."\n";
 		echo 'function reloadLocalTX(){'."\n";
-		echo '  $("#localTxs").load("/mmdvmhost/localtx.php",function(){ ltxto = setTimeout(reloadLocalTX,1500) });'."\n";
+		echo '  $("#localTxs").load("/mmdvmhost/local_tx_table.php",function(){ ltxto = setTimeout(reloadLocalTX,1500) });'."\n";
 		echo '}'."\n";
 	
 		echo 'function reloadLastHeard(){'."\n";
-		echo '  $("#lastHeard").load("/mmdvmhost/lh.php",function(){ lhto = setTimeout(reloadLastHeard,1500) });'."\n";
+		echo '  $("#lastHeard").load("/mmdvmhost/last_heard_table.php",function(){ lhto = setTimeout(reloadLastHeard,1500) });'."\n";
 		echo '}'."\n";
 		
      		echo 'function setLCautorefresh(obj) {'."\n";
-    		echo '        livecaller = setTimeout(reloadLiveCaller,1500,1500);'."\n";
+    		echo '        livecaller = setTimeout(reloadLiveCaller,1500);'."\n";
     		echo '}'."\n";
 
 		echo 'function setLHAutorefresh(obj) {'."\n";
@@ -809,11 +802,7 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 
 	if ($_SERVER["PHP_SELF"] != "/admin/index.php") {
             echo '<div id="liveCallerDeets">'."\n";
-            include 'mmdvmhost/live_caller_table.php';
-            echo '</div>'."\n";
-
-            echo '<div id="localTxs">'."\n";
-            include 'mmdvmhost/localtx.php';
+            include 'mmdvmhost/caller_details_table.php';
             echo '</div>'."\n";
 
             if (!file_exists('/etc/.CALLERDETAILS')) {
@@ -822,9 +811,13 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
                 echo '<div id="lastHeard">'."\n";
             }
             echo '</div>'."\n";
+
+            echo '<div id="localTxs" style="margin-top: 20px;">'."\n";
+            include 'mmdvmhost/local_tx_table.php';
+            echo '</div>'."\n";
 	}
 
-		// If POCSAG is enabled, show the information panel
+	// If POCSAG is enabled, show the information panel
         if ( $testMMDVModePOCSAG == 1 ) {
             if (($_SERVER["PHP_SELF"] == "/index.php" || $_POST["func"] == "pocsag_man" || $_GET["func"] == "pocsag_man")) { // display pages in pocsag mgr or main dash page only with no other func requested
 	            $myOrigin = ($_SERVER["PHP_SELF"] == "/admin/index.php" ? "admin" : "other");
@@ -852,7 +845,6 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 	    echo "<h1>New Installation...</h1>\n";
 	    echo "<p>Your installation needs to be configured.</p>\n";
 	    echo "<p>You will be redirected to the configuration page in 15 seconds...</p>\n";
-	    echo "<p>Or, <strong><a href='/admin/configure.php'>go there now</a></strong>.</p>\n";
 	    echo '<script type="text/javascript">setTimeout(function() { window.location="/admin/configure.php";},15000);</script>'."\n";
 	}
 	?>
