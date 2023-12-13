@@ -47,7 +47,7 @@ $lang = array (
   "controller_software"         =>  "Kontroller Programvare",
   "controller_mode"             =>  "Kontroller Mode",
   // Config Page - MMDVMHost Configuration
-  "dmr_mode"                    =>  "DMR Mode",
+  "dmr_mode"                    =>  "DMR Master",
   "d-star_mode"                 =>  "D-Star Mode",
   "ysf_mode"                    =>  "YSF Mode",
   "p25_mode"                    =>  "P25 Mode",
@@ -69,7 +69,7 @@ $lang = array (
   "timezone"                    =>  "Tidssone",
   "dash_lang"                   =>  "Skrivebord Språk",
   // Config Page - DMR Configuration
-  "dmr_master"                  =>  "DMR Mode",
+  "dmr_master"                  =>  "DMR Master",
   "bm_master"                   =>  "BrandMeister Master",
   "bm_network"                  =>  "BrandMeister Nettverk",
   "dmr_plus_master"             =>  "DMR+ Master",

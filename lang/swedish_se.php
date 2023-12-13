@@ -47,7 +47,7 @@ $lang = array (
   "controller_software"         =>  "Controller Software",
   "controller_mode"             =>  "Radio Mode",
   // Config Page - MMDVMHost Configuration
-  "dmr_mode"                    =>  "DMR Mode",
+  "dmr_mode"                    =>  "DMR Master",
   "d-star_mode"                 =>  "D-Star Mode",
   "ysf_mode"                    =>  "YSF Mode",
   "p25_mode"                    =>  "P25 Mode",
@@ -68,7 +68,7 @@ $lang = array (
   "timezone"                    =>  "Systemets Tidzon",
   "dash_lang"                   =>  "Dashboard Språk",
   // Config Page - DMR Configuration
-  "dmr_master"                  =>  "DMR Mode",
+  "dmr_master"                  =>  "DMR Master",
   "bm_master"                   =>  "BrandMeister Master",
   "bm_network"                  =>  "BrandMeister Network",
   "dmr_plus_master"             =>  "DMR+ Master",
@@ -114,7 +114,7 @@ $lang = array (
   "dstar_repeater"              =>  "D-Star Repeater",
   "dstar_net"                   =>  "D-Star Nätverk",
   "dmr_repeater"                =>  "DMR Repeater",
-  "dmr_master"                  =>  "DMR Mode",
+  "dmr_master"                  =>  "DMR Master",
   "ysf_net"                     =>  "YSF Nätverk",
   "p25_radio"                   =>  "P25 Radio",
   "p25_net"                     =>  "P25 Nätverk",
