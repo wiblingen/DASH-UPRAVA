@@ -251,8 +251,8 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
                                 foreach($paused_modes as $mode) {
                                         echo "<h3>$mode</h3>";
                                 }
-                                echo '<p>You must "resume" all of the modes you have paused in order to make any configuration changes...</p>';
-                                echo '<p>Go the <a style="text-decoration:underline;color:inherit;" href="/admin/?func=mode_man">Instant Mode Manager page to Resume the paused mode(s)</a>. Once that\'s completed, this configuration page will be enabled.</p>';
+                                echo '<p>You must "resume" all of the modes you have paused in order to make any Profile changes...</p>';
+                                echo '<p>Go the <a style="text-decoration:underline;color:inherit;" href="/admin/?func=mode_man">Instant Mode Manager page to Resume the paused mode(s)</a>. Once that\'s completed, Profile Manager will be enabled.</p>';
                                 echo '<br />'."\n";
                                 echo '<br />';
                         } else {
