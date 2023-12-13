@@ -1810,7 +1810,7 @@ function tgLookup($mode, $target) {
 	    if ($_SESSION['DMRGatewayConfigs']['DMR Network 4']['Enabled'] == "1" && strlen($target) >= 7 && substr( $target, 0, 1 ) === "5" && $_SESSION['DMRGatewayConfigs']['DMR Network 4']['Name'] == "TGIF_Network") {
 		$target_lookup = exec("grep -w \"$target\" /usr/local/etc/TGList_TGIF.txt | awk -F';' '{print $2}' | head -1 | tr -d '\"'");
 		if (!empty($target_lookup)) {
-		    if (strpos($_SERVER["PHP_SELF"], 'lh.php') || strpos($_SERVER["PHP_SELF"], 'localtx.php') !== false) {
+		    if (strpos($_SERVER["PHP_SELF"], 'last_heard_table.php') || strpos($_SERVER["PHP_SELF"], 'local_tx_table.php') !== false) {
 		    	$target = "TG $target <span style='float:right;' class='noMob'>(TGIF: $target_lookup)</span>";
 		    } else {
 		    	$target = "TG $target <span class='noMob'>(TGIF: $target_lookup)</span>";
@@ -1821,7 +1821,7 @@ function tgLookup($mode, $target) {
 	    } else if ($_SESSION['DMRGatewayConfigs']['DMR Network 2']['Enabled'] == "1" && strlen($target) >= 6 && substr( $target, 0, 1 ) === "8" && $_SESSION['DMRGatewayConfigs']['DMR Network 2']['Name'] == "DMR+_IPSC2-FreeSTAR") {
 		$target_lookup = exec("grep -w \"$target\" /usr/local/etc/TGList_FreeStarIPSC.txt | awk -F, '{print $2}' | head -1 | tr -d '\"'");
 		if (!empty($target_lookup)) {
-		    if (strpos($_SERVER["PHP_SELF"], 'lh.php') || strpos($_SERVER["PHP_SELF"], 'localtx.php') !== false) {
+		    if (strpos($_SERVER["PHP_SELF"], 'last_heard_table.php') || strpos($_SERVER["PHP_SELF"], 'local_tx_table.php') !== false) {
 		    	$target = "TG $target <span style='float:right;' class='noMob'>(FreeSTAR: $target_lookup)</span>";
 		    } else {
 		    	$target = "TG $target <span class='noMob'>(FreeSTAR: $target_lookup)</span>";
@@ -1832,7 +1832,7 @@ function tgLookup($mode, $target) {
 	    } else if ($_SESSION['DMRGatewayConfigs']['DMR Network 5']['Enabled'] == "1" && strlen($target) >= 6 && substr( $target, 0, 1 ) === "4" && startsWith($_SESSION['DMRGatewayConfigs']['DMR Network 5']['Name'], "SystemX")) {
 		$target_lookup = exec("grep -w \"$target\" /usr/local/etc/TGList_SystemX.txt | awk -F, '{print $2}' | head -1 | tr -d '\"'");
 		if (!empty($target_lookup)) {
-		    if (strpos($_SERVER["PHP_SELF"], 'lh.php') || strpos($_SERVER["PHP_SELF"], 'localtx.php') !== false) {
+		    if (strpos($_SERVER["PHP_SELF"], 'last_heard_table.php') || strpos($_SERVER["PHP_SELF"], 'local_tx_table.php') !== false) {
 		    	$target = "TG $target <span style='float:right;' class='noMob'>(SystemX: $target_lookup)</span>";
 		    } else {
 		    	$target = "TG $target <span class='noMob'>(SystemX: $target_lookup)</span>";
@@ -1843,7 +1843,7 @@ function tgLookup($mode, $target) {
 	    } else if ($_SESSION['DMRGatewayConfigs']['DMR Network 2']['Enabled'] == "1" && strlen($target) >= 6 && substr( $target, 0, 1 ) === "8" && startsWith($_SESSION['DMRGatewayConfigs']['DMR Network 2']['Name'], "FreeDMR")) {
 		$target_lookup = exec("grep -w \"$target\" /usr/local/etc/TGList_FreeDMR_.txt | awk -F, '{print $2}' | head -1 | tr -d '\"'");
 		if (!empty($target_lookup)) {
-		    if (strpos($_SERVER["PHP_SELF"], 'lh.php') || strpos($_SERVER["PHP_SELF"], 'localtx.php') !== false) {
+		    if (strpos($_SERVER["PHP_SELF"], 'last_heard_table.php') || strpos($_SERVER["PHP_SELF"], 'local_tx_table.php') !== false) {
 		    	$target = "TG $target <span style='float:right;' class='noMob'>(FreeDMR: $target_lookup)</span>";
 		    } else {
 		    	$target = "TG $target <span class='noMob'>(FreeDMR: $target_lookup)</span>";
@@ -1854,7 +1854,7 @@ function tgLookup($mode, $target) {
 	    } else if ($_SESSION['DMRGatewayConfigs']['DMR Network 2']['Enabled'] == "1" && strlen($target) >= 6 && substr( $target, 0, 1 ) === "8" && startsWith($_SESSION['DMRGatewayConfigs']['DMR Network 2']['Name'], "DMR+_IPSC2")) {
 		$target_lookup = exec("grep -w \"$target\" /usr/local/etc/TGList_DMRp.txt | awk -F, '{print $2}' | head -1 | tr -d '\"'");
 		if (!empty($target_lookup)) {
-		    if (strpos($_SERVER["PHP_SELF"], 'lh.php') || strpos($_SERVER["PHP_SELF"], 'localtx.php') !== false) {
+		    if (strpos($_SERVER["PHP_SELF"], 'last_heard_table.php') || strpos($_SERVER["PHP_SELF"], 'local_tx_table.php') !== false) {
 		    	$target = "TG $target <span style='float:right;' class='noMob'>(DMR+: $target_lookup)</span>";
 		    } else {
 		    	$target = "TG $target <span class='noMob'>(DMR+: $target_lookup)</span>";
@@ -1864,13 +1864,13 @@ function tgLookup($mode, $target) {
 		}
 	    } else if (strlen($target) >= 6 && substr( $target, 0, 1 ) === "7" && $_SESSION['DMRGatewayConfigs']['DMR Network 3']['Enabled'] == "1") {                             
 		if ($_SESSION['DMRGatewayConfigs']['DMR Network 3']['Name'] == "DMR2YSF_Cross-Mode") {                                                                             
-		    if (strpos($_SERVER["PHP_SELF"], 'lh.php') || strpos($_SERVER["PHP_SELF"], 'localtx.php') !== false) {
+		    if (strpos($_SERVER["PHP_SELF"], 'last_heard_table.php') || strpos($_SERVER["PHP_SELF"], 'local_tx_table.php') !== false) {
 		    	$target = "TG $target <span style='float:right;' class='noMob'>(DMR2YSF)</span>";
 		    } else {
 		    	$target = "TG $target <span class='noMob'>(DMR2YSF)</span>";
 		    }
 		} else if ($_SESSION['DMRGatewayConfigs']['DMR Network 3']['Name'] == "DMR2NXDN_Cross-Mode") {                                                                     
-		    if (strpos($_SERVER["PHP_SELF"], 'lh.php') || strpos($_SERVER["PHP_SELF"], 'localtx.php') !== false) {
+		    if (strpos($_SERVER["PHP_SELF"], 'last_heard_table.php') || strpos($_SERVER["PHP_SELF"], 'local_tx_table.php') !== false) {
 		    	$target = "TG $target <span style='float:right;' class='noMob'>(DMR2NXDN)</span>";
 		    } else {
 		    	$target = "TG $target <span class='noMob'>(DMR2NXDN)</span>";
@@ -1880,7 +1880,7 @@ function tgLookup($mode, $target) {
 		$target_lookup = exec("grep -w \"$target\" /usr/local/etc/groups.txt | awk -F, '{print $1}' | head -1 | tr -d '\"'");
 		if (!empty($target_lookup)) {
 		    $target = $target_lookup;
-		    if (strpos($_SERVER["PHP_SELF"], 'lh.php') || strpos($_SERVER["PHP_SELF"], 'localtx.php') !== false) {
+		    if (strpos($_SERVER["PHP_SELF"], 'last_heard_table.php') || strpos($_SERVER["PHP_SELF"], 'local_tx_table.php') !== false) {
 		    	$target = str_replace(": ", " <span style='float:right;' class='noMob'>(BM: ", $target.")</span>");
 		    } else {
 		    	$target = str_replace(": ", " <span class='noMob'>(BM: ", $target.")</span>");
@@ -1895,7 +1895,7 @@ function tgLookup($mode, $target) {
 	} else if (strpos($mode, 'NXDN') !== false) {
 	    $target_lookup = exec("grep -w \"$target\" /usr/local/etc/TGList_NXDN.txt | awk -F';' '{print $2}'");
 	    if (!empty($target_lookup)) {
-		if (strpos($_SERVER["PHP_SELF"], 'lh.php') || strpos($_SERVER["PHP_SELF"], 'localtx.php') !== false) {
+		if (strpos($_SERVER["PHP_SELF"], 'last_heard_table.php') || strpos($_SERVER["PHP_SELF"], 'local_tx_table.php') !== false) {
 	    	    $target = "TG $target <span style='float:right;' class='noMob'>($target_lookup)</span>";
 		} else {
 	    	    $target = "TG $target <span class='noMob'>($target_lookup)</span>";
@@ -1906,7 +1906,7 @@ function tgLookup($mode, $target) {
 	} else if (strpos($mode, 'P25') !== false) {
 	    $target_lookup = exec("grep -w \"$target\" /usr/local/etc/TGList_P25.txt | awk -F';' '{print $2}'");
 	    if (!empty($target_lookup)) {
-		if (strpos($_SERVER["PHP_SELF"], 'lh.php') || strpos($_SERVER["PHP_SELF"], 'localtx.php') !== false) {
+		if (strpos($_SERVER["PHP_SELF"], 'last_heard_table.php') || strpos($_SERVER["PHP_SELF"], 'local_tx_table.php') !== false) {
 	    	    $target = "TG $target <span style='float:right;' class='noMob'>($target_lookup)</span>";
 		} else {
 	    	    $target = "TG $target <span class='noMob'>($target_lookup)</span>";
@@ -2000,7 +2000,7 @@ if (!in_array($_SERVER["PHP_SELF"],array('/mmdvmhost/bm_links.php','/mmdvmhost/b
     }
     
     // Only need these in index.php
-    if (strpos($_SERVER["PHP_SELF"], 'index.php') !== false || strpos($_SERVER["PHP_SELF"], 'pages.php') !== false) {
+    if (strpos($_SERVER["PHP_SELF"], 'index.php') !== false || strpos($_SERVER["PHP_SELF"], 'pocsag_table.php') !== false) {
 	// Will separate personal and global messages only in Admin page, if MY_RIC is defined in dapnetapi.key.
         $origin = (isset($_GET['origin']) ? $_GET['origin'] : (isset($myOrigin) ? $myOrigin : "unknown"));
 	$logLinesDAPNETGateway = getDAPNETGatewayLog(($origin == "admin" ? (isset($_SESSION['DAPNETAPIKeyConfigs']) ? getConfigItem("DAPNETAPI", "MY_RIC", $_SESSION['DAPNETAPIKeyConfigs']) : null) : null));
