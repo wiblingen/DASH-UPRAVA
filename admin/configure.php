@@ -383,7 +383,7 @@ if (($configmmdvm['General']['Display'] == "Nextion") && ($configmmdvm['NextionD
 
 // special (on init) handling for DV-Mega CAST's display udp service, which uses Transpaent Data from MMDVMhost...
 if ($configmmdvm['General']['Display'] == "CAST") {
-    $configmmdvm['Transparent Data']['Enable'] == "1";
+    $configmmdvm['Transparent Data']['Enable'] = "1";
 }
 
 // New MMDVMHost uart stuff
@@ -1049,6 +1049,7 @@ if (!empty($_POST)):
 	      $modemValue = null;
 	  }
 	  $vendorHardwareArray = [
+	      'dvmpicast',	  // DVMega Cast
 	      'dvmpis',		  // DVMega single-band 70cm GPIO HAT (EuroNode, Cast, etc.)
 	      'sbhsdualbandgpio', // SkyBridge dual-band GPIO HAT
 	      'zumspotgpio',      // ZUMspot single-band GPIO HAT
@@ -1059,18 +1060,20 @@ if (!empty($_POST)):
 	      $modemMatch = true;
 	  }
 	  if ($modemMatch && $modemValue === 'sbhsdualbandgpio') { // SkyBridge+ unit
-	      exec('sudo mkdir /tmp/reset/ ; sudo mkdir /tmp/reset-configs ; sudo unzip -o /usr/local/bin/.config_dvmega.zip -d /tmp/reset/; sudo mv /tmp/reset/*.php /tmp/reset-configs/ ; sudo mv /tmp/reset/hostapd.conf /etc/hostapd/ ; sudo mv /tmp/reset/* /etc/ ; sudo rm -rf /tmp/reset ; sudo timedatectl set-timezone America/Chicago');
+	      exec('sudo mkdir /tmp/reset/ ; sudo mkdir /tmp/reset-configs ; sudo unzip -o /usr/local/bin/.config_skybridge.zip -d /tmp/reset/; sudo mv /tmp/reset/*.php /tmp/reset-configs/ ; sudo mv /tmp/reset/hostapd.conf /etc/hostapd/ ; sudo mv /tmp/reset/* /etc/ ; sudo rm -rf /tmp/reset ; sudo timedatectl set-timezone America/Chicago');
+	  } elseif (is_dir('/usr/local/cast')) { // DVMega CAST
+              exec('sudo mkdir /tmp/reset/ ; sudo mkdir /tmp/reset-configs ; sudo unzip -o /usr/local/bin/.config_dvmega_cast.zip -d /tmp/reset/; sudo mv /tmp/reset/*.php /tmp/reset-configs/ ; sudo mv /tmp/reset/hostapd.conf /etc/hostapd/ ; sudo mv /tmp/reset/* /etc/ ; sudo rm -rf /tmp/reset ; sudo timedatectl set-timezone Europe/Amsterdam');
 	  } elseif ($modemMatch && $modemValue === 'dvmpis') { // DVMega units
-              exec('sudo mkdir /tmp/reset/ ; sudo mkdir /tmp/reset-configs ; sudo unzip -o /usr/local/bin/.config_dvmega.zip -d /tmp/reset/; sudo mv /tmp/reset/*.php /tmp/reset-configs/ ; sudo mv /tmp/reset/hostapd.conf /etc/hostapd/ ; sudo mv /tmp/reset/* /etc/ ; sudo rm -rf /tmp/reset ; sudo timedatectl set-timezone Europe/Amsterdam');
+              exec('sudo mkdir /tmp/reset/ ; sudo mkdir /tmp/reset-configs ; sudo unzip -o /usr/local/bin/.config_dvmega_euronode.zip -d /tmp/reset/; sudo mv /tmp/reset/*.php /tmp/reset-configs/ ; sudo mv /tmp/reset/hostapd.conf /etc/hostapd/ ; sudo mv /tmp/reset/* /etc/ ; sudo rm -rf /tmp/reset ; sudo timedatectl set-timezone Europe/Amsterdam');
 	  } elseif ($modemMatch && strpos($modemValue, 'zum') === 0 && strpos($modemValue, 'usb') !== false) { // ZUMRadio USB stick
-	      exec('sudo mkdir /tmp/reset/ ; sudo mkdir /tmp/reset-configs ; sudo unzip -o /usr/local/bin/.config_dvmega.zip -d /tmp/reset/; sudo mv /tmp/reset/*.php /tmp/reset-configs/ ; sudo mv /tmp/reset/hostapd.conf /etc/hostapd/ ; sudo mv /tmp/reset/* /etc/ ; sudo rm -rf /tmp/reset ; sudo timedatectl set-timezone America/Chicago');
+	      exec('sudo mkdir /tmp/reset/ ; sudo mkdir /tmp/reset-configs ; sudo unzip -o /usr/local/bin/.config_zum-usb.zip -d /tmp/reset/; sudo mv /tmp/reset/*.php /tmp/reset-configs/ ; sudo mv /tmp/reset/hostapd.conf /etc/hostapd/ ; sudo mv /tmp/reset/* /etc/ ; sudo rm -rf /tmp/reset ; sudo timedatectl set-timezone America/Chicago');
 	  } elseif ($modemMatch && strpos($modemValue, 'zum') === 0 && strpos($modemValue, 'usb') === false) { // ZUMradio GPIO HAT
 	      switch ($display) {
 	          case "Nextion": // ZUMspot Elite unit
-	      	      exec('sudo mkdir /tmp/reset/ ; sudo mkdir /tmp/reset-configs ; sudo unzip -o /usr/local/bin/.config_dvmega.zip -d /tmp/reset/; sudo mv /tmp/reset/*.php /tmp/reset-configs/ ; sudo mv /tmp/reset/hostapd.conf /etc/hostapd/ ; sudo mv /tmp/reset/* /etc/ ; sudo rm -rf /tmp/reset ; sudo timedatectl set-timezone America/Chicago');
+	      	      exec('sudo mkdir /tmp/reset/ ; sudo mkdir /tmp/reset-configs ; sudo unzip -o /usr/local/bin/.config_zumgpio-nx.zip -d /tmp/reset/; sudo mv /tmp/reset/*.php /tmp/reset-configs/ ; sudo mv /tmp/reset/hostapd.conf /etc/hostapd/ ; sudo mv /tmp/reset/* /etc/ ; sudo rm -rf /tmp/reset ; sudo timedatectl set-timezone America/Chicago');
 	              break;
 	          default: // ZUMspot Mini unit
-	      	      exec('sudo mkdir /tmp/reset/ ; sudo mkdir /tmp/reset-configs ; sudo unzip -o /usr/local/bin/.config_dvmega.zip -d /tmp/reset/; sudo mv /tmp/reset/*.php /tmp/reset-configs/ ; sudo mv /tmp/reset/hostapd.conf /etc/hostapd/ ; sudo mv /tmp/reset/* /etc/ ; sudo rm -rf /tmp/reset ; sudo timedatectl set-timezone America/Chicago');
+	      	      exec('sudo mkdir /tmp/reset/ ; sudo mkdir /tmp/reset-configs ; sudo unzip -o /usr/local/bin/.config_zumgpio-oled.zip -d /tmp/reset/; sudo mv /tmp/reset/*.php /tmp/reset-configs/ ; sudo mv /tmp/reset/hostapd.conf /etc/hostapd/ ; sudo mv /tmp/reset/* /etc/ ; sudo rm -rf /tmp/reset ; sudo timedatectl set-timezone America/Chicago');
 	              break;
 	      }
 	  } else { // No-match ($modemValue = null): reset w/Generic hardware/setup configs
@@ -3133,7 +3136,7 @@ if (!empty($_POST)):
 	// special handling for DV-Mega CAST's display udp service, which uses Transpaent Data from MMDVMhost...
 	    if (substr($_POST['mmdvmDisplayType'] , 0, 4) === "CAST") {
 	    $configmmdvm['General']['Display'] = "CAST";
-	    $configmmdvm['Transparent Data']['Enable'] == "1";
+	    $configmmdvm['Transparent Data']['Enable'] = "1";
 	}
 
 	// Set the MMDVMHost Display Port
@@ -4512,13 +4515,14 @@ else:
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo $lang['dmr_id'];?>:<span><b>DMR/CCS7 ID</b>Enter your DMR / CCS7 ID here</span></a></td>
     <td align="left" colspan="2"><input type="text" name="dmrId" id="dmrId" size="13" maxlength="9" value="<?php if (isset($configmmdvm['General']['Id'])) { echo $configmmdvm['General']['Id']; } else { echo $configmmdvm['DMR']['Id']; } ?>" /></td>
-    <td align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'><i class="fa fa-info-circle"></i> Required for DMR Mode (If you don't have one, <a href="https://radioid.net/account/register" target="_new">get a DMR ID from RadioID.Net</a>)</td>
+    <td align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'><i class="fa fa-info-circle"></i> Required for DMR Mode &amp; DMR Cross-Modes (If you don't have one, <a href="https://radioid.net/account/register" target="_new">get a DMR ID from RadioID.Net</a>)</td>
     </tr>
     <tr>
       <td align="left"><a class="tooltip2" href="#">NXDN ID:<span><b>NXDN ID</b>Enter your NXDN ID here</span></a></td>
       <td align="left" colspan="2"><input type="text" name="nxdnId" id="nxdnId" size="13" maxlength="5" value="<?php if (isset($configmmdvm['NXDN']['Id'])) { echo $configmmdvm['NXDN']['Id']; } ?>" /></td>
-      <td align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'><i class="fa fa-info-circle"></i> Required for NXDN Mode (If you don't have one, <a href="https://radioid.net/account/register" target="_new">get an NXDN ID from RadioID.Net</a>)</td>
+      <td align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'><i class="fa fa-info-circle"></i> Required for NXDN Mode &amp; NXDN Cross-Modes (If you don't have one, <a href="https://radioid.net/account/register" target="_new">get an NXDN ID from RadioID.Net</a>)</td>
     </tr>
+    <?php if (!is_dir('/usr/local/cast/')) { // DVMega Cast logic... ?>
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo $lang['controller_mode'];?>:<span><b>TRX Mode</b>Choose the mode type Simplex node or Duplex repeater.</span></a></td>
     <?php
@@ -4531,6 +4535,7 @@ else:
     ?>
      <td align="left" colspan="2" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'><i class="fa fa-question-circle"></i> Duplex mode requires Dual-Hat/Duplex Modems</td>
     </tr>
+    <?php } // end DVMega Cast logic ?>
 <?php if ($configmmdvm['Info']['TXFrequency'] === $configmmdvm['Info']['RXFrequency']) {
 	echo "    <tr>\n";
 	echo "    <td align=\"left\"><a class=\"tooltip2\" href=\"#\">".$lang['radio_freq'].":<span><b>Radio Frequency</b>This is the Frequency your<br />hotspot radio is on</span></a></td>\n";
@@ -4551,6 +4556,11 @@ else:
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo $lang['radio_type'];?>:<span><b>Radio/Modem</b>What kind of radio or modem hardware do you have?</span></a></td>
     <td align="left" colspan="3"><select name="confHardware" class="confHardware">
+		<?php if (is_dir('/usr/local/cast/')) { // DVMega Cast logic... ?>
+                <option<?php if ($configModem['Modem']['Hardware'] === 'dvmpicast') {           echo ' selected="selected"';}?> value="dvmpicast">DV-Mega Cast Base Radio (Main Unit)</option>
+                <option<?php if ($configModem['Modem']['Hardware'] === 'dvmpicasths') {         echo ' selected="selected"';}?> value="dvmpicasths">DV-Mega Cast Hotspot - Single Band (70cm)</option>
+                <option<?php if ($configModem['Modem']['Hardware'] === 'dvmpicasthd') {         echo ' selected="selected"';}?> value="dvmpicasthd">DV-Mega Cast Hotspot - Dual Band (2m/70cm)</option>
+		<?php } else { ?>
 		<option<?php if (!$configModem['Modem']['Hardware']) { echo ' selected="selected"';}?> value="">--</option>
 		<option<?php if ($configModem['Modem']['Hardware'] === 'dvmpis') {		echo ' selected="selected"';}?> value="dvmpis">DV-Mega Raspberry Pi Hat (GPIO) - Single Band (70cm)</option>
 		<option<?php if ($configModem['Modem']['Hardware'] === 'dvmpid') {		echo ' selected="selected"';}?> value="dvmpid">DV-Mega Raspberry Pi Hat (GPIO) - Dual Band</option>
@@ -4560,11 +4570,6 @@ else:
 		<option<?php if ($configModem['Modem']['Hardware'] === 'dvmuagmska') {		echo ' selected="selected"';}?> value="dvmuagmska">DV-Mega on Arduino (USB - /dev/ttyACM0) - GMSK Modem</option>
 		<option<?php if ($configModem['Modem']['Hardware'] === 'dvmbss') {		echo ' selected="selected"';}?> value="dvmbss">DV-Mega on Bluestack (USB) - Single Band (70cm)</option>
 		<option<?php if ($configModem['Modem']['Hardware'] === 'dvmbsd') {		echo ' selected="selected"';}?> value="dvmbsd">DV-Mega on Bluestack (USB) - Dual Band</option>
-	    	<?php if (file_exists('/dev/ttyS2')) { ?>
-	    	<option<?php if ($configModem['Modem']['Hardware'] === 'dvmpicast') {		echo ' selected="selected"';}?> value="dvmpicast">DV-Mega Cast Base Radio (Main Unit)</option>
-	    	<option<?php if ($configModem['Modem']['Hardware'] === 'dvmpicasths') {		echo ' selected="selected"';}?> value="dvmpicasths">DV-Mega Cast Hotspot - Single Band (70cm)</option>
-	    	<option<?php if ($configModem['Modem']['Hardware'] === 'dvmpicasthd') {		echo ' selected="selected"';}?> value="dvmpicasthd">DV-Mega Cast Hotspot - Dual Band (2m/70cm)</option>
-	    	<?php } ?>
 	        <option<?php if ($configModem['Modem']['Hardware'] === 'dvrptr1') {		echo ' selected="selected"';}?> value="dvrptr1">DV-RPTR V1 (USB)</option>
 		<option<?php if ($configModem['Modem']['Hardware'] === 'dvrptr2') {		echo ' selected="selected"';}?> value="dvrptr2">DV-RPTR V2 (USB)</option>
 		<option<?php if ($configModem['Modem']['Hardware'] === 'dvrptr3') {		echo ' selected="selected"';}?> value="dvrptr3">DV-RPTR V3 (USB)</option>
@@ -4601,6 +4606,7 @@ else:
 	    	<option<?php if ($configModem['Modem']['Hardware'] === 'nanodv') {		echo ' selected="selected"';}?> value="nanodv">MMDVM_NANO_DV (BG4TGO) for NanoPi AIR (GPIO)</option>
 	    	<option<?php if ($configModem['Modem']['Hardware'] === 'nanodvusb') {		echo ' selected="selected"';}?> value="nanodvusb">MMDVM_NANO_DV (BG4TGO) for NanoPi AIR (USB)</option>
 		<option<?php if ($configModem['Modem']['Hardware'] === 'opengd77') {		echo ' selected="selected"';}?> value="opengd77">OpenGD77 DMR hotspot (USB)</option>
+		<?php } // End DVMega Cast logic ?>
     </select></td>
     </tr>
 	<tr id="modem_speed">
@@ -4850,7 +4856,7 @@ else:
     <tr>
     </tr>
     <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['dmr_mode'];?>:<span><b>DMR Mode</b>Turn on DMR Features</span></a></td>
+    <td align="left"><a class="tooltip2" href="#">DMR Mode:<span><b>DMR Mode</b>Turn on DMR Features</span></a></td>
     <?php
 	if ( $configmmdvm['DMR']['Enable'] == 1 ) {
 	    echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-dmr\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeDMR\" value=\"ON\" checked=\"checked\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDMRCheckboxCr." /><label id=\"aria-toggle-dmr\" role=\"checkbox\" tabindex=\"0\" aria-label=\"DMR Mode\" aria-checked=\"true\" onKeyPress=\"toggleDMRCheckbox()\" onclick=\"toggleDMRCheckbox()\" for=\"toggle-dmr\"><font style=\"font-size:0px\">DMR Mode</font></label></div></td>\n";
@@ -4891,6 +4897,7 @@ else:
     Net Hangtime: <input type="text" name="ysfNetHangTime" size="7" maxlength="3" value="<?php if (isset($configmmdvm['System Fusion Network']['ModeHang'])) { echo $configmmdvm['System Fusion Network']['ModeHang']; } else { echo "20"; } ?>" />
     </td>
     </tr>
+    <?php if (!$configmmdvm['General']['Display'] == "CAST") { // DVMega Cast logic... ?>
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo $lang['p25_mode'];?>:<span><b>P25 Mode</b>Turn on P25 Features</span></a></td>
     <?php
@@ -4934,6 +4941,8 @@ else:
     Net Hangtime: <input type="text" name="m17NetHangTime" size="7" maxlength="3" value="<?php if (isset($configmmdvm['M17 Network']['ModeHang'])) { echo $configmmdvm['M17 Network']['ModeHang']; } else { echo "20"; } ?>" />
     </td>
     </tr>
+
+    <?php } // end DVMega Cast logic ?>
 
     <tr colspan="2">
     <td align="left"><a class="tooltip2" href="#">YSF2DMR:<span><b>YSF2DMR Mode</b>Turn on YSF2DMR Features</span></a></td>
@@ -5042,6 +5051,7 @@ else:
     ?>
     </tr>
     <?php } ?>
+    <?php if (!$configmmdvm['General']['Display'] == "CAST") { // Begin DVMega Cast logic... ?>
     <?php if (file_exists('/etc/dapnetgateway')) { ?>
     <tr>
     <td align="left"><a class="tooltip2" href="#">POCSAG:<span><b>POCSAG Mode</b>Turn on POCSAG Features</span></a></td>
@@ -5055,7 +5065,9 @@ else:
     ?>
     <td align="left">POCSAG Mode Hangtime: <input type="text" name="POCSAGHangTime" size="7" maxlength="3" value="<?php if (isset($configmmdvm['POCSAG Network']['ModeHang'])) { echo $configmmdvm['POCSAG Network']['ModeHang']; } else { echo "5"; } ?>"></td>
     </tr>
-    <?php } ?>
+    <?php } 
+      } // end DVMega Cast logic.
+    ?>
     </table>
 
     <br /><br />
@@ -5069,7 +5081,12 @@ else:
 
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo $lang['mmdvm_display'];?>:<span><b>Display Type</b>Choose your display type, if you have one.</span></a></td>
-    <td align="left" colspan="2"><select name="mmdvmDisplayType">
+    <td align="left" colspan="2">
+	<?php if (is_dir('/usr/local/cast/')) { // DVMega Cast logic... ?>
+	    <input type="hidden" name="mmdvmDisplayType" value="CAST" />
+	    <div>DVMega-CAST Built-In Display <small>(Cannot be changed)</small></div>
+	<?php } else { ?>
+	<select name="mmdvmDisplayType">
 	    <option <?php if (($configmmdvm['General']['Display'] == "None") || ($configmmdvm['General']['Display'] == "") ) {echo 'selected="selected" ';}; ?>value="None">None</option>
 	    <option <?php if (($configmmdvm['General']['Display'] == "OLED") && ($configmmdvm['OLED']['Type'] == "3")) {echo 'selected="selected" ';}; ?>value="OLED3">OLED Type 3 (0.96" screen)</option>
 	    <option <?php if (($configmmdvm['General']['Display'] == "OLED") && ($configmmdvm['OLED']['Type'] == "6")) {echo 'selected="selected" ';}; ?>value="OLED6">OLED Type 6 (1.3" screen)</option>
@@ -5079,10 +5096,9 @@ else:
 	    <option <?php if ($configmmdvm['General']['Display'] == "HD44780") {echo 'selected="selected" ';}; ?>value="HD44780">HD44780</option>
 	    <option <?php if ($configmmdvm['General']['Display'] == "TFT Serial") {echo 'selected="selected" ';}; ?>value="TFT Serial">TFT Serial</option>
 	    <option <?php if ($configmmdvm['General']['Display'] == "LCDproc") {echo 'selected="selected" ';}; ?>value="LCDproc">LCDproc</option>
-	    <?php if (file_exists('/dev/ttyS2')) { //  repl. w/CAST udpserver etc. existence logic  ?>
-	    <option <?php if ($configmmdvm['General']['Display'] == "CAST") {echo 'selected="selected" ';}; ?>value="CAST">DVMega-CAST (Built-In Display)</option>
-	    <?php } ?>
-	    </select>
+	    <?php } // End DVMega Cast logic ?>
+	</select>
+	    <?php if (!is_dir('/usr/local/cast/')) { // DVMega Cast logic... ?>
 	    <b>Port:</b> <select name="mmdvmDisplayPort">
 	    <?php
             if (($configmmdvm['General']['Display'] == "None") || ($configmmdvm['General']['Display'] == "")) {
@@ -5170,7 +5186,7 @@ else:
 	   <label for="oledInvert0">Disabled</label>
 	</td>
     </tr>
-    </td></tr>
+    </td></tr><?php } // End DVMega Cast logic  ?>
     </table>
 
     <br /><br />
