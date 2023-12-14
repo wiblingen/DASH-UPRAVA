@@ -149,13 +149,16 @@ $numDMRmasters = exec('cd /var/log/pi-star ; /usr/local/bin/RemoteCommand '.$_SE
 	<?php if (isPaused("YSF")) { echo '<div class="paused-mode-cell" title="Mode Paused">YSF</div>'; } else { showMode("System Fusion", $_SESSION['MMDVMHostConfigs']); } ?>
       </div>
     </div>
+<?php if (!is_dir('/usr/local/cast/')) { // DVMega Cast logic... ?>
     <div class="mode_flex column">
       <div class="divTableCell">
 	<?php if (isPaused("P25")) { echo '<div class="paused-mode-cell" title="Mode Paused">P25</div>'; } else { showMode("P25", $_SESSION['MMDVMHostConfigs']); } ?>
      </div>
     </div>
+<?php } ?>
   </div>
 
+<?php if (!is_dir('/usr/local/cast/')) { // DVMega Cast logic... ?>
   <div class="mode_flex row">
     <div class="mode_flex column">
       <div class="divTableCell">
@@ -168,7 +171,7 @@ $numDMRmasters = exec('cd /var/log/pi-star ; /usr/local/bin/RemoteCommand '.$_SE
       </div>
     </div>
   </div>
-
+<?php } ?>
   <div class="mode_flex row">
     <div class="mode_flex column">
       <div class="divTableCell">
@@ -182,6 +185,7 @@ $numDMRmasters = exec('cd /var/log/pi-star ; /usr/local/bin/RemoteCommand '.$_SE
     </div>
   </div>
 
+<?php if (!is_dir('/usr/local/cast/')) { // DVMega Cast logic... ?>
   <div class="mode_flex row">
     <div class="mode_flex column">
       <div class="divTableCell">
@@ -189,6 +193,7 @@ $numDMRmasters = exec('cd /var/log/pi-star ; /usr/local/bin/RemoteCommand '.$_SE
       </div>
     </div>
   </div>
+<?php } ?>
 </div>
 
 <br />
@@ -227,11 +232,13 @@ $numDMRmasters = exec('cd /var/log/pi-star ; /usr/local/bin/RemoteCommand '.$_SE
   </div>
 
   <div class="mode_flex row">
+<?php if (!is_dir('/usr/local/cast/')) { // DVMega Cast logic... ?>
     <div class="mode_flex column">
       <div class="divTableCell">
         <?php if(isPaused("M17")) { echo '<div class="paused-mode-cell" title="Mode Paused">M17 Net</div>'; } else { showMode("M17 Network", $_SESSION['MMDVMHostConfigs']); } ?>
       </div>
     </div>  
+<?php } ?>
     <div class="mode_flex column">
       <div class="divTableCell">
         <?php if(isPaused("NXDN")) { echo '<div class="paused-mode-cell" title="Mode Paused">NXDN Net</div>'; } else { showMode("NXDN Network", $_SESSION['MMDVMHostConfigs']); } ?>
@@ -278,6 +285,7 @@ $numDMRmasters = exec('cd /var/log/pi-star ; /usr/local/bin/RemoteCommand '.$_SE
     </div>
   </div>
 
+<?php if (!is_dir('/usr/local/cast/')) { // DVMega Cast logic... ?>
   <div class="mode_flex row">
     <div class="mode_flex column">
       <div class="divTableCell">
@@ -285,6 +293,7 @@ $numDMRmasters = exec('cd /var/log/pi-star ; /usr/local/bin/RemoteCommand '.$_SE
       </div>
     </div>
   </div>
+<?php } ?>
 </div>
 
 <br />
