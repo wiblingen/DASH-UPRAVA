@@ -224,7 +224,7 @@ if ((strcmp($origin, "admin") == 0) && isset($_SESSION['DAPNETAPIKeyConfigs'])) 
 } // admin
 ?>
 
-<div id='pocsag-sec' style="margin-top: 10px;">
+<div id='pocsag-sec' style="margin-top: -10px;">
         <div class="larger" style="vertical-align: bottom; font-weight: bold; padding-top:14px;text-align:left;"><?php echo $lang['pocsag_list'];?></div>
 	<!-- Activity -->
 	<div class="table-container">
