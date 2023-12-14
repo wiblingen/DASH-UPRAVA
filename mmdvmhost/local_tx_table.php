@@ -164,3 +164,4 @@ for ($i = 0; $i < $TXListLim; $i++) {
 }
 ?>
   </table>
+<br />
