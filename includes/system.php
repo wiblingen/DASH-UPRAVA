@@ -67,7 +67,11 @@ $os_ver = trim( exec( 'cat /etc/debian_version' ) );
 
   <div class="grid-item <?php getServiceStatusClass(UPnPenabled()); ?>">UPnP</div>  
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('gpsd'));  ?>">GPSd</div>  
+  <?php if (isDVmegaCast() == 0) { ?>
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('NextionDriver'));  ?>">NextionDriver</div>  
+  <?php } else { ?>
+  <div class="grid-item <?php getServiceStatusClass(isProcessRunning('castudp'));  ?>">Cast Display Driver</div>  
+  <?php } ?>
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('starnetserverd')); ?>">Starnet Server (D-Star)</div>
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('DGIdGateway')); ?>">DGIdGateway</div> 
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('DMR2YSF')); ?>">DMR2YSF</div>

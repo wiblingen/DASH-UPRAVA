@@ -4522,7 +4522,7 @@ else:
       <td align="left" colspan="2"><input type="text" name="nxdnId" id="nxdnId" size="13" maxlength="5" value="<?php if (isset($configmmdvm['NXDN']['Id'])) { echo $configmmdvm['NXDN']['Id']; } ?>" /></td>
       <td align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'><i class="fa fa-info-circle"></i> Required for NXDN Mode &amp; NXDN Cross-Modes (If you don't have one, <a href="https://radioid.net/account/register" target="_new">get an NXDN ID from RadioID.Net</a>)</td>
     </tr>
-    <?php if (!is_dir('/usr/local/cast/')) { // DVMega Cast logic... ?>
+    <?php if (isDVmegaCast() == 0) { // DVMega Cast logic... ?>
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo $lang['controller_mode'];?>:<span><b>TRX Mode</b>Choose the mode type Simplex node or Duplex repeater.</span></a></td>
     <?php
@@ -4556,7 +4556,7 @@ else:
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo $lang['radio_type'];?>:<span><b>Radio/Modem</b>What kind of radio or modem hardware do you have?</span></a></td>
     <td align="left" colspan="3"><select name="confHardware" class="confHardware">
-		<?php if (is_dir('/usr/local/cast/')) { // DVMega Cast logic... ?>
+		<?php if (isDVmegaCast() == 1) { // DVMega Cast logic... ?>
                 <option<?php if ($configModem['Modem']['Hardware'] === 'dvmpicast') {           echo ' selected="selected"';}?> value="dvmpicast">DV-Mega Cast Base Radio (Main Unit)</option>
                 <option<?php if ($configModem['Modem']['Hardware'] === 'dvmpicasths') {         echo ' selected="selected"';}?> value="dvmpicasths">DV-Mega Cast Hotspot - Single Band (70cm)</option>
                 <option<?php if ($configModem['Modem']['Hardware'] === 'dvmpicasthd') {         echo ' selected="selected"';}?> value="dvmpicasthd">DV-Mega Cast Hotspot - Dual Band (2m/70cm)</option>
@@ -4897,7 +4897,7 @@ else:
     Net Hangtime: <input type="text" name="ysfNetHangTime" size="7" maxlength="3" value="<?php if (isset($configmmdvm['System Fusion Network']['ModeHang'])) { echo $configmmdvm['System Fusion Network']['ModeHang']; } else { echo "20"; } ?>" />
     </td>
     </tr>
-    <?php if (!$configmmdvm['General']['Display'] == "CAST") { // DVMega Cast logic... ?>
+    <?php if (isDVmegaCast() == 0) { // DVMega Cast logic... ?>
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo $lang['p25_mode'];?>:<span><b>P25 Mode</b>Turn on P25 Features</span></a></td>
     <?php
@@ -5051,7 +5051,7 @@ else:
     ?>
     </tr>
     <?php } ?>
-    <?php if (!$configmmdvm['General']['Display'] == "CAST") { // Begin DVMega Cast logic... ?>
+    <?php if (isDVmegaCast() == 0) { // Begin DVMega Cast logic... ?>
     <?php if (file_exists('/etc/dapnetgateway')) { ?>
     <tr>
     <td align="left"><a class="tooltip2" href="#">POCSAG:<span><b>POCSAG Mode</b>Turn on POCSAG Features</span></a></td>
@@ -5082,7 +5082,7 @@ else:
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo $lang['mmdvm_display'];?>:<span><b>Display Type</b>Choose your display type, if you have one.</span></a></td>
     <td align="left" colspan="2">
-	<?php if (is_dir('/usr/local/cast/')) { // DVMega Cast logic... ?>
+	<?php if (isDVmegaCast() == 1) { // DVMega Cast logic... ?>
 	    <input type="hidden" name="mmdvmDisplayType" value="CAST" />
 	    <div>DVMega-CAST Built-In Display <small>(Cannot be changed)</small></div>
 	<?php } else { ?>
@@ -5098,7 +5098,7 @@ else:
 	    <option <?php if ($configmmdvm['General']['Display'] == "LCDproc") {echo 'selected="selected" ';}; ?>value="LCDproc">LCDproc</option>
 	    <?php } // End DVMega Cast logic ?>
 	</select>
-	    <?php if (!is_dir('/usr/local/cast/')) { // DVMega Cast logic... ?>
+	    <?php if (isDVmegaCast() == 0) { // DVMega Cast logic... ?>
 	    <b>Port:</b> <select name="mmdvmDisplayPort">
 	    <?php
             if (($configmmdvm['General']['Display'] == "None") || ($configmmdvm['General']['Display'] == "")) {
