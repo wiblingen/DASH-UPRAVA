@@ -122,6 +122,8 @@
 			<li class="subs"><a href="fulledit_hosts_NXDN_Hosts.php">NXDN Hosts</a></li>
 			<li class="subs"><a href="fulledit_hosts_M17_Hosts.php">M17 Hosts</a></li>
 			<li class="subs"><a href="fulledit_hosts_XLX_Hosts.php">XLX Hosts</a></li>
+			<li class="subs"><a href="fulledit_hosts_YSF_Hosts.php">YSF Hosts</a></li>
+			<li class="subs"><a href="fulledit_hosts_FCS_Hosts.php">FCS Hosts</a></li>
 		    </ul>
 		</li>
 			
