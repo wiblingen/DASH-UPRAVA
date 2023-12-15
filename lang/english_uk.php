@@ -2,7 +2,6 @@
 //
 // English UK Language Pack
 // Andy Taylor (MW0MWZ)
-// Updated: 02-Aug-2017
 //
 $lang = array (
   // Banner texts
@@ -13,7 +12,7 @@ $lang = array (
   "dashboard"                   =>  "Dashboard",
   "admin"                       =>  "Admin",
   "power"                       =>  "Power",
-  "update"                      =>  "Update",
+  "update"                      =>  "Software Update",
   "upgrade"                     =>  "Upgrade",
   "backup_restore"              =>  "Backup/Restore",
   "factory_reset"               =>  "Factory Reset",
