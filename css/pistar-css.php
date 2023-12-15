@@ -92,6 +92,10 @@ body, font {
     font: 1.3em 'Inconsolata', monospace !important;
 }
 
+td.divTableCellMono a:hover {
+    text-decoration: underline !important;
+}
+
 h2.ConfSec {
     font-size: 1.6em;
     text-align: left;
