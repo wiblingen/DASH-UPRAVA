@@ -292,10 +292,16 @@ function timesyncdProc() {
                         $GPSD_Ver = exec('/usr/sbin/gpsd -V | cut -d\' \' -f 2-');
                         echo "  <tr>";getStatusClass(isProcessRunning("gpsd"), true); echo "GPSd</td><td align=\"left\">".$GPSD_Ver."</td></tr>\n";
                     }
-                    if (is_executable('/usr/local/bin/NextionDriver')) {
-                        $NEXTIONDRIVER_Ver = exec('/usr/local/bin/NextionDriver -V | head -n 2 | cut -d\' \' -f 3');
-                        echo "  <tr>";getStatusClass(isProcessRunning("NextionDriver"), true); echo "NextionDriver</td><td align=\"left\">".$NEXTIONDRIVER_Ver."</td></tr>\n";
-                    }
+		    if (isDVmegaCast() == 0) {
+			if (is_executable('/usr/local/bin/NextionDriver')) {
+			    $NEXTIONDRIVER_Ver = exec('/usr/local/bin/NextionDriver -V | head -n 2 | cut -d\' \' -f 3');
+			    echo "  <tr>";getStatusClass(isProcessRunning("NextionDriver"), true); echo "NextionDriver</td><td align=\"left\">".$NEXTIONDRIVER_Ver."</td></tr>\n";
+			}
+		    } else {
+			if (is_executable('/usr/local/cast/bin/castudp')) {
+			    echo "  <tr>";getStatusClass(isProcessRunning("castudp"), true); echo "CAST Display Driver</td><td align=\"left\">DVMega</td></tr>\n";
+			}
+		    }
 ?>
 		</table>
 		<br />
