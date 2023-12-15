@@ -1,7 +1,6 @@
 <?php
 //
 // Dutch NL Language Pack for Pi-Star translated by Rob van Rheenen P0DIB
-// Updated: 04-Aug-2017
 //
 $lang = array (
   // Banner texts
@@ -12,7 +11,7 @@ $lang = array (
   "dashboard"                   =>  "Dashboard",
   "admin"                       =>  "Admin",
   "power"                       =>  "Power",
-  "update"                      =>  "Update",
+  "update"                      =>  "Software Update",
   "upgrade"                     =>  "Upgrade",
   "backup_restore"              =>  "Backup/Restore",
   "factory_reset"               =>  "Reset all",
