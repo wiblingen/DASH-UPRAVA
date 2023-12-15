@@ -635,6 +635,17 @@ function getDMRnetStatus($dmrNet) {
     }
 }
 
+// vendor logic...
+//DVMega Cast
+function isDVmegaCast() {
+    if (is_dir('/usr/local/cast/')) {
+        return 1;
+    } else {
+	return 0;
+    }
+}
+
+
 // status classes used in sysinfo.php
 function getStatusClass($status, $disabled = false) {
     if ($status) {
