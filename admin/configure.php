@@ -2041,6 +2041,7 @@ if (!empty($_POST)):
 		unset($configmmdvm['DMR Network']['Type']);
 		$configmmdvm['DMR Network']['Local'] = "62032";
 		$configmmdvm['DMR Network']['LocalPort'] = "62032";
+		$configmmdvm['DMR Network']['Type'] = "Gateway";
 		unset ($configysf2dmr['DMR Network']['Options']);
 		$configysf2dmr['DMR Network']['Local'] = "62032";
 		if (isset($configdmr2ysf['DMR Network']['LocalAddress'])) {
@@ -3009,44 +3010,6 @@ if (!empty($_POST)):
 	  }
           if (escapeshellcmd($_POST['MMDVMModeDMR2NXDN']) == 'OFF' ) {
 		  $configdmr2nxdn['Enabled']['Enabled'] = "0";
-		  $configdmrgateway['DMR Network 3']['Enabled'] = "0";
-	  }
-	}
-
-	// Set DMR2M17 Mode
-	if (empty($_POST['MMDVMModeDMR2M17']) != TRUE ) {
-          if (escapeshellcmd($_POST['MMDVMModeDMR2M17']) == 'ON' )  {
-		  if (empty($_POST['MMDVMModeDMR2YSF']) != TRUE ) {
-		  	if (escapeshellcmd($_POST['MMDVMModeDMR2YSF']) == 'ON' )  {
-				$configdmr2ysf['Enabled']['Enabled'] = "0";
-		  	}
-	  	  }
-		  if (empty($_POST['MMDVMModeYSF2NXDN']) != TRUE ) {
-		  	if (escapeshellcmd($_POST['MMDVMModeYSF2NXDN']) == 'ON' )  {
-				$configysf2nxdn['Enabled']['Enabled'] = "0";
-		  	}
-	  	  }
-
-		  /* need dmrgw and dmr2m17 config here */
-		  $configdmr2m17['Enabled']['Enabled'] = "1";
-		  unset($configdmrgateway['DMR Network 3']);
-		  $configdmrgateway['DMR Network 3']['Enabled'] = "0";
-		  $configdmrgateway['DMR Network 3']['Name'] = "DMR2M17_Cross-Mode";
-		  $configdmrgateway['DMR Network 3']['Id'] = $configdmrgateway['DMR Network 2']['Id'];
-		  $configdmrgateway['DMR Network 3']['Address'] = "127.0.0.1";
-		  $configdmrgateway['DMR Network 3']['Port'] = "62035";
-		  $configdmrgateway['DMR Network 3']['Local'] = "62036";
-		  $configdmrgateway['DMR Network 3']['TGRewrite0'] = "2,7000001,2,1,999998";
-		  $configdmrgateway['DMR Network 3']['SrcRewrite0'] = "2,1,2,7000001,999998";
-		  $configdmrgateway['DMR Network 3']['PCRewrite0'] = "2,7000001,2,1,999998";
-		  $configdmrgateway['DMR Network 3']['Password'] = '"'."PASSWORD".'"';
-		  $configdmrgateway['DMR Network 3']['Location'] = "0";
-		  $configdmrgateway['DMR Network 3']['Debug'] = "0";
-		  $configmmdvm['M17']['Enable'] = "0";
-		  $configmmdvm['M17 Network']['Enable'] = "0";
-	  }
-          if (escapeshellcmd($_POST['MMDVMModeDMR2M17']) == 'OFF' ) {
-		  $configdmr2m17['Enabled']['Enabled'] = "0";
 		  $configdmrgateway['DMR Network 3']['Enabled'] = "0";
 	  }
 	}
@@ -5194,7 +5157,12 @@ else:
     <?php } ?>
 
     <?php if (file_exists('/etc/dstar-radio.mmdvmhost') && $configmmdvm['DMR']['Enable'] == 1) {
-    $dmrMasterFile = fopen("/usr/local/etc/DMR_Hosts.txt", "r"); ?>
+    $dmrMasterFile = fopen("/usr/local/etc/DMR_Hosts.txt", "r");
+    $testMMDVMdmrMaster = $configmmdvm['DMR Network']['Address'];
+    $testMMDVMdmrMasterPort = $configmmdvm['DMR Network']['Port'];
+    $dmrMasterNow = "DMRGateway";
+    $dmrMasterHost = "127.0.0.1,none,62031,$dmrMasterNow"
+    ?>
     <h2 class="ConfSec"><?php echo $lang['dmr_config'];?></h2>
     <input type="hidden" name="dmrEmbeddedLCOnly" value="OFF" />
     <input type="hidden" name="dmrBeacon" value="OFF" />
@@ -5205,38 +5173,11 @@ else:
     <input type="hidden" name="dmrGatewayNet4En" value="OFF" />
     <input type="hidden" name="dmrGatewayNet5En" value="OFF" />
     <input type="hidden" name="dmrDMRnetJitterBufer" value="OFF" />
+    <input type="hidden" name="dmrMasterHost" value="<?php echo $dmrMasterHost; ?>" />
     <table>
     <tr>
     </tr>
-    <tr>
-    <th class='config_head' colspan="4">Main DMR Network Settings</th>
-    </tr>
-    <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['dmr_master'];?>:<span><b>DMR Master (MMDVMHost)</b>Set your preferred DMR master here</span></a></td>
-    <td style="text-align: left;" colspan="1"><select name="dmrMasterHost" class="dmrMasterHost">
-<?php
-$testMMDVMdmrMaster = $configmmdvm['DMR Network']['Address'];
-$testMMDVMdmrMasterPort = $configmmdvm['DMR Network']['Port'];
-$dmrMasterNow = "";
-while (!feof($dmrMasterFile)) {
-    $dmrMasterLine = fgets($dmrMasterFile);
-    $dmrMasterHost = preg_split('/\s+/', $dmrMasterLine);
-    if ((strpos($dmrMasterHost[0], '#') === FALSE ) &&
-	((substr($dmrMasterHost[0], 0, 10) == "DMRGateway") ||
-	(substr($dmrMasterHost[0], 0, 8) == "DMR2NXDN") ||
-	(substr($dmrMasterHost[0], 0, 7) == "DMR2YSF")) && ($dmrMasterHost[0] != '')) {
-	if (($testMMDVMdmrMaster == $dmrMasterHost[2]) && ($testMMDVMdmrMasterPort == $dmrMasterHost[4])) {
-	    echo "      <option value=\"$dmrMasterHost[2],$dmrMasterHost[3],$dmrMasterHost[4],$dmrMasterHost[0]\" selected=\"selected\">$dmrMasterHost[0]</option>\n"; $dmrMasterNow = $dmrMasterHost[0]; }
-	else {
-	    echo "      <option value=\"$dmrMasterHost[2],$dmrMasterHost[3],$dmrMasterHost[4],$dmrMasterHost[0]\">$dmrMasterHost[0]</option>\n"; }
-    }
-}
-fclose($dmrMasterFile);
-?>
-    </select></td>
-    <td align="left" colspan="2" style="word-wrap: break-word;white-space: normal;padding-left: 5px;"><em>Note: DMRGateway must be selected for BrandMeister, DMR+, TGIF, XLX and most DMR Networks! Once DMRGateway is selected and applied, you may then configure the DMR Network(s) you wish to use, and they will appear below this note.</em></td> 
-    </tr>
-<?php if ($dmrMasterNow == "DMRGateway") { ?>
+
     <tr>
     <th class='config_head' colspan="4">BrandMeister Network Settings</th>
     </tr>
@@ -5659,9 +5600,9 @@ if (!@file_exists($bmAPIkeyFile) && !@fopen($bmAPIkeyFile,'r')) {
     else if ((isset($configdmrgateway['XLX Network']['Enabled'])) && ($configdmrgateway['XLX Network']['Enabled'] == 1)) { echo "<div class=\"switch\"><input id=\"toggle-dmrGatewayXlxEn\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"dmrGatewayXlxEn\" value=\"ON\" checked=\"checked\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDmrGatewayXlxEnCheckboxCr." /><label id=\"aria-toggle-dmrGatewayXlxEn\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Enable XLX Network\" aria-checked=\"true\" onKeyPress=\"toggleDmrGatewayXlxEnCheckbox()\" onclick=\"toggleDmrGatewayXlxEnCheckbox()\" for=\"toggle-dmrGatewayXlxEn\"><font style=\"font-size:0px\">Enable XLX via DMR</font></label></div>\n"; }
     else { echo "<div class=\"switch\"><input id=\"toggle-dmrGatewayXlxEn\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"dmrGatewayXlxEn\" value=\"ON\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDmrGatewayXlxEnCheckboxCr." /><label id=\"aria-toggle-dmrGatewayXlxEn\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Enable XLX Network\" aria-checked=\"false\" onKeyPress=\"toggleDmrGatewayXlxEnCheckbox()\" onclick=\"toggleDmrGatewayXlxEnCheckbox()\" for=\"toggle-dmrGatewayXlxEn\"><font style=\"font-size:0px\">Enable XLX via DMR</font></label></div>\n"; } ?>
     </td></tr>
-<?php } ?>
+
     <tr>
-    <th class='config_head' colspan="4">System-Wide DMR Settings</th>
+    <th class='config_head' colspan="4">General DMR Settings</th>
     </tr>
     <tr>
     <td align="left"><a class="tooltip2" href="#">DMR Roaming Beacon:<span><b>Enable DMR Roaming Beacon</b>Enable DMR Roaming Beacons; Used for repeaters</span></a></td>
