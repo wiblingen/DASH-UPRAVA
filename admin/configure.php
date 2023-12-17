@@ -4364,8 +4364,8 @@ if (!empty($_POST)):
 	// Setup the DV Mega Cast FW/display
 	if (isDVmegaCast() == 1) {
 	    $callsignCast = !empty($newCallsignUpper) ? $newCallsignUpper : 'PE1ABC';
-	    $dmridCast = !empty($newPostDmrId) ? $newPostDmrId : '1234567';
-	    $essidCast = !empty($newPostbmExtendedId) ? $newPostbmExtendedId : '09';
+	    $dmridCast = !empty($newPostDmrId) ? $newPostDmrId : '2040000';
+	    $essidCast = !empty($_POST['bmExtendedId']) && $_POST['bmExtendedId'] !== 'None' ? $_POST['bmExtendedId'] : '00';
 	    $modSuffixCast = !empty($_POST['confDStarModuleSuffix']) ? $_POST['confDStarModuleSuffix'] : 'E';
 
 	    // Calculate rpt1 and rpt2 based on callsign
@@ -4388,10 +4388,14 @@ if (!empty($_POST)):
 	    $castSettingsString .= PHP_EOL; // Add a line terminator
 
 	    // Update the file
+	    // perms 1st...
+	    exec('sudo chmod 775 /usr/local/cast/etc ; sudo chown -R www-data:pi-star /usr/local/cast/etc ; sudo chmod 664 /usr/local/cast/etc/*');
 	    $filePathCast = '/usr/local/cast/etc/settings.txt';
 	    if (file_put_contents($filePathCast, $castSettingsString) !== false) {
 		exec('sudo /usr/local/cast/sbin/RSET.sh  > /dev/null 2>&1 &');
 	    }
+	    // perms again
+	    exec('sudo chmod 775 /usr/local/cast/etc ; sudo chown -R www-data:pi-star /usr/local/cast/etc ; sudo chmod 664 /usr/local/cast/etc/*');
 	}
 
 	// Set the system timezone
