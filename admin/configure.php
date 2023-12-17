@@ -1467,14 +1467,14 @@ if (!empty($_POST)):
 		$configmmdvm['D-Star']['Module'] = "A";
 		$rollTimeserverBand = 'sudo sed -i "/sendA=/c\\sendA=1" /etc/timeserver';
 		system($rollTimeserverBand);
-		}
+	    }
 	    if ($newFREQtx >= 420000000 && $newFREQtx <= 450000000) {
 		$confRPT1 = str_pad(escapeshellcmd($_POST['confCallsign']), 7, " ")."B";
 		$confIRCrepeaterBand1 = "B";
 		$configmmdvm['D-Star']['Module'] = "B";
 		$rollTimeserverBand = 'sudo sed -i "/sendB=/c\\sendB=1" /etc/timeserver';
 		system($rollTimeserverBand);
-		}
+	    }
 	    if ($newFREQtx >= 218000000 && $newFREQtx <= 226000000) {
 		$confRPT1 = str_pad(escapeshellcmd($_POST['confCallsign']), 7, " ")."A";
 		$confIRCrepeaterBand1 = "A";
@@ -1488,7 +1488,16 @@ if (!empty($_POST)):
 		$configmmdvm['D-Star']['Module'] = "C";
 		$rollTimeserverBand = 'sudo sed -i "/sendC=/c\\sendC=1" /etc/timeserver';
 		system($rollTimeserverBand);
-		}
+	    }
+	    // Begin DVMega Cast logic...
+	    if (isDVmegaCast() == 1) {
+		$confRPT1 = str_pad(escapeshellcmd($_POST['confCallsign']), 7, " ")."E";
+		$confIRCrepeaterBand1 = "E";
+		$configmmdvm['D-Star']['Module'] = "E";
+		$rollTimeserverBand = 'sudo sed -i "/sendE=/c\\sendE=1" /etc/timeserver';
+		system($rollTimeserverBand);
+	    }
+	    // End DVMega Cast logic
 	  }
 	  else {
 	     $confRPT1 = str_pad(escapeshellcmd($_POST['confCallsign']), 7, " ").strtoupper(escapeshellcmd($_POST['confDStarModuleSuffix']));
@@ -1561,28 +1570,37 @@ if (!empty($_POST)):
 		$configmmdvm['D-Star']['Module'] = "A";
 		$rollTimeserverBand = 'sudo sed -i "/sendA=/c\\sendA=1" /etc/timeserver';
 		system($rollTimeserverBand);
-		}
+	    }
 	    if ($newFREQ >= 420000000 && $newFREQ <= 450000000) {
 		$confRPT1 = str_pad(escapeshellcmd($_POST['confCallsign']), 7, " ")."B";
 		$confIRCrepeaterBand1 = "B";
 		$configmmdvm['D-Star']['Module'] = "B";
 		$rollTimeserverBand = 'sudo sed -i "/sendB=/c\\sendB=1" /etc/timeserver';
 		system($rollTimeserverBand);
-		}
+	    }
 	    if ($newFREQ >= 218000000 && $newFREQ <= 226000000) {
 		$confRPT1 = str_pad(escapeshellcmd($_POST['confCallsign']), 7, " ")."A";
 		$confIRCrepeaterBand1 = "A";
 		$configmmdvm['D-Star']['Module'] = "A";
 		$rollTimeserverBand = 'sudo sed -i "/sendA=/c\\sendA=1" /etc/timeserver';
 		system($rollTimeserverBand);
-		}
+	    }
 	    if ($newFREQ >= 144000000 && $newFREQ <= 148000000) {
 		$confRPT1 = str_pad(escapeshellcmd($_POST['confCallsign']), 7, " ")."C";
 		$confIRCrepeaterBand1 = "C";
 		$configmmdvm['D-Star']['Module'] = "C";
 		$rollTimeserverBand = 'sudo sed -i "/sendA=/c\\sendA=1" /etc/timeserver';
 		system($rollTimeserverBand);
-		}
+	    }
+	    // Begin DVMega Cast logic...
+	    if (isDVmegaCast() == 1) {
+		$confRPT1 = str_pad(escapeshellcmd($_POST['confCallsign']), 7, " ")."E";
+		$confIRCrepeaterBand1 = "E";
+		$configmmdvm['D-Star']['Module'] = "E";
+		$rollTimeserverBand = 'sudo sed -i "/sendE=/c\\sendE=1" /etc/timeserver';
+		system($rollTimeserverBand);
+	    }
+	    // End DVMega Cast logic
 	  }
 	  else {
 	     $confRPT1 = str_pad(escapeshellcmd($_POST['confCallsign']), 7, " ").strtoupper(escapeshellcmd($_POST['confDStarModuleSuffix']));
