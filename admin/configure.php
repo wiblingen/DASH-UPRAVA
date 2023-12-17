@@ -328,15 +328,13 @@ $DMRBeaconModeNet   = "0" ;
 // form handler for XLX DMR slot select
 $xlxTimeSlot	    = $configdmrgateway['XLX Network']['Slot'];
 
-// newer MMDVMHost, which by default uses DMRGW and DMR2*****
-if ((($configmmdvm['DMR Network']['Address'] == "127.0.0.1") || ($configmmdvm['DMR Network']['Address'] == "127.0.0.2") || ($configmmdvm['DMR Network']['Address'] == "127.0.0.3")) === FALSE) {
-    // Convert DMR Network section to use DMRGateway instead of direct access
-    $configmmdvm['DMR Network']['Address'] = "127.0.0.1";
-    $configmmdvm['DMR Network']['Port'] = "62031";
-    $configmmdvm['DMR Network']['Local'] = "62032";
-    $configmmdvm['DMR Network']['Password'] = "none";
-    $configdmrgateway['DMR Network 1']['Enabled'] = "1";
-}
+// newer MMDVMHost, which by default uses DMRGW
+// Convert DMR Network section to use DMRGateway instead of direct access
+$configmmdvm['DMR Network']['LocalAddress'] = "127.0.0.1";
+$configmmdvm['DMR Network']['RemoteAddress'] = "127.0.0.1";
+$configmmdvm['DMR Network']['RemotePort'] = "62031";
+$configmmdvm['DMR Network']['LocalPort'] = "62032";
+$configmmdvm['DMR Network']['Password'] = "none";
 
 //
 // Check for DMRGateway RemoteCommand and enable if it isn't...
@@ -382,7 +380,7 @@ if (($configmmdvm['General']['Display'] == "Nextion") && ($configmmdvm['NextionD
 }
 
 // special (on init) handling for DV-Mega CAST's display udp service, which uses Transpaent Data from MMDVMhost...
-if ($configmmdvm['General']['Display'] == "CAST") {
+if (isDVmegaCast() == 1) {
     $configmmdvm['Transparent Data']['Enable'] = "1";
 }
 
@@ -1062,7 +1060,7 @@ if (!empty($_POST)):
 	  if ($modemMatch && $modemValue === 'sbhsdualbandgpio') { // SkyBridge+ unit
 	      exec('sudo mkdir /tmp/reset/ ; sudo mkdir /tmp/reset-configs ; sudo unzip -o /usr/local/bin/.config_skybridge.zip -d /tmp/reset/; sudo mv /tmp/reset/*.php /tmp/reset-configs/ ; sudo mv /tmp/reset/hostapd.conf /etc/hostapd/ ; sudo mv /tmp/reset/* /etc/ ; sudo rm -rf /tmp/reset ; sudo timedatectl set-timezone America/Chicago');
 	  } elseif (isDVmegaCast() == 1) { // DVMega CAST
-              exec('sudo mkdir /tmp/reset/ ; sudo mkdir /tmp/reset-configs ; sudo unzip -o /usr/local/bin/.config_dvmega_cast.zip -d /tmp/reset/; sudo mv /tmp/reset/*.php /tmp/reset-configs/ ; sudo mv /tmp/reset/hostapd.conf /etc/hostapd/ ; sudo mv /tmp/reset/* /etc/ ; sudo rm -rf /tmp/reset ; sudo timedatectl set-timezone Europe/Amsterdam');
+              exec('sudo mkdir /tmp/reset/ ; sudo mkdir /tmp/reset-configs ; sudo unzip -o /usr/local/bin/.config_dvmega_cast.zip -d /tmp/reset/; sudo mv /tmp/reset/*.php /tmp/reset-configs/ ; sudo mv /tmp/reset/hostapd.conf /etc/hostapd/ ; sudo mv /tmp/reset/* /etc/ ; sudo rm -rf /tmp/reset ; sudo timedatectl set-timezone Europe/Amsterdam ; sudo cp -a /opt/cast/cast-factory-settings/* /usr/local/cast/etc/ ; chmod 775 /usr/local/cast/etc ; chown -R www-data:pi-star /usr/local/cast/etc');
 	  } elseif ($modemMatch && $modemValue === 'dvmpis') { // DVMega units
               exec('sudo mkdir /tmp/reset/ ; sudo mkdir /tmp/reset-configs ; sudo unzip -o /usr/local/bin/.config_dvmega_euronode.zip -d /tmp/reset/; sudo mv /tmp/reset/*.php /tmp/reset-configs/ ; sudo mv /tmp/reset/hostapd.conf /etc/hostapd/ ; sudo mv /tmp/reset/* /etc/ ; sudo rm -rf /tmp/reset ; sudo timedatectl set-timezone Europe/Amsterdam');
 	  } elseif ($modemMatch && strpos($modemValue, 'zum') === 0 && strpos($modemValue, 'usb') !== false) { // ZUMRadio USB stick
@@ -3097,7 +3095,7 @@ if (!empty($_POST)):
 	}
 
 	// special handling for DV-Mega CAST's display udp service, which uses Transpaent Data from MMDVMhost...
-	    if (substr($_POST['mmdvmDisplayType'] , 0, 4) === "CAST") {
+	if (isDVmegaCast() == 1) {
 	    $configmmdvm['General']['Display'] = "CAST";
 	    $configmmdvm['Transparent Data']['Enable'] = "1";
 	}
@@ -4345,7 +4343,6 @@ if (!empty($_POST)):
 		}
         }
 
-
 	// Setup the DV Mega Cast FW/display
 	if (isDVmegaCast() == 1) {
 	    $callsignCast = !empty($newCallsignUpper) ? $newCallsignUpper : 'PE1ABC';
@@ -4519,7 +4516,7 @@ else:
       <td align="left" colspan="2"><input type="text" name="nxdnId" id="nxdnId" size="13" maxlength="5" value="<?php if (isset($configmmdvm['NXDN']['Id'])) { echo $configmmdvm['NXDN']['Id']; } ?>" /></td>
       <td align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'><i class="fa fa-info-circle"></i> Required for NXDN Mode &amp; NXDN Cross-Modes (If you don't have one, <a href="https://radioid.net/account/register" target="_new">get an NXDN ID from RadioID.Net</a>)</td>
     </tr>
-    <?php if (isDVmegaCast() == 0) { // DVMega Cast logic... ?>
+    <?php if (isDVmegaCast() == 0) { // Begin DVMega Cast logic... ?>
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo $lang['controller_mode'];?>:<span><b>TRX Mode</b>Choose the mode type Simplex node or Duplex repeater.</span></a></td>
     <?php
@@ -4553,7 +4550,7 @@ else:
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo $lang['radio_type'];?>:<span><b>Radio/Modem</b>What kind of radio or modem hardware do you have?</span></a></td>
     <td align="left" colspan="3"><select name="confHardware" class="confHardware">
-		<?php if (isDVmegaCast() == 1) { // DVMega Cast logic... ?>
+		<?php if (isDVmegaCast() == 1) { // Begin DVMega Cast logic... ?>
                 <option<?php if ($configModem['Modem']['Hardware'] === 'dvmpicast') {           echo ' selected="selected"';}?> value="dvmpicast">DV-Mega Cast Base Radio (Main Unit)</option>
                 <option<?php if ($configModem['Modem']['Hardware'] === 'dvmpicasths') {         echo ' selected="selected"';}?> value="dvmpicasths">DV-Mega Cast Hotspot - Single Band (70cm)</option>
                 <option<?php if ($configModem['Modem']['Hardware'] === 'dvmpicasthd') {         echo ' selected="selected"';}?> value="dvmpicasthd">DV-Mega Cast Hotspot - Dual Band (2m/70cm)</option>
@@ -4882,6 +4879,7 @@ else:
     </td>
     </tr>
 
+    <?php if (isDVmegaCast() == 0) { // Begin DVMega Cast logic... ?>
     <tr>
     <td align="left"><a class="tooltip2" href="#">M17 Mode:<span><b>M17 Mode</b>Turn on M17 Features</span></a></td>
     <?php
@@ -4913,7 +4911,8 @@ else:
     Net Hangtime: <input type="text" name="dmrNetHangTime" size="7" maxlength="3" value="<?php if (isset($configmmdvm['DMR Network']['ModeHang'])) { echo $configmmdvm['DMR Network']['ModeHang']; } else { echo "20"; } ?>" />
     </td>
     </tr>
-    <?php if (isDVmegaCast() == 0) { // DVMega Cast logic... ?>
+
+    <?php if (isDVmegaCast() == 0) { // Begin DVMega Cast logic... ?>
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo $lang['p25_mode'];?>:<span><b>P25 Mode</b>Turn on P25 Features</span></a></td>
     <?php
@@ -4943,7 +4942,6 @@ else:
     </td>
     </tr>
 
-    <?php if (isDVmegaCast() == 0) { // Begin DVMega Cast logic... ?>
     <?php if (file_exists('/etc/dapnetgateway')) { ?>
     <tr>
     <td align="left"><a class="tooltip2" href="#">POCSAG Mode:<span><b>POCSAG Mode</b>Turn on POCSAG Features</span></a></td>
@@ -5081,11 +5079,12 @@ else:
     <input type="hidden" name="oledRotateEnable" value="OFF" />
     <input type="hidden" name="oledInvertEnable" value="OFF" />
     <table>
-
+    <tr>
+    </tr>
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo $lang['mmdvm_display'];?>:<span><b>Display Type</b>Choose your display type, if you have one.</span></a></td>
     <td align="left" colspan="2">
-	<?php if (isDVmegaCast() == 1) { // DVMega Cast logic... ?>
+	<?php if (isDVmegaCast() == 1) { // Begin DVMega Cast logic... ?>
 	    <input type="hidden" name="mmdvmDisplayType" value="CAST" />
 	    <div>DVMega-CAST Built-In Display <small>(Cannot be changed)</small></div>
 	<?php } else { ?>
@@ -5101,7 +5100,7 @@ else:
 	    <option <?php if ($configmmdvm['General']['Display'] == "LCDproc") {echo 'selected="selected" ';}; ?>value="LCDproc">LCDproc</option>
 	    <?php } // End DVMega Cast logic ?>
 	</select>
-	    <?php if (isDVmegaCast() == 0) { // DVMega Cast logic... ?>
+	    <?php if (isDVmegaCast() == 0) { // Begin DVMega Cast logic... ?>
 	    <b>Port:</b> <select name="mmdvmDisplayPort">
 	    <?php
             if (($configmmdvm['General']['Display'] == "None") || ($configmmdvm['General']['Display'] == "")) {
@@ -5856,6 +5855,8 @@ $ysfHosts = fopen("/usr/local/etc/YSFHosts.txt", "r"); ?>
     <th class='config_head' colspan="4">BrandMeister Network Settings</th>
     </tr>
     <tr>
+    </tr>
+    <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo $lang['bm_master'];?>:<span><b>BrandMeister Master</b>Set your preferred DMR master here</span></a></td>
     <td style="text-align: left;" colspan="3"><select name="dmrMasterHost1" class="dmrMasterHost1">
 <?php
@@ -5944,6 +5945,8 @@ if (!@file_exists($bmAPIkeyFile) && !@fopen($bmAPIkeyFile,'r')) {
     <th class='config_head' colspan="4">DMR+/FreeDMR/HBlink/Custom Network Settings</th>
     </tr>
     <tr>
+    </tr>
+    <tr>
     <td align="left"><a class="tooltip2" href="#">DMR+ / FreeDMR / HBlink / Custom Master:<span><b>DMR+ / FreeDMR / HBlink / Custom Master</b>Set your preferred DMR master here</span></a></td>
     <td style="text-align: left;" colspan="3"><select name="dmrMasterHost2" class="dmrMasterHost2">
 <?php
@@ -6024,6 +6027,8 @@ if (!@file_exists($bmAPIkeyFile) && !@fopen($bmAPIkeyFile,'r')) {
     <th class='config_head' colspan="4">SystemX Network Settings</th>
     </tr>
     <tr>
+    </tr>
+    <tr>
     <td align="left"><a class="tooltip2" href="#">SystemX Master:<span><b>SystemX Master</b>Set your preferred DMR master here</span></a></td>
     <td style="text-align: left;" colspan="3"><select name="dmrMasterHost5" class="dmrMasterHost5">
 <?php
@@ -6101,6 +6106,9 @@ if (!@file_exists($bmAPIkeyFile) && !@fopen($bmAPIkeyFile,'r')) {
 
     <tr>
     <th class='config_head' colspan="4">TGIF Network Settings</th>
+    </tr>
+    <tr>
+    </tr>
     <input type="hidden" name="dmrMasterHost4" value="OFF" />
     <tr>
     <td align="left"><a class="tooltip2" href="#">ESSID:<span><b>TGIF Extended ID</b>This is the extended ID, to make your DMR ID 8 digits long</span></a></td>
@@ -6163,6 +6171,8 @@ if (!@file_exists($bmAPIkeyFile) && !@fopen($bmAPIkeyFile,'r')) {
 
     <tr>
     <th class='config_head' colspan="4">XLX Network Settings</th>
+    </tr>
+    <tr>
     </tr>
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo $lang['xlx_master'];?>:<span><b>XLX Master</b>Set your preferred XLX master here</span></a></td>
@@ -6507,6 +6517,8 @@ $p25Hosts = fopen("/usr/local/etc/P25Hosts.txt", "r");
     <h2 class="ConfSec">Node Access Control</h2>
     <table>
     <tr>
+    </tr>
+    <tr>
     <td colspan="4" align="left" style='word-wrap: break-word;white-space: normal;font-size:larger;color:#840C24;padding-left: 5px;'><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> <b>Caution: <em>This section is for advanced multi-user hotspot or repeater usage only!</em></b></td>
     </tr>
     <tr>
@@ -6595,6 +6607,8 @@ $p25Hosts = fopen("/usr/local/etc/P25Hosts.txt", "r");
 
     <h2 class="ConfSec">AccessPoint Mode</h2>
     <table>
+    <tr>
+    </tr>
     <?php if (file_exists('/etc/default/hostapd') && file_exists('/sys/class/net/wlan0') || file_exists('/sys/class/net/wlan1') || file_exists('/sys/class/net/wlan0_ap')) { ?>
     <tr>
       <td align="left"><a class="tooltip2" href="#">Auto AP:<span><b>Auto AccessPoint</b>Do you want this device to create its own WiFi AccessPoint if it cannot connect to WiFi within 120 seconds after booting?</span></a></td>
