@@ -172,6 +172,11 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
                             	    exec("sudo cp /var/www/dashboard/config/config.php $profileDir > /dev/null")."\n";
 			    	    exec("sudo cp /var/www/dashboard/config/language.php $profileDir > /dev/null")."\n";
 				    exec("sudo sh -c 'cp -a /root/*Hosts.txt' $profileDir > /dev/null")."\n";
+				    // Begin DV-Mega Cast logic to save user cast settings
+				    if (isDVmegaCast() == 1) {
+					exec("sudo mkdir -p $profileDir/cast-settings > /dev/null");
+					exec("sudo sh -c 'cp -a \"/usr/local/cast/etc/\"* \"$profileDir/cast-settings/\"' > /dev/null")."\n";
+				    }
 				    exec("sudo sh -c \"echo $desc > /etc/.WPSD_config\"");
 				    echo '<tr><td colspan="3"><p class="larger"><i class="fa fa-check-square" aria-hidden="true"></i> Saved Current Settings to Profile, '.$desc.'</p>
 				    Page reloading...<br /><br />
@@ -195,6 +200,11 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
 				    exec('sudo mount -o remount,rw /');
 				    exec("sudo sh -c 'mv $profileDir/*.php /var/www/dashboard/config/' > /dev/null");
 				    exec("sudo sh -c 'cp -a $profileDir/*Hosts.txt /root/' > /dev/null");
+				    // Begin DV-Mega Cast logic to save user cast settings
+				    if (isDVmegaCast() == 1) {
+					exec("sudo sh -c 'cp -a $profileDir/cast-settings/* /usr/local/cast/etc/' > /dev/null")."\n";
+					exec('sudo chmod 775 /usr/local/cast/etc ; sudo chown -R www-data:pi-star /usr/local/cast/etc ; sudo chmod 664 /usr/local/cast/etc/*');	
+				    }
 				    exec("sudo sh -c 'rm -rf $profileDir/*Hosts.txt' > /dev/null");
 				    exec("sudo sh -c 'cp -a $profileDir/* /etc/' > /dev/null");
 				    exec("sudo sh -c 'cp -a $profileDir/.CALLERDETAILS /etc/' > /dev/null");
