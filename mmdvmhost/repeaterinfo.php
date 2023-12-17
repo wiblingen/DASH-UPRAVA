@@ -491,7 +491,7 @@ if ( $testMMDVModeDSTAR == 1 || isPaused("D-Star") ) { //Hide the D-Star Reflect
 		    $slot2Link = substr(getActualLink($reverseLogLinesMMDVM, "DMR Slot 2"), -20); 
 		    if (file_exists("/etc/.TGNAMES")) {
 			$slot2Link = str_replace("TG ", "", $slot2Link);
-			if (strpos($slot1Link, "Unlinked") !== false || strpos($slot1Link, "No Traffic") !== false) {
+			if (strpos($slot2Link, "Unlinked") !== false || strpos($slot2Link, "No Traffic") !== false) {
 			    echo "<div class='divTableCell cell_content middle active-mode-cell' title='Time Slot 2 Enabled: Unlinked' style='border: .5px solid $tableBorderColor;'>$slot2Link</div>\n";
 			} else {
 			    $slot2Link = preg_replace('#\((.*?)\)#', "<br><small>($1)</small>", tgLookup("DMR", $slot2Link));
