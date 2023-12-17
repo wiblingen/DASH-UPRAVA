@@ -4345,6 +4345,40 @@ if (!empty($_POST)):
 		}
         }
 
+
+	// Setup the DV Mega Cast FW/display
+	if (isDVmegaCast() == 1) {
+	    $callsignCast = !empty($newCallsignUpper) ? $newCallsignUpper : 'PE1ABC';
+	    $dmridCast = !empty($newPostDmrId) ? $newPostDmrId : '1234567';
+	    $essidCast = !empty($newPostbmExtendedId) ? $newPostbmExtendedId : '09';
+	    $modSuffixCast = !empty($_POST['confDStarModuleSuffix']) ? $_POST['confDStarModuleSuffix'] : 'E';
+
+	    // Calculate rpt1 and rpt2 based on callsign
+	    $rpt1Cast = str_replace(' ', '%', substr($callsignCast . '        ', 0, 7)) .  $modSuffixCast;	// always be 8 characters
+	    $rpt2Cast = str_replace(' ', '%', substr($callsignCast . '        ', 0, 7)) . 'G';			// always be 8 characters
+
+	    // Adjust callsign length by inserting % if needed
+	    $callsignCast = str_pad($callsignCast, 8, '%'); // always 8 chars.
+
+	    // Adjust dmrid length by inserting % if needed
+	    $dmridCast = '0'.str_pad($dmridCast, 7, '%'); // always 7 chars.
+
+	    // Edit the settings string
+	    $castSettingsString = "SET{$rpt2Cast}{$rpt1Cast}CQCQCQ%%{$callsignCast}CAST{$dmridCast}{$essidCast}";
+
+	    // Ensure the total length is always 49 characters
+	    $castSettingsString = substr($castSettingsString, 0, 49);
+
+	    $castSettingsString = str_replace(' ', '%', $castSettingsString); // Replace spaces with %
+	    $castSettingsString .= PHP_EOL; // Add a line terminator
+
+	    // Update the file
+	    $filePathCast = '/usr/local/cast/etc/settings.txt';
+	    if (file_put_contents($filePathCast, $castSettingsString) !== false) {
+		exec('sudo /usr/local/cast/sbin/RSET.sh  > /dev/null 2>&1 &');
+	    }
+	}
+
 	// Set the system timezone
 	if (empty($_POST['systemTimezone']) != TRUE ) {
 		$rollTimeZone = 'sudo timedatectl set-timezone '.escapeshellcmd($_POST['systemTimezone']);
@@ -4662,7 +4696,7 @@ else:
 
     <br /><br />
 
-    <h2 class="ConfSec">Location and General Node Info Settings</h2>
+    <h2 class="ConfSec">Node Location &amp; Info Settings</h2>
     <input type="hidden" name="APRSGatewayEnable" value="OFF" />
     <table>
     <tr>
@@ -4817,20 +4851,7 @@ else:
     <h2 class="ConfSec"><?php echo $lang['mmdvmhost_config'];?></h2>
     <table>
     <tr>
-    </tr>
-    <tr>
-    <td align="left"><a class="tooltip2" href="#">DMR Mode:<span><b>DMR Mode</b>Turn on DMR Features</span></a></td>
-    <?php
-	if ( $configmmdvm['DMR']['Enable'] == 1 ) {
-	    echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-dmr\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeDMR\" value=\"ON\" checked=\"checked\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDMRCheckboxCr." /><label id=\"aria-toggle-dmr\" role=\"checkbox\" tabindex=\"0\" aria-label=\"DMR Mode\" aria-checked=\"true\" onKeyPress=\"toggleDMRCheckbox()\" onclick=\"toggleDMRCheckbox()\" for=\"toggle-dmr\"><font style=\"font-size:0px\">DMR Mode</font></label></div></td>\n";
-	}
-	else {
-	    echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-dmr\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeDMR\" value=\"ON\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDMRCheckboxCr." /><label id=\"aria-toggle-dmr\" role=\"checkbox\" tabindex=\"0\" aria-label=\"DMR Mode\" aria-checked=\"false\" onKeyPress=\"toggleDMRCheckbox()\" onclick=\"toggleDMRCheckbox()\" for=\"toggle-dmr\"><font style=\"font-size:0px\">DMR Mode</font></label></div></td>\n";
-	}
-    ?>
-    <td align="left">RF Hangtime: <input type="text" name="dmrRfHangTime" size="7" maxlength="3" value="<?php if (isset($configmmdvm['DMR']['ModeHang'])) { echo $configmmdvm['DMR']['ModeHang']; } else { echo "20"; } ?>" />
-    Net Hangtime: <input type="text" name="dmrNetHangTime" size="7" maxlength="3" value="<?php if (isset($configmmdvm['DMR Network']['ModeHang'])) { echo $configmmdvm['DMR Network']['ModeHang']; } else { echo "20"; } ?>" />
-    </td>
+    <th class='config_head' colspan="4">Main Radio Modes</th>
     </tr>
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo $lang['d-star_mode'];?>:<span><b>D-Star Mode</b>Turn on D-Star Features</span></a></td>
@@ -4858,6 +4879,38 @@ else:
     ?>
     <td align="left">RF Hangtime: <input type="text" name="ysfRfHangTime" size="7" maxlength="3" value="<?php if (isset($configmmdvm['System Fusion']['ModeHang'])) { echo $configmmdvm['System Fusion']['ModeHang']; } else { echo "20"; } ?>" />
     Net Hangtime: <input type="text" name="ysfNetHangTime" size="7" maxlength="3" value="<?php if (isset($configmmdvm['System Fusion Network']['ModeHang'])) { echo $configmmdvm['System Fusion Network']['ModeHang']; } else { echo "20"; } ?>" />
+    </td>
+    </tr>
+
+    <tr>
+    <td align="left"><a class="tooltip2" href="#">M17 Mode:<span><b>M17 Mode</b>Turn on M17 Features</span></a></td>
+    <?php
+	if ( $configmmdvm['M17']['Enable'] == 1 ) {
+	    echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-m17\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeM17\" value=\"ON\" checked=\"checked\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleM17CheckboxCr." /><label id=\"aria-toggle-m17\" role=\"checkbox\" tabindex=\"0\" aria-label=\"M17 Mode\" aria-checked=\"true\" onKeyPress=\"toggleM17Checkbox()\" onclick=\"toggleM17Checkbox()\" for=\"toggle-m17\"><font style=\"font-size:0px\">M17 Mode</font></label></div></td>\n";
+	}
+	else {
+	    echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-m17\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeM17\" value=\"ON\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleM17CheckboxCr." /><label id=\"aria-toggle-m17\" role=\"checkbox\" tabindex=\"0\" aria-label=\"M17 Mode\" aria-checked=\"false\" onKeyPress=\"toggleM17Checkbox()\" onclick=\"toggleM17Checkbox()\" for=\"toggle-m17\"><font style=\"font-size:0px\">M17 Mode</font></label></div></td>\n";
+	}
+    ?>
+    <td align="left">RF Hangtime: <input type="text" name="m17RfHangTime" size="7" maxlength="3" value="<?php if (isset($configmmdvm['M17']['ModeHang'])) { echo $configmmdvm['M17']['ModeHang']; } else { echo "20"; } ?>" />
+    Net Hangtime: <input type="text" name="m17NetHangTime" size="7" maxlength="3" value="<?php if (isset($configmmdvm['M17 Network']['ModeHang'])) { echo $configmmdvm['M17 Network']['ModeHang']; } else { echo "20"; } ?>" />
+    </td>
+    </tr>
+
+    <?php } // end DVMega Cast logic ?>
+
+    <tr>
+    <td align="left"><a class="tooltip2" href="#">DMR Mode:<span><b>DMR Mode</b>Turn on DMR Features</span></a></td>
+    <?php
+	if ( $configmmdvm['DMR']['Enable'] == 1 ) {
+	    echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-dmr\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeDMR\" value=\"ON\" checked=\"checked\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDMRCheckboxCr." /><label id=\"aria-toggle-dmr\" role=\"checkbox\" tabindex=\"0\" aria-label=\"DMR Mode\" aria-checked=\"true\" onKeyPress=\"toggleDMRCheckbox()\" onclick=\"toggleDMRCheckbox()\" for=\"toggle-dmr\"><font style=\"font-size:0px\">DMR Mode</font></label></div></td>\n";
+	}
+	else {
+	    echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-dmr\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeDMR\" value=\"ON\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDMRCheckboxCr." /><label id=\"aria-toggle-dmr\" role=\"checkbox\" tabindex=\"0\" aria-label=\"DMR Mode\" aria-checked=\"false\" onKeyPress=\"toggleDMRCheckbox()\" onclick=\"toggleDMRCheckbox()\" for=\"toggle-dmr\"><font style=\"font-size:0px\">DMR Mode</font></label></div></td>\n";
+	}
+    ?>
+    <td align="left">RF Hangtime: <input type="text" name="dmrRfHangTime" size="7" maxlength="3" value="<?php if (isset($configmmdvm['DMR']['ModeHang'])) { echo $configmmdvm['DMR']['ModeHang']; } else { echo "20"; } ?>" />
+    Net Hangtime: <input type="text" name="dmrNetHangTime" size="7" maxlength="3" value="<?php if (isset($configmmdvm['DMR Network']['ModeHang'])) { echo $configmmdvm['DMR Network']['ModeHang']; } else { echo "20"; } ?>" />
     </td>
     </tr>
     <?php if (isDVmegaCast() == 0) { // DVMega Cast logic... ?>
@@ -4890,23 +4943,26 @@ else:
     </td>
     </tr>
 
+    <?php if (isDVmegaCast() == 0) { // Begin DVMega Cast logic... ?>
+    <?php if (file_exists('/etc/dapnetgateway')) { ?>
     <tr>
-    <td align="left"><a class="tooltip2" href="#">M17 Mode:<span><b>M17 Mode</b>Turn on M17 Features</span></a></td>
+    <td align="left"><a class="tooltip2" href="#">POCSAG Mode:<span><b>POCSAG Mode</b>Turn on POCSAG Features</span></a></td>
     <?php
-	if ( $configmmdvm['M17']['Enable'] == 1 ) {
-	    echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-m17\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeM17\" value=\"ON\" checked=\"checked\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleM17CheckboxCr." /><label id=\"aria-toggle-m17\" role=\"checkbox\" tabindex=\"0\" aria-label=\"M17 Mode\" aria-checked=\"true\" onKeyPress=\"toggleM17Checkbox()\" onclick=\"toggleM17Checkbox()\" for=\"toggle-m17\"><font style=\"font-size:0px\">M17 Mode</font></label></div></td>\n";
+	if ( $configmmdvm['POCSAG']['Enable'] == 1 ) {
+	    echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-pocsag\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModePOCSAG\" value=\"ON\" checked=\"checked\" aria-hidden=\"true\" tabindex=\"-1\" ".$togglePOCSAGCheckboxCr." /><label id=\"aria-toggle-pocsag\" role=\"checkbox\" tabindex=\"0\" aria-label=\"POCSAG Mode\" aria-checked=\"true\" onKeyPress=\"togglePOCSAGCheckbox()\" onclick=\"togglePOCSAGCheckbox()\" for=\"toggle-pocsag\"><font style=\"font-size:0px\">POCSAG Mode</font></label></div></td>\n";
 	}
 	else {
-	    echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-m17\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeM17\" value=\"ON\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleM17CheckboxCr." /><label id=\"aria-toggle-m17\" role=\"checkbox\" tabindex=\"0\" aria-label=\"M17 Mode\" aria-checked=\"false\" onKeyPress=\"toggleM17Checkbox()\" onclick=\"toggleM17Checkbox()\" for=\"toggle-m17\"><font style=\"font-size:0px\">M17 Mode</font></label></div></td>\n";
+	    echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-pocsag\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModePOCSAG\" value=\"ON\" aria-hidden=\"true\" tabindex=\"-1\" ".$togglePOCSAGCheckboxCr." /><label id=\"aria-toggle-pocsag\" role=\"checkbox\" tabindex=\"0\" aria-label=\"POCSAG Mode\" aria-checked=\"false\" onKeyPress=\"togglePOCSAGCheckbox()\" onclick=\"togglePOCSAGCheckbox()\" for=\"toggle-pocsag\"><font style=\"font-size:0px\">POCSAG Mode</font></label></div></td>\n";
 	}
     ?>
-    <td align="left">RF Hangtime: <input type="text" name="m17RfHangTime" size="7" maxlength="3" value="<?php if (isset($configmmdvm['M17']['ModeHang'])) { echo $configmmdvm['M17']['ModeHang']; } else { echo "20"; } ?>" />
-    Net Hangtime: <input type="text" name="m17NetHangTime" size="7" maxlength="3" value="<?php if (isset($configmmdvm['M17 Network']['ModeHang'])) { echo $configmmdvm['M17 Network']['ModeHang']; } else { echo "20"; } ?>" />
-    </td>
+    <td align="left">POCSAG Mode Hangtime: <input type="text" name="POCSAGHangTime" size="7" maxlength="3" value="<?php if (isset($configmmdvm['POCSAG Network']['ModeHang'])) { echo $configmmdvm['POCSAG Network']['ModeHang']; } else { echo "5"; } ?>"></td>
     </tr>
-
-    <?php } // end DVMega Cast logic ?>
-
+    <?php } 
+      } // end DVMega Cast logic.
+    ?>
+    <tr>
+    <th class='config_head' colspan="4">Radio Cross-Modes</th>
+    </tr>
     <tr colspan="2">
     <td align="left"><a class="tooltip2" href="#">YSF2DMR:<span><b>YSF2DMR Mode</b>Turn on YSF2DMR Features</span></a></td>
     <?php
@@ -5014,23 +5070,7 @@ else:
     ?>
     </tr>
     <?php } ?>
-    <?php if (isDVmegaCast() == 0) { // Begin DVMega Cast logic... ?>
-    <?php if (file_exists('/etc/dapnetgateway')) { ?>
-    <tr>
-    <td align="left"><a class="tooltip2" href="#">POCSAG:<span><b>POCSAG Mode</b>Turn on POCSAG Features</span></a></td>
-    <?php
-	if ( $configmmdvm['POCSAG']['Enable'] == 1 ) {
-	    echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-pocsag\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModePOCSAG\" value=\"ON\" checked=\"checked\" aria-hidden=\"true\" tabindex=\"-1\" ".$togglePOCSAGCheckboxCr." /><label id=\"aria-toggle-pocsag\" role=\"checkbox\" tabindex=\"0\" aria-label=\"POCSAG Mode\" aria-checked=\"true\" onKeyPress=\"togglePOCSAGCheckbox()\" onclick=\"togglePOCSAGCheckbox()\" for=\"toggle-pocsag\"><font style=\"font-size:0px\">POCSAG Mode</font></label></div></td>\n";
-	}
-	else {
-	    echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-pocsag\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModePOCSAG\" value=\"ON\" aria-hidden=\"true\" tabindex=\"-1\" ".$togglePOCSAGCheckboxCr." /><label id=\"aria-toggle-pocsag\" role=\"checkbox\" tabindex=\"0\" aria-label=\"POCSAG Mode\" aria-checked=\"false\" onKeyPress=\"togglePOCSAGCheckbox()\" onclick=\"togglePOCSAGCheckbox()\" for=\"toggle-pocsag\"><font style=\"font-size:0px\">POCSAG Mode</font></label></div></td>\n";
-	}
-    ?>
-    <td align="left">POCSAG Mode Hangtime: <input type="text" name="POCSAGHangTime" size="7" maxlength="3" value="<?php if (isset($configmmdvm['POCSAG Network']['ModeHang'])) { echo $configmmdvm['POCSAG Network']['ModeHang']; } else { echo "5"; } ?>"></td>
-    </tr>
-    <?php } 
-      } // end DVMega Cast logic.
-    ?>
+
     </table>
 
     <br /><br />
@@ -5155,6 +5195,640 @@ else:
     <br /><br />
 
     <?php } ?>
+
+    <?php if ($configmmdvm['D-Star']['Enable'] == 1) { ?>
+	<h2 class="ConfSec"><?php echo $lang['dstar_config'];?></h2>
+	<input type="hidden" name="confTimeAnnounce" value="OFF" />
+	<input type="hidden" name="confircddbEnabled" value="OFF" />
+	<input type="hidden" name="confHostFilesNoDExtra" value="OFF" />
+    <table>
+    <tr>
+    </tr>
+    <tr>
+    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['dstar_rpt1'];?>:<span><b>RPT1 Callsign</b>This is the RPT1 field for your radio</span></a></td>
+    <td align="left" colspan="2"><?php echo $configs['repeaterCall1']; ?>
+	<select name="confDStarModuleSuffix" class="ModSel">
+	<?php echo "  <option value=\"".$configs['repeaterBand1']."\" selected=\"selected\">".$configs['repeaterBand1']."</option>\n"; ?>
+        <option>A</option>
+        <option>B</option>
+        <option>C</option>
+        <option>D</option>
+        <option>E</option>
+        <option>F</option>
+        <option>G</option>
+        <option>H</option>
+        <option>I</option>
+        <option>J</option>
+        <option>K</option>
+        <option>L</option>
+        <option>M</option>
+        <option>N</option>
+        <option>O</option>
+        <option>P</option>
+        <option>Q</option>
+        <option>R</option>
+        <option>S</option>
+        <option>T</option>
+        <option>U</option>
+        <option>V</option>
+        <option>W</option>
+        <option>X</option>
+        <option>Y</option>
+        <option>Z</option>
+    </select></td>
+    </tr>
+    <tr>
+    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['dstar_rpt2'];?>:<span><b>RPT2 Callsign</b>This is the RPT2 field for your radio</span></a></td>
+    <td align="left" colspan="2"><?php echo $configs['repeaterCall1']; ?>&nbsp; G</td>
+    </tr>
+    <tr>
+    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['dstar_irc_password'];?>:<span><b>Remote Password</b>Used for ircDDBGateway remote control access</span></a></td>
+    <td align="left" colspan="2"><input type="password" name="confPassword" id="ircddbPass" size="30" maxlength="30" value="<?php echo $configs['remotePassword'] ?>" />
+    <span toggle="#password-field" class="fa fa-fw fa-eye field_icon toggle-ircddb-password"></span></td>
+    </tr>
+    <tr>
+    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['dstar_default_ref'];?>:<span><b>Default Reflector</b>Used for setting the default reflector.</span></a></td>
+    <td align="left" colspan="1"><select name="confDefRef" class="confDefRef" 
+	onchange="if (this.options[this.selectedIndex].value == 'customOption') {
+	  toggleField(this,this.nextSibling);
+	  this.selectedIndex='0';
+	  } ">
+<?php
+$dcsFile = fopen("/usr/local/etc/DCS_Hosts.txt", "r");
+$dplusFile = fopen("/usr/local/etc/DPlus_Hosts.txt", "r");
+$dextraFile = fopen("/usr/local/etc/DExtra_Hosts.txt", "r");
+
+echo "    <option value=\"".substr($configs['reflector1'], 0, 6)."\" selected=\"selected\">".substr($configs['reflector1'], 0, 6)."</option>\n";
+//echo "    <option value=\"customOption\">Text Entry</option>\n" // now handled by select2 js
+
+while (!feof($dcsFile)) {
+	$dcsLine = fgets($dcsFile);
+	if (strpos($dcsLine, 'DCS') !== FALSE && strpos($dcsLine, '#') === FALSE) {
+ 		echo "	<option value=\"".substr($dcsLine, 0, 6)."\">".substr($dcsLine, 0, 6)."</option>\n";
+	}
+	if (strpos($dcsLine, 'XLX') !== FALSE && strpos($dcsLine, '#') === FALSE) {
+		echo "	<option value=\"".substr($dcsLine, 0, 6)."\">".substr($dcsLine, 0, 6)."</option>\n";
+	}
+}
+fclose($dcsFile);
+while (!feof($dplusFile)) {
+	$dplusLine = fgets($dplusFile);
+	if (strpos($dplusLine, 'REF') !== FALSE && strpos($dplusLine, '#') === FALSE) {
+		echo "	<option value=\"".substr($dplusLine, 0, 6)."\">".substr($dplusLine, 0, 6)."</option>\n";
+	}
+	if (strpos($dplusLine, 'XRF') !== FALSE && strpos($dplusLine, '#') === FALSE) {
+		echo "	<option value=\"".substr($dplusLine, 0, 6)."\">".substr($dplusLine, 0, 6)."</option>\n";
+	}
+}
+fclose($dplusFile);
+while (!feof($dextraFile)) {
+	$dextraLine = fgets($dextraFile);
+	if (strpos($dextraLine, 'XRF') !== FALSE && strpos($dextraLine, '#') === FALSE)
+		echo "	<option value=\"".substr($dextraLine, 0, 6)."\">".substr($dextraLine, 0, 6)."</option>\n";
+}
+fclose($dextraFile);
+
+?>
+    </select><input name="confDefRef" style="display:none;" disabled="disabled" type="text" size="7" maxlength="7"
+            onblur="if(this.value==''){toggleField(this,this.previousSibling);}" />
+    <select name="confDefRefLtr" class="ModSel">
+	<?php echo "  <option value=\"".substr($configs['reflector1'], 7)."\" selected=\"selected\">".substr($configs['reflector1'], 7)."</option>\n"; ?>
+        <option>A</option>
+        <option>B</option>
+        <option>C</option>
+        <option>D</option>
+        <option>E</option>
+        <option>F</option>
+        <option>G</option>
+        <option>H</option>
+        <option>I</option>
+        <option>J</option>
+        <option>K</option>
+        <option>L</option>
+        <option>M</option>
+        <option>N</option>
+        <option>O</option>
+        <option>P</option>
+        <option>Q</option>
+        <option>R</option>
+        <option>S</option>
+        <option>T</option>
+        <option>U</option>
+        <option>V</option>
+        <option>W</option>
+        <option>X</option>
+        <option>Y</option>
+        <option>Z</option>
+    </select>
+    </td>
+    <td align="left">
+    <input type="radio" name="confDefRefAuto" value="ON"<?php if ($configs['atStartup1'] == '1') {echo ' checked="checked"';} ?> />Startup
+    <input type="radio" name="confDefRefAuto" value="OFF"<?php if ($configs['atStartup1'] == '0') {echo ' checked="checked"';} ?> />Manual</td>
+    </tr>
+    <tr>
+    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['dstar_irc_lang'];?>:<span><b>ircDDBGateway Language</b>Set your preferred language here</span></a></td>
+    <td colspan="2" style="text-align: left;"><select name="ircDDBGatewayAnnounceLanguage">
+<?php
+        $testIrcLanguage = $configs['language'];
+	if (is_readable("/var/www/dashboard/config/ircddbgateway_languages.inc")) {
+	  $ircLanguageFile = fopen("/var/www/dashboard/config/ircddbgateway_languages.inc", "r");
+        while (!feof($ircLanguageFile)) {
+                $ircLanguageFileLine = fgets($ircLanguageFile);
+                $ircLanguage = preg_split('/;/', $ircLanguageFileLine);
+                if ((strpos($ircLanguage[0], '#') === FALSE ) && ($ircLanguage[0] != '')) {
+			$ircLanguage[2] = rtrim($ircLanguage[2]);
+                        if ($testIrcLanguage == $ircLanguage[1]) { echo "      <option value=\"$ircLanguage[1],$ircLanguage[2]\" selected=\"selected\">".htmlspecialchars($ircLanguage[0])."</option>\n"; }
+                        else { echo "      <option value=\"$ircLanguage[1],$ircLanguage[2]\">".htmlspecialchars($ircLanguage[0])."</option>\n"; }
+                }
+        }
+          fclose($ircLanguageFile);
+	}
+        ?>
+    </select></td>
+    </tr>
+    <tr>
+    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['dstar_irc_time'];?>:<span><b>Time Announce</b>Announce time hourly</span></a></td>
+    <?php
+	if ( !file_exists('/etc/timeserver.disable') ) {
+		echo "<td align=\"left\" colspan=\"2\"><div class=\"switch\"><input id=\"toggle-timeAnnounce\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"confTimeAnnounce\" value=\"ON\" checked=\"checked\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDstarTimeAnnounceCr." /><label id=\"aria-toggle-timeAnnounce\" role=\"checkbox\" tabindex=\"0\" aria-label=\"D-Star Time Announcements\" aria-checked=\"true\" onKeyPress=\"toggleDstarTimeAnnounce()\" onclick=\"toggleDstarTimeAnnounce()\" for=\"toggle-timeAnnounce\"><font style=\"font-size:0px\">D-Star Time Announcements</font></label></div></td>\n";
+		}
+	else {
+		echo "<td align=\"left\" colspan=\"2\"><div class=\"switch\"><input id=\"toggle-timeAnnounce\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"confTimeAnnounce\" value=\"ON\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDstarTimeAnnounceCr." /><label id=\"aria-toggle-timeAnnounce\" role=\"checkbox\" tabindex=\"0\" aria-label=\"D-Star Time Announcements\" aria-checked=\"false\" onKeyPress=\"toggleDstarTimeAnnounce()\" onclick=\"toggleDstarTimeAnnounce()\" for=\"toggle-timeAnnounce\"><font style=\"font-size:0px\">D-Star Time Announcements</font></label></div></td>\n";
+	}
+    ?>
+    </tr>
+    <tr>
+    <td align="left"><a class="tooltip2" href="#">Callsign Routing:<span><b>Callsign Routing</b>Do you want callsign routing for D-Star</span></a></td>
+    <?php
+	if ( isset($configs['ircddbEnabled']) && $configs['ircddbEnabled'] == "1" ) {
+		echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-ircddbEnabled\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"confircddbEnabled\" value=\"ON\" checked=\"checked\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleircddbEnabledCr." /><label id=\"aria-toggle-ircddbEnabled\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Use ircDDB callsign routing\" aria-checked=\"true\" onKeyPress=\"toggleircddbEnabled()\" onclick=\"toggleircddbEnabled()\" for=\"toggle-ircddbEnabled\"><font style=\"font-size:0px\">Enable ircDDB callsign routing</font></label></div></td>\n";
+		}
+	else {
+		echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-ircddbEnabled\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"confircddbEnabled\" value=\"ON\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleircddbEnabledCr." /><label id=\"aria-toggle-ircddbEnabled\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Use ircDDB callsign routing\" aria-checked=\"false\" onKeyPress=\"toggleircddbEnabled()\" onclick=\"toggleircddbEnabled()\" for=\"toggle-ircddbEnabled\"><font style=\"font-size:0px\">Enable ircDDB callsign routing</font></label></div></td>\n";
+	}
+    ?>
+    <td align="left">Connect ircDDB for call routing</td>
+    </tr>
+    <tr>
+    <td align="left"><a class="tooltip2" href="#">Use DPlus for XRF:<span><b>No DExtra</b>Should host files use DPlus Protocol for XRFs</span></a></td>
+    <?php
+	if ( file_exists('/etc/hostfiles.nodextra') ) {
+		echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-dplusHostFiles\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"confHostFilesNoDExtra\" value=\"ON\" checked=\"checked\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDstarDplusHostfilesCr." /><label id=\"aria-toggle-dplusHostFiles\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Use D-Plus for XRF Hosts\" aria-checked=\"true\" onKeyPress=\"toggleDstarDplusHostfiles()\" onclick=\"toggleDstarDplusHostfiles()\" for=\"toggle-dplusHostFiles\"><font style=\"font-size:0px\">Use D-Plus for XRF Hosts</font></label></div></td>\n";
+		}
+	else {
+		echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-dplusHostFiles\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"confHostFilesNoDExtra\" value=\"ON\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDstarDplusHostfilesCr." /><label id=\"aria-toggle-dplusHostFiles\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Use D-Plus for XRF Hosts\" aria-checked=\"false\" onKeyPress=\"toggleDstarDplusHostfiles()\" onclick=\"toggleDstarDplusHostfiles()\" for=\"toggle-dplusHostFiles\"><font style=\"font-size:0px\">Use D-Plus for XRF Hosts</font></label></div></td>\n";
+	}
+    ?>
+    <td align="left"><em>Note: Update Required if changed</em></td>
+    </tr>
+    </table>
+
+    <br /><br />
+
+<?php } ?>
+
+<?php if (file_exists('/etc/dstar-radio.mmdvmhost') && ($configmmdvm['System Fusion Network']['Enable'] == 1 || $configdmr2ysf['Enabled']['Enabled'] == 1 )) {
+$ysfHosts = fopen("/usr/local/etc/YSFHosts.txt", "r"); ?>
+	<input type="hidden" name="confHostFilesYSFUpper" value="OFF" />
+        <input type="hidden" name="useDGIdGateway" value="OFF" />
+	<input type="hidden" name="wiresXCommandPassthrough" value="OFF" />
+	<input type="hidden" name="FCSEnable" value="OFF" />
+	<h2 class="ConfSec"><?php echo $lang['ysf_config'];?></h2>
+    <table>
+    <tr>
+    </tr>
+    <tr>
+    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['ysf_startup_host'];?>:<span><b>YSF Host</b>Set your preferred YSF Host here</span></a></td>
+    <td colspan="2" style="text-align: left;"><select name="ysfStartupHost" class="ysfStartupHost">
+<?php
+        if (isset($configysfgateway['Network']['Startup'])) {
+                $testYSFHost = $configysfgateway['Network']['Startup'];
+                echo "      <option value=\"none\">None</option>\n";
+        	}
+        else {
+                $testYSFHost = "none";
+                echo "      <option value=\"none\" selected=\"selected\">None</option>\n";
+    		}
+	if ($testYSFHost == "ZZ Parrot")  {
+		echo "      <option value=\"00001,ZZ Parrot\" selected=\"selected\">YSF00001 - Parrot</option>\n";
+	} else {
+		echo "      <option value=\"00001,ZZ Parrot\">YSF00001 - Parrot</option>\n";
+	}
+	if ($testYSFHost == "YSF2DMR")  {
+		echo "      <option value=\"00002,YSF2DMR\"  selected=\"selected\">YSF00002 - Link YSF2DMR</option>\n";
+	} else {
+		echo "      <option value=\"00002,YSF2DMR\">YSF00002 - Link YSF2DMR</option>\n";
+	}
+	if ($testYSFHost == "YSF2NXDN") {
+		echo "      <option value=\"00003,YSF2NXDN\" selected=\"selected\">YSF00003 - Link YSF2NXDN</option>\n";
+	} else {
+		echo "      <option value=\"00003,YSF2NXDN\">YSF00003 - Link YSF2NXDN</option>\n";
+	}
+	if ($testYSFHost == "YSF2P25")  {
+		echo "      <option value=\"00004,YSF2P25\"  selected=\"selected\">YSF00004 - Link YSF2P25</option>\n";
+	} else {
+		echo "      <option value=\"00004,YSF2P25\">YSF00004 - Link YSF2P25</option>\n";
+	}
+        while (!feof($ysfHosts)) {
+                $ysfHostsLine = fgets($ysfHosts);
+                $ysfHost = preg_split('/;/', $ysfHostsLine);
+                if ((strpos($ysfHost[0], '#') === FALSE ) && ($ysfHost[0] != '')) {
+                        if ($testYSFHost == $ysfHost[1]) { echo "      <option value=\"$ysfHost[0],$ysfHost[1]\" selected=\"selected\">YSF$ysfHost[0] - ".htmlspecialchars($ysfHost[1])." - ".htmlspecialchars($ysfHost[2])."</option>\n"; }
+			else { echo "      <option value=\"$ysfHost[0],$ysfHost[1]\">YSF$ysfHost[0] - ".htmlspecialchars($ysfHost[1])." - ".htmlspecialchars($ysfHost[2])."</option>\n"; }
+                }
+        }
+        fclose($ysfHosts);
+	if ($_SESSION['YSFGatewayConfigs']['FCS Network']['Enable'] == 1) {
+	    if (file_exists("/usr/local/etc/FCSHosts.txt")) {
+                    $fcsHosts = fopen("/usr/local/etc/FCSHosts.txt", "r");
+                    while (!feof($fcsHosts)) {
+                            $ysfHostsLine = fgets($fcsHosts);
+                            $ysfHost = preg_split('/;/', $ysfHostsLine);
+			    if (substr($ysfHost[0], 0, 3) == "FCS") {
+                                    if ($testYSFHost == $ysfHost[0]) { echo "      <option value=\"$ysfHost[0],$ysfHost[0]\" selected=\"selected\">$ysfHost[0] - ".htmlspecialchars($ysfHost[1])."</option>\n"; }
+                                    else { echo "      <option value=\"$ysfHost[0],$ysfHost[0]\">$ysfHost[0] - ".htmlspecialchars($ysfHost[1])."</option>\n"; }
+                            }
+                    }
+                    fclose($fcsHosts);
+            }
+	}
+        ?>
+    </select></td>
+    </tr>
+    <tr>
+    <td align="left"><a class="tooltip2" href="#">UPPERCASE Hostfiles:<span><b>UPPERCASE Hostfiles</b>Should host files use UPPERCASE only - fixes issues with FT-70D radios.</span></a></td>
+    <?php
+	if ( isset($configysfgateway['General']['WiresXMakeUpper']) ) {
+		if ( $configysfgateway['General']['WiresXMakeUpper'] ) {
+			echo "<td colspan='2' align=\"left\"><div class=\"switch\"><input id=\"toggle-confHostFilesYSFUpper\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"confHostFilesYSFUpper\" value=\"ON\" checked=\"checked\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleHostFilesYSFUpperCr." /><label id=\"aria-toggle-confHostFilesYSFUpper\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Uppercase Host Files\" aria-checked=\"true\" onKeyPress=\"toggleHostFilesYSFUpper()\" onclick=\"toggleHostFilesYSFUpper()\" for=\"toggle-confHostFilesYSFUpper\"><font style=\"font-size:0px\">Uppercase Host Files</font></label></div></td>\n";
+		}
+		else {
+			echo "<td colspan='2' align=\"left\"><div class=\"switch\"><input id=\"toggle-confHostFilesYSFUpper\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"confHostFilesYSFUpper\" value=\"ON\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleHostFilesYSFUpperCr." /><label id=\"aria-toggle-confHostFilesYSFUpper\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Uppercase Host Files\" aria-checked=\"false\" onKeyPress=\"toggleHostFilesYSFUpper()\" onclick=\"toggleHostFilesYSFUpper()\" for=\"toggle-confHostFilesYSFUpper\"><font style=\"font-size:0px\">Uppercase Host Files</font></label></div></td>\n";
+		}
+	} else {
+		echo "<td colspan='2' align=\"left\"><div class=\"switch\"><input id=\"toggle-confHostFilesYSFUpper\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"confHostFilesYSFUpper\" value=\"ON\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleHostFilesYSFUpperCr." /><label id=\"aria-toggle-confHostFilesYSFUpper\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Uppercase Host Files\" aria-checked=\"false\" onKeyPress=\"toggleHostFilesYSFUpper()\" onclick=\"toggleHostFilesYSFUpper()\" for=\"toggle-confHostFilesYSFUpper\"><font style=\"font-size:0px\">Uppercase Host files</font></label></div></td>\n";
+	}
+    ?>
+    </tr>
+        <tr>
+        <td align="left"><a class="tooltip2" href="#">FCS Network:<span><b>FCS Network</b>Enable the FCS Network and Hosts</span></a></td>
+        <?php
+        if ( isset($configysfgateway['FCS Network']['Enable']) ) {
+                if ( $configysfgateway['FCS Network']['Enable'] ) {
+                        echo "<td colspan='2' align=\"left\"><div class=\"switch\"><input id=\"toggle-FCSEnable\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"FCSEnable\" value=\"ON\" checked=\"checked\" /><label for=\"toggle-FCSEnable\"></label></div></td>\n";
+                }
+                else {
+                        echo "<td colspan='2' align=\"left\"><div class=\"switch\"><input id=\"toggle-FCSEnable\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"FCSEnable\" value=\"ON\" /><label for=\"toggle-FCSEnable\"></label></div></td>\n";
+                }
+        } else {
+                echo "<td colspan='2' align=\"left\"><div class=\"switch\"><input id=\"toggle-FCSEnable\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"FCSEnable\" value=\"ON\" /><label for=\"toggle-FCSEnable\"></label></div></td>\n";
+        }
+        ?>
+    <tr>
+    <td align="left"><a class="tooltip2" href="#">WiresX Passthrough:<span><b>WiresX Auto Passthrough</b>Use this to automatically send WiresX commands through to YSF2xxx cross-over modes.</span></a></td>
+    <?php
+	if ( isset($configysfgateway['General']['WiresXCommandPassthrough']) ) {
+		if ( $configysfgateway['General']['WiresXCommandPassthrough'] ) {
+			echo "<td align=\"left\" colspan=\"2\"><div class=\"switch\"><input id=\"toggle-confWiresXCommandPassthrough\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"wiresXCommandPassthrough\" value=\"ON\" checked=\"checked\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleWiresXCommandPassthroughCr." /><label id=\"aria-toggle-confWiresXCommandPassthrough\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Wires-X Command Passthrough\" aria-checked=\"true\" onKeyPress=\"toggleWiresXCommandPassthrough()\" onclick=\"toggleWiresXCommandPassthrough()\" for=\"toggle-confWiresXCommandPassthrough\"><font style=\"font-size:0px\">Wires-X Command Passthrough</font></label></div></td>\n";
+		}
+		else {
+			echo "<td align=\"left\" colspan=\"2\"><div class=\"switch\"><input id=\"toggle-confWiresXCommandPassthrough\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"wiresXCommandPassthrough\" value=\"ON\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleWiresXCommandPassthroughCr." /><label id=\"aria-toggle-confWiresXCommandPassthrough\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Wires-X Command Passthrough\" aria-checked=\"false\" onKeyPress=\"toggleWiresXCommandPassthrough()\" onclick=\"toggleWiresXCommandPassthrough()\" for=\"toggle-confWiresXCommandPassthrough\"><font style=\"font-size:0px\">Wires-X Command Passthrough</font></label></div></td>\n";
+		}
+	} else {
+		echo "<td align=\"left\" colspan=\"2\"><div class=\"switch\"><input id=\"toggle-confWiresXCommandPassthrough\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"wiresXCommandPassthrough\" value=\"ON\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleWiresXCommandPassthroughCr." /><label id=\"aria-toggle-confWiresXCommandPassthrough\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Wires-X Command Passthrough\" aria-checked=\"false\" onKeyPress=\"toggleWiresXCommandPassthrough()\" onclick=\"toggleWiresXCommandPassthrough()\" for=\"toggle-confWiresXCommandPassthrough\"><font style=\"font-size:0px\">Wires-X Command Passthrough</font></label></div></td>\n";
+	}
+    ?>
+    </tr>
+<?php
+				if (isset($configdgidgateway) && $configmmdvm['System Fusion']['Enable'] == 1) {
+				?>
+				<tr>
+				    <td align="left"><a class="tooltip2" href="#">Enable DGIdGateway:<span><b>Enable DGIdGateway</b>Enable/Disable DGIdGateway.</span></a></td>
+				    <?php
+				    if ($configysf2dmr['Enabled']['Enabled'] == 1 || $configysf2p25['Enabled']['Enabled'] == 1 || $configysf2nxdn['Enabled']['Enabled'] == 1 ) {
+					echo "<td align=\"left\" colspan=\"1\"><div class=\"switch\"><input id=\"toggle-useDGIdGateway\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"useDGIdGateway\" value=\"OFF\" disabled=\"disabled\" /><label for=\"toggle-useDGIdGateway\"></label></div></td>\n";
+					echo "<td align='left'><em>Note: DGIdGateway cannot be enabled in conjunction with YSF2DMR/YSF2NXDN/YSF2P25 modes</em></td>\n";
+				    } else {
+					if (isset($configdgidgateway['Enabled']['Enabled'])) {
+					    if ($configdgidgateway['Enabled']['Enabled']) {
+						echo "<td align=\"left\" colspan=\"2\"><div class=\"switch\"><input id=\"toggle-useDGIdGateway\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"useDGIdGateway\" value=\"ON\" checked=\"checked\" /><label for=\"toggle-useDGIdGateway\"></label></div></td>\n";
+					    } else {
+						echo "<td align=\"left\" colspan=\"2\"><div class=\"switch\"><input id=\"toggle-useDGIdGateway\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"useDGIdGateway\" value=\"ON\" /><label for=\"toggle-useDGIdGateway\"></label></div></td>\n";
+					    }
+					} else {
+					    echo "<td align=\"left\" colspan=\"2\"><div class=\"switch\"><input id=\"toggle-useDGIdGateway\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"useDGIdGateway\" value=\"ON\" /><label for=\"toggle-useDGIdGateway\"></label></div></td>\n";
+					}
+				    }
+				    ?>
+				</tr>
+				<tr>
+    				<td align="left"><a class="tooltip2" href="#">YCS Network Options:<span><b>YCS Network</b>Set your options= for the YCS Network here!</span></a></td>
+    				<td align="left" colspan="3">
+    				Options=<input type="text" name="ysfgatewayNetworkOptions" size="85" maxlength="250" value="<?php if (isset($configysfgateway['Network']['Options'])) { echo $configysfgateway['Network']['Options']; } ?>" />
+    			</td>
+    			</tr>
+				<?php
+				}
+				?>
+    <?php if (file_exists('/etc/dstar-radio.mmdvmhost') && $configysf2dmr['Enabled']['Enabled'] == 1) {
+    $dmrMasterFile = fopen("/usr/local/etc/DMR_Hosts.txt", "r"); ?>
+    <tr>
+    <td align="left"><a class="tooltip2" href="#">(YSF2DMR)<?php echo $lang['dmr_id'];?>:<span><b>CCS7/DMR ID</b>Enter your CCS7 / DMR ID here</span></a></td>
+    <td align="left" colspan="2">
+<?php
+	if (isset($configysf2dmr['DMR Network']['Id'])) {
+		if (strlen($configysf2dmr['DMR Network']['Id']) > strlen($configmmdvm['General']['Id'])) {
+			$essidYSF2DMRLen = strlen($configysf2dmr['DMR Network']['Id']) - strlen($configmmdvm['General']['Id']);
+			$ysf2dmrESSID = substr($configysf2dmr['DMR Network']['Id'], -$essidYSF2DMRLen);
+		} else {
+			$ysf2dmrESSID = "None";
+		}
+	} else {
+		$ysf2dmrESSID = "None";
+	}
+
+	if (isset($configmmdvm['General']['Id'])) { if ($configmmdvm['General']['Id'] !== "1234567") { echo substr($configmmdvm['General']['Id'], 0, 7); } }
+	if (isset($configmmdvm['General']['Id'])) { $ysf2dmrIdBase = substr($configmmdvm['General']['Id'], 0, 7); } else { $ysf2dmrIdBase = "1234567"; }
+	echo "<select name=\"ysf2dmrId\">\n";
+	if ($ysf2dmrESSID == "None") { echo "      <option value=\"$ysf2dmrIdBase\" selected=\"selected\">None</option>\n"; } else { echo "      <option value=\"None\">None</option>\n"; }
+	for ($ysf2dmrESSIDInput = 1; $ysf2dmrESSIDInput <= 99; $ysf2dmrESSIDInput++) {
+		$ysf2dmrESSIDInput = str_pad($ysf2dmrESSIDInput, 2, "0", STR_PAD_LEFT);
+		if ($ysf2dmrESSID === $ysf2dmrESSIDInput) {
+			echo "      <option value=\"$ysf2dmrIdBase$ysf2dmrESSIDInput\" selected=\"selected\">$ysf2dmrESSIDInput</option>\n";
+		} else {
+			echo "      <option value=\"$ysf2dmrIdBase$ysf2dmrESSIDInput\">$ysf2dmrESSIDInput</option>\n";
+		}
+	}
+	echo "</select>\n";
+?>
+    </td></tr>
+    <tr>
+    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['dmr_master'];?>:<span><b>DMR Master (YSF2DMR)</b>Set your preferred DMR master here</span></a></td>
+    <td colspan="2" style="text-align: left;"><select name="ysf2dmrMasterHost" class="ysf2dmrMasterHost">
+<?php
+        $testMMDVMysf2dmrMaster = $configysf2dmr['DMR Network']['Address'];
+        while (!feof($dmrMasterFile)) {
+                $dmrMasterLine = fgets($dmrMasterFile);
+                $dmrMasterHost = preg_split('/\s+/', $dmrMasterLine);
+                if ((strpos($dmrMasterHost[0], '#') === FALSE ) && (substr($dmrMasterHost[0], 0, 3) != "XLX") && (substr($dmrMasterHost[0], 0, 4) != "DMRG") && (substr($dmrMasterHost[0], 0, 4) != "DMR2") && ($dmrMasterHost[0] != '')) {
+                        if ($testMMDVMysf2dmrMaster == $dmrMasterHost[2]) { echo "      <option value=\"$dmrMasterHost[2],$dmrMasterHost[3],$dmrMasterHost[4],$dmrMasterHost[0]\" selected=\"selected\">$dmrMasterHost[0]</option>\n"; $dmrMasterNow = $dmrMasterHost[0]; }
+                        else { echo "      <option value=\"$dmrMasterHost[2],$dmrMasterHost[3],$dmrMasterHost[4],$dmrMasterHost[0]\">$dmrMasterHost[0]</option>\n"; }
+                }
+        }
+        fclose($dmrMasterFile);
+        ?>
+    </select></td>
+    </tr>
+    <tr>
+	<td align="left"><a class="tooltip2" href="#">DMR Options:<span><b>DMR Options (YSF2DMR)</b>Set your Options= for the DMR master above</span></a></td>
+	<td align="left" colspan="2">
+	    Options=<input type="text" name="ysf2dmrNetworkOptions" size="85" maxlength="250" value="<?php if (isset($configysf2dmr['DMR Network']['Options'])) { echo $configysf2dmr['DMR Network']['Options']; } ?>" />
+	</td>
+    </tr>
+    <tr>
+      <td align="left"><a class="tooltip2" href="#">Hotspot Security:<span><b>DMR Master Password</b>Override the Password for DMR with your own custom password, make sure you already configured this on your chosed DMR Master. Empty the field to use the default.</span></a></td>
+      <td align="left" colspan="2">
+        <input type="password" name="bmHSSecurity" id="bmHSSecurity" size="30" maxlength="30" value="<?php if (isset($configModem['BrandMeister']['Password'])) {echo $configModem['BrandMeister']['Password'];} ?>"></input>
+	<span toggle="#password-field" class="fa fa-fw fa-eye field_icon toggle-bm-password"></span>
+      </td>
+    </tr>
+    <tr>
+      <td align="left"><a class="tooltip2" href="#">DMR TG:<span><b>YSF2DMR TG</b>Enter your DMR TG here</span></a></td>
+      <td align="left" colspan="2"><input type="text" name="ysf2dmrTg" size="13" maxlength="7" value="<?php if (isset($configysf2dmr['DMR Network']['StartupDstId'])) { echo $configysf2dmr['DMR Network']['StartupDstId']; } ?>" /></td>  
+    </tr>
+    <?php } ?>
+    <?php if (file_exists('/etc/dstar-radio.mmdvmhost') && $configysf2nxdn['Enabled']['Enabled'] == 1) { ?>
+    <tr>
+      <td align="left"><a class="tooltip2" href="#">(YSF2NXDN) NXDN ID:<span><b>NXDN ID</b>Enter your NXDN ID here</span></a></td>
+      <td align="left" colspan="2"><input type="text" name="ysf2nxdnId" size="13" maxlength="5" value="<?php if (isset($configysf2nxdn['NXDN Network']['Id'])) { echo $configysf2nxdn['NXDN Network']['Id']; } ?>" /></td>
+    </tr>
+    <tr>
+        <td align="left"><a class="tooltip2" href="#"><?php echo $lang['nxdn_hosts'];?>:<span><b>NXDN Host</b>Set your preferred NXDN Host here</span></a></td>
+        <td colspan="2" style="text-align: left;"><select name="ysf2nxdnStartupDstId" class="ysf2nxdnStartupDstId">
+<?php
+	$nxdnHosts = fopen("/usr/local/etc/NXDNHosts.txt", "r");
+	$testNXDNHost = $configysf2nxdn['NXDN Network']['StartupDstId'];
+	if ($testNXDNHost == "") { echo "      <option value=\"none\" selected=\"selected\">None</option>\n"; }
+        else { echo "      <option value=\"none\">None</option>\n"; }
+	if ($testNXDNHost == "10") { echo "      <option value=\"10\" selected=\"selected\">10 - Parrot</option>\n"; }
+        else { echo "      <option value=\"10\">10 - Parrot</option>\n"; }
+        while (!feof($nxdnHosts)) {
+                $nxdnHostsLine = fgets($nxdnHosts);
+                $nxdnHost = preg_split('/\s+/', $nxdnHostsLine);
+                if ((strpos($nxdnHost[0], '#') === FALSE ) && ($nxdnHost[0] != '')) {
+                        if ($testNXDNHost == $nxdnHost[0]) { echo "      <option value=\"$nxdnHost[0]\" selected=\"selected\">$nxdnHost[0] - $nxdnHost[1]</option>\n"; }
+                        else { echo "      <option value=\"$nxdnHost[0]\">$nxdnHost[0] - $nxdnHost[1]</option>\n"; }
+                }
+        }
+        fclose($nxdnHosts);
+	if (file_exists('/usr/local/etc/NXDNHostsLocal.txt')) {
+		$nxdnHosts2 = fopen("/usr/local/etc/NXDNHostsLocal.txt", "r");
+		while (!feof($nxdnHosts2)) {
+               		$nxdnHostsLine2 = fgets($nxdnHosts2);
+               		$nxdnHost2 = preg_split('/\s+/', $nxdnHostsLine2);
+               		if ((strpos($nxdnHost2[0], '#') === FALSE ) && ($nxdnHost2[0] != '')) {
+               	        	if ($testNXDNHost == $nxdnHost2[0]) { echo "      <option value=\"$nxdnHost2[0]\" selected=\"selected\">$nxdnHost2[0] - $nxdnHost2[1]</option>\n"; }
+               	        	else { echo "      <option value=\"$nxdnHost2[0]\">$nxdnHost2[0] - $nxdnHost2[1]</option>\n"; }
+               		}
+		}
+	fclose($nxdnHosts2);
+	}
+?>
+        </select></td>
+      </tr>
+    <?php } ?>
+    <?php if (file_exists('/etc/dstar-radio.mmdvmhost') && $configysf2p25['Enabled']['Enabled'] == 1) { ?>
+    <tr>
+      <td align="left"><a class="tooltip2" href="#">(YSF2P25) <?php echo $lang['dmr_id'];?>:<span><b>DMR ID</b>Enter your CCS7 / DMR ID here</span></a></td>
+      <td align="left" colspan="2"><input type="text" name="ysf2p25Id" size="13" maxlength="7" value="<?php if (isset($configysf2p25['P25 Network']['Id'])) { echo $configysf2p25['P25 Network']['Id']; } ?>" /></td>
+    </tr>
+    <tr>
+      <td align="left"><a class="tooltip2" href="#"><?php echo $lang['p25_hosts'];?>:<span><b>P25 Host</b>Set your preferred P25 Host here</span></a></td>
+      <td colspan="2" style="text-align: left;"><select name="ysf2p25StartupDstId" class="ysf2p25StartupDstId">
+<?php
+	$p25Hosts = fopen("/usr/local/etc/P25Hosts.txt", "r");
+	if (isset($configysf2p25['P25 Network']['StartupDstId'])) {
+		$testP25Host = $configysf2p25['P25 Network']['StartupDstId'];
+	} else {
+		$testP25Host = "";
+	}
+	if ($testP25Host == "") { echo "      <option value=\"none\" selected=\"selected\">None</option>\n"; }
+        else { echo "      <option value=\"none\">None</option>\n"; }
+	if ($testP25Host == "10") { echo "      <option value=\"10\" selected=\"selected\">10 - Parrot</option>\n"; }
+        else { echo "      <option value=\"10\">10 - Parrot</option>\n"; }
+        while (!feof($p25Hosts)) {
+                $p25HostsLine = fgets($p25Hosts);
+                $p25Host = preg_split('/\s+/', $p25HostsLine);
+                if ((strpos($p25Host[0], '#') === FALSE ) && ($p25Host[0] != '')) {
+                        if ($testP25Host == $p25Host[0]) { echo "      <option value=\"$p25Host[0]\" selected=\"selected\">$p25Host[0] - $p25Host[1]</option>\n"; }
+                        else { echo "      <option value=\"$p25Host[0]\">$p25Host[0] - $p25Host[1]</option>\n"; }
+                }
+        }
+        fclose($p25Hosts);
+        if (file_exists('/usr/local/etc/P25HostsLocal.txt')) {
+		$p25Hosts2 = fopen("/usr/local/etc/P25HostsLocal.txt", "r");
+		while (!feof($p25Hosts2)) {
+                	$p25HostsLine2 = fgets($p25Hosts2);
+                	$p25Host2 = preg_split('/\s+/', $p25HostsLine2);
+                	if ((strpos($p25Host2[0], '#') === FALSE ) && ($p25Host2[0] != '')) {
+                        	if ($testP25Host == $p25Host2[0]) { echo "      <option value=\"$p25Host2[0]\" selected=\"selected\">$p25Host2[0] - $p25Host2[1]</option>\n"; }
+                        	else { echo "      <option value=\"$p25Host2[0]\">$p25Host2[0] - $p25Host2[1]</option>\n"; }
+                	}
+		}
+		fclose($p25Hosts2);
+	}
+        ?>
+    </select></td>
+    </tr>
+    <?php } ?>
+ 
+    </table>
+
+    <br /><br />
+
+<?php } ?>
+
+			<!-- M17 -->
+			<?php if (file_exists('/etc/dstar-radio.mmdvmhost') && $configmmdvm['M17 Network']['Enable'] == 1 ) { ?>
+			    <h2 class="ConfSec">M17 Configuration</h2>
+			    <table>
+				<tr>
+				</tr>
+				<tr>
+				    <td align="left"><a class="tooltip2" href="#">M17 Startup Reflector:<span><b>Startup Reflector</b>Set your preferred M17 reflector here</span></a></td>
+				    <td style="text-align: left;"><select name="m17StartupRef" class="M17Ref">
+					<?php
+					if ($m17MasterHandle = @fopen("/usr/local/etc/M17Hosts.txt", 'r'))
+					{
+					    $m17StartupHostWithModule = (isset($configm17gateway['Network']['Startup']) ? $configm17gateway['Network']['Startup'] : "");
+					    $m17StartupHost = "";
+					    $m17StartupModule = "A";
+					    if ($m17StartupHostWithModule != "") {
+						$m17StartupHost = substr($m17StartupHostWithModule, 0, -2);
+						$m17StartupModule = substr($m17StartupHostWithModule, -1);
+					    }
+
+					    if ($m17StartupHost == "") {
+						echo "      <option value=\"NONE\" selected=\"selected\">None</option>\n";
+					    }
+					    else {
+						echo "      <option value=\"NONE\">None</option>\n";
+					    }
+
+					    while ($m17MasterLine = fgets($m17MasterHandle)) {
+						$m17MasterHost = preg_split('/\s+/', $m17MasterLine);
+						if ((strpos($m17MasterHost[0], '#') === FALSE) && ($m17MasterHost[0] != '')) {
+						    if ($m17MasterHost[0] == $m17StartupHost) {
+							echo "      <option value=\"$m17MasterHost[0]\" selected=\"selected\">$m17MasterHost[0]</option>\n";
+						    }
+						    else {
+							echo "      <option value=\"$m17MasterHost[0]\">$m17MasterHost[0]</option>\n";
+						    }
+						}
+					    }
+					    fclose($m17MasterHandle);
+					}
+					?>
+				    </select>
+				    
+				    &nbsp;Startup Module:<select name="m17StartupModule" class="ModSel">
+					<?php
+					$m17ModuleList = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+					foreach ($m17ModuleList as $module) {
+					    if ($m17StartupModule == $module) {
+						echo "  <option value=\"".$module."\" selected=\"selected\">".$module."</option>\n";
+					    }
+					    else {
+						echo "  <option value=\"".$module."\">".$module."</option>\n";
+					    }
+					}
+					?>
+				    </select>
+				    
+				    </td>
+				</tr>
+				<?php if (isset($configm17gateway['General']['Suffix'])) { ?>
+					<tr>
+					<td align="left"><a class="tooltip2" href="#">M17 Callsign Suffix:<span><b>Callsign Suffix</b>Set your preferred callsign suffix here. Typical values are "H" for Hotspots, "R" for Repeaters.</span></a></td>
+					<td align="left">
+					<select name="m17CallsignSuffix">
+					<?php 
+					$m17SuffixList = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+					foreach ($m17SuffixList as $suffix) {
+					    if ($configm17gateway['General']['Suffix'] == $suffix) {
+						echo "  <option value=\"".$suffix."\" selected=\"selected\">".$suffix."</option>\n";
+					    }
+					    else {
+						echo "  <option value=\"".$suffix."\">".$suffix."</option>\n";
+					    }
+					}
+					?>
+					</td>
+					</tr>
+				<?php } ?>
+				<?php if (isset($configm17gateway['General']['Callsign'])) {
+				     $m17SID = substr($configm17gateway['General']['Callsign'], strpos($configm17gateway['General']['Callsign'], '-') + 1);
+				     if (preg_match('/^\d$/', $m17SID)) {
+					$m17SID = $m17SID;
+				     } else {
+					$m17SID = "";
+				     }
+				?>
+					<tr>
+						<td align="left"><a class="tooltip2" href="#">M17 Station ID:<span><b>Station ID</b>Set your preferred station ID here, if applicable.</span></a></td>
+						<td align="left">
+						<select name="m17StationID">
+						<?php if($m17SID == "") { echo '<option value="" selected="selected">None</option>'; } else { echo "<option value='$m17SID' selected='selected'>$m17SID</option>"; } ?>
+						  <?php if($m17SID != "") { ?>
+						  <option value="">None</option>
+						  <?php } ?>
+						  <option value="0">0</option>
+						  <option value="1">1</option>
+						  <option value="2">2</option>
+						  <option value="3">3</option>
+						  <option value="4">4</option>
+						  <option value="5">5</option>
+						  <option value="6">6</option>
+						  <option value="7">7</option>
+						  <option value="8">8</option>
+						  <option value="9">9</option>
+						</select>
+						</td>
+					</tr>
+				<?php } ?>
+				<?php if (isset($configmmdvm['M17']['CAN'])) { ?>
+					<tr>
+						<td align="left"><a class="tooltip2" href="#"><?php echo $lang['m17_can'];?>:<span><b>M17 CAN</b>Set your CAN (Channel Access Number) code here, sane values are 0-15</span></a></td>
+						<td align="left">
+						<select name="m17can">
+						  <?php echo "<option value=\"".$configmmdvm['M17']['CAN']."\" 'selected='selected'>".$configmmdvm['M17']['CAN']."</option>"; ?>
+						  <option value="0">0</option>
+						  <option value="1">1</option>
+						  <option value="2">2</option>
+						  <option value="3">3</option>
+						  <option value="4">4</option>
+						  <option value="5">5</option>
+						  <option value="6">6</option>
+						  <option value="7">7</option>
+						  <option value="8">8</option>
+						  <option value="9">9</option>
+						  <option value="10">10</option>
+						  <option value="11">11</option>
+						  <option value="12">12</option>
+						  <option value="13">13</option>
+						  <option value="14">14</option>
+						  <option value="15">15</option>
+						</select>
+						</td>
+					</tr>
+				<?php } ?>
+
+
+			    </table>
+
+			    <br /><br />
+
+			<?php } ?>
 
     <?php if (file_exists('/etc/dstar-radio.mmdvmhost') && $configmmdvm['DMR']['Enable'] == 1) {
     $dmrMasterFile = fopen("/usr/local/etc/DMR_Hosts.txt", "r");
@@ -5656,496 +6330,6 @@ if (!@file_exists($bmAPIkeyFile) && !@fopen($bmAPIkeyFile,'r')) {
 
 <?php } ?>
 
-<?php if ($configmmdvm['D-Star']['Enable'] == 1) { ?>
-	<h2 class="ConfSec"><?php echo $lang['dstar_config'];?></h2>
-	<input type="hidden" name="confTimeAnnounce" value="OFF" />
-	<input type="hidden" name="confircddbEnabled" value="OFF" />
-	<input type="hidden" name="confHostFilesNoDExtra" value="OFF" />
-    <table>
-    <tr>
-    </tr>
-    <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['dstar_rpt1'];?>:<span><b>RPT1 Callsign</b>This is the RPT1 field for your radio</span></a></td>
-    <td align="left" colspan="2"><?php echo $configs['repeaterCall1']; ?>
-	<select name="confDStarModuleSuffix" class="ModSel">
-	<?php echo "  <option value=\"".$configs['repeaterBand1']."\" selected=\"selected\">".$configs['repeaterBand1']."</option>\n"; ?>
-        <option>A</option>
-        <option>B</option>
-        <option>C</option>
-        <option>D</option>
-        <option>E</option>
-        <option>F</option>
-        <option>G</option>
-        <option>H</option>
-        <option>I</option>
-        <option>J</option>
-        <option>K</option>
-        <option>L</option>
-        <option>M</option>
-        <option>N</option>
-        <option>O</option>
-        <option>P</option>
-        <option>Q</option>
-        <option>R</option>
-        <option>S</option>
-        <option>T</option>
-        <option>U</option>
-        <option>V</option>
-        <option>W</option>
-        <option>X</option>
-        <option>Y</option>
-        <option>Z</option>
-    </select></td>
-    </tr>
-    <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['dstar_rpt2'];?>:<span><b>RPT2 Callsign</b>This is the RPT2 field for your radio</span></a></td>
-    <td align="left" colspan="2"><?php echo $configs['repeaterCall1']; ?>&nbsp; G</td>
-    </tr>
-    <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['dstar_irc_password'];?>:<span><b>Remote Password</b>Used for ircDDBGateway remote control access</span></a></td>
-    <td align="left" colspan="2"><input type="password" name="confPassword" id="ircddbPass" size="30" maxlength="30" value="<?php echo $configs['remotePassword'] ?>" />
-    <span toggle="#password-field" class="fa fa-fw fa-eye field_icon toggle-ircddb-password"></span></td>
-    </tr>
-    <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['dstar_default_ref'];?>:<span><b>Default Reflector</b>Used for setting the default reflector.</span></a></td>
-    <td align="left" colspan="1"><select name="confDefRef" class="confDefRef" 
-	onchange="if (this.options[this.selectedIndex].value == 'customOption') {
-	  toggleField(this,this.nextSibling);
-	  this.selectedIndex='0';
-	  } ">
-<?php
-$dcsFile = fopen("/usr/local/etc/DCS_Hosts.txt", "r");
-$dplusFile = fopen("/usr/local/etc/DPlus_Hosts.txt", "r");
-$dextraFile = fopen("/usr/local/etc/DExtra_Hosts.txt", "r");
-
-echo "    <option value=\"".substr($configs['reflector1'], 0, 6)."\" selected=\"selected\">".substr($configs['reflector1'], 0, 6)."</option>\n";
-//echo "    <option value=\"customOption\">Text Entry</option>\n" // now handled by select2 js
-
-while (!feof($dcsFile)) {
-	$dcsLine = fgets($dcsFile);
-	if (strpos($dcsLine, 'DCS') !== FALSE && strpos($dcsLine, '#') === FALSE) {
- 		echo "	<option value=\"".substr($dcsLine, 0, 6)."\">".substr($dcsLine, 0, 6)."</option>\n";
-	}
-	if (strpos($dcsLine, 'XLX') !== FALSE && strpos($dcsLine, '#') === FALSE) {
-		echo "	<option value=\"".substr($dcsLine, 0, 6)."\">".substr($dcsLine, 0, 6)."</option>\n";
-	}
-}
-fclose($dcsFile);
-while (!feof($dplusFile)) {
-	$dplusLine = fgets($dplusFile);
-	if (strpos($dplusLine, 'REF') !== FALSE && strpos($dplusLine, '#') === FALSE) {
-		echo "	<option value=\"".substr($dplusLine, 0, 6)."\">".substr($dplusLine, 0, 6)."</option>\n";
-	}
-	if (strpos($dplusLine, 'XRF') !== FALSE && strpos($dplusLine, '#') === FALSE) {
-		echo "	<option value=\"".substr($dplusLine, 0, 6)."\">".substr($dplusLine, 0, 6)."</option>\n";
-	}
-}
-fclose($dplusFile);
-while (!feof($dextraFile)) {
-	$dextraLine = fgets($dextraFile);
-	if (strpos($dextraLine, 'XRF') !== FALSE && strpos($dextraLine, '#') === FALSE)
-		echo "	<option value=\"".substr($dextraLine, 0, 6)."\">".substr($dextraLine, 0, 6)."</option>\n";
-}
-fclose($dextraFile);
-
-?>
-    </select><input name="confDefRef" style="display:none;" disabled="disabled" type="text" size="7" maxlength="7"
-            onblur="if(this.value==''){toggleField(this,this.previousSibling);}" />
-    <select name="confDefRefLtr" class="ModSel">
-	<?php echo "  <option value=\"".substr($configs['reflector1'], 7)."\" selected=\"selected\">".substr($configs['reflector1'], 7)."</option>\n"; ?>
-        <option>A</option>
-        <option>B</option>
-        <option>C</option>
-        <option>D</option>
-        <option>E</option>
-        <option>F</option>
-        <option>G</option>
-        <option>H</option>
-        <option>I</option>
-        <option>J</option>
-        <option>K</option>
-        <option>L</option>
-        <option>M</option>
-        <option>N</option>
-        <option>O</option>
-        <option>P</option>
-        <option>Q</option>
-        <option>R</option>
-        <option>S</option>
-        <option>T</option>
-        <option>U</option>
-        <option>V</option>
-        <option>W</option>
-        <option>X</option>
-        <option>Y</option>
-        <option>Z</option>
-    </select>
-    </td>
-    <td align="left">
-    <input type="radio" name="confDefRefAuto" value="ON"<?php if ($configs['atStartup1'] == '1') {echo ' checked="checked"';} ?> />Startup
-    <input type="radio" name="confDefRefAuto" value="OFF"<?php if ($configs['atStartup1'] == '0') {echo ' checked="checked"';} ?> />Manual</td>
-    </tr>
-    <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['dstar_irc_lang'];?>:<span><b>ircDDBGateway Language</b>Set your preferred language here</span></a></td>
-    <td colspan="2" style="text-align: left;"><select name="ircDDBGatewayAnnounceLanguage">
-<?php
-        $testIrcLanguage = $configs['language'];
-	if (is_readable("/var/www/dashboard/config/ircddbgateway_languages.inc")) {
-	  $ircLanguageFile = fopen("/var/www/dashboard/config/ircddbgateway_languages.inc", "r");
-        while (!feof($ircLanguageFile)) {
-                $ircLanguageFileLine = fgets($ircLanguageFile);
-                $ircLanguage = preg_split('/;/', $ircLanguageFileLine);
-                if ((strpos($ircLanguage[0], '#') === FALSE ) && ($ircLanguage[0] != '')) {
-			$ircLanguage[2] = rtrim($ircLanguage[2]);
-                        if ($testIrcLanguage == $ircLanguage[1]) { echo "      <option value=\"$ircLanguage[1],$ircLanguage[2]\" selected=\"selected\">".htmlspecialchars($ircLanguage[0])."</option>\n"; }
-                        else { echo "      <option value=\"$ircLanguage[1],$ircLanguage[2]\">".htmlspecialchars($ircLanguage[0])."</option>\n"; }
-                }
-        }
-          fclose($ircLanguageFile);
-	}
-        ?>
-    </select></td>
-    </tr>
-    <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['dstar_irc_time'];?>:<span><b>Time Announce</b>Announce time hourly</span></a></td>
-    <?php
-	if ( !file_exists('/etc/timeserver.disable') ) {
-		echo "<td align=\"left\" colspan=\"2\"><div class=\"switch\"><input id=\"toggle-timeAnnounce\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"confTimeAnnounce\" value=\"ON\" checked=\"checked\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDstarTimeAnnounceCr." /><label id=\"aria-toggle-timeAnnounce\" role=\"checkbox\" tabindex=\"0\" aria-label=\"D-Star Time Announcements\" aria-checked=\"true\" onKeyPress=\"toggleDstarTimeAnnounce()\" onclick=\"toggleDstarTimeAnnounce()\" for=\"toggle-timeAnnounce\"><font style=\"font-size:0px\">D-Star Time Announcements</font></label></div></td>\n";
-		}
-	else {
-		echo "<td align=\"left\" colspan=\"2\"><div class=\"switch\"><input id=\"toggle-timeAnnounce\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"confTimeAnnounce\" value=\"ON\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDstarTimeAnnounceCr." /><label id=\"aria-toggle-timeAnnounce\" role=\"checkbox\" tabindex=\"0\" aria-label=\"D-Star Time Announcements\" aria-checked=\"false\" onKeyPress=\"toggleDstarTimeAnnounce()\" onclick=\"toggleDstarTimeAnnounce()\" for=\"toggle-timeAnnounce\"><font style=\"font-size:0px\">D-Star Time Announcements</font></label></div></td>\n";
-	}
-    ?>
-    </tr>
-    <tr>
-    <td align="left"><a class="tooltip2" href="#">Callsign Routing:<span><b>Callsign Routing</b>Do you want callsign routing for D-Star</span></a></td>
-    <?php
-	if ( isset($configs['ircddbEnabled']) && $configs['ircddbEnabled'] == "1" ) {
-		echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-ircddbEnabled\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"confircddbEnabled\" value=\"ON\" checked=\"checked\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleircddbEnabledCr." /><label id=\"aria-toggle-ircddbEnabled\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Use ircDDB callsign routing\" aria-checked=\"true\" onKeyPress=\"toggleircddbEnabled()\" onclick=\"toggleircddbEnabled()\" for=\"toggle-ircddbEnabled\"><font style=\"font-size:0px\">Enable ircDDB callsign routing</font></label></div></td>\n";
-		}
-	else {
-		echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-ircddbEnabled\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"confircddbEnabled\" value=\"ON\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleircddbEnabledCr." /><label id=\"aria-toggle-ircddbEnabled\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Use ircDDB callsign routing\" aria-checked=\"false\" onKeyPress=\"toggleircddbEnabled()\" onclick=\"toggleircddbEnabled()\" for=\"toggle-ircddbEnabled\"><font style=\"font-size:0px\">Enable ircDDB callsign routing</font></label></div></td>\n";
-	}
-    ?>
-    <td align="left">Connect ircDDB for call routing</td>
-    </tr>
-    <tr>
-    <td align="left"><a class="tooltip2" href="#">Use DPlus for XRF:<span><b>No DExtra</b>Should host files use DPlus Protocol for XRFs</span></a></td>
-    <?php
-	if ( file_exists('/etc/hostfiles.nodextra') ) {
-		echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-dplusHostFiles\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"confHostFilesNoDExtra\" value=\"ON\" checked=\"checked\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDstarDplusHostfilesCr." /><label id=\"aria-toggle-dplusHostFiles\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Use D-Plus for XRF Hosts\" aria-checked=\"true\" onKeyPress=\"toggleDstarDplusHostfiles()\" onclick=\"toggleDstarDplusHostfiles()\" for=\"toggle-dplusHostFiles\"><font style=\"font-size:0px\">Use D-Plus for XRF Hosts</font></label></div></td>\n";
-		}
-	else {
-		echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-dplusHostFiles\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"confHostFilesNoDExtra\" value=\"ON\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDstarDplusHostfilesCr." /><label id=\"aria-toggle-dplusHostFiles\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Use D-Plus for XRF Hosts\" aria-checked=\"false\" onKeyPress=\"toggleDstarDplusHostfiles()\" onclick=\"toggleDstarDplusHostfiles()\" for=\"toggle-dplusHostFiles\"><font style=\"font-size:0px\">Use D-Plus for XRF Hosts</font></label></div></td>\n";
-	}
-    ?>
-    <td align="left"><em>Note: Update Required if changed</em></td>
-    </tr>
-    </table>
-
-    <br /><br />
-
-<?php } ?>
-<?php if (file_exists('/etc/dstar-radio.mmdvmhost') && ($configmmdvm['System Fusion Network']['Enable'] == 1 || $configdmr2ysf['Enabled']['Enabled'] == 1 )) {
-$ysfHosts = fopen("/usr/local/etc/YSFHosts.txt", "r"); ?>
-	<input type="hidden" name="confHostFilesYSFUpper" value="OFF" />
-        <input type="hidden" name="useDGIdGateway" value="OFF" />
-	<input type="hidden" name="wiresXCommandPassthrough" value="OFF" />
-	<input type="hidden" name="FCSEnable" value="OFF" />
-	<h2 class="ConfSec"><?php echo $lang['ysf_config'];?></h2>
-    <table>
-    <tr>
-    </tr>
-    <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['ysf_startup_host'];?>:<span><b>YSF Host</b>Set your preferred YSF Host here</span></a></td>
-    <td colspan="2" style="text-align: left;"><select name="ysfStartupHost" class="ysfStartupHost">
-<?php
-        if (isset($configysfgateway['Network']['Startup'])) {
-                $testYSFHost = $configysfgateway['Network']['Startup'];
-                echo "      <option value=\"none\">None</option>\n";
-        	}
-        else {
-                $testYSFHost = "none";
-                echo "      <option value=\"none\" selected=\"selected\">None</option>\n";
-    		}
-	if ($testYSFHost == "ZZ Parrot")  {
-		echo "      <option value=\"00001,ZZ Parrot\" selected=\"selected\">YSF00001 - Parrot</option>\n";
-	} else {
-		echo "      <option value=\"00001,ZZ Parrot\">YSF00001 - Parrot</option>\n";
-	}
-	if ($testYSFHost == "YSF2DMR")  {
-		echo "      <option value=\"00002,YSF2DMR\"  selected=\"selected\">YSF00002 - Link YSF2DMR</option>\n";
-	} else {
-		echo "      <option value=\"00002,YSF2DMR\">YSF00002 - Link YSF2DMR</option>\n";
-	}
-	if ($testYSFHost == "YSF2NXDN") {
-		echo "      <option value=\"00003,YSF2NXDN\" selected=\"selected\">YSF00003 - Link YSF2NXDN</option>\n";
-	} else {
-		echo "      <option value=\"00003,YSF2NXDN\">YSF00003 - Link YSF2NXDN</option>\n";
-	}
-	if ($testYSFHost == "YSF2P25")  {
-		echo "      <option value=\"00004,YSF2P25\"  selected=\"selected\">YSF00004 - Link YSF2P25</option>\n";
-	} else {
-		echo "      <option value=\"00004,YSF2P25\">YSF00004 - Link YSF2P25</option>\n";
-	}
-        while (!feof($ysfHosts)) {
-                $ysfHostsLine = fgets($ysfHosts);
-                $ysfHost = preg_split('/;/', $ysfHostsLine);
-                if ((strpos($ysfHost[0], '#') === FALSE ) && ($ysfHost[0] != '')) {
-                        if ($testYSFHost == $ysfHost[1]) { echo "      <option value=\"$ysfHost[0],$ysfHost[1]\" selected=\"selected\">YSF$ysfHost[0] - ".htmlspecialchars($ysfHost[1])." - ".htmlspecialchars($ysfHost[2])."</option>\n"; }
-			else { echo "      <option value=\"$ysfHost[0],$ysfHost[1]\">YSF$ysfHost[0] - ".htmlspecialchars($ysfHost[1])." - ".htmlspecialchars($ysfHost[2])."</option>\n"; }
-                }
-        }
-        fclose($ysfHosts);
-	if ($_SESSION['YSFGatewayConfigs']['FCS Network']['Enable'] == 1) {
-	    if (file_exists("/usr/local/etc/FCSHosts.txt")) {
-                    $fcsHosts = fopen("/usr/local/etc/FCSHosts.txt", "r");
-                    while (!feof($fcsHosts)) {
-                            $ysfHostsLine = fgets($fcsHosts);
-                            $ysfHost = preg_split('/;/', $ysfHostsLine);
-			    if (substr($ysfHost[0], 0, 3) == "FCS") {
-                                    if ($testYSFHost == $ysfHost[0]) { echo "      <option value=\"$ysfHost[0],$ysfHost[0]\" selected=\"selected\">$ysfHost[0] - ".htmlspecialchars($ysfHost[1])."</option>\n"; }
-                                    else { echo "      <option value=\"$ysfHost[0],$ysfHost[0]\">$ysfHost[0] - ".htmlspecialchars($ysfHost[1])."</option>\n"; }
-                            }
-                    }
-                    fclose($fcsHosts);
-            }
-	}
-        ?>
-    </select></td>
-    </tr>
-    <tr>
-    <td align="left"><a class="tooltip2" href="#">UPPERCASE Hostfiles:<span><b>UPPERCASE Hostfiles</b>Should host files use UPPERCASE only - fixes issues with FT-70D radios.</span></a></td>
-    <?php
-	if ( isset($configysfgateway['General']['WiresXMakeUpper']) ) {
-		if ( $configysfgateway['General']['WiresXMakeUpper'] ) {
-			echo "<td colspan='2' align=\"left\"><div class=\"switch\"><input id=\"toggle-confHostFilesYSFUpper\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"confHostFilesYSFUpper\" value=\"ON\" checked=\"checked\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleHostFilesYSFUpperCr." /><label id=\"aria-toggle-confHostFilesYSFUpper\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Uppercase Host Files\" aria-checked=\"true\" onKeyPress=\"toggleHostFilesYSFUpper()\" onclick=\"toggleHostFilesYSFUpper()\" for=\"toggle-confHostFilesYSFUpper\"><font style=\"font-size:0px\">Uppercase Host Files</font></label></div></td>\n";
-		}
-		else {
-			echo "<td colspan='2' align=\"left\"><div class=\"switch\"><input id=\"toggle-confHostFilesYSFUpper\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"confHostFilesYSFUpper\" value=\"ON\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleHostFilesYSFUpperCr." /><label id=\"aria-toggle-confHostFilesYSFUpper\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Uppercase Host Files\" aria-checked=\"false\" onKeyPress=\"toggleHostFilesYSFUpper()\" onclick=\"toggleHostFilesYSFUpper()\" for=\"toggle-confHostFilesYSFUpper\"><font style=\"font-size:0px\">Uppercase Host Files</font></label></div></td>\n";
-		}
-	} else {
-		echo "<td colspan='2' align=\"left\"><div class=\"switch\"><input id=\"toggle-confHostFilesYSFUpper\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"confHostFilesYSFUpper\" value=\"ON\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleHostFilesYSFUpperCr." /><label id=\"aria-toggle-confHostFilesYSFUpper\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Uppercase Host Files\" aria-checked=\"false\" onKeyPress=\"toggleHostFilesYSFUpper()\" onclick=\"toggleHostFilesYSFUpper()\" for=\"toggle-confHostFilesYSFUpper\"><font style=\"font-size:0px\">Uppercase Host files</font></label></div></td>\n";
-	}
-    ?>
-    </tr>
-        <tr>
-        <td align="left"><a class="tooltip2" href="#">FCS Network:<span><b>FCS Network</b>Enable the FCS Network and Hosts</span></a></td>
-        <?php
-        if ( isset($configysfgateway['FCS Network']['Enable']) ) {
-                if ( $configysfgateway['FCS Network']['Enable'] ) {
-                        echo "<td colspan='2' align=\"left\"><div class=\"switch\"><input id=\"toggle-FCSEnable\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"FCSEnable\" value=\"ON\" checked=\"checked\" /><label for=\"toggle-FCSEnable\"></label></div></td>\n";
-                }
-                else {
-                        echo "<td colspan='2' align=\"left\"><div class=\"switch\"><input id=\"toggle-FCSEnable\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"FCSEnable\" value=\"ON\" /><label for=\"toggle-FCSEnable\"></label></div></td>\n";
-                }
-        } else {
-                echo "<td colspan='2' align=\"left\"><div class=\"switch\"><input id=\"toggle-FCSEnable\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"FCSEnable\" value=\"ON\" /><label for=\"toggle-FCSEnable\"></label></div></td>\n";
-        }
-        ?>
-    <tr>
-    <td align="left"><a class="tooltip2" href="#">WiresX Passthrough:<span><b>WiresX Auto Passthrough</b>Use this to automatically send WiresX commands through to YSF2xxx cross-over modes.</span></a></td>
-    <?php
-	if ( isset($configysfgateway['General']['WiresXCommandPassthrough']) ) {
-		if ( $configysfgateway['General']['WiresXCommandPassthrough'] ) {
-			echo "<td align=\"left\" colspan=\"2\"><div class=\"switch\"><input id=\"toggle-confWiresXCommandPassthrough\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"wiresXCommandPassthrough\" value=\"ON\" checked=\"checked\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleWiresXCommandPassthroughCr." /><label id=\"aria-toggle-confWiresXCommandPassthrough\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Wires-X Command Passthrough\" aria-checked=\"true\" onKeyPress=\"toggleWiresXCommandPassthrough()\" onclick=\"toggleWiresXCommandPassthrough()\" for=\"toggle-confWiresXCommandPassthrough\"><font style=\"font-size:0px\">Wires-X Command Passthrough</font></label></div></td>\n";
-		}
-		else {
-			echo "<td align=\"left\" colspan=\"2\"><div class=\"switch\"><input id=\"toggle-confWiresXCommandPassthrough\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"wiresXCommandPassthrough\" value=\"ON\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleWiresXCommandPassthroughCr." /><label id=\"aria-toggle-confWiresXCommandPassthrough\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Wires-X Command Passthrough\" aria-checked=\"false\" onKeyPress=\"toggleWiresXCommandPassthrough()\" onclick=\"toggleWiresXCommandPassthrough()\" for=\"toggle-confWiresXCommandPassthrough\"><font style=\"font-size:0px\">Wires-X Command Passthrough</font></label></div></td>\n";
-		}
-	} else {
-		echo "<td align=\"left\" colspan=\"2\"><div class=\"switch\"><input id=\"toggle-confWiresXCommandPassthrough\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"wiresXCommandPassthrough\" value=\"ON\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleWiresXCommandPassthroughCr." /><label id=\"aria-toggle-confWiresXCommandPassthrough\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Wires-X Command Passthrough\" aria-checked=\"false\" onKeyPress=\"toggleWiresXCommandPassthrough()\" onclick=\"toggleWiresXCommandPassthrough()\" for=\"toggle-confWiresXCommandPassthrough\"><font style=\"font-size:0px\">Wires-X Command Passthrough</font></label></div></td>\n";
-	}
-    ?>
-    </tr>
-<?php
-				if (isset($configdgidgateway) && $configmmdvm['System Fusion']['Enable'] == 1) {
-				?>
-				<tr>
-				    <td align="left"><a class="tooltip2" href="#">Enable DGIdGateway:<span><b>Enable DGIdGateway</b>Enable/Disable DGIdGateway.</span></a></td>
-				    <?php
-				    if ($configysf2dmr['Enabled']['Enabled'] == 1 || $configysf2p25['Enabled']['Enabled'] == 1 || $configysf2nxdn['Enabled']['Enabled'] == 1 ) {
-					echo "<td align=\"left\" colspan=\"1\"><div class=\"switch\"><input id=\"toggle-useDGIdGateway\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"useDGIdGateway\" value=\"OFF\" disabled=\"disabled\" /><label for=\"toggle-useDGIdGateway\"></label></div></td>\n";
-					echo "<td align='left'><em>Note: DGIdGateway cannot be enabled in conjunction with YSF2DMR/YSF2NXDN/YSF2P25 modes</em></td>\n";
-				    } else {
-					if (isset($configdgidgateway['Enabled']['Enabled'])) {
-					    if ($configdgidgateway['Enabled']['Enabled']) {
-						echo "<td align=\"left\" colspan=\"2\"><div class=\"switch\"><input id=\"toggle-useDGIdGateway\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"useDGIdGateway\" value=\"ON\" checked=\"checked\" /><label for=\"toggle-useDGIdGateway\"></label></div></td>\n";
-					    } else {
-						echo "<td align=\"left\" colspan=\"2\"><div class=\"switch\"><input id=\"toggle-useDGIdGateway\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"useDGIdGateway\" value=\"ON\" /><label for=\"toggle-useDGIdGateway\"></label></div></td>\n";
-					    }
-					} else {
-					    echo "<td align=\"left\" colspan=\"2\"><div class=\"switch\"><input id=\"toggle-useDGIdGateway\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"useDGIdGateway\" value=\"ON\" /><label for=\"toggle-useDGIdGateway\"></label></div></td>\n";
-					}
-				    }
-				    ?>
-				</tr>
-				<tr>
-    				<td align="left"><a class="tooltip2" href="#">YCS Network Options:<span><b>YCS Network</b>Set your options= for the YCS Network here!</span></a></td>
-    				<td align="left" colspan="3">
-    				Options=<input type="text" name="ysfgatewayNetworkOptions" size="85" maxlength="250" value="<?php if (isset($configysfgateway['Network']['Options'])) { echo $configysfgateway['Network']['Options']; } ?>" />
-    			</td>
-    			</tr>
-				<?php
-				}
-				?>
-    <?php if (file_exists('/etc/dstar-radio.mmdvmhost') && $configysf2dmr['Enabled']['Enabled'] == 1) {
-    $dmrMasterFile = fopen("/usr/local/etc/DMR_Hosts.txt", "r"); ?>
-    <tr>
-    <td align="left"><a class="tooltip2" href="#">(YSF2DMR)<?php echo $lang['dmr_id'];?>:<span><b>CCS7/DMR ID</b>Enter your CCS7 / DMR ID here</span></a></td>
-    <td align="left" colspan="2">
-<?php
-	if (isset($configysf2dmr['DMR Network']['Id'])) {
-		if (strlen($configysf2dmr['DMR Network']['Id']) > strlen($configmmdvm['General']['Id'])) {
-			$essidYSF2DMRLen = strlen($configysf2dmr['DMR Network']['Id']) - strlen($configmmdvm['General']['Id']);
-			$ysf2dmrESSID = substr($configysf2dmr['DMR Network']['Id'], -$essidYSF2DMRLen);
-		} else {
-			$ysf2dmrESSID = "None";
-		}
-	} else {
-		$ysf2dmrESSID = "None";
-	}
-
-	if (isset($configmmdvm['General']['Id'])) { if ($configmmdvm['General']['Id'] !== "1234567") { echo substr($configmmdvm['General']['Id'], 0, 7); } }
-	if (isset($configmmdvm['General']['Id'])) { $ysf2dmrIdBase = substr($configmmdvm['General']['Id'], 0, 7); } else { $ysf2dmrIdBase = "1234567"; }
-	echo "<select name=\"ysf2dmrId\">\n";
-	if ($ysf2dmrESSID == "None") { echo "      <option value=\"$ysf2dmrIdBase\" selected=\"selected\">None</option>\n"; } else { echo "      <option value=\"None\">None</option>\n"; }
-	for ($ysf2dmrESSIDInput = 1; $ysf2dmrESSIDInput <= 99; $ysf2dmrESSIDInput++) {
-		$ysf2dmrESSIDInput = str_pad($ysf2dmrESSIDInput, 2, "0", STR_PAD_LEFT);
-		if ($ysf2dmrESSID === $ysf2dmrESSIDInput) {
-			echo "      <option value=\"$ysf2dmrIdBase$ysf2dmrESSIDInput\" selected=\"selected\">$ysf2dmrESSIDInput</option>\n";
-		} else {
-			echo "      <option value=\"$ysf2dmrIdBase$ysf2dmrESSIDInput\">$ysf2dmrESSIDInput</option>\n";
-		}
-	}
-	echo "</select>\n";
-?>
-    </td></tr>
-    <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['dmr_master'];?>:<span><b>DMR Master (YSF2DMR)</b>Set your preferred DMR master here</span></a></td>
-    <td colspan="2" style="text-align: left;"><select name="ysf2dmrMasterHost" class="ysf2dmrMasterHost">
-<?php
-        $testMMDVMysf2dmrMaster = $configysf2dmr['DMR Network']['Address'];
-        while (!feof($dmrMasterFile)) {
-                $dmrMasterLine = fgets($dmrMasterFile);
-                $dmrMasterHost = preg_split('/\s+/', $dmrMasterLine);
-                if ((strpos($dmrMasterHost[0], '#') === FALSE ) && (substr($dmrMasterHost[0], 0, 3) != "XLX") && (substr($dmrMasterHost[0], 0, 4) != "DMRG") && (substr($dmrMasterHost[0], 0, 4) != "DMR2") && ($dmrMasterHost[0] != '')) {
-                        if ($testMMDVMysf2dmrMaster == $dmrMasterHost[2]) { echo "      <option value=\"$dmrMasterHost[2],$dmrMasterHost[3],$dmrMasterHost[4],$dmrMasterHost[0]\" selected=\"selected\">$dmrMasterHost[0]</option>\n"; $dmrMasterNow = $dmrMasterHost[0]; }
-                        else { echo "      <option value=\"$dmrMasterHost[2],$dmrMasterHost[3],$dmrMasterHost[4],$dmrMasterHost[0]\">$dmrMasterHost[0]</option>\n"; }
-                }
-        }
-        fclose($dmrMasterFile);
-        ?>
-    </select></td>
-    </tr>
-    <tr>
-	<td align="left"><a class="tooltip2" href="#">DMR Options:<span><b>DMR Options (YSF2DMR)</b>Set your Options= for the DMR master above</span></a></td>
-	<td align="left" colspan="2">
-	    Options=<input type="text" name="ysf2dmrNetworkOptions" size="85" maxlength="250" value="<?php if (isset($configysf2dmr['DMR Network']['Options'])) { echo $configysf2dmr['DMR Network']['Options']; } ?>" />
-	</td>
-    </tr>
-    <tr>
-      <td align="left"><a class="tooltip2" href="#">Hotspot Security:<span><b>DMR Master Password</b>Override the Password for DMR with your own custom password, make sure you already configured this on your chosed DMR Master. Empty the field to use the default.</span></a></td>
-      <td align="left" colspan="2">
-        <input type="password" name="bmHSSecurity" id="bmHSSecurity" size="30" maxlength="30" value="<?php if (isset($configModem['BrandMeister']['Password'])) {echo $configModem['BrandMeister']['Password'];} ?>"></input>
-	<span toggle="#password-field" class="fa fa-fw fa-eye field_icon toggle-bm-password"></span>
-      </td>
-    </tr>
-    <tr>
-      <td align="left"><a class="tooltip2" href="#">DMR TG:<span><b>YSF2DMR TG</b>Enter your DMR TG here</span></a></td>
-      <td align="left" colspan="2"><input type="text" name="ysf2dmrTg" size="13" maxlength="7" value="<?php if (isset($configysf2dmr['DMR Network']['StartupDstId'])) { echo $configysf2dmr['DMR Network']['StartupDstId']; } ?>" /></td>  
-    </tr>
-    <?php } ?>
-    <?php if (file_exists('/etc/dstar-radio.mmdvmhost') && $configysf2nxdn['Enabled']['Enabled'] == 1) { ?>
-    <tr>
-      <td align="left"><a class="tooltip2" href="#">(YSF2NXDN) NXDN ID:<span><b>NXDN ID</b>Enter your NXDN ID here</span></a></td>
-      <td align="left" colspan="2"><input type="text" name="ysf2nxdnId" size="13" maxlength="5" value="<?php if (isset($configysf2nxdn['NXDN Network']['Id'])) { echo $configysf2nxdn['NXDN Network']['Id']; } ?>" /></td>
-    </tr>
-    <tr>
-        <td align="left"><a class="tooltip2" href="#"><?php echo $lang['nxdn_hosts'];?>:<span><b>NXDN Host</b>Set your preferred NXDN Host here</span></a></td>
-        <td colspan="2" style="text-align: left;"><select name="ysf2nxdnStartupDstId" class="ysf2nxdnStartupDstId">
-<?php
-	$nxdnHosts = fopen("/usr/local/etc/NXDNHosts.txt", "r");
-	$testNXDNHost = $configysf2nxdn['NXDN Network']['StartupDstId'];
-	if ($testNXDNHost == "") { echo "      <option value=\"none\" selected=\"selected\">None</option>\n"; }
-        else { echo "      <option value=\"none\">None</option>\n"; }
-	if ($testNXDNHost == "10") { echo "      <option value=\"10\" selected=\"selected\">10 - Parrot</option>\n"; }
-        else { echo "      <option value=\"10\">10 - Parrot</option>\n"; }
-        while (!feof($nxdnHosts)) {
-                $nxdnHostsLine = fgets($nxdnHosts);
-                $nxdnHost = preg_split('/\s+/', $nxdnHostsLine);
-                if ((strpos($nxdnHost[0], '#') === FALSE ) && ($nxdnHost[0] != '')) {
-                        if ($testNXDNHost == $nxdnHost[0]) { echo "      <option value=\"$nxdnHost[0]\" selected=\"selected\">$nxdnHost[0] - $nxdnHost[1]</option>\n"; }
-                        else { echo "      <option value=\"$nxdnHost[0]\">$nxdnHost[0] - $nxdnHost[1]</option>\n"; }
-                }
-        }
-        fclose($nxdnHosts);
-	if (file_exists('/usr/local/etc/NXDNHostsLocal.txt')) {
-		$nxdnHosts2 = fopen("/usr/local/etc/NXDNHostsLocal.txt", "r");
-		while (!feof($nxdnHosts2)) {
-               		$nxdnHostsLine2 = fgets($nxdnHosts2);
-               		$nxdnHost2 = preg_split('/\s+/', $nxdnHostsLine2);
-               		if ((strpos($nxdnHost2[0], '#') === FALSE ) && ($nxdnHost2[0] != '')) {
-               	        	if ($testNXDNHost == $nxdnHost2[0]) { echo "      <option value=\"$nxdnHost2[0]\" selected=\"selected\">$nxdnHost2[0] - $nxdnHost2[1]</option>\n"; }
-               	        	else { echo "      <option value=\"$nxdnHost2[0]\">$nxdnHost2[0] - $nxdnHost2[1]</option>\n"; }
-               		}
-		}
-	fclose($nxdnHosts2);
-	}
-?>
-        </select></td>
-      </tr>
-    <?php } ?>
-    <?php if (file_exists('/etc/dstar-radio.mmdvmhost') && $configysf2p25['Enabled']['Enabled'] == 1) { ?>
-    <tr>
-      <td align="left"><a class="tooltip2" href="#">(YSF2P25) <?php echo $lang['dmr_id'];?>:<span><b>DMR ID</b>Enter your CCS7 / DMR ID here</span></a></td>
-      <td align="left" colspan="2"><input type="text" name="ysf2p25Id" size="13" maxlength="7" value="<?php if (isset($configysf2p25['P25 Network']['Id'])) { echo $configysf2p25['P25 Network']['Id']; } ?>" /></td>
-    </tr>
-    <tr>
-      <td align="left"><a class="tooltip2" href="#"><?php echo $lang['p25_hosts'];?>:<span><b>P25 Host</b>Set your preferred P25 Host here</span></a></td>
-      <td colspan="2" style="text-align: left;"><select name="ysf2p25StartupDstId" class="ysf2p25StartupDstId">
-<?php
-	$p25Hosts = fopen("/usr/local/etc/P25Hosts.txt", "r");
-	if (isset($configysf2p25['P25 Network']['StartupDstId'])) {
-		$testP25Host = $configysf2p25['P25 Network']['StartupDstId'];
-	} else {
-		$testP25Host = "";
-	}
-	if ($testP25Host == "") { echo "      <option value=\"none\" selected=\"selected\">None</option>\n"; }
-        else { echo "      <option value=\"none\">None</option>\n"; }
-	if ($testP25Host == "10") { echo "      <option value=\"10\" selected=\"selected\">10 - Parrot</option>\n"; }
-        else { echo "      <option value=\"10\">10 - Parrot</option>\n"; }
-        while (!feof($p25Hosts)) {
-                $p25HostsLine = fgets($p25Hosts);
-                $p25Host = preg_split('/\s+/', $p25HostsLine);
-                if ((strpos($p25Host[0], '#') === FALSE ) && ($p25Host[0] != '')) {
-                        if ($testP25Host == $p25Host[0]) { echo "      <option value=\"$p25Host[0]\" selected=\"selected\">$p25Host[0] - $p25Host[1]</option>\n"; }
-                        else { echo "      <option value=\"$p25Host[0]\">$p25Host[0] - $p25Host[1]</option>\n"; }
-                }
-        }
-        fclose($p25Hosts);
-        if (file_exists('/usr/local/etc/P25HostsLocal.txt')) {
-		$p25Hosts2 = fopen("/usr/local/etc/P25HostsLocal.txt", "r");
-		while (!feof($p25Hosts2)) {
-                	$p25HostsLine2 = fgets($p25Hosts2);
-                	$p25Host2 = preg_split('/\s+/', $p25HostsLine2);
-                	if ((strpos($p25Host2[0], '#') === FALSE ) && ($p25Host2[0] != '')) {
-                        	if ($testP25Host == $p25Host2[0]) { echo "      <option value=\"$p25Host2[0]\" selected=\"selected\">$p25Host2[0] - $p25Host2[1]</option>\n"; }
-                        	else { echo "      <option value=\"$p25Host2[0]\">$p25Host2[0] - $p25Host2[1]</option>\n"; }
-                	}
-		}
-		fclose($p25Hosts2);
-	}
-        ?>
-    </select></td>
-    </tr>
-    <?php } ?>
- 
-    </table>
-
-    <br /><br />
-
-<?php } ?>
 <?php if (file_exists('/etc/dstar-radio.mmdvmhost') && $configmmdvm['P25 Network']['Enable'] == 1) {
 $p25Hosts = fopen("/usr/local/etc/P25Hosts.txt", "r");
 	?>
@@ -6254,147 +6438,6 @@ $p25Hosts = fopen("/usr/local/etc/P25Hosts.txt", "r");
     </table>
 
     <br /><br />
-
-			<?php } ?>
-			<!-- M17 -->
-			<?php if (file_exists('/etc/dstar-radio.mmdvmhost') && $configmmdvm['M17 Network']['Enable'] == 1 ) { ?>
-			    <h2 class="ConfSec">M17 Configuration</h2>
-			    <table>
-				<tr>
-				</tr>
-				<tr>
-				    <td align="left"><a class="tooltip2" href="#">M17 Startup Reflector:<span><b>Startup Reflector</b>Set your preferred M17 reflector here</span></a></td>
-				    <td style="text-align: left;"><select name="m17StartupRef" class="M17Ref">
-					<?php
-					if ($m17MasterHandle = @fopen("/usr/local/etc/M17Hosts.txt", 'r'))
-					{
-					    $m17StartupHostWithModule = (isset($configm17gateway['Network']['Startup']) ? $configm17gateway['Network']['Startup'] : "");
-					    $m17StartupHost = "";
-					    $m17StartupModule = "A";
-					    if ($m17StartupHostWithModule != "") {
-						$m17StartupHost = substr($m17StartupHostWithModule, 0, -2);
-						$m17StartupModule = substr($m17StartupHostWithModule, -1);
-					    }
-
-					    if ($m17StartupHost == "") {
-						echo "      <option value=\"NONE\" selected=\"selected\">None</option>\n";
-					    }
-					    else {
-						echo "      <option value=\"NONE\">None</option>\n";
-					    }
-
-					    while ($m17MasterLine = fgets($m17MasterHandle)) {
-						$m17MasterHost = preg_split('/\s+/', $m17MasterLine);
-						if ((strpos($m17MasterHost[0], '#') === FALSE) && ($m17MasterHost[0] != '')) {
-						    if ($m17MasterHost[0] == $m17StartupHost) {
-							echo "      <option value=\"$m17MasterHost[0]\" selected=\"selected\">$m17MasterHost[0]</option>\n";
-						    }
-						    else {
-							echo "      <option value=\"$m17MasterHost[0]\">$m17MasterHost[0]</option>\n";
-						    }
-						}
-					    }
-					    fclose($m17MasterHandle);
-					}
-					?>
-				    </select>
-				    
-				    &nbsp;Startup Module:<select name="m17StartupModule" class="ModSel">
-					<?php
-					$m17ModuleList = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-					foreach ($m17ModuleList as $module) {
-					    if ($m17StartupModule == $module) {
-						echo "  <option value=\"".$module."\" selected=\"selected\">".$module."</option>\n";
-					    }
-					    else {
-						echo "  <option value=\"".$module."\">".$module."</option>\n";
-					    }
-					}
-					?>
-				    </select>
-				    
-				    </td>
-				</tr>
-				<?php if (isset($configm17gateway['General']['Suffix'])) { ?>
-					<tr>
-					<td align="left"><a class="tooltip2" href="#">M17 Callsign Suffix:<span><b>Callsign Suffix</b>Set your preferred callsign suffix here. Typical values are "H" for Hotspots, "R" for Repeaters.</span></a></td>
-					<td align="left">
-					<select name="m17CallsignSuffix">
-					<?php 
-					$m17SuffixList = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-					foreach ($m17SuffixList as $suffix) {
-					    if ($configm17gateway['General']['Suffix'] == $suffix) {
-						echo "  <option value=\"".$suffix."\" selected=\"selected\">".$suffix."</option>\n";
-					    }
-					    else {
-						echo "  <option value=\"".$suffix."\">".$suffix."</option>\n";
-					    }
-					}
-					?>
-					</td>
-					</tr>
-				<?php } ?>
-				<?php if (isset($configm17gateway['General']['Callsign'])) {
-				     $m17SID = substr($configm17gateway['General']['Callsign'], strpos($configm17gateway['General']['Callsign'], '-') + 1);
-				     if (preg_match('/^\d$/', $m17SID)) {
-					$m17SID = $m17SID;
-				     } else {
-					$m17SID = "";
-				     }
-				?>
-					<tr>
-						<td align="left"><a class="tooltip2" href="#">M17 Station ID:<span><b>Station ID</b>Set your preferred station ID here, if applicable.</span></a></td>
-						<td align="left">
-						<select name="m17StationID">
-						<?php if($m17SID == "") { echo '<option value="" selected="selected">None</option>'; } else { echo "<option value='$m17SID' selected='selected'>$m17SID</option>"; } ?>
-						  <?php if($m17SID != "") { ?>
-						  <option value="">None</option>
-						  <?php } ?>
-						  <option value="0">0</option>
-						  <option value="1">1</option>
-						  <option value="2">2</option>
-						  <option value="3">3</option>
-						  <option value="4">4</option>
-						  <option value="5">5</option>
-						  <option value="6">6</option>
-						  <option value="7">7</option>
-						  <option value="8">8</option>
-						  <option value="9">9</option>
-						</select>
-						</td>
-					</tr>
-				<?php } ?>
-				<?php if (isset($configmmdvm['M17']['CAN'])) { ?>
-					<tr>
-						<td align="left"><a class="tooltip2" href="#"><?php echo $lang['m17_can'];?>:<span><b>M17 CAN</b>Set your CAN (Channel Access Number) code here, sane values are 0-15</span></a></td>
-						<td align="left">
-						<select name="m17can">
-						  <?php echo "<option value=\"".$configmmdvm['M17']['CAN']."\" 'selected='selected'>".$configmmdvm['M17']['CAN']."</option>"; ?>
-						  <option value="0">0</option>
-						  <option value="1">1</option>
-						  <option value="2">2</option>
-						  <option value="3">3</option>
-						  <option value="4">4</option>
-						  <option value="5">5</option>
-						  <option value="6">6</option>
-						  <option value="7">7</option>
-						  <option value="8">8</option>
-						  <option value="9">9</option>
-						  <option value="10">10</option>
-						  <option value="11">11</option>
-						  <option value="12">12</option>
-						  <option value="13">13</option>
-						  <option value="14">14</option>
-						  <option value="15">15</option>
-						</select>
-						</td>
-					</tr>
-				<?php } ?>
-
-
-			    </table>
-
-			    <br /><br />
 
 			<?php } ?>
 
