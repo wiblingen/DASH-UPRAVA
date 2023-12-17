@@ -4399,12 +4399,24 @@ if (!empty($_POST)):
 	}
 
 	// Set the system timezone
-	if (empty($_POST['systemTimezone']) != TRUE ) {
-		$rollTimeZone = 'sudo timedatectl set-timezone '.escapeshellcmd($_POST['systemTimezone']);
-		system($rollTimeZone);
-		$rollTimeZoneConfig = 'sudo sed -i "/date_default_timezone_set/c\\date_default_timezone_set(\''.escapeshellcmd($_POST['systemTimezone']).'\')\;" /var/www/dashboard/config/config.php';
+	if (empty($_POST['systemTimezone']) !== TRUE) {
+	    $rollTimeZone = 'sudo timedatectl set-timezone ' . escapeshellcmd($_POST['systemTimezone']);
+	    system($rollTimeZone);
+
+	    // Check if the selected timezone is different from the current timezone
+	    $lsbReleaseOutput = trim(shell_exec('lsb_release -rs | cut -d "." -f 1'));
+	    if ($lsbReleaseOutput > "11") {
+		exec("ls -al /etc/localtime | awk -F'zoneinfo/' '{print $2}'", $tzCurrent);
+	    } else {
+		exec('cat /etc/timezone', $tzCurrent);
+	    }
+
+	    if ($_POST['systemTimezone'] !== $tzCurrent[0]) {
+		$rollTimeZoneConfig = 'sudo sed -i "/date_default_timezone_set/c\\date_default_timezone_set(\'' . escapeshellcmd($_POST['systemTimezone']) . '\')\;" /var/www/dashboard/config/config.php';
 		system($rollTimeZoneConfig);
+	    }
 	}
+
 	// 12 or 24 hour time?
 	if (empty($_POST['systemTimeFormat']) != TRUE ) {
 		$rollTimeFormatConfig = 'sudo sed -i "/define(\'TIME_FORMAT\', /c\\\define(\'TIME_FORMAT\', \''.escapeshellcmd($_POST['systemTimeFormat']).'\')\;" /var/www/dashboard/config/config.php';
