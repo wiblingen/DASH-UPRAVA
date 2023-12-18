@@ -202,8 +202,10 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
 				    exec("sudo sh -c 'cp -a $profileDir/*Hosts.txt /root/' > /dev/null");
 				    // Begin DV-Mega Cast logic to save user cast settings
 				    if (isDVmegaCast() == 1) {
+					exec("sudo mkdir -p /usr/local/cast/etc  > /dev/null");
 					exec("sudo sh -c 'cp -a $profileDir/cast-settings/* /usr/local/cast/etc/' > /dev/null");
 					exec('sudo chmod 775 /usr/local/cast/etc ; sudo chown -R www-data:pi-star /usr/local/cast/etc ; sudo chmod 664 /usr/local/cast/etc/*');	
+					exec('sudo /usr/local/cast/sbin/RSET.sh  > /dev/null 2>&1 &');
 				    }
 				    exec("sudo sh -c 'rm -rf $profileDir/*Hosts.txt' > /dev/null");
 				    exec("sudo sh -c 'cp -a $profileDir/* /etc/' > /dev/null");

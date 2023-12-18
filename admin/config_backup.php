@@ -210,8 +210,10 @@ if ($_SERVER["PHP_SELF"] == "/admin/config_backup.php") {
                                 exec("sudo cp -av /tmp/config_restore/WPSD_config_mgr /etc/ > /dev/null");
 				// Begin DV-Mega Cast logic to save user cast settings
 				if (isDVmegaCast() == 1) {
+				    exec("sudo mkdir -p /usr/local/cast/etc  > /dev/null");
 				    exec("sudo sh -c 'cp -a /tmp/config_restore/cast-settings/* /usr/local/cast/etc/' > /dev/null");
 				    exec('sudo chmod 775 /usr/local/cast/etc ; sudo chown -R www-data:pi-star /usr/local/cast/etc ; sudo chmod 664 /usr/local/cast/etc/*');	
+				    exec('sudo /usr/local/cast/sbin/RSET.sh  > /dev/null 2>&1 &');
 				}
                                 exec("sudo mv -fv /tmp/config_restore/gpsd /etc/default/ > /dev/null");
 				exec("sudo mv -fv /tmp/config_restore/RSSI.dat /usr/local/etc/ > /dev/null");
