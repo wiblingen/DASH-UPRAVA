@@ -129,53 +129,53 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
 				    exec('sudo mount -o remount,rw /');
 				    exec("sudo mkdir -p /etc/WPSD_config_mgr/$desc > /dev/null");
 				    $profileDir = "/etc/WPSD_config_mgr/$desc";
-                            	    exec("sudo rm -rf $profileDir > /dev/null")."\n";
-                            	    exec("sudo mkdir $profileDir > /dev/null")."\n";
+                            	    exec("sudo rm -rf $profileDir > /dev/null");
+                            	    exec("sudo mkdir $profileDir > /dev/null");
                             	    if (exec('cat /etc/dhcpcd.conf | grep "static ip_address" | grep -v "#"')) {
-                                        exec("sudo cp /etc/dhcpcd.conf $profileDir > /dev/null")."\n";
+                                        exec("sudo cp /etc/dhcpcd.conf $profileDir > /dev/null");
                             	    }
-                            	    exec("sudo cp /etc/wpa_supplicant/wpa_supplicant.conf $profileDir > /dev/null")."\n";
-                            	    exec("sudo cp /etc/hostapd/hostapd.conf $profileDir > /dev/null")."\n";
-                            	    exec("sudo cp /etc/pistar-css.ini $profileDir > /dev/null")."\n";
-                            	    exec("sudo cp /etc/aprsgateway $profileDir > /dev/null")."\n";
-                            	    exec("sudo cp /etc/ircddbgateway $profileDir > /dev/null")."\n";
-                            	    exec("sudo cp /etc/mmdvmhost $profileDir > /dev/null")."\n";
-                            	    exec("sudo cp /etc/dapnetgateway $profileDir > /dev/null")."\n";
+                            	    exec("sudo cp /etc/wpa_supplicant/wpa_supplicant.conf $profileDir > /dev/null");
+                            	    exec("sudo cp /etc/hostapd/hostapd.conf $profileDir > /dev/null");
                             	    exec("sudo cp /etc/pistar-css.ini $profileDir > /dev/null");
-                            	    exec("sudo cp /etc/p25gateway $profileDir > /dev/null")."\n";
-                            	    exec("sudo cp /etc/ysfgateway $profileDir > /dev/null")."\n";
-                            	    exec("sudo cp /etc/dmr2nxdn $profileDir > /dev/null")."\n";
-                            	    exec("sudo cp /etc/dmr2ysf $profileDir > /dev/null")."\n";
-                            	    exec("sudo cp /etc/nxdn2dmr $profileDir > /dev/null")."\n";
-                            	    exec("sudo cp /etc/ysf2dmr $profileDir > /dev/null")."\n";
+                            	    exec("sudo cp /etc/aprsgateway $profileDir > /dev/null");
+                            	    exec("sudo cp /etc/ircddbgateway $profileDir > /dev/null");
+                            	    exec("sudo cp /etc/mmdvmhost $profileDir > /dev/null");
+                            	    exec("sudo cp /etc/dapnetgateway $profileDir > /dev/null");
+                            	    exec("sudo cp /etc/pistar-css.ini $profileDir > /dev/null");
+                            	    exec("sudo cp /etc/p25gateway $profileDir > /dev/null");
+                            	    exec("sudo cp /etc/ysfgateway $profileDir > /dev/null");
+                            	    exec("sudo cp /etc/dmr2nxdn $profileDir > /dev/null");
+                            	    exec("sudo cp /etc/dmr2ysf $profileDir > /dev/null");
+                            	    exec("sudo cp /etc/nxdn2dmr $profileDir > /dev/null");
+                            	    exec("sudo cp /etc/ysf2dmr $profileDir > /dev/null");
                             	    exec("sudo cp /etc/dgidgateway $profileDir > /dev/null");
                             	    exec("sudo cp /etc/nxdngateway $profileDir > /dev/null");
                             	    exec("sudo cp /etc/m17gateway $profileDir > /dev/null");
-                            	    exec("sudo cp /etc/ysf2nxdn $profileDir > /dev/null")."\n";
-                            	    exec("sudo cp /etc/ysf2p25 $profileDir > /dev/null")."\n";
-                            	    exec("sudo cp /etc/dmrgateway $profileDir > /dev/null")."\n";
-                            	    exec("sudo cp /etc/starnetserver $profileDir > /dev/null")."\n";
-                            	    exec("sudo cp /etc/timeserver $profileDir > /dev/null")."\n";
-                            	    exec("sudo cp /etc/dstar-radio.* $profileDir > /dev/null")."\n";
-                            	    exec("sudo cp /etc/pistar-remote $profileDir > /dev/null")."\n";
-                            	    exec("sudo cp /etc/hosts $profileDir > /dev/null")."\n";
-                            	    exec("sudo cp /etc/hostname $profileDir > /dev/null")."\n";
-                            	    exec("sudo cp /etc/bmapi.key $profileDir > /dev/null")."\n";
-                            	    exec("sudo cp /etc/dapnetapi.key $profileDir > /dev/null")."\n";
-                            	    exec("sudo cp /etc/default/gpsd $profileDir > /dev/null")."\n";
-                            	    exec("sudo cp /etc/*_paused $profileDir > /dev/null")."\n";
-                            	    exec("sudo cp /etc/.CALLERDETAILS $profileDir > /dev/null")."\n";
-                            	    exec("sudo cp /etc/.pistar-css.ini.user $profileDir > /dev/null")."\n";
-                            	    exec("sudo cp /etc/.TGNAMES $profileDir > /dev/null")."\n";
-                            	    exec("sudo cp /usr/local/etc/RSSI.dat $profileDir > /dev/null")."\n";
-                            	    exec("sudo cp /var/www/dashboard/config/ircddblocal.php $profileDir > /dev/null")."\n";
-                            	    exec("sudo cp /var/www/dashboard/config/config.php $profileDir > /dev/null")."\n";
-			    	    exec("sudo cp /var/www/dashboard/config/language.php $profileDir > /dev/null")."\n";
-				    exec("sudo sh -c 'cp -a /root/*Hosts.txt' $profileDir > /dev/null")."\n";
+                            	    exec("sudo cp /etc/ysf2nxdn $profileDir > /dev/null");
+                            	    exec("sudo cp /etc/ysf2p25 $profileDir > /dev/null");
+                            	    exec("sudo cp /etc/dmrgateway $profileDir > /dev/null");
+                            	    exec("sudo cp /etc/starnetserver $profileDir > /dev/null");
+                            	    exec("sudo cp /etc/timeserver $profileDir > /dev/null");
+                            	    exec("sudo cp /etc/dstar-radio.* $profileDir > /dev/null");
+                            	    exec("sudo cp /etc/pistar-remote $profileDir > /dev/null");
+                            	    exec("sudo cp /etc/hosts $profileDir > /dev/null");
+                            	    exec("sudo cp /etc/hostname $profileDir > /dev/null");
+                            	    exec("sudo cp /etc/bmapi.key $profileDir > /dev/null");
+                            	    exec("sudo cp /etc/dapnetapi.key $profileDir > /dev/null");
+                            	    exec("sudo cp /etc/default/gpsd $profileDir > /dev/null");
+                            	    exec("sudo cp /etc/*_paused $profileDir > /dev/null");
+                            	    exec("sudo cp /etc/.CALLERDETAILS $profileDir > /dev/null");
+                            	    exec("sudo cp /etc/.pistar-css.ini.user $profileDir > /dev/null");
+                            	    exec("sudo cp /etc/.TGNAMES $profileDir > /dev/null");
+                            	    exec("sudo cp /usr/local/etc/RSSI.dat $profileDir > /dev/null");
+                            	    exec("sudo cp /var/www/dashboard/config/ircddblocal.php $profileDir > /dev/null");
+                            	    exec("sudo cp /var/www/dashboard/config/config.php $profileDir > /dev/null");
+			    	    exec("sudo cp /var/www/dashboard/config/language.php $profileDir > /dev/null");
+				    exec("sudo sh -c 'cp -a /root/*Hosts.txt' $profileDir > /dev/null");
 				    // Begin DV-Mega Cast logic to save user cast settings
 				    if (isDVmegaCast() == 1) {
 					exec("sudo mkdir -p $profileDir/cast-settings > /dev/null");
-					exec("sudo sh -c 'cp -a \"/usr/local/cast/etc/\"* \"$profileDir/cast-settings/\"' > /dev/null")."\n";
+					exec("sudo sh -c 'cp -a \"/usr/local/cast/etc/\"* \"$profileDir/cast-settings/\"' > /dev/null");
 				    }
 				    exec("sudo sh -c \"echo $desc > /etc/.WPSD_config\"");
 				    echo '<tr><td colspan="3"><p class="larger"><i class="fa fa-check-square" aria-hidden="true"></i> Saved Current Settings to Profile, '.$desc.'</p>
@@ -202,7 +202,7 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
 				    exec("sudo sh -c 'cp -a $profileDir/*Hosts.txt /root/' > /dev/null");
 				    // Begin DV-Mega Cast logic to save user cast settings
 				    if (isDVmegaCast() == 1) {
-					exec("sudo sh -c 'cp -a $profileDir/cast-settings/* /usr/local/cast/etc/' > /dev/null")."\n";
+					exec("sudo sh -c 'cp -a $profileDir/cast-settings/* /usr/local/cast/etc/' > /dev/null");
 					exec('sudo chmod 775 /usr/local/cast/etc ; sudo chown -R www-data:pi-star /usr/local/cast/etc ; sudo chmod 664 /usr/local/cast/etc/*');	
 				    }
 				    exec("sudo sh -c 'rm -rf $profileDir/*Hosts.txt' > /dev/null");
@@ -210,9 +210,9 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
 				    exec("sudo sh -c 'cp -a $profileDir/.CALLERDETAILS /etc/' > /dev/null");
 				    exec("sudo sh -c 'cp -a $profileDir/.TGNAMES /etc/' > /dev/null");
 				    exec("sudo sh -c 'cp -a $profileDir/.pistar-css.ini.user /etc/' > /dev/null");
-                                    exec("sudo cp /var/www/dashboard/config/ircddblocal.php $profileDir > /dev/null")."\n";
-                                    exec("sudo cp /var/www/dashboard/config/config.php $profileDir > /dev/null")."\n";
-                                    exec("sudo cp /var/www/dashboard/config/language.php $profileDir > /dev/null")."\n";
+                                    exec("sudo cp /var/www/dashboard/config/ircddblocal.php $profileDir > /dev/null");
+                                    exec("sudo cp /var/www/dashboard/config/config.php $profileDir > /dev/null");
+                                    exec("sudo cp /var/www/dashboard/config/language.php $profileDir > /dev/null");
 				    exec("sudo chown www-data:www-data /var/www/dashboard/ > /dev/null");
 				    exec("sudo sh -c 'cp -a /root/*Hosts.txt $profileDir' > /dev/null");
 				    exec("sudo sh -c \"echo ".$_POST['configs']." > /etc/.WPSD_config\"");
