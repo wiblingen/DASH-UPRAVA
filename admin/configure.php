@@ -4367,6 +4367,7 @@ if (!empty($_POST)):
 	    $dmridCast = !empty($newPostDmrId) ? $newPostDmrId : '2040000';
 	    $essidCast = !empty($_POST['bmExtendedId']) && $_POST['bmExtendedId'] !== 'None' ? $_POST['bmExtendedId'] : '00';
 	    $modSuffixCast = !empty($_POST['confDStarModuleSuffix']) ? $_POST['confDStarModuleSuffix'] : 'E';
+	    $callSuffixCast = !empty($_POST['confDStarCallSuffix']) ? $_POST['confDStarCallSuffix'] : 'CAST';
 
 	    // Calculate rpt1 and rpt2 based on callsign
 	    $rpt1Cast = str_replace(' ', '%', substr($callsignCast . '        ', 0, 7)) .  $modSuffixCast;	// always be 8 characters
@@ -4375,11 +4376,14 @@ if (!empty($_POST)):
 	    // Adjust callsign length by inserting % if needed
 	    $callsignCast = str_pad($callsignCast, 8, '%'); // always 8 chars.
 
+	    // Adjust callsign length by inserting % if needed
+	    $callSuffixCast = str_pad($callSuffixCast, 4, '%'); // always 8 chars.
+
 	    // Adjust dmrid length by inserting % if needed
 	    $dmridCast = '0'.str_pad($dmridCast, 7, '%'); // always 7 chars.
 
 	    // Edit the settings string
-	    $castSettingsString = "SET{$rpt2Cast}{$rpt1Cast}CQCQCQ%%{$callsignCast}CAST{$dmridCast}{$essidCast}";
+	    $castSettingsString = "SET{$rpt2Cast}{$rpt1Cast}CQCQCQ%%{$callsignCast}${callSuffixCast}{$dmridCast}{$essidCast}";
 
 	    // Ensure the total length is always 49 characters
 	    $castSettingsString = substr($castSettingsString, 0, 49);
@@ -5238,8 +5242,8 @@ else:
     <tr>
     </tr>
     <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['dstar_rpt1'];?>:<span><b>RPT1 Callsign</b>This is the RPT1 field for your radio</span></a></td>
-    <td align="left" colspan="2"><?php echo $configs['repeaterCall1']; ?>
+    <td align="left" width="30%"><a class="tooltip2" href="#"><?php echo $lang['dstar_rpt1'];?>:<span><b>RPT1 Callsign</b>This is the RPT1 field for your radio</span></a></td>
+    <td align="left" colspan="2" class="divTableCellMono"><?php echo $configs['repeaterCall1']; ?>
 	<select name="confDStarModuleSuffix" class="ModSel">
 	<?php echo "  <option value=\"".$configs['repeaterBand1']."\" selected=\"selected\">".$configs['repeaterBand1']."</option>\n"; ?>
         <option>A</option>
@@ -5272,8 +5276,34 @@ else:
     </tr>
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo $lang['dstar_rpt2'];?>:<span><b>RPT2 Callsign</b>This is the RPT2 field for your radio</span></a></td>
-    <td align="left" colspan="2"><?php echo $configs['repeaterCall1']; ?>&nbsp; G</td>
+    <td align="left" colspan="2" class="divTableCellMono"><?php echo $configs['repeaterCall1']; ?>&nbsp; G</td>
     </tr>
+    <?php if (isDVmegaCast() == 1) { // Begin DVMega Cast logic...
+	$inputString = file_get_contents('/usr/local/cast/etc/settings.txt');
+	$extracedDStarCallSuffix = substr($inputString, 35, 4);
+	if ($inputString !== false) {
+	    // Extract the substring from positions 36 to 39
+	    $extractedDStarCallSuffixValue = substr($inputString, 35, 4);
+	}
+    ?>
+    <tr>
+    <td align="left">
+    <span><a class="tooltip2" href="#">D-Star Callsign Sufix Text (DVMega Cast Only):<span><b>D-Star Callsign Sufix Text</b>This allows custom 4-character TEXT after your D-Star callsign. Valid characters are A-Z and 0-9 only.</span></a>
+    </td>
+    <td align="left" colspan="2" class="divTableCellMono"><?php echo $configs['repeaterCall1']; ?>/<input maxlength="4" size="4" pattern="[0-9A-Z]*" type="text" value="<?php echo $extractedDStarCallSuffixValue; ?>" name="confDStarCallSuffix" oninput="enforceValidCharsAndConvertToUpper(this)" />
+    <script>
+        // Function to enforce valid characters (0-9 and A-Z) and convert to uppercase
+        function enforceValidCharsAndConvertToUpper(input) {
+            // Remove any characters that are not valid (A-Z and 0-9)
+            input.value = input.value.replace(/[^0-9A-Za-z]/g, '');
+
+            // Convert to uppercase
+            input.value = input.value.toUpperCase();
+        }
+    </script>
+    </td>
+    </tr>
+    <?php } // end DVmega Cast logic ?>
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo $lang['dstar_irc_password'];?>:<span><b>Remote Password</b>Used for ircDDBGateway remote control access</span></a></td>
     <td align="left" colspan="2"><input type="password" name="confPassword" id="ircddbPass" size="30" maxlength="30" value="<?php echo $configs['remotePassword'] ?>" />
