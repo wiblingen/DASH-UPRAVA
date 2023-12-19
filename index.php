@@ -242,7 +242,7 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 		    	echo '<a class="menulive" href="/live/">Live Caller</a>';
 			// DV-Mega Cast menu item only
 			/*
-			if (isDVmegaCast() = 1) {
+			if (isDVmegaCast() == 1) {
 		    	    echo '<a class="menucastmemory" href="/admin/admin/cast/memory-list/">Cast Memory</a>';
 			}
 			*/
