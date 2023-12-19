@@ -720,36 +720,18 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 		echo '<div id="lcmsg" style="background:#d6d6d6;color:black; margin:0 0 10px 0;"></div>'."\n";
  
 		echo '<script type="text/javascript">'."\n";
-		echo 'var lhto;'."\n";
-		echo 'var ltxto'."\n";
+		echo 'function reloadDynData(){'."\n";
 
-		echo 'function reloadLiveCaller(){'."\n";
-		echo '  $("#liveCallerDeets").load("/mmdvmhost/caller_details_table.php",function(){ livecaller = setTimeout(reloadLiveCaller,1500) });'."\n";
-		echo '}'."\n";
-		echo 'function reloadLocalTX(){'."\n";
-		echo '  $("#localTxs").load("/mmdvmhost/local_tx_table.php",function(){ ltxto = setTimeout(reloadLocalTX,1500) });'."\n";
-		echo '}'."\n";
-	
-		echo 'function reloadLastHeard(){'."\n";
-		echo '  $("#lastHeard").load("/mmdvmhost/last_heard_table.php",function(){ lhto = setTimeout(reloadLastHeard,1500) });'."\n";
-		echo '}'."\n";
-		
-     		echo 'function setLCautorefresh(obj) {'."\n";
-    		echo '        livecaller = setTimeout(reloadLiveCaller,1500);'."\n";
-    		echo '}'."\n";
+		echo '  $("#lastHeard").load("/mmdvmhost/last_heard_table.php");'."\n";
+		echo '  $("#localTxs").load("/mmdvmhost/local_tx_table.php");'."\n";
+		echo '  $("#repeaterInfo").load("/mmdvmhost/repeaterinfo.php");'."\n";
+		echo '  $("#liveCallerDeets").load("/mmdvmhost/caller_details_table.php");'."\n";
 
-		echo 'function setLHAutorefresh(obj) {'."\n";
-    		echo '        lhto = setTimeout(reloadLastHeard,1500);'."\n";
-    		echo '}'."\n";
+		echo '}'."\n";
+        	echo 'setInterval(reloadDynData,1500);'."\n";
+        	echo '$(window).trigger(\'resize\');'."\n";
+
 		
-		echo 'function setLocalTXAutorefresh(obj) {'."\n";
-    		echo '        ltxto = setTimeout(reloadLocalTX,1500);'."\n";
-    		echo '}'."\n";
-		
-		echo 'lhto = setTimeout(reloadLastHeard,1500);'."\n";
-		echo 'ltxto = setTimeout(reloadLocalTX,1500);'."\n";
-		echo 'livecaller = setTimeout(reloadLiveCaller,1500);'."\n";
-		echo '$(window).trigger(\'resize\');'."\n";
         	echo 'function setLHTGnames(obj) {'."\n";
         	echo '    if (obj.checked) {'."\n";
         	echo "        $.ajax({
