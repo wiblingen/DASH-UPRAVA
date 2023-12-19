@@ -798,6 +798,15 @@ select {
     padding-right: 0.2em;
 }
 
+.menucastmemory:before {
+    content: "\f0cb";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    padding-right: 0.2em;
+}
+
 .menuradioinfo:before {
     content: "\f012";
     font-family: FontAwesome;
