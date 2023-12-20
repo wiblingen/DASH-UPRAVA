@@ -1,5 +1,6 @@
 <?php require_once $_SERVER['DOCUMENT_ROOT'].'/config/config.php'; ?>
 <?php require_once $_SERVER['DOCUMENT_ROOT'].'/mmdvmhost/tools.php'; ?>
+<?php require_once $_SERVER['DOCUMENT_ROOT'].'/mmdvmhost/functions.php'; ?>
 <div class="header">
     <div class="SmallHeader shLeft">Hostname: <?php echo exec('cat /etc/hostname'); ?></div>
     <div class="SmallHeader shRight">
