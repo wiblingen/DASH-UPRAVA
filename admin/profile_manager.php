@@ -219,8 +219,8 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
 				    exec("sudo sh -c 'cp -a /root/*Hosts.txt $profileDir' > /dev/null");
 				    exec("sudo sh -c \"echo ".$_POST['configs']." > /etc/.WPSD_config\"");
 				    exec("sudo wpsd-services restart > /dev/null &");
-				    if (isDVmegaCast() ==1) { // begin DVMega Cast Logic
-					exec('sudo /usr/local/cast/bin/cast-reset');
+				    if (isDVmegaCast() ==1 ) { // begin DVMega Cast Logic
+					//exec('sudo /usr/local/cast/bin/cast-reset');
 				    } // end DVmega Cast logic
 				    echo '<tr><td colspan="3"><p class="larger"><i class="fa fa-check-square" aria-hidden="true"></i> Switched to Profile, '.$resto.'</p>
 				    Page reloading...<br /><br />
