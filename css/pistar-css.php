@@ -19,7 +19,7 @@ body, font {
 }
 
 .center {
-    text-align: center;
+    text-align: center !important;
 }
 
 .middle {
