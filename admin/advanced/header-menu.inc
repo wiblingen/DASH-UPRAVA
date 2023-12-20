@@ -1,4 +1,5 @@
 <?php require_once $_SERVER['DOCUMENT_ROOT'].'/config/config.php'; ?>
+<?php require_once $_SERVER['DOCUMENT_ROOT'].'/mmdvmhost/tools.php'; ?>
 <div class="header">
     <div class="SmallHeader shLeft">Hostname: <?php echo exec('cat /etc/hostname'); ?></div>
     <div class="SmallHeader shRight">
@@ -143,7 +144,11 @@
 			<li class="subs"><a href="jitter_test.php">DMR Jitter Test</a></li>
 			<li class="subs"><a href="calibration.php">MMDVMHost Calibration</a></li>
 			<li class="subs"><a href="filemanager.php">File Manager</a></li>
+			<?php if(isDVmegaCast() == 1) { // Begin DVmega Cast logic... ?>	
+			<li class="subs"><a href="/admin/cast/cast-firmware/">DVMega Cast Upgrade Utility</a></li>
+			<?php } else { // end DVmega cast logic ?>
 			<li class="subs"><a href="fw_upgrade.php">Modem Firmware Upgrade</a></li>
+			<?php } ?>
 			<li class="subs"><a href="/config/changelog.php">ChangeLog</a></li>
 		    </ul>
 		</li>
