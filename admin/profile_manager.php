@@ -200,7 +200,7 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
 				    exec('sudo mount -o remount,rw /');
 				    exec("sudo sh -c 'mv $profileDir/*.php /var/www/dashboard/config/' > /dev/null");
 				    exec("sudo sh -c 'cp -a $profileDir/*Hosts.txt /root/' > /dev/null");
-				    // Begin DV-Mega Cast logic to save user cast settings
+				    // Begin DV-Mega Cast logic to restore user cast settings
 				    if (isDVmegaCast() == 1) {
 					exec("sudo mkdir -p /usr/local/cast/etc  > /dev/null");
 					exec("sudo sh -c 'cp -a $profileDir/cast-settings/* /usr/local/cast/etc/' > /dev/null");
@@ -218,6 +218,9 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
 				    exec("sudo chown www-data:www-data /var/www/dashboard/ > /dev/null");
 				    exec("sudo sh -c 'cp -a /root/*Hosts.txt $profileDir' > /dev/null");
 				    exec("sudo sh -c \"echo ".$_POST['configs']." > /etc/.WPSD_config\"");
+				    if (isDVmegaCast() ==1) { // begin DVMega Cast Logic
+					exec('sudo /usr/local/cast/bin/cast-reset ; sleep 2');
+				    } // end DVmega Cast logic
 				    exec("sudo wpsd-services restart > /dev/null &");
 				    echo '<tr><td colspan="3"><p class="larger"><i class="fa fa-check-square" aria-hidden="true"></i> Switched to Profile, '.$resto.'</p>
 				    Page reloading...<br /><br />
