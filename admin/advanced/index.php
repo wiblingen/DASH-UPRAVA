@@ -59,7 +59,7 @@ if (!is_dir($config_dir) || count(glob("$config_dir/*")) < 1) {
                 <div class="divTableBody">
                   <div class="divTableRow">
                     <div class="divTableCellSans">
-                    <h2 style="color:inherit;">Advanced Editors &amp; Tools</h2>';
+                    <h2 style="color:inherit;">Advanced Tools and Configuration Editors</h2>';
                     echo '<h1>IMPORTANT:</h1>';
                     echo '<p><b>One or more modes have been detected to have been "paused" by you</b>:</p>';
                     foreach($paused_modes as $mode) {
@@ -90,22 +90,27 @@ if (!is_dir($config_dir) || count(glob("$config_dir/*")) < 1) {
 	      <div class="divTable">
 		<div class="divTableBody">
 		  <div class="divTableRow">
-		    <div class="divTableCellSans">
-		    <h2 style="color:inherit;">Advanced Editors &amp; Tools</h2>
-		    <h3>**WARNING**</h3>
+		    <div class="divTableCellSans larger"><br />
+		    <h2 style="color:inherit;" class="ConfSec center">Advanced Tools and Configuration Editors</h2>
+		    <h3 class="larger"><i class="fa fa-exclamation-circle"></i> NOTE!</h3>
             		<p>
 			Advanced  editors &amp; tools have been created to make editing some of the extra settings in the<br />
 			config files more simple, allowing you to update some areas of the config files without the<br />
-			need to login to your instance over SSH.<br />
-			<br />
+			need to login to your instance over SSH.</p>
+			<p>
 			Please keep in mind when making your edits here, that these config files can be updated by<br />
-			the dashboard, and that your edits can be over-written. It is assumed that you already know<br />
+			the main configuration page, and that your edits can be over-written. It is assumed that you already know<br />
 			what you are doing editing the files by hand, and that you understand what parts of the files<br />
-			are maintained by the dashboard.<br />
-			<br />
+			are maintained by the dashboard.</p>
+			<p>
 			With that warning in mind, you are free to make any changes you like by accessing the advanced areas
-			in the upper-left-hand menus. <br />
+			in the upper-left-hand menus.
 			</p>
+			<h3><i class="fa fa-lightbulb-o"></i> TIP:</h3>
+			<p>Before making changes in this area, it is <strong>highly recommended</strong> that you <a href="/admin/config_backup.php">create<br />
+			a backup of your system</a>, as well as save functional/working configurations as <a href="/admin/profile_manager.php">profiles</a>.<br />
+			This will ensure that you can revert any adverse changes you have made.</p>
+			<br />
 		</div>
 	      </div>
 	    </div>
