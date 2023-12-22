@@ -4568,7 +4568,8 @@ else:
      <td align="left" colspan="2" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'><i class="fa fa-question-circle"></i> Duplex mode requires Dual-Hat/Duplex Modems</td>
     </tr>
     <?php } // end DVMega Cast logic ?>
-<?php if ($configmmdvm['Info']['TXFrequency'] === $configmmdvm['Info']['RXFrequency']) {
+<?php if ($configModem['Modem']['Hardware'] !== 'dvmpicast') {   // Begin DVMega Cast logic...
+    if ($configmmdvm['Info']['TXFrequency'] === $configmmdvm['Info']['RXFrequency']) {
 	echo "    <tr>\n";
 	echo "    <td align=\"left\"><a class=\"tooltip2\" href=\"#\">".$lang['radio_freq'].":<span><b>Radio Frequency</b>This is the Frequency your<br />hotspot radio is on</span></a></td>\n";
 	echo "    <td align=\"left\" colspan=\"3\"><input type=\"text\" id=\"confFREQ\" onkeyup=\"checkFrequency(); return false;\" name=\"confFREQ\" size=\"13\" maxlength=\"12\" value=\"".number_format($configmmdvm['Info']['RXFrequency'], 0, '.', '.')."\" /> MHz</td>\n";
@@ -4584,6 +4585,7 @@ else:
 	echo "    <td align=\"left\" colspan=\"3\"><input type=\"text\" id=\"confFREQtx\" onkeyup=\"checkFrequency(); return false;\" name=\"confFREQtx\" size=\"13\" maxlength=\"12\" value=\"".number_format($configmmdvm['Info']['TXFrequency'], 0, '.', '.')."\" /> MHz</td>\n";
 	echo "    </tr>\n";
 	}
+    } //  // end DVMega Cast logic
 ?>
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo $lang['radio_type'];?>:<span><b>Radio/Modem</b>What kind of radio or modem hardware do you have?</span></a></td>
@@ -4641,6 +4643,7 @@ else:
 		<?php } // End DVMega Cast logic ?>
     </select></td>
     </tr>
+<?php if ($configModem['Modem']['Hardware'] !== 'dvmpicast') {   // Begin DVMega Cast logic... ?>
 	<tr id="modem_speed">
 	    <td align="left"><a class="tooltip2" href="#">Modem Baud Rate:<span><b>Baudrate</b>Serial speed (most HATS use 115200)</span></a></td>
             <?php if(in_array($configModem['Modem']['Hardware'], array("stm32dvmv3+", "stm32usbv3+", "zumradiopigpio"))) {  // hi-speed (460k baud)repeater board array (only) ?>
@@ -4674,6 +4677,7 @@ else:
 	    </td>
 	    <?php } ?>
 	</tr>
+<?php } // End DVMega Cast logic ?>
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo $lang['timezone'];?>:<span><b>System TimeZone</b>Set the system timezone</span></a></td>
     <td style="text-align: left;"><select name="systemTimezone" class="systemTimezone">
@@ -5288,7 +5292,7 @@ else:
     ?>
     <tr>
     <td align="left">
-    <span><a class="tooltip2" href="#">D-Star Callsign Sufix Text (DVMega Cast Only):<span><b>D-Star Callsign Sufix Text</b>This allows custom 4-character TEXT after your D-Star callsign. Valid characters are A-Z and 0-9 only.</span></a>
+    <span><a class="tooltip2" href="#">D-Star Callsign Suffix Text (DVMega Cast Only):<span><b>D-Star Callsign Suffix Text</b>This allows custom 4-character TEXT after your D-Star callsign. Valid characters are A-Z and 0-9 only.</span></a>
     </td>
     <td align="left" colspan="2" class="divTableCellMono"><?php echo $configs['repeaterCall1']; ?>/<input maxlength="4" size="4" pattern="[0-9A-Z]*" type="text" value="<?php echo $extractedDStarCallSuffixValue; ?>" name="confDStarCallSuffix" oninput="enforceValidCharsAndConvertToUpper(this)" />
     <script>
