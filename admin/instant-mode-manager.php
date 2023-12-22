@@ -169,23 +169,17 @@ if (!empty($_POST["submit_mode"]) && empty($_POST["mode_sel"])) { //handler for 
 	    &nbsp;| <input name="mode_sel" '.(($YSF=='0' && !isPaused("YSF")?'disabled="disabled"':"")).'  access="false" id="mode-sel-1"  value="YSF" type="radio">
 	    <label for="mode-sel-1"'.(($YSF=='0' && isPaused("YSF")?" class='paused-mode-span' title='Paused'":"")).'>YSF</label>
 	    &nbsp;| <input name="mode_sel" '.(($DSTAR=='0' && !isPaused("D-Star")?'disabled="disabled"':"")).' access="false" id="mode-sel-2"  value="D-Star" type="radio">
-	    <label for="mode-sel-2"'.(($DSTAR=='0' && isPaused("D-Star")?" class='paused-mode-span' title='Paused'":"")).'>D-Star</label>
+	    <label for="mode-sel-2"'.(($DSTAR=='0' && isPaused("D-Star")?" class='paused-mode-span' title='Paused'":"")).'>D-Star</label>';
+	    if (isDVmegaCast() != 1) {
+	    echo '
 	    &nbsp;| <input name="mode_sel" '.(($P25=='0' && !isPaused("P25")?'disabled="disabled"':"")).' access="false" id="mode-sel-3"  value="P25" type="radio">
 	    <label for="mode-sel-3"'.(($P25=='0' && isPaused("P25")?" class='paused-mode-span' title='Paused'":"")).'>P25</label>
 	    &nbsp;| <input name="mode_sel" '.(($NXDN=='0' && !isPaused("NXDN")?'disabled="disabled"':"")).' access="false" id="mode-sel-4"  value="NXDN" type="radio">
 	    <label for="mode-sel-4"'.(($NXDN=='0' && isPaused("NXDN")?" class='paused-mode-span' title='Paused'":"")).'>NXDN</label>
 	    &nbsp;| <input name="mode_sel" '.(($M17=='0' && !isPaused("M17")?'disabled="disabled"':"")).' access="false" id="mode-sel-5"  value="M17" type="radio">
-	    <label for="mode-sel-5"'.(($M17=='0' && isPaused("M17")?" class='paused-mode-span' title='Paused'":"")).'>M17</label>
-<!--
-	    &nbsp;| <input name="mode_sel" '.(($AX25=='0' && !isPaused("AX25")?'disabled="disabled"':"")).' access="false" id="mode-sel-6"  value="AX25" type="radio">
-	    <label for="mode-sel-6"'.(($AX25=='0' && isPaused("AX25")?" class='paused-mode-span' title='Paused'":"")).'>AX.25</label>
--->
-	    &nbsp;| <input name="mode_sel" '.(($POCSAG=='0' && !isPaused("POCSAG")?'disabled="disabled"':"")).' access="false" id="mode-sel-7"  value="POCSAG" type="radio">
-	    <label for="mode-sel-7"'.(($POCSAG=='0' && isPaused("POCSAG")?" class='paused-mode-span' title='Paused'":"")).'>POCSAG</label>
-<!--
-	    &nbsp;| <input name="mode_sel" '.(($APRS=='0' && !isPaused("APRS")?'disabled="disabled"':"")).' access="false" id="mode-sel-8"  value="APRS" type="radio">
-	    <label for="mode-sel-8"'.(($APRS=='0' && isPaused("APRS")?" class='paused-mode-span' title='Paused'":"")).'>APRS</label>
--->
+	    <label for="mode-sel-5"'.(($M17=='0' && isPaused("M17")?" class='paused-mode-span' title='Paused'":"")).'>M17</label>';
+	    }
+	    echo '
 	    <br /><br />
 	  </td>
 	  <td>
