@@ -649,42 +649,46 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
                     } 
 		    echo '      </div></div>'."\n";
                     echo '        <div class="mode_flex row">'."\n";
-		    echo '          <div class="mode_flex column">'."\n";
-                    $testMMDVModeP25 = getConfigItem("P25", "Enable", $_SESSION['MMDVMHostConfigs']);
-                    $testYSF2P25 = $_SESSION['YSF2P25Configs']['Enabled']['Enabled'];
-                    if ( $testMMDVModeP25 == 1 || $testYSF2P25 == 1) {
-		    	echo '		<button form="admin_sel" type="submit" value="p25_man" name="func"><span>P25 Manager</span></button>'."\n";
-		    }
-		    else {
-		    	echo '		<button form="admin_sel" disabled="disabled" title="Mode is Disabled" type="submit" value="p25_man" name="func"><span>P25 Manager</span></button>'."\n";
-		    }
-		    echo '          </div><div class="mode_flex column">'."\n";
-		    $testMMDVModeNXDN = getConfigItem("NXDN Network", "Enable", $_SESSION['MMDVMHostConfigs']);
-                    $testDMR2NXDN = $_SESSION['DMR2NXDNConfigs']['Enabled']['Enabled'];
-                    $testYSF2NXDN = $_SESSION['YSF2NXDNConfigs']['Enabled']['Enabled'];
-                    if (($testMMDVModeNXDN == 1 || $testDMR2NXDN == 1 || $testYSF2NXDN == 1) && !isPaused("NXDN")) {
-		    	echo '		<button form="admin_sel" type="submit" value="nxdn_man" name="func"><span>NXDN Manager</span></button>'."\n";
-		    }
-		    else {
-		    	echo '		<button form="admin_sel" disabled="disabled" title="Mode is Disabled" type="submit" value="nxdn_man" name="func"><span>NXDN Manager</span></button>'."\n";
-		    }
-		    echo '          </div><div class="mode_flex column">'."\n";
-                    $testMMDVModeM17 = getConfigItem("M17 Network", "Enable", $_SESSION['MMDVMHostConfigs']);
-                    if ($testMMDVModeM17 == 1 && !isPaused("M17")) {
-		    	echo '		<button form="admin_sel" type="submit" value="m17_man" name="func"><span>M17 Manager</span></button>'."\n";
-		    }
-		    else {
-		    	echo '		<button form="admin_sel" disabled="disabled" title="Mode is Disabled" type="submit" value="m17_man" name="func"><span>M17 Manager</span></button>'."\n";
-                    }
-		    echo '          </div><div class="mode_flex column">'."\n";
-                    $testMMDVModePOCSAG = getConfigItem("POCSAG", "Enable", $_SESSION['MMDVMHostConfigs']);
-		    if ($testMMDVModePOCSAG == 1) {
-		        echo '		<button form="admin_sel" type="submit" value="pocsag_man" name="func"><span>POCSAG Manager</span></button>'."\n";
-		    }
-		    else {
-		        echo '		<button form="admin_sel" disabled="disabled" title="Mode is Disabled" type="submit" value="pocsag_man" name="func"><span>POCSAG Manager</span></button>'."\n";
-		    }
-		    echo '          </div><div class="mode_flex column">'."\n";
+		    if (isDVmegaCast() != 1) { // Being DVmega Cast logic 
+			echo '          <div class="mode_flex column">'."\n";
+			$testMMDVModeP25 = getConfigItem("P25", "Enable", $_SESSION['MMDVMHostConfigs']);
+			$testYSF2P25 = $_SESSION['YSF2P25Configs']['Enabled']['Enabled'];
+			if ( $testMMDVModeP25 == 1 || $testYSF2P25 == 1) {
+			    echo '		<button form="admin_sel" type="submit" value="p25_man" name="func"><span>P25 Manager</span></button>'."\n";
+			}
+			else {
+			    echo '		<button form="admin_sel" disabled="disabled" title="Mode is Disabled" type="submit" value="p25_man" name="func"><span>P25 Manager</span></button>'."\n";
+			}
+			echo '          </div><div class="mode_flex column">'."\n";
+			$testMMDVModeNXDN = getConfigItem("NXDN Network", "Enable", $_SESSION['MMDVMHostConfigs']);
+			$testDMR2NXDN = $_SESSION['DMR2NXDNConfigs']['Enabled']['Enabled'];
+			$testYSF2NXDN = $_SESSION['YSF2NXDNConfigs']['Enabled']['Enabled'];
+			if (($testMMDVModeNXDN == 1 || $testDMR2NXDN == 1 || $testYSF2NXDN == 1) && !isPaused("NXDN")) {
+			    echo '		<button form="admin_sel" type="submit" value="nxdn_man" name="func"><span>NXDN Manager</span></button>'."\n";
+			}
+			else {
+			    echo '		<button form="admin_sel" disabled="disabled" title="Mode is Disabled" type="submit" value="nxdn_man" name="func"><span>NXDN Manager</span></button>'."\n";
+			}
+			echo '          </div><div class="mode_flex column">'."\n";
+			$testMMDVModeM17 = getConfigItem("M17 Network", "Enable", $_SESSION['MMDVMHostConfigs']);
+			if ($testMMDVModeM17 == 1 && !isPaused("M17")) {
+			    echo '		<button form="admin_sel" type="submit" value="m17_man" name="func"><span>M17 Manager</span></button>'."\n";
+			}
+			else {
+			    echo '		<button form="admin_sel" disabled="disabled" title="Mode is Disabled" type="submit" value="m17_man" name="func"><span>M17 Manager</span></button>'."\n";
+			}
+			echo '          </div><div class="mode_flex column">'."\n";
+			$testMMDVModePOCSAG = getConfigItem("POCSAG", "Enable", $_SESSION['MMDVMHostConfigs']);
+			if ($testMMDVModePOCSAG == 1) {
+			    echo '		<button form="admin_sel" type="submit" value="pocsag_man" name="func"><span>POCSAG Manager</span></button>'."\n";
+			}
+			else {
+			    echo '		<button form="admin_sel" disabled="disabled" title="Mode is Disabled" type="submit" value="pocsag_man" name="func"><span>POCSAG Manager</span></button>'."\n";
+			}
+			echo '          </div><div class="mode_flex column">'."\n";
+		    } else { 
+			echo '          <div class="mode_flex column">'."\n";
+		    }  // end DVmega Cast logic
  		    echo '            <button form="admin_sel" type="submit" value="mode_man" name="func"><span>Instant Mode Manager</span></button>'."\n";
 		    echo '          </div><div class="mode_flex column">'."\n";
 		    echo '		<button form="admin_sel" type="submit" value="sys_man" name="func"><span>System Manager</span></button>'."\n";

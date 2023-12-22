@@ -272,9 +272,11 @@ function timesyncdProc() {
 			$NXDNGateway_Ver = exec('/usr/local/bin/NXDNGateway -v | cut -d\' \' -f 3-');
 			echo "  <tr>";getStatusClass(isProcessRunning("NXDNGateway"), true); echo "NXDNGateway</td><td align=\"left\">".$NXDNGateway_Ver."</td></tr>\n";
 		    }
-		    if (is_executable('/usr/local/bin/M17Gateway')) {
-			$M17Gateway_Ver = exec('/usr/local/bin/M17Gateway -v | cut -d\' \' -f 3-');
-			echo "  <tr>";getStatusClass(isProcessRunning("M17Gateway"), true); echo "M17Gateway</td><td align=\"left\">".$M17Gateway_Ver."</td></tr>\n";
+		    if (isDVmegaCast() != 1 ) {
+			if (is_executable('/usr/local/bin/M17Gateway')) {
+			    $M17Gateway_Ver = exec('/usr/local/bin/M17Gateway -v | cut -d\' \' -f 3-');
+			    echo "  <tr>";getStatusClass(isProcessRunning("M17Gateway"), true); echo "M17Gateway</td><td align=\"left\">".$M17Gateway_Ver."</td></tr>\n";
+			}
 		    }
 		    if (is_executable('/usr/local/bin/NXDN2DMR')) {
 			$NXDN2DMR_Ver = exec('/usr/local/bin/NXDN2DMR -v | cut -d\' \' -f 3-');
@@ -299,7 +301,7 @@ function timesyncdProc() {
 			}
 		    } else {
 			if (is_executable('/usr/local/cast/bin/castudp')) {
-			    echo "  <tr>";getStatusClass(isProcessRunning("castudp"), true); echo "DVMega Cast UDP Servicer</td><td align=\"left\">DVMega</td></tr>\n";
+			    echo "  <tr>";getStatusClass(isProcessRunning("castudp"), true); echo "DVMega Cast UDP Service</td><td align=\"left\">DVMega</td></tr>\n";
 			}
 		    }
 ?>

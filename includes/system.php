@@ -14,6 +14,7 @@ if (!isset($_SESSION) || !is_array($_SESSION)) {
 include_once $_SERVER['DOCUMENT_ROOT'].'/config/ircddblocal.php';
 include_once $_SERVER['DOCUMENT_ROOT'].'/config/language.php';	      // Translation Code
 include_once $_SERVER['DOCUMENT_ROOT'].'/mmdvmhost/tools.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/mmdvmhost/functions.php';    // MMDVMDash Functions
 
 $os_ver = trim( exec( 'cat /etc/debian_version' ) );
 ?>
@@ -41,7 +42,9 @@ $os_ver = trim( exec( 'cat /etc/debian_version' ) );
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('cron')); ?>">Cron</div>
   <?php } ?>
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('NXDNGateway')); ?>">NXDNGateway</div> 
+  <?php if (isDVmegaCast() == 0) { ?>
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('M17Gateway')); ?>">M17Gateway</div> 
+  <?php } ?>
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('NXDNParrot')); ?>">NXDNParrot</div> 
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('NXDN2DMR')); ?>">NXDN2DMR</div> 
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('APRSGateway')); ?>">APRSGateway</div>
