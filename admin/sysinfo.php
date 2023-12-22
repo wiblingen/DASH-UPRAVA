@@ -299,7 +299,7 @@ function timesyncdProc() {
 			}
 		    } else {
 			if (is_executable('/usr/local/cast/bin/castudp')) {
-			    echo "  <tr>";getStatusClass(isProcessRunning("castudp"), true); echo "CAST Display Driver</td><td align=\"left\">DVMega</td></tr>\n";
+			    echo "  <tr>";getStatusClass(isProcessRunning("castudp"), true); echo "DVMega Cast UDP Servicer</td><td align=\"left\">DVMega</td></tr>\n";
 			}
 		    }
 ?>
