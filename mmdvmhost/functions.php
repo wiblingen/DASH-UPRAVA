@@ -1482,7 +1482,7 @@ function getActualMode($metaLastHeard, &$configs) {
 // returns link-states of all D-Star-modules
 function getDSTARLinks() {
     if (filesize(LINKLOGPATH."/Links.log") == 0) {
-	return "<div>Not Linked</div>";
+	return "Not Linked";
     }
     if ($linkLog = fopen(LINKLOGPATH."/Links.log",'r')) {
 	while ($linkLine = fgets($linkLog)) {
