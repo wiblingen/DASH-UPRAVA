@@ -683,7 +683,6 @@ $MYCALL=strtoupper($callsign);
 	    $("#confCallsign").on("input", function () {
 		var callsign = $(this).val();
 
-
 		// Clear and (re-)populate dmrId fields
 		populateFields(callsign, "/includes/user.csv", "dmrId");
 
@@ -691,6 +690,15 @@ $MYCALL=strtoupper($callsign);
 		populateFields(callsign, "/includes/NXDN.csv", "nxdnId");
 	    });
 	});
+
+        // Function to enforce valid characters (0-9 and A-Z) and convert to uppercase
+        function enforceValidCharsAndConvertToUpper(input) {
+            // Remove any characters that are not valid (A-Z and 0-9)
+            input.value = input.value.replace(/[^0-9A-Za-z]/g, '');
+
+            // Convert to uppercase
+            input.value = input.value.toUpperCase();
+        }
     </script>
     <script type="text/javascript" src="/js/functions.js?version=<?php echo $versionCmd; ?>"></script>
     <link rel="stylesheet" href="/includes/aprs-symbols/aprs-symbols.css?version=<?php echo $versionCmd; ?>"/>
@@ -1091,6 +1099,9 @@ if (!empty($_POST)):
 	  $log_backup_dir = "/home/pi-star/.backup-mmdvmhost-logs/";
 	  $log_dir = "/var/log/pi-star/";
           exec ("sudo rm -rf $log_dir/* $log_backup_dir/* > /dev/null");
+	  if (isDVmegaCast() == 1) { // if DVMega cast, reset main board
+	      system('sudo /usr/local/cast/bin/cast-reset ; sleep 5 > /dev/null 2>/dev/null');
+	  }
 	  system('sudo wpsd-services start > /dev/null 2>/dev/null &');
           echo '<script type="text/javascript">setTimeout(function() { window.location=window.location;},5000);</script>';
 	  echo "<br />\n</div>\n";
@@ -4435,6 +4446,9 @@ if (!empty($_POST)):
 
 	// Start all services
 	system('sudo systemctl daemon-reload > /dev/null 2>/dev/null');	// Restart Systemd to account for any service changes
+	if (isDVmegaCast() == 1) { // if DVMega cast, reset main board
+	    system('sudo /usr/local/cast/bin/cast-reset ; sleep 5 > /dev/null 2>/dev/null');
+	}
 	system('sudo wpsd-services start > /dev/null 2>/dev/null');
 
 	unset($_POST);
@@ -4541,7 +4555,7 @@ else:
     </tr>
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo $lang['node_call'];?>:<span><b>Gateway Callsign</b>This is your licenced callsign for use on this gateway. Do not append any suffix.</span></a></td>
-    <td align="left" colspan="2"><input type="text" name="confCallsign" id="confCallsign" size="13" maxlength="7" value="<?php echo $configs['gatewayCallsign'] ?>" /></td>
+    <td align="left" colspan="2"><input type="text" name="confCallsign" id="confCallsign" size="13" maxlength="7" value="<?php echo $configs['gatewayCallsign'] ?>" oninput="enforceValidCharsAndConvertToUpper(this)" /></td>
     <td align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'><i class="fa fa-exclamation-triangle"></i> Do not add suffixes such as "-G"</td>
     </tr>
     <tr>
@@ -4567,8 +4581,10 @@ else:
     ?>
      <td align="left" colspan="2" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'><i class="fa fa-question-circle"></i> Duplex mode requires Dual-Hat/Duplex Modems</td>
     </tr>
+    <?php } else { // Case when isDVmegaCast() is equal to 1 ?>
+    <input type="hidden" name="trxMode" value="SIMPLEX" />
     <?php } // end DVMega Cast logic ?>
-<?php if ($configModem['Modem']['Hardware'] !== 'dvmpicast') {   // Begin DVMega Cast logic...
+    <?php if ($configModem['Modem']['Hardware'] !== 'dvmpicast') {   // Begin DVMega Cast logic...
     if ($configmmdvm['Info']['TXFrequency'] === $configmmdvm['Info']['RXFrequency']) {
 	echo "    <tr>\n";
 	echo "    <td align=\"left\"><a class=\"tooltip2\" href=\"#\">".$lang['radio_freq'].":<span><b>Radio Frequency</b>This is the Frequency your<br />hotspot radio is on</span></a></td>\n";
@@ -4585,8 +4601,10 @@ else:
 	echo "    <td align=\"left\" colspan=\"3\"><input type=\"text\" id=\"confFREQtx\" onkeyup=\"checkFrequency(); return false;\" name=\"confFREQtx\" size=\"13\" maxlength=\"12\" value=\"".number_format($configmmdvm['Info']['TXFrequency'], 0, '.', '.')."\" /> MHz</td>\n";
 	echo "    </tr>\n";
 	}
-    } //  // end DVMega Cast logic
-?>
+    } else { // Case when isDVmegaCast() is equal to 1
+    ?>
+    <input type="hidden" name="confFREQ" value="431150000" />
+    <?php } // end DVMega Cast logic ?>
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo $lang['radio_type'];?>:<span><b>Radio/Modem</b>What kind of radio or modem hardware do you have?</span></a></td>
     <td align="left" colspan="3"><select name="confHardware" class="confHardware">
@@ -5295,16 +5313,6 @@ else:
     <span><a class="tooltip2" href="#">D-Star Callsign Suffix Text (DVMega Cast Only):<span><b>D-Star Callsign Suffix Text</b>This allows custom 4-character TEXT after your D-Star callsign. Valid characters are A-Z and 0-9 only.</span></a>
     </td>
     <td align="left" colspan="2" class="divTableCellMono"><?php echo $configs['repeaterCall1']; ?>/<input maxlength="4" size="4" pattern="[0-9A-Z]*" type="text" value="<?php echo $extractedDStarCallSuffixValue; ?>" name="confDStarCallSuffix" oninput="enforceValidCharsAndConvertToUpper(this)" />
-    <script>
-        // Function to enforce valid characters (0-9 and A-Z) and convert to uppercase
-        function enforceValidCharsAndConvertToUpper(input) {
-            // Remove any characters that are not valid (A-Z and 0-9)
-            input.value = input.value.replace(/[^0-9A-Za-z]/g, '');
-
-            // Convert to uppercase
-            input.value = input.value.toUpperCase();
-        }
-    </script>
     </td>
     </tr>
     <?php } // end DVmega Cast logic ?>
