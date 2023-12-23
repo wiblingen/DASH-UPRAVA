@@ -206,6 +206,7 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
 					exec("sudo sh -c 'cp -a $profileDir/cast-settings/* /usr/local/cast/etc/' > /dev/null");
 					exec('sudo chmod 775 /usr/local/cast/etc ; sudo chown -R www-data:pi-star /usr/local/cast/etc ; sudo chmod 664 /usr/local/cast/etc/*');	
 					exec('sudo /usr/local/cast/sbin/RSET.sh  > /dev/null 2>&1 &');
+					exec('sudo /usr/local/cast/bin/cast-reset ; sleep 2 > /dev/null 2>/dev/null');
 				    }
 				    exec("sudo sh -c 'rm -rf $profileDir/*Hosts.txt' > /dev/null");
 				    exec("sudo sh -c 'cp -a $profileDir/* /etc/' > /dev/null");
@@ -219,9 +220,6 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
 				    exec("sudo sh -c 'cp -a /root/*Hosts.txt $profileDir' > /dev/null");
 				    exec("sudo sh -c \"echo ".$_POST['configs']." > /etc/.WPSD_config\"");
 				    exec("sudo wpsd-services restart > /dev/null &");
-				    if (isDVmegaCast() ==1 ) { // begin DVMega Cast Logic
-					//exec('sudo /usr/local/cast/bin/cast-reset');
-				    } // end DVmega Cast logic
 				    echo '<tr><td colspan="3"><p class="larger"><i class="fa fa-check-square" aria-hidden="true"></i> Switched to Profile, '.$resto.'</p>
 				    Page reloading...<br /><br />
 				    <script language="JavaScript" type="text/javascript">
