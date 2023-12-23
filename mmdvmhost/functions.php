@@ -635,6 +635,14 @@ function getDMRnetStatus($dmrNet) {
     }
 }
 
+function isWPSDrepeater() {
+    if (file_exists('/etc/.wpsd-repeater')) {
+        return 1;
+    } else {
+	return 0;
+    }
+}
+
 // vendor logic...
 //DVMega Cast
 function isDVmegaCast() {
@@ -644,7 +652,6 @@ function isDVmegaCast() {
 	return 0;
     }
 }
-
 
 // status classes used in sysinfo.php
 function getStatusClass($status, $disabled = false) {

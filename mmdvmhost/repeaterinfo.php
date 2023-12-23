@@ -457,55 +457,16 @@ if ( $testMMDVModeDSTAR == 1 || isPaused("D-Star") ) { //Hide the D-Star Reflect
    <?php if (getConfigItem("DMR Network", "Slot1", $_SESSION['MMDVMHostConfigs']) == 1) { ?>
     <div class="divTableRow center">
       <div class="divTableHeadCell">TS1</div>
-	    <?php
-	    if (getConfigItem("DMR Network", "Slot1", $_SESSION['MMDVMHostConfigs']) == 1) {
-		if (preg_match("/Not/",getActualLink($reverseLogLinesMMDVM, "DMR Slot 1"))) {
-		    echo "<div class='divTableCell cell_content middle' title=''><div style=\"background: $tableRowEvenBg;\">$slot1Link</div></div>\n";
-		} else {
-		    $slot1Link = substr(getActualLink($reverseLogLinesMMDVM, "DMR Slot 1"), -20); 
-		    if (file_exists("/etc/.TGNAMES")) {
-			$slot1Link = str_replace("TG ", "", $slot1Link);
-			if (strpos($slot1Link, "Unlinked") !== false || strpos($slot1Link, "No Traffic") !== false) {
-			    echo "<div class='divTableCell cell_content middle active-mode-cell' title='Time Slot 1 Enabled: Unlinked' style='border: .5px solid $tableBorderColor;'>$slot1Link</div>\n";
-			} else {
-			    $slot1Link = preg_replace('#\((.*?)\)#', "<br><small>($1)</small>", tgLookup("DMR", $slot1Link));
-			    echo "<div class='divTableCell cell_content middle active-mode-cell' title='Rime Slot 1 Enabled' style='border: .5px solid $tableBorderColor;'>$slot1Link</div>\n";
-			}
-		    } else {
-			echo "<div class='divTableCell cell_content middle active-mode-cell' title='Time Slot 1 Enabled' style='border: .5px solid $tableBorderColor;'>$slot1Link</div>\n";
-		    }
-		}
-	    } else {
-		echo "<div class='divTableCell cell_content middle title='Time Slot 1 Disabled' style='border: .5px solid $tableBorderColor;'>Disabled</div>\n";
-	    }
-	    ?>
+      <?php echo "<div class='divTableCell cell_content middle active-mode-cell' title='Time Slot 1 Enabled' style='border: .5px solid $tableBorderColor;'>Enabled</div>\n"; ?>
     </div>
-    <?php } ?>
+    <?php } if (getConfigItem("DMR Network", "Slot2", $_SESSION['MMDVMHostConfigs']) == 1) { ?>
     <div class="divTableRow center">
       <div class="divTableHeadCell">TS2</div>
-           <?php
-	    if (getConfigItem("DMR Network", "Slot2", $_SESSION['MMDVMHostConfigs']) == 1) {
-		if (preg_match("/Not/",getActualLink($reverseLogLinesMMDVM, "DMR Slot 2"))) {
-		    echo "<div class='divTableCell cell_content middle' title=''><div style=\"background: $tableRowEvenBg;\">$slot2Link</div></div>\n";
-		} else {
-		    $slot2Link = substr(getActualLink($reverseLogLinesMMDVM, "DMR Slot 2"), -20); 
-		    if (file_exists("/etc/.TGNAMES")) {
-			$slot2Link = str_replace("TG ", "", $slot2Link);
-			if (strpos($slot2Link, "Unlinked") !== false || strpos($slot2Link, "No Traffic") !== false) {
-			    echo "<div class='divTableCell cell_content middle active-mode-cell' title='Time Slot 2 Enabled: Unlinked' style='border: .5px solid $tableBorderColor;'>$slot2Link</div>\n";
-			} else {
-			    $slot2Link = preg_replace('#\((.*?)\)#', "<br><small>($1)</small>", tgLookup("DMR", $slot2Link));
-			    echo "<div class='divTableCell cell_content middle active-mode-cell' title='Time Slot 2 Enabled' style='border: .5px solid $tableBorderColor;'>$slot2Link</div>\n";
-			}
-		    } else {
-			echo "<div class='divTableCell cell_content middle active-mode-cell' title='Time Slot 2 Enabled' style='border: .5px solid $tableBorderColor;'>$slot2Link</div>\n";
-		    }
-		}
-	    } else {
-		echo "<div class='divTableCell cell_content middle title='Time Slot 2 Disabled' style='border: .5px solid $tableBorderColor;'>Disabled</div>\n";
-	    }
-	    ?>
+      <?php echo "<div class='divTableCell cell_content middle active-mode-cell' title='Time Slot 2 Enabled' style='border: .5px solid $tableBorderColor;'>Enabled</div>\n"; ?>
     </div>
+    <?php } ?>
+   
+    <?php if(isWPSDrepeater() == 1) { // repeater-only ?>
     <div class="divTableRow center">
       <div class="divTableHeadCell" title="DMR Roaming Beacons">Beacons</div>
            <?php
@@ -518,7 +479,8 @@ if ( $testMMDVModeDSTAR == 1 || isPaused("D-Star") ) { //Hide the D-Star Reflect
 	    }
 	    ?>
       </div>
-  </div>
+  <?php } ?>
+    </div>
     <div class="divTableRow center">
       <div class="divTableHeadCell">DMR ID</div>
       <div class="divTableCell cell_content" style="background: <?php echo $tableRowEvenBg; ?>;"><?php echo getConfigItem("General", "Id", $_SESSION['MMDVMHostConfigs']); ?></div>
