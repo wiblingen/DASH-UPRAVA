@@ -646,7 +646,7 @@ function isWPSDrepeater() {
 // vendor logic...
 //DVMega Cast
 function isDVmegaCast() {
-    if (is_dir('/usr/local/cast/')) {
+    if (is_dir('/opt/cast/.git')) {
         return 1;
     } else {
 	return 0;
