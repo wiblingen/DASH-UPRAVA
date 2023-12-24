@@ -50,11 +50,10 @@ for ($i = 0;  ($i <= 0); $i++) { //Last 20  calls
 	    } else {
 		$local_time = $dt->format('h:i:s A M j');
 	    }
-            // YSF sometimes has malformed calls with a space and freeform text...address these
+	    // YSF & D-Star sometimes has malformed calls with a space and freeform text...address these
             if (preg_match('/ /', $listElem[2])) {
                 $listElem[2] = preg_replace('/ .*$/', "", $listElem[2]);
             }
-            // end cheesy YSF hack
             if (is_numeric($listElem[2]) !== FALSE) {
 		if ($listElem[2] > 9999) {
                     $callsign = "<a href=\"".$idLookupUrl.$listElem[2]."\" target=\"_blank\">$listElem[2]</a>";
