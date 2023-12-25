@@ -16,6 +16,7 @@ unset($_SESSION['DAPNETAPIKeyConfigs']);
 unset($_SESSION['PiStarRelease']);
 unset($_SESSION['MMDVMHostConfigs']);
 unset($_SESSION['ircDDBConfigs']);
+unset($_SESSION['timeServerConfigs']);
 unset($_SESSION['DMRGatewayConfigs']);
 unset($_SESSION['YSFGatewayConfigs']);
 unset($_SESSION['DGIdGatewayConfigs']);
@@ -293,12 +294,10 @@ $M17GatewayAPRS     = $configm17gateway['APRS']['Enable'];
 
 // APRS symbol form option handler
 $aprs_symbol_map = '/var/www/dashboard/includes/aprs-symbols/aprs_symbols.txt';
-
 // Read the file line by line and create options
 $sym_options = '';
 $overlay = false; // Initialize the overlay variable as false
 $selectedSymbol = $configdmrgateway['APRS']['Symbol']; // Get the selected symbol from the configuration
-
 if (($handle = fopen($aprs_symbol_map, 'r')) !== false) {
     while (($line = fgets($handle)) !== false) {
         // Split the line by tabs
@@ -1466,7 +1465,6 @@ if (!empty($_POST)):
 	  $confignxdngateway['General']['Suffix'] = "N";
 
 	  system($rollFREQirc);
-	  system($rollModeDuplex);
 	  system($rollGatewayType);
 	  system($rollFREQOffset);
 
@@ -1633,6 +1631,11 @@ if (!empty($_POST)):
 	  system($rollIRCrepeaterBand1);
 	  system($rollIRCrepeaterCall1);
 	}
+
+        // ircDDB time annnouncement intervals
+        $timeServerInt = escapeshellcmd($_POST['confTimeAnnounceInt']);
+        $rollTimeServerInt = 'sudo sed -i "/interval=/c\\interval='.$timeServerInt.'" /etc/timeserver';
+        system($rollTimeServerInt);
 
 	// Set Callsign
 	if (empty($_POST['confCallsign']) != TRUE ) {
@@ -4865,6 +4868,7 @@ else:
 	<label for="symbol" style="padding-right:5px;">Select APRS Symbol:</label>
 	<select id="symbol" name="symbol" onchange="updateSymbolPreview(this.value);">
 	    <option value="" disabled selected>Select...</option>
+	    <option value="">WPSD Default</option>
 	    <?php echo $sym_options; ?>
 	</select>
         <div class="aprs-preview-text" style="display: none;">Preview:</div>
@@ -5396,9 +5400,9 @@ fclose($dextraFile);
         <option>Z</option>
     </select>
     </td>
-    <td align="left">
-    <input type="radio" name="confDefRefAuto" value="ON"<?php if ($configs['atStartup1'] == '1') {echo ' checked="checked"';} ?> />Startup
-    <input type="radio" name="confDefRefAuto" value="OFF"<?php if ($configs['atStartup1'] == '0') {echo ' checked="checked"';} ?> />Manual</td>
+    <td align="left" style='word-wrap: break-word;white-space: normal'><strong>Link Type:</strong>&nbsp;&nbsp;
+    <input type="radio" name="confDefRefAuto" value="ON"<?php if ($configs['atStartup1'] == '1') {echo ' checked="checked"';} ?> />Auto-Link/Startup
+    <input type="radio" name="confDefRefAuto" value="OFF"<?php if ($configs['atStartup1'] == '0') {echo ' checked="checked"';} ?> />Manual Link</td>
     </tr>
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo $lang['dstar_irc_lang'];?>:<span><b>ircDDBGateway Language</b>Set your preferred language here</span></a></td>
@@ -5425,12 +5429,21 @@ fclose($dextraFile);
     <td align="left"><a class="tooltip2" href="#"><?php echo $lang['dstar_irc_time'];?>:<span><b>Time Announce</b>Announce time hourly</span></a></td>
     <?php
 	if ( !file_exists('/etc/timeserver.disable') ) {
-		echo "<td align=\"left\" colspan=\"2\"><div class=\"switch\"><input id=\"toggle-timeAnnounce\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"confTimeAnnounce\" value=\"ON\" checked=\"checked\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDstarTimeAnnounceCr." /><label id=\"aria-toggle-timeAnnounce\" role=\"checkbox\" tabindex=\"0\" aria-label=\"D-Star Time Announcements\" aria-checked=\"true\" onKeyPress=\"toggleDstarTimeAnnounce()\" onclick=\"toggleDstarTimeAnnounce()\" for=\"toggle-timeAnnounce\"><font style=\"font-size:0px\">D-Star Time Announcements</font></label></div></td>\n";
+		echo "<td align=\"left\" colspan=\"1\"><div class=\"switch\"><input id=\"toggle-timeAnnounce\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"confTimeAnnounce\" value=\"ON\" checked=\"checked\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDstarTimeAnnounceCr." /><label id=\"aria-toggle-timeAnnounce\" role=\"checkbox\" tabindex=\"0\" aria-label=\"D-Star Time Announcements\" aria-checked=\"true\" onKeyPress=\"toggleDstarTimeAnnounce()\" onclick=\"toggleDstarTimeAnnounce()\" for=\"toggle-timeAnnounce\"><font style=\"font-size:0px\">D-Star Time Announcements</font></label></div></td>\n";
 		}
 	else {
-		echo "<td align=\"left\" colspan=\"2\"><div class=\"switch\"><input id=\"toggle-timeAnnounce\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"confTimeAnnounce\" value=\"ON\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDstarTimeAnnounceCr." /><label id=\"aria-toggle-timeAnnounce\" role=\"checkbox\" tabindex=\"0\" aria-label=\"D-Star Time Announcements\" aria-checked=\"false\" onKeyPress=\"toggleDstarTimeAnnounce()\" onclick=\"toggleDstarTimeAnnounce()\" for=\"toggle-timeAnnounce\"><font style=\"font-size:0px\">D-Star Time Announcements</font></label></div></td>\n";
+		echo "<td align=\"left\" colspan=\"1\"><div class=\"switch\"><input id=\"toggle-timeAnnounce\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"confTimeAnnounce\" value=\"ON\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDstarTimeAnnounceCr." /><label id=\"aria-toggle-timeAnnounce\" role=\"checkbox\" tabindex=\"0\" aria-label=\"D-Star Time Announcements\" aria-checked=\"false\" onKeyPress=\"toggleDstarTimeAnnounce()\" onclick=\"toggleDstarTimeAnnounce()\" for=\"toggle-timeAnnounce\"><font style=\"font-size:0px\">D-Star Time Announcements</font></label></div></td>\n";
 	}
     ?>
+
+    <?php
+      $currentTimeInt = $_SESSION['timeServerConfigs']['interval'];
+    ?>
+    <td style='word-wrap: break-word;white-space: normal' align="left"><strong>Interval:</strong>&nbsp;&nbsp;
+	<input type="radio" name="confTimeAnnounceInt" value="2" <?php if ($currentTimeInt == "2") { echo " checked"; }?>/><label>1 Hr.</label> 
+	<input type="radio" name="confTimeAnnounceInt" value="1" <?php if ($currentTimeInt == "1") { echo " checked"; }?> /><label>30 Mins.</label> 
+	<input type="radio" name="confTimeAnnounceInt" value="0" <?php if ($currentTimeInt == "0") { echo " checked"; }?> /><label>15 Mins.</label>
+    </td>
     </tr>
     <tr>
     <td align="left"><a class="tooltip2" href="#">Callsign Routing:<span><b>Callsign Routing</b>Do you want callsign routing for D-Star</span></a></td>
@@ -5442,7 +5455,7 @@ fclose($dextraFile);
 		echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-ircddbEnabled\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"confircddbEnabled\" value=\"ON\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleircddbEnabledCr." /><label id=\"aria-toggle-ircddbEnabled\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Use ircDDB callsign routing\" aria-checked=\"false\" onKeyPress=\"toggleircddbEnabled()\" onclick=\"toggleircddbEnabled()\" for=\"toggle-ircddbEnabled\"><font style=\"font-size:0px\">Enable ircDDB callsign routing</font></label></div></td>\n";
 	}
     ?>
-    <td align="left">Connect ircDDB for call routing</td>
+    <td align="left">Connect to ircDDB for callsign routing</td>
     </tr>
     <tr>
     <td align="left"><a class="tooltip2" href="#">Use DPlus for XRF:<span><b>No DExtra</b>Should host files use DPlus Protocol for XRFs</span></a></td>

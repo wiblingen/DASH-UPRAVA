@@ -55,11 +55,12 @@ function checkSessionValidity() {
 	if (empty($gatewayConfigPath)) {
 	    include $_SERVER['DOCUMENT_ROOT'].'/config/ircddblocal.php';
 	    $_SESSION['ircDDBConfigs'] = getNoSectionsConfigContent($gatewayConfigPath);
+	    $_SESSION['timeServerConfigs'] = getNoSectionsConfigContent('/etc/timeserver');
 	}
 	else {
 	    $_SESSION['ircDDBConfigs'] = getNoSectionsConfigContent($gatewayConfigPath);
+	    $_SESSION['timeServerConfigs'] = getNoSectionsConfigContent('/etc/timeserver');
 	}
-
     }
 
     loadSessionConfigFile('DMRGatewayConfigs', '/etc/dmrgateway');
