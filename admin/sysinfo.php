@@ -278,10 +278,6 @@ function timesyncdProc() {
 			    echo "  <tr>";getStatusClass(isProcessRunning("M17Gateway"), true); echo "M17Gateway</td><td align=\"left\">".$M17Gateway_Ver."</td></tr>\n";
 			}
 		    }
-		    if (is_executable('/usr/local/bin/NXDN2DMR')) {
-			$NXDN2DMR_Ver = exec('/usr/local/bin/NXDN2DMR -v | cut -d\' \' -f 3-');
-			echo "  <tr>";getStatusClass(isProcessRunning("NXDN2DMR"), true); echo "NXDN2DMR</td><td align=\"left\">".$NXDN2DMR_Ver."</td></tr>\n";
-		    }
 		    if (is_executable('/usr/local/bin/DAPNETGateway')) {
 			$DAPNETGateway_Ver = exec('/usr/local/bin/DAPNETGateway -v | cut -d\' \' -f 3-');
 			echo "  <tr>";getStatusClass(isProcessRunning("DAPNETGateway"), true); echo "DAPNETGateway</td><td align=\"left\">".$DAPNETGateway_Ver."</td></tr>\n";

@@ -46,7 +46,7 @@ $os_ver = trim( exec( 'cat /etc/debian_version' ) );
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('M17Gateway')); ?>">M17Gateway</div> 
   <?php } ?>
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('NXDNParrot')); ?>">NXDNParrot</div> 
-  <div class="grid-item <?php getServiceStatusClass(isProcessRunning('NXDN2DMR')); ?>">NXDN2DMR</div> 
+  <div class="grid-item <?php getServiceStatusClass(isProcessRunning('usr/sbin/vnstatd',true)); ?>">Network Metrics (vnstat)</div> 
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('APRSGateway')); ?>">APRSGateway</div>
   <?php
   if ($os_ver >= 11) {
