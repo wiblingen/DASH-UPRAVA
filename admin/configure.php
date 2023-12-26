@@ -1944,11 +1944,6 @@ if (!empty($_POST)):
 	  }
 	}
 
-	// Set the YSF2NXDN Id
-	if (empty($_POST['ysf2nxdnId']) != TRUE ) {
-	  $configysf2nxdn['NXDN Network']['Id'] = preg_replace('/[^0-9]/', '', $_POST['ysf2nxdnId']);
-	}
-
 	// Set the YSF2P25 Master
 	if (empty($_POST['ysf2p25StartupDstId']) != TRUE ) {
 	  $newYSF2P25StartupHost = strtoupper(escapeshellcmd($_POST['ysf2p25StartupDstId']));
@@ -1961,11 +1956,6 @@ if (!empty($_POST)):
 		  $configp25gateway['Network']['Startup'] = $newYSF2P25StartupHost;
 		  $configysf2p25['P25 Network']['StartupDstId'] = $newYSF2P25StartupHost;
 	  }
-	}
-
-	// Set the YSF2P25 P25Id
-	if (empty($_POST['ysf2p25Id']) != TRUE ) {
-	  $configysf2p25['P25 Network']['Id'] = preg_replace('/[^0-9]/', '', $_POST['ysf2p25Id']);
 	}
 
 	// Set Duplex
@@ -1992,19 +1982,35 @@ if (!empty($_POST)):
 	if (empty($_POST['dmrId']) != TRUE ) {
 	  $newPostDmrId = preg_replace('/[^0-9]/', '', $_POST['dmrId']);
 	  $newPostDmrId = substr($newPostDmrId, 0, 7);
+
 	  $configmmdvm['General']['Id'] = $newPostDmrId;
 	  $configmmdvm['DMR']['Id'] = $newPostDmrId;
+
 	  $configysfgateway['General']['Id'] = $newPostDmrId;
+
 	  $configdmrgateway['XLX Network']['Id'] = $newPostDmrId;
+
 	  $configdmr2ysf['DMR Network']['Id'] = $newPostDmrId;
 	  $configdmr2nxdn['DMR Network']['Id'] = $newPostDmrId;
+
 	  $configdgidgateway['General']['Id'] = $newPostDmrId;
+
+	  $configysf2dmr['DMR Network']['Id'] = $newPostDmrId;
+	  $configysf2p25['P25 Network']['Id'] = $newPostDmrId;
 	}
 
 	// Set DMR Extended ID
 	if (empty($_POST['dmrExtendedId']) != TRUE ) {
 	  $newPostdmrExtendedId = preg_replace('/[^0-9]/', '', $_POST['dmrExtendedId']);
 	  $configmmdvm['DMR']['Id'] = $configmmdvm['General']['Id'].$newPostdmrExtendedId;
+	}
+
+	// Set NXDN ID
+	if (empty($_POST['nxdnId']) != TRUE ) {
+	  $newPostNxdnId = preg_replace('/[^0-9]/', '', $_POST['nxdnId']);
+	  $configmmdvm['NXDN']['Id'] = $newPostNxdnId;
+	  $configysf2nxdn['NXDN Network']['Id'] = $newPostNxdnId;
+	  if ($configmmdvm['NXDN']['Id'] > 65535) { unset($configmmdvm['NXDN']['Id']); }
 	}
 
 	// Set BrandMeister Extended ID
@@ -2025,18 +2031,22 @@ if (!empty($_POST)):
 	  $configdmrgateway['DMR Network 5']['Id'] = $configmmdvm['General']['Id'].$newPostSystemXExtendedId;
 	}
 
-	// Set YSF2DMR ID
-	if (empty($_POST['ysf2dmrId']) != TRUE ) {
-	  $newPostYsf2DmrId = preg_replace('/[^0-9]/', '', $_POST['ysf2dmrId']);
-	  $configysf2dmr['DMR Network']['Id'] = $newPostYsf2DmrId;
+	/*  Already aset above at "// Set DMR / CCS7 ID" section
+	// Set the YSF2P25 P25Id
+	if (empty($newPostDmrId) != TRUE ) {
+	  $configysf2p25['P25 Network']['Id'] = preg_replace('/[^0-9]/', '', $newPostDmrId);
 	}
 
-	// Set NXDN ID
-	if (empty($_POST['nxdnId']) != TRUE ) {
-	  $newPostNxdnId = preg_replace('/[^0-9]/', '', $_POST['nxdnId']);
-	  $configmmdvm['NXDN']['Id'] = $newPostNxdnId;
-	  if ($configmmdvm['NXDN']['Id'] > 65535) { unset($configmmdvm['NXDN']['Id']); }
+	// Set the YSF2NXDN Id
+	if (empty($_POST['ysf2nxdnId']) != TRUE ) {
+	  $configysf2nxdn['NXDN Network']['Id'] = preg_replace('/[^0-9]/', '', $_POST['ysf2nxdnId']);
 	}
+
+	// Set YSF2DMR ID
+	if (empty($newPostDmrId) != TRUE ) {
+	  $configysf2dmr['DMR Network']['Id'] = $newPostDmrId;
+	}
+	*/
 
 	// Set DMR Master Server
 	if (empty($_POST['dmrMasterHost']) != TRUE ) {
@@ -3531,7 +3541,7 @@ if (!empty($_POST)):
 	if (!isset($configysf2dmr['YSF Network']['LocalPort'])) { $configysf2dmr['YSF Network']['LocalPort'] = "42013"; }
 	if (!isset($configysf2dmr['YSF Network']['Daemon'])) { $configysf2dmr['YSF Network']['Daemon'] = "1"; }
 	if (!isset($configysf2dmr['YSF Network']['EnableWiresX'])) { $configysf2dmr['YSF Network']['EnableWiresX'] = "1"; }
-	if (!isset($configysf2dmr['DMR Network']['StartupDstId'])) { $configysf2dmr['DMR Network']['StartupDstId'] = "31672"; }
+	if (!isset($configysf2dmr['DMR Network']['StartupDstId'])) { $configysf2dmr['DMR Network']['StartupDstId'] = "3170603"; }
 	if (!isset($configysf2dmr['DMR Network']['StartupPC'])) { $configysf2dmr['DMR Network']['StartupPC'] = "0"; }
 	if (!isset($configysf2dmr['DMR Network']['Jitter'])) { $configysf2dmr['DMR Network']['Jitter'] = "500"; }
 	if (!isset($configysf2dmr['DMR Network']['EnableUnlink'])) { $configysf2dmr['DMR Network']['EnableUnlink'] = "1"; }
@@ -5688,7 +5698,7 @@ $ysfHosts = fopen("/usr/local/etc/YSFHosts.txt", "r"); ?>
     <?php if (file_exists('/etc/dstar-radio.mmdvmhost') && $configysf2nxdn['Enabled']['Enabled'] == 1) { ?>
     <tr>
       <td align="left"><a class="tooltip2" href="#">(YSF2NXDN) NXDN ID:<span><b>NXDN ID</b>Enter your NXDN ID here</span></a></td>
-      <td align="left" colspan="2"><input type="text" name="ysf2nxdnId" size="13" maxlength="5" value="<?php if (isset($configysf2nxdn['NXDN Network']['Id'])) { echo $configysf2nxdn['NXDN Network']['Id']; } ?>" /></td>
+      <td align="left" colspan="2"><?php if (isset($configysf2nxdn['NXDN Network']['Id'])) { echo $configysf2nxdn['NXDN Network']['Id']; } else { echo "Set your DMR/CCS7 ID in the 'General' Section Above"; } ?></td>
     </tr>
     <tr>
         <td align="left"><a class="tooltip2" href="#"><?php echo $lang['nxdn_hosts'];?>:<span><b>NXDN Host</b>Set your preferred NXDN Host here</span></a></td>
@@ -5728,7 +5738,7 @@ $ysfHosts = fopen("/usr/local/etc/YSFHosts.txt", "r"); ?>
     <?php if (file_exists('/etc/dstar-radio.mmdvmhost') && $configysf2p25['Enabled']['Enabled'] == 1) { ?>
     <tr>
       <td align="left"><a class="tooltip2" href="#">(YSF2P25) <?php echo $lang['dmr_id'];?>:<span><b>DMR ID</b>Enter your CCS7 / DMR ID here</span></a></td>
-      <td align="left" colspan="2"><input type="text" name="ysf2p25Id" size="13" maxlength="7" value="<?php if (isset($configysf2p25['P25 Network']['Id'])) { echo $configysf2p25['P25 Network']['Id']; } ?>" /></td>
+      <td align="left" colspan="2"><?php if (isset($configysf2p25['P25 Network']['Id'])) { echo $configysf2p25['P25 Network']['Id'];  } else { echo "Set your DMR/CCS7 ID in the 'General' Section Above"; }?></td>
     </tr>
     <tr>
       <td align="left"><a class="tooltip2" href="#"><?php echo $lang['p25_hosts'];?>:<span><b>P25 Host</b>Set your preferred P25 Host here</span></a></td>
