@@ -224,6 +224,8 @@ $numDMRmasters = exec('cd /var/log/pi-star ; /usr/local/bin/RemoteCommand '.$_SE
         <?php if(isPaused("YSF")) { echo '<div class="paused-mode-cell" title="Mode Paused">YSF Net</div>'; } else { showMode("System Fusion Network", $_SESSION['MMDVMHostConfigs']); } ?>
       </div>
     </div>
+
+<?php if (isDVmegaCast() == 0) { // DVMega Cast logic... ?>
     <div class="mode_flex column">
       <div class="divTableCell">
         <?php if(isPaused("P25")) { echo '<div class="paused-mode-cell" title="Mode Paused">P25 Net</div>'; } else { showMode("P25 Network", $_SESSION['MMDVMHostConfigs']); } ?>
@@ -232,19 +234,18 @@ $numDMRmasters = exec('cd /var/log/pi-star ; /usr/local/bin/RemoteCommand '.$_SE
   </div>
 
   <div class="mode_flex row">
-<?php if (isDVmegaCast() == 0) { // DVMega Cast logic... ?>
     <div class="mode_flex column">
       <div class="divTableCell">
         <?php if(isPaused("M17")) { echo '<div class="paused-mode-cell" title="Mode Paused">M17 Net</div>'; } else { showMode("M17 Network", $_SESSION['MMDVMHostConfigs']); } ?>
       </div>
     </div>  
-<?php } ?>
     <div class="mode_flex column">
       <div class="divTableCell">
         <?php if(isPaused("NXDN")) { echo '<div class="paused-mode-cell" title="Mode Paused">NXDN Net</div>'; } else { showMode("NXDN Network", $_SESSION['MMDVMHostConfigs']); } ?>
       </div>
     </div>
   </div>
+<?php } ?>
 
   <div class="mode_flex row">
     <div class="mode_flex column">
