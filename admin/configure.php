@@ -4403,12 +4403,21 @@ if (!empty($_POST)):
         }
 
 	// Setup the DV Mega Cast FW/display
+	/*
+	// Sample: https://wpsd-swd.w0chp.net/WPSD-SWD/DVMega-Cast/raw/branch/master/cast-factory-settings/settings.txt
+	//
+	//         * String: SETPE1ABC%GPE1ABC%ECQCQCQ%%PE1ABC%%CAST0204000009
+	//         * Dict: SET PE1ABC%G PE1ABC%E CQCQCQ%% PE1ABC%% CAST 0 2040000 09
+	//	           Set RPT1     RPT2     URCALL   CALL     INFO 0 DMRID   ESSID
+	//
+	//         * Every Block is 8 chars and string total is 49 bytes/chars.
+	*/
 	if (isDVmegaCast() == 1) {
 	    $callsignCast = !empty($newCallsignUpper) ? $newCallsignUpper : 'PE1ABC';
 	    $dmridCast = !empty($newPostDmrId) ? $newPostDmrId : '2040000';
 	    $essidCast = !empty($_POST['bmExtendedId']) && $_POST['bmExtendedId'] !== 'None' ? $_POST['bmExtendedId'] : '00';
 	    $modSuffixCast = !empty($_POST['confDStarModuleSuffix']) ? $_POST['confDStarModuleSuffix'] : 'E';
-	    $callSuffixCast = !empty($_POST['confDStarCallSuffix']) ? $_POST['confDStarCallSuffix'] : 'CAST';
+	    $callSuffixCast = !empty($_POST['confDStarCallSuffix']) ? $_POST['confDStarCallSuffix'] : '%%%%'; // no suffix
 
 	    // Calculate rpt1 and rpt2 based on callsign
 	    $rpt1Cast = str_replace(' ', '%', substr($callsignCast . '        ', 0, 7)) .  $modSuffixCast;	// always be 8 characters
