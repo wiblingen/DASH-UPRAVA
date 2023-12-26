@@ -484,11 +484,11 @@ $MYCALL=strtoupper($callsign);
     <title><?php echo "$MYCALL"." - ".$lang['digital_voice']." ".$lang['dashboard']." - ".$lang['configuration'];?></title>
     <link rel="stylesheet" type="text/css" href="/css/font-awesome-4.7.0/css/font-awesome.min.css?version=<?php echo $versionCmd; ?>" />
     <?php include_once "../config/browserdetect.php"; ?>
-    <script type="text/javascript" src="/js/jquery.min.js?version=<?php echo $versionCmd; ?>"></script>
+    <script src="/js/jquery.min.js?version=<?php echo $versionCmd; ?>"></script>
     <link href="/js/select2/css/select2.min.css?version=<?php echo $versionCmd; ?>" rel="stylesheet" />
     <script src="/js/select2/js/select2.full.min.js?version=<?php echo $versionCmd; ?>"></script>
     <script src="/js/select2/js/select2-searchInputPlaceholder.js?version=<?php echo $versionCmd; ?>"></script>  
-    <script type="text/javascript">
+    <script>
         function disableSubmitButtons() {
                 var inputs = document.getElementsByTagName('input');
                 for (var i = 0; i < inputs.length; i++) {
@@ -575,6 +575,11 @@ $MYCALL=strtoupper($callsign);
 	$(document).on('click', '.toggle-bm-password', function() {
 	  $(this).toggleClass("fa-eye fa-eye-slash");
 	  var input = $("#bmHSSecurity");
+	  input.attr('type') === 'password' ? input.attr('type','text') : input.attr('type','password')
+	});
+	$(document).on('click', '.toggle-bm-password', function() {
+	  $(this).toggleClass("fa-eye fa-eye-slash");
+	  var input = $("#bmHSSecurity_YSF");
 	  input.attr('type') === 'password' ? input.attr('type','text') : input.attr('type','password')
 	});
 	$(document).on('click', '.toggle-tgif-password', function() {
@@ -699,7 +704,7 @@ $MYCALL=strtoupper($callsign);
             input.value = input.value.toUpperCase();
         }
     </script>
-    <script type="text/javascript" src="/js/functions.js?version=<?php echo $versionCmd; ?>"></script>
+    <script src="/js/functions.js?version=<?php echo $versionCmd; ?>"></script>
     <link rel="stylesheet" href="/includes/aprs-symbols/aprs-symbols.css?version=<?php echo $versionCmd; ?>"/>
     <script src="/includes/aprs-symbols/aprs-symbols.js?version=<?php echo $versionCmd; ?>"></script>
     <script src="/includes/aprs-symbols/doc-ready.js?version=<?php echo $versionCmd; ?>"></script>
@@ -763,6 +768,30 @@ $MYCALL=strtoupper($callsign);
     // Store the original form data on page load
     originalFormData = $('#config').serialize();
   });
+
+
+    // conflicing cross-mode handling
+    function toggleDMR2YSFCheckbox() {
+        var dmr2ysfCheckbox = document.getElementById('toggle-dmr2ysf');
+        var dmr2nxdnCheckbox = document.getElementById('toggle-dmr2nxdn');
+
+        if (dmr2ysfCheckbox.checked) {
+            dmr2nxdnCheckbox.disabled = true;
+        } else {
+            dmr2nxdnCheckbox.disabled = false;
+        }
+    }
+
+    function toggleDMR2NXDNCheckbox() {
+        var dmr2ysfCheckbox = document.getElementById('toggle-dmr2ysf');
+        var dmr2nxdnCheckbox = document.getElementById('toggle-dmr2nxdn');
+
+        if (dmr2nxdnCheckbox.checked) {
+            dmr2ysfCheckbox.disabled = true;
+        } else {
+            dmr2ysfCheckbox.disabled = false;
+        }
+    }
 </script>
 </head>
 <body onload="checkFrequency(); return false;">
@@ -770,13 +799,6 @@ $MYCALL=strtoupper($callsign);
   <strong>Changes pending:</strong> Click <em>"Apply Changes"</em> to save and activate after making <strong>all</strong> necessary changes.
   <button id="applyButton">Apply Changes</button>
   <button id="revertButton">Revert Changes</button>
-</div>
-
-</head>
-<body onload="checkFrequency(); return false;">
-<div id="unsavedChanges">
-  <strong>Changes pending:</strong> Click <em>"<?php echo $lang['apply'];?>"</em> to save and activate after making <strong>all</strong> necessary changes.
-  <button id="applyButton"><?php echo $lang['apply'];?></button>
 </div>
 <?php
 // warn to backup configs, only if this is not a new installation.
@@ -1915,15 +1937,16 @@ if (!empty($_POST)):
 		unset ($configysf2dmr['DMR Network']['Options']);
 	 }
 
-	  if (isset($_POST['bmHSSecurity'])) {
-		  if (empty($_POST['bmHSSecurity']) != TRUE ) {
-			  $configysf2dmr['DMR Network']['Password'] = '"'.$_POST['bmHSSecurity'].'"';
-			  $configModem['BrandMeister']['Password'] = '"'.$_POST['bmHSSecurity'].'"';
-		  } else {
-			  unset ($configModem['BrandMeister']['Password']);
-		  }
+	 // Set the YSF2DMR BM pass...
+	 if (isset($_POST['bmHSSecurity_YSF'])) {
+	     if (empty($_POST['bmHSSecurity_YSF']) != TRUE ) {
+		 $configysf2dmr['DMR Network']['Password'] = '"'.$_POST['bmHSSecurity_YSF'].'"';
+		 $configModem['BrandMeister']['Password'] = '"'.$_POST['bmHSSecurity_YSF'].'"';
+	     } else {
+		 unset ($configModem['BrandMeister']['Password']);
+	    }
 	  }
-	}
+ 	}
 
 	// Set the YSF2DMR Starting TG
 	if (empty($_POST['ysf2dmrTg']) != TRUE ) {
@@ -2031,22 +2054,11 @@ if (!empty($_POST)):
 	  $configdmrgateway['DMR Network 5']['Id'] = $configmmdvm['General']['Id'].$newPostSystemXExtendedId;
 	}
 
-	/*  Already aset above at "// Set DMR / CCS7 ID" section
-	// Set the YSF2P25 P25Id
-	if (empty($newPostDmrId) != TRUE ) {
-	  $configysf2p25['P25 Network']['Id'] = preg_replace('/[^0-9]/', '', $newPostDmrId);
-	}
-
-	// Set the YSF2NXDN Id
-	if (empty($_POST['ysf2nxdnId']) != TRUE ) {
-	  $configysf2nxdn['NXDN Network']['Id'] = preg_replace('/[^0-9]/', '', $_POST['ysf2nxdnId']);
-	}
-
 	// Set YSF2DMR ID
-	if (empty($newPostDmrId) != TRUE ) {
-	  $configysf2dmr['DMR Network']['Id'] = $newPostDmrId;
+	if (empty($_POST['ysf2dmrId']) != TRUE ) {
+	  $newPostYsf2DmrId = preg_replace('/[^0-9]/', '', $_POST['ysf2dmrId']);
+	  $configysf2dmr['DMR Network']['Id'] = $newPostYsf2DmrId;
 	}
-	*/
 
 	// Set DMR Master Server
 	if (empty($_POST['dmrMasterHost']) != TRUE ) {
@@ -2062,7 +2074,12 @@ if (!empty($_POST)):
 		if ($dmrMasterHostArr[0] != '127.0.0.1') {
 		    $configmmdvm['DMR Network']['Password'] = '"'.$_POST['bmHSSecurity'].'"';
 		}
-	    } else {
+	    } else if (empty($_POST['bmHSSecurity_YSF']) != TRUE ) {
+	    	$configModem['BrandMeister']['Password'] = '"'.$_POST['bmHSSecurity_YSF'].'"';
+		if ($dmrMasterHostArr[0] != '127.0.0.1') {
+		    $configmmdvm['DMR Network']['Password'] = '"'.$_POST['bmHSSecurity_YSF'].'"';
+		}
+	    } else { 
 		unset($configModem['BrandMeister']['Password']);
 	    }
 	
@@ -5101,19 +5118,19 @@ else:
     <td align="left"><a class="tooltip2" href="#">DMR2YSF:<span><b>DMR2YSF Mode</b>Turn on DMR2YSF Features</span></a></td>
     <?php
 	if ($configmmdvm['DMR']['Enable'] != 1) {
-	    echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-dmr2ysf\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeDMR2YSF\" value=\"OFF\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDMR2YSFCheckboxCr." disabled='disabled' /><label id=\"aria-toggle-dmr2ysf\" role=\"checkbox\" tabindex=\"0\" aria-label=\"DMR 2 Y S F Mode\" aria-checked=\"true\" onKeyPress=\"toggleDMR2YSFCheckbox()\" onclick=\"toggleDMR2YSFCheckbox()\" for=\"toggle-dmr2ysf\"><font style=\"font-size:0px\">DMR 2 Y S F Mode</font></label></div></td>\n";
+	    echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-dmr2ysf\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeDMR2YSF\" value=\"OFF\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDMR2YSFCheckboxCr." disabled='disabled' onchange=\"toggleDMR2YSFCheckbox()\" /><label id=\"aria-toggle-dmr2ysf\" role=\"checkbox\" tabindex=\"0\" aria-label=\"DMR 2 Y S F Mode\" aria-checked=\"true\" onKeyPress=\"toggleDMR2YSFCheckbox()\" onclick=\"toggleDMR2YSFCheckbox()\" for=\"toggle-dmr2ysf\"><font style=\"font-size:0px\">DMR 2 Y S F Mode</font></label></div></td>\n";
 	    echo "<td align='left'><em>Note: DMR Mode must be enabled &amp; applied first.</em></td>\n";
 	} else if ( $configdmr2nxdn['Enabled']['Enabled'] == 1 ) {
-	    echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-dmr2ysf\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeDMR2YSF\" value=\"OFF\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDMR2YSFCheckboxCr." disabled='disabled' /><label id=\"aria-toggle-dmr2ysf\" role=\"checkbox\" tabindex=\"0\" aria-label=\"DMR 2 Y S F Mode\" aria-checked=\"true\" onKeyPress=\"toggleDMR2YSFCheckbox()\" onclick=\"toggleDMR2YSFCheckbox()\" for=\"toggle-dmr2ysf\"><font style=\"font-size:0px\">DMR 2 Y S F Mode</font></label></div></td>\n";
+	    echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-dmr2ysf\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeDMR2YSF\" value=\"OFF\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDMR2YSFCheckboxCr." disabled='disabled' onchange=\"toggleDMR2YSFCheckbox()\" /><label id=\"aria-toggle-dmr2ysf\" role=\"checkbox\" tabindex=\"0\" aria-label=\"DMR 2 Y S F Mode\" aria-checked=\"true\" onKeyPress=\"toggleDMR2YSFCheckbox()\" onclick=\"toggleDMR2YSFCheckbox()\" for=\"toggle-dmr2ysf\"><font style=\"font-size:0px\">DMR 2 Y S F Mode</font></label></div></td>\n";
 	    echo "<td align='left'><em>Note: Cannot be enabled in conjunction with DMR2NXDN.</em></td>\n";
 	} else {
 	    if ( $configdmr2ysf['Enabled']['Enabled'] == 1 ) {
-		echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-dmr2ysf\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeDMR2YSF\" value=\"ON\" checked=\"checked\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDMR2YSFCheckboxCr." /><label id=\"aria-toggle-dmr2ysf\" role=\"checkbox\" tabindex=\"0\" aria-label=\"DMR 2 Y S F Mode\" aria-checked=\"true\" onKeyPress=\"toggleDMR2YSFCheckbox()\" onclick=\"toggleDMR2YSFCheckbox()\" for=\"toggle-dmr2ysf\"><font style=\"font-size:0px\">DMR 2 Y S F Mode</font></label></div></td>\n";
-		echo '<td align="left" style="word-wrap: break-word;white-space: normal"><i class="fa fa-exclamation-circle"></i> Uses "7" talkgroup prefix on DMRGateway. <em>Note: Cannot be enabled in conjunction with DMR2NXDN.</em></td>';
+		echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-dmr2ysf\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeDMR2YSF\" value=\"ON\" checked=\"checked\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDMR2YSFCheckboxCr." onchange=\"toggleDMR2YSFCheckbox()\" /><label id=\"aria-toggle-dmr2ysf\" role=\"checkbox\" tabindex=\"0\" aria-label=\"DMR 2 Y S F Mode\" aria-checked=\"true\" onKeyPress=\"toggleDMR2YSFCheckbox()\" onclick=\"toggleDMR2YSFCheckbox()\" for=\"toggle-dmr2ysf\"><font style=\"font-size:0px\">DMR 2 Y S F Mode</font></label></div></td>\n";
+		echo '<td align="left" style="word-wrap: break-word;white-space: normal"><i class="fa fa-exclamation-circle"></i> Uses "7" talkgroup prefix in DMR. <em>Note: Cannot be enabled in conjunction with DMR2NXDN.</em></td>';
 	    }
 	    else {
-		echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-dmr2ysf\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeDMR2YSF\" value=\"ON\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDMR2YSFCheckboxCr." /><label id=\"aria-toggle-dmr2ysf\" role=\"checkbox\" tabindex=\"0\" aria-label=\"DMR 2 Y S F Mode\" aria-checked=\"false\" onKeyPress=\"toggleDMR2YSFCheckbox()\" onclick=\"toggleDMR2YSFCheckbox()\" for=\"toggle-dmr2ysf\"><font style=\"font-size:0px\">DMR 2 Y S F Mode</font></label></div></td>\n";
-		echo '<td align="left" style="word-wrap: break-word;white-space: normal"><i class="fa fa-exclamation-circle"></i> Uses "7" talkgroup prefix on DMRGateway. <em>Note: Cannot be enabled in conjunction with DMR2NXDN.</em></td>';
+		echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-dmr2ysf\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeDMR2YSF\" value=\"ON\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDMR2YSFCheckboxCr." onchange=\"toggleDMR2YSFCheckbox()\" /><label id=\"aria-toggle-dmr2ysf\" role=\"checkbox\" tabindex=\"0\" aria-label=\"DMR 2 Y S F Mode\" aria-checked=\"false\" onKeyPress=\"toggleDMR2YSFCheckbox()\" onclick=\"toggleDMR2YSFCheckbox()\" for=\"toggle-dmr2ysf\"><font style=\"font-size:0px\">DMR 2 Y S F Mode</font></label></div></td>\n";
+		echo '<td align="left" style="word-wrap: break-word;white-space: normal"><i class="fa fa-exclamation-circle"></i> Uses "7" talkgroup prefix in DMR. <em>Note: Cannot be enabled in conjunction with DMR2NXDN.</em></td>';
 	    }
 	}
     ?>
@@ -5124,19 +5141,19 @@ else:
     <td align="left"><a class="tooltip2" href="#">DMR2NXDN:<span><b>DMR2NXDN Mode</b>Turn on DMR2NXDN Features</span></a></td>
     <?php
 	if ($configmmdvm['DMR']['Enable'] != 1) {
-	    echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-dmr2nxdn\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeDMR2NXDN\" value=\"OFF\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDMR2NXDNCheckboxCr." disabled='disabled'/><label id=\"aria-toggle-dmr2nxdn\" role=\"checkbox\" tabindex=\"0\" aria-label=\"DMR 2 NXDN Mode\" aria-checked=\"true\" onKeyPress=\"toggleDMR2NXDNCheckbox()\" onclick=\"toggleDMR2NXDNCheckbox()\" for=\"toggle-dmr2nxdn\"><font style=\"font-size:0px\">DMR 2 NXDN Mode</font></label></div></td>\n";
+	    echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-dmr2nxdn\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeDMR2NXDN\" value=\"OFF\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDMR2NXDNCheckboxCr." disabled='disabled' onchange=\"toggleDMR2NXDNCheckbox()\" /><label id=\"aria-toggle-dmr2nxdn\" role=\"checkbox\" tabindex=\"0\" aria-label=\"DMR 2 NXDN Mode\" aria-checked=\"true\" onKeyPress=\"toggleDMR2NXDNCheckbox()\" onclick=\"toggleDMR2NXDNCheckbox()\" for=\"toggle-dmr2nxdn\"><font style=\"font-size:0px\">DMR 2 NXDN Mode</font></label></div></td>\n";
 	    echo "<td align='left'><em>Note: DMR Mode must be enabled &amp; applied first.</em></td>\n";
 	} else if ( $configdmr2ysf['Enabled']['Enabled'] == 1 ) {
-	    echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-dmr2nxdn\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeDMR2NXDN\" value=\"OFF\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDMR2NXDNCheckboxCr." disabled='disabled'/><label id=\"aria-toggle-dmr2nxdn\" role=\"checkbox\" tabindex=\"0\" aria-label=\"DMR 2 NXDN Mode\" aria-checked=\"true\" onKeyPress=\"toggleDMR2NXDNCheckbox()\" onclick=\"toggleDMR2NXDNCheckbox()\" for=\"toggle-dmr2nxdn\"><font style=\"font-size:0px\">DMR 2 NXDN Mode</font></label></div></td>\n";
+	    echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-dmr2nxdn\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeDMR2NXDN\" value=\"OFF\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDMR2NXDNCheckboxCr." disabled='disabled' onchange=\"toggleDMR2NXDNCheckbox()\" /><label id=\"aria-toggle-dmr2nxdn\" role=\"checkbox\" tabindex=\"0\" aria-label=\"DMR 2 NXDN Mode\" aria-checked=\"true\" onKeyPress=\"toggleDMR2NXDNCheckbox()\" onclick=\"toggleDMR2NXDNCheckbox()\" for=\"toggle-dmr2nxdn\"><font style=\"font-size:0px\">DMR 2 NXDN Mode</font></label></div></td>\n";
 	    echo "<td align='left'><em>Note: Cannot be enabled in conjunction with DMR2YSF.</em></td>\n";
 	} else {
 	    if ( $configdmr2nxdn['Enabled']['Enabled'] == 1 ) {
-		echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-dmr2nxdn\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeDMR2NXDN\" value=\"ON\" checked=\"checked\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDMR2NXDNCheckboxCr." /><label id=\"aria-toggle-dmr2nxdn\" role=\"checkbox\" tabindex=\"0\" aria-label=\"DMR 2 NXDN Mode\" aria-checked=\"true\" onKeyPress=\"toggleDMR2NXDNCheckbox()\" onclick=\"toggleDMR2NXDNCheckbox()\" for=\"toggle-dmr2nxdn\"><font style=\"font-size:0px\">DMR 2 NXDN Mode</font></label></div></td>\n";
-		echo '<td align="left" style="word-wrap: break-word;white-space: normal"><i class="fa fa-exclamation-circle"></i> Uses "7" talkgroup prefix on DMRGateway. <em>Note: Cannot be enabled in conjunction with DMR2YSF.</em></td>';
+		echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-dmr2nxdn\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeDMR2NXDN\" value=\"ON\" checked=\"checked\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDMR2NXDNCheckboxCr." onchange=\"toggleDMR2NXDNCheckbox()\" /><label id=\"aria-toggle-dmr2nxdn\" role=\"checkbox\" tabindex=\"0\" aria-label=\"DMR 2 NXDN Mode\" aria-checked=\"true\" onKeyPress=\"toggleDMR2NXDNCheckbox()\" onclick=\"toggleDMR2NXDNCheckbox()\" for=\"toggle-dmr2nxdn\"><font style=\"font-size:0px\">DMR 2 NXDN Mode</font></label></div></td>\n";
+		echo '<td align="left" style="word-wrap: break-word;white-space: normal"><i class="fa fa-exclamation-circle"></i> Uses "7" talkgroup prefix in DMR. <em>Note: Cannot be enabled in conjunction with DMR2YSF.</em></td>';
 	    }
 	    else {
-		echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-dmr2nxdn\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeDMR2NXDN\" value=\"ON\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDMR2NXDNCheckboxCr." /><label id=\"aria-toggle-dmr2nxdn\" role=\"checkbox\" tabindex=\"0\" aria-label=\"DMR 2 NXDN Mode\" aria-checked=\"false\" onKeyPress=\"toggleDMR2NXDNCheckbox()\" onclick=\"toggleDMR2NXDNCheckbox()\" for=\"toggle-dmr2nxdn\"><font style=\"font-size:0px\">DMR 2 NXDN Mode</font></label></div></td>\n";
-		echo '<td align="left" style="word-wrap: break-word;white-space: normal"><i class="fa fa-exclamation-circle"></i> Uses "7" talkgroup prefix on DMRGateway. <em>Note: Cannot be enabled in conjunction with DMR2YSF.</em></td>';
+		echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-dmr2nxdn\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeDMR2NXDN\" value=\"ON\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDMR2NXDNCheckboxCr." onchange=\"toggleDMR2NXDNCheckbox()\" /><label id=\"aria-toggle-dmr2nxdn\" role=\"checkbox\" tabindex=\"0\" aria-label=\"DMR 2 NXDN Mode\" aria-checked=\"false\" onKeyPress=\"toggleDMR2NXDNCheckbox()\" onclick=\"toggleDMR2NXDNCheckbox()\" for=\"toggle-dmr2nxdn\"><font style=\"font-size:0px\">DMR 2 NXDN Mode</font></label></div></td>\n";
+		echo '<td align="left" style="word-wrap: break-word;white-space: normal"><i class="fa fa-exclamation-circle"></i> Uses "7" talkgroup prefix in DMR. <em>Note: Cannot be enabled in conjunction with DMR2YSF.</em></td>';
 	    }
 	}
     ?>
@@ -5493,6 +5510,11 @@ $ysfHosts = fopen("/usr/local/etc/YSFHosts.txt", "r"); ?>
 	<input type="hidden" name="FCSEnable" value="OFF" />
 	<h2 class="ConfSec"><?php echo $lang['ysf_config'];?></h2>
     <table>
+<?php if ($configysf2dmr['Enabled']['Enabled'] == 1 || $configysf2nxdn['Enabled']['Enabled'] == 1 || $configysf2p25['Enabled']['Enabled'] == 1) { ?>
+    <tr>
+    <th class='config_head' colspan="4">Main YSF Settings</th>
+    </tr>
+<?php } ?>
     <tr>
     </tr>
     <tr>
@@ -5631,6 +5653,9 @@ $ysfHosts = fopen("/usr/local/etc/YSFHosts.txt", "r"); ?>
     <?php if (file_exists('/etc/dstar-radio.mmdvmhost') && $configysf2dmr['Enabled']['Enabled'] == 1) {
     $dmrMasterFile = fopen("/usr/local/etc/DMR_Hosts.txt", "r"); ?>
     <tr>
+    <th class='config_head' colspan="4">YSF2DMR Cross-Mode Settings</th>
+    </tr>
+    <tr>
     <td align="left"><a class="tooltip2" href="#">(YSF2DMR)<?php echo $lang['dmr_id'];?>:<span><b>CCS7/DMR ID</b>Enter your CCS7 / DMR ID here</span></a></td>
     <td align="left" colspan="2">
 <?php
@@ -5678,17 +5703,17 @@ $ysfHosts = fopen("/usr/local/etc/YSFHosts.txt", "r"); ?>
     </select></td>
     </tr>
     <tr>
+      <td align="left"><a class="tooltip2" href="#">Hotspot Security:<span><b>DMR Master Password</b>Override the Password for DMR with your own custom password, make sure you already configured this on your chosed DMR Master. Empty the field to use the default.</span></a></td>
+      <td align="left" colspan="2">
+        <input type="password" name="bmHSSecurity_YSF" id="bmHSSecurity_YSF" size="30" maxlength="30" value="<?php if (isset($configModem['BrandMeister']['Password'])) {echo $configModem['BrandMeister']['Password'];} ?>"></input>
+	<span toggle="#password-field" class="fa fa-fw fa-eye field_icon toggle-bm-password"></span>
+      </td>
+    </tr>
+    <tr>
 	<td align="left"><a class="tooltip2" href="#">DMR Options:<span><b>DMR Options (YSF2DMR)</b>Set your Options= for the DMR master above</span></a></td>
 	<td align="left" colspan="2">
 	    Options=<input type="text" name="ysf2dmrNetworkOptions" size="85" maxlength="250" value="<?php if (isset($configysf2dmr['DMR Network']['Options'])) { echo $configysf2dmr['DMR Network']['Options']; } ?>" />
 	</td>
-    </tr>
-    <tr>
-      <td align="left"><a class="tooltip2" href="#">Hotspot Security:<span><b>DMR Master Password</b>Override the Password for DMR with your own custom password, make sure you already configured this on your chosed DMR Master. Empty the field to use the default.</span></a></td>
-      <td align="left" colspan="2">
-        <input type="password" name="bmHSSecurity" id="bmHSSecurity" size="30" maxlength="30" value="<?php if (isset($configModem['BrandMeister']['Password'])) {echo $configModem['BrandMeister']['Password'];} ?>"></input>
-	<span toggle="#password-field" class="fa fa-fw fa-eye field_icon toggle-bm-password"></span>
-      </td>
     </tr>
     <tr>
       <td align="left"><a class="tooltip2" href="#">DMR TG:<span><b>YSF2DMR TG</b>Enter your DMR TG here</span></a></td>
@@ -5696,6 +5721,9 @@ $ysfHosts = fopen("/usr/local/etc/YSFHosts.txt", "r"); ?>
     </tr>
     <?php } ?>
     <?php if (file_exists('/etc/dstar-radio.mmdvmhost') && $configysf2nxdn['Enabled']['Enabled'] == 1) { ?>
+    <tr>
+    <th class='config_head' colspan="4">YSF2NXDN Cross-Mode Settings</th>
+    </tr>
     <tr>
       <td align="left"><a class="tooltip2" href="#">(YSF2NXDN) NXDN ID:<span><b>NXDN ID</b>Enter your NXDN ID here</span></a></td>
       <td align="left" colspan="2"><?php if (isset($configysf2nxdn['NXDN Network']['Id'])) { echo $configysf2nxdn['NXDN Network']['Id']; } else { echo "Set your DMR/CCS7 ID in the 'General' Section Above"; } ?></td>
@@ -5736,6 +5764,9 @@ $ysfHosts = fopen("/usr/local/etc/YSFHosts.txt", "r"); ?>
       </tr>
     <?php } ?>
     <?php if (file_exists('/etc/dstar-radio.mmdvmhost') && $configysf2p25['Enabled']['Enabled'] == 1) { ?>
+    <tr>
+    <th class='config_head' colspan="4">YSF2P25 Cross-Mode Settings</th>
+    </tr>
     <tr>
       <td align="left"><a class="tooltip2" href="#">(YSF2P25) <?php echo $lang['dmr_id'];?>:<span><b>DMR ID</b>Enter your CCS7 / DMR ID here</span></a></td>
       <td align="left" colspan="2"><?php if (isset($configysf2p25['P25 Network']['Id'])) { echo $configysf2p25['P25 Network']['Id'];  } else { echo "Set your DMR/CCS7 ID in the 'General' Section Above"; }?></td>
