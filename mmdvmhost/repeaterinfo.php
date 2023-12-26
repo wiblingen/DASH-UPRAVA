@@ -244,8 +244,8 @@ $numDMRmasters = exec('cd /var/log/pi-star ; /usr/local/bin/RemoteCommand '.$_SE
         <?php if(isPaused("NXDN")) { echo '<div class="paused-mode-cell" title="Mode Paused">NXDN Net</div>'; } else { showMode("NXDN Network", $_SESSION['MMDVMHostConfigs']); } ?>
       </div>
     </div>
-  </div>
 <?php } ?>
+  </div>
 
   <div class="mode_flex row">
     <div class="mode_flex column">
