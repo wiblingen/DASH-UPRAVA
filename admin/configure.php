@@ -4459,7 +4459,7 @@ if (!empty($_POST)):
 
 	    // Check if the selected timezone is different from the current timezone
 	    $lsbReleaseOutput = trim(shell_exec('lsb_release -rs | cut -d "." -f 1'));
-	    if ($lsbReleaseOutput > "11") {
+	    if ($lsbReleaseOutput >= "11") {
 		exec("ls -al /etc/localtime | awk -F'zoneinfo/' '{print $2}'", $tzCurrent);
 	    } else {
 		exec('cat /etc/timezone', $tzCurrent);
