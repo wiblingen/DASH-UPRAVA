@@ -1695,26 +1695,26 @@ function getActualLink($logLines, $mode) {
                         return "TG".$to;
                     } else
                     if (strpos($logLine,"Starting NXDNGateway")) {
-                        return "<div class='inactive-mode-cell'>Not Linked</div>";
+                        return "Not Linked";
                     } else
                     if (strpos($logLine,"Unlinking")) {
-                        return "<div class='inactive-mode-cell'>Not Linked</div>";
+                        return "Not Linked";
                     } else
                     if (strpos($logLine,"Unlinked")) {
                         $num = 0;
                         $nxdncache = fopen("/tmp/NXDNLink.txt", "w");
                         $num = fwrite($nxdncache,"Not Linked");
                         fclose($nxdncache);
-                        return "<div class='inactive-mode-cell'>Not Linked</div>";
+                        return "Not Linked";
                     } else
                     if(!file_exists("/tmp/NDXNLink.txt")) {
-                        return "<div class='inactive-mode-cell'>Not Linked</div>";
+                        return "Not Linked";
                     } else {
                         $to = file_get_contents("/tmp/NXDNLink.txt");
                         return "TG".$to;
                     }
                 }
-                return "<div class='inactive-mode-cell'>Not Linked</div>";
+                return "Not Linked";
             }
 	    else {
 		return "<div class='inactive-mode-cell'>Service Not Started</div>";
@@ -1743,10 +1743,10 @@ function getActualLink($logLines, $mode) {
 			return (substr($logLine, 47, 9));
 		    }
 		    else if (strpos($logLine,"is starting") || strpos($logLine,"Unlinking") || strpos($logLine,"Unlinked")) {
-			return "<div class='inactive-mode-cell'>Not Linked</div>";
+			return "Not Linked";
 		    }
 		}
-		return "<div class='inactive-mode-cell'>Not Linked</div>";
+		return "Not Linked";
             }
 	    else {
 		return "<div class='inactive-mode-cell'>Service Not Started</div>";
@@ -1783,20 +1783,20 @@ function getActualLink($logLines, $mode) {
 		    	return "TG".$to;
 		    } else
 		    if (strpos($logLine,"Starting P25Gateway")) {
-		    	return "<div class='inactive-mode-cell'>Not Linked</div>";
+		    	return "Not Linked";
 		    } else
 		    if (strpos($logLine,"Unlinking")) {
-		    	return "<div class='inactive-mode-cell'>Not Linked</div>";
+		    	return "Not Linked";
 		    } else
 		    if (strpos($logLine,"Unlinked")) {
 		    	$num = 0;
 		    	$p25cache = fopen("/tmp/P25Link.txt", "w");
 		    	$num = fwrite($p25cache,"Not Linked");
 		    	fclose($p25cache);
-		    	return "<div class='inactive-mode-cell'>Not Linked</div>";
+		    	return "Not Linked";
 		    } else 
 		    if(!file_exists("/tmp/P25Link.txt")) {
-		    	return "<div class='inactive-mode-cell'>Not Linked</div>";
+		    	return "Not Linked";
 		    } else {
 			$to = file_get_contents("/tmp/P25Link.txt");
 			return "TG".$to;

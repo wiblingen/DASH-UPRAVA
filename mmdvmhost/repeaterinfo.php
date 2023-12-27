@@ -324,7 +324,7 @@ if ( $testMMDVModeDSTAR == 1 || isPaused("D-Star") ) { //Hide the D-Star Reflect
         if (isPaused("D-Star")) {
                 echo "<div class='divTableRow center'><div class='divTableCell cell_content' style=\"background: $tableRowEvenBg;\">Mode Paused</div></div>\n";                 
         } else {
-                echo "<div class='divTableRow center'><div class='divTableCell cell_content' ".GetActiveConnectionStyle($remoteMMDVMResults, "dstar")." title=\"".$linkedTo."\">".$linkedTo."</div></div>\n";
+                echo "<div class='divTableRow center'><div class='divTableCell cell_content' title=\"".$linkedTo."\">".$linkedTo."</div></div>\n";
         }
         if ($_SESSION['ircDDBConfigs']['aprsEnabled'] == 1) {
 		if (substr($_SESSION['ircDDBConfigs']['aprsAddress'], 0, 18) == '127.0.0.1') {
@@ -669,7 +669,7 @@ if (isPaused("YSF")) {
     <div class="divTableRow center">
 <?php
 	if (isProcessRunning("YSFGateway")) {
-	    echo "<div class='divTableCell cell_content'><div ".GetActiveConnectionStyle($remoteYSFGResults, "ysf")." title=\"".$ysfLinkedToTooltip."\">".$ysfTableData."</div></div>\n";
+	    echo "<div class='divTableCell cell_content' title=\"".$ysfLinkedToTooltip."\">".$ysfTableData."</div>\n";
 	} else {
 	    echo "<div class='divTableCell cell_content'><div class='inactive-mode-cell'>Service Not Started</div></div>\n";
 	}
@@ -763,16 +763,16 @@ if (getServiceEnabled('/etc/dgidgateway') == 1 )  { // Hide DGId GW info when GW
 	    } else {
 		$P25tg = str_replace("TG", "", getActualLink($logLinesP25Gateway, "P25"));
 		if (strpos($P25tg, 'Not Linked') || strpos($P25tg, 'Service Not Started')) {
-		    echo "<div class='divTableCell cell_content'><div ".GetActiveConnectionStyle($remoteP25GResults, "p25").">$P25tg</div></div>\n";
+		    echo "<div class='divTableCell cell_content'>$P25tg</div>\n";
 		} else {
 		    if (empty($P25tg)) {
-			echo "<div class='divTableCell cell_content'><div class='inactive-mode-cell'>Not Linked</div></div>\n";
+			echo "<div class='divTableCell cell_content'>Not Linked</div>\n";
 		    } else {
 			if (file_exists("/etc/.TGNAMES")) {
 			    $P25_target = preg_replace('#\((.*?)\)#', "<br><small>($1)</small>", tgLookup("P25", $P25tg));
-			    echo "<div class='divTableCell cell_content'><div ".GetActiveConnectionStyle($remoteP25GResults, "p25").">$P25_target</div></div>\n";
+			    echo "<div class='divTableCell cell_content'>$P25_target</div>\n";
 			} else {
-			    echo "<div class='divTableCell cell_content'><div ".GetActiveConnectionStyle($remoteP25GResults, "p25").">TG $P25tg</div></div>\n";
+			    echo "<div class='divTableCell cell_content'>TG $P25tg</div>\n";
 			}
 		    }
 		}
@@ -816,7 +816,7 @@ if (getConfigItem("NXDN", "RAN", $_SESSION['MMDVMHostConfigs'])) {
 		echo "<div class='divTableCell cell_content'>$NXDNtg</div>\n";
 	    } else {
 		if (empty($NXDNtg)) {
-		    echo "<div class='divTableCell cell_content'><div class='inactive-mode-cell'>Not Linked</div></div>\n";
+		    echo "<div class='divTableCell cell_content'>Not Linked</div>\n";
 		} else {
 		    if (file_exists("/etc/.TGNAMES")) {
 			$NXDN_target = preg_replace('#\((.*?)\)#', "<br><small>($1)</small>", tgLookup("NXDN", $NXDNtg));
@@ -864,7 +864,7 @@ if (getConfigItem("NXDN", "RAN", $_SESSION['MMDVMHostConfigs'])) {
 	    echo "        </div>\n";
 	} else {
 	    echo "        <div class='divTableCell cell_content middle'>\n";
-	    echo "          <div ".GetActiveConnectionStyle($remoteM17GWResults, "m17").">".getActualLink($reverseLogLinesM17Gateway, "M17")."</div>\n";
+	    echo "          <div>".getActualLink($reverseLogLinesM17Gateway, "M17")."</div>\n";
 	    echo "        </div>\n";
 	}
 ?>
