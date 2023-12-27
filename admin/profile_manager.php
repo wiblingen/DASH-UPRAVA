@@ -287,13 +287,8 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
                                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" id="list_configs">
                                     <label for="list_profiles">Select a Profile:</label>
                                     <select name="configs" id="list_profiles" form="list_configs">
+					<option value="" disabled selected>Select...</option>
 				    <?php
-				    if ($no_raw_profile != true) {
-					echo "              <option name='selected_config' value='$curr_config_raw' selected>$curr_config_raw</option>\n";
-				    } else{ 
-					echo '		    <option value="" disabled selected>Select...</option>';
-				    }
-					
 				    foreach ( glob("$config_dir/*") as $dir ) {
 					$config_file = str_replace("$config_dir/", "", $dir);
 					echo "              <option name='selected_config' value='$config_file'>$config_file</option>\n";
