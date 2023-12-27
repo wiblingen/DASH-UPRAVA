@@ -5346,14 +5346,18 @@ else:
 	if ($inputString !== false) {
 	    // Extract the substring from positions 36 to 39
 	    $extractedDStarCallSuffixValue = substr($inputString, 35, 4);
+	    if ($extractedDStarCallSuffixValue == "%%%%") { // if none is defined, show a blank in the input field.
+		$extractedDStarCallSuffixValue = "";
+	    }
 	}
     ?>
     <tr>
     <td align="left">
-    <span><a class="tooltip2" href="#">D-Star Callsign Suffix Text (DVMega Cast Only):<span><b>D-Star Callsign Suffix Text</b>This allows custom 4-character TEXT after your D-Star callsign. Valid characters are A-Z and 0-9 only.</span></a>
+    <span><a class="tooltip2" href="#">D-Star Callsign Suffix Text <small>(DVMega Cast Only</small>):<span><b>D-Star Callsign Suffix Text</b>This allows custom 4-character TEXT after your D-Star callsign. Valid characters are A-Z and 0-9 only.</span></a>
     </td>
-    <td align="left" colspan="2" class="divTableCellMono"><?php echo $configs['repeaterCall1']; ?>/<input maxlength="4" size="4" pattern="[0-9A-Z]*" type="text" value="<?php echo $extractedDStarCallSuffixValue; ?>" name="confDStarCallSuffix" oninput="enforceValidCharsAndConvertToUpper(this)" />
+    <td align="left" class="divTableCellMono"><?php echo $configs['repeaterCall1']; ?>/<input maxlength="4" size="4" pattern="[0-9A-Z]*" type="text" value="<?php echo $extractedDStarCallSuffixValue; ?>" name="confDStarCallSuffix" oninput="enforceValidCharsAndConvertToUpper(this)" />
     </td>
+    <td align="left">This setting is optional</td>
     </tr>
     <?php } // end DVmega Cast logic ?>
     <tr>
