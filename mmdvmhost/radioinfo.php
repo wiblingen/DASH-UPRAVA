@@ -2,7 +2,7 @@
 
 
 if (!isset($_SESSION) || !is_array($_SESSION)) {
-    session_id('pistardashsess');
+    session_id('wpsdsession');
     session_start();
 
     //unset($_SESSION['DvModemFWVersion']);  // unset the modem FW version in the event the user up/downgraded, so it shows the correct ver.
