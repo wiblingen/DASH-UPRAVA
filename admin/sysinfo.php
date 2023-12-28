@@ -2,7 +2,7 @@
 
 
 if (!isset($_SESSION) || !is_array($_SESSION)) {
-    session_id('pistardashsess');
+    session_id('wpsdsession');
     session_start();
     
     unset($_SESSION['PiStarRelease']); // ensures bin. version #'s are refreshed
