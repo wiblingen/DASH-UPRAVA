@@ -1,6 +1,6 @@
 <?php
 if (!isset($_SESSION) || !is_array($_SESSION)) {
-    session_id('pistardashsess');
+    session_id('wpsdsession');
     session_start();
 
     include_once $_SERVER['DOCUMENT_ROOT'].'/config/config.php';          // MMDVMDash Config

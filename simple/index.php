@@ -1,7 +1,7 @@
 <?php
 session_set_cookie_params(0, "/");
 session_name("PiStar Dashboard Session");
-session_id('pistardashsess');
+session_id('wpsdsession');
 session_start();
 
 require_once $_SERVER['DOCUMENT_ROOT'].'/config/config.php';
@@ -185,7 +185,6 @@ if(empty($_POST['func'])) {
                 echo '  $("#radioInfo").load("/mmdvmhost/radioinfo.php",function(){ setTimeout(reloadRadioInfo, 1000) });'."\n";
                 echo '}'."\n";
                 echo 'setTimeout(reloadRadioInfo, 1000);'."\n";
-                echo '$(window).trigger(\'resize\');'."\n";
                 echo '</script>'."\n";
                 echo '<div id="radioInfo">'."\n";
                 include '../mmdvmhost/radioinfo.php';
@@ -220,45 +219,29 @@ if(empty($_POST['func'])) {
 		echo '}'."\n";
 		echo '</script>'."\n";
 		echo '<div id="lcmsg" style="background:#d6d6d6;color:black; margin:0 0 10px 0;"></div>'."\n";
-		echo '<script type="text/javascript">'."\n";
-		echo 'function LiveCallerDetails(){'."\n";
-		echo '  $("#liveCallerDeets").load("/mmdvmhost/live_caller_table.php");'."\n";
-		echo '}'."\n";
-		echo 'setInterval(function(){LiveCallerDetails()}, 1500);'."\n";
-		echo '$(window).trigger(\'resize\');'."\n";
-		echo '</script>'."\n";
- 
-		echo '<script type="text/javascript">'."\n";
-		echo 'var lhto;'."\n";
-		echo 'var ltxto'."\n";
 
-		echo 'function reloadLiveCaller(){'."\n";
-		echo '  $("#liveCallerDeets").load("/mmdvmhost/live_caller_table.php",function(){ livecaller = setTimeout(reloadLiveCaller,1500) });'."\n";
-		echo '}'."\n";
-		echo 'function reloadLocalTX(){'."\n";
-		echo '  $("#localTxs").load("/mmdvmhost/local_tx_table.php",function(){ ltxto = setTimeout(reloadLocalTX,1500) });'."\n";
-		echo '}'."\n";
-	
-		echo 'function reloadLastHeard(){'."\n";
-		echo '  $("#lastHeard").load("/mmdvmhost/last_heard_table.php",function(){ lhto = setTimeout(reloadLastHeard,1500) });'."\n";
-		echo '}'."\n";
+		echo '<script>
+		  async function fetchData(url, targetElement) {
+		    try {
+		      const response = await fetch(url);
+		      const data = await response.text();
+		      $(targetElement).html(data);
+		    } catch (error) {
+		      console.error(`Error fetching data from ${url}:`, error);
+		    }
+		  }
 		
-		echo 'function setLCautorefresh(obj) {'."\n";
-		echo '        livecaller = setTimeout(reloadLiveCaller,1500,1500);'."\n";
-		echo '}'."\n";
+		  function reloadDynData() {
+		    fetchData("/mmdvmhost/last_heard_table.php", "#lastHeard");
+		    fetchData("/mmdvmhost/local_tx_table.php", "#localTxs");
+		    fetchData("/mmdvmhost/caller_details_table.php", "#liveCallerDeets");
+		  }
 
-		echo 'function setLHAutorefresh(obj) {'."\n";
-		echo '        lhto = setTimeout(reloadLastHeard,1500);'."\n";
-		echo '}'."\n";
-		
-		echo 'function setLocalTXAutorefresh(obj) {'."\n";
-		echo '        ltxto = setTimeout(reloadLocalTX,1500);'."\n";
-		echo '}'."\n";
-		
-		echo 'lhto = setTimeout(reloadLastHeard,1500);'."\n";
-		echo 'ltxto = setTimeout(reloadLocalTX,1500);'."\n";
-		echo 'livecaller = setTimeout(reloadLiveCaller,1500);'."\n";
-		echo '$(window).trigger(\'resize\');'."\n";
+		  setInterval(reloadDynData, 1500);
+		</script>';
+
+
+		echo '<script>'."\n";
 		echo 'function setLHTGnames(obj) {'."\n";
 		echo '    if (obj.checked) {'."\n";
 		echo "        $.ajax({
@@ -291,13 +274,16 @@ if(empty($_POST['func'])) {
                 include '../mmdvmhost/live_caller_table.php';
                 echo '</div>'."\n";
 
-                echo '<div id="localTxs">'."\n";
-                include '../mmdvmhost/local_tx_table.php';                            // MMDVMDash Local Trasmissions
-                echo '</div>'."\n";
+		if (!file_exists('/etc/.CALLERDETAILS')) {
+ 		     echo '<div id="lastHeard" style="margin-top:-20px;">'."\n";
+		} else {
+ 		    echo '<div id="lastHeard">'."\n";
+		}
+ 		echo '</div>'."\n";
 
-                echo '<div id="lastHeard">'."\n";
-                include '../mmdvmhost/last_heard_table.php';                                 // MMDVMDash Last Heard
-                echo '</div>'."\n";
+		echo '<div id="localTxs" style="margin-top: 20px;">'."\n";
+		include 'mmdvmhost/local_tx_table.php';
+		echo '</div>'."\n";
 
 		// If POCSAG is enabled, show the information panel
 		$testMMDVModePOCSAG = getConfigItem("POCSAG", "Enable", $_SESSION['MMDVMHostConfigs']);
@@ -314,7 +300,6 @@ if(empty($_POST['func'])) {
 		    	echo '    $("#Pages").load("/mmdvmhost/pocsag_table.php"+OptStr, function(){ pagesto = setTimeout(reloadPages, 10000, "?origin='.$myOrigin.'") });'."\n";
 		    	echo '}'."\n";
 		    	echo 'pagesto = setTimeout(reloadPages, 10000, "?origin='.$myOrigin.'");'."\n";
-		    	echo '$(window).trigger(\'resize\');'."\n";
 		    	echo '</script>'."\n";
 		    	echo "\n".'<div id="Pages">'."\n";
 		    	include '../mmdvmhost/pocsag_table.php';				// POCSAG Messages
@@ -323,11 +308,11 @@ if(empty($_POST['func'])) {
     		}
 	    } else {
 		echo '<div class="contentwide">'."\n";
-		//We dont know what mode we are in - fail...
-		echo "<H1>No Mode Defined...</H1>\n";
-		echo "<p>I don't know what mode I am in, you probably just need to configure me.</p>\n";
-		echo "<p>You will be re-directed to the configuration portal in 10 secs</p>\n";
-		echo '<script type="text/javascript">setTimeout(function() { window.location="/admin/configure.php";},10000);</script>'."\n";
+		// Instance not configured...
+		echo "<h1>New Installation...</h1>\n";
+		echo "<p>Your installation needs to be configured.</p>\n";
+		echo "<p>You will be redirected to the configuration page in 15 seconds...</p>\n";
+		echo '<script type="text/javascript">setTimeout(function() { window.location="/admin/configure.php";},15000);</script>'."\n";
 	    }
 	?>
 	</div>
