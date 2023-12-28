@@ -8,7 +8,7 @@ if (session_status() != PHP_SESSION_ACTIVE) {
 }
 
 if (!isset($_SESSION) || !is_array($_SESSION) || (count($_SESSION, COUNT_RECURSIVE) < 10)) {
-    session_id('pistardashsess');
+    session_id('wpsdsession');
     session_start();
 
     include_once $_SERVER['DOCUMENT_ROOT'].'/config/config.php';          // MMDVMDash Config
