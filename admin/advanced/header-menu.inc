@@ -148,7 +148,7 @@
 			<?php if(isDVmegaCast() == 1) { // Begin DVmega Cast logic... ?>	
 			<li class="subs"><a href="/admin/cast/cast-firmware/">DVMega Cast Upgrade Utility</a></li>
 			<?php } else { // end DVmega cast logic ?>
-			<li class="subs"><a href="fw_upgrade.php">Modem Firmware Upgrade</a></li>
+			<li class="subs"><a href="modem_fw_upgrade.php">Modem Firmware Upgrade</a></li>
 			<?php } ?>
 			<li class="subs"><a href="/config/changelog.php">ChangeLog</a></li>
 		    </ul>

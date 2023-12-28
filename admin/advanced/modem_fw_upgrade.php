@@ -19,7 +19,7 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/config/version.php';
 setlocale(LC_ALL, "LC_CTYPE=en_GB.UTF-8;LC_NUMERIC=C;LC_TIME=C;LC_COLLATE=C;LC_MONETARY=C;LC_MESSAGES=C;LC_PAPER=C;LC_NAME=C;LC_ADDRESS=C;LC_TELEPHONE=C;LC_MEASUREMENT=C;LC_IDENTIFICATION=C");
 
 // Sanity Check that this file has been opened correctly
-if ($_SERVER["PHP_SELF"] == "/admin/advanced/fw_upgrade.php") {
+if ($_SERVER["PHP_SELF"] == "/admin/advanced/modem_fw_upgrade.php") {
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	if (isset($_POST['modem'])) {
@@ -139,7 +139,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/advanced/fw_upgrade.php") {
 
     $(function() {
       $.repeat(1000, function() {
-        $.get('/admin/advanced/fw_upgrade.php?ajax', function(data) {
+        $.get('/admin/advanced/modem_fw_upgrade.php?ajax', function(data) {
           if (data.length < 1) return;
           var objDiv = document.getElementById("tail");
           var isScrolledToBottom = objDiv.scrollHeight - objDiv.clientHeight <= objDiv.scrollTop + 1;
@@ -195,6 +195,8 @@ if ($_SERVER["PHP_SELF"] == "/admin/advanced/fw_upgrade.php") {
       'hs_hat_generic_duplex' => 'MMDVM_HS_GENERIC_DUPLEX (14.7456MHz TCXO) GPIO',
       'hs_hat_generic_duplex-usb' => 'MMDVM_HS_GENERIC_DUPLEX (14.7456MHz TCXO) USB',
       'hs_hat_nano_hotspot' => 'Nano_hotSPOT by BI7JTA (14.7456MHz TCXO) GPIO',
+      'mmdvm_pi-f7' => 'MMDVM Pi F7 Board 460800 baud (12.000Hz TCXO) GPIO',
+      'mmdvm_pi-f4' => 'MMDVM Pi F4 Board 460800 baud (12.000Hz TCXO) GPIO',
     ];
 
     $output = shell_exec('sudo /usr/local/sbin/wpsd-modemupgrade list');
