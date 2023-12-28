@@ -1,7 +1,7 @@
 <?php
 session_set_cookie_params(0, "/");
-session_name("PiStar_Dashboard_Session");
-session_id('pistardashsess');
+session_name("WPSD_Session");
+session_id('wpsdsession');
 session_start();
 
 require_once $_SERVER['DOCUMENT_ROOT'].'/config/config.php';
@@ -167,21 +167,18 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
         setTimeout(reloadUpdateCheck,10000) });
     }
     setTimeout(reloadUpdateCheck,10000);
-    $(window).trigger('resize');
 
     function reloadMessageCheck(){
       $("#CheckMessage").load("/includes/messages.php",function(){
         setTimeout(reloadMessageCheck,300000) });
     }
     setTimeout(reloadMessageCheck,300000);
-    $(window).trigger('resize');
 
     function reloadDateTime(){
       $("#DateTime").load("/includes/datetime.php",function(){
         setTimeout(reloadDateTime,1000) });
     }
     setTimeout(reloadDateTime,1000);
-    $(window).trigger('resize');
 
     </script>
 <script>
@@ -283,14 +280,12 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
                     echo '  $("#hwInfo").load("/includes/hw_info.php",function(){ setTimeout(reloadHwInfo, 30000) });'."\n";
                     echo '}'."\n";
                     echo 'setTimeout(reloadHwInfo, 30000);'."\n";
-                    echo '$(window).trigger(\'resize\');'."\n";
                     echo '</script>'."\n";
                     echo '<script type="text/javascript">'."\n";
                     echo 'function reloadRadioInfo(){'."\n";
                     echo '  $("#radioInfo").load("/mmdvmhost/radioinfo.php",function(){ setTimeout(reloadRadioInfo, 1000) });'."\n";
                     echo '}'."\n";
                     echo 'setTimeout(reloadRadioInfo, 1000);'."\n";
-                    echo '$(window).trigger(\'resize\');'."\n";
                     echo '</script>'."\n";
                     echo "<div id='hw_info' class='hw_toggle'>\n";
                     echo '<div id="hwInfo">'."\n";
@@ -306,10 +301,10 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 
 	// New ZUMspot image?
 	    if ($isNewZumInstall) {
-		    echo '<div class="contentwide">'."\n";
-		    echo "<h1>New ZUMspot Installation...</h1>\n";
-		    echo "<p>You will be redirected to the configuration page in 10 seconds to setup your ZUMspot...</p>\n";
-		    echo '<script type="text/javascript">setTimeout(function() { window.location="/admin/configure.php";},10000);</script>'."\n";
+		echo '<div class="contentwide">'."\n";
+		echo "<h1>New ZUMspot Installation...</h1>\n";
+		echo "<p>You will be redirected to the configuration page in 10 seconds to setup your ZUMspot...</p>\n";
+		echo '<script type="text/javascript">setTimeout(function() { window.location="/admin/configure.php";},10000);</script>'."\n";
             } else if (file_exists('/etc/dstar-radio.dstarrepeater')) { //dstarrepeater migration
 		echo '<div class="contentwide">'."\n";
 		echo "<h1>NOTE: Migration Required...</h1>\n";
@@ -324,7 +319,6 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 		echo '  $("#repeaterInfo").load("/mmdvmhost/repeaterinfo.php",function(){ setTimeout(reloadRepeaterInfo,5000) });'."\n";
 		echo '}'."\n";
 		echo 'setTimeout(reloadRepeaterInfo,5000);'."\n";
-		echo '$(window).trigger(\'resize\');'."\n";
 		echo '</script>'."\n";
 		echo '<div id="repeaterInfo">'."\n";
 		include 'mmdvmhost/repeaterinfo.php';				// MMDVMDash Repeater Info
@@ -402,7 +396,6 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 			echo '  $("#refLinks").load("/mmdvmhost/dstar_reflector_links.php",function(){ setTimeout(reloadrefLinks,5000) });'."\n";
 			echo '}'."\n";
 			echo 'setTimeout(reloadrefLinks,5000);'."\n";
-			echo '$(window).trigger(\'resize\');'."\n";
 			echo '</script>'."\n";
 			echo '<div id="refLinks">'."\n";
 			include 'mmdvmhost/dstar_reflector_links.php';
@@ -413,7 +406,6 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 			echo '  $("#ccsConnects").load("/mmdvmhost/dstar_ccs_connections.php",function(){ setTimeout(reloadccsConnections,15000) });'."\n";
 			echo '}'."\n";
 			echo 'setTimeout(reloadccsConnections,15000);'."\n";
-			echo '$(window).trigger(\'resize\');'."\n";
 			echo '</script>'."\n";
 			echo '<div id="ccsConnects">'."\n";
 			include 'mmdvmhost/dstar_ccs_connections.php';
@@ -470,7 +462,6 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
         	    	    echo '  $("#bmConnects").load("/mmdvmhost/bm_links.php",function(){ setTimeout(reloadbmConnections,15000) });'."\n";
         	    	    echo '}'."\n";
         	    	    echo 'setTimeout(reloadbmConnections,15000);'."\n";
-		    	    echo '$(window).trigger(\'resize\');'."\n";
         	    	    echo '</script>'."\n";
         	    	    echo '<div id="bmConnects">'."\n";
 		    	    include 'mmdvmhost/bm_links.php';                   // BM Links
@@ -490,7 +481,6 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
         	    echo '  $("#tgifConnects").load("/mmdvmhost/tgif_links.php",function(){ setTimeout(reloadtgifConnections,15000) });'."\n";
         	    echo '}'."\n";
         	    echo 'setTimeout(reloadtgifConnections,15000);'."\n";
-				echo '$(window).trigger(\'resize\');'."\n";
         	    echo '</script>'."\n";
         	    echo '<div id="tgifConnects">'."\n";
 		    include 'mmdvmhost/tgif_links.php';			// TGIF Links
@@ -656,7 +646,6 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
                 echo '  $("#sysInfo").load("/includes/system.php",function(){ setTimeout(reloadSysInfo,5000) });'."\n";
                 echo '}'."\n";
                 echo 'setTimeout(reloadSysInfo,5000);'."\n";
-                echo '$(window).trigger(\'resize\');'."\n";
                 echo '</script>'."\n";
                 if ($_GET['func'] == "main") {                          // only show services on main admin page
                     echo '<div id="sysInfo">'."\n";
@@ -695,20 +684,28 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 	        echo '}'."\n";
     		echo '</script>'."\n";
 		echo '<div id="lcmsg" style="background:#d6d6d6;color:black; margin:0 0 10px 0;"></div>'."\n";
+
+		echo '<script>
+		  async function fetchData(url, targetElement) {
+		    try {
+		      const response = await fetch(url);
+		      const data = await response.text();
+		      $(targetElement).html(data);
+		    } catch (error) {
+		      console.error(`Error fetching data from ${url}:`, error);
+		    }
+		  }
+
+		  function reloadDynData() {
+		    fetchData("/mmdvmhost/last_heard_table.php", "#lastHeard");
+		    fetchData("/mmdvmhost/local_tx_table.php", "#localTxs");
+		    fetchData("/mmdvmhost/caller_details_table.php", "#liveCallerDeets");
+		  }
+
+		  setInterval(reloadDynData, 1500);
+		</script>';
  
-		echo '<script type="text/javascript">'."\n";
-		echo 'function reloadDynData(){'."\n";
-
-		echo '  $("#lastHeard").load("/mmdvmhost/last_heard_table.php");'."\n";
-		echo '  $("#localTxs").load("/mmdvmhost/local_tx_table.php");'."\n";
-		echo '  $("#repeaterInfo").load("/mmdvmhost/repeaterinfo.php");'."\n";
-		echo '  $("#liveCallerDeets").load("/mmdvmhost/caller_details_table.php");'."\n";
-
-		echo '}'."\n";
-        	echo 'setInterval(reloadDynData,1500);'."\n";
-        	echo '$(window).trigger(\'resize\');'."\n";
-
-		
+		echo '<script>'."\n";
         	echo 'function setLHTGnames(obj) {'."\n";
         	echo '    if (obj.checked) {'."\n";
         	echo "        $.ajax({
@@ -770,7 +767,6 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 		    echo '    $("#Pages").load("/mmdvmhost/pocsag_table.php"+OptStr, function(){ pagesto = setTimeout(reloadPages, 10000, "?origin='.$myOrigin.'") });'."\n";
 		    echo '}'."\n";
 		    echo 'pagesto = setTimeout(reloadPages, 10000, "?origin='.$myOrigin.'");'."\n";
-		    echo '$(window).trigger(\'resize\');'."\n";
 		    echo '</script>'."\n";
 		    echo "\n".'<div id="Pages">'."\n";
 		    include 'mmdvmhost/pocsag_table.php';				// POCSAG Messages
