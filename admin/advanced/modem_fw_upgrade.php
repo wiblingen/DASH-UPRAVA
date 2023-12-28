@@ -157,17 +157,20 @@ if ($_SERVER["PHP_SELF"] == "/admin/advanced/modem_fw_upgrade.php") {
   <div class="contentwide">
   <table width="100%">
   <?php if (empty($_POST['modem'])) { ?>
-  <tr><th>Modem Firmware Upgrade Tool</th></tr>
   <tr><td>
 	      <div class="divTable" class="left">
 		<div class="divTableBody">
 		  <div class="divTableRow">
-		    <div class="divTableCellSans larger">
-		      <p>This tool will attempt to upgrade your selected modem to the latest version available firmware version:<br />
-		        <?php echo $fw_ver_msg; ?>
-		      <p>When ready, select your modem type below and click, "Upgrade Modem". Do not interrupt the process or navigate away from the page while the process is running.</p>
-		      <p><strong>Please understand what you are doing, as well as the risks associated with flashing your modem.</strong></p>
-		      <p><em>(NOTES: The WPSD project does not develop firmware, nor do we support firmware nor modems. Not all modem types are available in this tool.)</em></p>
+		    <div class="divTableCellSans">
+		      <br />
+		      <h2 class="center larger ConfSec">Modem Firmware Upgrade Utility</h2>
+		      <div class="larger">
+		        <p>This tool will attempt to upgrade your selected modem to the latest version available firmware version:<br />
+		          <?php echo $fw_ver_msg; ?>
+		        <p>When ready, select your modem type below and click, "Upgrade Modem". Do not interrupt the process or navigate away from the page while the process is running.</p>
+		        <p><strong><i class="fa fa-exclamation-circle"></i> Please understand what you are doing, as well as the risks associated with flashing your modem.</strong></p>
+		        <p><em>(NOTES: The WPSD project does not develop firmware, nor do we support firmware nor modems. Not all modem types are available in this tool.)</em></p>
+		      </div>
 		    </div>
 	      </div>
 	    </div>
