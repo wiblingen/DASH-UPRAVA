@@ -3,6 +3,7 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/config/config.php';          // MMDVMDa
 include_once $_SERVER['DOCUMENT_ROOT'].'/mmdvmhost/tools.php';        // MMDVMDash Tools
 include_once $_SERVER['DOCUMENT_ROOT'].'/mmdvmhost/functions.php';    // MMDVMDash Functions
 include_once $_SERVER['DOCUMENT_ROOT'].'/config/language.php';	      // Translation Code
+
 $localTXList = $lastHeard;
 
 if (isset($_SESSION['CSSConfigs']['Background'])) {
@@ -37,7 +38,9 @@ if ($callsignLookupSvc == "QRZ") {
       <th><a class="tooltip" href="#"><?php echo $lang['target'];?><span><b>Target, D-Star Reflector, DMR Talk Group etc</b></span></a></th>
       <th><a class="tooltip" href="#"><?php echo $lang['dur'];?>(s)<span><b>Duration in Seconds</b></span></a></th>
       <th style="min-width:5ch"><a class="tooltip" href="#"><?php echo $lang['ber'];?><span><b>Bit Error Rate</b></span></a></th>
+      <?php if ($_SESSION['PiStarRelease']['Pi-Star']['ModemType'] != "dvmpicast") { // Begin DVMega Cast Logic ?>
       <th class="noMob" style="min-width:8ch"><a class="tooltip" href="#">RSSI<span><b>Received Signal Strength Indication</b></span></a></th>
+      <?php } ?>
     </tr>
 <?php
 $counter = 0;
@@ -155,10 +158,13 @@ for ($i = 0; $i < $TXListLim; $i++) {
 		} else {
 		    echo "<td><span style='color:$backgroundModeCellInactiveColor;font-weight:bold;'>$listElem[8]</span></td>";
 		}
-		    echo"<td class='noMob'>$listElem[9]</td>"; //rssi
+
+		if ($_SESSION['PiStarRelease']['Pi-Star']['ModemType'] != "dvmpicast") { // Begin DVMega Cast Logic
+		    echo "<td class='noMob'>$listElem[9]</td>"; //rssi
 		}
-		echo"</tr>\n";
-		$counter++;
+	    }
+	    echo"</tr>\n";
+	    $counter++;
 	}
     }
 }
