@@ -898,7 +898,7 @@ if (getConfigItem("NXDN", "RAN", $_SESSION['MMDVMHostConfigs'])) {
 		    }
 		}
 	    }
-	    echo "<div class='divTableHead'>DAPNET Master</div>\n";
+	    echo "<div class='divTableHead'>DAPNET Server</div>\n";
 	    echo "<div class='divTableBody'>\n";
 	    echo "<div class='divTableRow center'>\n";
 	    if (isProcessRunning("DAPNETGateway")) {
