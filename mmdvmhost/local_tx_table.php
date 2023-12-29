@@ -74,22 +74,22 @@ for ($i = 0; $i < $TXListLim; $i++) {
 
 	    if (is_numeric($listElem[2]) !== FALSE) {
 		if ($listElem[2] > 9999) {
-		    echo "<td align=\"left\"><a href=\"".$idLookupUrl.$listElem[2]."\" target=\"_blank\">$listElem[2]</a></td>";
+		    echo "<td class='divTableCellMono' align=\"left\"><a href=\"".$idLookupUrl.$listElem[2]."\" target=\"_blank\">$listElem[2]</a></td>";
 		} else {
-		    echo "<td align=\"left\">$listElem[2]</td>";
+		    echo "<td class='divTableCellMono' align=\"left\">$listElem[2]</td>";
 		}
 	    } elseif (strpos($listElem[2], "openSPOT") !== FALSE) {
-		echo "<td align=\"left\">$listElem[2]</td>";
+		echo "<td class='divTableCellMono' align=\"left\">$listElem[2]</td>";
 	    } elseif (!preg_match('/[A-Za-z].*[0-9]|[0-9].*[A-Za-z]/', $listElem[2])) {
-		echo "<td align=\"left\">$listElem[2]</td>";
+		echo "<td class='divTableCellMono' align=\"left\">$listElem[2]</td>";
 	    } else {
 		if (strpos($listElem[2],"-") > 0) {
 		    $listElem[2] = substr($listElem[2], 0, strpos($listElem[2],"-"));
 		}
 		if ($listElem[3] && $listElem[3] != '    ' ) {
-		    echo "<td align=\"left\"><a href=\"".$callsignLookupUrl.$listElem[2]."\" target=\"_blank\">$listElem[2]</a>/$listElem[3]</td>";
+		    echo "<td class='divTableCellMono' align=\"left\"><a href=\"".$callsignLookupUrl.$listElem[2]."\" target=\"_blank\">$listElem[2]</a>/$listElem[3]</td>";
 		} else {
-		    echo "<td align=\"left\"><a href=\"".$callsignLookupUrl.$listElem[2]."\" target=\"_blank\">$listElem[2]</a></td>";
+		    echo "<td class='divTableCellMono' align=\"left\"><a href=\"".$callsignLookupUrl.$listElem[2]."\" target=\"_blank\">$listElem[2]</a></td>";
 		}
 	    }
 
