@@ -11,7 +11,7 @@ if (!isset($_SESSION) || !is_array($_SESSION)) {
     checkSessionValidity();
 }
 
-
+/*
 function getActiveLink($linkLine, $linkLogPath) {
     $logContent = file_get_contents($linkLogPath);
 
@@ -35,6 +35,7 @@ function getActiveLink($linkLine, $linkLogPath) {
 
     return null;
 }
+*/
 
 if ($_SERVER["PHP_SELF"] == "/admin/index.php") {
     if (!empty($_POST) && isset($_POST["dstrMgrSubmit"])) { // :
@@ -105,7 +106,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/index.php") {
 	unset($_POST);
 	echo '<script type="text/javascript">setTimeout(function() { window.location=window.location;},2000);</script>';
     }
-    else { //else:
+    else {
 ?>
         <div style="text-align:left;font-weight:bold;"><?php echo $lang['d-star_link_manager'];?></div>
 	<form action="/admin/?func=ds_man" method="post">
@@ -149,6 +150,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/index.php") {
 				      this.selectedIndex='0';
 				      } ">
 			    <?php
+			    /*
 			    $result = getActiveLink($linkLine, $linkLogPath);
 
 			    if ($result !== null) {
@@ -158,14 +160,14 @@ if ($_SERVER["PHP_SELF"] == "/admin/index.php") {
 				$refLink = "None";
 				$modLink = "";
 			    }
+			    */
 
 			    $dcsFile = fopen("/usr/local/etc/DCS_Hosts.txt", "r");
 			    $dplusFile = fopen("/usr/local/etc/DPlus_Hosts.txt", "r");
 			    $dextraFile = fopen("/usr/local/etc/DExtra_Hosts.txt", "r");
 			    
-			    echo "    <option value=\"".$refLink."\" selected=\"selected\">".$refLink."</option>\n";
-			    //echo "    <option value=\"customOption\">Text Entry</option>\n";
-			    
+			    echo "    <option value=\"".substr($_SESSION['ircDDBConfigs']['reflector1'], 0, 6)."\" selected=\"selected\">".substr($_SESSION['ircDDBConfigs']['reflector1'], 0, 6)."</option>\n";
+ 
 			    while (!feof($dcsFile)) {
 				$dcsLine = fgets($dcsFile);
 				if (strpos($dcsLine, 'DCS') !== FALSE && strpos($dcsLine, '#') === FALSE) {
@@ -199,7 +201,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/index.php") {
 			</select><input name="RefName" style="display:none;" disabled="disabled" type="text" size="7" maxlength="7"
 					onblur="if(this.value==''){toggleField(this,this.previousSibling);}" />
 			<select name="Letter" class="ModSel">
-			    <?php echo "    <option value=\"".$modLink."\" selected=\"selected\">".$modLink."</option>\n"; ?>
+			    <?php echo "  <option value=\"".substr($_SESSION['ircDDBConfigs']['reflector1'], 7)."\" selected=\"selected\">".substr($_SESSION['ircDDBConfigs']['reflector1'], 7)."</option>\n"; ?>
 			    <option>A</option>
 			    <option>B</option>
 			    <option>C</option>
