@@ -452,7 +452,7 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 			echo '<div id="refLinks">'."\n";
 			include 'mmdvmhost/dstar_reflector_links.php';
 			echo '</div>'."\n";
-			include 'mmdvmhost/dstar_link_manager.php';		// D-Star Link Manager
+			include 'admin/dstar_link_manager.php';		// D-Star Link Manager
 			echo '<script type="text/javascript">'."\n";
 			echo 'function reloadccsConnections(){'."\n";
 			echo '  $("#ccsConnects").load("/mmdvmhost/dstar_ccs_connections.php",function(){ setTimeout(reloadccsConnections,15000) });'."\n";
@@ -592,7 +592,7 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 		// begin admin selection form
 		if ($_SERVER["PHP_SELF"] == "/admin/index.php") {
 		    if ($_GET['func'] != 'main') { echo '<br />'; }
-                    echo '<h3 style="text-align:left;font-weight:bold;margin:-5px 0 2px 0;">Select an Admin Section/Page:</h3>'."\n";
+                    echo '<h3 class="larger" style="text-align:left;font-weight:bold;margin:-5px 0 2px 0;">Select an Admin Section/Page:</h3><br />'."\n";
 		    echo '<form method="get" id="admin_sel" name="admin_sel" action="/admin/" style="padding-bottom:10px;">'."\n";
 		    echo '      <div class="mode_flex">'."\n";
 		    echo '        <div class="mode_flex row">'."\n";
@@ -684,27 +684,12 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 		    echo '          </div><div class="mode_flex column">'."\n";
 		    echo '		<button form="admin_sel" type="submit" value="sys_man" name="func"><span>System Manager</span></button>'."\n";
 		    echo '      </div></div>'."\n".'</div>'."\n";
-		    echo '      <div><b>Note:</b> Modes/networks/services not <a href="/admin/configure.php" style="text-decoration:underline;color:inherit;">globally configured/enabled</a>, or that are paused, are not selectable here until they are enabled or <a href="./?func=mode_man" style="text-decoration:underline;color:inherit;">resumed from pause</a>.</div>'."\n";
+		    echo '      <div><br /><b>Note:</b> Modes/networks/services not <a href="/admin/configure.php" style="text-decoration:underline;color:inherit;">globally configured/enabled</a>, or that are paused, are not selectable here until they are enabled or <a href="./?func=mode_man" style="text-decoration:underline;color:inherit;">resumed from pause</a>.</div>'."\n";
 		    echo ' </form>'."\n";
 		    if ($_GET['func'] != "main") {
 			echo "</div>\n";
 		    }
 		}
-
-            if ($_SERVER["PHP_SELF"] == "/admin/index.php") {
-                echo '<div class="contentwide">'."\n";
-                echo '<script type="text/javascript">'."\n";
-                echo 'function reloadSysInfo(){'."\n";
-                echo '  $("#sysInfo").load("/includes/system.php",function(){ setTimeout(reloadSysInfo,5000) });'."\n";
-                echo '}'."\n";
-                echo 'setTimeout(reloadSysInfo,5000);'."\n";
-                echo '</script>'."\n";
-                if ($_GET['func'] == "main") {                          // only show services on main admin page
-                    echo '<div id="sysInfo">'."\n";
-                    include 'includes/system.php';                              // Basic System Info
-                    echo '</div></div>'."\n";
-                }
-            }
 
 	if ($_SERVER["PHP_SELF"] == "/index.php" || $_SERVER["PHP_SELF"] == "/admin/index.php") {
 		echo '<script type="text/javascript">'."\n";
