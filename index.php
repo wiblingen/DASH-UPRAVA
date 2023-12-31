@@ -400,7 +400,7 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 			echo '<div id="refLinks">'."\n";
 			include 'mmdvmhost/dstar_reflector_links.php';
 			echo '</div>'."\n";
-			include 'admin/dstar_link_manager.php';		// D-Star Link Manager
+			include 'mmdvmhost/dstar_link_manager.php';		// D-Star Link Manager
 			echo '<script type="text/javascript">'."\n";
 			echo 'function reloadccsConnections(){'."\n";
 			echo '  $("#ccsConnects").load("/mmdvmhost/dstar_ccs_connections.php",function(){ setTimeout(reloadccsConnections,15000) });'."\n";
