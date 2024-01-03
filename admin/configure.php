@@ -1310,7 +1310,7 @@ if (!empty($_POST)):
 
 	// Set the URL
 	if (empty($_POST['confURL']) != TRUE ) {
-	  $newConfURL = strtolower(preg_replace('/[^A-Za-z0-9\.\s\,\-\/\:]/', '', $_POST['confURL']));
+	  $newConfURL = strtolower(preg_replace('/[^A-Za-z0-9\.\s\,\-\/\:\?\=]/', '', $_POST['confURL']));
 	  if (escapeshellcmd($_POST['urlAuto']) == 'auto') { $txtURL = "https://www.qrz.com/db/".strtoupper(escapeshellcmd($_POST['confCallsign'])); }
 	  if (escapeshellcmd($_POST['urlAuto']) == 'man')  { $txtURL = $newConfURL; }
 	  if (escapeshellcmd($_POST['urlAuto']) == 'auto') { $rollURL0 = 'sudo sed -i "/url=/c\\url=https://www.qrz.com/db/'.strtoupper(escapeshellcmd($_POST['confCallsign'])).'" /etc/ircddbgateway';  }
@@ -4811,7 +4811,7 @@ else:
     </tr>
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo $lang['url'];?>:<span><b>URL</b>Your URL you'd like to be displayed in various networks/gateways</span></a></td>
-    <td align="left" colspan="2"><input type="text" name="confURL" size="30" maxlength="30" value="<?php echo $configs['url'] ?>" /></td>
+    <td align="left" colspan="2"><input type="text" name="confURL" size="75" maxlength="75" value="<?php echo $configs['url'] ?>" /></td>
     <td align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'>
     <input type="radio" name="urlAuto" value="auto"<?php if (strpos($configs['url'], 'www.qrz.com/db/'.$configmmdvm['General']['Callsign']) !== FALSE) {echo ' checked="checked"';} ?> />Auto
     <input type="radio" name="urlAuto" value="man"<?php if (strpos($configs['url'], 'www.qrz.com/db/'.$configmmdvm['General']['Callsign']) == FALSE) {echo ' checked="checked"';} ?> />Manual
