@@ -198,8 +198,8 @@ if ($_SERVER["PHP_SELF"] == "/admin/advanced/modem_fw_upgrade.php") {
       'hs_hat_generic_duplex' => 'MMDVM_HS_GENERIC_DUPLEX (14.7456MHz TCXO) GPIO',
       'hs_hat_generic_duplex-usb' => 'MMDVM_HS_GENERIC_DUPLEX (14.7456MHz TCXO) USB',
       'hs_hat_nano_hotspot' => 'Nano_hotSPOT by BI7JTA (14.7456MHz TCXO) GPIO',
-      'mmdvm_pi-f7' => 'MMDVM Pi F7 Board 460800 baud (12.000Hz TCXO) GPIO',
-      'mmdvm_pi-f4' => 'MMDVM Pi F4 Board 460800 baud (12.000Hz TCXO) GPIO',
+      'mmdvm_pi-f7' => 'MMDVM Pi F7 Board 460800 baud (12.000MHz TCXO) GPIO',
+      'mmdvm_pi-f4' => 'MMDVM Pi F4 Board 460800 baud (12.000MHz TCXO) GPIO',
     ];
 
     $output = shell_exec('sudo /usr/local/sbin/wpsd-modemupgrade list');
