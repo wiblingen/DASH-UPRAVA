@@ -34,12 +34,12 @@ if (isset($_SESSION['CSSConfigs']['Background']['TableRowBgEvenColor'])) {
 <div class="divTable">
   <div class="divTableBody">
     <div class="divTableRow center">
-      <?php if ($_SESSION['PiStarRelease']['Pi-Star']['ModemType'] == "dvmpicast") { // DVMega Cast logic... ?>
+      <?php if ($_SESSION['ModemConfigs']['Modem']['Hardware'] == "dvmpicast") { // DVMega Cast logic... ?>
       <div class="divTableHeadCell noMob" style="width:300px;">DVMega Cast Mode Status</div>
       <?php } else { // end DVMega Cast logic. ?>
       <div class="divTableHeadCell noMob" style="width:250px;">Radio Status</div>
       <?php } ?>
-      <?php if ($_SESSION['PiStarRelease']['Pi-Star']['ModemType'] == "dvmpicast") { // DVMega Cast logic... ?>
+      <?php if ($_SESSION['ModemConfigs']['Modem']['Hardware'] == "dvmpicast") { // DVMega Cast logic... ?>
       <div class="divTableHeadCell noMob">DVMega Cast Mode</div>
       <?php } else { // end DVMega Cast logic. ?>
       <?php if(getConfigItem("General", "Duplex", $_SESSION['MMDVMHostConfigs']) == "1") { ?>
@@ -49,7 +49,7 @@ if (isset($_SESSION['CSSConfigs']['Background']['TableRowBgEvenColor'])) {
       <div class="divTableHeadCell noMob">TX/RX Freq.</div>
       <?php } } ?>
 
-      <?php if ($_SESSION['PiStarRelease']['Pi-Star']['ModemType'] != "dvmpicast") { // DVMega Cast logic... ?>
+      <?php if ($_SESSION['ModemConfigs']['Modem']['Hardware'] != "dvmpicast") { // DVMega Cast logic... ?>
       <div class="divTableHeadCell noMob">Radio Mode</div>
 
       <div class="divTableHeadCell noMob">Modem Port</div>
@@ -61,7 +61,7 @@ if (isset($_SESSION['CSSConfigs']['Background']['TableRowBgEvenColor'])) {
       <div class="divTableHeadCell noMob">TCXO Freq.</div>
       <?php } ?>
 
-      <?php if ($_SESSION['PiStarRelease']['Pi-Star']['ModemType'] == "dvmpicast") { // DVMega Cast logic... ?>
+      <?php if ($_SESSION['ModemConfigs']['Modem']['Hardware'] == "dvmpicast") { // DVMega Cast logic... ?>
       <div class="divTableHeadCell noMob">DVMega Cast Mainboard Firmware</div>
       <?php } else { // end DVMega Cast logic ?>
       <div class="divTableHeadCell noMob">Modem Firmware</div>
@@ -150,7 +150,7 @@ if (isset($_SESSION['CSSConfigs']['Background']['TableRowBgEvenColor'])) {
             echo "<div class=\"divTableCell middle cell_content\" style=\"font-weight:bold;padding:2px;\">IDLE</div>\n";
         }
         ?>
-      <?php if ($_SESSION['PiStarRelease']['Pi-Star']['ModemType'] == "dvmpicast") { // DVMega Cast logic... ?>
+      <?php if ($_SESSION['ModemConfigs']['Modem']['Hardware'] == "dvmpicast") { // DVMega Cast logic... ?>
       <div class="divTableCell cell_content middle noMob" style="background: <?php echo $tableRowEvenBg; ?>">Base Station/IP Radio Mode</div>
       <?php } else { // end DVMega Cast logic ?>
       <?php if(getConfigItem("General", "Duplex", $_SESSION['MMDVMHostConfigs']) == "1") { ?>
@@ -159,7 +159,7 @@ if (isset($_SESSION['CSSConfigs']['Background']['TableRowBgEvenColor'])) {
       <?php } else { ?>
       <div class="divTableCell cell_content middle noMob" style="background: <?php echo $tableRowEvenBg; ?>;"><?php echo getMHZ(getConfigItem("Info", "RXFrequency", $_SESSION['MMDVMHostConfigs'])); ?></div>
       <?php } } ?>
-      <?php if ($_SESSION['PiStarRelease']['Pi-Star']['ModemType'] != "dvmpicast") { // DVMega Cast logic... ?>
+      <?php if ($_SESSION['ModemConfigs']['Modem']['Hardware'] != "dvmpicast") { // DVMega Cast logic... ?>
       <div class="divTableCell cell_content middle noMob" style="background: <?php echo $tableRowEvenBg; ?>;"><?php if(getConfigItem("General", "Duplex", $_SESSION['MMDVMHostConfigs']) == "1") { echo "Duplex"; } else { echo "Simplex"; } ?></div>
       <div class="divTableCell cell_content middle noMob" style="background: <?php echo $tableRowEvenBg; ?>;"><?php echo getConfigItem("Modem", "UARTPort", $_SESSION['MMDVMHostConfigs']); ?></div>
       <div class="divTableCell cell_content middle noMob" style="background: <?php echo $tableRowEvenBg; ?>;"><?php echo number_format(getConfigItem("Modem", "UARTSpeed", $_SESSION['MMDVMHostConfigs'])); ?> bps</div>
