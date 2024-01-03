@@ -1310,7 +1310,7 @@ if (!empty($_POST)):
 
 	// Set the URL
 	if (empty($_POST['confURL']) != TRUE ) {
-	  $newConfURL = strtolower(preg_replace('/[^A-Za-z0-9\.\s\,\-\/\:]/', '', $_POST['confURL']));
+	  $newConfURL = strtolower(preg_replace('/[^A-Za-z0-9\.\s\,\-\/\:\?\=]/', '', $_POST['confURL']));
 	  if (escapeshellcmd($_POST['urlAuto']) == 'auto') { $txtURL = "https://www.qrz.com/db/".strtoupper(escapeshellcmd($_POST['confCallsign'])); }
 	  if (escapeshellcmd($_POST['urlAuto']) == 'man')  { $txtURL = $newConfURL; }
 	  if (escapeshellcmd($_POST['urlAuto']) == 'auto') { $rollURL0 = 'sudo sed -i "/url=/c\\url=https://www.qrz.com/db/'.strtoupper(escapeshellcmd($_POST['confCallsign'])).'" /etc/ircddbgateway';  }
