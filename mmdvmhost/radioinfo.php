@@ -162,7 +162,11 @@ if (isset($_SESSION['CSSConfigs']['Background']['TableRowBgEvenColor'])) {
       <?php if ($_SESSION['ModemConfigs']['Modem']['Hardware'] != "dvmpicast") { // DVMega Cast logic... ?>
       <div class="divTableCell cell_content middle noMob" style="background: <?php echo $tableRowEvenBg; ?>;"><?php if(getConfigItem("General", "Duplex", $_SESSION['MMDVMHostConfigs']) == "1") { echo "Duplex"; } else { echo "Simplex"; } ?></div>
       <div class="divTableCell cell_content middle noMob" style="background: <?php echo $tableRowEvenBg; ?>;"><?php echo getConfigItem("Modem", "UARTPort", $_SESSION['MMDVMHostConfigs']); ?></div>
+      <?php if ($_SESSION['ModemConfigs']['Modem']['Hardware'] == "dvmpicasths" || $_SESSION['ModemConfigs']['Modem']['Hardware'] == "dvmpicasthd") { // DVMega cast hotspot mode logic... ?>
+      <div class="divTableCell cell_content middle noMob" style="background: <?php echo $tableRowEvenBg; ?>;">115,200 bps</div>
+      <?php } else { ?>
       <div class="divTableCell cell_content middle noMob" style="background: <?php echo $tableRowEvenBg; ?>;"><?php echo number_format(getConfigItem("Modem", "UARTSpeed", $_SESSION['MMDVMHostConfigs'])); ?> bps</div>
+      <?php } ?>
       <?php if(!empty($_SESSION['DvModemTCXOFreq'])) { ?>
       <div class="divTableCell cell_content middle noMob" style="background: <?php echo $tableRowEvenBg; ?>;"><?php echo $_SESSION['DvModemTCXOFreq']; ?></div>
       <?php } ?>
