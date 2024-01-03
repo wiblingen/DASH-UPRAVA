@@ -2840,6 +2840,9 @@ if (!empty($_POST)):
 	    $configmmdvm['DMR Network']['Slot1'] = 0;
        	    $configmmdvm['Modem']['Protocol'] = "uart";
        	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
+	    if (isDVmegaCast() == 1) { // If a CAST, call the Base Station mode script
+		exec('/usr/local/cast/sbin/RMBS.sh conf_page');
+	    }
 	  }
 
 	  if ( $confHardware == 'dvmpicasths' ) {
@@ -2850,7 +2853,9 @@ if (!empty($_POST)):
 	    $configmmdvm['DMR Network']['Slot1'] = 0;
        	    $configmmdvm['Modem']['Protocol'] = "uart";
        	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
-	    $configmmdvm['Modem']['UARTSpeed'] = "115200";
+	    if (isDVmegaCast() == 1) { // If a CAST, call the HotSpot mode script
+		exec('/usr/local/cast/sbin/RMHS.sh conf_page');
+	    }
 	  }
 
 	  if ( $confHardware == 'dvmpicasthd' ) {
@@ -2861,7 +2866,9 @@ if (!empty($_POST)):
 	    $configmmdvm['DMR Network']['Slot1'] = 0;
        	    $configmmdvm['Modem']['Protocol'] = "uart";
        	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
-	    $configmmdvm['Modem']['UARTSpeed'] = "115200";
+	    if (isDVmegaCast() == 1) { // If a CAST, call the HotSpot mode script
+		exec('/usr/local/cast/sbin/RMHS.sh conf_page');
+	    }
 	  }
 	  
 	  if ( $confHardware == 'opengd77' ) {
@@ -4811,7 +4818,7 @@ else:
     </tr>
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo $lang['url'];?>:<span><b>URL</b>Your URL you'd like to be displayed in various networks/gateways</span></a></td>
-    <td align="left" colspan="2"><input type="text" name="confURL" size="75" maxlength="75" value="<?php echo $configs['url'] ?>" /></td>
+    <td align="left" colspan="2"><input type="text" name="confURL" size="45" maxlength="255" value="<?php echo $configs['url'] ?>" /></td>
     <td align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'>
     <input type="radio" name="urlAuto" value="auto"<?php if (strpos($configs['url'], 'www.qrz.com/db/'.$configmmdvm['General']['Callsign']) !== FALSE) {echo ' checked="checked"';} ?> />Auto
     <input type="radio" name="urlAuto" value="man"<?php if (strpos($configs['url'], 'www.qrz.com/db/'.$configmmdvm['General']['Callsign']) == FALSE) {echo ' checked="checked"';} ?> />Manual
