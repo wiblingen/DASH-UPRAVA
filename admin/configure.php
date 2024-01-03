@@ -2839,9 +2839,9 @@ if (!empty($_POST)):
 	    $configmmdvm['General']['Duplex'] = 0;
 	    $configmmdvm['DMR Network']['Slot1'] = 0;
        	    $configmmdvm['Modem']['Protocol'] = "uart";
-       	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
+       	    //$configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
 	    if (isDVmegaCast() == 1) { // If a CAST, call the Base Station mode script
-		exec('/usr/local/cast/sbin/RMBS.sh conf_page');
+		$rollCastMode = 'sudo /usr/local/cast/sbin/RMBS.sh conf_page';
 	    }
 	  }
 
@@ -2852,9 +2852,9 @@ if (!empty($_POST)):
 	    $configmmdvm['General']['Duplex'] = 0;
 	    $configmmdvm['DMR Network']['Slot1'] = 0;
        	    $configmmdvm['Modem']['Protocol'] = "uart";
-       	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
+       	    //$configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
 	    if (isDVmegaCast() == 1) { // If a CAST, call the HotSpot mode script
-		exec('/usr/local/cast/sbin/RMHS.sh conf_page');
+		$rollCastMode = 'sudo /usr/local/cast/sbin/RMHS.sh conf_page';
 	    }
 	  }
 
@@ -2865,9 +2865,9 @@ if (!empty($_POST)):
 	    $configmmdvm['General']['Duplex'] = 0;
 	    $configmmdvm['DMR Network']['Slot1'] = 0;
        	    $configmmdvm['Modem']['Protocol'] = "uart";
-       	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
+       	    //$configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
 	    if (isDVmegaCast() == 1) { // If a CAST, call the HotSpot mode script
-		exec('/usr/local/cast/sbin/RMHS.sh conf_page');
+		$rollCastMode = 'sudo /usr/local/cast/sbin/RMHS.sh conf_page dual';
 	    }
 	  }
 	  
@@ -4485,8 +4485,8 @@ if (!empty($_POST)):
 
 	// Start all services
 	system('sudo systemctl daemon-reload > /dev/null 2>/dev/null');	// Restart Systemd to account for any service changes
-	if (isDVmegaCast() == 1) { // if DVMega cast, reset main board
-	    system('sudo /usr/local/cast/bin/cast-reset ; sleep 5 > /dev/null 2>/dev/null');
+        if (isDVmegaCast() == 1) { // DVMega Cast mode logic
+	    system($rollCastMode);
 	}
 	system('sudo wpsd-services start > /dev/null 2>/dev/null');
 
@@ -4648,9 +4648,9 @@ else:
     <td align="left"><a class="tooltip2" href="#"><?php echo $lang['radio_type'];?>:<span><b>Radio/Modem</b>What kind of radio or modem hardware do you have?</span></a></td>
     <td align="left" colspan="3"><select name="confHardware" class="confHardware">
 		<?php if (isDVmegaCast() == 1) { // Begin DVMega Cast logic... ?>
-                <option<?php if ($configModem['Modem']['Hardware'] === 'dvmpicast') {           echo ' selected="selected"';}?> value="dvmpicast">DV-Mega Cast Base Radio (Main Unit)</option>
-                <option<?php if ($configModem['Modem']['Hardware'] === 'dvmpicasths') {         echo ' selected="selected"';}?> value="dvmpicasths">DV-Mega Cast Hotspot - Single Band (70cm)</option>
-                <option<?php if ($configModem['Modem']['Hardware'] === 'dvmpicasthd') {         echo ' selected="selected"';}?> value="dvmpicasthd">DV-Mega Cast Hotspot - Dual Band (2m/70cm)</option>
+                <option<?php if ($configModem['Modem']['Hardware'] === 'dvmpicast') {           echo ' selected="selected"';}?> value="dvmpicast">DV-Mega Cast Base Station Mode (Main Unit)</option>
+                <option<?php if ($configModem['Modem']['Hardware'] === 'dvmpicasths') {         echo ' selected="selected"';}?> value="dvmpicasths">DV-Mega Cast Hotspot Mode - Single Band Board (70cm)</option>
+                <option<?php if ($configModem['Modem']['Hardware'] === 'dvmpicasthd') {         echo ' selected="selected"';}?> value="dvmpicasthd">DV-Mega Cast Hotspot Mode - Dual-Band Board (2m/70cm)</option>
 		<?php } else { ?>
 		<option<?php if (!$configModem['Modem']['Hardware']) { echo ' selected="selected"';}?> value="">--</option>
 		<option<?php if ($configModem['Modem']['Hardware'] === 'dvmpis') {		echo ' selected="selected"';}?> value="dvmpis">DV-Mega Raspberry Pi Hat (GPIO) - Single Band (70cm)</option>
@@ -4700,7 +4700,7 @@ else:
 		<?php } // End DVMega Cast logic ?>
     </select></td>
     </tr>
-<?php if ($configModem['Modem']['Hardware'] !== 'dvmpicast') {   // Begin DVMega Cast logic... ?>
+<?php if (isDVmegaCast() == 0) {   // Begin DVMega Cast logic... ?>
 	<tr id="modem_speed">
 	    <td align="left"><a class="tooltip2" href="#">Modem Baud Rate:<span><b>Baudrate</b>Serial speed (most HATS use 115200)</span></a></td>
             <?php if(in_array($configModem['Modem']['Hardware'], array("stm32dvmv3+", "stm32usbv3+", "zumradiopigpio"))) {  // hi-speed (460k baud)repeater board array (only) ?>
