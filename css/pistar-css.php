@@ -52,7 +52,7 @@ body, font {
 .nav {
     float: left;
     margin : 0;
-    padding : 3px;
+    padding : 0 3px 3px 10px;
     width : 230px;
     background : <?php echo $backgroundNavPanel; ?>;
     font-weight : normal;
@@ -60,19 +60,19 @@ body, font {
 }
 
 .content {
-    margin : 0 0 0 240px;
-    padding : 1px 3px 5px 3px;
+    margin : 0 0 0 250px;
+    padding : 0 10px 5px 3px;
     color : <?php echo $textSections; ?>;
     background : <?php echo $backgroundContent; ?>;
     text-align: center;
 }
 
 .contentwide {
-    padding: 3px;
+    padding: 10px;
     color: <?php echo $textSections; ?>;
     background: <?php echo $backgroundContent; ?>;
     text-align: center;
-    margin-top: 5px;
+    margin: 5px 0 10px;
 }
 
 .contentwide h2 {
