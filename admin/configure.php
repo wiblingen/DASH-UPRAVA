@@ -2850,6 +2850,7 @@ if (!empty($_POST)):
 	    $configmmdvm['DMR Network']['Slot1'] = 0;
        	    $configmmdvm['Modem']['Protocol'] = "uart";
        	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
+	    $configmmdvm['Modem']['UARTSpeed'] = "115200";
 	  }
 
 	  if ( $confHardware == 'dvmpicasthd' ) {
@@ -2860,6 +2861,7 @@ if (!empty($_POST)):
 	    $configmmdvm['DMR Network']['Slot1'] = 0;
        	    $configmmdvm['Modem']['Protocol'] = "uart";
        	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
+	    $configmmdvm['Modem']['UARTSpeed'] = "115200";
 	  }
 	  
 	  if ( $confHardware == 'opengd77' ) {
