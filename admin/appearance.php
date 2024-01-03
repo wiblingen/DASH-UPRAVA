@@ -23,7 +23,7 @@ checkSessionValidity();
 	<meta http-equiv="pragma" content="no-cache" />
 	<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
 	<meta http-equiv="Expires" content="0" />
-	<title>WPSD - Digital Voice Dashboard - Advanced Editor</title>
+	<title>WPSD - Digital Voice Dashboard - Appearance Settings</title>
 	<script type="text/javascript" src="/js/jquery.min.js?version=<?php echo $versionCmd; ?>"></script>
 	<script type="text/javascript" src="/css/farbtastic/farbtastic.min.js?version=<?php echo $versionCmd; ?>"></script>
 	<link rel="stylesheet" type="text/css" href="/css/farbtastic/farbtastic.css" />
@@ -59,7 +59,7 @@ checkSessionValidity();
 	 
 	 function cssReset()
 	 {
-	     if (confirm('WARNING: This will reset the CSS/Look & Feel  settings back to factory defaults.\n\nAre you SURE you want to do this?\n\nPress OK to restore the factory CSS configuration\nPress Cancel to go back.')) {
+	     if (confirm('WARNING: This will reset the appearance settings back to factory defaults.\n\nAre you SURE you want to do this?\n\nPress OK to restore the factory appearance configuration.\nPress Cancel to go back.')) {
 		 document.getElementById("cssReset").submit();
 	     } else {
 		 return false;
@@ -94,7 +94,7 @@ checkSessionValidity();
     </head>
     <body>
 	<div class="container">
-	    <?php include './header-menu.inc'; ?>
+	    <?php include $_SERVER['DOCUMENT_ROOT'].'/admin/advanced/header-menu.inc'; ?>
 	    <div class="contentwide">
 		
 		<?php
@@ -152,8 +152,8 @@ checkSessionValidity();
 		    if (empty($_POST['cssReset']) != TRUE) {
 			echo "<br />\n";
 			echo "<table>\n";
-			echo "<tr><th>CSS Configuration Reset</th></tr>\n";
-			echo "<tr><td>Resetting Look & Feel...</td><tr>\n";
+			echo "<tr><th>Appearance Settings Reset</th></tr>\n";
+			echo "<tr><td>Resetting Appearance...</td><tr>\n";
 			echo "</table>\n";
 			unset($_POST);
 			//Reset the config
@@ -172,7 +172,7 @@ checkSessionValidity();
 			
 			if (isset($_FILES['cssFile']) && $_FILES['cssFile']['error'] === UPLOAD_ERR_OK)
 			{
-			    $output = "Uploading your CSS configuration data\n";
+			    $output = "Uploading your appearance settings data.\n";
 			    $target_dir = "/tmp/css_restore/";
 			    $okay = false;
 			    
@@ -225,13 +225,13 @@ checkSessionValidity();
 				// Make the disk Writable
 				shell_exec('sudo mount -o remount,rw / 2>&1');
 				
-				$output .= "Copying CSS configuration file\n";
+				$output .= "Copying appearance setttings...\n";
 				$output .= shell_exec("sudo mv -v -f /tmp/css_restore/pistar-css.ini /etc/ 2>&1")."\n";
 
 				// Make the disk Read-Only
 				
 				// Complete
-				$output .= "Configuration Restore Complete.\n";
+				$output .= "Appearance Restoration Complete.\n";
 				
 				echo '<script type="text/javascript">setTimeout(function() { window.location=window.location;}, 4000);</script>';
 			    }
@@ -321,7 +321,7 @@ checkSessionValidity();
 
 	<br />
 	
-	<h2 class="ConfSec">Colors and Extra Look/Feel Settings</h2>	
+	<h2 class="ConfSec">Appearance and Extra Look/Feel Settings</h2>	
 
 <?php
 		echo '<form action="" method="post" name="edit-css">'."\n";
@@ -335,7 +335,7 @@ checkSessionValidity();
 		    // keep the section as hidden text so we can update once the form submitted
 		    echo "<input type=\"hidden\" value=\"$section\" name=\"$section\" />\n";
 		    echo "<table>\n";
-		    echo "<tr><th colspan=\"3\">$section</th></tr>\n";
+		    echo "<tr><th class='larger' colspan=\"3\">$section</th></tr>\n";
 		    // print all other values as input fields, so can edit. 
 		    // note the name='' attribute it has both section and key
 		    foreach($values as $key=>$value) {
@@ -358,12 +358,13 @@ checkSessionValidity();
                 }
 		    }
 		    echo "</table>\n";
-		    echo '<input type="submit" value="'.$lang['apply'].'" />'."\n";
-		    echo "<br />\n";
+                    echo '<br /><input type="submit" value="'.$lang['apply'].'" />'."\n";
+                    echo "<br />\n";
+                    echo "<br />\n";
         }
 		echo "</form>\n";
 		echo "<p> * Because of the way WPSD parses log files to display last heard data, it is not guaranteed that the number of rows specified will be displayed.</p>\n";
-		echo '<p>Click below to reset the values to default...</p>'."\n";
+		echo "<hr />\n";
 		echo '<form id="cssUpload" action="" method="POST" enctype="multipart/form-data">'."\n";
 		echo '  <div><input id="fileid" name="cssFile" type="file" hidden/></div>'."\n";
 		echo '  <div><input type="hidden" name="cssUpload" value="1" /></div>'."\n";
@@ -371,9 +372,11 @@ checkSessionValidity();
 		echo '<form id="cssReset" action="" method="POST">'."\n";
 		echo '  <div><input type="hidden" name="cssReset" value="1" /></div>'."\n";
 		echo '</form>'."\n";
-		echo '<input type="button" onclick="javascript:cssDownload();" value="CSS Download" />'."\n";
-		echo '<input type="button" onclick="javascript:cssUpload();" value="CSS Upload" />'."\n";
-		echo '<input type="button" onclick="javascript:cssReset();" value="CSS '.$lang['factory_reset'].'" />'."\n";
+		echo '<input type="button" onclick="javascript:cssDownload();" value="Download Appearance Settings" />'."\n";
+		echo '<input type="button" onclick="javascript:cssUpload();" value="Upload &amp; Apply Appearance Settings" />'."\n";
+		echo '<input style="background:crimson;color:white;" type="button" onclick="javascript:cssReset();" value="Appearance Settings '.$lang['factory_reset'].'" />'."\n";
+		echo "<br />\n";
+		echo "<br />\n";
 		?>
 	    </div>
 	    

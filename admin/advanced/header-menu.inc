@@ -10,7 +10,11 @@
        ?>
        </div><br />
     </div>
+    <?php if ($_SERVER['REQUEST_URI'] === '/admin/appearance.php') { ?>
+    <h1>WPSD - Digital Voice Dashboard Appearance Settings</h1>
+    <?php } else { ?>
     <h1>WPSD - Digital Voice Dashboard Advanced Area</h1>
+    <?php } ?>
     <p>
 	<div class="navbar">
 	    <a class="menuconfig" href="/admin/configure.php"><?php echo $lang['configuration'];?></a>
@@ -19,6 +23,7 @@
 	    <a class="menuadmin" href="/admin/"><?php echo $lang['admin'];?></a>
 	    <a class="menudashboard" href="/"><?php echo $lang['dashboard'];?></a>
 	</div>
+    <?php if (!($_SERVER['REQUEST_URI'] === '/admin/appearance.php')) { ?>
 	<div class="lnavbar">
             <ul class="mainnav">
 		<li class="has-subs"><a href="#">Quick Editors</a>
@@ -140,7 +145,6 @@
 			    </ul>
 			</li>
 			<li class="subs"><a href="services.php?action=updatehostsfiles">Update Hosts Files</a></li>
-			<li class="subs"><a href="edit_dashboard.php">Look &amp; Feel</a></li>
 			<li class="subs"><a href="ssh_access.php">SSH Access</a></li>
 			<li class="subs"><a href="jitter_test.php">DMR Jitter Test</a></li>
 			<li class="subs"><a href="calibration.php">MMDVMHost Calibration</a></li>
@@ -155,5 +159,6 @@
 		</li>
 	    </ul>
 	</div>
+    <?php } ?>
     </p>
 </div>
