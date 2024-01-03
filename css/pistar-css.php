@@ -785,12 +785,22 @@ select {
 
 .menuhwinfo, .menuprofile, .menuconfig, .menuadmin, .menudashboard, .menusimple,
 .menucaller, .menulive, .menuupdate, .menupower, .menulogs,
-.menubackup, .menuadvanced, .menureset, .menusysinfo, .menuradioinfo {
+.menubackup, .menuadvanced, .menureset, .menusysinfo, .menuradioinfo,
+.menuappearance {
     position: relative;
 }
 
 .menuprofile:before {
     content: "\f0c0";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    padding-right: 0.2em;
+}
+
+.menuappearance:before {
+    content: "\f1fc";
     font-family: FontAwesome;
     font-style: normal;
     font-weight: normal;

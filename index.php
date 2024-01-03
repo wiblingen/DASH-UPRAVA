@@ -232,6 +232,7 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 		      echo ' <a class="menupower" href="/admin/power.php">'.$lang['power'].'</a>'."\n";
 		      echo ' <a class="menusysinfo noMob" href="/admin/sysinfo.php">System Details</a>'."\n";
 		      echo ' <a class="menulogs noMob" href="/admin/live_log.php">'.$lang['live_logs'].'</a>'."\n";
+		      echo ' <a class="menuappearance noMob" href="/admin/appearance.php">Appearance</a>'."\n";
 		      echo ' <a class="menudashboard" href="/">'.$lang['dashboard'].'</a>'."\n";
 		    }
                     if ($_SERVER["PHP_SELF"] !== "/admin/index.php") {
