@@ -33,7 +33,7 @@ body, font {
     font-family : 'Source Sans Pro', sans-serif;
     text-align : left;
     padding : 5px 0 0 0;
-    margin: 0 3px;
+    margin: 0 10px;
 }
 
 .header h1 {
@@ -51,7 +51,7 @@ body, font {
 
 .nav {
     float: left;
-    margin : 0;
+    margin : -12px 0 0 0;
     padding : 0 3px 3px 10px;
     width : 230px;
     background : <?php echo $backgroundNavPanel; ?>;
@@ -115,6 +115,7 @@ h2.ConfSec {
     text-align : center;
     padding : 10px 0 10px 0;
     clear : both;
+    margin: 10px;
 }
 
 .footer a {
