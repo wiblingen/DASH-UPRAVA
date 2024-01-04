@@ -28,7 +28,9 @@ if (isset($_SESSION['CSSConfigs']['Background'])) {
 $config_dir = "/etc/WPSD_config_mgr";
 $curr_config_raw = trim(file_get_contents('/etc/.WPSD_config'));
 $curr_config = $curr_config_raw;
+$curr_config_friendly = $curr_config_raw;
 $saved = date("M d Y @ h:i A", filemtime("$config_dir" . "/". "$curr_config"));
+$del_friendly = str_replace("_", " ", $saved);
 if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
     if (is_dir("$config_dir" . "/" ."$curr_config") != false ) {
     	 $curr_config = "<span class='larger' style='font-weight:bold;color:$backgroundModeCellActiveColor;'>".trim(file_get_contents('/etc/.WPSD_config'))."</span><br /><small>(Saved: ".$saved."</small>)\n";
@@ -107,8 +109,10 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
 			    if ( escapeshellcmd($_POST["save_current_config"]) || escapeshellcmd($_POST['curr_config'] )) { // new or current profile save posted
                                 if (escapeshellcmd($_POST["save_current_config"])) { // new profile, need new descr.
                                     $desc = $_POST['config_desc'];
+				    $desc = str_replace(' ', '_', $desc);
                                 } else if (escapeshellcmd($_POST['curr_config'])) { // current profile, use existing descr.
                                     $desc = $_POST['curr_config'];
+				    $desc = str_replace(' ', '_', $desc);
                                 }
 				if ($desc == "") {
 				    echo '<tr><td colspan="3"><p class="larger"><i class="fa fa-times-circle" aria-hidden="true"></i> You need to provide a Profile Description!</p>
@@ -117,7 +121,7 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
 				    setTimeout("location.href = \''.$_SERVER["PHP_SELF"].'\'", 5000);
 				    </script>
 				    </td></tr>';
-				} else if (!preg_match('/^[a-zA-Z0-9\s]+$/', $desc)) {
+				} else if (!preg_match('/^[a-zA-Z0-9_\s]+$/', $desc)) {
 				    echo '<tr><td colspan="3"><p class="larger"><i class="fa fa-ban" aria-hidden="true"></i> Non-Alpha-Numeric/Special Characters are not Permitted...</p>
 				    Page reloading...<br /><br />
 				    <script language="JavaScript" type="text/javascript">
@@ -125,7 +129,7 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
 				    </script>
 				    </td></tr>';
 				} else {
-				    $desc = escapeshellarg($desc);
+				    $desc_friendly = str_replace("_", " ", $desc);
 				    exec('sudo mount -o remount,rw /');
 				    exec("sudo mkdir -p /etc/WPSD_config_mgr/$desc > /dev/null");
 				    $profileDir = "/etc/WPSD_config_mgr/$desc";
@@ -178,7 +182,7 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
 					exec("sudo sh -c 'cp -a \"/usr/local/cast/etc/\"* \"$profileDir/cast-settings/\"' > /dev/null");
 				    }
 				    exec("sudo sh -c \"echo $desc > /etc/.WPSD_config\"");
-				    echo '<tr><td colspan="3"><p class="larger"><i class="fa fa-check-square" aria-hidden="true"></i> Saved Current Settings to Profile, '.$desc.'</p>
+				    echo '<tr><td colspan="3"><p class="larger"><i class="fa fa-check-square" aria-hidden="true"></i> Saved Current Settings to Profile, \''.$desc_friendly.'\'</p>
 				    Page reloading...<br /><br />
 				    <script language="JavaScript" type="text/javascript">
                                     setTimeout("location.href = \''.$_SERVER["PHP_SELF"].'\'", 3000);
@@ -196,6 +200,7 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
                                        </td></tr>';
 				} else {
 				    $resto = escapeshellarg($_POST['configs']);
+				    $resto_friendly = str_replace("_", " ", $resto);
 				    $profileDir = "/etc/WPSD_config_mgr/$resto";
 				    exec('sudo mount -o remount,rw /');
 				    exec("sudo sh -c 'mv $profileDir/*.php /var/www/dashboard/config/' > /dev/null");
@@ -220,7 +225,7 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
 				    exec("sudo sh -c 'cp -a /root/*Hosts.txt $profileDir' > /dev/null");
 				    exec("sudo sh -c \"echo ".$_POST['configs']." > /etc/.WPSD_config\"");
 				    exec("sudo wpsd-services restart > /dev/null &");
-				    echo '<tr><td colspan="3"><p class="larger"><i class="fa fa-check-square" aria-hidden="true"></i> Switched to Profile, '.$resto.'</p>
+				    echo '<tr><td colspan="3"><p class="larger"><i class="fa fa-check-square" aria-hidden="true"></i> Switched to Profile, '.$resto_friendly.'</p>
 				    Page reloading...<br /><br />
 				    <script language="JavaScript" type="text/javascript">
                                     setTimeout("location.href = \''.$_SERVER["PHP_SELF"].'\'", 3000);
@@ -238,9 +243,10 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
 				</td></tr>';
 				} else {
 				    $del = escapeshellarg($_POST['delete_configs']);
+				    $del_friendly = str_replace("_", " ", $del);
 				    exec('sudo mount -o remount,rw /');
 				    exec("sudo rm -rf /etc/WPSD_config_mgr/$del > /dev/null");
-				    echo '<tr><td colspan="3"><p class="larger"><i class="fa fa-check-square" aria-hidden="true"></i> Deleted Profile, ' .$del.'</p>
+				    echo '<tr><td colspan="3"><p class="larger"><i class="fa fa-check-square" aria-hidden="true"></i> Deleted Profile, ' .$del_friendly.'</p>
 				    Page reloading...<br /><br />
 				    <script language="JavaScript" type="text/javascript">
                                     setTimeout("location.href = \''.$_SERVER["PHP_SELF"].'\'", 3000);
@@ -291,7 +297,8 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
 				    <?php
 				    foreach ( glob("$config_dir/*") as $dir ) {
 					$config_file = str_replace("$config_dir/", "", $dir);
-					echo "              <option name='selected_config' value='$config_file'>$config_file</option>\n";
+					$config_file_friendly = str_replace("_", " ", $config_file);
+					echo "              <option name='selected_config' value='$config_file'>$config_file_friendly</option>\n";
 				    }
 				    ?>
                                     </select>
@@ -303,7 +310,7 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
 
 			    <td style="white-space:normal;padding: 3px;">
 			    <p>
-			    <?php echo $curr_config; ?>
+			    <?php echo str_replace("_", " ", $curr_config); ?>
 			    <?php if ($no_raw_profile != true) { ?>
 				<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" id="save_running_config">
 				    <div<>Save Current Settings to This Running Profile: </div>
@@ -357,7 +364,8 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
 				<?php
 				    foreach ( glob("$config_dir/*") as $dir ) {
 					$config_file = str_replace("$config_dir/", "", $dir);
-					echo "	<option name='selected_config' value='$config_file'>$config_file</option>\n";
+					$config_file_friendly = str_replace("_", " ", $config_file);
+					echo "	<option name='selected_config' value='$config_file'>$config_file_friendly</option>\n";
 				}
 				?>
 				</select>
