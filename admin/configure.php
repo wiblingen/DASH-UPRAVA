@@ -1022,20 +1022,27 @@ if (!empty($_POST)):
 	} // End SysX migration
 
 	// Admin Password Change
-	if (empty($_POST['adminPassword']) != TRUE ) {
-	  $rollAdminPass0 = 'htpasswd -b /var/www/.htpasswd pi-star \''.stripslashes(trim($_POST['adminPassword'])).'\'';
-	  system($rollAdminPass0);
-	  $rollAdminPass2 = 'sudo echo -e \''.stripslashes(trim($_POST['adminPassword'])).'\n'.stripslashes(trim($_POST['adminPassword'])).'\' | sudo passwd pi-star';
-	  system($rollAdminPass2);
-	  unset($_POST);
-	  echo "<table>\n";
-	  echo "<tr><th>Working...</th></tr>\n";
-	  echo "<tr><td>Applying your configuration changes...</td></tr>\n";
-	  echo "</table>\n";
-	  echo '<script type="text/javascript">setTimeout(function() { window.location=window.location;},5000);</script>';
-	  echo "<br />\n</div>\n";
-          echo "<br />\n</div>\n</div>\n</body>\n</html>\n";
-	  die();
+	if (!empty($_POST['adminPassword'])) {
+	    $adminPassword = escapeshellarg(trim($_POST['adminPassword']));
+
+	    // Update .htpasswd file
+	    $htpasswdCommand = "htpasswd -b /var/www/.htpasswd pi-star {$adminPassword}";
+	    system($htpasswdCommand);
+
+	    // Update shell passwd
+	    $passwdCommand = "echo {$adminPassword} | sudo passwd pi-star";
+	    system($passwdCommand);
+
+	    unset($_POST);
+
+	    echo "<table>\n";
+	    echo "<tr><th>Working...</th></tr>\n";
+	    echo "<tr><td>Applying your configuration changes...</td></tr>\n";
+	    echo "</table>\n";
+	    echo '<script type="text/javascript">setTimeout(function() { window.location=window.location;},5000);</script>';
+	    echo "<br />\n</div>\n";
+	    echo "<br />\n</div>\n</div>\n</body>\n</html>\n";
+	    die();
 	}
 
 	// AutoAP PSK Change
