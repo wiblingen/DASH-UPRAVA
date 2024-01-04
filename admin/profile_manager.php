@@ -109,10 +109,8 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
 			    if ( escapeshellcmd($_POST["save_current_config"]) || escapeshellcmd($_POST['curr_config'] )) { // new or current profile save posted
                                 if (escapeshellcmd($_POST["save_current_config"])) { // new profile, need new descr.
                                     $desc = $_POST['config_desc'];
-				    $desc = str_replace(' ', '_', $desc);
                                 } else if (escapeshellcmd($_POST['curr_config'])) { // current profile, use existing descr.
                                     $desc = $_POST['curr_config'];
-				    $desc = str_replace(' ', '_', $desc);
                                 }
 				if ($desc == "") {
 				    echo '<tr><td colspan="3"><p class="larger"><i class="fa fa-times-circle" aria-hidden="true"></i> You need to provide a Profile Description!</p>
@@ -121,7 +119,7 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
 				    setTimeout("location.href = \''.$_SERVER["PHP_SELF"].'\'", 5000);
 				    </script>
 				    </td></tr>';
-				} else if (!preg_match('/^[a-zA-Z0-9_\s]+$/', $desc)) {
+				} else if (!preg_match('/^[a-zA-Z0-9\s]+$/', $desc)) {
 				    echo '<tr><td colspan="3"><p class="larger"><i class="fa fa-ban" aria-hidden="true"></i> Non-Alpha-Numeric/Special Characters are not Permitted...</p>
 				    Page reloading...<br /><br />
 				    <script language="JavaScript" type="text/javascript">
@@ -129,6 +127,7 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
 				    </script>
 				    </td></tr>';
 				} else {
+				    $desc = str_replace(' ', '_', $desc);
 				    $desc_friendly = str_replace("_", " ", $desc);
 				    exec('sudo mount -o remount,rw /');
 				    exec("sudo mkdir -p /etc/WPSD_config_mgr/$desc > /dev/null");
