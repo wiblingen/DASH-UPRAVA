@@ -28,9 +28,8 @@ if (isset($_SESSION['CSSConfigs']['Background'])) {
 $config_dir = "/etc/WPSD_config_mgr";
 $curr_config_raw = trim(file_get_contents('/etc/.WPSD_config'));
 $curr_config = $curr_config_raw;
-$curr_config_friendly = $curr_config_raw;
 $saved = date("M d Y @ h:i A", filemtime("$config_dir" . "/". "$curr_config"));
-$del_friendly = str_replace("_", " ", $saved);
+$curr_config_friendly = str_replace("_", " ", $curr_config_raw);
 if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
     if (is_dir("$config_dir" . "/" ."$curr_config") != false ) {
     	 $curr_config = "<span class='larger' style='font-weight:bold;color:$backgroundModeCellActiveColor;'>".trim(file_get_contents('/etc/.WPSD_config'))."</span><br /><small>(Saved: ".$saved."</small>)\n";
@@ -313,7 +312,7 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
 			    <?php if ($no_raw_profile != true) { ?>
 				<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" id="save_running_config">
 				    <div<>Save Current Settings to This Running Profile: </div>
-				    <input type="hidden" name="curr_config" value="<?php echo $curr_config_raw; ?>">
+				    <input type="hidden" name="curr_config" value="<?php echo $curr_config_friendly; ?>">
 				    <button type="submit" name="running_config">Quick Save</button>
 				</form>
 			    <?php } ?>
