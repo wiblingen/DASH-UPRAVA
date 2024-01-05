@@ -16,7 +16,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/advanced/calibration.php") {
   if (isset($_GET['action'])) {
     if ($_GET['action'] === 'start') {
       system('sudo fuser -k 33273/udp > /dev/null 2>&1');
-      system('nc -ulp 33273 | sudo -i script -qfc "/usr/local/sbin/pistar-mmdvmcal" /tmp/mmdvmcal.log > /dev/null 2>&1 &');
+      system('nc -ulp 33273 | sudo -i script -qfc "/usr/local/sbin/wpsd-modemcalibrate" /tmp/mmdvmcal.log > /dev/null 2>&1 &');
     }
     else if (($_GET['action'] === 'saveoffset')) {
       if (isset($_GET['param']) && strlen($_GET['param'])) {
@@ -303,36 +303,38 @@ if ($_SERVER["PHP_SELF"] == "/admin/advanced/calibration.php") {
 <?php include './header-menu.inc'; ?>
   </div>
   <div class="contentwide">
-  <p style="text-align:left;"><a style="color:#bebebe;text-decoration:underline;" href="#help_details" id="help_details">Display Calibration Help...</a><br />
+  <div style="text-align:left;"><a style="color:#bebebe;text-decoration:underline;" href="#help_details" id="help_details">Display Calibration Help...</a>
   <div id="help_info" style="display:none;text-align:left;"><br />
-    First, click the "Start" button, then wait until the Start "LED" turns to green (approx. 10 secs.). Then, select the mode you wish to calibrate,
-    and then wait until the Mode "LED" turns green.<br /><br />TX from your radio until the BER% reaches its lowest value, while adjusting the offset by clicking  the "<code>+/-</code>"
+    First, click the "Start" button, then wait until the Start Status indicator turns to green (approx. 10-30 secs.). Then, select the mode you wish to calibrate,
+    and then wait until the Mode Status indicator turns green.<br /><br />TX from your radio until the BER% reaches its lowest value, while adjusting the offset by clicking  the "<code>+/-</code>"
     offset buttons. You can increase/decrease the Steps (in Hz) if you'd like (default is 50 Hz).<br /><br />
     Once happy with the value, click "Save Offset" and then click "Stop" and wait for the LED to turn red, then you're done.<br /><br />
     NOTE: The tests operate in simplex only; program your radio accordingly.
-  </div></p>
+  </div></div>
+  <h2 class="ConfSec center">MMDVM Calibration Tool</h2>
   <table width="100%">
-  <tr><th>MMDVM Calibration Tool</th></tr>
   <tr><td align="left">
-<table width="800" border="0" cellspacing="0" cellpadding="5">
+<table border="0" cellspacing="0">
   <tr>
-    <td align="center" valign="top"><table border="0" cellspacing="0" cellpadding="5">
+    <td align="center" valign="top" width="15%"><table border="0" cellspacing="0">
       <tr>
-	<th colspan="2">Main Operation</th>
+	<th>Main Operation</th>
+	<th>Status</th>
+      </tr>
+
+      <tr>
+	<td style="white-space:normal" align="left"><input name="btnStart" type="button" id="btnStart" onclick="sendaction('start');" value="Start" /><p><small><i class="fa fa-question-circle"></i> Click Start ONCE, and wait 10-30 seconds until the Status indicator turns green.</small></p></td>
+        <td width="30"><span class="red_dot" name="ledStart" width="20" height="20" id="ledStart"></span></td>
       </tr>
       <tr>
-        <td><input name="btnStart" type="button" id="btnStart" onclick="sendaction('start');" value="Start" /></td>
-        <td><span class="red_dot" name="ledStart" width="20" height="20" id="ledStart"></span></td>
-      </tr>
-      <tr>
-        <td><input name="btnStop" type="button" id="btnStop" onclick="sendcmd('q');" value="Stop" /></td>
-        <td>&nbsp;</td>
+        <td align="left" colspan="2"><input name="btnStop" type="button" id="btnStop" onclick="sendcmd('q');" value="Stop" /></td>
       </tr>
     </table></td>
 
-    <td align="center" valign="top"><table border="0" cellspacing="0" cellpadding="4">
+    <td align="center" valign="top"><table border="0" cellspacing="0">
       <tr>
-        <th colspan="2">Select Mode</th>
+        <th>Select Mode</th>
+	<th>Status</th>
       </tr>
       <tr>
         <td><input name="btnDStar" type="button" id="btnDStar" onclick="sendcmd('k');" value="D-Star" /></td>
@@ -356,9 +358,9 @@ if ($_SERVER["PHP_SELF"] == "/admin/advanced/calibration.php") {
         </tr>
     </table></td>
 
-    <td align="center" valign="top"><table border="0" cellspacing="0" cellpadding="5">
+    <td align="center" valign="top"><table border="0" cellspacing="0">
       <tr>
-        <th colspan="4">Parameters</th>
+        <th colspan="4">Calibration Parameters</th>
       </tr>
       <tr>
         <td align="left">Base Freq.:</td>
@@ -384,7 +386,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/advanced/calibration.php") {
       </tr>
     </table></td>
 
-    <td align="center" valign="top"><table border="0" cellspacing="0" cellpadding="5">
+    <td align="center" valign="top"><table border="0" cellspacing="0">
       <tr>
         <th style="width:8ch">Calibration Results:</th>
         <th style="width:9ch">Current</th>
@@ -411,7 +413,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/advanced/calibration.php") {
         <td id="lblTBER">&nbsp;</td>
       </tr>
       <tr>
-        <td align="left">Chart Refresh Rate:</td>
+        <td align="left">Sampling Rate:</td>
         <td id="lblSec" style="padding:0;"><select name="sltUpdFrq" id="sltUpdFrq" style="margin:0;">
                           <option value="1" selected="selected">1 Sec.</option>
                           <option value="2">2 Secs.</option>
@@ -437,9 +439,13 @@ if ($_SERVER["PHP_SELF"] == "/admin/advanced/calibration.php") {
         type: 'scatter',
         mode: 'lines',
         fill: 'tozeroy',
+        line: {
+            color: 'cyan'
+        },
+        fillcolor: 'rgba(0, 139, 139, 0.3)'
     }], {
         title: {
-            text: 'Bit Error Rate (BER)',
+            text: 'Bit Error Rate (BER) in Percent',
             font: { color: 'white' }
         },
         xaxis: {
@@ -459,6 +465,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/advanced/calibration.php") {
         plot_bgcolor: 'black',
     }, { staticPlot: true });
 </script>
+
       </td></tr>
 <?php if (isset($_GET['verbose'])) { ?>
   <tr><td align="left"><div id="tail"></div></td></tr>
