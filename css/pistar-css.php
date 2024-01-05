@@ -148,13 +148,12 @@ tt, code, kbd, pre {
 #tail {
     font-family: 'Inconsolata', monospace;
     height: 640px;
-    width: 100%;
     overflow-y: scroll;
     overflow-x: scroll;
     color: #4DEEEA;
     background: #000000;
-    font-size: 17px;
-    padding: .5em 0 .5em .5em;
+    font-size: 18px;
+    padding: 1em;
 }
 
 table {
