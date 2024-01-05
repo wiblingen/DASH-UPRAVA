@@ -34,12 +34,10 @@ if (isset($_SESSION['CSSConfigs']['Background']['TableRowBgEvenColor'])) {
 <div class="divTable">
   <div class="divTableBody">
     <div class="divTableRow center">
-      <?php if ($_SESSION['ModemConfigs']['Modem']['Hardware'] == "dvmpicast") { // DVMega Cast logic... ?>
-      <div class="divTableHeadCell noMob" style="width:300px;">DVMega Cast Mode Status</div>
-      <?php } else { // end DVMega Cast logic. ?>
       <div class="divTableHeadCell noMob" style="width:250px;">Radio Status</div>
-      <?php } ?>
-      <?php if ($_SESSION['ModemConfigs']['Modem']['Hardware'] == "dvmpicast") { // DVMega Cast logic... ?>
+      <?php if ((isDVmegaCast() == 1) && (($_SESSION['ModemConfigs']['Modem']['Hardware'] == "dvmpicasths") || ($_SESSION['ModemConfigs']['Modem']['Hardware'] == "dvmpicasthd"))) { // DVMega Cast logic... ?>
+      <div class="divTableHeadCell noMob">DVMega Cast Hotspot Freq.</div>
+      <?php } else if ((isDVmegaCast() == 1) && ($_SESSION['ModemConfigs']['Modem']['Hardware'] != "dvmpicasths") &&  ($_SESSION['ModemConfigs']['Modem']['Hardware'] != "dvmpicasthd")) { // DVMega Cast logic... ?>
       <div class="divTableHeadCell noMob">DVMega Cast Mode</div>
       <?php } else { // end DVMega Cast logic. ?>
       <?php if(getConfigItem("General", "Duplex", $_SESSION['MMDVMHostConfigs']) == "1") { ?>
@@ -49,17 +47,20 @@ if (isset($_SESSION['CSSConfigs']['Background']['TableRowBgEvenColor'])) {
       <div class="divTableHeadCell noMob">TX/RX Freq.</div>
       <?php } } ?>
 
-      <?php if ($_SESSION['ModemConfigs']['Modem']['Hardware'] != "dvmpicast") { // DVMega Cast logic... ?>
+      <?php if ((isDVmegaCast() == 1) && $_SESSION['ModemConfigs']['Modem']['Hardware'] == "dvmpicasths" || $_SESSION['ModemConfigs']['Modem']['Hardware'] == "dvmpicasthd") { // DVMega Cast logic... ?>
+      <div class="divTableHeadCell noMob">DVMega Cast Mode</div>
+      <?php } // end DVMega Cast logic ?>
+      <?php if (isDVmegaCast() == 0) { // DVMega Cast logic... ?>
       <div class="divTableHeadCell noMob">Radio Mode</div>
 
       <div class="divTableHeadCell noMob">Modem Port</div>
 
       <div class="divTableHeadCell noMob">Modem Speed</div>
-      <?php } // end DVMega Cast logic ?>
 
       <?php if(!empty($_SESSION['DvModemTCXOFreq'])) { ?>
       <div class="divTableHeadCell noMob">TCXO Freq.</div>
       <?php } ?>
+      <?php } // end DVMega Cast logic ?>
 
       <?php if ($_SESSION['ModemConfigs']['Modem']['Hardware'] == "dvmpicast") { // DVMega Cast logic... ?>
       <div class="divTableHeadCell noMob">DVMega Cast Mainboard Firmware</div>
@@ -158,19 +159,17 @@ if (isset($_SESSION['CSSConfigs']['Background']['TableRowBgEvenColor'])) {
       <div class="divTableCell cell_content middle noMob" style="background: <?php echo $tableRowEvenBg; ?>;"><?php echo getMHZ(getConfigItem("Info", "RXFrequency", $_SESSION['MMDVMHostConfigs'])); ?></div>
       <?php } else { ?>
       <div class="divTableCell cell_content middle noMob" style="background: <?php echo $tableRowEvenBg; ?>;"><?php echo getMHZ(getConfigItem("Info", "RXFrequency", $_SESSION['MMDVMHostConfigs'])); ?></div>
-      <?php } } ?>
-      <?php if ($_SESSION['ModemConfigs']['Modem']['Hardware'] != "dvmpicast") { // DVMega Cast logic... ?>
+      <?php }  ?>
+      <?php if ($_SESSION['ModemConfigs']['Modem']['Hardware'] != "dvmpicast" && $_SESSION['ModemConfigs']['Modem']['Hardware'] == "dvmpicasths" || $_SESSION['ModemConfigs']['Modem']['Hardware'] == "dvmpicasthd") { // DVMega Cast logic... ?>
+ 		<div class="divTableCell cell_content middle noMob" style="background: <?php echo $tableRowEvenBg; ?>;">Hotspot Mode: Simplex</div>
+      <?php } else { // end DVmega Cast logic ?>
       <div class="divTableCell cell_content middle noMob" style="background: <?php echo $tableRowEvenBg; ?>;"><?php if(getConfigItem("General", "Duplex", $_SESSION['MMDVMHostConfigs']) == "1") { echo "Duplex"; } else { echo "Simplex"; } ?></div>
+      <?php } ?>
+      <?php if ($_SESSION['ModemConfigs']['Modem']['Hardware'] != "dvmpicast" && $_SESSION['ModemConfigs']['Modem']['Hardware'] != "dvmpicasths" && $_SESSION['ModemConfigs']['Modem']['Hardware'] != "dvmpicasthd") { // DVMega Cast logic... ?>
       <div class="divTableCell cell_content middle noMob" style="background: <?php echo $tableRowEvenBg; ?>;"><?php echo getConfigItem("Modem", "UARTPort", $_SESSION['MMDVMHostConfigs']); ?></div>
-      <?php if ($_SESSION['ModemConfigs']['Modem']['Hardware'] == "dvmpicasths" || $_SESSION['ModemConfigs']['Modem']['Hardware'] == "dvmpicasthd") { // DVMega cast hotspot mode logic... ?>
-      <div class="divTableCell cell_content middle noMob" style="background: <?php echo $tableRowEvenBg; ?>;">115,200 bps</div>
-      <?php } else { ?>
       <div class="divTableCell cell_content middle noMob" style="background: <?php echo $tableRowEvenBg; ?>;"><?php echo number_format(getConfigItem("Modem", "UARTSpeed", $_SESSION['MMDVMHostConfigs'])); ?> bps</div>
-      <?php } ?>
-      <?php if(!empty($_SESSION['DvModemTCXOFreq'])) { ?>
       <div class="divTableCell cell_content middle noMob" style="background: <?php echo $tableRowEvenBg; ?>;"><?php echo $_SESSION['DvModemTCXOFreq']; ?></div>
-      <?php } ?>
-      <?php } // end DVmega Cast logic ?>
+      <?php } } // end DVmega Cast logic ?>
       <div class="divTableCell cell_content middle noMob" style="background: <?php echo $tableRowEvenBg; ?>;"><?php echo $_SESSION['DvModemFWVersion']; ?></div>
     </div>
   </div>
