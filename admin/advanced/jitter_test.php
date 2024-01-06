@@ -38,9 +38,9 @@ if ($_SERVER["PHP_SELF"] == "/admin/advanced/jitter_test.php") {
   } else { $target = ""; }
 
     if (!isset($_GET['ajax'])) {
-	system('sudo touch /var/log/pi-star/pi-star_icmptest.log > /dev/null 2>&1 &');
-	system('sudo echo "" > /var/log/pi-star/pi-star_icmptest.log > /dev/null 2>&1 &');
-	system('sudo /usr/local/sbin/pistar-jittertest '.$target.' > /dev/null 2>&1 &');
+	system('sudo touch /var/log/pi-star/wpsd_icmptest.log > /dev/null 2>&1 &');
+	system('sudo echo "" > /var/log/pi-star/wpsd_icmptest.log > /dev/null 2>&1 &');
+	system('sudo /usr/local/sbin/wpsd-dmr_jittertest '.$target.' > /dev/null 2>&1 &');
 	$_SESSION['jittertest-isrunning'] = 1;
     }
     
@@ -49,8 +49,8 @@ if ($_SERVER["PHP_SELF"] == "/admin/advanced/jitter_test.php") {
     
     if (!isset($_GET['ajax'])) {
 	//unset($_SESSION['update_offset']);
-	if (file_exists('/var/log/pi-star/pi-star_icmptest.log')) {
-	    $_SESSION['update_offset'] = filesize('/var/log/pi-star/pi-star_icmptest.log');
+	if (file_exists('/var/log/pi-star/wpsdr_icmptest.log')) {
+	    $_SESSION['update_offset'] = filesize('/var/log/pi-star/wpsd_icmptest.log');
 	}
 	else {
 	    $_SESSION['update_offset'] = 0;
@@ -59,11 +59,11 @@ if ($_SERVER["PHP_SELF"] == "/admin/advanced/jitter_test.php") {
     
     if (isset($_GET['ajax'])) {
 	//session_start();
-	if (!file_exists('/var/log/pi-star/pi-star_icmptest.log')) {
+	if (!file_exists('/var/log/pi-star/wpsd_icmptest.log')) {
 	    exit();
 	}
 	
-	if (($handle = fopen('/var/log/pi-star/pi-star_icmptest.log', 'rb')) != false) {
+	if (($handle = fopen('/var/log/pi-star/wpsd_icmptest.log', 'rb')) != false) {
 	    if (isset($_SESSION['update_offset'])) {
 		fseek($handle, 0, SEEK_END);
 		if ($_SESSION['update_offset'] > ftell($handle)) { //log rotated/truncated
@@ -72,7 +72,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/advanced/jitter_test.php") {
 		
 		$data = stream_get_contents($handle, -1, $_SESSION['update_offset']);
 		
-		$jitterIsRunning = shell_exec('ps ax | grep "/usr/local/sbin/pistar-jittertest" | grep -v grep') != null ? "YES" : "NO";
+		$jitterIsRunning = shell_exec('ps ax | grep "/usr/local/sbin/wpsd-dmr_jittertest" | grep -v grep') != null ? "YES" : "NO";
 		$oldOffset = $_SESSION['update_offset'];
 		
 		$_SESSION['update_offset'] += strlen($data);
@@ -132,19 +132,22 @@ Test Complete.
   <div class="container">
   <?php include './header-menu.inc'; ?>
   <div class="contentwide">
+  <h2 class="ConfSec center">DMR Network Jitter / Ping Test</h2>
   <table width="100%">
   <?php if (empty($target)) { ?>
-  <tr><th>DMR Network Jitter Test</th></tr>
   <tr><td>
   <form method="post" action="./jitter_test.php">
   <p>
-    BrandMeister:<input type="radio" value="brandmeister" name="group" /> |
-    HB-Link:<input type="radio" value="hblink" name="group" /> |
-    FreeDMR:<input type="radio" value="freedmr" name="group" /> | 
-    FreeDMR Stand-alone Hosts:<input type="radio" value="freedmr_sa" name="group" /><br />
-    SystemX (FreeSTAR):<input type="radio" value="sysx" name="group" /> |
-    XLX Hosts:<input type="radio" value="xlx" name="group" /> |
-    DMR+:<input type="radio" value="dmrplus" name="group" />
+    <select name="group">
+	<option value="" disabled selected>Select DMR Network to Test...</option>
+	<option value="brandmeister">BrandMeister</option>
+	<option value="hblink">HB-Link</option>
+	<option value="freedmr">FreeDMR</option>
+	<option value="freedmr_sa">FreeDMR Stand-alone Hosts</option>
+	<option value="sysx">SystemX (FreeSTAR)</option>
+	<option value="xlx">XLX Hosts</option>
+	<option value="dmrplus">DMR+</option>
+    </select>
     <input type="submit" name="sumbit" value="Start Test" />
   </p>
   </form>
@@ -160,17 +163,19 @@ Test Complete.
   </body>
   <?php } else { ?>
 
-  <tr><th>DMR Network Jitter Test</th></tr>
   <tr><td>
   <form method="post" action="./jitter_test.php">
   <p>
-    BrandMeister:<input type="radio" value="brandmeister" name="group" /> |
-    HB-Link:<input type="radio" value="hblink" name="group" /> |
-    FreeDMR:<input type="radio" value="freedmr" name="group" /> | 
-    FreeDMR Stand-alone Hosts:<input type="radio" value="freedmr_sa" name="group" /><br />
-    SystemX (FreeSTAR):<input type="radio" value="sysx" name="group" /> |
-    XLX Hosts:<input type="radio" value="xlx" name="group" /> |
-    DMR+:<input type="radio" value="dmrplus" name="group" />
+    <select name="group">
+	<option value="" disabled selected>Select DMR Network to Test...</option>
+	<option value="brandmeister">BrandMeister</option>
+	<option value="hblink">HB-Link</option>
+	<option value="freedmr">FreeDMR</option>
+	<option value="freedmr_sa">FreeDMR Stand-alone Hosts</option>
+	<option value="sysx">SystemX (FreeSTAR)</option>
+	<option value="xlx">XLX Hosts</option>
+	<option value="dmrplus">DMR+</option>
+    </select>
     <input type="submit" name="sumbit" value="Start Test" />
   </p>
   </form>
