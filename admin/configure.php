@@ -926,101 +926,6 @@ if (!empty($_POST)):
 	// Make the root filesystem writable
 	system('sudo mount -o remount,rw /');
 
-	// SysX migration to its own section/config
-	if (empty($_POST['MigrateSysX']) != TRUE ) {
-	    unset($configdmrgateway['DMR Network 5']);
-	    $configdmrgateway['DMR Network 5']['Enabled'] = $configdmrgateway['DMR Network 2']['Enabled'];
-	    $configdmrgateway['DMR Network 5']['Id'] = $configdmrgateway['DMR Network 2']['Id'];
-	    $configdmrgateway['DMR Network 5']['Name'] = $configdmrgateway['DMR Network 2']['Name'];
-	    $configdmrgateway['DMR Network 5']['Address'] = $configdmrgateway['DMR Network 2']['Address'];
-	    $configdmrgateway['DMR Network 5']['Port'] = $configdmrgateway['DMR Network 2']['Port'];
-	    $configdmrgateway['DMR Network 5']['Password'] = $configdmrgateway['DMR Network 2']['Password'];
-	    $configdmrgateway['DMR Network 5']['Options'] = $configdmrgateway['DMR Network 2']['Options'];
-            $configdmrgateway['DMR Network 5']['Debug'] = "0";
-            $configdmrgateway['DMR Network 5']['Location'] = "0";
-            $configdmrgateway['DMR Network 5']['TGRewrite0'] = "2,4,2,9,1";
-            $configdmrgateway['DMR Network 5']['PCRewrite0'] = "2,44000,2,4000,1001";
-            $configdmrgateway['DMR Network 5']['PCRewrite1'] = "1,4009990,1,9990,1";
-            $configdmrgateway['DMR Network 5']['PCRewrite2'] = "2,4009990,2,9990,1";
-            $configdmrgateway['DMR Network 5']['PCRewrite3'] = "1,4000001,1,1,999999";
-            $configdmrgateway['DMR Network 5']['PCRewrite4'] = "2,4000001,2,1,999999";
-            $configdmrgateway['DMR Network 5']['TypeRewrite1'] = "1,4009990,1,9990";
-            $configdmrgateway['DMR Network 5']['TypeRewrite2'] = "2,4009990,2,9990";
-            $configdmrgateway['DMR Network 5']['TGRewrite1'] = "1,4000001,1,1,999999";
-            $configdmrgateway['DMR Network 5']['TGRewrite2'] = "2,4000001,2,1,999999";
-            $configdmrgateway['DMR Network 5']['SrcRewrite1'] = "1,9990,1,4009990,1";
-            $configdmrgateway['DMR Network 5']['SrcRewrite2'] = "2,9990,2,4009990,1";
-            $configdmrgateway['DMR Network 5']['SrcRewrite3'] = "1,1,1,4000001,999999";
-            $configdmrgateway['DMR Network 5']['SrcRewrite4'] = "2,1,2,4000001,999999";
-	    unset($configdmrgateway['DMR Network 2']);
-	    // quote options= line
-	    if (isset($configdmrgateway['DMR Network 5']['Options'])) {
-                ensureOptionsIsQuoted($configdmrgateway['DMR Network 5']['Options']);
-	    }
-	    // quote certain values when migrating
-	    if ( isset($configdmrgateway['Info']['Location']) && substr($configdmrgateway['Info']['Location'], 0, 1) !== '"' ) { $configdmrgateway['Info']['Location'] = '"'.$configdmrgateway['Info']['Location'].'"'; }
-	    if ( isset($configdmrgateway['Info']['Description']) && substr($configdmrgateway['Info']['Description'], 0, 1) !== '"' ) { $configdmrgateway['Info']['Description'] = '"'.$configdmrgateway['Info']['Description'].'"'; }
-	    if ( isset($configdmrgateway['DMR Network 1']['Password']) && substr($configdmrgateway['DMR Network 1']['Password'], 0, 1) !== '"' ) { $configdmrgateway['DMR Network 1']['Password'] = '"'.$configdmrgateway['DMR Network 1']['Password'].'"'; }
-	    if ( isset($configdmrgateway['DMR Network 1']['Options']) &&  substr($configdmrgateway['DMR Network 1']['Options'], 0, 1) !== '"' ) { $configdmrgateway['DMR Network 1']['Options'] = '"'.$configdmrgateway['DMR Network 1']['Options'].'"'; }
-	    if ( isset($configdmrgateway['DMR Network 2']['Password']) && substr($configdmrgateway['DMR Network 2']['Password'], 0, 1) !== '"' ) { $configdmrgateway['DMR Network 2']['Password'] = '"'.$configdmrgateway['DMR Network 2']['Password'].'"'; }
-	    if ( isset($configdmrgateway['DMR Network 2']['Options']) &&  substr($configdmrgateway['DMR Network 2']['Options'], 0, 1) !== '"' ) { $configdmrgateway['DMR Network 2']['Options'] = '"'.$configdmrgateway['DMR Network 2']['Options'].'"'; }
-	   if ( isset($configdmrgateway['DMR Network 3']['Password']) && substr($configdmrgateway['DMR Network 3']['Password'], 0, 1) !== '"' ) { $configdmrgateway['DMR Network 3']['Password'] = '"'.$configdmrgateway['DMR Network 3']['Password'].'"'; }
-	    if ( isset($configdmrgateway['DMR Network 3']['Options']) &&  substr($configdmrgateway['DMR Network 3']['Options'], 0, 1) !== '"' ) { $configdmrgateway['DMR Network 3']['Options'] = '"'.$configdmrgateway['DMR Network 3']['Options'].'"'; }
-	    if ( isset($configdmrgateway['DMR Network 4']['Password']) && substr($configdmrgateway['DMR Network 4']['Password'], 0, 1) !== '"' ) { $configdmrgateway['DMR Network 4']['Password'] = '"'.$configdmrgateway['DMR Network 4']['Password'].'"'; }
-	    if ( isset($configdmrgateway['DMR Network 4']['Options']) &&  substr($configdmrgateway['DMR Network 4']['Options'], 0, 1) !== '"' ) { $configdmrgateway['DMR Network 4']['Options'] = '"'.$configdmrgateway['DMR Network 4']['Options'].'"'; }
-	    if ( isset($configdmrgateway['DMR Network 5']['Password']) && substr($configdmrgateway['DMR Network 5']['Password'], 0, 1) !== '"' ) { $configdmrgateway['DMR Network 5']['Password'] = '"'.$configdmrgateway['DMR Network 5']['Password'].'"'; }
-	    if ( isset($configdmrgateway['DMR Network 5']['Options']) &&  substr($configdmrgateway['DMR Network 5']['Options'], 0, 1) !== '"' ) { $configdmrgateway['DMR Network 5']['Options'] = '"'.$configdmrgateway['DMR Network 5']['Options'].'"'; }
-
-	    // dmrgateway config file wrangling
-	    $dmrgwContent = "";
-            foreach($configdmrgateway as $dmrgwSection=>$dmrgwValues) {
-                // UnBreak special cases
-                $dmrgwSection = str_replace("_", " ", $dmrgwSection);
-                $dmrgwContent .= "[".$dmrgwSection."]\n";
-                // append the values
-                foreach($dmrgwValues as $dmrgwKey=>$dmrgwValue) {
-                        $dmrgwContent .= $dmrgwKey."=".$dmrgwValue."\n";
-                }
-                $dmrgwContent .= "\n";
-            }
-            if (!$handledmrGWconfig = fopen('/tmp/k4jhdd34jeFr8f.tmp', 'w')) {
-                return false;
-            }
-	    if (!is_writable('/tmp/k4jhdd34jeFr8f.tmp')) {
-                echo "<br />\n";
-              echo "<table>\n";
-              echo "<tr><th>ERROR</th></tr>\n";
-              echo "<tr><td>Unable to write configuration file(s)...</td><tr>\n";
-              echo "<tr><td>Please wait a few seconds and retry...</td></tr>\n";
-              echo "</table>\n";
-              unset($_POST);
-              echo '<script type="text/javascript">setTimeout(function() { window.location=window.location;},5000);</script>';
-              die();
-	    }
-	    else {
-	        $success = fwrite($handledmrGWconfig, $dmrgwContent);
-	        fclose($handledmrGWconfig);
-		if (fopen($dmrGatewayConfigFile,'r')) {
-			if (intval(exec('cat /tmp/k4jhdd34jeFr8f.tmp | wc -l')) > 55 ) {
-          			exec('sudo mv /tmp/k4jhdd34jeFr8f.tmp /etc/dmrgateway');	// Move the file back
-          			exec('sudo chmod 644 /etc/dmrgateway');				// Set the correct runtime permissions
-	 			exec('sudo chown root:root /etc/dmrgateway');			// Set the owner
-			}
-	        }
-	    }
-            system('sudo systemctl start cron');
-            system('sudo systemctl restart dmrgateway');
-	    unset($_POST);
-	    echo "<table>\n";
-	    echo "<tr><th>Working...</th></tr>\n";
-	    echo "<tr><td>SystemX Settings Migrated, page reloading...</td></tr>\n";
-	    echo "</table>\n";
-	    echo '<script type="text/javascript">setTimeout(function() { window.location=window.location;},5000);</script>';
-	    echo "<br />\n</div>\n";
-	    echo "<br />\n</div>\n</div>\n</body>\n</html>\n";
-	    die();
-	} // End SysX migration
-
 	// Admin Password Change
 	if (!empty($_POST['adminPassword'])) {
 	    $adminPassword = escapeshellarg(trim($_POST['adminPassword']));
@@ -4562,25 +4467,6 @@ else:
 		$toggleircddbEnabledCr			= "";
 		$toggleDmrBeaconCr			= "";
 	}
-    if ( startsWith($_SESSION['DMRGatewayConfigs']['DMR Network 2']['Name'], "SystemX") ) {
-        echo '<div class="contentwide" style="color:inherit;">'."\n";
-        echo "<h1>Note:</h1>";
-        echo "<h2>You have the DMR SystemX network enabled. The settings for this network have changed. You will need to migrate the settings before proceeding.</h2>"; 
-        echo "<br /><h2>SystemX now has its own configuration section, and uses the \"4\" prefix for talkgroups. Please click the \"Migrate SystemX Settings\" below, to migrate the new SystemX settings...</h2>"; 
-        echo '<br /><form action="'.htmlspecialchars($_SERVER["PHP_SELF"]).'" method="post">';
-        echo "<input type='submit' value='Migrate SystemX Settings' name='MigrateSysX'/>";
-        echo "</form><br />";
-        echo '</div>';
-        echo '<div class="footer">';
-	echo 'Get WPSD Help: [ <a href="https://w0chp.radio/wpsd-faqs/" target="_new">FAQs</a> ] &bull; [ <a href="https://wpsd-docs.w0chp.net/" target="_new">User Manual</a> ] &bull; [ <a href="https://www.facebook.com/groups/wpsdproject/" target="_new">Facebook Group</a> ] &bull; [ <a href="https://discord.gg/b8Hv5ygPdF" target="_new">Discord Server</a> ]<br />';
-	echo '<a href="https://wpsd.radio/">WPSD</a> by <code>W0CHP</code> &copy; 2020-'.date("Y").' -- WPSD Project <a href="https://w0chp.radio/wpsd/#credits" target="_new">Credits</a>';
-        echo '<br />';
-        echo '</div>';
-        echo '</div>';
-        echo '</body>';
-        echo '</html>';
-        die();
-    }
 ?>
 <form id="factoryReset" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 	<input type="hidden" name="factoryReset" value="1" />
