@@ -1,9 +1,21 @@
 <?php
 
-include_once $_SERVER['DOCUMENT_ROOT'].'/config/ircddblocal.php';
-include_once $_SERVER['DOCUMENT_ROOT'].'/config/language.php';	      // Translation Code
-include_once $_SERVER['DOCUMENT_ROOT'].'/mmdvmhost/tools.php';
+if (!isset($_SESSION) || !is_array($_SESSION)) {
+    session_id('wpsdsession');
+    session_start();
+
+    include_once $_SERVER['DOCUMENT_ROOT'].'/config/config.php';          // MMDVMDash Config
+    include_once $_SERVER['DOCUMENT_ROOT'].'/mmdvmhost/tools.php';        // MMDVMDash Tools
+    include_once $_SERVER['DOCUMENT_ROOT'].'/mmdvmhost/functions.php';    // MMDVMDash Functions
+    include_once $_SERVER['DOCUMENT_ROOT'].'/config/language.php';        // Translation Code
+    checkSessionValidity();
+}
+
+include_once $_SERVER['DOCUMENT_ROOT'].'/config/config.php';          // MMDVMDash Config
+include_once $_SERVER['DOCUMENT_ROOT'].'/mmdvmhost/tools.php';        // MMDVMDash Tools
 include_once $_SERVER['DOCUMENT_ROOT'].'/mmdvmhost/functions.php';    // MMDVMDash Functions
+include_once $_SERVER['DOCUMENT_ROOT'].'/config/language.php';	      // Translation Code
+require_once($_SERVER['DOCUMENT_ROOT'].'/config/ircddblocal.php');
 
 ?>
 <h3 style="text-align:left;font-weight:bold;margin:5px 0 2px 0;"><?php echo $lang['service_status'];?></h3>
