@@ -147,16 +147,20 @@ for ($i = 0; $i < $TXListLim; $i++) {
 		$TA = timeago( $dt->getTimestamp(), $now->getTimestamp() );
 		$duration = "<td>$listElem[6]s <span class='noMob'>($TA)</span></td>";
 		echo "$duration"; //duration
-				
-		// Color the BER Field
-		if (floatval($listElem[8]) == 0) {
-		    echo "<td>$listElem[8]</td>";
-		} elseif (floatval($listElem[8]) >= 0.0 && floatval($listElem[8]) <= 1.9) {
-		    echo "<td><span style='color:$backgroundModeCellActiveColor;font-weight:bold'>$listElem[8]</span></td>";
-		} elseif (floatval($listElem[8]) >= 2.0 && floatval($listElem[8]) <= 4.9) {
-		    echo "<td><span style='color:$backgroundModeCellPausedColor;font-weight:bold'>$listElem[8]</span></td>";
-		} else {
-		    echo "<td><span style='color:$backgroundModeCellInactiveColor;font-weight:bold;'>$listElem[8]</span></td>";
+
+		if ($listElem[6] >= 10) { // BER is useless < 10 sec. TX
+		    // Color the BER Field
+		    if (floatval($listElem[8]) == 0) {
+			echo "<td>$listElem[8]</td>";
+		    } elseif (floatval($listElem[8]) >= 0.0 && floatval($listElem[8]) <= 1.9) {
+			echo "<td><span style='color:$backgroundModeCellActiveColor;font-weight:bold'>$listElem[8]</span></td>";
+		    } elseif (floatval($listElem[8]) >= 2.0 && floatval($listElem[8]) <= 4.9) {
+			echo "<td><span style='color:$backgroundModeCellPausedColor;font-weight:bold'>$listElem[8]</span></td>";
+		    } else {
+			echo "<td><span style='color:$backgroundModeCellInactiveColor;font-weight:bold;'>$listElem[8]</span></td>";
+		    }
+		} else { 
+		    echo "<td>---</td>";
 		}
 
 		if ($_SESSION['ModemConfigs']['Modem']['Hardware'] != "dvmpicast") { // Begin DVMega Cast Logic
