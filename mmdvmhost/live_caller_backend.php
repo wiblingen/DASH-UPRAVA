@@ -110,32 +110,30 @@ if ($listElem[7] == null) {
 } else {
 	$loss = "<span class='loss_bad'>".$listElem[7]."</span>";
 }
-			
+
 if ($listElem[8] == null) {
-	$ber = "&nbsp;&nbsp;&nbsp;&nbsp;";
+    $ber = "&nbsp;&nbsp;&nbsp;&nbsp;";
 } else {
-	$mode = $listElem[8];
+    $mode = $listElem[8];
 }
 
 if ($listElem[1] == null) {
-	$ber = "&nbsp;&nbsp;&nbsp;&nbsp;";
+    $ber = "&nbsp;&nbsp;&nbsp;&nbsp;";
 } else {
-	$mode = $listElem[1];
+    $mode = $listElem[1];
 }
 			
 // Color the BER Field
-if (floatval($listElem[8]) == 0) {
-	$ber = $listElem[8];
-}
-elseif (floatval($listElem[8]) >= 0.0 && floatval($listElem[8]) <= 1.9)
-{
-	$ber = "<span class='ber_ok'>".$listElem[8]."</span>";
-}
-	elseif (floatval($listElem[8]) >= 2.0 && floatval($listElem[8]) <= 4.9)
-{
-	$ber = "<span class='ber_med'>".$listElem[8]."</span>";
+if ($listElem[8] == null) {
+    $ber = "---";
+} elseif (floatval($listElem[8]) == 0) {
+    $ber = $listElem[8];
+} elseif (floatval($listElem[8]) >= 0.0 && floatval($listElem[8]) <= 1.9) {
+    $ber = "<span class='ber_ok'>".$listElem[8]."</span>";
+} elseif (floatval($listElem[8]) >= 2.0 && floatval($listElem[8]) <= 4.9) {
+    $ber = "<span class='ber_med'>".$listElem[8]."</span>";
 } else {
-	$ber = "<span class='ber_bad'>".$listElem[8]."</span>";
+    $ber = "<span class='ber_bad'>".$listElem[8]."</span>";
 }
 
 if (!is_numeric($listElem[2])) {
@@ -272,11 +270,13 @@ if (is_numeric($listElem[2]) || !preg_match('/[A-Za-z].*[0-9]|[0-9].*[A-Za-z]/',
 	  <span class='dc_info_def'>
 	    <?php echo $loss ?>
 	  </span>
+          <?php if ($listElem[5] == "RF") { ?>
 	  <br />
           Bit Error Rate: 
 	  <span class='dc_info_def'>
 	    <?php echo $ber ?>
 	  </span>
+	  <?php } ?>
 	  <span class="last-caller" style="display:none;"><br />Last Caller ID: <span class='dc_info_def'></span></span>
 	</span>
       </div>
