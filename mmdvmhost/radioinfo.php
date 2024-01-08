@@ -56,10 +56,10 @@ if (isset($_SESSION['CSSConfigs']['Background']['TableRowBgEvenColor'])) {
       <div class="divTableHeadCell noMob">Modem Port</div>
 
       <div class="divTableHeadCell noMob">Modem Speed</div>
+      <?php } // end DVMega Cast logic...?>
 
-      <?php if(!empty($_SESSION['DvModemTCXOFreq'])) { ?>
+      <?php if(isDVmegaCast() == 0) { // DVMega Cast logic... ?> 
       <div class="divTableHeadCell noMob">TCXO Freq.</div>
-      <?php } ?>
       <?php } // end DVMega Cast logic ?>
 
       <?php if ($_SESSION['ModemConfigs']['Modem']['Hardware'] == "dvmpicast") { // DVMega Cast logic... ?>
