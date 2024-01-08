@@ -523,15 +523,6 @@ $MYCALL=strtoupper($callsign);
 		var numpix = parseInt(obj.contentWindow.document.body.scrollHeight, 10);
 		obj.style.height = numpix + 'px';
 	}
-	function getLocation() {
-		if (navigator.geolocation) {
-			navigator.geolocation.getCurrentPosition(showPosition);
-		}
-	}
-	function showPosition(position) {
-		document.getElementById("confLatitude").value = position.coords.latitude.toFixed(5);
-		document.getElementById("confLongitude").value = position.coords.longitude.toFixed(5);
-	}
 	$(document).ready(function() {
           $('.ysfStartupHost').select2({searchInputPlaceholder: 'Search...'});
           $('.ysf2dmrMasterHost').select2({searchInputPlaceholder: 'Search...'});
