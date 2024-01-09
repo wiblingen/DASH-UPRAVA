@@ -688,7 +688,7 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 		    echo '      </div></div>'."\n".'</div>'."\n";
 		    echo '      <div><br /><b>Note:</b> Modes/networks/services not <a href="/admin/configure.php" style="text-decoration:underline;color:inherit;">globally configured/enabled</a>, or that are paused, are not selectable here until they are enabled or <a href="./?func=mode_man" style="text-decoration:underline;color:inherit;">resumed from pause</a>.</div>'."\n";
 		    echo ' </form>'."\n";
-		    if ($_GET['func'] != "main") {
+		    if ($_GET['func'] != "main" && $_GET['func'] != "pocsag_man") {
 			echo "</div>\n";
 		    }
 		}
