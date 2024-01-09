@@ -216,16 +216,7 @@ for ($i = 0;  ($i <= $lastHeardRows - 1); $i++) {
 		echo "<td align=\"left\">".str_replace('Slot ', 'TS', $listElem[1])."</td>";
 
 		if (file_exists("/etc/.TGNAMES")) {
-		    if ($listElem[8] == null) {
-			$ber = "&nbsp;";
-		    } else {
-			$mode = $listElem[8];
-		    }
-		    if ($listElem[1] == null) {
-			$ber = "&nbsp;";
-		    } else {
-			$mode = $listElem[1];
-		    }
+		    $mode = $listElem[1];
 
                     if (strpos($listElem[4], "via ")) {
                         $listElem[4] = preg_replace("/via (.*)/", "<span class='noMob'> $1</span>", $listElem[4]);
@@ -265,7 +256,7 @@ for ($i = 0;  ($i <= $lastHeardRows - 1); $i++) {
 			echo "<td>$listElem[5]</td>";
 		}
 		if ($listElem[6] == null && (file_exists("/etc/.CALLERDETAILS")))  {
-			echo "<td colspan =\"3\" class='activity-duration' style=\"background:#d11141;color:#fff;\">TX</td>";
+			echo "<td colspan =\"2\" class='activity-duration' style=\"background:#d11141;color:#fff;\">TX</td>";
 		} else if ($listElem[6] == null) {
 			// Live duration
 			$utc_time = $listElem[0];
@@ -274,7 +265,7 @@ for ($i = 0;  ($i <= $lastHeardRows - 1); $i++) {
 			$dt = new DateTime($utc_time, $utc_tz);
 			$duration = $now->getTimestamp() - $dt->getTimestamp();
 			$duration_string = $duration<999 ? round($duration) . "+" : "&infin;";
-			echo "<td colspan=\"3\" class='activity-duration' style=\"background:#d11141;color:#fff;\">TX " . $duration_string . " sec</td>";
+			echo "<td colspan=\"2\" class='activity-duration' style=\"background:#d11141;color:#fff;\">TX " . $duration_string . " sec</td>";
 		} else if ($listElem[6] == "DMR Data") {
 			echo "<td class='noMob' colspan =\"3\" style=\"background:#00718F;color:#fff;\">DMR Data</td>";
 		} else if ($listElem[6] == "POCSAG") {
