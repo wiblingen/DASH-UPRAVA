@@ -958,7 +958,6 @@ if (!empty($_POST)):
 	  die();
 	}
 
-	system('sudo wpsd-services fullstop > /dev/null 2>/dev/null');
 	// Factory Reset Handler Here
 	if (empty($_POST['factoryReset']) != TRUE ) {
 	  echo "<br />\n";
@@ -1015,6 +1014,7 @@ if (!empty($_POST)):
 	  if (file_exists('/etc/timeserver.disable'))
 	      system('sudo rm /etc/timeserver.disable');
 	  // reset repos
+	  system('sudo wpsd-services fullstop > /dev/null 2>/dev/null');
 	  exec('sudo git --work-tree=/usr/local/sbin --git-dir=/usr/local/sbin/.git update-index --no-assume-unchanged pistar-upnp.service');
 	  exec('sudo git --work-tree=/usr/local/sbin --git-dir=/usr/local/sbin/.git reset --hard origin/master');
 	  exec('sudo git --work-tree=/usr/local/bin --git-dir=/usr/local/bin/.git reset --hard origin/master');
@@ -4387,11 +4387,11 @@ if (!empty($_POST)):
         }
 
 	// Start all services
-	system('sudo systemctl daemon-reload > /dev/null 2>/dev/null');	// Restart Systemd to account for any service changes
+	//system('sudo systemctl daemon-reload > /dev/null 2>/dev/null');	// Restart Systemd to account for any service changes
         if (isDVmegaCast() == 1) { // DVMega Cast mode logic
 	    system($rollCastMode);
 	}
-	system('sudo wpsd-services start > /dev/null 2>/dev/null');
+	system('sudo wpsd-services restart > /dev/null 2>/dev/null &');
 
 	unset($_POST);
 	echo '<script type="text/javascript">window.location=window.location;</script>';
