@@ -1475,9 +1475,8 @@ function getActualMode($metaLastHeard, &$configs) {
 	}
 	$timestamp->add(new DateInterval('PT' . $hangtime . 'S'));
     }
-
-    if ($listElem[6] != null && is_numeric($listElem[6])) { // if terminated, hangtime counts after end of transmission
-	$timestamp->add(new DateInterval('PT' . ceil($listElem[6]) . 'S'));
+    if ($listElem[6] != null) { //if terminated, hangtime counts after end of transmission
+        $timestamp->add(new DateInterval('PT' . ceil((float)$listElem[6]) . 'S')); // $listElem[6] returns a string; convert to float for ceil()
     }
     else { // if not terminated, always return mode
 	return $mode;
