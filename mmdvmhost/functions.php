@@ -131,7 +131,7 @@ function getConfigItem($section, $key, $configs) {
     if (empty($section)) {
         return null;
     }
-    $sectionpos = array_search("[" . $section . "]", $configs);
+    $sectionpos = array_search("[" . $section . "]", (array) $configs);
     if ($sectionpos !== FALSE) {
         $sectionpos++;
         $len = count($configs);
