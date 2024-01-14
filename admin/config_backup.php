@@ -67,12 +67,11 @@ if ($_SERVER["PHP_SELF"] == "/admin/config_backup.php") {
 		    </p>
 		</div>
 		<div class="contentwide">
+		<h2 class="ConfSec center"><?php echo $lang['backup_restore'];?></h2>
 		    <?php if (!empty($_POST)) {
 			echo '<table width="100%">'."\n";
 			
 			if ( escapeshellcmd($_POST["action"]) == "download" ) {
-			    echo "<tr><th colspan=\"2\">".$lang['backup_restore']."</th></tr>\n";
-			    
 			    $backupDir = "/tmp/config_backup";
 			    $backupZip = "/tmp/config_backup.zip";
 			    $hostNameInfo = exec('cat /etc/hostname');
@@ -84,6 +83,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/config_backup.php") {
 				exec("sudo cp /etc/dhcpcd.conf $backupDir > /dev/null");
 			    }
 			    exec("sudo cp /etc/wpa_supplicant/wpa_supplicant.conf $backupDir > /dev/null");
+			    exec("sudo cp /etc/wpsd-upnp-rules $backupDir > /dev/null");
                 	    exec("sudo cp /etc/hostapd/hostapd.conf $backupDir > /dev/null");
 			    exec("sudo cp /etc/pistar-css.ini $backupDir > /dev/null");
 			    exec("sudo cp /etc/pistar-release $backupDir > /dev/null");
@@ -205,9 +205,9 @@ if ($_SERVER["PHP_SELF"] == "/admin/config_backup.php") {
 				
 				// Overwrite the configs
 				exec("sudo rm -rf /etc/dstar-radio.* /etc/bmapi.key /etc/dapnetapi.key /etc/timeserver.disable /etc/WPSD_config_mgr > /dev/null");
-				exec("sudo mv -fv /tmp/config_restore/tmp/config_backup/* /tmp/config_restore/ > /dev/null");
+				exec("sudo mv -f /tmp/config_restore/tmp/config_backup/* /tmp/config_restore/ > /dev/null");
 				exec("sudo rm -rf /tmp/config_restore/tmp > /dev/null");
-                                exec("sudo cp -av /tmp/config_restore/WPSD_config_mgr /etc/ > /dev/null");
+                                exec("sudo cp -a /tmp/config_restore/WPSD_config_mgr /etc/ > /dev/null");
 				// Begin DV-Mega Cast logic to save user cast settings
 				if (isDVmegaCast() == 1) {
 				    exec("sudo mkdir -p /usr/local/cast/etc  > /dev/null");
@@ -215,17 +215,18 @@ if ($_SERVER["PHP_SELF"] == "/admin/config_backup.php") {
 				    exec('sudo chmod 775 /usr/local/cast/etc ; sudo chown -R www-data:pi-star /usr/local/cast/etc ; sudo chmod 664 /usr/local/cast/etc/*');	
 				    exec('sudo /usr/local/cast/sbin/RSET.sh  > /dev/null 2>&1 &');
 				}
-                                exec("sudo mv -fv /tmp/config_restore/gpsd /etc/default/ > /dev/null");
-				exec("sudo mv -fv /tmp/config_restore/RSSI.dat /usr/local/etc/ > /dev/null");
-				exec("sudo mv -fv /tmp/config_restore/ircddblocal.php /var/www/dashboard/config/ > /dev/null");
-				exec("sudo mv -fv /tmp/config_restore/config.php /var/www/dashboard/config/ > /dev/null");
-				exec("sudo mv -fv /tmp/config_restore/language.php /var/www/dashboard/config/ > /dev/null");
+                                exec("sudo mv -f /tmp/config_restore/gpsd /etc/default/ > /dev/null");
+				exec("sudo mv -f /tmp/config_restore/RSSI.dat /usr/local/etc/ > /dev/null");
+				exec("sudo mv -f /tmp/config_restore/ircddblocal.php /var/www/dashboard/config/ > /dev/null");
+				exec("sudo mv -f /tmp/config_restore/config.php /var/www/dashboard/config/ > /dev/null");
+				exec("sudo mv -f /tmp/config_restore/language.php /var/www/dashboard/config/ > /dev/null");
 				exec('sudo find /tmp/config_restore/ -maxdepth 1 -name "*Hosts.txt" -exec mv -fv {} /root \; > /dev/null');
-				exec("sudo mv -fv /tmp/config_restore/wpa_supplicant.conf /etc/wpa_supplicant/ > /dev/null");
-                		exec("sudo mv -fv /tmp/config_restore/hostapd.conf /etc/hostapd/ > /dev/null");
-				exec("sudo mv -fv /tmp/config_restore/*_paused /etc/ > /dev/null");
-				exec("sudo cp -av /tmp/config_restore/.bm_tgs.json.saved /etc/ > /dev/null");
-				exec("sudo mv -fv /tmp/config_restore/* /etc/ > /dev/null");
+				exec("sudo mv -f /tmp/config_restore/wpa_supplicant.conf /etc/wpa_supplicant/ > /dev/null");
+				exec("sudo mv -f /tmp/config_restore/wpsd-upnp-rules /etc/ > /dev/null");
+                		exec("sudo mv -f /tmp/config_restore/hostapd.conf /etc/hostapd/ > /dev/null");
+				exec("sudo mv -f /tmp/config_restore/*_paused /etc/ > /dev/null");
+				exec("sudo cp -a /tmp/config_restore/.bm_tgs.json.saved /etc/ > /dev/null");
+				exec("sudo mv -f /tmp/config_restore/* /etc/ > /dev/null");
 				
 				//Restore the Timezone Config
 				$timeZone = exec("grep -o -P \"date_default_timezone_set\\('\\K[^']+\" /var/www/dashboard/config/config.php");
@@ -262,9 +263,6 @@ if ($_SERVER["PHP_SELF"] == "/admin/config_backup.php") {
 			<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
 			    <table width="100%">
 				<tr>
-				    <th colspan="2"><?php echo $lang['backup_restore'];?></th>
-				</tr>
-				<tr>
 				    <td align="center" valign="top" width="50%"><h3>Download Configuration</h3><br />
 					<button style="border: none; background: none; margin: 15px 0px;" name="action" value="download"><img src="/images/download.png" border="0" alt="Download Config" /></button>
 				    </td>
@@ -274,16 +272,14 @@ if ($_SERVER["PHP_SELF"] == "/admin/config_backup.php") {
 				    </td>
 				</tr>
 				<tr>
-				    <td colspan="2" align="justify">
+				    <td colspan="2" align="justify" style="padding: 8px;">
 					<br />
-					<b>WARNING:</b><br />
-					Editing the files outside of WPSD *could* have un-desireable side effects.<br />
-					<br />
-					This backup and restore tool, will backup your config files to a Zip file, and allow you to restore them later<br />
-					either to this WPSD instance, or another one.<br />
+					This backup and restore utility will backup your setup / configuration to a zip file, and allow you to restore them later<br />
+					either to this WPSD instance or another one.<br />
 					<ul>
-					    <li>System Passwords / Dashboard passwords are NOT backed up / restored.</li>
-					    <li>Wireless Configuration IS backed up and restored</li>
+					    <li>System Passwords / Dashboard passwords are <strong>not</strong> backed up / restored.</li>
+					    <li>Wireless Configuration <strong>is</strong> backed up and restored.</li>
+					    <li>Profiles are included in backups / restores.</li>
 					</ul>
 				    </td>
 				</tr>
