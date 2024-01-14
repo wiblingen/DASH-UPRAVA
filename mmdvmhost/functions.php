@@ -194,8 +194,12 @@ function getDVModemFirmware() {
 		if (strpos($logLine, 'description: MMDVM_HS')) {
 			$modemFirmware = "MMDVM_HS:".ltrim(substr($logLine, 84, 8), 'v');
 		}
-		if (strpos($logLine, 'description: MMDVM ')) {
-			$modemFirmware = "MMDVM:".substr($logLine, 73, 8);
+		if (strpos($logLine, 'description: MMDVM ')) { # G4KLX MMDVM FW
+		    if (preg_match('/description: MMDVM (\d{8}_WPSD)/', $logLine, $matches)) { # WPSD's custom Zum MMDVM-Pi FW
+			$modemFirmware = "MMDVM:" . $matches[1];
+		    } else {
+			$modemFirmware = "MMDVM:".substr($logLine, 73, 8); # reg. MMDVM FW
+		    }
 		}
 		if (strpos($logLine, 'description: ZUMspot ')) {
 			$modemFirmware = "ZUMspot:".strtok(substr($logLine, 83, 12), ' ');
