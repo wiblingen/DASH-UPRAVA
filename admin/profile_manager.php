@@ -137,6 +137,7 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
                                         exec("sudo cp /etc/dhcpcd.conf $profileDir > /dev/null");
                             	    }
                             	    exec("sudo cp /etc/wpa_supplicant/wpa_supplicant.conf $profileDir > /dev/null");
+                            	    exec("sudo cp /etc/wpsd-upnp-rules $profileDir > /dev/null");
                             	    exec("sudo cp /etc/hostapd/hostapd.conf $profileDir > /dev/null");
                             	    exec("sudo cp /etc/pistar-css.ini $profileDir > /dev/null");
                             	    exec("sudo cp /etc/aprsgateway $profileDir > /dev/null");
@@ -167,7 +168,6 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
                             	    exec("sudo cp /etc/default/gpsd $profileDir > /dev/null");
                             	    exec("sudo cp /etc/*_paused $profileDir > /dev/null");
                             	    exec("sudo cp /etc/.CALLERDETAILS $profileDir > /dev/null");
-                            	    exec("sudo cp /etc/.pistar-css.ini.user $profileDir > /dev/null");
                             	    exec("sudo cp /etc/.TGNAMES $profileDir > /dev/null");
                             	    exec("sudo cp /usr/local/etc/RSSI.dat $profileDir > /dev/null");
                             	    exec("sudo cp /var/www/dashboard/config/ircddblocal.php $profileDir > /dev/null");
@@ -215,7 +215,6 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
 				    exec("sudo sh -c 'cp -a $profileDir/* /etc/' > /dev/null");
 				    exec("sudo sh -c 'cp -a $profileDir/.CALLERDETAILS /etc/' > /dev/null");
 				    exec("sudo sh -c 'cp -a $profileDir/.TGNAMES /etc/' > /dev/null");
-				    exec("sudo sh -c 'cp -a $profileDir/.pistar-css.ini.user /etc/' > /dev/null");
                                     exec("sudo cp /var/www/dashboard/config/ircddblocal.php $profileDir > /dev/null");
                                     exec("sudo cp /var/www/dashboard/config/config.php $profileDir > /dev/null");
                                     exec("sudo cp /var/www/dashboard/config/language.php $profileDir > /dev/null");
