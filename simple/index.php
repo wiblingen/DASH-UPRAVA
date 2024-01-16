@@ -124,49 +124,6 @@ if(empty($_POST['func'])) {
             max = obj.value || 1;
             localStorage.setItem('filter_activity_max', obj.value);
           }
-          // Export last heard data when key S is pressed
-          $(document).keypress(function(e){
-            if ( 115 === e.which ) {
-              var headers = [];
-              var data    = [];
-              $('#lastHeard table th a').each( function() {
-                text  = $(this).html();
-                fixed = text.replace( /<span.*/, '');
-                headers.push( fixed );
-              });	
-          
-              $('#lastHeard table tr').first().remove();
-              $('#lastHeard table tr').each(function() {
-                var row  = [];
-                // data we want is in the tds
-                $(this).find('td').each(function(){
-                  text = $(this).text();
-                  row.push( text );
-                });
-                data.push( row );
-                var row = [];
-              })
-
-              var csv = headers.join(',') + '\r\n';
-          
-              $(data).each( function(i,e) {
-                csv += e.join(',') + '\r\n';
-              });
-              downloadBlob( csv, 'wpsd-last-heard-export.csv', 'text/csv;charset=utf-8;' );
-            }
-          });
-
-          function downloadBlob(content, filename, contentType) {
-            // Create a blob
-            var blob = new Blob([content], { type: contentType });
-            var url  = URL.createObjectURL(blob);
-
-            // Create a link to download it
-            var pom = document.createElement('a');
-            pom.href = url;
-            pom.setAttribute('download', filename);
-            pom.click();
-          }
 	</script>
     </head>
     <body>
