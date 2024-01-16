@@ -125,6 +125,13 @@ if(empty($_POST['func'])) {
             localStorage.setItem('filter_activity_max', obj.value);
           }
 	</script>
+  <script>
+    document.addEventListener('keydown', function(event) {
+      if ( event.key === 'S' || event.keyCode === 83 ) {
+        window.location.href = '/mmdvmhost/export-lh.php';
+      }
+    });
+  </script>
     </head>
     <body>
 	<div class="container">
