@@ -34,8 +34,8 @@ foreach ($transmissions as $transmission) {
     $transmission_json['src'] = trim($transmission[5]);
     $transmission_json['duration'] = trim($transmission[6]);
     $transmission_json['loss'] = trim($transmission[7]);
-    $transmission_json['bit_error_rate'] = trim($transmission[8]);
-    $transmission_json['rssi'] = trim($transmission[9]);
+    //$transmission_json['bit_error_rate'] = trim($transmission[8]);
+    //$transmission_json['rssi'] = trim($transmission[9]);
 
     $json_response[] = $transmission_json;
 }
