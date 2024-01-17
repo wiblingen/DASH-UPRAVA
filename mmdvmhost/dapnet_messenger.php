@@ -94,7 +94,7 @@ else {
     // Output to the browser
     echo '<b>DAPNET Messenger</b>'."\n";
     echo "<table>\n<tr><th>DISABLED</th></tr>\n<tr><td>";
-    print "DAPNET API configuration is incomplete";
+    print "DAPNET API configuration is incomplete. Setup your <a href='/admin/advanced/edit_dapnetapi.php'>DAPNET API information</a> to use this feature.";
     echo "</td></tr>\n</table>\n";
 }
 
