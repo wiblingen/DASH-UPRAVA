@@ -5,12 +5,12 @@ The canonical and official site for this program is: https://wpsd.radio/.
 
 [Please don’t upload my code to GitHub](https://nogithub.codeberg.page) [![Please don't upload my code to GitHub](https://nogithub.codeberg.page/badge.svg)](https://nogithub.codeberg.page)
 
-## About WPSD (`W0CHP-PiStar-Dash`)
+## About WPSD
 
-WPSD ("W0CHP-PiStar-Dash") is a next-generation, digital voice software suite
-for amateur radio use. It is used for personal hotspots and repeaters alike. It
-supports M17, DMR, D-Star, Yaesu System Fusion (YSF/C4FM), P25, NXDN digital
-voice modes & POCSAG data/paging.
+WPSD is a next-generation, digital voice software suite for amateur radio use.
+It is used for personal hotspots and repeaters alike. It supports M17, DMR,
+D-Star, Yaesu System Fusion (YSF/C4FM), P25, NXDN digital voice modes & POCSAG
+data/paging.
 
 WPSD began as a derivative/“fork” of the popular Pi-Star software, and has
 evolved into its very own software and distribution over the years. It is
