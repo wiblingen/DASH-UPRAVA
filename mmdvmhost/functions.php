@@ -243,9 +243,12 @@ function getDVModemFirmware() {
 		if (strpos($logLine, 'description: EuroNode-')) {
 			$modemFirmware = "EuroNode:".strtok(substr($logLine, 77, 12), ' ');
 		}
-                if (strpos($logLine, 'description: RRU-rf-board-')) {
-                        $modemFirmware = "RRU-RF-Board:".strtok(substr($logLine, 80, 19), ' ');
-                }
+        if (strpos($logLine, 'description: RRU-rf-board-')) {
+            $modemFirmware = "RRU-RF-Board:".strtok(substr($logLine, 80, 19), ' ');
+        }
+		if (strpos($logLine, 'description: MMDVM RB_STM32_DVM(446)')) {
+            $modemFirmware = "RB_STM32_DVM:".strtok(substr($logLine, 90, 19), ' ');
+        }
 	}
 	return $modemFirmware;
 }
