@@ -23,6 +23,10 @@ $configmmdvm = parse_ini_file($mmdvmConfigFile, true);
 $aprsConfigFile = '/etc/aprsgateway';
 $configaprsgw = parse_ini_file($aprsConfigFile, true);
 
+$is_paused = glob('/etc/*_paused');
+$repl_str = array('/\/etc\//', '/_paused/');
+$paused_modes = preg_replace($repl_str, '', $is_paused);
+
 function manageGateways($action,$service) { // we need to also stop the associated mode gateways when pausing modes...
 // ...otherwise if the mode is TX'ing when paused, it will show infinite TX in the dashboard.
     $service = escapeshellcmd($_POST['mode_sel']);
@@ -149,52 +153,57 @@ if (!empty($_POST["submit_mode"]) && empty($_POST["mode_sel"])) { //handler for 
     // no form post: output html...
     print '
     <div style="text-align:left;font-weight:bold;">Instant Mode Manager</div>'."\n".'
-    <form id="action-form" action="'.htmlentities($_SERVER['PHP_SELF']).'?func=mode_man" method="post">
       <table style="white-space: normal;">
+    <form id="action-form" action="'.htmlentities($_SERVER['PHP_SELF']).'?func=mode_man" method="post">
 	<tr>
 	  <th>Pause / Resume</th>
 	  <th>Select Mode</th>
 	  <th>Action</th>
 	</tr>
-	<tr>
-	  <td style="white-space:nowrap;">
+	<tr>';
+	if(isset($_GET['all_resumed'])) {
+	    echo '<tr><td colspan="3">All Modes Resumed!</td></tr>';
+	}
+	echo '<td style="white-space:nowrap;">
 	    <input name="mode_action" access="false" id="pause-res-0" value="Pause" type="radio" checked="checked">
 	    <label for="pause-res-0">Pause</label>
 	    <input name="mode_action" access="false" id="pause-res-1"  value="Resume" type="radio">
 	    <label for="pause-res-1">Resume</label>
 	  </td>
-	  <td style="white-space:nowrap;"><br />
-	    <input name="mode_sel" '.(($DMR=='0' && !isPaused("DMR")?'disabled="disabled"':"")).' access="false" id="mode-sel-0"  value="DMR" type="radio">
-	    <label for="mode-sel-0"'.(($DMR=='0' && isPaused("DMR")?" class='paused-mode-span' title='Paused'":"")).'>DMR</label>
-	    &nbsp;| <input name="mode_sel" '.(($YSF=='0' && !isPaused("YSF")?'disabled="disabled"':"")).'  access="false" id="mode-sel-1"  value="YSF" type="radio">
-	    <label for="mode-sel-1"'.(($YSF=='0' && isPaused("YSF")?" class='paused-mode-span' title='Paused'":"")).'>YSF</label>
-	    &nbsp;| <input name="mode_sel" '.(($DSTAR=='0' && !isPaused("D-Star")?'disabled="disabled"':"")).' access="false" id="mode-sel-2"  value="D-Star" type="radio">
-	    <label for="mode-sel-2"'.(($DSTAR=='0' && isPaused("D-Star")?" class='paused-mode-span' title='Paused'":"")).'>D-Star</label>';
+         <td style="white-space:nowrap;"><br />
+           <select name="mode_sel" id="mode_sel">
+	    <option value="" disabled="disabled" selected="selected">Mode...</option>
+            <option value="DMR" ' . (($DMR == '0' && !isPaused("DMR")) ? 'disabled="disabled"' : '') . '>DMR</option>
+            <option value="YSF" ' . (($YSF == '0' && !isPaused("YSF")) ? 'disabled="disabled"' : '') . '>YSF</option>
+            <option value="D-Star" ' . (($DSTAR == '0' && !isPaused("D-Star")) ? 'disabled="disabled"' : '') . '>D-Star</option>';
 	    if (isDVmegaCast() != 1) {
-	    echo '
-	    &nbsp;| <input name="mode_sel" '.(($P25=='0' && !isPaused("P25")?'disabled="disabled"':"")).' access="false" id="mode-sel-3"  value="P25" type="radio">
-	    <label for="mode-sel-3"'.(($P25=='0' && isPaused("P25")?" class='paused-mode-span' title='Paused'":"")).'>P25</label>
-	    &nbsp;| <input name="mode_sel" '.(($NXDN=='0' && !isPaused("NXDN")?'disabled="disabled"':"")).' access="false" id="mode-sel-4"  value="NXDN" type="radio">
-	    <label for="mode-sel-4"'.(($NXDN=='0' && isPaused("NXDN")?" class='paused-mode-span' title='Paused'":"")).'>NXDN</label>
-	    &nbsp;| <input name="mode_sel" '.(($M17=='0' && !isPaused("M17")?'disabled="disabled"':"")).' access="false" id="mode-sel-5"  value="M17" type="radio">
-	    <label for="mode-sel-5"'.(($M17=='0' && isPaused("M17")?" class='paused-mode-span' title='Paused'":"")).'>M17</label>';
+	      echo '
+            <option value="P25" ' . (($P25 == '0' && !isPaused("P25")) ? 'disabled="disabled"' : '') . '>P25</option>
+            <option value="NXDN" ' . (($NXDN == '0' && !isPaused("NXDN")) ? 'disabled="disabled"' : '') . '>NXDN</option>
+            <option value="M17" ' . (($M17 == '0' && !isPaused("M17")) ? 'disabled="disabled"' : '') . '>M17</option>';
 	    }
-	    echo '
-	    <br /><br />
-	  </td>
-	  <td>
+	    echo '</select>
+            <br /><br />
+            </td>
+	    <td>
 	    <input type="hidden" name="func" value="mode_man">
-	    <input type="submit" class="btn-default btn" name="submit_mode" value="Submit" access="false" style="default" id="submit-mode" title="Submit">
-	  </td>
+	    <input type="submit" class="btn-default btn" name="submit_mode" value="Manage Selected Mode" access="false" style="default" id="submit-mode" title="Submit">
+          </form>';
+	  if (!empty($is_paused)) {
+	    echo '<form method="post" action="/admin/.resume_all_modes.php?imm">
+		<input type="hidden" name="paused_modes" value="' . implode(',', $paused_modes) . '">
+		<input type="submit" name="unpause_modes" value="Resume All Modes">
+		</form>';
+	    }
+	  echo '</td>
 	</tr>
 	<tr>
 	  <td colspan="3" style="white-space:normal;padding: 3px;">This function allows you to instantly pause or resume selected radio modes. Handy for attending nets, quieting a busy mode, to temporarily eliminate "mode monopolization", etc.</td>
 	</tr>
 	<tr>
-	  <td colspan="3" style="white-space:normal;padding: 3px;"><b>Note:</b> Modes you not have <a href="/admin/configure.php">configured/enabled globally</a>, are not selectable in the Instant Mode Manager.</td>
+	  <td colspan="3" style="white-space:normal;padding: 3px;"><b>Note:</b> Modes which are not <a href="/admin/configure.php">configured/enabled globally</a>, are not selectable in the Instant Mode Manager.</td>
 	</tr>
       </table>
-    </form>
 ';
 }
 
