@@ -874,26 +874,35 @@ if (file_exists($bmAPIkeyFile) && fopen($bmAPIkeyFile,'r')) {
 		    </div>
 </div>
 <?php
-// check that no modes are paused. If so, bail and direct user to unpause...
+// check that no modes are paused. If so, display form to unpause modes...
 $is_paused = glob('/etc/*_paused');
 $repl_str = array('/\/etc\//', '/_paused/');
 $paused_modes = preg_replace($repl_str, '', $is_paused);
+
 if (!empty($is_paused)) {
-    //HTML output starts here
+    // HTML output starts here
     echo '<div class="contentwide">
               <div class="divTable">
                 <div class="divTableBody">
                   <div class="divTableRow">
-                    <div class="divTableCellSans">';
-                    echo '<h1>IMPORTANT:</h1>';
-                    echo '<p><b>One or more modes have been detected to have been "paused" by you</b>:</p>';
-                    foreach($paused_modes as $mode) {
-                        echo "<h2>$mode</h2>";
-                    }
-                    echo '<p>You must "resume" all of the modes you have paused in order to make any configuration changes...</p>';
-                    echo '<p>Go the <a href="/admin/?func=mode_man" style="text-decoration:underline;color:inherit;">Instant Mode Manager page to Resume the paused mode(s)</a>. Once that\'s completed, this configuration page will be enabled.</p>';
-                    echo '<br />'."\n";
-                    echo '                </div>
+                    <div class="divTableCellSans larger">';
+    echo '		<form method="post" action="/admin/.resume_all_modes.php">';
+    echo '		  <h1>IMPORTANT:</h1>';
+    echo '		  <p><b>One or more modes have been detected to be "paused"</b>:</p>';
+    
+    foreach ($paused_modes as $mode) {
+        echo "<h2>$mode</h2>";
+    }
+
+    echo '<p>To continue onto the Configuration Page, the paused mode(s) must first be resumed. You can pause these again later.</p>';
+    // Create a hidden input to store all paused modes
+    echo '<input type="hidden" name="paused_modes" value="' . implode(',', $paused_modes) . '">';
+
+    echo '<input type="submit" name="unpause_modes" value="Resume All Modes">';
+    echo '</form>';
+    
+    echo '<br />'."\n";
+    echo '        </div>
               </div>
             </div>
           </div>';
@@ -908,8 +917,7 @@ if (!empty($is_paused)) {
     echo '</div>';
     echo '</body>';
     echo '</html>';
-    die();
-} else { // no modes paued. continue on! (end of pause check near end of file)
+} else {  // no modes paused, continue on! (end of pause check near the end of the file)
 if ($_SERVER["PHP_SELF"] == "/admin/configure.php") {
 	//HTML output starts here
      echo '<div class="contentwide">'."\n";
