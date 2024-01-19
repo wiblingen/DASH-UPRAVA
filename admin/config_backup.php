@@ -153,7 +153,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/config_backup.php") {
 			    
 			};
 			if ( escapeshellcmd($_POST["action"]) == "restore" ) {
-			    echo "<tr><th colspan=\"2\">Config Restore</th></tr>\n";
+			    echo "<tr><th colspan=\"2\">Configuration Restore</th></tr>\n";
 			    
 			    $target_dir = "/tmp/config_restore/";
 			    exec("sudo rm -rf $target_dir > /dev/null");
@@ -240,6 +240,8 @@ if ($_SERVER["PHP_SELF"] == "/admin/config_backup.php") {
 				// Update the hosts files
 				exec('sudo /usr/local/sbin/wpsd-hostfile-update > /dev/null');
 				
+				exec('sudo /usr/local/sbin/nextion-driver-helper');  // Run the Nextion driver helper based on selected MMDVMHost display type
+
 				// Start the services
 			    	exec('sudo wpsd-services start > /dev/null &');
 	
