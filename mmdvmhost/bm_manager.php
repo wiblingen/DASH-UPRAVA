@@ -151,11 +151,11 @@ if ( $testMMDVModeDMR == 1 ) {
                        } else // 10 or less tgs submitted. keep going...
 		           {
                             exec('sudo mount -o remount,rw /');
-                            $handleBatch = fopen("/var/www/dashboard/.bm_tgs.batch", 'w+');
+                            $handleBatch = fopen("/tmp/.bm_tgs.batch", 'w+');
                             fwrite($handleBatch, $massTGs);
                             fclose($handleBatch);
 			    // need to add a last newline to the file so that the shell script can parse the last (or first and only) TG
-		            file_put_contents('/var/www/dashboard/.bm_tgs.batch', "\n".PHP_EOL , FILE_APPEND | LOCK_EX);
+		            file_put_contents('/tmp/.bm_tgs.batch', "\n".PHP_EOL , FILE_APPEND | LOCK_EX);
                             exec($bmStaticMassAddCmd);
                             // Output to the browser
 			    $str = preg_replace('#\s+#',', ',trim($massTGs));
@@ -185,10 +185,10 @@ if ( $testMMDVModeDMR == 1 ) {
                        } else
 		           {
                             exec('sudo mount -o remount,rw /');
-                            $handleBatch = fopen("/var/www/dashboard/.bm_tgs.batch", 'w+');
+                            $handleBatch = fopen("/tmp/.bm_tgs.batch", 'w+');
                             fwrite($handleBatch, $massTGs);
                             fclose($handleBatch);
-		            file_put_contents('/var/www/dashboard/.bm_tgs.batch', "\n".PHP_EOL , FILE_APPEND | LOCK_EX);
+		            file_put_contents('/tmp/.bm_tgs.batch', "\n".PHP_EOL , FILE_APPEND | LOCK_EX);
                             exec($bmStaticMassDelCmd);
                             // Output to the browser
 			    $str = preg_replace('#\s+#',', ',trim($massTGs)); 
