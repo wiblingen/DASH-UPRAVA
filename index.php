@@ -242,17 +242,17 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
       executeBackgroundTasks();
     }, 300000); // 5 mins
   });
-          $(document).ready(function() {
-            setInterval(function() {
-              executeBackgroundTasks();
-            }, 300000); // 5 mins
-          });
-  document.addEventListener('keydown', function(event) {
-    if ( event.key === 'S' || event.keyCode === 83 ) {
-      window.location.href = '/mmdvmhost/export-lh.php';
-    }
-  });
 </script>
+<?php if ( '/index.php' === $_SERVER["PHP_SELF"] ) : ?>
+  <script>
+    document.addEventListener('keydown', function(event) {
+      if ( event.key === 'S' || event.keyCode === 83 ) {
+        window.location.href = '/mmdvmhost/export-lh.php';
+      }
+    });
+  </script>
+<?php endif; ?>
+>>>>>>> master
     </head>
    <body>
 	<div class="container">
