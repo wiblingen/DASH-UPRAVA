@@ -201,13 +201,15 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
     }, 300000); // 5 mins
   });
 </script>
-<script>
-  document.addEventListener('keydown', function(event) {
-    if ( event.key === 'S' || event.keyCode === 83 ) {
-      window.location.href = '/mmdvmhost/export-lh.php';
-    }
-  });
-</script>
+<?php if ( '/index.php' === $_SERVER["PHP_SELF"] ) : ?>
+  <script>
+    document.addEventListener('keydown', function(event) {
+      if ( event.key === 'S' || event.keyCode === 83 ) {
+        window.location.href = '/mmdvmhost/export-lh.php';
+      }
+    });
+  </script>
+<?php endif; ?>
     </head>
    <body>
 	<div class="container">
