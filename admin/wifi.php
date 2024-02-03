@@ -262,7 +262,8 @@ echo '<br />
 <div class="network" id="networkbox">'."\n";
 		if (!isset($wifiCountry)) { $wifiCountry = "US"; }
 		$output .= 'WiFi Regulatory Domain (Country Code) : <select name="wifiCountryCode">'."\n";
-		exec('regdbdump /lib/crda/regulatory.bin | fgrep country | cut -b 9-10', $regDomains);
+		//exec('regdbdump /lib/crda/regulatory.bin | fgrep country | cut -b 9-10', $regDomains);
+		exec('fgrep "country" /usr/local/etc/regulatory.txt | cut -b 9-10', $regDomains);
 		foreach($regDomains as $regDomain) {
 			if ($regDomain == $wifiCountry) {
 				$output .= '<option value="'.$regDomain.'" selected>'.$regDomain.'</option>'."\n";
