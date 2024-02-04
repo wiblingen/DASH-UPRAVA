@@ -1287,6 +1287,10 @@ function getHeardList($logLines) {
 	$timestamp = substr($logLine, 3, 19);
 	$mode = substr($logLine, 27, strpos($logLine,",") - 27);
 	$callsign2 = substr($logLine, strpos($logLine,"from") + 5, strpos($logLine,"to") - strpos($logLine,"from") - 6);                                                                   
+	// strip prefixes from M17 calls...e.g. "??/W0CHP"
+	if ($mode == "M17") {
+	    $callsign2 = preg_replace('/.*\//', '', $callsign2);
+	}
 	$callsign = $callsign2;
 	if (strpos($callsign2,"/") > 0) {
 	    $callsign = substr($callsign2, 0, strpos($callsign2,"/"));
