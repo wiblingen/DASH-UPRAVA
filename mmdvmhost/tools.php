@@ -150,3 +150,29 @@ if ( ! function_exists( 'is_countable' ) ) :
   }
 endif;
 
+function get_os_name() {
+    $osReleaseFile = '/etc/os-release';
+    if (file_exists($osReleaseFile)) {
+        $osReleaseContents = file_get_contents($osReleaseFile);
+        $pattern = '/VERSION_CODENAME=(\w+)/';
+        if (preg_match($pattern, $osReleaseContents, $matches)) {
+            $debianCodename = $matches[1];
+            return $debianCodename;
+        }
+    }
+    return null; // Return null if the codename is not found
+}
+$osName = get_os_name();
+
+function get_os_ver() {
+    $osVersionFile = '/etc/debian_version';
+    if (file_exists($osVersionFile)) {
+    	$os_ver = trim( exec( "cat $osVersionFile" ) );
+	return $os_ver;
+    }
+    return null; // Return null if the version is not found
+}
+$osVer = get_os_ver();
+
+?>
+
