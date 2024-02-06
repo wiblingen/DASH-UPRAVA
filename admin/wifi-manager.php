@@ -13,7 +13,12 @@ echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 <meta http-equiv="Expires" content="0" />';
 include_once $_SERVER['DOCUMENT_ROOT'].'/config/browserdetect.php';
 echo '<link rel="stylesheet" type="text/css" href="/admin/wifi/styles.php?version='.$versionCmd.'" />
-<script type="text/Javascript" src="/admin//wifi/functions.js?version='.$versionCmd.'"></script>
+<script type="text/Javascript" src="/admin/wifi/functions.js?version='.$versionCmd.'"></script>
+<script type="text/javascript" src="/js/jquery.min.js?version='.$versionCmd.'"></script>
+<script type="text/javascript" src="/js/functions.js?version='.$versionCmd.'"></script>
+<script type="text/javascript">
+  $.ajaxSetup({ cache: false });
+</script>
 <title>WPSD Digital Voice Dashboard - WiFi Connection Manager</title>
 <style>
         .form-fields {
@@ -159,7 +164,7 @@ function executeCommand($command) {
     //$command = escapeshellcmd($command);
     $output = shell_exec($command);
     echo "<pre>$output</pre>";
-    sleep(3);
+    sleep(5);
 }
 
 function getWiFiBand($channel) {
@@ -383,8 +388,17 @@ foreach ($configuredConnections as $connection) {
     </table>
     <br>
     <?php
-echo '<script type="text/javascript">setTimeout(function () { location.reload(1); }, 120000);</script>
-<div class="infobox">
+echo '
+<script>
+$(document).ready(function(){
+    function refreshDiv() {
+        $("#wlan_info").load(location.href + " #wlan_info");
+    }
+    refreshDiv();
+    setInterval(refreshDiv, 3000);
+});
+</script>
+<div class="infobox" id="wlan_info">
 <div class="infoheader">Wireless Information and Statistics</div>
 <div class="intinfo"><div class="intheader">Interface Information</div>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Interface Name : wlan0<br />
