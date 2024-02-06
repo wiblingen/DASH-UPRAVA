@@ -8,6 +8,7 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/config/config.php';
 require_once $_SERVER['DOCUMENT_ROOT'].'/config/version.php';
 require_once $_SERVER['DOCUMENT_ROOT'].'/config/ircddblocal.php';
 require_once $_SERVER['DOCUMENT_ROOT'].'/mmdvmhost/functions.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/mmdvmhost/tools.php';
 require_once $_SERVER['DOCUMENT_ROOT'].'/config/language.php';
 
 // Clear session data (page {re}load);
@@ -6660,12 +6661,16 @@ $p25Hosts = fopen("/usr/local/etc/P25Hosts.txt", "r");
     <br />
 
 <?php
+	if ($osName === "bookworm") {
+	    $wifi_page = '    <iframe frameborder="0" scrolling="auto" name="wifi" src="wifi-manager.php" width="100%" onload="javascript:resizeIframe(this);">If you can see this message, your browser does not support iFrames, however if you would like to see the content please click <a href="wifi-manager.php">here</a>.</iframe>';
+	} else {
+	    $wifi_page = '    <iframe frameborder="0" scrolling="auto" name="wifi" src="wifi.php?page=wlan0_info" width="100%" onload="javascript:resizeIframe(this);">If you can see this message, your browser does not support iFrames, however if you would like to see the content please click <a href="wifi.php?page=wlan0_info">here</a>.</iframe>';;
+	}	
 	if ( file_exists('/sys/class/net/wlan0') || file_exists('/sys/class/net/wlan1') || file_exists('/sys/class/net/wlan0_ap') ) {
 echo '
 <br />
     <h2 class="ConfSec">'.$lang['wifi_config'].'</h2>
-    <table><tr><td>
-    <iframe frameborder="0" scrolling="auto" name="wifi" src="wifi.php?page=wlan0_info" width="100%" onload="javascript:resizeIframe(this);">If you can see this message, your browser does not support iFrames, however if you would like to see the content please click <a href="wifi.php?page=wlan0_info">here</a>.</iframe>
+    <table><tr><td>'.$wifi_page.'
     </td></tr></table>
     <br />
     <form id="autoApPassForm" action="'.htmlspecialchars($_SERVER["PHP_SELF"]).'" method="post">
