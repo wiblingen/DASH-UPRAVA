@@ -14,22 +14,14 @@ $headers = stream_context_create(Array("http" => Array("method"  => "GET",
                                                        "header"  => "User-agent: WPSD-Messages - $CALL $UUID",
                                                        'request_fulluri' => True )));
 // buster EOL!!!! YAY!!!!!!! \o/
-$osReleaseFile = '/etc/os-release';
-if (file_exists($osReleaseFile)) {
-    $osReleaseContents = file_get_contents($osReleaseFile);
-    $pattern = '/VERSION_CODENAME=(\w+)/';
-    if (preg_match($pattern, $osReleaseContents, $matches)) {
-        $debianCodename = $matches[1];
+if ($osName === "buster") {
+    $local_msg = '/var/www/dashboard/includes/.wpsd-legacy-msg.html';
+    if(file_exists($local_msg)) {
+	$result = @file_get_contents($local_msg);
+    } else {
+	$result = @file_get_contents('https://wpsd-swd.w0chp.net/WPSD-SWD/WPSD_Messages/raw/branch/master/no-mo-busta-yo.html', false, $headers);
     }
-    if ($debianCodename === "buster") {
-	$local_msg = '/var/www/dashboard/includes/.wpsd-legacy-msg.html';
-	if(file_exists($local_msg)) {
-	    $result = @file_get_contents($local_msg);
-	} else {
-	    $result = @file_get_contents('https://wpsd-swd.w0chp.net/WPSD-SWD/WPSD_Messages/raw/branch/master/no-mo-busta-yo.html', false, $headers);
-	}
-	echo $result;
-    }
+    echo $result;
 }
 ?>
 
