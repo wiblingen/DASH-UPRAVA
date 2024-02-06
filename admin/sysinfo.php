@@ -38,7 +38,6 @@ function system_information() {
                  'mem_info' => $meminfo,
                  'partitions' => disk_list(),
 		 'os' => preg_replace('/\(|\)/','"', trim( exec( 'lsb_release -sd' ) )),
-		 'os_ver' => trim( exec( 'cat /etc/debian_version' ) ),
     );
 }
 
@@ -229,7 +228,7 @@ function timesyncdProc() {
 		    }
 		    // OS Information
 		    echo "<tr><th align='left'>Host System</th><th align='left'>Details</th></tr>";
-		    echo "<tr><td align='left'>Operating System</td><td align='left'>{$system['os']}, release ver. {$system['os_ver']}</td></tr>";
+		    echo "<tr><td align='left'>Operating System</td><td align='left'>{$system['os']}, release ver. $osVer</td></tr>";
 		    echo "<tr><td align='left'>Hardware &amp; Platform</td><td align='left'>".$_SESSION['PiStarRelease']['Pi-Star']['Hardware']."<br />".$_SESSION['PiStarRelease']['Pi-Star']['Platform']."</td></tr>";
 		    echo "<tr><td align='left'>Hardware UUID</td><td align='left'>$instanceUUID</td></tr>";
 		    // Binary Information
@@ -324,23 +323,17 @@ function timesyncdProc() {
 		    echo "<tr>";
 		    echo "<td align='left' colspan='2'>";
 		    echo "<pre>";
-		    if ($system['os_ver'] >= 11) {
-		        system("timedatectl | sed -e 's/^[ \t]*/  /' | sed '/RTC/d'");
-		    } else {
-		        system("timedatectl | sed -e 's/^[ \t]*/  /' | sed '/RTC/d' | sed '/NTP service/d'");
-		    }
+		    system("timedatectl | sed -e 's/^[ \t]*/  /' | sed '/RTC/d'");
 		    echo "</pre>";
-		    if ($system['os_ver'] >= 11) {
-		        if (timesyncdProc() == "1") {
+		    if (timesyncdProc() == "1") {
 		    	    echo "<pre>";
 			    system("timedatectl timesync-status | sed -e 's/^[ \t]*/  /'");
 			    echo "</pre>";
 			    echo "</td>";
-		        } else {
+		    } else {
 			    echo "<td align='left' class='inactive-service-cell' colspan='2'>TimeSync Deamon not running!</td>";
-		        }
-		        echo "</tr>";
 		    }
+		    echo "</tr>";
 		    ?>
 		</table>
 	    </div>
