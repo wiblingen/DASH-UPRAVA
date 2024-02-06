@@ -162,6 +162,48 @@ function executeCommand($command) {
     sleep(3);
 }
 
+function getWiFiBand($channel) {
+    $wifiBands = array(
+        '2.4 GHz' => range(1, 14),
+        '5 GHz'   => range(36, 165)
+    );
+
+    foreach ($wifiBands as $band => $channels) {
+        if (in_array($channel, $channels)) {
+            return $band;
+        }
+    }
+
+    return 'Unknown'; // Return 'Unknown' if the channel doesn't match any known WiFi band
+}
+
+function signalStrengthBars($signalStrength) {
+    $bars = "";
+    $maxStrength = 100;
+    $numBars = 5;
+    $strengthPerBar = $maxStrength / $numBars;
+    $filledBars = round($signalStrength / $strengthPerBar);
+
+    // Set default color
+    $color = "#00D517"; // Green
+
+    // Change color based on signal strength
+    if ($signalStrength <= 60) {
+        $color = "#E55C00"; // Orange
+    }
+    if ($signalStrength <= 30) {
+        $color = "#B20000"; // Red
+    }
+
+    for ($i = 0; $i < $filledBars; $i++) {
+        $bars .= "<span style='color:$color'>&#x2588;</span>"; // Unicode FULL BLOCK character
+    }
+    for ($i = $filledBars; $i < $numBars; $i++) {
+        $bars .= "&#x2591;"; // Unicode LIGHT SHADE character
+    }
+    return $bars;
+}
+
 function getAvailableRegulatoryDomains() {
     $crdaFile = '/usr/local/etc/regulatory.txt';
     $domains = [];
@@ -224,6 +266,7 @@ if (isset($_POST['action'])) {
                 <tr>
                     <th>SSID</th>
                     <th>Signal Strength</th>
+                    <th>Band</th>
                     <th>Channel</th>
                     <th>Security Type</th>
                     <th>Passphrase</th>
@@ -236,7 +279,8 @@ if (isset($_POST['action'])) {
                     <?php if (!empty($networkInfo['ssid'])) : ?>
                         <tr>
                             <td><?php echo $networkInfo['ssid']; ?></td>
-                            <td><?php echo $networkInfo['signalStrength']; ?>%</td>
+                            <td><?php echo signalStrengthBars($networkInfo['signalStrength']). "&nbsp" .$networkInfo['signalStrength']; ?>%</td>
+                            <td><?php echo getWiFiBand($networkInfo['channel']); ?></td>
                             <td><?php echo $networkInfo['channel']; ?></td>
                             <td><?php echo $networkInfo['securityType']; ?></td>
                             <td>
