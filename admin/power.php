@@ -21,22 +21,24 @@ if ($_SERVER["PHP_SELF"] == "/admin/power.php") {
     // Sanity Check Passed.
     header('Cache-Control: no-cache');
 
-function purgeLogs() {
-    $log_backup_dir = "/home/pi-star/.backup-mmdvmhost-logs/";
-    $log_dir = "/var/log/pi-star/";
-    exec ('sudo systemctl stop cron');
-    exec ('sudo mount -o remount,rw /');
-    exec ('sudo systemctl stop mmdvm-log-backup.timer');
-    exec ('sudo systemctl stop mmdvm-log-backup.service');
-    exec ('sudo systemctl stop mmdvm-log-restore.service');
-    exec ('sudo systemctl stop mmdvm-log-shutdown.service');
-    exec ("sudo rm -rf $log_dir/* $log_backup_dir/* > /dev/null");
-}
-
 if(isset($_SESSION['PiStarRelease']['Pi-Star']['ProcNum']) && ($_SESSION['PiStarRelease']['Pi-Star']['ProcNum'] >= 4)) {
-    $rbTime = "90";
+    exec('/usr/local/sbin/.wpsd-platform-detect | grep "Pi 5 Model" | wc -l', $output);
+    $count = intval($output[0]);
+    $is_pi_5 = ($count >= 1);
+    if ($is_pi_5) {
+        $rbTime = "30";
+    } else {
+        $rbTime = "90";
+    }
 } else {
     $rbTime = "120";
+}
+
+if ($rbTime != 30) {
+    $rbTime = floor($rbTime / 60);
+    $timeUnit = "minutes";
+} else {
+    $timeUnit = "seconds";
 }
 
 ?>
@@ -111,23 +113,17 @@ if(isset($_SESSION['PiStarRelease']['Pi-Star']['ProcNum']) && ($_SESSION['PiStar
 			    if ( escapeshellcmd($_POST["action"]) == "reboot" ) {
 				echo '<tr><td colspan="2" style="background: #000000; color: #4DEEEA;"><br /><br />Your Hotspot is rebooting...
 				   <br />You will be re-directed back to the
-				   <br />dashboard automatically in ' .$rbTime. ' seconds.<br /><br /><br />
+				   <br />dashboard automatically in  ' . $rbTime . ' ' . $timeUnit . '.<br /><br /><br />
 				   <script language="JavaScript" type="text/javascript">
                                    setTimeout("location.href = \'/\'", '.$rbTime.'000);
 				   </script>
 				   </td></tr>'; 
-		if ( escapeshellcmd($_POST["purgeLogs"]) == "1" ) {
-		    purgeLogs();
-		}
-		exec("sudo sync && sudo reboot > /dev/null 2>&1 &");
+				   exec("sudo sync && sleep 2 && sudo reboot > /dev/null 2>&1 &");
 			    }
 			    else if ( escapeshellcmd($_POST["action"]) == "shutdown" ) {
 				echo '<tr><td colspan="2" style="background: #000000; color: #4DEEEA;"><br /><br />Shutdown command has been sent to your Hotspot.
-				   <br />Please wait at least 60 seconds for it to fully shutdown<br />before removing the power.<br /><br /><br /></td></tr>';
-		if ( escapeshellcmd($_POST["purgeLogs"]) == "1" ) {
-		    purgeLogs();
-		}
-		exec("sudo sync && sudo shutdown -h now > /dev/null 2>&1 &");
+				   <br />Please wait at least 30 seconds for it to fully shutdown<br />before removing the power.<br /><br /><br /></td></tr>';
+				   exec("sudo sync && sleep 3 && sudo shutdown -h now > /dev/null 2>&1 &");
 			    }
 
 			    unset($_POST);
