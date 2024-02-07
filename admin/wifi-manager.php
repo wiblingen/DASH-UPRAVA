@@ -161,10 +161,9 @@ else {
 
 <?php
 function executeCommand($command) {
-    //$command = escapeshellcmd($command);
     $output = shell_exec($command);
+    sleep(1);
     echo "<pre>$output</pre>";
-    sleep(5);
 }
 
 function getWiFiBand($channel) {
@@ -245,6 +244,7 @@ if (isset($_POST['action'])) {
                 $ssid = $_POST['ssid'];
                 $passphrase = $_POST['passphrase'];
                 executeCommand("sudo nmcli connection add type wifi con-name \"$ssid\" ifname '*' ssid \"$ssid\" wifi-sec.key-mgmt wpa-psk wifi-sec.psk \"$passphrase\"");
+		echo "<p>(Please give the Wifi Information some time to initialize and refresh its status)</p>";
             } else {
                 echo "Error: SSID and passphrase are required for adding a connection.";
             }
@@ -395,7 +395,7 @@ $(document).ready(function(){
         $("#wlan_info").load(location.href + " #wlan_info");
     }
     refreshDiv();
-    setInterval(refreshDiv, 3000);
+    setInterval(refreshDiv, 1000);
 });
 </script>
 <div class="infobox" id="wlan_info">
