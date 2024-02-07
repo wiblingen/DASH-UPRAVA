@@ -119,7 +119,7 @@ if(isset($_SESSION['PiStarRelease']['Pi-Star']['ProcNum']) && ($_SESSION['PiStar
 		if ( escapeshellcmd($_POST["purgeLogs"]) == "1" ) {
 		    purgeLogs();
 		}
-		exec("sudo sync && sudo reboot > /dev/null 2>&1 &");
+		exec("sudo sync && sleep 2 && sudo reboot > /dev/null 2>&1 &");
 			    }
 			    else if ( escapeshellcmd($_POST["action"]) == "shutdown" ) {
 				echo '<tr><td colspan="2" style="background: #000000; color: #4DEEEA;"><br /><br />Shutdown command has been sent to your Hotspot.
