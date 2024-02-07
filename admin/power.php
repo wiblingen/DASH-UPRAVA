@@ -112,11 +112,13 @@ if ($rbTime != 30) {
 			    <?php
 			    if ( escapeshellcmd($_POST["action"]) == "reboot" ) {
 				echo '<tr><td colspan="2" style="background: #000000; color: #4DEEEA;"><br /><br />Your Hotspot is rebooting...
-				   <br />You will be re-directed back to the
-				   <br />dashboard automatically in  ' . $rbTime . ' ' . $timeUnit . '.<br /><br /><br />
-				   <script language="JavaScript" type="text/javascript">
-                                   setTimeout("location.href = \'/\'", '.$rbTime.'000);
-				   </script>
+				    <br />You will be re-directed back to the
+				    <br />dashboard automatically in  ' . $rbTime . ' ' . $timeUnit . '.<br /><br /><br />
+				    <script language="JavaScript" type="text/javascript">
+				        setTimeout(function() {
+					    location.href = \'/\';
+					}, ' . ($rbTime * 1000) . '); // milliseconds
+				    </script>
 				   </td></tr>'; 
 				   exec("sudo sync && sleep 2 && sudo reboot > /dev/null 2>&1 &");
 			    }
