@@ -21,26 +21,31 @@ if ($_SERVER["PHP_SELF"] == "/admin/power.php") {
     // Sanity Check Passed.
     header('Cache-Control: no-cache');
 
-if(isset($_SESSION['PiStarRelease']['Pi-Star']['ProcNum']) && ($_SESSION['PiStarRelease']['Pi-Star']['ProcNum'] >= 4)) {
-    exec('/usr/local/sbin/.wpsd-platform-detect | grep "Pi 5 Model" | wc -l', $output);
-    $count = intval($output[0]);
-    $is_pi_5 = ($count >= 1);
-    if ($is_pi_5) {
-        $rbTime = "30";
+    if(isset($_SESSION['PiStarRelease']['Pi-Star']['ProcNum']) && ($_SESSION['PiStarRelease']['Pi-Star']['ProcNum'] >= 4)) {
+	exec('/usr/local/sbin/.wpsd-platform-detect | grep "Pi 5 Model" | wc -l', $output);
+	$count = intval($output[0]);
+	$is_pi_5 = ($count >= 1);
+	if ($is_pi_5) { // redir in 30 secs. for Pi5's
+	    $rbTime = 30;
+	} else {
+	    $rbTime = 60; // typical 4-core archs.
+	}
     } else {
-        $rbTime = "90";
+	$rbTime = 120; // single core archs
     }
-} else {
-    $rbTime = "120";
-}
 
-if ($rbTime != 30) {
-    $rbTime = floor($rbTime / 60);
-    $timeUnit = "minutes";
-} else {
-    $timeUnit = "seconds";
-}
+    // Calculate minutes and remaining seconds
+    $rbMinutes = floor($rbTime / 60);
+    $rbSeconds = $rbTime % 60;
 
+    // Set time unit based on the value of $rbTime
+    if ($rbMinutes > 0 && $rbSeconds > 0) {
+	$timeUnit = "minutes and seconds";
+    } elseif ($rbMinutes > 0) {
+	$timeUnit = ($rbMinutes > 1) ? "minutes" : "minute";
+    } else {
+	$timeUnit = ($rbSeconds > 1) ? "seconds" : "second";
+    }
 ?>
     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 	      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -113,13 +118,13 @@ if ($rbTime != 30) {
 			    if ( escapeshellcmd($_POST["action"]) == "reboot" ) {
 				echo '<tr><td colspan="2" style="background: #000000; color: #4DEEEA;"><br /><br />Your Hotspot is rebooting...
 				    <br />You will be re-directed back to the
-				    <br />dashboard automatically in  ' . $rbTime . ' ' . $timeUnit . '.<br /><br /><br />
+				    <br />dashboard automatically in ' . $rbMinutes . ' ' . (($rbMinutes > 1) ? "minutes" : "minute") . ' ' . (($rbSeconds > 0) ? $rbSeconds . ' seconds' : '') . '.<br /><br /><br />
 				    <script language="JavaScript" type="text/javascript">
 				        setTimeout(function() {
-					    location.href = \'/\';
-					}, ' . ($rbTime * 1000) . '); // milliseconds
+				            location.href = \'/\';
+				        }, ' . ($rbTime * 1000) . '); // milliseconds
 				    </script>
-				   </td></tr>'; 
+				    </td></tr>';
 				   exec("sudo sync && sleep 2 && sudo reboot > /dev/null 2>&1 &");
 			    }
 			    else if ( escapeshellcmd($_POST["action"]) == "shutdown" ) {
