@@ -174,5 +174,11 @@ function get_os_ver() {
 }
 $osVer = get_os_ver();
 
+function isRaspberryPi5() {
+    $output = shell_exec('.wpsd-platform-detect');
+    return strpos($output, 'Raspberry Pi 5') !== false;
+}
+$isPi5 = isRaspberryPi5();
+
 ?>
 
