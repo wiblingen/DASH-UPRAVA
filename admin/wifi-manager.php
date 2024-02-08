@@ -200,10 +200,10 @@ function signalStrengthBars($signalStrength) {
     }
 
     for ($i = 0; $i < $filledBars; $i++) {
-        $bars .= "<span style='color:$color'>&#x2588;</span>"; // Unicode FULL BLOCK character
+	$bars .= "<span style='color:$color;'>&#x2588;</span>"; // Unicode FULL BLOCK character
     }
     for ($i = $filledBars; $i < $numBars; $i++) {
-        $bars .= "&#x2591;"; // Unicode LIGHT SHADE character
+	$bars .= "<span style='color:#666666;'>&#x2588;</span>"; // Unicode FULL BLOCK character
     }
     return $bars;
 }
