@@ -222,7 +222,8 @@ function getAvailableRegulatoryDomains() {
 }
 $availableDomains = getAvailableRegulatoryDomains();
 
-$currentGlobalDomain = preg_match('/country=(\S+)/', file_get_contents(glob('/etc/NetworkManager/system-connections/*', GLOB_BRACE)[0]), $matches) ? $matches[1] : null;
+$currentGlobalDomain = explode('=', preg_grep('/^cfg80211\.ieee80211_regdom=/', file('/boot/firmware/cmdline.txt')))[0];
+
 
 function parseNetworkInfo($line) {
     $parts = preg_split('/(?<!\\\):/', $line);
