@@ -49,7 +49,7 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/config/version.php';
 			process_before_saving($data);
 		    }
 		    			
-		    fwrite($fh, $data);;
+		    fwrite($fh, $data);
 		    fclose($fh);
 		    
 		    exec('sudo mount -o remount,rw /');
