@@ -162,7 +162,6 @@ else {
 <?php
 function executeCommand($command) {
     $output = shell_exec($command);
-    sleep(1);
     echo "<pre>$output</pre>";
 }
 
@@ -222,8 +221,14 @@ function getAvailableRegulatoryDomains() {
 }
 $availableDomains = getAvailableRegulatoryDomains();
 
-$currentGlobalDomain = explode('=', preg_grep('/^cfg80211\.ieee80211_regdom=/', file('/boot/firmware/cmdline.txt')))[0];
-
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['regulatory_domain'])) {
+    $currentGlobalDomain = $_POST['regulatory_domain'];
+} else {
+    $fileContent = file_get_contents('/boot/firmware/cmdline.txt');
+    if (preg_match('/\bcfg80211\.ieee80211_regdom=([^ ]+)/', $fileContent, $matches)) {
+        $currentGlobalDomain = $matches[1];
+    }
+}
 
 function parseNetworkInfo($line) {
     $parts = preg_split('/(?<!\\\):/', $line);
@@ -244,7 +249,7 @@ if (isset($_POST['action'])) {
             if (isset($_POST['ssid']) && isset($_POST['passphrase'])) {
                 $ssid = $_POST['ssid'];
                 $passphrase = $_POST['passphrase'];
-                executeCommand("sudo nmcli connection add type wifi con-name \"$ssid\" ifname '*' ssid \"$ssid\" wifi-sec.key-mgmt wpa-psk wifi-sec.psk \"$passphrase\"");
+                executeCommand("sudo nmcli connection add type wifi con-name \"$ssid\" ifname '*' ssid \"$ssid\" wifi-sec.key-mgmt wpa-psk wifi-sec.psk \"$passphrase\" ; sleep 1");
 		echo "<p>(Please give the Wifi Information some time to initialize and refresh its status)</p>";
             } else {
                 echo "Error: SSID and passphrase are required for adding a connection.";
@@ -253,7 +258,7 @@ if (isset($_POST['action'])) {
         case 'delete':
             if (isset($_POST['connection'])) {
                 $connection = $_POST['connection'];
-                executeCommand("sudo nmcli connection delete \"$connection\"");
+                executeCommand("sudo nmcli connection delete \"$connection\" sleep 1");
             } else {
                 echo "Error: Connection name is required for deletion.";
             }
@@ -479,7 +484,7 @@ else {
     <label for="select-domain">Select Country:</label>
     <select name="regulatory_domain" id="select-domain">
         <?php foreach ($availableDomains as $domain) : ?>
-            <option value="<?= $domain; ?>" <?= ($domain === $currentGlobalDomain) ? 'selected' : ''; ?>>
+	    <option value="<?= $domain; ?>" <?= (trim($domain) === trim($currentGlobalDomain)) ? 'selected' : ''; ?>>
                 <?= $domain; ?>
             </option>
         <?php endforeach; ?>
@@ -492,11 +497,12 @@ if (isset($_POST['action']) && $_POST['action'] === 'set_domain') {
     if (isset($_POST['regulatory_domain'])) {
         $selectedDomain = $_POST['regulatory_domain'];
         executeCommand("sudo iw reg set $selectedDomain");
-        executeCommand("sudo sed -i 's/cfg80211\.ieee80211_regdom=.*/cfg80211.ieee80211_regdom=$selectedDomain/' /boot/firmware/cmdline.txt");
+        executeCommand("sudo sed -i 's/cfg80211\.ieee80211_regdom=.*/cfg80211.ieee80211_regdom=$selectedDomain/' /boot/firmware/cmdline.txt ; sleep 1");
     } else {
         echo "Error: Please select a regulatory domain.";
     }
 }
+
 ?>
 
 </div>
