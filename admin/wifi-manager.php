@@ -222,7 +222,7 @@ function getAvailableRegulatoryDomains() {
 }
 $availableDomains = getAvailableRegulatoryDomains();
 
-$currentGlobalDomain = trim(shell_exec('iw reg get | grep -m 1 "^country" | awk \'{print $2}\'| sed \'s/://\''));
+$currentGlobalDomain = preg_match('/country=(\S+)/', file_get_contents(glob('/etc/NetworkManager/system-connections/*', GLOB_BRACE)[0]), $matches) ? $matches[1] : null;
 
 function parseNetworkInfo($line) {
     $parts = preg_split('/(?<!\\\):/', $line);
