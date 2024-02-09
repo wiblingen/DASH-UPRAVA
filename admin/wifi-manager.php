@@ -492,6 +492,7 @@ if (isset($_POST['action']) && $_POST['action'] === 'set_domain') {
     if (isset($_POST['regulatory_domain'])) {
         $selectedDomain = $_POST['regulatory_domain'];
         executeCommand("sudo iw reg set $selectedDomain");
+        executeCommand("sudo sed -i 's/cfg80211\.ieee80211_regdom=.*/cfg80211.ieee80211_regdom=$selectedDomain/' /boot/firmware/cmdline.txt");
     } else {
         echo "Error: Please select a regulatory domain.";
     }
