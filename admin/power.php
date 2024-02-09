@@ -26,9 +26,9 @@ if ($_SERVER["PHP_SELF"] == "/admin/power.php") {
 	$count = intval($output[0]);
 	$is_pi_5 = ($count >= 1);
 	if ($is_pi_5) { // redir in 30 secs. for Pi5's
-	    $rbTime = 30;
+	    $rbTime = 45;
 	} else {
-	    $rbTime = 60; // typical 4-core archs.
+	    $rbTime = 90; // typical 4-core archs.
 	}
     } else {
 	$rbTime = 120; // single core archs
