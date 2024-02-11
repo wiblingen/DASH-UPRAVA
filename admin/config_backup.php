@@ -83,6 +83,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/config_backup.php") {
 				exec("sudo cp /etc/dhcpcd.conf $backupDir > /dev/null");
 			    }
 			    exec("sudo cp /etc/wpa_supplicant/wpa_supplicant.conf $backupDir > /dev/null");
+			    exec("sudo cp /etc/NetworkManager/system.connections/*.nmconnection $backupDir > /dev/null");
 			    exec("sudo cp /etc/wpsd-upnp-rules $backupDir > /dev/null");
                 	    exec("sudo cp /etc/hostapd/hostapd.conf $backupDir > /dev/null");
 			    exec("sudo cp /etc/pistar-css.ini $backupDir > /dev/null");
@@ -222,6 +223,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/config_backup.php") {
 				exec("sudo mv -f /tmp/config_restore/language.php /var/www/dashboard/config/ > /dev/null");
 				exec('sudo find /tmp/config_restore/ -maxdepth 1 -name "*Hosts.txt" -exec mv -fv {} /root \; > /dev/null');
 				exec("sudo mv -f /tmp/config_restore/wpa_supplicant.conf /etc/wpa_supplicant/ > /dev/null");
+				exec("sudo mv -f /tmp/config_restore/*.nmconnection /etc/NetworkManager/system.connections/ > /dev/null");
 				exec("sudo mv -f /tmp/config_restore/wpsd-upnp-rules /etc/ > /dev/null");
                 		exec("sudo mv -f /tmp/config_restore/hostapd.conf /etc/hostapd/ > /dev/null");
 				exec("sudo mv -f /tmp/config_restore/*_paused /etc/ > /dev/null");
