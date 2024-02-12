@@ -467,9 +467,8 @@ else {
 
         <label for="passphrase">Passphrase:</label>
         <input type="text" name="passphrase" placeholder="Enter Passphrase" onkeyup="CheckPSK(this)">
+        <button class="submit" type="submit">Submit</button>
     </div>
-    <button type="submit">Submit</button>
-
 </form>
 
 <script>
@@ -481,8 +480,10 @@ else {
             addConnectionFields.style.display = 'block';
         } else {
             addConnectionFields.style.display = 'none';
+            jQuery('button.submit').trigger('click');
         }
-    }
+        iframe = jQuery(window.parent.document).find( 'iframe' );
+        iframe.height( iframe.contents().find('html').height() );
 </script>
 
 <form method="post">
