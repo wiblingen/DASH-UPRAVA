@@ -56,7 +56,10 @@ input[type=button]:hover,input[type=submit]:hover {
 
 .infoheader {
 	width:100%;
-	text-align:center;
+	font-size: larger;
+	padding: 5px;
+	text-align:left;
+	margin-top:10px;
 	margin-top:10px;
 	border-bottom: 1px solid;
 	color : <?php echo $textBanners; ?>;
@@ -93,7 +96,7 @@ input[type=button]:hover,input[type=submit]:hover {
 .intheader {
 	background-color: <?php echo $backgroundBanners; ?>;
 	color: <?php echo $textBanners; ?>;
-	text-align:center;
+	text-align:left;
 	width:100%;
 	font-weight: bold;
 }
