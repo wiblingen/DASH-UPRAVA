@@ -295,7 +295,7 @@ if (isset($_POST['action'])) {
                             <td><?php echo $networkInfo['channel']; ?></td>
                             <td><?php echo $networkInfo['securityType']; ?></td>
                             <td>
-                                <input type="text" name="passphrase[]" placeholder="Enter Passphrase">
+                                <input type="text" name="passphrase[]" placeholder="Enter Passphrase" onkeyup="CheckPSK(this)">
                             </td>
                             <td>
                                 <input type="hidden" name="ssid[]" value="<?php echo $networkInfo['ssid']; ?>">
@@ -435,7 +435,12 @@ if (($strWifiFreq) && ($strWifiChan) && ($strWifiChan != "Invalid Channel")) {
 } else {
         echo "<br />\n";
 }
-echo '<br />
+if (isset($currentGlobalDomain)) {
+    echo '&nbsp;&nbsp;&nbsp;WiFi Country : '.$currentGlobalDomain."<br />\n";
+} else {
+    echo "<br />\n";
+}
+echo '
 <br />
 <br />
 </div>
@@ -458,10 +463,10 @@ else {
     <br>
     <div class="form-fields" id="add-connection-fields">
         <label for="ssid">SSID:</label>
-        <input type="text" name="ssid" placeholder="Enter SSID">
+        <input type="text" name="ssid" placeholder="Enter SSID" onkeyup="CheckSSID(this)">
 
         <label for="passphrase">Passphrase:</label>
-        <input type="text" name="passphrase" placeholder="Enter Passphrase">
+        <input type="text" name="passphrase" placeholder="Enter Passphrase" onkeyup="CheckPSK(this)">
     </div>
     <button type="submit">Submit</button>
 
