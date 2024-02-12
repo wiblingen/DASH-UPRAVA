@@ -482,8 +482,9 @@ else {
             addConnectionFields.style.display = 'none';
             jQuery('button.submit').trigger('click');
         }
-        iframe = jQuery(window.parent.document).find( 'iframe' );
-        iframe.height( iframe.contents().find('html').height() );
+        iframe = jQuery(window.parent.document).find('iframe' );
+        iframe.height( iframe.contents().find("html").height() );
+    }
 </script>
 
 <form method="post">
