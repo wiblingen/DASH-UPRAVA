@@ -117,8 +117,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/power.php") {
 			    <?php
 			    if ( escapeshellcmd($_POST["action"]) == "reboot" ) {
 				echo '<tr><td colspan="2" style="background: #000000; color: #4DEEEA;"><br /><br />Your Hotspot is rebooting...
-				    <br />You will be re-directed back to the
-				    <br />dashboard automatically in ' . $rbMinutes . ' ' . (($rbMinutes > 1) ? "minutes" : "minute") . ' ' . (($rbSeconds > 0) ? $rbSeconds . ' seconds' : '') . '.<br /><br /><br />
+				    <br /><br />You will be redirected back to the dashboard automatically in ' . $rbMinutes . ' ' . (($rbMinutes > 1) ? "minutes" : "minute") . ' ' . (($rbSeconds > 0) ? $rbSeconds . ' seconds' : '') . '.<br /><br /><br />
 				    <script language="JavaScript" type="text/javascript">
 				        setTimeout(function() {
 				            location.href = \'/\';
