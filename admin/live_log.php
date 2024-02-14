@@ -102,7 +102,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/live_log.php") {
     <meta http-equiv="pragma" content="no-cache" />
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
     <meta http-equiv="Expires" content="0" />
-    <title>WPSD <?php echo $lang['digital_voice']." ".$lang['dashboard']." - ".$lang['live_logs'];?></title>
+    <title>WPSD <?php echo __( 'Digital Voice' ) . " ".__( 'Dashboard' )." - ".__( 'Log Viewer' );?></title>
 <?php include_once $_SERVER['DOCUMENT_ROOT'].'/config/browserdetect.php'; ?>
     <link rel="stylesheet" type="text/css" href="/css/font-awesome-4.7.0/css/font-awesome.min.css" />
     <script type="text/javascript" src="/js/jquery.min.js?version=<?php echo $versionCmd; ?>"></script>
@@ -143,7 +143,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/live_log.php") {
                 ?>
                 </div><br />
               </div>
-	      <h1>WPSD <?php echo $lang['digital_voice']." - ".$lang['live_logs'];?></h1>
+	      <h1>WPSD <?php echo __( 'Digital Voice' ) . " - ".__( 'Log Viewer' );?></h1>
 	      <p>
 		  <div class="navbar">
               <script type= "text/javascript">
@@ -170,14 +170,14 @@ if ($_SERVER["PHP_SELF"] == "/admin/live_log.php") {
               <div class="headerClock"> 
                 <span id="timer"></span>
             </div>
-		      <a class="menuconfig" href="/admin/configure.php"><?php echo $lang['configuration'];?></a>
-		      <a class="menubackup" href="/admin/config_backup.php"><?php echo $lang['backup_restore'];?></a>
-		      <a class="menupower" href="/admin/power.php"><?php echo $lang['power'];?></a>
-		      <a class="menuadmin" href="/admin/"><?php echo $lang['admin'];?></a>
+		      <a class="menuconfig" href="/admin/configure.php"><?php echo __( 'Configuration' );?></a>
+		      <a class="menubackup" href="/admin/config_backup.php"><?php echo __( 'Backup/Restore' );?></a>
+		      <a class="menupower" href="/admin/power.php"><?php echo __( 'Power' );?></a>
+		      <a class="menuadmin" href="/admin/"><?php echo __( 'Admin' );?></a>
 		      <?php if (file_exists("/etc/dstar-radio.mmdvmhost")) { ?>
 		      <a class="menulive" href="/live/">Live Caller</a>
 		      <?php } ?>
-		      <a class="menudashboard" href="/"><?php echo $lang['dashboard'];?></a>
+		      <a class="menudashboard" href="/"><?php echo __( 'Dashboard' );?></a>
 		  </div>
 	      </p>
 	  </div>
@@ -185,7 +185,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/live_log.php") {
 	      <table width="100%">
 
   <?php if (!isset($_GET['log'])) { ?>
-  <tr><th colspan="2"><?php echo $lang['live_logs'];?></th></tr>
+  <tr><th colspan="2"><?php echo __( 'Log Viewer' );?></th></tr>
   <tr><td>
   <form method="get">
    <b>Select a log to view:</b>
@@ -222,7 +222,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/live_log.php") {
   </div>
   </body>
   <?php } else { ?>
-  <tr><th colspan=2"><?php echo $lang['live_logs']; echo " - $log";?></th></tr>
+  <tr><th colspan=2"><?php echo __( 'Log Viewer' ); echo " - $log";?></th></tr>
   <tr><td>
   <form method="get">
   <b>Select a log to view:</b>
