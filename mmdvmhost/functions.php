@@ -2039,18 +2039,3 @@ if (!in_array($_SERVER["PHP_SELF"],array('/mmdvmhost/bm_links.php','/mmdvmhost/b
     }
 }
 
-function __( $string ) {
-  global $lang;
-  if ( isset( $lang[ $string ] ) ) {
-    return $lang[ $string ];
-  }
-  return $string;
-}
-
-function _e( $string ) {
-  global $lang;
-  if ( isset( $lang[ $string ] ) ) {
-    echo $lang[ $string ];
-  }
-  echo $string;
-}

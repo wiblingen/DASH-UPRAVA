@@ -14,6 +14,8 @@ $configPistarRelease = parse_ini_file($pistarReleaseConfig, true);
 require_once $_SERVER['DOCUMENT_ROOT'].'/config/version.php';
 // load config
 require_once $_SERVER['DOCUMENT_ROOT'].'/config/config.php';
+// load t00lz
+require_once $_SERVER['DOCUMENT_ROOT'].'/mmdvmhost/tools.php';
 
 if (file_exists('/etc/default/shellinabox')) {
   $getPortCommand = "grep -m 1 'SHELLINABOX_PORT=' /etc/default/shellinabox | awk -F '=' '/SHELLINABOX_PORT=/ {print $2}'";
