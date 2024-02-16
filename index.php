@@ -72,7 +72,7 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 	<meta http-equiv="expires" content="0" />
 	<meta http-equiv="pragma" content="no-cache" />
 	<link rel="shortcut icon" href="/images/favicon.ico?version=<?php echo $versionCmd; ?>" type="image/x-icon" />
-	<title><?php echo "$MYCALL"." - ".$lang['digital_voice']." ".$lang['dashboard'];?></title>
+	<title><?php echo "$MYCALL"." - " . __( 'Digital Voice' ) . " ".__( 'Dashboard' );?></title>
 	<link rel="stylesheet" type="text/css" href="/css/font-awesome-4.7.0/css/font-awesome.min.css?version=<?php echo $versionCmd; ?>" />
 	<?php include_once "config/browserdetect.php"; ?>
 	<script type="text/javascript" src="/js/jquery.min.js?version=<?php echo $versionCmd; ?>"></script>
@@ -261,7 +261,7 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 		<code><p id="mqtt-message" style="white-space: normal"></p></code>
 		
 <hr />
-               <div class="SmallHeader shLeft noMob"><a style="border-bottom: 1px dotted;" class="tooltip" href="#"><?php echo $lang['hostname'].": ";?> <span><strong>System IP Address<br /></strong><?php echo str_replace(',', ',<br />', exec('hostname -I'));?> </span>  <?php echo exec('cat /etc/hostname'); ?></a></div>
+               <div class="SmallHeader shLeft noMob"><a style="border-bottom: 1px dotted;" class="tooltip" href="#"><?php echo __( 'Hostname' ).": ";?> <span><strong>System IP Address<br /></strong><?php echo str_replace(',', ',<br />', exec('hostname -I'));?> </span>  <?php echo exec('cat /etc/hostname'); ?></a></div>
 		<div class="SmallHeader shRight noMob">
 		<div id="CheckUpdate">
 		<?php
@@ -270,7 +270,7 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 		</div><br />
 		</div>
 
-		<h1>WPSD <?php echo $lang['digital_voice']." ".$lang['dashboard_for']." <code style='font-weight:550;'>".$_SESSION['MYCALL']."</code>"; ?></h1>
+		<h1>WPSD <?php echo __( 'Digital Voice' ) . " ".__( 'Dashboard for' )." <code style='font-weight:550;'>".$_SESSION['MYCALL']."</code>"; ?></h1>
 		<div id="CheckMessage">
 		<?php
 		    include('includes/messages.php');
@@ -282,17 +282,17 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 		    <span id="DateTime"></span>
 		  </div>
 		  <?php if ($_SERVER["PHP_SELF"] == "/admin/index.php") {
-		      echo ' <a class="menuconfig" href="/admin/configure.php">'.$lang['configuration'].'</a>';
-		      echo ' <a class="menuupdate noMob" href="/admin/update.php">'.$lang['update'].'</a>'."\n";
+		      echo ' <a class="menuconfig" href="/admin/configure.php">'.__( 'Configuration' ).'</a>';
+		      echo ' <a class="menuupdate noMob" href="/admin/update.php">'.__( 'WPSD Update' ).'</a>'."\n";
 		      echo ' <a class="menuadvanced noMob" href="/admin/advanced/">Advanced</a>'."\n";
-		      echo ' <a class="menupower" href="/admin/power.php">'.$lang['power'].'</a>'."\n";
+		      echo ' <a class="menupower" href="/admin/power.php">'.__( 'Power' ).'</a>'."\n";
 		      echo ' <a class="menusysinfo noMob" href="/admin/sysinfo.php">System Details</a>'."\n";
-		      echo ' <a class="menulogs noMob" href="/admin/live_log.php">'.$lang['live_logs'].'</a>'."\n";
+		      echo ' <a class="menulogs noMob" href="/admin/live_log.php">'.__( 'Log Viewer' ).'</a>'."\n";
 		      echo ' <a class="menuappearance noMob" href="/admin/appearance.php">Appearance</a>'."\n";
-		      echo ' <a class="menudashboard" href="/">'.$lang['dashboard'].'</a>'."\n";
+		      echo ' <a class="menudashboard" href="/">'.__( 'Dashboard' ).'</a>'."\n";
 		    }
                     if ($_SERVER["PHP_SELF"] !== "/admin/index.php") {
-                        echo '<a class="menuadmin" href="/admin/">'.$lang['admin'].'</a>'."\n";
+                        echo '<a class="menuadmin" href="/admin/">'.__( 'Admin' ).'</a>'."\n";
 		    	echo '<a class="menuhwinfo noMob" href="#">SysInfo</a>';
 		        echo '<a class="menusimple noMob" href="/simple/">Simple View</a>';
 		    	echo '<a class="menulive" href="/live/">Live Caller</a>';

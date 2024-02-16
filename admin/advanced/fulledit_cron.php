@@ -71,7 +71,7 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/config/version.php';
 		?>
 		<form name="test" method="post" action="">
 		    <textarea name="data" cols="80" rows="45"><?php echo $theData; ?></textarea><br />
-		    <input type="submit" name="submit" value="<?php echo $lang['apply']; ?>" />
+		    <input type="submit" name="submit" value="<?php echo __( 'Apply Changes' ); ?>" />
 		</form>
 		
 	    </div>

@@ -15,14 +15,14 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/config/ircddblocal.php';
 include_once $_SERVER['DOCUMENT_ROOT'].'/config/language.php';	      // Translation Code
 ?>
 <br />
-<div style="text-align:left;font-weight:bold;"><?php echo $lang['active_starnet_groups'];?></div>
+<div style="text-align:left;font-weight:bold;"><?php echo __( 'Active Starnet Groups' );?></div>
 <table style="table-layout: fixed;" id="starNetGrps">
     <tr>
-	<th><a class="tooltip" href="#"><?php echo $lang['callsign'];?><span><b>Starnet Callsign</b></span></a></th>
-	<th><a class="tooltip" href="#"><?php echo $lang['logoff'];?><span><b>Starnet Logoff Callsign</b></span></a></th>
-	<th colspan="3"><a class="tooltip" href="#"><?php echo $lang['info'];?><span><b>Infotext</b></span></a></th>
-	<th><a class="tooltip" href="#"><?php echo $lang['utot'];?><span><b>User TimeOut (min)</b>inactivity time after which a user will be disconnected</span></a></th>
-	<th><a class="tooltip" href="#"><?php echo $lang['gtot'];?><span><b>Group TimeOut (min)</b>inactivity time after which the group will be disconnected</span></a></th>
+	<th><a class="tooltip" href="#"><?php echo __( 'Callsign' );?><span><b>Starnet Callsign</b></span></a></th>
+	<th><a class="tooltip" href="#"><?php echo __( 'LogOff' );?><span><b>Starnet Logoff Callsign</b></span></a></th>
+	<th colspan="3"><a class="tooltip" href="#"><?php echo __( 'Information' );?><span><b>Infotext</b></span></a></th>
+	<th><a class="tooltip" href="#"><?php echo __( 'UTOT' );?><span><b>User TimeOut (min)</b>inactivity time after which a user will be disconnected</span></a></th>
+	<th><a class="tooltip" href="#"><?php echo __( 'GTOT' );?><span><b>Group TimeOut (min)</b>inactivity time after which the group will be disconnected</span></a></th>
     </tr>
     <?php
     $ci = 0;
@@ -111,12 +111,12 @@ for ($i = 1;$i < 6; $i++) {
 
 if ($active >= 1) {
     
-    echo "<b>".$lang['active_starnet_members']."</b>\n";
+    echo "<b>".__( 'Active Starnet Group Members' )."</b>\n";
     echo "<table style=\"table-layout: fixed;\">\n";
     echo "<tr>\n";
-    echo "<th><a class=tooltip href=\"#\">".$lang['time']." (".date('T').")<span><b>Time of Login</b></span></a></th>\n";
-    echo "<th><a class=tooltip href=\"#\">".$lang['group']."<span><b>Starnet Callsign</b></span></a></th>\n";
-    echo "<th><a class=tooltip href=\"#\">".$lang['callsign']."<span><b>Callsign</b></span></a></th>\n";
+    echo "<th><a class=tooltip href=\"#\">".__( 'Time' )." (".date('T').")<span><b>Time of Login</b></span></a></th>\n";
+    echo "<th><a class=tooltip href=\"#\">".__( 'Group' )."<span><b>Starnet Callsign</b></span></a></th>\n";
+    echo "<th><a class=tooltip href=\"#\">".__( 'Callsign' )."<span><b>Callsign</b></span></a></th>\n";
     echo "</tr>\n";
     
     $ci = 0;

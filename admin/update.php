@@ -77,7 +77,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/update.php") {
     <meta http-equiv="pragma" content="no-cache" />
 <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
     <meta http-equiv="Expires" content="0" />
-    <title>WPSD <?php echo $lang['digital_voice']." ".$lang['dashboard']." - ".$lang['update'];?></title>
+    <title>WPSD <?php echo __( 'Digital Voice' ) . " ".__( 'Dashboard' )." - ".__( 'WPSD Update' );?></title>
 <?php include_once $_SERVER['DOCUMENT_ROOT'].'/config/browserdetect.php'; ?>
     <link rel="stylesheet" type="text/css" href="/css/font-awesome-4.7.0/css/font-awesome.min.css" />
     <script type="text/javascript" src="/js/jquery.min.js?version=<?php echo $versionCmd; ?>"></script>
@@ -106,7 +106,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/update.php") {
 	     <div class="SmallHeader shRight noMob">
                <div id="CheckUpdate"><?php echo $version; ?></div><br />
              </div>
-             <h1>WPSD <?php echo $lang['digital_voice']." ".$lang['dashboard']." - ".$lang['update'];?></h1>
+             <h1>WPSD <?php echo __( 'Digital Voice' ) . " ".__( 'Dashboard' )." - ".__( 'WPSD Update' );?></h1>
              <div class="navbar">
               <script type= "text/javascript">
                $(document).ready(function() {
@@ -132,11 +132,11 @@ if ($_SERVER["PHP_SELF"] == "/admin/update.php") {
               <div class="headerClock"> 
                 <span id="timer"></span>
             </div>
-	    <a class="menuconfig" href="/admin/configure.php"><?php echo $lang['configuration'];?></a>
-	    <a class="menubackup" href="/admin/config_backup.php"><?php echo $lang['backup_restore'];?></a>
-	    <a class="menupower" href="/admin/power.php"><?php echo $lang['power'];?></a>
-	    <a class="menuadmin" href="/admin/"><?php echo $lang['admin'];?></a>
-	    <a class="menudashboard" href="/"><?php echo $lang['dashboard'];?></a>
+	    <a class="menuconfig" href="/admin/configure.php"><?php echo __( 'Configuration' );?></a>
+	    <a class="menubackup" href="/admin/config_backup.php"><?php echo __( 'Backup/Restore' );?></a>
+	    <a class="menupower" href="/admin/power.php"><?php echo __( 'Power' );?></a>
+	    <a class="menuadmin" href="/admin/"><?php echo __( 'Admin' );?></a>
+	    <a class="menudashboard" href="/"><?php echo __( 'Dashboard' );?></a>
 	</div>
   </div>
   <div class="contentwide">
