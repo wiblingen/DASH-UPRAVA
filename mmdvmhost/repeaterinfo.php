@@ -126,7 +126,7 @@ $numDMRmasters = exec('cd /var/log/pi-star ; /usr/local/bin/RemoteCommand '.$_SE
 <div class="mode_flex" id="rptInfoTable">
   <div class="mode_flex row">
     <div class="mode_flex column">
-      <div class="divTableHead"><?php echo $lang['modes_enabled'];?></div>
+      <div class="divTableHead"><?php echo __( 'Mode Status' );?></div>
     </div>
   </div>
 
@@ -201,7 +201,7 @@ $numDMRmasters = exec('cd /var/log/pi-star ; /usr/local/bin/RemoteCommand '.$_SE
 <div class="mode_flex">
   <div class="mode_flex row">
     <div class="mode_flex column">
-      <div class="divTableHead"><?php echo $lang['net_status'];?></div>
+      <div class="divTableHead"><?php echo __( 'Network Status' );?></div>
     </div>
   </div>
 
@@ -305,7 +305,7 @@ if ( $testMMDVModeDSTAR == 1 || isPaused("D-Star") ) { //Hide the D-Star Reflect
     $linkedTo = getActualLink($reverseLogLinesMMDVM, "D-Star");
 ?>
 <div class="divTable">
-  <div class="divTableHead"><?php echo $lang['dstar_repeater'];?></div>
+  <div class="divTableHead"><?php echo __( 'D-Star Status' );?></div>
   <div class="divTableBody">
     <div class="divTableRow center">
       <div class="divTableHeadCell">RPT1</div>
@@ -318,7 +318,7 @@ if ( $testMMDVModeDSTAR == 1 || isPaused("D-Star") ) { //Hide the D-Star Reflect
   </div>
 </div>
 <div class="divTable">
-  <div class="divTableHead"><?php echo $lang['dstar_net']; ?></div>
+  <div class="divTableHead"><?php echo __( 'D-Star Network' ); ?></div>
   <div class="divTableBody">
     <?php
         if (isPaused("D-Star")) {
@@ -453,7 +453,7 @@ if ( $testMMDVModeDSTAR == 1 || isPaused("D-Star") ) { //Hide the D-Star Reflect
 	    }
 	    ?>
 <div class="divTable">
-  <div class="divTableHead"><?php echo $lang['dmr_repeater'];?></div>
+  <div class="divTableHead"><?php echo __( 'DMR Status' );?></div>
   <div class="divTableBody">
    <?php if (getConfigItem("DMR Network", "Slot1", $_SESSION['MMDVMHostConfigs']) == 1) { ?>
     <div class="divTableRow center">
@@ -493,7 +493,7 @@ if ( $testMMDVModeDSTAR == 1 || isPaused("D-Star") ) { //Hide the D-Star Reflect
 </div>
 <div class="divTable">
   <?php if ($numDMRmasters <= 1) { ?>
-  <div class="divTableHead"><?php echo $lang['dmr_master'];?></div>
+  <div class="divTableHead"><?php echo __( 'DMR Master' );?></div>
   <?php } else { ?>
   <div class="divTableHead">DMR Masters</div>
   <?php } ?>
@@ -657,14 +657,14 @@ if ( $testMMDVModeDSTAR == 1 || isPaused("D-Star") ) { //Hide the D-Star Reflect
 <?php
 if (isPaused("YSF")) {
 ?>
-  <div class="divTableHead"><?php echo $lang['ysf_net'];?></div>
+  <div class="divTableHead"><?php echo __( 'YSF Status' );?></div>
   <div class="divTableBody">
     <div class="divTableRow center">
 <?php
     echo "<div class='divTableCell cell_content'><div style=\"background: $tableRowEvenBg;\" title=\"YSF Mode Paused\">Mode Paused</div></div>\n";
 } else {
 ?>
-  <div class="divTableHead"><?php echo $lang['ysf_net']." ".$ysfLinkState; ?></div>
+  <div class="divTableHead"><?php echo __( 'YSF Status' )." ".$ysfLinkState; ?></div>
   <div class="divTableBody">
     <div class="divTableRow center">
 <?php
@@ -735,7 +735,7 @@ if (getServiceEnabled('/etc/dgidgateway') == 1 )  { // Hide DGId GW info when GW
 <?php
 	    echo "<div class='divTableHeadCell'>DMR ID</div><div class='divTableCell cell_content'><div style=\"background: $tableRowEvenBg;\">".$_SESSION['YSF2DMRConfigs']['DMR Network']['Id']."</div></div>\n";
 	    echo '</div><div class="divTableRow center">';
-	    echo "<div class='divTableHeadCell'>YSF2".$lang['dmr_master']."</div>\n";
+	    echo "<div class='divTableHeadCell'>YSF2".__( 'DMR Master' )."</div>\n";
             echo "<div class='divTableCell cell_content'><div style=\"background: $tableRowEvenBg;\" title=\"".$dmrMasterHostTooltip."\">".$dmrMasterHost."</div></div>\n";
 ?>
     </div>
@@ -749,7 +749,7 @@ if (getServiceEnabled('/etc/dgidgateway') == 1 )  { // Hide DGId GW info when GW
 	if ( $testMMDVModeP25 == 1 || $testYSF2P25 || isPaused("P25") ) { //Hide the P25 information when P25 Network mode not enabled.
 ?>
 <div class="divTable">
-  <div class="divTableHead"><?php echo $lang['p25_radio']; ?></div>
+  <div class="divTableHead"><?php echo __( 'P25 Status' ); ?></div>
   <div class="divTableBody">
     <div class="divTableRow center">
 <?php
@@ -757,7 +757,7 @@ if (getServiceEnabled('/etc/dgidgateway') == 1 )  { // Hide DGId GW info when GW
 		echo "<div class='divTableHeadCell'>NAC</div><div class='divTableCell cell_content mono'><div style=\"background: $tableRowEvenBg;\">".getConfigItem("P25", "NAC", $_SESSION['MMDVMHostConfigs'])."</div></div>\n";
 	    }
 	    echo "</div>\n<div class='divTableRow center'>\n";
-	    echo "<div class='divTableHeadCell'>".$lang['p25_net']."</div>\n";
+	    echo "<div class='divTableHeadCell'>".__( 'P25 Network' )."</div>\n";
 	    if (isPaused("P25")) {
 		echo "<div class='divTableCell cell_content'><div style=\"background: $tableRowEvenBg;\">Mode Paused</div></div>\n";
 	    } else {
@@ -800,14 +800,14 @@ if (getServiceEnabled('/etc/dgidgateway') == 1 )  { // Hide DGId GW info when GW
 if (getConfigItem("NXDN", "RAN", $_SESSION['MMDVMHostConfigs'])) {
 ?>
 <div class="divTable">
-  <div class="divTableHead"><?php echo $lang['nxdn_radio']; ?></div>
+  <div class="divTableHead"><?php echo __( 'NXDN Status' ); ?></div>
   <div class="divTableBody">
     <div class="divTableRow center">
 <?php
 	echo "<div class='divTableHeadCell'>RAN</div>";
 	echo "<div class='divTableCell cell_content mono'><div style=\"background: $tableRowEvenBg;\">".getConfigItem("NXDN", "RAN", $_SESSION['MMDVMHostConfigs'])."</div></div>\n";
 	echo "</div>\n<div class='divTableRow center'>";
-	echo "<div class='divTableHeadCell'>".$lang['nxdn_net']."</div>\n";
+	echo "<div class='divTableHeadCell'>".__( 'NXDN Network' )."</div>\n";
 	if (isPaused("NXDN")) {
 	    echo "<div class='divTableCell cell_content'><div style=\"background: $tableRowEvenBg;\">Mode Paused</div></div>\n";
 	} else {

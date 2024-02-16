@@ -358,7 +358,7 @@ checkSessionValidity();
                 }
 		    }
 		    echo "</table>\n";
-                    echo '<br /><input type="submit" value="'.$lang['apply'].'" />'."\n";
+                    echo '<br /><input type="submit" value="'.__( 'Apply Changes' ).'" />'."\n";
                     echo "<br />\n";
                     echo "<br />\n";
         }
@@ -374,7 +374,7 @@ checkSessionValidity();
 		echo '</form>'."\n";
 		echo '<input type="button" onclick="javascript:cssDownload();" value="Download Appearance Settings" />'."\n";
 		echo '<input type="button" onclick="javascript:cssUpload();" value="Upload &amp; Apply Appearance Settings" />'."\n";
-		echo '<input style="background:crimson;color:white;" type="button" onclick="javascript:cssReset();" value="Appearance Settings '.$lang['factory_reset'].'" />'."\n";
+		echo '<input style="background:crimson;color:white;" type="button" onclick="javascript:cssReset();" value="Appearance Settings '.__( 'Factory Reset' ).'" />'."\n";
 		echo "<br />\n";
 		echo "<br />\n";
 		?>
