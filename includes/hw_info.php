@@ -91,8 +91,8 @@ if (empty($VNStatGetData) == false) {
 <div class="divTable" id="hwInfoTable">
   <div class="divTableBody">
     <div class="divTableRow">
-      <div class="divTableHeadCell"><a class="tooltip" href="#"><?php echo $lang['cpu_load'];?><span><strong><?php echo $lang['cpu_load'];?></strong></a></span></div>
-      <div class="divTableHeadCell"><a class="tooltip" href="#"><?php echo $lang['cpu_temp'];?><span><strong>CPU Temp</strong></a><span></div>
+      <div class="divTableHeadCell"><a class="tooltip" href="#"><?php echo __( 'CPU Load' );?><span><strong><?php echo __( 'CPU Load' );?></strong></a></span></div>
+      <div class="divTableHeadCell"><a class="tooltip" href="#"><?php echo __( 'CPU Temp' );?><span><strong>CPU Temp</strong></a><span></div>
       <div class="divTableHeadCell"><a class="tooltip" href="#">Memory Usage<span><strong>Memory Usage</strong></a></span></div>
       <div class="divTableHeadCell"><a class="tooltip" href="#">Disk Usage<span><strong>Disk Usage</strong></a></span></div>
       <div class="divTableHeadCell"><a class="tooltip" href="#">Network Traffic<span><strong>Total Network Traffic Today</strong></a></span></div>

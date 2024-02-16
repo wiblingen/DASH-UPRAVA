@@ -57,7 +57,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/power.php") {
 	    <meta http-equiv="pragma" content="no-cache" />
 	    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
 	    <meta http-equiv="Expires" content="0" />
-	    <title>WPSD <?php echo $lang['digital_voice']." ".$lang['dashboard']." - ".$lang['power'];?></title>
+	    <title>WPSD <?php echo __( 'Digital Voice' ) . " ".__( 'Dashboard' )." - ".__( 'Power' );?></title>
 	    <link rel="stylesheet" type="text/css" href="/css/font-awesome-4.7.0/css/font-awesome.min.css" />
 <?php include_once $_SERVER['DOCUMENT_ROOT'].'/config/browserdetect.php'; ?>
         <script type="text/javascript" src="/js/jquery.min.js?version=<?php echo $versionCmd; ?>"></script>
@@ -77,7 +77,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/power.php") {
                       ?>
                       </div><br />
                     </div>
-		    <h1>WPSD <?php echo $lang['digital_voice']." - ".$lang['power'];?></h1>
+		    <h1>WPSD <?php echo __( 'Digital Voice' ) . " - ".__( 'Power' );?></h1>
 			<div class="navbar">
               <script type= "text/javascript">
                $(document).ready(function() {
@@ -103,17 +103,17 @@ if ($_SERVER["PHP_SELF"] == "/admin/power.php") {
               <div class="headerClock">
                 <span id="timer"></span>
             </div>
-			    <a class="menuconfig" href="/admin/configure.php"><?php echo $lang['configuration'];?></a>
-			    <a class="menubackup noMob" href="/admin/config_backup.php"><?php echo $lang['backup_restore'];?></a>
-			    <a class="menuupdate noMob" href="/admin/update.php"><?php echo $lang['update'];?></a>
-			    <a class="menuadmin noMob" href="/admin/"><?php echo $lang['admin'];?></a>
-			    <a class="menudashboard" href="/"><?php echo $lang['dashboard'];?></a>
+			    <a class="menuconfig" href="/admin/configure.php"><?php echo __( 'Configuration' );?></a>
+			    <a class="menubackup noMob" href="/admin/config_backup.php"><?php echo __( 'Backup/Restore' );?></a>
+			    <a class="menuupdate noMob" href="/admin/update.php"><?php echo __( 'WPSD Update' );?></a>
+			    <a class="menuadmin noMob" href="/admin/"><?php echo __( 'Admin' );?></a>
+			    <a class="menudashboard" href="/"><?php echo __( 'Dashboard' );?></a>
 			</div>
 		</div>
 		<div class="contentwide">
 		    <?php if (!empty($_POST)) { ?>
 			<table width="100%">
-			    <tr><th colspan="2"><?php echo $lang['power'];?></th></tr>
+			    <tr><th colspan="2"><?php echo __( 'Power' );?></th></tr>
 			    <?php
 			    if ( escapeshellcmd($_POST["action"]) == "reboot" ) {
 				echo '<tr><td colspan="2" style="background: #000000; color: #4DEEEA;"><br /><br />Your Hotspot is rebooting...
@@ -140,7 +140,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/power.php") {
 			<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 			    <table width="100%">
 				<tr>
-				    <th colspan="2"><?php echo $lang['power'];?></th>
+				    <th colspan="2"><?php echo __( 'Power' );?></th>
 				</tr>
 				<tr>
 				    <td align="center">

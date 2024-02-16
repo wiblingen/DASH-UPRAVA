@@ -483,7 +483,7 @@ $MYCALL=strtoupper($callsign);
     <meta http-equiv="pragma" content="no-cache" />
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
     <meta http-equiv="Expires" content="0" />
-    <title><?php echo "$MYCALL"." - ".$lang['digital_voice']." ".$lang['dashboard']." - ".$lang['configuration'];?></title>
+    <title><?php echo "$MYCALL"." - " . __( 'Digital Voice' ) . " ".__( 'Dashboard' )." - ".__( 'Configuration' );?></title>
     <link rel="stylesheet" type="text/css" href="/css/font-awesome-4.7.0/css/font-awesome.min.css?version=<?php echo $versionCmd; ?>" />
     <?php include_once "../config/browserdetect.php"; ?>
     <script src="/js/jquery.min.js?version=<?php echo $versionCmd; ?>"></script>
@@ -837,7 +837,7 @@ if (file_exists($bmAPIkeyFile) && fopen($bmAPIkeyFile,'r')) {
   ?>
   </div><br />
 </div>
-<h1>WPSD <?php echo $lang['digital_voice']." - ".$lang['configuration'];?></h1>
+<h1>WPSD <?php echo __( 'Digital Voice' ) . " - ".__( 'Configuration' );?></h1>
         <div class="navbar">
               <script type= "text/javascript">
                $(document).ready(function() {
@@ -863,15 +863,15 @@ if (file_exists($bmAPIkeyFile) && fopen($bmAPIkeyFile,'r')) {
               <div class="headerClock">
                 <span id="timer"></span>
             </div>
-			<a class="noMob menureset" href="javascript:factoryReset();"><?php echo $lang['factory_reset'];?></a>
-			<a class="noMob menubackup" href="/admin/config_backup.php"><?php echo $lang['backup_restore'];?></a>
-			<a class="noMob menuupdate" href="/admin/update.php"><?php echo $lang['update'];?></a>
+			<a class="noMob menureset" href="javascript:factoryReset();"><?php echo __( 'Factory Reset' );?></a>
+			<a class="noMob menubackup" href="/admin/config_backup.php"><?php echo __( 'Backup/Restore' );?></a>
+			<a class="noMob menuupdate" href="/admin/update.php"><?php echo __( 'WPSD Update' );?></a>
 			<a class="noMob menuadvanced" href="/admin/advanced/">Advanced</a>
-			<a class="menupower" href="/admin/power.php"><?php echo $lang['power'];?></a>
-			<a class="menuadmin" href="/admin/"><?php echo $lang['admin'];?></a>
+			<a class="menupower" href="/admin/power.php"><?php echo __( 'Power' );?></a>
+			<a class="menuadmin" href="/admin/"><?php echo __( 'Admin' );?></a>
 			<?php if (file_exists("/etc/dstar-radio.mmdvmhost")) { ?>
 			<?php } ?>
-			<a class="menudashboard" href="/"><?php echo $lang['dashboard'];?></a>
+			<a class="menudashboard" href="/"><?php echo __( 'Dashboard' );?></a>
 		    </div>
 </div>
 <?php
@@ -4469,7 +4469,7 @@ else:
     echo '<form id="config" action="'.htmlspecialchars($_SERVER["PHP_SELF"]).'" method="post">';
 ?>
     <input type="hidden" name="controllerSoft" value="MMDVM" />
-    <h2 class="ConfSec"><?php echo $lang['general_config'];?></h2>
+    <h2 class="ConfSec"><?php echo __( 'General Configuration' );?></h2>
     <table>
     <tr>
     </tr>
@@ -4479,12 +4479,12 @@ else:
     <td align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'><i class="fa fa-exclamation-triangle"></i> Do not add suffixes such as ".local", etc. <strong>Note:</strong> A reboot is required for this change to take effect.</td>
     </tr>
     <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['node_call'];?>:<span><b>Gateway Callsign</b>This is your licenced callsign for use on this gateway. Do not append any suffix.</span></a></td>
+    <td align="left"><a class="tooltip2" href="#"><?php echo __( 'Node Callsign' );?>:<span><b>Gateway Callsign</b>This is your licenced callsign for use on this gateway. Do not append any suffix.</span></a></td>
     <td align="left" colspan="2"><input type="text" name="confCallsign" id="confCallsign" size="13" maxlength="7" value="<?php echo $configs['gatewayCallsign'] ?>" oninput="enforceValidCharsAndConvertToUpper(this)" /></td>
     <td align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'><i class="fa fa-exclamation-triangle"></i> Do not add suffixes such as "-G"</td>
     </tr>
     <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['dmr_id'];?>:<span><b>DMR/CCS7 ID</b>Enter your DMR / CCS7 ID here</span></a></td>
+    <td align="left"><a class="tooltip2" href="#"><?php echo __( 'DMR/CCS7 ID' );?>:<span><b>DMR/CCS7 ID</b>Enter your DMR / CCS7 ID here</span></a></td>
     <td align="left" colspan="2"><input type="text" name="dmrId" id="dmrId" size="13" maxlength="9" value="<?php if (isset($configmmdvm['General']['Id'])) { echo $configmmdvm['General']['Id']; } else { echo $configmmdvm['DMR']['Id']; } ?>" /></td>
     <td align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'><i class="fa fa-info-circle"></i> Required for DMR Mode &amp; DMR Cross-Modes (If you don't have one, <a href="https://radioid.net/account/register" target="_new">get a DMR ID from RadioID.Net</a>)</td>
     </tr>
@@ -4495,7 +4495,7 @@ else:
     </tr>
     <?php if (isDVmegaCast() == 0) { // Begin DVMega Cast logic... ?>
     <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['controller_mode'];?>:<span><b>TRX Mode</b>Choose the mode type Simplex node or Duplex repeater.</span></a></td>
+    <td align="left"><a class="tooltip2" href="#"><?php echo __( 'Radio Mode' );?>:<span><b>TRX Mode</b>Choose the mode type Simplex node or Duplex repeater.</span></a></td>
     <?php
         if ($configmmdvm['Info']['RXFrequency'] === $configmmdvm['Info']['TXFrequency']) {
                 echo "   <td align=\"left\" colspan=\"2\"><input type=\"radio\" name=\"trxMode\" value=\"SIMPLEX\" checked=\"checked\" /> Simplex  <input type=\"radio\" name=\"trxMode\" value=\"DUPLEX\" /> Duplex </td>\n";
@@ -4512,17 +4512,17 @@ else:
     <?php if ($configModem['Modem']['Hardware'] !== 'dvmpicast') {   // Begin DVMega Cast logic...
     if ($configmmdvm['Info']['TXFrequency'] === $configmmdvm['Info']['RXFrequency']) {
 	echo "    <tr>\n";
-	echo "    <td align=\"left\"><a class=\"tooltip2\" href=\"#\">".$lang['radio_freq'].":<span><b>Radio Frequency</b>This is the Frequency your<br />hotspot radio is on</span></a></td>\n";
+	echo "    <td align=\"left\"><a class=\"tooltip2\" href=\"#\">".__( 'Radio Frequency' ).":<span><b>Radio Frequency</b>This is the Frequency your<br />hotspot radio is on</span></a></td>\n";
 	echo "    <td align=\"left\" colspan=\"3\"><input type=\"text\" id=\"confFREQ\" onkeyup=\"checkFrequency(); return false;\" name=\"confFREQ\" size=\"13\" maxlength=\"12\" value=\"".number_format($configmmdvm['Info']['RXFrequency'], 0, '.', '.')."\" /> MHz</td>\n";
 	echo "    </tr>\n";
 	}
 	else {
 	echo "    <tr>\n";
-	echo "    <td align=\"left\"><a class=\"tooltip2\" href=\"#\">".$lang['radio_freq']." RX:<span><b>Radio Frequency</b>This is the Frequency your<br />repeater will listen on</span></a></td>\n";
+	echo "    <td align=\"left\"><a class=\"tooltip2\" href=\"#\">".__( 'Radio Frequency' )." RX:<span><b>Radio Frequency</b>This is the Frequency your<br />repeater will listen on</span></a></td>\n";
 	echo "    <td align=\"left\" colspan=\"3\"><input type=\"text\" id=\"confFREQrx\" onkeyup=\"checkFrequency(); return false;\" name=\"confFREQrx\" size=\"13\" maxlength=\"12\" value=\"".number_format($configmmdvm['Info']['RXFrequency'], 0, '.', '.')."\" /> MHz</td>\n";
 	echo "    </tr>\n";
 	echo "    <tr>\n";
-	echo "    <td align=\"left\"><a class=\"tooltip2\" href=\"#\">".$lang['radio_freq']." TX:<span><b>Radio Frequency</b>This is the Frequency your<br />repeater will transmit on</span></a></td>\n";
+	echo "    <td align=\"left\"><a class=\"tooltip2\" href=\"#\">".__( 'Radio Frequency' )." TX:<span><b>Radio Frequency</b>This is the Frequency your<br />repeater will transmit on</span></a></td>\n";
 	echo "    <td align=\"left\" colspan=\"3\"><input type=\"text\" id=\"confFREQtx\" onkeyup=\"checkFrequency(); return false;\" name=\"confFREQtx\" size=\"13\" maxlength=\"12\" value=\"".number_format($configmmdvm['Info']['TXFrequency'], 0, '.', '.')."\" /> MHz</td>\n";
 	echo "    </tr>\n";
 	}
@@ -4531,7 +4531,7 @@ else:
     <input type="hidden" name="confFREQ" value="431150000" />
     <?php } // end DVMega Cast logic ?>
     <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['radio_type'];?>:<span><b>Radio/Modem</b>What kind of radio or modem hardware do you have?</span></a></td>
+    <td align="left"><a class="tooltip2" href="#"><?php echo __( 'Radio/Modem Type' );?>:<span><b>Radio/Modem</b>What kind of radio or modem hardware do you have?</span></a></td>
     <td align="left" colspan="3"><select name="confHardware" class="confHardware">
 		<?php if (isDVmegaCast() == 1) { // Begin DVMega Cast logic... ?>
                 <option<?php if ($configModem['Modem']['Hardware'] === 'dvmpicast') {           echo ' selected="selected"';}?> value="dvmpicast">DV-Mega Cast Base Station Mode (Main Unit)</option>
@@ -4622,7 +4622,7 @@ else:
 	</tr>
 <?php } // End DVMega Cast logic ?>
     <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['timezone'];?>:<span><b>System TimeZone</b>Set the system timezone</span></a></td>
+    <td align="left"><a class="tooltip2" href="#"><?php echo __( 'System Time Zone' );?>:<span><b>System TimeZone</b>Set the system timezone</span></a></td>
     <td style="text-align: left;"><select name="systemTimezone" class="systemTimezone">
 <?php
   exec('timedatectl list-timezones', $tzList);
@@ -4648,7 +4648,7 @@ else:
     $lang_dir = './lang';
     if (is_dir($lang_dir)) {
 	echo '    <tr>'."\n";
-	echo '    <td align="left"><a class="tooltip2" href="#">'.$lang['dash_lang'].':<span><b>Dashboard Language</b>Set the language for the dashboard.</span></a></td>'."\n";
+	echo '    <td align="left"><a class="tooltip2" href="#">'.__( 'Dashboard Language' ).':<span><b>Dashboard Language</b>Set the language for the dashboard.</span></a></td>'."\n";
 	echo '    <td align="left" colspan="3"><select name="dashboardLanguage">'."\n";
 
 	if ($dh = opendir($lang_dir)) {
@@ -4684,26 +4684,26 @@ else:
     <tr>
     </tr>
     <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['lattitude'];?>:<span><b>Gateway Latitude</b>This is the latitude where the gateway is located (positive number for North, negative number for South) - Set to 0 to hide your hotspot location</span></a></td>
+    <td align="left"><a class="tooltip2" href="#"><?php echo __( 'Latitude' );?>:<span><b>Gateway Latitude</b>This is the latitude where the gateway is located (positive number for North, negative number for South) - Set to 0 to hide your hotspot location</span></a></td>
     <td align="left" colspan="3"><input type="text" id="confLatitude" name="confLatitude" size="13" maxlength="9" value="<?php echo $configs['latitude'] ?>" /> degrees (positive value for North, negative for South)</td>
     </tr>
     <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['longitude'];?>:<span><b>Gateway Longitude</b>This is the longitude where the gateway is located (positive number for East, negative number for West) - Set to 0 to hide your hotspot location</span></a></td>
+    <td align="left"><a class="tooltip2" href="#"><?php echo __( 'Longitude' );?>:<span><b>Gateway Longitude</b>This is the longitude where the gateway is located (positive number for East, negative number for West) - Set to 0 to hide your hotspot location</span></a></td>
     <td align="left" colspan="3"><input type="text" id="confLongitude" name="confLongitude" size="13" maxlength="9" value="<?php echo $configs['longitude'] ?>" /> degrees (positive value for East, negative for West)</td>
     </tr>
     <tr>
     <td colspan="4" align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'><i class="fa fa-info-circle"></i> Hint: You can use <a href="https://w0chp.radio/get-your-location-coords/" target="_new">this tool to try and calculate your location coordinates.</a></td>
     </tr>
     <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['town'];?>:<span><b>Gateway City/State</b>The City/State where the gateway is located</span></a></td>
+    <td align="left"><a class="tooltip2" href="#"><?php echo __( 'Town' );?>:<span><b>Gateway City/State</b>The City/State where the gateway is located</span></a></td>
     <td align="left" colspan="3"><input type="text" name="confDesc1" size="30" maxlength="30" value="<?php echo $configs['description1'] ?>" /></td>
     </tr>
     <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['country'];?>:<span><b>Gateway Country</b>The country where the gateway is located</span></a></td>
+    <td align="left"><a class="tooltip2" href="#"><?php echo __( 'Country' );?>:<span><b>Gateway Country</b>The country where the gateway is located</span></a></td>
     <td align="left" colspan="3"><input type="text" name="confDesc2" size="30" maxlength="30" value="<?php echo $configs['description2'] ?>" /></td>
     </tr>
     <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['url'];?>:<span><b>URL</b>Your URL you'd like to be displayed in various networks/gateways</span></a></td>
+    <td align="left"><a class="tooltip2" href="#"><?php echo __( 'URL' );?>:<span><b>URL</b>Your URL you'd like to be displayed in various networks/gateways</span></a></td>
     <td align="left" colspan="2"><input type="text" name="confURL" size="45" maxlength="255" value="<?php echo $configs['url'] ?>" /></td>
     <td align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'>
     <input type="radio" name="urlAuto" value="auto"<?php if (strpos($configs['url'], 'www.qrz.com/db/'.$configmmdvm['General']['Callsign']) !== FALSE) {echo ' checked="checked"';} ?> />Auto
@@ -4831,13 +4831,13 @@ else:
     <input type="hidden" name="MMDVMModeDMR2YSF" value="OFF" />
     <input type="hidden" name="MMDVMModeDMR2NXDN" value="OFF" />
     <input type="hidden" name="MMDVMModePOCSAG" value="OFF" />
-    <h2 class="ConfSec"><?php echo $lang['mmdvmhost_config'];?></h2>
+    <h2 class="ConfSec"><?php echo __( 'Radio/MMDVMHost Modem Configuration' );?></h2>
     <table>
     <tr>
     <th class='config_head' colspan="4">Main Radio Modes</th>
     </tr>
     <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['d-star_mode'];?>:<span><b>D-Star Mode</b>Turn on D-Star Features</span></a></td>
+    <td align="left"><a class="tooltip2" href="#"><?php echo __( 'D-Star Mode' );?>:<span><b>D-Star Mode</b>Turn on D-Star Features</span></a></td>
     <?php
 	if ( $configmmdvm['D-Star']['Enable'] == 1 ) {
 	    echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-dstar\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeDSTAR\" value=\"ON\" checked=\"checked\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDSTARCheckboxCr." /><label id=\"aria-toggle-dstar\" role=\"checkbox\" tabindex=\"0\" aria-label=\"DStar Mode\" aria-checked=\"true\" onKeyPress=\"toggleDSTARCheckbox()\" onclick=\"toggleDSTARCheckbox()\" for=\"toggle-dstar\"><font style=\"font-size:0px\">DStar Mode</font></label></div></td>\n";
@@ -4851,7 +4851,7 @@ else:
     </td>
     </tr>
     <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['ysf_mode'];?>:<span><b>YSF Mode</b>Turn on YSF Features</span></a></td>
+    <td align="left"><a class="tooltip2" href="#"><?php echo __( 'YSF Mode' );?>:<span><b>YSF Mode</b>Turn on YSF Features</span></a></td>
     <?php
 	if ( $configmmdvm['System Fusion']['Enable'] == 1 ) {
 	    echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-ysf\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeFUSION\" value=\"ON\" checked=\"checked\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleYSFCheckboxCr." /><label id=\"aria-toggle-ysf\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Y S F Mode\" aria-checked=\"true\" onKeyPress=\"toggleYSFCheckbox()\" onclick=\"toggleYSFCheckbox()\" for=\"toggle-ysf\"><font style=\"font-size:0px\">Y S F Mode</font></label></div></td>\n";
@@ -4900,7 +4900,7 @@ else:
 
     <?php if (isDVmegaCast() == 0) { // Begin DVMega Cast logic... ?>
     <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['p25_mode'];?>:<span><b>P25 Mode</b>Turn on P25 Features</span></a></td>
+    <td align="left"><a class="tooltip2" href="#"><?php echo __( 'P25 Mode' );?>:<span><b>P25 Mode</b>Turn on P25 Features</span></a></td>
     <?php
 	if ( $configmmdvm['P25']['Enable'] == 1 ) {
 	    echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-p25\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeP25\" value=\"ON\" checked=\"checked\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleP25CheckboxCr." /><label id=\"aria-toggle-p25\" role=\"checkbox\" tabindex=\"0\" aria-label=\"P 25 Mode\" aria-checked=\"true\" onKeyPress=\"toggleP25Checkbox()\" onclick=\"toggleP25Checkbox()\" for=\"toggle-p25\"><font style=\"font-size:0px\">P 25 Mode</font></label></div></td>\n";
@@ -4914,7 +4914,7 @@ else:
     </td>
     </tr>
     <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['nxdn_mode'];?>:<span><b>NXDN Mode</b>Turn on NXDN Features</span></a></td>
+    <td align="left"><a class="tooltip2" href="#"><?php echo __( 'NXDN Mode' );?>:<span><b>NXDN Mode</b>Turn on NXDN Features</span></a></td>
     <?php
 	if ( $configmmdvm['NXDN']['Enable'] == 1 ) {
 	    echo "<td align=\"left\"><div class=\"switch\"><input id=\"toggle-nxdn\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"MMDVMModeNXDN\" value=\"ON\" checked=\"checked\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleNXDNCheckboxCr." /><label id=\"aria-toggle-nxdn\" role=\"checkbox\" tabindex=\"0\" aria-label=\"NXDN Mode\" aria-checked=\"true\" onKeyPress=\"toggleNXDNCheckbox()\" onclick=\"toggleNXDNCheckbox()\" for=\"toggle-nxdn\"><font style=\"font-size:0px\">NXDN Mode</font></label></div></td>\n";
@@ -5068,7 +5068,7 @@ else:
     <tr>
     </tr>
     <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['mmdvm_display'];?>:<span><b>Display Type</b>Choose your display type, if you have one.</span></a></td>
+    <td align="left"><a class="tooltip2" href="#"><?php echo __( 'MMDVM Display Type' );?>:<span><b>Display Type</b>Choose your display type, if you have one.</span></a></td>
     <td align="left" colspan="2">
 	<?php if (isDVmegaCast() == 1) { // Begin DVMega Cast logic... ?>
 	    <input type="hidden" name="mmdvmDisplayType" value="CAST" />
@@ -5182,7 +5182,7 @@ else:
     <?php } ?>
 
     <?php if ($configmmdvm['D-Star']['Enable'] == 1) { ?>
-	<h2 class="ConfSec"><?php echo $lang['dstar_config'];?></h2>
+	<h2 class="ConfSec"><?php echo __( 'D-Star Configuration' );?></h2>
 	<input type="hidden" name="confTimeAnnounce" value="OFF" />
 	<input type="hidden" name="confircddbEnabled" value="OFF" />
 	<input type="hidden" name="confHostFilesNoDExtra" value="OFF" />
@@ -5190,7 +5190,7 @@ else:
     <tr>
     </tr>
     <tr>
-    <td align="left" width="30%"><a class="tooltip2" href="#"><?php echo $lang['dstar_rpt1'];?>:<span><b>RPT1 Callsign</b>This is the RPT1 field for your radio</span></a></td>
+    <td align="left" width="30%"><a class="tooltip2" href="#"><?php echo __( 'RPT1 Callsign' );?>:<span><b>RPT1 Callsign</b>This is the RPT1 field for your radio</span></a></td>
     <td align="left" colspan="2" class="divTableCellMono"><?php echo $configs['repeaterCall1']; ?>
 	<select name="confDStarModuleSuffix" class="ModSel">
 	<?php echo "  <option value=\"".$configs['repeaterBand1']."\" selected=\"selected\">".$configs['repeaterBand1']."</option>\n"; ?>
@@ -5223,7 +5223,7 @@ else:
     </select></td>
     </tr>
     <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['dstar_rpt2'];?>:<span><b>RPT2 Callsign</b>This is the RPT2 field for your radio</span></a></td>
+    <td align="left"><a class="tooltip2" href="#"><?php echo __( 'RPT2 Callsign' );?>:<span><b>RPT2 Callsign</b>This is the RPT2 field for your radio</span></a></td>
     <td align="left" colspan="2" class="divTableCellMono"><?php echo $configs['repeaterCall1']; ?>&nbsp; G</td>
     </tr>
     <?php if (isDVmegaCast() == 1) { // Begin DVMega Cast logic...
@@ -5247,12 +5247,12 @@ else:
     </tr>
     <?php } // end DVmega Cast logic ?>
     <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['dstar_irc_password'];?>:<span><b>Remote Password</b>Used for ircDDBGateway remote control access</span></a></td>
+    <td align="left"><a class="tooltip2" href="#"><?php echo __( 'Remote Password' );?>:<span><b>Remote Password</b>Used for ircDDBGateway remote control access</span></a></td>
     <td align="left" colspan="2"><input type="password" name="confPassword" id="ircddbPass" size="30" maxlength="30" value="<?php echo $configs['remotePassword'] ?>" />
     <span toggle="#password-field" class="fa fa-fw fa-eye field_icon toggle-ircddb-password"></span></td>
     </tr>
     <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['dstar_default_ref'];?>:<span><b>Default Reflector</b>Used for setting the default reflector.</span></a></td>
+    <td align="left"><a class="tooltip2" href="#"><?php echo __( 'Default Reflector' );?>:<span><b>Default Reflector</b>Used for setting the default reflector.</span></a></td>
     <td align="left" colspan="1"><select name="confDefRef" class="confDefRef" 
 	onchange="if (this.options[this.selectedIndex].value == 'customOption') {
 	  toggleField(this,this.nextSibling);
@@ -5331,7 +5331,7 @@ fclose($dextraFile);
     <input type="radio" name="confDefRefAuto" value="OFF"<?php if ($configs['atStartup1'] == '0') {echo ' checked="checked"';} ?> />Manual Link</td>
     </tr>
     <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['dstar_irc_lang'];?>:<span><b>ircDDBGateway Language</b>Set your preferred language here</span></a></td>
+    <td align="left"><a class="tooltip2" href="#"><?php echo __( 'ircDDBGateway Language' );?>:<span><b>ircDDBGateway Language</b>Set your preferred language here</span></a></td>
     <td colspan="2" style="text-align: left;"><select name="ircDDBGatewayAnnounceLanguage">
 <?php
         $testIrcLanguage = $configs['language'];
@@ -5352,7 +5352,7 @@ fclose($dextraFile);
     </select></td>
     </tr>
     <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['dstar_irc_time'];?>:<span><b>Time Announce</b>Announce time hourly</span></a></td>
+    <td align="left"><a class="tooltip2" href="#"><?php echo __( 'Time Announcements' );?>:<span><b>Time Announce</b>Announce time hourly</span></a></td>
     <?php
 	if ( !file_exists('/etc/timeserver.disable') ) {
 		echo "<td align=\"left\" colspan=\"1\"><div class=\"switch\"><input id=\"toggle-timeAnnounce\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"confTimeAnnounce\" value=\"ON\" checked=\"checked\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDstarTimeAnnounceCr." /><label id=\"aria-toggle-timeAnnounce\" role=\"checkbox\" tabindex=\"0\" aria-label=\"D-Star Time Announcements\" aria-checked=\"true\" onKeyPress=\"toggleDstarTimeAnnounce()\" onclick=\"toggleDstarTimeAnnounce()\" for=\"toggle-timeAnnounce\"><font style=\"font-size:0px\">D-Star Time Announcements</font></label></div></td>\n";
@@ -5407,7 +5407,7 @@ $ysfHosts = fopen("/usr/local/etc/YSFHosts.txt", "r"); ?>
         <input type="hidden" name="useDGIdGateway" value="OFF" />
 	<input type="hidden" name="wiresXCommandPassthrough" value="OFF" />
 	<input type="hidden" name="FCSEnable" value="OFF" />
-	<h2 class="ConfSec"><?php echo $lang['ysf_config'];?></h2>
+	<h2 class="ConfSec"><?php echo __( 'Yaesu System Fusion Configuration' );?></h2>
     <table>
 <?php if ($configysf2dmr['Enabled']['Enabled'] == 1 || $configysf2nxdn['Enabled']['Enabled'] == 1 || $configysf2p25['Enabled']['Enabled'] == 1) { ?>
     <tr>
@@ -5417,7 +5417,7 @@ $ysfHosts = fopen("/usr/local/etc/YSFHosts.txt", "r"); ?>
     <tr>
     </tr>
     <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['ysf_startup_host'];?>:<span><b>YSF Host</b>Set your preferred YSF Host here</span></a></td>
+    <td align="left"><a class="tooltip2" href="#"><?php echo __( 'YSF Startup Host' );?>:<span><b>YSF Host</b>Set your preferred YSF Host here</span></a></td>
     <td colspan="2" style="text-align: left;"><select name="ysfStartupHost" class="ysfStartupHost">
 <?php
         if (isset($configysfgateway['Network']['Startup'])) {
@@ -5555,7 +5555,7 @@ $ysfHosts = fopen("/usr/local/etc/YSFHosts.txt", "r"); ?>
     <th class='config_head' colspan="4">YSF2DMR Cross-Mode Settings</th>
     </tr>
     <tr>
-    <td align="left"><a class="tooltip2" href="#">(YSF2DMR)<?php echo $lang['dmr_id'];?>:<span><b>CCS7/DMR ID</b>Enter your CCS7 / DMR ID here</span></a></td>
+    <td align="left"><a class="tooltip2" href="#">(YSF2DMR)<?php echo __( 'DMR/CCS7 ID' );?>:<span><b>CCS7/DMR ID</b>Enter your CCS7 / DMR ID here</span></a></td>
     <td align="left" colspan="2">
 <?php
 	if (isset($configysf2dmr['DMR Network']['Id'])) {
@@ -5585,7 +5585,7 @@ $ysfHosts = fopen("/usr/local/etc/YSFHosts.txt", "r"); ?>
 ?>
     </td></tr>
     <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['dmr_master'];?>:<span><b>DMR Master (YSF2DMR)</b>Set your preferred DMR master here</span></a></td>
+    <td align="left"><a class="tooltip2" href="#"><?php echo __( 'DMR Master' );?>:<span><b>DMR Master (YSF2DMR)</b>Set your preferred DMR master here</span></a></td>
     <td colspan="2" style="text-align: left;"><select name="ysf2dmrMasterHost" class="ysf2dmrMasterHost">
 <?php
         $testMMDVMysf2dmrMaster = $configysf2dmr['DMR Network']['Address'];
@@ -5628,7 +5628,7 @@ $ysfHosts = fopen("/usr/local/etc/YSFHosts.txt", "r"); ?>
       <td align="left" colspan="2"><?php if (isset($configysf2nxdn['NXDN Network']['Id'])) { echo $configysf2nxdn['NXDN Network']['Id']; } else { echo "Set your DMR/CCS7 ID in the 'General' Section Above"; } ?></td>
     </tr>
     <tr>
-        <td align="left"><a class="tooltip2" href="#"><?php echo $lang['nxdn_hosts'];?>:<span><b>NXDN Host</b>Set your preferred NXDN Host here</span></a></td>
+        <td align="left"><a class="tooltip2" href="#"><?php echo __( 'NXDN Hosts' );?>:<span><b>NXDN Host</b>Set your preferred NXDN Host here</span></a></td>
         <td colspan="2" style="text-align: left;"><select name="ysf2nxdnStartupDstId" class="ysf2nxdnStartupDstId">
 <?php
 	$nxdnHosts = fopen("/usr/local/etc/NXDNHosts.txt", "r");
@@ -5667,11 +5667,11 @@ $ysfHosts = fopen("/usr/local/etc/YSFHosts.txt", "r"); ?>
     <th class='config_head' colspan="4">YSF2P25 Cross-Mode Settings</th>
     </tr>
     <tr>
-      <td align="left"><a class="tooltip2" href="#">(YSF2P25) <?php echo $lang['dmr_id'];?>:<span><b>DMR ID</b>Enter your CCS7 / DMR ID here</span></a></td>
+      <td align="left"><a class="tooltip2" href="#">(YSF2P25) <?php echo __( 'DMR/CCS7 ID' );?>:<span><b>DMR ID</b>Enter your CCS7 / DMR ID here</span></a></td>
       <td align="left" colspan="2"><?php if (isset($configysf2p25['P25 Network']['Id'])) { echo $configysf2p25['P25 Network']['Id'];  } else { echo "Set your DMR/CCS7 ID in the 'General' Section Above"; }?></td>
     </tr>
     <tr>
-      <td align="left"><a class="tooltip2" href="#"><?php echo $lang['p25_hosts'];?>:<span><b>P25 Host</b>Set your preferred P25 Host here</span></a></td>
+      <td align="left"><a class="tooltip2" href="#"><?php echo __( 'P25 Hosts' );?>:<span><b>P25 Host</b>Set your preferred P25 Host here</span></a></td>
       <td colspan="2" style="text-align: left;"><select name="ysf2p25StartupDstId" class="ysf2p25StartupDstId">
 <?php
 	$p25Hosts = fopen("/usr/local/etc/P25Hosts.txt", "r");
@@ -5826,7 +5826,7 @@ $ysfHosts = fopen("/usr/local/etc/YSFHosts.txt", "r"); ?>
 				<?php } ?>
 				<?php if (isset($configmmdvm['M17']['CAN'])) { ?>
 					<tr>
-						<td align="left"><a class="tooltip2" href="#"><?php echo $lang['m17_can'];?>:<span><b>M17 CAN</b>Set your CAN (Channel Access Number) code here, sane values are 0-15</span></a></td>
+						<td align="left"><a class="tooltip2" href="#"><?php echo __( 'M17 CAN' );?>:<span><b>M17 CAN</b>Set your CAN (Channel Access Number) code here, sane values are 0-15</span></a></td>
 						<td align="left">
 						<select name="m17can">
 						  <?php echo "<option value=\"".$configmmdvm['M17']['CAN']."\" 'selected='selected'>".$configmmdvm['M17']['CAN']."</option>"; ?>
@@ -5865,7 +5865,7 @@ $ysfHosts = fopen("/usr/local/etc/YSFHosts.txt", "r"); ?>
     $dmrMasterNow = "DMRGateway";
     $dmrMasterHost = "127.0.0.1,none,62031,$dmrMasterNow"
     ?>
-    <h2 class="ConfSec"><?php echo $lang['dmr_config'];?></h2>
+    <h2 class="ConfSec"><?php echo __( 'DMR Configuration' );?></h2>
     <input type="hidden" name="dmrEmbeddedLCOnly" value="OFF" />
     <input type="hidden" name="dmrBeacon" value="OFF" />
     <input type="hidden" name="dmrDumpTAData" value="OFF" />
@@ -5886,7 +5886,7 @@ $ysfHosts = fopen("/usr/local/etc/YSFHosts.txt", "r"); ?>
     <tr>
     </tr>
     <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['bm_master'];?>:<span><b>BrandMeister Master</b>Set your preferred DMR master here</span></a></td>
+    <td align="left"><a class="tooltip2" href="#"><?php echo __( 'BrandMeister Master' );?>:<span><b>BrandMeister Master</b>Set your preferred DMR master here</span></a></td>
     <td style="text-align: left;" colspan="3"><select name="dmrMasterHost1" class="dmrMasterHost1">
 <?php
 	$dmrMasterFile1 = fopen("/usr/local/etc/DMR_Hosts.txt", "r");
@@ -5911,7 +5911,7 @@ $ysfHosts = fopen("/usr/local/etc/YSFHosts.txt", "r"); ?>
       </td>
     </tr>
     <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['bm_network'];?> ESSID:<span><b>BrandMeister Extended ID</b>This is the extended ID, to make your DMR ID 9 digits long</span></a></td>
+    <td align="left"><a class="tooltip2" href="#"><?php echo __( 'BrandMeister Network' );?> ESSID:<span><b>BrandMeister Extended ID</b>This is the extended ID, to make your DMR ID 9 digits long</span></a></td>
     <td align="left" colspan="3">
 <?php
 	if (isset($configdmrgateway['DMR Network 1']['Id'])) {
@@ -5947,14 +5947,14 @@ $ysfHosts = fopen("/usr/local/etc/YSFHosts.txt", "r"); ?>
 ?>
     </td></tr>
     <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['bm_network'];?> Enable:<span><b>BrandMeister Network Enable</b>Enable or disable BrandMeister Network</span></a></td>
+    <td align="left"><a class="tooltip2" href="#"><?php echo __( 'BrandMeister Network' );?> Enable:<span><b>BrandMeister Network Enable</b>Enable or disable BrandMeister Network</span></a></td>
     <td align="left" colspan="3">
     <?php if ($configdmrgateway['DMR Network 1']['Enabled'] == 1) { echo "<div class=\"switch\"><input id=\"toggle-dmrGatewayNet1En\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"dmrGatewayNet1En\" value=\"ON\" checked=\"checked\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDmrGatewayNet1EnCheckboxCr." /><label id=\"aria-toggle-dmrGatewayNet1En\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Enable BrandMeister DMR\" aria-checked=\"true\" onKeyPress=\"toggleDmrGatewayNet1EnCheckbox()\" onclick=\"toggleDmrGatewayNet1EnCheckbox()\" for=\"toggle-dmrGatewayNet1En\"><font style=\"font-size:0px\">Enable Brandmeister DMR</font></label></div>\n"; }
     else { echo "<div class=\"switch\"><input id=\"toggle-dmrGatewayNet1En\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"dmrGatewayNet1En\" value=\"ON\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDmrGatewayNet1EnCheckboxCr." /><label id=\"aria-toggle-dmrGatewayNet1En\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Enable BrandMeister DMR\" aria-checked=\"false\" onKeyPress=\"toggleDmrGatewayNet1EnCheckbox()\" onclick=\"toggleDmrGatewayNet1EnCheckbox()\" for=\"toggle-dmrGatewayNet1En\"><font style=\"font-size:0px\">Enable Brandmeister DMR</font></label></div>\n"; } ?>
     </td>
     </tr>
     <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['bm_network'];?>:<span><b>BrandMeister Dashboards</b>Direct links to your BrandMeister Dashboards</span></a></td>
+    <td align="left"><a class="tooltip2" href="#"><?php echo __( 'BrandMeister Network' );?>:<span><b>BrandMeister Dashboards</b>Direct links to your BrandMeister Dashboards</span></a></td>
     <td colspan="3" align="left">
     <a href="https://brandmeister.network/?page=device&amp;id=<?php if (isset($configdmrgateway['DMR Network 1']['Id'])) { echo $configdmrgateway['DMR Network 1']['Id']; } else { echo $configmmdvm['General']['Id']; } ?>" target="_new">Hotspot/Repeater Information</a> |
     <a href="https://brandmeister.network/?page=device-edit&amp;id=<?php if (isset($configdmrgateway['DMR Network 1']['Id'])) { echo $configdmrgateway['DMR Network 1']['Id']; } else { echo $configmmdvm['General']['Id']; } ?>" target="_new">Edit Hotspot/Repeater (BrandMeister Selfcare)</a>
@@ -6204,7 +6204,7 @@ if (!@file_exists($bmAPIkeyFile) && !@fopen($bmAPIkeyFile,'r')) {
     <tr>
     </tr>
     <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['xlx_master'];?>:<span><b>XLX Master</b>Set your preferred XLX master here</span></a></td>
+    <td align="left"><a class="tooltip2" href="#"><?php echo __( 'XLX Master' );?>:<span><b>XLX Master</b>Set your preferred XLX master here</span></a></td>
     <td style="text-align: left;" colspan="3"><select name="dmrMasterHost3" class="dmrMasterHost3">
 <?php
 	$dmrMasterFile3 = fopen("/usr/local/etc/DMR_Hosts.txt", "r");
@@ -6306,7 +6306,7 @@ if (!@file_exists($bmAPIkeyFile) && !@fopen($bmAPIkeyFile,'r')) {
     </td>
     </tr>
     <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['xlx_enable'];?>:<span><b>XLX Master Enable</b>Turn your XLX connection on or off.</span></a></td>
+    <td align="left"><a class="tooltip2" href="#"><?php echo __( 'XLX Master Enable' );?>:<span><b>XLX Master Enable</b>Turn your XLX connection on or off.</span></a></td>
     <td align="left" colspan="3">
     <?php
     if ((isset($configdmrgateway['XLX Network 1']['Enabled'])) && ($configdmrgateway['XLX Network 1']['Enabled'] == 1)) { echo "<div class=\"switch\"><input id=\"toggle-dmrGatewayXlxEn\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"dmrGatewayXlxEn\" value=\"ON\" checked=\"checked\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDmrGatewayXlxEnCheckboxCr." /><label id=\"aria-toggle-dmrGatewayXlxEn\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Enable XLX Network\" aria-checked=\"true\" onKeyPress=\"toggleDmrGatewayXlxEnCheckbox()\" onclick=\"toggleDmrGatewayXlxEnCheckbox()\" for=\"toggle-dmrGatewayXlxEn\"><font style=\"font-size:0px\">Enable XLX via DMR</font></label></div>\n"; }
@@ -6344,7 +6344,7 @@ if (!@file_exists($bmAPIkeyFile) && !@fopen($bmAPIkeyFile,'r')) {
 </tr>
 <?php } ?>
     <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['dmr_cc'];?>:<span><b>DMR Color Code</b>Set your DMR Color Code here</span></a></td>
+    <td align="left"><a class="tooltip2" href="#"><?php echo __( 'DMR Colour Code' );?>:<span><b>DMR Color Code</b>Set your DMR Color Code here</span></a></td>
     <td style="text-align: left;" colspan="3"><select name="dmrColorCode">
 	<?php for ($dmrColorCodeInput = 0; $dmrColorCodeInput <= 15; $dmrColorCodeInput++) {
 		if ($configmmdvm['DMR']['ColorCode'] == $dmrColorCodeInput) { echo "<option selected=\"selected\" value=\"$dmrColorCodeInput\">$dmrColorCodeInput</option>\n"; }
@@ -6353,13 +6353,13 @@ if (!@file_exists($bmAPIkeyFile) && !@fopen($bmAPIkeyFile,'r')) {
     </select></td>
     </tr>
     <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['dmr_embeddedlconly'];?>:<span><b>DMR EmbeddedLCOnly</b>Turn ON to disable extended message support, including GPS and Talker Alias data. This can help reduce problems with some DMR Radios that do not support such features.</span></a></td>
+    <td align="left"><a class="tooltip2" href="#"><?php echo __( 'DMR EmbeddedLCOnly' );?>:<span><b>DMR EmbeddedLCOnly</b>Turn ON to disable extended message support, including GPS and Talker Alias data. This can help reduce problems with some DMR Radios that do not support such features.</span></a></td>
     <td align="left" colspan="3">
     <?php if ($configmmdvm['DMR']['EmbeddedLCOnly'] == 1) { echo "<div class=\"switch\"><input id=\"toggle-dmrEmbeddedLCOnly\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"dmrEmbeddedLCOnly\" value=\"ON\" checked=\"checked\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDmrEmbeddedLCOnlyCr." /><label id=\"aria-toggle-dmrEmbeddedLCOnly\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Enable DMR Embedded LC Only\" aria-checked=\"true\" onKeyPress=\"toggleDmrEmbeddedLCOnly()\" onclick=\"toggleDmrEmbeddedLCOnly()\" for=\"toggle-dmrEmbeddedLCOnly\"><font style=\"font-size:0px\">Enable DMR Embedded LC only</font></label></div>\n"; }
     else { echo "<div class=\"switch\"><input id=\"toggle-dmrEmbeddedLCOnly\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"dmrEmbeddedLCOnly\" value=\"ON\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDmrEmbeddedLCOnlyCr." /><label id=\"aria-toggle-dmrEmbeddedLCOnly\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Enable DMR Embedded LC Only\" aria-checked=\"false\" onKeyPress=\"toggleDmrEmbeddedLCOnly()\" onclick=\"toggleDmrEmbeddedLCOnly()\" for=\"toggle-dmrEmbeddedLCOnly\"><font style=\"font-size:0px\">Enable DMR Embedded LC Only</font></label></div>\n"; } ?>
     </td></tr>
     <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['dmr_dumptadata'];?>:<span><b>DMR DumpTAData</b>Turn ON to dump GPS and Talker Alias data to MMDVMHost log file.</span></a></td>
+    <td align="left"><a class="tooltip2" href="#"><?php echo __( 'DMR DumpTAData' );?>:<span><b>DMR DumpTAData</b>Turn ON to dump GPS and Talker Alias data to MMDVMHost log file.</span></a></td>
     <td align="left" colspan="3">
     <?php if ($configmmdvm['DMR']['DumpTAData'] == 1) { echo "<div class=\"switch\"><input id=\"toggle-dmrDumpTAData\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"dmrDumpTAData\" value=\"ON\" checked=\"checked\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDmrDumpTADataCr." /><label id=\"aria-toggle-dmrDumpTAData\" role=\"checkbox\" tabindex=\"0\" aria-label=\"DMR Dump TA Data\" aria-checked=\"true\" onKeyPress=\"toggleDmrDumpTAData()\" onclick=\"toggleDmrDumpTAData()\" for=\"toggle-dmrDumpTAData\"><font style=\"font-size:0px\">DMR Dump T-A Data</font></label></div>\n"; }
     else { echo "<div class=\"switch\"><input id=\"toggle-dmrDumpTAData\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"dmrDumpTAData\" value=\"ON\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDmrDumpTADataCr." /><label id=\"aria-toggle-dmrDumpTAData\" role=\"checkbox\" tabindex=\"0\" aria-label=\"DMR Dump TA Data\" aria-checked=\"false\" onKeyPress=\"toggleDmrDumpTAData()\" onclick=\"toggleDmrDumpTAData()\" for=\"toggle-dmrDumpTAData\"><font style=\"font-size:0px\">DMR Dump T-A Data</font></label></div>\n"; } ?>
@@ -6373,12 +6373,12 @@ if (!@file_exists($bmAPIkeyFile) && !@fopen($bmAPIkeyFile,'r')) {
 <?php if (file_exists('/etc/dstar-radio.mmdvmhost') && $configmmdvm['P25 Network']['Enable'] == 1) {
 $p25Hosts = fopen("/usr/local/etc/P25Hosts.txt", "r");
 	?>
-	<h2 class="ConfSec"><?php echo $lang['p25_config'];?></h2>
+	<h2 class="ConfSec"><?php echo __( 'P25 Configuration' );?></h2>
     <table>
     <tr>
     </tr>
     <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['p25_hosts'];?>:<span><b>P25 Host</b>Set your preferred P25 Host here</span></a></td>
+    <td align="left"><a class="tooltip2" href="#"><?php echo __( 'P25 Hosts' );?>:<span><b>P25 Host</b>Set your preferred P25 Host here</span></a></td>
     <td style="text-align: left;"><select name="p25StartupHost" class="p25StartupHost">
 <?php
     if (isset($configp25gateway['Network']['Startup'])) { $testP25Host = $configp25gateway['Network']['Startup']; }
@@ -6414,7 +6414,7 @@ $p25Hosts = fopen("/usr/local/etc/P25Hosts.txt", "r");
     </tr>
 <?php if ($configmmdvm['P25']['NAC']) { ?>
     <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['p25_nac'];?>:<span><b>P25 NAC</b>Set your NAC code here</span></a></td>
+    <td align="left"><a class="tooltip2" href="#"><?php echo __( 'P25 NAC' );?>:<span><b>P25 NAC</b>Set your NAC code here</span></a></td>
     <td align="left"><input type="text" name="p25nac" size="13" maxlength="3" value="<?php echo $configmmdvm['P25']['NAC'];?>" /></td>
     </tr>
 <?php } ?>
@@ -6425,12 +6425,12 @@ $p25Hosts = fopen("/usr/local/etc/P25Hosts.txt", "r");
 <?php } ?>
 	
 <?php if (file_exists('/etc/dstar-radio.mmdvmhost') && ($configmmdvm['NXDN Network']['Enable'] == 1 || $configdmr2nxdn['Enabled']['Enabled'] == 1) ) { ?>
-	<h2 class="ConfSec"><?php echo $lang['nxdn_config'];?></h2>
+	<h2 class="ConfSec"><?php echo __( 'NXDN Configuration' );?></h2>
     <table>
       <tr>
       </tr>
       <tr>
-        <td align="left"><a class="tooltip2" href="#"><?php echo $lang['nxdn_hosts'];?>:<span><b>NXDN Host</b>Set your preferred NXDN Host here</span></a></td>
+        <td align="left"><a class="tooltip2" href="#"><?php echo __( 'NXDN Hosts' );?>:<span><b>NXDN Host</b>Set your preferred NXDN Host here</span></a></td>
         <td style="text-align: left;"><select name="nxdnStartupHost" class="nxdnStartupHost">
 <?php
 	if (file_exists('/etc/nxdngateway')) {
@@ -6471,7 +6471,7 @@ $p25Hosts = fopen("/usr/local/etc/P25Hosts.txt", "r");
       </tr>
     <?php if ($configmmdvm['NXDN']['RAN']) { ?>
       <tr>
-        <td align="left"><a class="tooltip2" href="#"><?php echo $lang['nxdn_ran'];?>:<span><b>NXDN RAN</b>Set your RAN code here, sane values are 1-64</span></a></td>
+        <td align="left"><a class="tooltip2" href="#"><?php echo __( 'NXDN RAN' );?>:<span><b>NXDN RAN</b>Set your RAN code here, sane values are 1-64</span></a></td>
         <td align="left"><input type="text" name="nxdnran" size="13" maxlength="2" value="<?php echo $configmmdvm['NXDN']['RAN'];?>" /></td>
       </tr>
     <?php } ?>
@@ -6483,16 +6483,16 @@ $p25Hosts = fopen("/usr/local/etc/P25Hosts.txt", "r");
 
 			<!-- GPSd -->
 			<?php if ( $configdmrgateway['GPSD']['Enable'] == 1 ) { ?>
-			    <h2 class="ConfSec"><?php echo $lang['gpsd_config'];?></h2>
+			    <h2 class="ConfSec"><?php echo __( 'GPSd Configuration' );?></h2>
 			    <table>
 				<tr>
 				</tr>
 				<tr>
-				    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['gpsd_port'];?>:<span><b>GPSd Server Port</b>Define the GPSd server port here</span></a></td>
+				    <td align="left"><a class="tooltip2" href="#"><?php echo __( 'GPSd Port' );?>:<span><b>GPSd Server Port</b>Define the GPSd server port here</span></a></td>
 				    <td align="left"><input type="text" name="gpsdPort" size="13" maxlength="8" value="<?php echo $configdmrgateway['GPSD']['Port'];?>" /></td>
 				</tr>
 				<tr>
-				    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['gpsd_address'];?>:<span><b>GPSd Server Address</b>Set the GPSd server address here</span></a></td>
+				    <td align="left"><a class="tooltip2" href="#"><?php echo __( 'GPSd Address' );?>:<span><b>GPSd Server Address</b>Set the GPSd server address here</span></a></td>
 				    <td align="left"><input type="text" name="gpsdAddress" size="13" maxlength="128" value="<?php echo $configdmrgateway['GPSD']['Address'];?>" /></td>
 				</tr>
 			    </table>
@@ -6502,7 +6502,7 @@ $p25Hosts = fopen("/usr/local/etc/P25Hosts.txt", "r");
 			<?php } ?>	
 
 <?php if ( $configmmdvm['POCSAG']['Enable'] == 1 ) { ?>
-	<h2 class="ConfSec"><?php echo $lang['pocsag_config'];?></h2>
+	<h2 class="ConfSec"><?php echo __( 'POCSAG Configuration' );?></h2>
     <table>
       <tr>
       </tr>
@@ -6517,11 +6517,11 @@ $p25Hosts = fopen("/usr/local/etc/P25Hosts.txt", "r");
 		</select></td>
       </tr>
       <tr>
-        <td align="left"><a class="tooltip2" href="#">POCSAG <?php echo $lang['node_call'];?>:<span><b>POCSAG Callsign</b>Set your paging callsign here</span></a></td>
+        <td align="left"><a class="tooltip2" href="#">POCSAG <?php echo __( 'Node Callsign' );?>:<span><b>POCSAG Callsign</b>Set your paging callsign here</span></a></td>
         <td align="left"><input type="text" name="pocsagCallsign" size="13" maxlength="12" value="<?php echo $configdapnetgw['General']['Callsign'];?>" /></td>
       </tr>
       <tr>
-        <td align="left"><a class="tooltip2" href="#">POCSAG <?php echo $lang['radio_freq'];?>:<span><b>POCSAG Frequency</b>Set your paging frequency here</span></a></td>
+        <td align="left"><a class="tooltip2" href="#">POCSAG <?php echo __( 'Radio Frequency' );?>:<span><b>POCSAG Frequency</b>Set your paging frequency here</span></a></td>
         <td align="left"><input type="text" id="pocsagFrequency" onkeyup="checkFrequency(); return false;" name="pocsagFrequency" size="13" maxlength="12" value="<?php echo number_format($configmmdvm['POCSAG']['Frequency'], 0, '.', '.');?>" /></td>
       </tr>
       <tr>
@@ -6552,7 +6552,7 @@ $p25Hosts = fopen("/usr/local/etc/P25Hosts.txt", "r");
     <td colspan="4" align="left" style='word-wrap: break-word;white-space: normal;font-size:larger;color:#840C24;padding-left: 5px;'><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> <b>Caution: <em>This section is for advanced multi-user hotspot or repeater usage only!</em></b></td>
     </tr>
     <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo $lang['node_type'];?>:<span><b>Node Lock</b>Set the public/private node type. &quot;Private&quot; limits access to your system to your ID/Callsign only, this may be a licence requirement for your country and helps prevent network loops.</span></a></td>
+    <td align="left"><a class="tooltip2" href="#"><?php echo __( 'Node Type' );?>:<span><b>Node Lock</b>Set the public/private node type. &quot;Private&quot; limits access to your system to your ID/Callsign only, this may be a licence requirement for your country and helps prevent network loops.</span></a></td>
     <td align="left" colspan="2">
     <input type="radio" name="nodeMode" id="nodePriv" value="prv"<?php if ($configmmdvm['DMR']['SelfOnly'] == 1) {echo ' checked="checked"';} ?> />
       <label for="nodePriv" style="display: inline-block;">Private</label>
@@ -6576,7 +6576,7 @@ $p25Hosts = fopen("/usr/local/etc/P25Hosts.txt", "r");
 
 <?php } ?>
 
-    <h2 class="ConfSec"><?php echo $lang['fw_config'];?></h2>
+    <h2 class="ConfSec"><?php echo __( 'Firewall Configuration' );?></h2>
     <table>
     <tr>
     </tr>
@@ -6595,7 +6595,7 @@ $p25Hosts = fopen("/usr/local/etc/P25Hosts.txt", "r");
         <td align="left" colspan="3" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'><i class="fa fa-info-circle" aria-hidden="true"></i> <b>Note:</b> <em>The following options cannot be made Public until UPnP is Enabled.</em></td>
     </tr>
     <tr>
-        <td align="left"><a class="tooltip2" href="#"><?php echo $lang['fw_dash'];?>:<span><b>Dashboard Access</b>Do you want the dashboard access to be publicly available? This modifies the uPNP firewall configuration.</span></a></td>
+        <td align="left"><a class="tooltip2" href="#"><?php echo __( 'Dashboard Access' );?>:<span><b>Dashboard Access</b>Do you want the dashboard access to be publicly available? This modifies the uPNP firewall configuration.</span></a></td>
         <?php
         $testPrvPubDash = exec('sudo grep "80 80" /etc/wpsd-upnp-rules | head -1 | cut -c 5');
 
@@ -6607,7 +6607,7 @@ $p25Hosts = fopen("/usr/local/etc/P25Hosts.txt", "r");
         ?>
     </tr>
     <tr>
-        <td align="left"><a class="tooltip2" href="#"><?php echo $lang['fw_irc'];?>:<span><b>ircDDB Remote Command Access</b>Do you want the ircDDB remote command access to be publicly available? This modifies the uPNP firewall Configuration.</span></a></td>
+        <td align="left"><a class="tooltip2" href="#"><?php echo __( 'ircDDBGateway Remote' );?>:<span><b>ircDDB Remote Command Access</b>Do you want the ircDDB remote command access to be publicly available? This modifies the uPNP firewall Configuration.</span></a></td>
         <?php
         $testPrvPubIRC = exec('sudo grep "10022 10022" /etc/wpsd-upnp-rules | head -1 | cut -c 5');
 
@@ -6619,7 +6619,7 @@ $p25Hosts = fopen("/usr/local/etc/P25Hosts.txt", "r");
         ?>
     </tr>
     <tr>
-        <td align="left"><a class="tooltip2" href="#"><?php echo $lang['fw_ssh'];?>:<span><b>SSH Access</b>Do you want access to be publicly available over SSH (used for support issues)? This modifies the uPNP firewall Configuration.</span></a></td>
+        <td align="left"><a class="tooltip2" href="#"><?php echo __( 'SSH Access' );?>:<span><b>SSH Access</b>Do you want access to be publicly available over SSH (used for support issues)? This modifies the uPNP firewall Configuration.</span></a></td>
         <?php
         $testPrvPubSSH = exec('sudo grep "22 22" /etc/wpsd-upnp-rules | head -1 | cut -c 5');
 
@@ -6669,7 +6669,7 @@ $p25Hosts = fopen("/usr/local/etc/P25Hosts.txt", "r");
 	if ( file_exists('/sys/class/net/wlan0') || file_exists('/sys/class/net/wlan1') || file_exists('/sys/class/net/wlan0_ap') ) {
 echo '
 <br />
-    <h2 class="ConfSec">'.$lang['wifi_config'].'</h2>
+    <h2 class="ConfSec">'.__( 'Wireless Configuration' ).'</h2>
     <table><tr><td>'.$wifi_page.'
     </td></tr></table>
     <br />
@@ -6689,16 +6689,16 @@ echo '
 ?>
 
 <br />
-    <h2 class="ConfSec"><?php echo $lang['remote_access_pw'];?></h2>
+    <h2 class="ConfSec"><?php echo __( 'Remote Access Password' );?></h2>
     <form id="adminPassForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
     <table>
-    <tr><th class='config_head' width="200"><?php echo $lang['user'];?></th><th class='config_head' colspan="3"><?php echo $lang['password'];?></th></tr>
+    <tr><th class='config_head' width="200"><?php echo __( 'User Name' );?></th><th class='config_head' colspan="3"><?php echo __( 'Password' );?></th></tr>
     <tr>
     <td align="left"><b>pi-star</b></td>
     <td align="left"><label for="pass1">Password:</label><input type="password" name="adminPassword" id="pass1" onkeyup="checkPass(); return false;" size="20" />
     <label for="pass2">Confirm Password:</label><input type="password" name="adminPassword" id="pass2" onkeyup="checkPass(); return false;" />
     <br /><span id="confirmMessage" class="confirmMessage"></span></td>
-    <td align="right"><input type="button" id="submitpwd" value="<?php echo $lang['set_password'];?>" onclick="submitPassform()" disabled="disabled" /></td>
+    <td align="right"><input type="button" id="submitpwd" value="<?php echo __( 'Set Password' );?>" onclick="submitPassform()" disabled="disabled" /></td>
     </tr>
     <tr><td colspan="3" align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'><i class="fa fa-exclamation-circle"></i> <strong>NOTE:</strong> This changes the password for  admin pages, this configuration page AND the '<code>pi-star</code>' SSH account.</td></tr>
     </table>
