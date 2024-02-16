@@ -20,7 +20,7 @@ if (isset($_SESSION['CSSConfigs']['Background'])) {
     $backgroundModeCellInactiveColor = $_SESSION['CSSConfigs']['Background']['ModeCellInactiveColor'];
 }
 ?>
-<div style="text-align:left;font-weight:bold;"><?php echo__( 'D-Star Link Information' );?></div>
+<div style="text-align:left;font-weight:bold;"><?php echo __( 'D-Star Link Information' );?></div>
 <table id="activeLinks">
     <tr>
 	<th><a class="tooltip" href="#">Radio<span><b>Radio Module</b></span></a></th>
