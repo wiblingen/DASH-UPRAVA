@@ -107,7 +107,7 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/config/version.php';
 	  echo "<tr><td align=\"right\" width=\"30%\">$key</td><td align=\"left\"><input type=\"text\" name=\"$key\" value=\"$value\" /></td></tr>\n";
       }
       echo "</table>\n";
-      echo '<input type="submit" value="'.$lang['apply'].'" />'."\n";
+      echo '<input type="submit" value="'.__( 'Apply Changes' ).'" />'."\n";
       echo "<br />\n";
       echo "</form>";
       ?>

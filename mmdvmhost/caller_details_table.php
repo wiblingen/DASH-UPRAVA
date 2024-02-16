@@ -206,14 +206,14 @@ for ($i = 0;  ($i <= 0); $i++) { //Last 20  calls
 <div class="larger" style="vertical-align: bottom; font-weight:bold;text-align:left;margin-top:-12px;">Current / Last Caller Details</div>
   <table style="word-wrap: break-word; white-space:normal;">
     <tr>
-      <th><a class="tooltip" href="#"><?php echo $lang['callsign'];?><span><b>Callsign</b></span></a></th>
+      <th><a class="tooltip" href="#"><?php echo __( 'Callsign' );?><span><b>Callsign</b></span></a></th>
       <th width="50px">Country</th>
       <th>Name</th>
       <th class='noMob'>Location</th>
-      <th><a class="tooltip" href="#"><?php echo $lang['mode'];?><span><b>Transmitted Mode</b></span></a></th>
-      <th><a class="tooltip" href="#"><?php echo $lang['target'];?><span><b>Target, D-Star Reflector, DMR Talk Group etc</b></span></a></th>
-      <th><a class="tooltip" href="#"><?php echo $lang['src'];?><span><b>Received from source</b></span></a></th>
-      <th><a class="tooltip" href="#"><?php echo $lang['dur'];?>(s)<span><b>Duration in Seconds</b></span></a></th>
+      <th><a class="tooltip" href="#"><?php echo __( 'Mode' );?><span><b>Transmitted Mode</b></span></a></th>
+      <th><a class="tooltip" href="#"><?php echo __( 'Target' );?><span><b>Target, D-Star Reflector, DMR Talk Group etc</b></span></a></th>
+      <th><a class="tooltip" href="#"><?php echo __( 'Src' );?><span><b>Received from source</b></span></a></th>
+      <th><a class="tooltip" href="#"><?php echo __( 'Dur' );?>(s)<span><b>Duration in Seconds</b></span></a></th>
     </tr>
 
     <tr>

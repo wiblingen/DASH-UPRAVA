@@ -115,11 +115,11 @@ if (getEnabled("DMR", $_SESSION['MMDVMHostConfigs']) == 1) {
     </div>
 <?php } ?>
 
-<div class="larger" style="vertical-align: bottom; font-weight: bold; padding-top:14px;text-align:left;"><?php echo $lang['last_heard_list'];?></div>
+<div class="larger" style="vertical-align: bottom; font-weight: bold; padding-top:14px;text-align:left;"><?php echo __( 'Gateway Activity' );?></div>
   <table>
     <tr>
-      <th width="250px"><a class="tooltip" href="#"><?php echo $lang['time'];?> (<?php echo date('T')?>)<span><b>Time in <?php echo date('T')?> time zone</b></span></a></th>
-      <th width="85px"><a class="tooltip" href="#"><?php echo $lang['callsign'];?><span><b>Callsign</b></span></a></th>
+      <th width="250px"><a class="tooltip" href="#"><?php echo __( 'Time' );?> (<?php echo date('T')?>)<span><b>Time in <?php echo date('T')?> time zone</b></span></a></th>
+      <th width="85px"><a class="tooltip" href="#"><?php echo __( 'Callsign' );?><span><b>Callsign</b></span></a></th>
       <th width="50px"><a class="tooltip" href="#">Country<span><b>Country</b></span></a></th>
 <?php
     if (file_exists("/etc/.CALLERDETAILS") && $testMMDVModeDMR == 1 ) {
@@ -128,11 +128,11 @@ if (getEnabled("DMR", $_SESSION['MMDVMHostConfigs']) == 1) {
 <?php
     }
 ?>
-      <th><a class="tooltip" href="#"><?php echo $lang['mode'];?><span><b>Transmitted Mode</b></span></a></th>
-      <th><a class="tooltip" href="#"><?php echo $lang['target'];?><span><b>Target, D-Star Reflector, DMR Talk Group etc</b></span></a></th>
-      <th><a class="tooltip" href="#"><?php echo $lang['src'];?><span><b>Received from source</b></span></a></th>
-      <th><a class="tooltip" href="#"><?php echo $lang['dur'];?>(s)<span><b>Duration in Seconds</b></span></a></th>
-      <th class="noMob"><a class="tooltip" href="#"><?php echo $lang['loss'];?><span><b>Packet Loss</b></span></a></th>
+      <th><a class="tooltip" href="#"><?php echo __( 'Mode' );?><span><b>Transmitted Mode</b></span></a></th>
+      <th><a class="tooltip" href="#"><?php echo __( 'Target' );?><span><b>Target, D-Star Reflector, DMR Talk Group etc</b></span></a></th>
+      <th><a class="tooltip" href="#"><?php echo __( 'Src' );?><span><b>Received from source</b></span></a></th>
+      <th><a class="tooltip" href="#"><?php echo __( 'Dur' );?>(s)<span><b>Duration in Seconds</b></span></a></th>
+      <th class="noMob"><a class="tooltip" href="#"><?php echo __( 'Loss' );?><span><b>Packet Loss</b></span></a></th>
     </tr>
 <?php
 $i = 0;

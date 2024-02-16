@@ -173,8 +173,8 @@ if ((strcmp($origin, "admin") == 0) && isset($_SESSION['DAPNETAPIKeyConfigs'])) 
 		<table class="table poc-lh-table">
 		    <thead>
 			<tr>
-			    <th style="width: 140px;" ><a class="tooltip" href="#"><?php echo $lang['time'];?> (<?php echo date('T')?>)<span><b>Time in <?php echo date('T')?> time zone</b></span></a></th>
-			    <th style="width: max-content;" ><a class="tooltip" href="#"><?php echo $lang['pocsag_msg'];?><span><b>Message contents</b></span></a></th>
+			    <th style="width: 140px;" ><a class="tooltip" href="#"><?php echo __( 'Time' );?> (<?php echo date('T')?>)<span><b>Time in <?php echo date('T')?> time zone</b></span></a></th>
+			    <th style="width: max-content;" ><a class="tooltip" href="#"><?php echo __( 'Message' );?><span><b>Message contents</b></span></a></th>
 			</tr>
 		    </thead>
 		    <tbody>
@@ -225,16 +225,16 @@ if ((strcmp($origin, "admin") == 0) && isset($_SESSION['DAPNETAPIKeyConfigs'])) 
 ?>
 
 <div id='pocsag-sec' style="margin-top: -10px;">
-        <div class="larger" style="vertical-align: bottom; font-weight: bold; padding-top:14px;text-align:left;"><?php echo $lang['pocsag_list'];?></div>
+        <div class="larger" style="vertical-align: bottom; font-weight: bold; padding-top:14px;text-align:left;"><?php echo __( 'DAPNET Activity' );?></div>
 	<!-- Activity -->
 	<div class="table-container">
 	    <table class="table poc-lh-table">
 		<thead>
 		    <tr>
-			<th style="width: 140px;" ><a class="tooltip" href="#"><?php echo $lang['time'];?> (<?php echo date('T')?>)<span><b>Time in <?php echo date('T')?> time zone</b></span></a></th>
-			<th style="width: 70px;" ><a class="tooltip" href="#"><?php echo $lang['pocsag_timeslot'];?><span><b>Message Mode</b></span></a></th>
-			<th style="width: 90px;" ><a class="tooltip" href="#"><?php echo $lang['target'];?><span><b>RIC / CapCode of the receiving Pager</b></span></a></th>
-			<th style="width: max-content;" ><a class="tooltip" href="#"><?php echo $lang['pocsag_msg'];?><span><b>Message contents</b></span></a></th>
+			<th style="width: 140px;" ><a class="tooltip" href="#"><?php echo __( 'Time' );?> (<?php echo date('T')?>)<span><b>Time in <?php echo date('T')?> time zone</b></span></a></th>
+			<th style="width: 70px;" ><a class="tooltip" href="#"><?php echo __( 'Time Slot' );?><span><b>Message Mode</b></span></a></th>
+			<th style="width: 90px;" ><a class="tooltip" href="#"><?php echo __( 'Target' );?><span><b>RIC / CapCode of the receiving Pager</b></span></a></th>
+			<th style="width: max-content;" ><a class="tooltip" href="#"><?php echo __( 'Message' );?><span><b>Message contents</b></span></a></th>
 		    </tr>
 		</thead>
 		<tbody>
