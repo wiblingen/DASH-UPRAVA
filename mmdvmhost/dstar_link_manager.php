@@ -108,7 +108,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/index.php") {
     }
     else {
 ?>
-        <div style="text-align:left;font-weight:bold;"><?php echo $lang['d-star_link_manager'];?></div>
+        <div style="text-align:left;font-weight:bold;"><?php echo __( 'D-Star Link Manager' );?></div>
 	<form action="/admin/?func=ds_man" method="post">
 	    <table>
 		<tr>

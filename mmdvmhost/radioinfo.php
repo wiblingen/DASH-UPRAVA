@@ -34,7 +34,7 @@ if (isset($_SESSION['CSSConfigs']['Background']['TableRowBgEvenColor'])) {
 <div class="divTable">
   <div class="divTableBody">
     <div class="divTableRow center">
-      <div class="divTableHeadCell noMob" style="width:250px;">Radio Status</div>
+      <div class="divTableHeadCell noMob" style="width:250px;"><?php _e( 'Radio Status' ); ?></div>
       <?php if ((isDVmegaCast() == 1) && (($_SESSION['ModemConfigs']['Modem']['Hardware'] == "dvmpicasths") || ($_SESSION['ModemConfigs']['Modem']['Hardware'] == "dvmpicasthd"))) { // DVMega Cast logic... ?>
       <div class="divTableHeadCell noMob">DVMega Cast Hotspot Freq.</div>
       <?php } else if ((isDVmegaCast() == 1) && ($_SESSION['ModemConfigs']['Modem']['Hardware'] != "dvmpicasths") &&  ($_SESSION['ModemConfigs']['Modem']['Hardware'] != "dvmpicasthd")) { // DVMega Cast logic... ?>

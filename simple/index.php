@@ -59,7 +59,7 @@ if(empty($_POST['func'])) {
 	<meta http-equiv="expires" content="0" />
 	<meta http-equiv="pragma" content="no-cache" />
 	<link rel="shortcut icon" href="/images/favicon.ico?version=<?php echo $versionCmd; ?>" type="image/x-icon" />
-	<title><?php echo "$MYCALL"." - ".$lang['digital_voice']." ".$lang['dashboard'];?></title>
+	<title><?php echo "$MYCALL"." - " . __( 'Digital Voice' ) . " ".__( 'Dashboard' );?></title>
 	<link rel="stylesheet" type="text/css" href="/css/font-awesome-4.7.0/css/font-awesome.min.css?version=<?php echo $versionCmd; ?>" />
 	<?php include_once "../config/browserdetect.php"; ?>
 	<script type="text/javascript" src="/js/jquery.min.js?version=<?php echo $versionCmd; ?>"></script>
@@ -136,7 +136,7 @@ if(empty($_POST['func'])) {
     <body>
 	<div class="container">
 	    <div class="header">
-               <div class="SmallHeader shLeft noMob"><a style="border-bottom: 1px dotted;" class="tooltip" href="#"><?php echo $lang['hostname'].": ";?> <span><strong>System IP Address<br /></strong><?php echo str_replace(',', ',<br />', exec('hostname -I'));?> </span>  <?php echo exec('cat /etc/hostname'); ?></a></div>
+               <div class="SmallHeader shLeft noMob"><a style="border-bottom: 1px dotted;" class="tooltip" href="#"><?php echo __( 'Hostname' ).": ";?> <span><strong>System IP Address<br /></strong><?php echo str_replace(',', ',<br />', exec('hostname -I'));?> </span>  <?php echo exec('cat /etc/hostname'); ?></a></div>
 	       <div class="SmallHeader shRight noMob">
 	         <div id="CheckUpdate">
        		  <?php
@@ -144,7 +144,7 @@ if(empty($_POST['func'])) {
        		  ?>
        	          </div><br />
    	        </div>
-		<h1>WPSD <?php echo $lang['digital_voice']." ".$lang['dashboard_for']." <code style='font-weight:550;'>".$_SESSION['MYCALL']."</code>"; ?></h1>
+		<h1>WPSD <?php echo __( 'Digital Voice' ) . " ".__( 'Dashboard for' )." <code style='font-weight:550;'>".$_SESSION['MYCALL']."</code>"; ?></h1>
 		<div id="CheckMessage">
 		<?php
 		    include('../config/messages.php');
@@ -180,7 +180,7 @@ if(empty($_POST['func'])) {
 			<?php if (file_exists("/etc/dstar-radio.mmdvmhost")) { ?>
 			<a class="menulive" href="/live/">Live Caller</a>
 			<?php } ?>
-			<a class="menudashboard" href="/"><?php echo $lang['dashboard'];?></a>
+			<a class="menudashboard" href="/"><?php echo __( 'Dashboard' );?></a>
 		    </div> 
 	    </div>
 	    <?php

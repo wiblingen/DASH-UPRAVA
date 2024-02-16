@@ -104,7 +104,7 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/config/version.php';
 		<form name="test" method="post" action="">
 		    <label for="data" class="header" style="display:block;text-align:center;" ><?php echo $editorname ?></label> 
 		    <textarea id="data" name="data" class="fulledit"><?php echo $theData; ?></textarea><br />
-		    <input type="submit" name="submit" value="<?php echo $lang['apply']; ?>" />
+		    <input type="submit" name="submit" value="<?php echo __( 'Apply Changes' ); ?>" />
 		</form>
 		
 	    </div>

@@ -88,11 +88,11 @@ if ($_SERVER["PHP_SELF"] == "/config/changelog.php") {
 		    <h1>WPSD ChangeLog</h1>
 		    <p>
 			<div class="navbar">
-			    <a class="menuconfig" href="/admin/configure.php"><?php echo $lang['configuration'];?></a>
-			    <a class="menubackup" href="/admin/config_backup.php"><?php echo $lang['backup_restore'];?></a>
-			    <a class="menuupdate" href="/admin/update.php"><?php echo $lang['update'];?></a>
-			    <a class="menuadmin" href="/admin/"><?php echo $lang['admin'];?></a>
-			    <a class="menudashboard" href="/"><?php echo $lang['dashboard'];?></a>
+			    <a class="menuconfig" href="/admin/configure.php"><?php echo __( 'Configuration' );?></a>
+			    <a class="menubackup" href="/admin/config_backup.php"><?php echo __( 'Backup/Restore' );?></a>
+			    <a class="menuupdate" href="/admin/update.php"><?php echo __( 'WPSD Update' );?></a>
+			    <a class="menuadmin" href="/admin/"><?php echo __( 'Admin' );?></a>
+			    <a class="menudashboard" href="/"><?php echo __( 'Dashboard' );?></a>
 			</div>
 		    </p>
 		</div>

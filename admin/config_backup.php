@@ -40,7 +40,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/config_backup.php") {
 	    <meta http-equiv="pragma" content="no-cache" />
 	    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
 	    <meta http-equiv="Expires" content="0" />
-	    <title>WPSD <?php echo $lang['digital_voice']." ".$lang['dashboard']." - ".$lang['backup_restore'];?></title>
+	    <title>WPSD <?php echo __( 'Digital Voice' ) . " ".__( 'Dashboard' )." - ".__( 'Backup/Restore' );?></title>
 	    <link rel="stylesheet" type="text/css" href="/css/font-awesome-4.7.0/css/font-awesome.min.css" />
 <?php include_once $_SERVER['DOCUMENT_ROOT'].'/config/browserdetect.php'; ?>
 	</head>
@@ -55,19 +55,19 @@ if ($_SERVER["PHP_SELF"] == "/admin/config_backup.php") {
                       ?>
                       </div><br />
                     </div>
-		    <h1>WPSD <?php echo $lang['digital_voice']." - ".$lang['backup_restore'];?></h1>
+		    <h1>WPSD <?php echo __( 'Digital Voice' ) . " - ".__( 'Backup/Restore' );?></h1>
 		    <p>
 			<div class="navbar">
-			    <a class="menuconfig" href="/admin/configure.php"><?php echo $lang['configuration'];?></a>
-			    <a class="menuupdate" href="/admin/update.php"><?php echo $lang['update'];?></a>
-			    <a class="menupower" href="/admin/power.php"><?php echo $lang['power'];?></a>
-			    <a class="menuadmin" href="/admin/"><?php echo $lang['admin'];?></a>
-			    <a class="menudashboard" href="/"><?php echo $lang['dashboard'];?></a>
+			    <a class="menuconfig" href="/admin/configure.php"><?php echo __( 'Configuration' );?></a>
+			    <a class="menuupdate" href="/admin/update.php"><?php echo __( 'WPSD Update' );?></a>
+			    <a class="menupower" href="/admin/power.php"><?php echo __( 'Power' );?></a>
+			    <a class="menuadmin" href="/admin/"><?php echo __( 'Admin' );?></a>
+			    <a class="menudashboard" href="/"><?php echo __( 'Dashboard' );?></a>
 			</div>
 		    </p>
 		</div>
 		<div class="contentwide">
-		<h2 class="ConfSec center"><?php echo $lang['backup_restore'];?></h2>
+		<h2 class="ConfSec center"><?php echo __( 'Backup/Restore' );?></h2>
 		    <?php if (!empty($_POST)) {
 			echo '<table width="100%">'."\n";
 			
