@@ -6640,13 +6640,11 @@ $p25Hosts = fopen("/usr/local/etc/P25Hosts.txt", "r");
     </table>
 
 
-    <br /><br />
 
-    <h2 class="ConfSec">AccessPoint Mode</h2>
-    <table>
-    <tr>
-    </tr>
     <?php if (file_exists('/etc/default/hostapd') && file_exists('/sys/class/net/wlan0') || file_exists('/sys/class/net/wlan1') || file_exists('/sys/class/net/wlan0_ap')) { ?>
+    <br /><br />
+    <h2 class="ConfSec"><?php _e( 'AccessPoint Mode' ); ?></h2>
+    <table>
     <tr>
       <td align="left"><a class="tooltip2" href="#">Auto AP:<span><b>Auto AccessPoint</b>Do you want this device to create its own WiFi AccessPoint if it cannot connect to WiFi within 120 seconds after booting?</span></a></td>
       <?php
@@ -6659,13 +6657,12 @@ $p25Hosts = fopen("/usr/local/etc/P25Hosts.txt", "r");
       ?>
       <td align="left"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> <em>Note: Reboot Required if changed</em></td>
     </tr>
+  </tr>
+  </table>
     <?php } ?>
-    </tr>
-    </table>
 
-    </form>
-
-    <br />
+  </form>
+  <br />
 
 <?php
 	if ($osVer >= 12) { // Bookworm uses NetworkManager, so use our newer wifi-manager...
