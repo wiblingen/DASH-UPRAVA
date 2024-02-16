@@ -150,6 +150,23 @@ if ( ! function_exists( 'is_countable' ) ) :
   }
 endif;
 
+// lang stuffs
+function __( $string ) {
+  global $lang;
+  if ( isset( $lang[ $string ] ) ) {
+    return $lang[ $string ];
+  }
+  return $string;
+}
+// m0ar lang stuffs
+function _e( $string ) {
+  global $lang;
+  if ( isset( $lang[ $string ] ) ) {
+    echo $lang[ $string ];
+  }
+  echo $string;
+}
+
 function get_os_name() {
     $osReleaseFile = '/etc/os-release';
     if (file_exists($osReleaseFile)) {
