@@ -242,7 +242,10 @@ if ($_SERVER["PHP_SELF"] == "/admin/config_backup.php") {
 				// Update the hosts files
 				exec('sudo /usr/local/sbin/wpsd-hostfile-update > /dev/null');
 				
-				exec('sudo /usr/local/sbin/nextion-driver-helper');  // Run the Nextion driver helper based on selected MMDVMHost display type
+				exec('sudo /usr/local/sbin/nextion-driver-helper > /dev/null');  // Run the Nextion driver helper based on selected MMDVMHost display type
+
+				// Reset the GPIO Pins on Pi4, Pi5 etc. only
+				exec('sudo /usr/local/sbin/wpsd-modemreset boot > /dev/null');
 
 				// Start the services
 			    	exec('sudo wpsd-services start > /dev/null &');
