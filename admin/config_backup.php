@@ -201,9 +201,6 @@ if ($_SERVER["PHP_SELF"] == "/admin/config_backup.php") {
 				// Stop the DV Services
 			    	exec('sudo wpsd-services fullstop > /dev/null');
 	
-				// Make the disk Writable
-				exec('sudo mount -o remount,rw / > /dev/null');
-				
 				// Overwrite the configs
 				exec("sudo rm -rf /etc/dstar-radio.* /etc/bmapi.key /etc/dapnetapi.key /etc/timeserver.disable /etc/WPSD_config_mgr > /dev/null");
 				exec("sudo mv -f /tmp/config_restore/tmp/config_backup/* /tmp/config_restore/ > /dev/null");
@@ -238,9 +235,6 @@ if ($_SERVER["PHP_SELF"] == "/admin/config_backup.php") {
 				//Restore ircDDGBateway Link Manager Password
 				$ircRemotePassword = exec('grep remotePassword /etc/ircddbgateway | awk -F\'=\' \'{print $2}\'');
 				exec('sudo sed -i "/password=/c\\password='.$ircRemotePassword.'" /root/.Remote\ Control');
-				
-				// Update the hosts files
-				exec('sudo /usr/local/sbin/wpsd-hostfile-update > /dev/null');
 				
 				exec('sudo /usr/local/sbin/nextion-driver-helper > /dev/null');  // Run the Nextion driver helper based on selected MMDVMHost display type
 
