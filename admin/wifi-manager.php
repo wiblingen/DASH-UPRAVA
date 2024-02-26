@@ -103,8 +103,6 @@ if(strpos($strWlan0, "UP") !== false && strpos($strWlan0, "RUNNING") !== false) 
         preg_match('/TX packets \d+ bytes (\d+ \(\d+.\d+ [K|M|G]iB\))/i',$strWlan0,$result);
         $strTxBytes = $result[1];
    }
-   //preg_match('/TX Bytes:(\d+ \(\d+.\d+ [K|M|G]iB\))/i',$strWlan0,$result);
-   //$strTxBytes = $result[1];
    if (preg_match('/Access Point: ([0-9a-f:]+)/i',$strWlan0,$result)) { 
        $strBSSID = $result[1];
    }
@@ -139,11 +137,6 @@ if(strpos($strWlan0, "UP") !== false && strpos($strWlan0, "RUNNING") !== false) 
    if (preg_match('/Signal Level=([0-9]+\/[0-9]+)/i',$strWlan0,$result)) {
         $strSignalLevel = $result[1];
    }
-   /*
-   if (preg_match('/signal:\ (-[0-9]+ dBm)/i',$strWlan0,$result) {
-       $strSignalLevel = $result[1];
-   }
-   */
    if (preg_match('/Frequency:([0-9.]+ GHz)/i',$strWlan0,$result)) {
         $strWifiFreq = $result[1];
         $strWifiChan = str_replace(" GHz", "", $strWifiFreq);
