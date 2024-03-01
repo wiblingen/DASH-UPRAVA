@@ -655,11 +655,6 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
         	echo 'function setLastCaller(obj) {'."\n";
         	echo '    if (obj.checked) {'."\n";
         	echo "        $.ajax({
-				success: function(data) { 
-     				    $('#lcmsg').html(data).fadeIn('slow');
-				    $('#lcmsg').html(\"<div style='padding:8px;font-style:italic;font-weight:bold;'>For optimal performance, the number of Last Heard rows will be decreased while Caller Details function is enabled.</div>\").fadeIn('slow')
-     				    $('#lcmsg').delay(4000).fadeOut('slow');
-				},
                 	        type: \"POST\",
   	          	        url: '/mmdvmhost/callerdetails_ajax.php',
                 	        data:{action:'enable'},
@@ -667,11 +662,6 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 	        echo '    }'."\n";
 	        echo '    else {'."\n";
 	        echo "        $.ajax({
-				success: function(data) { 
-     				    $('#lcmsg').html(data).fadeIn('slow');
-				    $('#lcmsg').html(\"<div style='padding:8px;font-style:italic;font-weight:bold;'>Caller Details function disabled. Increasing Last Heard table rows to user preference (if set) or default (40).</div>\").fadeIn('slow')
-     				    $('#lcmsg').delay(4000).fadeOut('slow');
-				},
 	                        type: \"POST\",
 	                        url: '/mmdvmhost/callerdetails_ajax.php',
 	                        data:{action:'disable'},

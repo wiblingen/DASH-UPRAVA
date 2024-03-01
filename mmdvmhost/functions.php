@@ -1073,17 +1073,11 @@ function getHeardList($logLines) {
     $ts1alias    = "---";
     $ts2alias    = "---";
     $alias       = "";
-    $ts1dbName      = "";
-    $ts2dbName      = "";
-    $dbName      = "";
     foreach ($logLines as $logLine) {
 	$duration	= "";
 	$loss		= "";
 	$ber		= "";
 	$rssi		= "";
-    	$ts1dbName      = "";
-    	$ts2dbName      = "";
-    	$dbName         = "";
 	//removing invalid lines
 	if(strpos($logLine,"BS_Dwn_Act")) {
 	    continue;
@@ -1138,17 +1132,6 @@ function getHeardList($logLines) {
             break;
           case "DMR Slot 2":
             $ts2alias = $alias;
-            break;
-        }
-      }
-
-      if (strpos($logLine,"Name:")) {
-        switch (substr($logLine, 27, strpos($logLine,",") - 27)) {
-          case "DMR Slot 1":
-            $ts1dbName = $dbName;
-            break;
-          case "DMR Slot 2":
-            $ts2dbName = $dbName;
             break;
         }
       }
@@ -1301,17 +1284,6 @@ function getHeardList($logLines) {
 	    $id = substr($callsign2, strpos($callsign2,"/") + 1);
 	}
 
-        if (strpos($logLine, "Name:")) {
-            $dbName2 = substr($logLine, strpos($logLine, "Name:") + 5);
-            $dbName2 = trim($dbName2);
-            $dbName2 = explode("Name:", $dbName2)[0];
-            $dbName2 = str_replace("Name:", "", $dbName2);
-	    //$dbName  = ucfirst(strtolower($dbName2)); // fix malformed cases in shitty-ass RadioID DB :-(
-	    $dbName  = $dbName2; // fix malformed cases in shitty-ass RadioID DB :-(
-        } else {
-	    $dbName = " ";
-	}
-
 	$target = trim(substr($logLine, strpos($logLine, "to") + 3));
 	$target = preg_replace('/ - Name(.*)/', '', $target);
 	// Handle more verbose logging from MMDVMHost
@@ -1387,7 +1359,7 @@ function getHeardList($logLines) {
 	}
 	
 	if ( strlen($callsign) < 11 ) {
-	    array_push($heardList, array($timestamp, $mode, $callsign, $id, $target, $source, $duration, $loss, $ber, $rssi, $alias, $dbName));
+	    array_push($heardList, array($timestamp, $mode, $callsign, $id, $target, $source, $duration, $loss, $ber, $rssi, $alias));
 	    $duration = "";
 	    $loss ="";
 	    $ber = "";
@@ -1395,7 +1367,6 @@ function getHeardList($logLines) {
 	    $alias = "";
 	    $ts1alias   = "---";
 	    $ts2alias   = "---";
-	    $dbName = "";
 	}
     }
     return $heardList;
