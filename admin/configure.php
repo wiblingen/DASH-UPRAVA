@@ -931,7 +931,7 @@ if (!empty($_POST)):
 	    $adminPassword = escapeshellarg(trim($_POST['adminPassword']));
 
 	    // Update .htpasswd file
-	    $htpasswdCommand = "htpasswd -b /var/www/.htpasswd pi-star {$adminPassword}";
+	    $htpasswdCommand = "sudo htpasswd -b /var/www/.htpasswd pi-star {$adminPassword}";
 	    system($htpasswdCommand);
 
 	    // Update shell passwd
