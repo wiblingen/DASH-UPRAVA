@@ -928,16 +928,11 @@ if (!empty($_POST)):
 
 	// Admin Password Change
 	if (!empty($_POST['adminPassword'])) {
-	    $adminPassword = escapeshellarg(trim($_POST['adminPassword']));
 
-	    // Update .htpasswd file
-	    $htpasswdCommand = "sudo htpasswd -b /var/www/.htpasswd pi-star {$adminPassword}";
-	    system($htpasswdCommand);
-
-	    // Update shell passwd
-	    $passwdCommand = "echo {$adminPassword} | sudo passwd pi-star";
-	    system($passwdCommand);
-
+	    $rollAdminPass0 = 'sudo htpasswd -b /var/www/.htpasswd pi-star \''.escapeshellarg(trim($_POST['adminPassword'])).'\'';
+	    system($rollAdminPass0);
+	    $rollAdminPass2 = 'sudo echo -e \''.escapeshellarg(trim($_POST['adminPassword'])).'\n'.escapeshellarg(trim($_POST['adminPassword'])).'\' | sudo passwd pi-star';
+	    system($rollAdminPass2);
 	    unset($_POST);
 
 	    echo "<table>\n";
