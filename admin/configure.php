@@ -4705,7 +4705,7 @@ else:
     <td align="left" colspan="3"><input type="text" name="confDesc2" size="30" maxlength="30" value="<?php echo $configs['description2'] ?>" /></td>
     </tr>
     <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo __( 'URL' );?>:<span><b>URL</b>Your URL you'd like to be displayed in various networks/gateways</span></a></td>
+    <td align="left"><a class="tooltip2" href="#"><?php echo __( 'URL' );?>:<span><b>URL</b>Your URL you'd like to be displayed in various networks/gateways, such as Brandmeister, DMR+, etc.<br><br>This does NOT affect your callsign link on the Dashboard page.</span></a></td>
     <td align="left" colspan="2"><input type="text" name="confURL" size="45" maxlength="255" value="<?php echo $configs['url'] ?>" /></td>
     <td align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'>
     <input type="radio" name="urlAuto" value="auto"<?php if (strpos($configs['url'], 'www.qrz.com/db/'.$configmmdvm['General']['Callsign']) !== FALSE) {echo ' checked="checked"';} ?> />Auto
@@ -5906,11 +5906,12 @@ $ysfHosts = fopen("/usr/local/etc/YSFHosts.txt", "r"); ?>
 ?>
     </select></td></tr>
     <tr>
-      <td align="left"><a class="tooltip2" href="#">BM Hotspot Security:<span><b>BrandMeister Password</b>Override the Password for BrandMeister with your own custom password, make sure you already configured this using BM Self Care. Empty the field to use the default.</span></a></td>
-      <td align="left" colspan="3">
+      <td align="left"><a class="tooltip2" href="#">BM Hotspot Security:<span><b>BrandMeister Password</b>Enter your Security password for BrandMeister, and make sure you already configured this using BM Self Care.</span></a></td>
+      <td align="left" colspan="2">
         <input type="password" name="bmHSSecurity" id="bmHSSecurity" size="30" maxlength="30" value="<?php if (isset($configModem['BrandMeister']['Password'])) {echo $configModem['BrandMeister']['Password'];} ?>"></input>
-	<span toggle="#password-field" class="fa fa-fw fa-eye field_icon toggle-bm-password"></span>
+        <span toggle="#password-field" class="fa fa-fw fa-eye field_icon toggle-bm-password"></span>
       </td>
+      <td align="left"><a href="https://brandmeister.network/?page=register" target="_new">Register for a Brandmeister Account...</a></td>
     </tr>
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo __( 'BrandMeister Network' );?> ESSID:<span><b>BrandMeister Extended ID</b>This is the extended ID, to make your DMR ID 9 digits long</span></a></td>
@@ -6346,7 +6347,7 @@ if (!@file_exists($bmAPIkeyFile) && !@fopen($bmAPIkeyFile,'r')) {
 </tr>
 <?php } ?>
     <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo __( 'DMR Colour Code' );?>:<span><b>DMR Color Code</b>Set your DMR Color Code here</span></a></td>
+    <td align="left"><a class="tooltip2" href="#"><?php echo __( 'DMR Color Code' );?>:<span><b>DMR Color Code</b>Set your DMR Color Code here</span></a></td>
     <td style="text-align: left;" colspan="3"><select name="dmrColorCode">
 	<?php for ($dmrColorCodeInput = 0; $dmrColorCodeInput <= 15; $dmrColorCodeInput++) {
 		if ($configmmdvm['DMR']['ColorCode'] == $dmrColorCodeInput) { echo "<option selected=\"selected\" value=\"$dmrColorCodeInput\">$dmrColorCodeInput</option>\n"; }
