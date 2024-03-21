@@ -1085,7 +1085,7 @@ if (!empty($_POST)):
 	if (empty($_POST['confDefRef']) != TRUE ) {
 	  if (stristr(strtoupper(escapeshellcmd($_POST['confDefRef'])), strtoupper(escapeshellcmd($_POST['confCallsign']))) != TRUE ) {
 	    if (strlen($_POST['confDefRef']) != 7) {
-		$targetRef = strtoupper(escapeshellcmd(str_pad($_POST['confDefRef'], 8, " ")));
+		$targetRef = strtoupper(escapeshellcmd(str_pad($_POST['confDefRef'], 7, " ")));
 	        } else {
 		$targetRef = strtoupper(escapeshellcmd($_POST['confDefRef']));
 	        }
@@ -4482,7 +4482,7 @@ else:
     </tr>
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo __( 'Node Callsign' );?>:<span><b>Gateway Callsign</b>This is your licenced callsign for use on this gateway. Do not append any suffix.</span></a></td>
-    <td align="left" colspan="2"><input type="text" name="confCallsign" id="confCallsign" size="13" maxlength="8" value="<?php echo $configs['gatewayCallsign'] ?>" oninput="enforceValidCharsAndConvertToUpper(this)" /></td>
+    <td align="left" colspan="2"><input type="text" name="confCallsign" id="confCallsign" size="13" maxlength="7" value="<?php echo $configs['gatewayCallsign'] ?>" oninput="enforceValidCharsAndConvertToUpper(this)" /></td>
     <td align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'><i class="fa fa-exclamation-triangle"></i> Do not add suffixes such as "-G"</td>
     </tr>
     <tr>
