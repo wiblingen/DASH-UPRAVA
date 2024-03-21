@@ -1085,7 +1085,7 @@ if (!empty($_POST)):
 	if (empty($_POST['confDefRef']) != TRUE ) {
 	  if (stristr(strtoupper(escapeshellcmd($_POST['confDefRef'])), strtoupper(escapeshellcmd($_POST['confCallsign']))) != TRUE ) {
 	    if (strlen($_POST['confDefRef']) != 7) {
-		$targetRef = strtoupper(escapeshellcmd(str_pad($_POST['confDefRef'], 7, " ")));
+		$targetRef = strtoupper(escapeshellcmd(str_pad($_POST['confDefRef'], 8, " ")));
 	        } else {
 		$targetRef = strtoupper(escapeshellcmd($_POST['confDefRef']));
 	        }
