@@ -160,7 +160,6 @@ if (file_exists('/etc/dstar-radio.mmdvmhost')) {
 // Delete the old MobileGPS config file
 if (file_exists('/etc/mobilegps'))
 {
-    exec('sudo mount -o remount,rw /');
     exec('sudo rm -f /etc/mobilegps');
 }
 // Convert MMDVMHost config file
@@ -259,7 +258,6 @@ if (isset($configmmdvm['DMR Network']['Type'])) {
 
 // Ensure ircDDBGateway file contains the new APRS configuration
 if (isset($configs['aprsHostname'])) {
-    exec('sudo mount -o remount,rw /');
     exec('sudo sed -i "/mobileGPS.*/d;/aprsPassword.*/d;s/aprsHostname=.*/aprsAddress=127.0.0.1/g;s/aprsPort=.*/aprsPort=8673/g" /etc/ircddbgateway');
 
     // re-init iscddbgw config
@@ -570,7 +568,7 @@ $MYCALL=strtoupper($callsign);
 	  var input = $("#bmHSSecurity");
 	  input.attr('type') === 'password' ? input.attr('type','text') : input.attr('type','password')
 	});
-	$(document).on('click', '.toggle-bm-password', function() {
+	$(document).on('click', '.toggle-bm-password_YSF', function() {
 	  $(this).toggleClass("fa-eye fa-eye-slash");
 	  var input = $("#bmHSSecurity_YSF");
 	  input.attr('type') === 'password' ? input.attr('type','text') : input.attr('type','password')
@@ -923,8 +921,6 @@ if ($_SERVER["PHP_SELF"] == "/admin/configure.php") {
 	//HTML output starts here
      echo '<div class="contentwide">'."\n";
 if (!empty($_POST)):
-	// Make the root filesystem writable
-	system('sudo mount -o remount,rw /');
 
 	// Admin Password Change
 	if (!empty($_POST['adminPassword'])) {
@@ -3126,9 +3122,9 @@ if (!empty($_POST)):
                 if (escapeshellcmd($_POST['oledInvertEnable']) == 'OFF' )  { $configmmdvm['OLED']['Invert'] = "0"; }
         }
 
-	// Set MMDVMHost DMR Colour Code
-	if (empty($_POST['dmrColorCode']) != TRUE ) {
-          $configmmdvm['DMR']['ColorCode'] = escapeshellcmd($_POST['dmrColorCode']);
+	// Set MMDVMHost DMR Color Code
+	if (isset($_POST['dmrColorCode'])) {
+	    $configmmdvm['DMR']['ColorCode'] = (int)$_POST['dmrColorCode'];
 	}
 
 	// Set MMDVMHost DMR Access List ; post DMR ID/CCS7 to ACL config if submitted AND ONLY IF 7 digits.
@@ -5607,7 +5603,7 @@ $ysfHosts = fopen("/usr/local/etc/YSFHosts.txt", "r"); ?>
       <td align="left"><a class="tooltip2" href="#">Hotspot Security:<span><b>DMR Master Password</b>Override the Password for DMR with your own custom password, make sure you already configured this on your chosed DMR Master. Empty the field to use the default.</span></a></td>
       <td align="left" colspan="2">
         <input type="password" name="bmHSSecurity_YSF" id="bmHSSecurity_YSF" size="30" maxlength="30" value="<?php if (isset($configModem['BrandMeister']['Password'])) {echo $configModem['BrandMeister']['Password'];} ?>"></input>
-	<span toggle="#password-field" class="fa fa-fw fa-eye field_icon toggle-bm-password"></span>
+	<span toggle="#password-field" class="fa fa-fw fa-eye field_icon toggle-bm-password_YSF"></span>
       </td>
     </tr>
     <tr>
@@ -6700,7 +6696,7 @@ echo '
     <br /><span id="confirmMessage" class="confirmMessage"></span></td>
     <td align="right"><input type="button" id="submitpwd" value="<?php echo __( 'Set Password' );?>" onclick="submitPassform()" disabled="disabled" /></td>
     </tr>
-    <tr><td colspan="3" align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'><i class="fa fa-exclamation-circle"></i> <strong>NOTE:</strong> This changes the password for  admin pages, this configuration page AND the '<code>pi-star</code>' SSH account.</td></tr>
+    <tr><td colspan="3" align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'><i class="fa fa-exclamation-circle"></i> <strong>NOTE:</strong> This changes the password for admin pages, this configuration page AND the '<code>pi-star</code>' SSH account.</td></tr>
     </table>
     </form>
 <?php endif; ?>
