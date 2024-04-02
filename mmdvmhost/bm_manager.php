@@ -72,9 +72,9 @@ if ( $testMMDVModeDMR == 1 ) {
 	        exec($bmStaticDropAllCmd);
                 // Output to the browser
 		echo '<br /><div style="text-align:left;font-weight:bold;" id="cmdOut" class="larger">BrandMeister Manager</div>'."\n";
-                echo "<table>\n<tr><th>Command Output</th></tr>\n<tr><td>";
-                print "<p>All Static Talkgroups Dropped!<br /> Page reloading...</p>";
-                echo "</td></tr>\n</table>\n";
+		echo "<table>\n<tr><th>Command Output</th></tr>\n<tr><td>";
+		print "<p>All Static Talkgroups Dropped!<br /> Page reloading...</p>";
+		echo "</td></tr>\n</table>\n";
                 // Clean up...
                 unset($_POST);
                 echo '<script type="text/javascript">setTimeout(function() { window.location.href = "./?func=bm_man";},3000);</script>';
