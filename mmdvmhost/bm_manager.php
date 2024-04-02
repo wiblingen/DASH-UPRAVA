@@ -353,10 +353,9 @@ $(document).ready(function() {
     $("#showDeviceLogs").click(function(event) {
         event.preventDefault(); // Prevent the default link behavior (e.g., navigating to a different page)
 
-        // Your PHP script that retrieves and displays device logs
         $.ajax({
             type: "POST",
-            url: "/mmdvmhost/bm_device_logs.php", // Replace with the actual URL of your PHP script
+            url: "/mmdvmhost/bm_device_logs.php",
             data: {
                 bmAPIkey: "<?php echo $bmAPIkey; ?>",
                 MYCALL: "<?php echo $MYCALL; ?>",
