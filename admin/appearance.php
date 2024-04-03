@@ -152,8 +152,7 @@ checkSessionValidity();
 		    if (empty($_POST['cssReset']) != TRUE) {
 			echo "<br />\n";
 			echo "<table>\n";
-			echo "<tr><th>Appearance Settings Reset</th></tr>\n";
-			echo "<tr><td>Resetting Appearance...</td><tr>\n";
+			echo "<tr><td>Resetting Appearance Settings...</td><tr>\n";
 			echo "</table>\n";
 			unset($_POST);
 			//Reset the config
@@ -374,7 +373,7 @@ checkSessionValidity();
 		echo '</form>'."\n";
 		echo '<input type="button" onclick="javascript:cssDownload();" value="Download Appearance Settings" />'."\n";
 		echo '<input type="button" onclick="javascript:cssUpload();" value="Upload &amp; Apply Appearance Settings" />'."\n";
-		echo '<input style="background:crimson;color:white;" type="button" onclick="javascript:cssReset();" value="Appearance Settings '.__( 'Factory Reset' ).'" />'."\n";
+		echo '<input style="background:crimson;color:white;" type="button" onclick="javascript:cssReset();" value="Reset Appearance Settings" />'."\n";
 		echo "<br />\n";
 		echo "<br />\n";
 		?>
