@@ -116,7 +116,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/power.php") {
 			    <tr><th colspan="2"><?php echo __( 'Power' );?></th></tr>
 			    <?php
 			    if ( escapeshellcmd($_POST["action"]) == "reboot" ) {
-				echo '<tr><td colspan="2" style="background: #000000; color: #4DEEEA;"><br /><br />Your Hotspot is rebooting...
+				echo '<tr><td colspan="2" style="background: #000000; color: #4DEEEA;"><br /><br />System is rebooting...
 				    <br /><br />You will be redirected back to the dashboard automatically in ' . $rbMinutes . ' ' . (($rbMinutes > 1) ? "minutes" : "minute") . ' ' . (($rbSeconds > 0) ? $rbSeconds . ' seconds' : '') . '.<br /><br /><br />
 				    <script language="JavaScript" type="text/javascript">
 				        setTimeout(function() {
@@ -127,7 +127,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/power.php") {
 				   exec("sudo sync && sleep 2 && sudo reboot > /dev/null 2>&1 &");
 			    }
 			    else if ( escapeshellcmd($_POST["action"]) == "shutdown" ) {
-				echo '<tr><td colspan="2" style="background: #000000; color: #4DEEEA;"><br /><br />Shutdown command has been sent to your Hotspot.
+				echo '<tr><td colspan="2" style="background: #000000; color: #4DEEEA;"><br /><br />Shutdown command has been sent to the system.
 				   <br />Please wait at least 30 seconds for it to fully shutdown<br />before removing the power.<br /><br /><br /></td></tr>';
 				   exec("sudo sync && sleep 3 && sudo shutdown -h now > /dev/null 2>&1 &");
 			    }
