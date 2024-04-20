@@ -4761,8 +4761,6 @@ else:
     <div class="aprs-preview-container">
 	<label for="symbol" style="padding-right:5px;">Select APRS Symbol:</label>
 	<select id="symbol" name="symbol" onchange="updateSymbolPreview(this.value);">
-	    <option value="" disabled selected>Select...</option>
-	    <option value="">WPSD Default</option>
 	    <?php echo $sym_options; ?>
 	</select>
         <div class="aprs-preview-text" style="display: none;">Preview:</div>
