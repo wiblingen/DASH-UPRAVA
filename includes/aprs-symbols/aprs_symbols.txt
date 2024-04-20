@@ -1,3 +1,4 @@
+Wi      WD      WPSD Default
 \8	A8	802.11 WiFi or other network node	
 \<	NT	Advisory, single red flag	
 /A	PA	Aid station	
@@ -149,6 +150,6 @@
 /_	HW	Weather station	
 /)	BJ	Wheelchair, handicapped	
 \A	AA	White box	
-/Z	PZ	Windows flag	
+/Z	PZ	MS Windows logo (eeeeewww!!!)
 \j	SJ	Work zone, excavating machine	
 /x	LX	X / Unix	
