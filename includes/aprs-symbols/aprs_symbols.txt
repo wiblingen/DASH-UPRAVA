@@ -1,4 +1,4 @@
-Wi      WD      WPSD Default
+Wi	WD	WPSD Default
 \8	A8	802.11 WiFi or other network node	
 \<	NT	Advisory, single red flag	
 /A	PA	Aid station	
