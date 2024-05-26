@@ -161,6 +161,11 @@ if ( $testMMDVModeP25 == 1 || $testYSF2P25 == 1 ) {
 			    <input type="submit" name="p25MgrSubmit" value="Request Change" />
 			</td>
 		    </tr>
+                    <tr>
+                      <td colspan="4" style="white-space:normal;padding: 3px;">
+                        <a href="https://w0chp.radio/p25-reflectors/" target="_blank">List of P25 Reflectors (searchable/downloadable)</a>
+                      </td>
+                    </tr>
 		</table>
 	    </form>
 	<?php

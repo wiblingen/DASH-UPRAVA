@@ -164,6 +164,9 @@ if ( $testMMDVModeNXDN == 1 || $testDMR2NXDN == 1 || $testYSF2NXDN == 1 ) {
 				<input type="submit" name="nxdnMgrSubmit" value="Request Change" />
 			    </td>
 			</tr>
+                    	<tr>
+                      	  <td colspan="4" style="white-space:normal;padding: 3px;"><a href="https://w0chp.radio/nxdn-reflectors/" target="_blank">List of NXDN Reflectors (searchable/downloadable)</a></td>
+                    	</tr>
 		    </table>
 		</form>
 	<?php
