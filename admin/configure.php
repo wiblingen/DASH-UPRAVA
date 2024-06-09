@@ -4574,13 +4574,12 @@ else:
             <?php } else { ?>
 	    <td align="left" colspan="3"><select name="confHardwareSpeed">
 		<?php 
-		//$modemSpeeds = [500000, 460800, 115200, 57600, 38400, 19200, 9600, 4800, 2400, 1200]; // will enable when we see more 500000 & 460800 baud modems out there.
-		$modemSpeeds = [115200, 57600, 38400, 19200, 9600, 4800, 2400, 1200];
+		$modemSpeeds = [500000, 460800, 230400, 115200, 57600, 38400, 19200, 9600, 4800, 2400, 1200];
 		foreach($modemSpeeds as $modemSpeed) {
 		    if ($configmmdvm['Modem']['UARTSpeed'] == $modemSpeed) {
 			echo " <option value=\"$modemSpeed\" selected=\"selected\">$modemSpeed</option>\n";
 		    } else {
-			if(in_array($modemSpeed, array("500000", "460800"))) { // little warning for the n00bz who may think their little HS_HAT can go above 115200 baud.
+			if(in_array($modemSpeed, array("500000", "460800", "230400"))) { // little warning for the n00bz who may think their little HS_HAT can go above 115200 baud.
 			    echo " <option value=\"$modemSpeed\">$modemSpeed (for select repeaters only!)</option>\n";
 			} else {
 			    echo " <option value=\"$modemSpeed\">$modemSpeed</option>\n";
