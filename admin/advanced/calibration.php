@@ -179,7 +179,8 @@ if ($_SERVER["PHP_SELF"] == "/admin/advanced/calibration.php") {
             document.getElementById("btnStart").disabled = false;
           }
 
-          if (("\n"+data).includes("Complete...")) {
+          if (("\n"+data).includes("Finished...")) {
+            $('#ledStart').attr("class", 'red_dot');
             $('#ledDStar').attr("class", 'red_dot');
             $('#ledDMR').attr("class", 'red_dot');
             $('#ledYSF').attr("class", 'red_dot');
