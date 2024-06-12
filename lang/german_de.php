@@ -64,6 +64,7 @@ $lang = array (
   "Country"                     =>  "Land",
   "URL"                         =>  "URL",
   "Radio/Modem Type"                  =>  "Radio/Modem Typ",
+  "Modem Port"                  =>  "Modemanschluss",
   "Baudrate"                    =>  "Baudrate",
   "Node Type"                   =>  "Node Typ",
   "System Time Zone"                    =>  "Systemzeit Zone",

@@ -62,6 +62,7 @@ $lang = array (
   "Town"                        =>  "Town",
   "Country"                     =>  "Country",
   "URL"                         =>  "URL",
+  "Modem Port"                  =>  "Modem Port",
   "Radio/Modem Type"                  =>  "Radio/Modem Type",
   "Baudrate"                    =>  "Baudrate",
   "Node Type"                   =>  "Node Type",
