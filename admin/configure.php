@@ -4429,7 +4429,7 @@ else:
     </tr>
     <tr>
         <td align="left"><a class="tooltip2" href="#"><?php echo __( 'Modem Port' );?>:<span><b>Port</b>Which port is the modem connected to?</span></a></td>
-	<td align="left" colspan="3"><input type="text" id="confPort" name="confPort" size="13" maxlength="12" value="<?php echo $configmmdvm['Modem']['UARTPort']; ?>"></td>\n";
+	<td align="left" colspan="3"><input type="text" id="confPort" name="confPort" size="13" maxlength="12" value="<?php echo $configmmdvm['Modem']['UARTPort']; ?>"></td>
     </tr>
 <?php if (isDVmegaCast() == 0) {   // Begin DVMega Cast logic... ?>
 	<tr id="modem_speed">
