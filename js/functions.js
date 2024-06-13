@@ -112,6 +112,74 @@ function checkFrequency(){
     if (435 <= intFreqPOCSAG && intFreqPOCSAG <= 438)   { pocsagFrequency.style.backgroundColor = badColor; }
   }
 }
+function setMmdvmPort(modem) {
+    port = document.getElementById('confPort');
+    switch(modem) {
+        case 'dvmpis':
+        case 'dvmpid':
+        case 'zumspotgpio':
+        case 'zumspotdualgpio':
+        case 'zumspotduplexgpio':
+        case 'zumradiopigpio':
+        case 'stm32dvm':
+        case 'stm32dvmv3+':
+        case 'stm32dvmmtr2kopi':
+        case 'f4mgpio':
+        case 'mmdvmhshat':
+        case 'lshshatgpio':
+        case 'mmdvmhsdualbandgpio':
+        case 'sbhsdualbandgpio':
+        case 'mmdvmhsdualhatgpio':
+        case 'lshsdualhatgpio':
+        case 'mmdvmrpthat':
+        case 'mmdvmmdohat':
+        case 'mmdvmvyehat':
+        case 'mmdvmvyehatdual':
+        case 'nanodv':
+        case 'dvmpicast':
+            port.value = "/dev/ttyAMA0";
+            break;
+
+        case 'dvmuadu':
+        case 'dvmbss':
+        case 'dvmbsd':
+        case 'dvmuagmsku':
+        case 'stm32usb':
+        case 'stm32usbv3+':
+        case 'f4mf7m':
+            port.value = "/dev/ttyUSB0";
+            break;
+
+        case 'dvmuada':
+        case 'dvmuagmska':
+        case 'dvrptr1':
+        case 'dvrptr2':
+        case 'dvrptr3':
+        case 'zumspotlibre':
+        case 'zumspotusb':
+        case 'lsusb':
+        case 'zumradiopiusb':
+        case 'zum':
+        case 'mmdvmhsdualhatusb':
+        case 'nanodvusb':
+        case 'opengd77':
+            port.value = "/dev/ttyACM0";
+            break;
+
+        case 'mmdvmhshatambe':
+            port.value = "/dev/ttySC0";
+            break;
+
+        case 'dvmpicasths':
+        case 'dvmpicasthd':
+            port.value = "/dev/ttyS2";
+            break;
+
+        default:
+            port.value = "/dev/ttyAMA0";
+            break;
+    }
+}
 function toggleDMRCheckbox(event) {
   switch(document.getElementById('aria-toggle-dmr').getAttribute('aria-checked')) {
     case "true":

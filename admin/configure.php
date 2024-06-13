@@ -2322,6 +2322,9 @@ if (!empty($_POST)):
 	if (empty($_POST['confHardware']) != TRUE ) {
 	$confHardware = escapeshellcmd($_POST['confHardware']);
 	$configModem['Modem']['Hardware'] = $confHardware;
+	$confPort = escapeshellcmd($_POST['confPort']);
+	$configmmdvm['Modem']['UARTPort'] = $confPort;
+	$configmmdvm['Modem']['Protocol'] = "uart";
 	$confHardwareSpeed = escapeshellcmd($_POST['confHardwareSpeed']);
 	// Set the Start delay
 	$rollMMDVMHostStartDelay = 'sudo sed -i "/OnStartupSec=/c\\OnStartupSec=30" /lib/systemd/system/mmdvmhost.timer';
@@ -2339,405 +2342,278 @@ if (!empty($_POST)):
 	    if (substr($testNetworkConfig, 0, 1) === '0') {
 	      system('sudo sed -i "$ a\ \\nauto eth0:1\\nallow-hotplug eth0:1\\niface eth0:1 inet static\\n    address 172.16.0.20\\n    netmask 255.255.255.0" /etc/network/interfaces');
 	    }
-	    $configmmdvm['Modem']['Protocol'] = "uart";
-	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
 	  }
 
 	  if ( $confHardware == 'dvmpis' ) {
-	    $configmmdvm['Modem']['Port'] = "/dev/ttyAMA0";
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
 	    $configmmdvm['General']['Duplex'] = 0;
 	    $configmmdvm['DMR Network']['Slot1'] = 0;
-	    $configmmdvm['Modem']['Protocol'] = "uart";
-	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
 	  }
 
 	  if ( $confHardware == 'dvmpid' ) {
-	    $configmmdvm['Modem']['Port'] = "/dev/ttyAMA0";
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
 	    $configmmdvm['General']['Duplex'] = 0;
 	    $configmmdvm['DMR Network']['Slot1'] = 0;
-	    $configmmdvm['Modem']['Protocol'] = "uart";
-	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
 	  }
 
 	  if ( $confHardware == 'dvmuadu' ) {
-	    $configmmdvm['Modem']['Port'] = "/dev/ttyUSB0";
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
 	    $configmmdvm['General']['Duplex'] = 0;
 	    $configmmdvm['DMR Network']['Slot1'] = 0;
-	    $configmmdvm['Modem']['Protocol'] = "uart";
-	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
 	  }
 
 	  if ( $confHardware == 'dvmuada' ) {
-	    $configmmdvm['Modem']['Port'] = "/dev/ttyACM0";
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
 	    $configmmdvm['General']['Duplex'] = 0;
 	    $configmmdvm['DMR Network']['Slot1'] = 0;
-	    $configmmdvm['Modem']['Protocol'] = "uart";
-	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
 	  }
 
 	  if ( $confHardware == 'dvmbss' ) {
 	    $rollMMDVMHostStartDelay = 'sudo sed -i "/OnStartupSec=/c\\OnStartupSec=60" /lib/systemd/system/mmdvmhost.timer';
-	    $configmmdvm['Modem']['Port'] = "/dev/ttyUSB0";
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
 	    $configmmdvm['General']['Duplex'] = 0;
 	    $configmmdvm['DMR Network']['Slot1'] = 0;
-	    $configmmdvm['Modem']['Protocol'] = "uart";
-	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
 	  }
 
 	  if ( $confHardware == 'dvmbsd' ) {
 	    $rollMMDVMHostStartDelay = 'sudo sed -i "/OnStartupSec=/c\\OnStartupSec=60" /lib/systemd/system/mmdvmhost.timer';
-	    $configmmdvm['Modem']['Port'] = "/dev/ttyUSB0";
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
 	    $configmmdvm['General']['Duplex'] = 0;
 	    $configmmdvm['DMR Network']['Slot1'] = 0;
-	    $configmmdvm['Modem']['Protocol'] = "uart";
-	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
 	  }
 
 	  if ( $confHardware == 'dvmuagmsku' ) {
-	    $configmmdvm['Modem']['Port'] = "/dev/ttyUSB0";
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
-	    $configmmdvm['Modem']['Protocol'] = "uart";
-	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
 	  }
 
 	  if ( $confHardware == 'dvmuagmska' ) {
-	    $configmmdvm['Modem']['Port'] = "/dev/ttyACM0";
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
-	    $configmmdvm['Modem']['Protocol'] = "uart";
-	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
 	  }
 
 	  if ( $confHardware == 'dvrptr1' ) {
-	    $configmmdvm['Modem']['Port'] = "/dev/ttyACM0";
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
-	    $configmmdvm['Modem']['Protocol'] = "uart";
-	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
 	  }
 
 	  if ( $confHardware == 'dvrptr2' ) {
-	    $configmmdvm['Modem']['Port'] = "/dev/ttyACM0";
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
-	    $configmmdvm['Modem']['Protocol'] = "uart";
-	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
 	  }
 
 	  if ( $confHardware == 'dvrptr3' ) {
-	    $configmmdvm['Modem']['Port'] = "/dev/ttyACM0";
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
-	    $configmmdvm['Modem']['Protocol'] = "uart";
-	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
 	  }
 
 	  if ( $confHardware == 'gmsk_modem' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
-	    $configmmdvm['Modem']['Protocol'] = "uart";
-	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
 	  }
 
 	  if ( $confHardware == 'zumspotlibre' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
-	    $configmmdvm['Modem']['Port'] = "/dev/ttyACM0";
 	    $configmmdvm['General']['Duplex'] = 0;
 	    $configmmdvm['DMR Network']['Slot1'] = 0;
-	    $configmmdvm['Modem']['Protocol'] = "uart";
-	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
 	  }
 
 	  if ( $confHardware == 'zumspotusb' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
-	    $configmmdvm['Modem']['Port'] = "/dev/ttyACM0";
 	    $configmmdvm['General']['Duplex'] = 0;
 	    $configmmdvm['DMR Network']['Slot1'] = 0;
-	    $configmmdvm['Modem']['Protocol'] = "uart";
-	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
 	  }
 
 	  if ( $confHardware == 'lsusb' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
-	    $configmmdvm['Modem']['Port'] = "/dev/ttyACM0";
 	    $configmmdvm['General']['Duplex'] = 0;
 	    $configmmdvm['DMR Network']['Slot1'] = 0;
-	    $configmmdvm['Modem']['Protocol'] = "uart";
-	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
 	  }
 
 	  if ( $confHardware == 'zumspotgpio' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
-	    $configmmdvm['Modem']['Port'] = "/dev/ttyAMA0";
 	    $configmmdvm['General']['Duplex'] = 0;
 	    $configmmdvm['DMR Network']['Slot1'] = 0;
-	    $configmmdvm['Modem']['Protocol'] = "uart";
-	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
 	  }
 
 	  if ( $confHardware == 'zumspotdualgpio' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
-	    $configmmdvm['Modem']['Port'] = "/dev/ttyAMA0";
 	    $configmmdvm['General']['Duplex'] = 0;
 	    $configmmdvm['DMR Network']['Slot1'] = 0;
-	    $configmmdvm['Modem']['Protocol'] = "uart";
-	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
 	  }
 
 	  if ( $confHardware == 'zumspotduplexgpio' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
-	    $configmmdvm['Modem']['Port'] = "/dev/ttyAMA0";
 	    $configmmdvm['General']['Duplex'] = 1;
-	    $configmmdvm['Modem']['Protocol'] = "uart";
-	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
 	  }
 
           if ( $confHardware == 'zumradiopiusb' ) {
             $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
             system($rollRepeaterType1);
-            $configmmdvm['Modem']['Port'] = "/dev/ttyACM0";
             $configmmdvm['General']['Duplex'] = 0;
             $configmmdvm['DMR Network']['Slot1'] = 0;
-            $configmmdvm['Modem']['Protocol'] = "uart";
-            $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
           }
 
 	  if ( $confHardware == 'zumradiopigpio' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
-	    $configmmdvm['Modem']['Port'] = "/dev/ttyAMA0";
-	    $configmmdvm['Modem']['Protocol'] = "uart";
-	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
 	    $configmmdvm['Modem']['UARTSpeed'] = "460800";
 	  }
 
 	  if ( $confHardware == 'zum' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
-	    $configmmdvm['Modem']['Port'] = "/dev/ttyACM0";
-	    $configmmdvm['Modem']['Protocol'] = "uart";
-	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
 	  }
 
 	  if ( $confHardware == 'stm32dvm' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
-	    $configmmdvm['Modem']['Port'] = "/dev/ttyAMA0";
-	    $configmmdvm['Modem']['Protocol'] = "uart";
-	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
 	  }
 
 	  if ( $confHardware == 'stm32dvmv3+' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
-	    $configmmdvm['Modem']['Port'] = "/dev/ttyAMA0";
-	    $configmmdvm['Modem']['Protocol'] = "uart";
-	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
 	    $configmmdvm['Modem']['UARTSpeed'] = "460800";
 	  }
 
 	  if ( $confHardware == 'stm32usb' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
-	    $configmmdvm['Modem']['Port'] = "/dev/ttyUSB0";
-	    $configmmdvm['Modem']['Protocol'] = "uart";
-	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
 	  }
 
 	  if ( $confHardware == 'stm32usbv3+' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
-	    $configmmdvm['Modem']['Port'] = "/dev/ttyUSB0";
-	    $configmmdvm['Modem']['Protocol'] = "uart";
-	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
 	    $configmmdvm['Modem']['UARTSpeed'] = "460800";
 	  }
 
 	  if ( $confHardware == 'stm32dvmmtr2kopi' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
-	    $configmmdvm['Modem']['Port'] = "/dev/ttyAMA0";
-	    $configmmdvm['Modem']['Protocol'] = "uart";
-	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
 	    $configmmdvm['Modem']['UARTSpeed'] = "500000";
 	  }
 
 	  if ( $confHardware == 'f4mgpio' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
-	    $configmmdvm['Modem']['Port'] = "/dev/ttyAMA0";
-	    $configmmdvm['Modem']['Protocol'] = "uart";
-	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
 	  }
 
 	  if ( $confHardware == 'f4mf7m' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
-	    $configmmdvm['Modem']['Port'] = "/dev/ttyUSB0";
 	    $configmmdvm['General']['Duplex'] = 1;
-	    $configmmdvm['Modem']['Protocol'] = "uart";
-	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
 	  }
 
 	  if ( $confHardware == 'mmdvmhshat' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
-	    $configmmdvm['Modem']['Port'] = "/dev/ttyAMA0";
 	    $configmmdvm['General']['Duplex'] = 0;
 	    $configmmdvm['DMR Network']['Slot1'] = 0;
-	    $configmmdvm['Modem']['Protocol'] = "uart";
-	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
 	  }
 
 	  if ( $confHardware == 'lshshatgpio' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
-	    $configmmdvm['Modem']['Port'] = "/dev/ttyAMA0";
 	    $configmmdvm['General']['Duplex'] = 0;
 	    $configmmdvm['DMR Network']['Slot1'] = 0;
-	    $configmmdvm['Modem']['Protocol'] = "uart";
-	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
 	  }
 
 	  if ( $confHardware == 'mmdvmhshatambe' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
-	    $configmmdvm['Modem']['Port'] = "/dev/ttySC0";
 	    $configmmdvm['General']['Duplex'] = 0;
 	    $configmmdvm['DMR Network']['Slot1'] = 0;
-	    $configmmdvm['Modem']['Protocol'] = "uart";
-	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
 	  }
 
 	  if ( $confHardware == 'mmdvmhsdualbandgpio' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
-	    $configmmdvm['Modem']['Port'] = "/dev/ttyAMA0";
 	    $configmmdvm['General']['Duplex'] = 0;
 	    $configmmdvm['DMR Network']['Slot1'] = 0;
-      	    $configmmdvm['Modem']['Protocol'] = "uart";
-      	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
 	  }
 
 	  if ( $confHardware == 'sbhsdualbandgpio' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
-	    $configmmdvm['Modem']['Port'] = "/dev/ttyAMA0";
 	    $configmmdvm['General']['Duplex'] = 0;
 	    $configmmdvm['DMR Network']['Slot1'] = 0;
-      	    $configmmdvm['Modem']['Protocol'] = "uart";
-      	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
 	  }
 
 	  if ( $confHardware == 'mmdvmhsdualhatgpio' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
-	    $configmmdvm['Modem']['Port'] = "/dev/ttyAMA0";
 	    $configmmdvm['General']['Duplex'] = 1;
-       	    $configmmdvm['Modem']['Protocol'] = "uart";
-       	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
 	  }
 
 	  if ( $confHardware == 'lshsdualhatgpio' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
-	    $configmmdvm['Modem']['Port'] = "/dev/ttyAMA0";
 	    $configmmdvm['General']['Duplex'] = 1;
-       	    $configmmdvm['Modem']['Protocol'] = "uart";
-       	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
 	  }
 
 	  if ( $confHardware == 'mmdvmhsdualhatusb' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
-	    $configmmdvm['Modem']['Port'] = "/dev/ttyACM0";
 	    $configmmdvm['General']['Duplex'] = 1;
 	  }
 
 	  if ( $confHardware == 'mmdvmrpthat' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
-	    $configmmdvm['Modem']['Port'] = "/dev/ttyAMA0";
 	    $configmmdvm['General']['Duplex'] = 1;
-       	    $configmmdvm['Modem']['Protocol'] = "uart";
-       	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
 	  }
 
 	  if ( $confHardware == 'mmdvmmdohat' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
-	    $configmmdvm['Modem']['Port'] = "/dev/ttyAMA0";
 	    $configmmdvm['General']['Duplex'] = 0;
 	    $configmmdvm['DMR Network']['Slot1'] = 0;
-       	    $configmmdvm['Modem']['Protocol'] = "uart";
-       	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
 	  }
 
 	  if ( $confHardware == 'mmdvmvyehat' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
-	    $configmmdvm['Modem']['Port'] = "/dev/ttyAMA0";
 	    $configmmdvm['General']['Duplex'] = 0;
 	    $configmmdvm['DMR Network']['Slot1'] = 0;
-       	    $configmmdvm['Modem']['Protocol'] = "uart";
-       	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
 	  }
 
 	  if ( $confHardware == 'mmdvmvyehatdual' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
-	    $configmmdvm['Modem']['Port'] = "/dev/ttyAMA0";
 	    $configmmdvm['General']['Duplex'] = 1;
-       	    $configmmdvm['Modem']['Protocol'] = "uart";
-       	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
 	  }
 
 	  if ( $confHardware == 'nanodv' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
-	    $configmmdvm['Modem']['Port'] = "/dev/ttyAMA0";
 	    $configmmdvm['General']['Duplex'] = 0;
 	    $configmmdvm['DMR Network']['Slot1'] = 0;
-       	    $configmmdvm['Modem']['Protocol'] = "uart";
-       	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
 	  }
 
 	  if ( $confHardware == 'nanodvusb' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
-	    $configmmdvm['Modem']['Port'] = "/dev/ttyACM0";
 	    $configmmdvm['General']['Duplex'] = 0;
 	    $configmmdvm['DMR Network']['Slot1'] = 0;
-       	    $configmmdvm['Modem']['Protocol'] = "uart";
-       	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
 	  }
 
 	  if ( $confHardware == 'dvmpicast' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
-	    $configmmdvm['Modem']['Port'] = "/dev/ttyAMA0";
 	    system($rollRepeaterType1);
 	    $configmmdvm['General']['Duplex'] = 0;
 	    $configmmdvm['DMR Network']['Slot1'] = 0;
-       	    $configmmdvm['Modem']['Protocol'] = "uart";
 	    if (isDVmegaCast() == 1) { // If a CAST, call the Base Station mode script
 		$rollCastMode = 'sudo /usr/local/cast/sbin/RMBS.sh conf_page';
 	    }
@@ -2745,11 +2621,9 @@ if (!empty($_POST)):
 
 	  if ( $confHardware == 'dvmpicasths' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
-	    $configmmdvm['Modem']['Port'] = "/dev/ttyS2";
 	    system($rollRepeaterType1);
 	    $configmmdvm['General']['Duplex'] = 0;
 	    $configmmdvm['DMR Network']['Slot1'] = 0;
-       	    $configmmdvm['Modem']['Protocol'] = "uart";
 	    if (isDVmegaCast() == 1) { // If a CAST, call the HotSpot mode script
 		$rollCastMode = 'sudo /usr/local/cast/sbin/RMHS.sh conf_page';
 	    }
@@ -2757,11 +2631,9 @@ if (!empty($_POST)):
 
 	  if ( $confHardware == 'dvmpicasthd' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
-	    $configmmdvm['Modem']['Port'] = "/dev/ttyS2";
 	    system($rollRepeaterType1);
 	    $configmmdvm['General']['Duplex'] = 0;
 	    $configmmdvm['DMR Network']['Slot1'] = 0;
-       	    $configmmdvm['Modem']['Protocol'] = "uart";
 	    if (isDVmegaCast() == 1) { // If a CAST, call the HotSpot mode script
 		$rollCastMode = 'sudo /usr/local/cast/sbin/RMHS.sh conf_page dual';
 	    }
@@ -2770,11 +2642,8 @@ if (!empty($_POST)):
 	  if ( $confHardware == 'opengd77' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
-	    $configmmdvm['Modem']['Port'] = "/dev/ttyACM0";
 	    $configmmdvm['General']['Duplex'] = 0;
 	    $configmmdvm['DMR Network']['Slot1'] = 0;
-       	    $configmmdvm['Modem']['Protocol'] = "uart";
-       	    $configmmdvm['Modem']['UARTPort'] = $configmmdvm['Modem']['Port'];
 	  }
 
 	  // Set the Service start delay
@@ -4521,7 +4390,7 @@ else:
     <?php } // end DVMega Cast logic ?>
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo __( 'Radio/Modem Type' );?>:<span><b>Radio/Modem</b>What kind of radio or modem hardware do you have?</span></a></td>
-    <td align="left" colspan="3"><select name="confHardware" class="confHardware">
+    <td align="left" colspan="3"><select name="confHardware" class="confHardware" onchange="setMmdvmPort(this.options[this.selectedIndex].value);">
 		<?php if (isDVmegaCast() == 1) { // Begin DVMega Cast logic... ?>
                 <option<?php if ($configModem['Modem']['Hardware'] === 'dvmpicast') {           echo ' selected="selected"';}?> value="dvmpicast">DV-Mega Cast Base Station Mode (Main Unit)</option>
                 <option<?php if ($configModem['Modem']['Hardware'] === 'dvmpicasths') {         echo ' selected="selected"';}?> value="dvmpicasths">DV-Mega Cast Hotspot Mode - Single Band Board (70cm)</option>
@@ -4572,6 +4441,10 @@ else:
 		<option<?php if ($configModem['Modem']['Hardware'] === 'opengd77') {		echo ' selected="selected"';}?> value="opengd77">OpenGD77 DMR hotspot (USB)</option>
 		<?php } // End DVMega Cast logic ?>
     </select></td>
+    </tr>
+    <tr>
+        <td align="left"><a class="tooltip2" href="#"><?php echo __( 'Modem Port' );?>:<span><b>Port</b>Which port is the modem connected to?</span></a></td>
+	<td align="left" colspan="3"><input type="text" id="confPort" name="confPort" size="13" maxlength="12" value="<?php echo $configmmdvm['Modem']['UARTPort']; ?>"></td>
     </tr>
 <?php if (isDVmegaCast() == 0) {   // Begin DVMega Cast logic... ?>
 	<tr id="modem_speed">
