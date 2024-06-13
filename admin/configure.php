@@ -924,21 +924,36 @@ if (!empty($_POST)):
 
 	// Admin Password Change
 	if (!empty($_POST['adminPassword'])) {
+    	    $adminPassword = escapeshellarg(trim($_POST['adminPassword'])); // Escaping and trimming input
 
-	    $rollAdminPass0 = 'sudo htpasswd -b /var/www/.htpasswd pi-star \''.escapeshellarg(trim($_POST['adminPassword'])).'\'';
-	    system($rollAdminPass0);
-	    $rollAdminPass2 = 'sudo echo -e \''.escapeshellarg(trim($_POST['adminPassword'])).'\n'.escapeshellarg(trim($_POST['adminPassword'])).'\' | sudo passwd pi-star';
-	    system($rollAdminPass2);
-	    unset($_POST);
+    	    $rollAdminPass0 = "sudo htpasswd -b /var/www/.htpasswd pi-star $adminPassword";
 
-	    echo "<table>\n";
-	    echo "<tr><th>Working...</th></tr>\n";
-	    echo "<tr><td>Applying your configuration changes...</td></tr>\n";
-	    echo "</table>\n";
-	    echo '<script type="text/javascript">setTimeout(function() { window.location=window.location;},5000);</script>';
-	    echo "<br />\n</div>\n";
-	    echo "<br />\n</div>\n</div>\n</body>\n</html>\n";
-	    die();
+	    $output0 = null;
+    	    $retval0 = null;
+    	    exec($rollAdminPass0, $output0, $retval0);
+
+    	    error_log("Command 1 output: " . implode("\n", $output0));
+    	    error_log("Command 1 return value: " . $retval0);
+
+    	    $rollAdminPass2 = 'sudo echo -e \''.escapeshellarg(trim($_POST['adminPassword'])).'\n'.escapeshellarg(trim($_POST['adminPassword'])).'\' | sudo passwd pi-star';
+
+    	    $output2 = null;
+    	    $retval2 = null;
+    	    exec($rollAdminPass2, $output2, $retval2);
+
+    	    error_log("Command 2 output: " . implode("\n", $output2));
+    	    error_log("Command 2 return value: " . $retval2);
+
+    	    unset($_POST);
+
+    	    echo "<table>\n";
+    	    echo "<tr><th>Working...</th></tr>\n";
+    	    echo "<tr><td>Applying your configuration changes...</td></tr>\n";
+    	    echo "</table>\n";
+    	    echo '<script type="text/javascript">setTimeout(function() { window.location=window.location;},5000);</script>';
+    	    echo "<br />\n</div>\n";
+    	    echo "<br />\n</div>\n</div>\n</body>\n</html>\n";
+    	    die();
 	}
 
 	// AutoAP PSK Change
