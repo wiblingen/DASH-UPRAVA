@@ -214,7 +214,7 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
    <body>
 	<div class="container">
 	    <div class="header">
-               <div class="SmallHeader shLeft noMob"><a style="border-bottom: 1px dotted;" class="tooltip" href="#"><?php echo __( 'Hostname' ).": ";?> <span><strong>System IP Address<br /></strong><?php echo str_replace(',', ',<br />', exec('hostname -I'));?> </span>  <?php echo exec('cat /etc/hostname'); ?></a></div>
+               <div class="SmallHeader shLeft noMob"><a style="border-bottom: 1px dotted;" class="tooltip" href="#"><?php echo __( 'Hostname' ).": ";?> <span><strong>System IP Address<br /></strong><?php echo str_replace(',', ',<br />', exec("hostname -I | awk '{print $1}'"));?> </span>  <?php echo exec('cat /etc/hostname'); ?></a></div>
 		<div class="SmallHeader shRight noMob">
 		<div id="CheckUpdate">
 		<?php
