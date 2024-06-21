@@ -368,8 +368,8 @@ foreach ($configuredConnections as $connection) {
             <?php foreach ($configuredConnections as $configuredConnection) : ?>
                 <?php if (!empty($configuredConnection) && strpos($configuredConnection, 'wifi') !== false) : ?>
                     <?php
-                    $connectionParts = preg_split('/\s+/', $configuredConnection);
-                    $connectionName = $connectionParts[0];
+                    $connectionParts = preg_match( '/(.*)[a-z0-9-]{36}/', $configuredConnection, $matches );
+                    $connectionName = rtrim( $matches[1] );
                     ?>
                     <tr>
                         <td class='conn_name'><?php echo $connectionName; ?></td>
