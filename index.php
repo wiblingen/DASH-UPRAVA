@@ -681,25 +681,27 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
     		echo '</script>'."\n";
 		echo '<div id="lcmsg" style="background:#d6d6d6;color:black; margin:0 0 10px 0;"></div>'."\n";
 
-		echo '<script>
-		  async function fetchData(url, targetElement) {
-		    try {
-		      const response = await fetch(url);
-		      const data = await response.text();
-		      $(targetElement).html(data);
-		    } catch (error) {
-		      console.error(`Error fetching data from ${url}:`, error);
-		    }
-		  }
+		if ($_SERVER["PHP_SELF"] !== "/admin/index.php") {
+		    echo '<script>
+		      async function fetchData(url, targetElement) {
+		        try {
+		          const response = await fetch(url);
+		          const data = await response.text();
+		          $(targetElement).html(data);
+		        } catch (error) {
+		          console.error(`Error fetching data from ${url}:`, error);
+		        }
+		      }
 
-		  function reloadDynData() {
-		    fetchData("/mmdvmhost/last_heard_table.php", "#lastHeard");
-		    fetchData("/mmdvmhost/local_tx_table.php", "#localTxs");
-		    fetchData("/mmdvmhost/caller_details_table.php", "#liveCallerDeets");
-		  }
+		      function reloadDynData() {
+		        fetchData("/mmdvmhost/last_heard_table.php", "#lastHeard");
+		        fetchData("/mmdvmhost/local_tx_table.php", "#localTxs");
+		        fetchData("/mmdvmhost/caller_details_table.php", "#liveCallerDeets");
+		      }
 
-		  setInterval(reloadDynData, 1500);
-		</script>';
+		      setInterval(reloadDynData, 1500);
+		    </script>';
+		}
  
 		echo '<script>'."\n";
         	echo 'function setLHTGnames(obj) {'."\n";
@@ -732,9 +734,9 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 
     }
 
-	if ($_SERVER["PHP_SELF"] != "/admin/index.php") {
+	if ($_SERVER["PHP_SELF"] !== "/admin/index.php") {
             echo '<div id="liveCallerDeets">'."\n";
-            include 'mmdvmhost/caller_details_table.php';
+	    include('/mmdvmhost/caller_details_table.php');
             echo '</div>'."\n";
 
             if (!file_exists('/etc/.CALLERDETAILS')) {
@@ -742,10 +744,11 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
             } else {
                 echo '<div id="lastHeard">'."\n";
             }
+	    include('/mmdvmhost/last_heard_table.php');
             echo '</div>'."\n";
 
             echo '<div id="localTxs" style="margin-top: 20px;">'."\n";
-            include 'mmdvmhost/local_tx_table.php';
+	    include('/mmdvmhost/local_tx_table.php');
             echo '</div>'."\n";
 	}
 
