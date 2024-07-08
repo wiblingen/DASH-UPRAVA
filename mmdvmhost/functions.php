@@ -1898,14 +1898,24 @@ function tgLookup($mode, $target) {
 		$target_lookup = exec("grep -w \"$target\" /usr/local/etc/TGList_QuadNet.txt | awk -F, '{print $2}' | head -1 | tr -d '\"'");
 		if (!empty($target_lookup)) {
 		    if (strpos($_SERVER["PHP_SELF"], 'last_heard_table.php') || strpos($_SERVER["PHP_SELF"], 'local_tx_table.php') !== false) {
-		    	$target = "TG $target <span style='float:right;' class='noMob'>(HB: $target_lookup)</span>";
+		    	$target = "TG $target <span style='float:right;' class='noMob'>(QuadNet: $target_lookup)</span>";
 		    } else {
-		    	$target = "TG $target <span class='noMob'>(HB: $target_lookup)</span>";
+		    	$target = "TG $target <span class='noMob'>(QuadNet: $target_lookup)</span>";
 		    }
 		} else {
 		    $target = "TG $target";
 		}
-
+	    } else if ($_SESSION['DMRGatewayConfigs']['DMR Network 2']['Enabled'] == "1" && strlen($target) >= 6 && substr( $target, 0, 1 ) === "8" && startsWith($_SESSION['DMRGatewayConfigs']['DMR Network 2']['Name'], "FD_AmComm")) {
+		$target_lookup = exec("grep -w \"$target\" /usr/local/etc/TGList_AmComm.txt | awk -F, '{print $2}' | head -1 | tr -d '\"'");
+		if (!empty($target_lookup)) {
+		    if (strpos($_SERVER["PHP_SELF"], 'last_heard_table.php') || strpos($_SERVER["PHP_SELF"], 'local_tx_table.php') !== false) {
+		    	$target = "TG $target <span style='float:right;' class='noMob'>(AmComm: $target_lookup)</span>";
+		    } else {
+		    	$target = "TG $target <span class='noMob'>(AmComm: $target_lookup)</span>";
+		    }
+		} else {
+		    $target = "TG $target";
+		}
 	    } else if (strlen($target) >= 6 && substr( $target, 0, 1 ) === "7" && $_SESSION['DMRGatewayConfigs']['DMR Network 3']['Enabled'] == "1") {                             
 		if ($_SESSION['DMRGatewayConfigs']['DMR Network 3']['Name'] == "DMR2YSF_Cross-Mode") {                                                                             
 		    if (strpos($_SERVER["PHP_SELF"], 'last_heard_table.php') || strpos($_SERVER["PHP_SELF"], 'local_tx_table.php') !== false) {
