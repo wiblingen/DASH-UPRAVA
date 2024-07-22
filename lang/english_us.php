@@ -159,5 +159,4 @@ $lang = array (
   "M17 CAN"                     =>  "M17 CAN",
   "M17 Status"                  =>  "M17 Status",
   "M17 Network"                 =>  "M17 Network",
-  "AccessPoint Mode"            =>  "AccessPoint Mode",
 );

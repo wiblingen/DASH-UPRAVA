@@ -6480,7 +6480,7 @@ $p25Hosts = fopen("/usr/local/etc/P25Hosts.txt", "r");
     </table>
 
 
-
+    <?php if (isDVmegaCast() == 0) { // Begin DVMega Cast logic... ?> 
     <?php if (file_exists('/etc/default/hostapd') && file_exists('/sys/class/net/wlan0') || file_exists('/sys/class/net/wlan1') || file_exists('/sys/class/net/wlan0_ap')) { ?>
     <br /><br />
     <h2 class="ConfSec"><?php _e( 'AccessPoint Mode' ); ?></h2>
@@ -6503,6 +6503,7 @@ $p25Hosts = fopen("/usr/local/etc/P25Hosts.txt", "r");
 
   </form>
   <br />
+    <?php } // end DVMega cast logic ?>
 
 <?php
 	if ($osVer >= 12) { // Bookworm uses NetworkManager, so use our newer wifi-manager...
@@ -6510,6 +6511,8 @@ $p25Hosts = fopen("/usr/local/etc/P25Hosts.txt", "r");
 	} else { // Legacy wpa_supp systems (Bullseye) use the legacy wifi config page...
 	    $wifi_page = '<iframe frameborder="0" scrolling="auto" name="wifi" src="wifi.php?page=wlan0_info" width="100%" onload="javascript:resizeIframe(this);">If you can see this message, your browser does not support iFrames, however if you would like to see the content please click <a href="wifi.php?page=wlan0_info">here</a>.</iframe>';
 	}	
+
+    if (isDVmegaCast() == 0) { // Begin DVMega Cast logic...
 	if ( file_exists('/sys/class/net/wlan0') || file_exists('/sys/class/net/wlan1') || file_exists('/sys/class/net/wlan0_ap') ) {
 echo '
 <br />
@@ -6530,6 +6533,7 @@ echo '
     </table>
     </form>';
     }
+  } // end DVMegaCast logic
 ?>
 
 <br />
