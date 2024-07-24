@@ -100,39 +100,30 @@ checkSessionValidity();
 		<?php
 
 		if (empty($_POST['CallLookupProvider']) != TRUE) {
-		    exec('sudo mount -o remount,rw /');
 		    exec('sudo sed -i "/CallLookupProvider = /c\\\CallLookupProvider = '.escapeshellcmd($_POST['CallProvider']).'" /etc/pistar-release');	
 		    unset($_POST);
 		    echo '<script type="text/javascript">setTimeout(function() { window.location=window.location;},0);</script>';
 		    die();
 		}
 
-		// Check if we are using the new CSS configuration syntax
-		if (file_exists('/etc/pistar-css.ini')) {
-		    $dataContent = file_get_contents('/etc/pistar-css.ini');
-		    
-		    if (! preg_match('/NavPanelColor/', $dataContent))
-		    {
-			// Reset CSS configuration
-			exec('sudo mount -o remount,rw /');                             // Make rootfs writable
-			exec('sudo rm -rf /etc/pistar-css.ini');                        // Delete the Config
-			echo '<script type="text/javascript">setTimeout(function() { window.location=window.location;},0);</script>';
-			die();
-		    }
-		}
 		if (!file_exists('/etc/pistar-css.ini')) {
 		    //The source file does not exist, lets create it....
 		    $outFile = fopen("/tmp/bW1kd4jg6b3N0DQo.tmp", "w") or die("Unable to open file!");
 		    $headers = stream_context_create(Array("http" => Array("method"  => "GET",
-							    		   "timeout" => 10,
-							    		    "header"  => "User-agent: WPSD-CSS-Reset - $versionCmd",
-							    		    'request_fulluri' => True )));
-		    $fileContent = @file_get_contents("https://repo.w0chp.net/WPSD-Dev/WPSD-Helpers/raw/branch/master/supporting-files/pistar-css-W0CHP.ini", false, $headers);
+                                                       "timeout" => 10,
+                                                       "header"  => "User-agent: WPSD-CSS-Reset - $versionCmd",
+                                                       'request_fulluri' => True )));
+
+		    $fileContent = file_get_contents("https://repo.w0chp.net/WPSD-Dev/WPSD-Helpers/raw/branch/master/supporting-files/pistar-css-W0CHP.ini", false, $headers);
+
+		    if ($fileContent === false) {
+			die("Failed to retrieve file content.");
+		    }
+
 		    fwrite($outFile, $fileContent);
 		    fclose($outFile);
 		    
 		    // Put the file back where it should be
-		    exec('sudo mount -o remount,rw /');                             // Make rootfs writable
 		    exec('sudo cp /tmp/bW1kd4jg6b3N0DQo.tmp /etc/pistar-css.ini');  // Move the file back
 		    exec('sudo chmod 644 /etc/pistar-css.ini');                     // Set the correct runtime permissions
 		    exec('sudo chown root:root /etc/pistar-css.ini');               // Set the owner
@@ -152,12 +143,30 @@ checkSessionValidity();
 		    if (empty($_POST['cssReset']) != TRUE) {
 			echo "<br />\n";
 			echo "<table>\n";
-			echo "<tr><td>Resetting Appearance Settings...</td><tr>\n";
+			echo "<tr><td><p>Appearance Settings Reset.</p><p>Page reloading...</p></td><tr>\n";
 			echo "</table>\n";
 			unset($_POST);
 			//Reset the config
-			exec('sudo mount -o remount,rw /');                             // Make rootfs writable
-			exec('sudo rm -rf /etc/pistar-css.ini');                        // Delete the Config
+			$outFile = fopen("/tmp/bW1kd4jg6b3N0DQo.tmp", "w") or die("Unable to open file!");
+			$headers = stream_context_create(Array("http" => Array("method"  => "GET",
+                                                       "timeout" => 10,
+                                                       "header"  => "User-agent: WPSD-CSS-Reset - $versionCmd",
+                                                       'request_fulluri' => True )));
+
+			$fileContent = file_get_contents("https://repo.w0chp.net/WPSD-Dev/WPSD-Helpers/raw/branch/master/supporting-files/pistar-css-W0CHP.ini", false, $headers);
+
+			if ($fileContent === false) {
+			    die("Failed to retrieve file content.");
+			}
+
+		 	fwrite($outFile, $fileContent);
+			fclose($outFile);
+		    
+			// Put the file back where it should be
+			exec('sudo cp /tmp/bW1kd4jg6b3N0DQo.tmp /etc/pistar-css.ini');  // Move the file back
+			exec('sudo chmod 644 /etc/pistar-css.ini');                     // Set the correct runtime permissions
+			exec('sudo chown root:root /etc/pistar-css.ini');               // Set the owner
+
 			echo '<script type="text/javascript">setTimeout(function() { window.location=window.location;},2000);</script>';
 			die();
 		    }
@@ -167,7 +176,7 @@ checkSessionValidity();
 		    }
 		    else if (empty($_POST['cssUpload']) != TRUE)
 		    {
-			echo "<tr><th colspan=\"2\">CCS Configuration Restore</th></tr>\n";
+			echo "<tr><th colspan=\"2\">Appearance upload and apply...</th></tr>\n";
 			
 			if (isset($_FILES['cssFile']) && $_FILES['cssFile']['error'] === UPLOAD_ERR_OK)
 			{
@@ -221,8 +230,6 @@ checkSessionValidity();
 				
 				$output .= "Your .zip file was uploaded and unpacked.\n";
 
-				// Make the disk Writable
-				shell_exec('sudo mount -o remount,rw / 2>&1');
 				
 				$output .= "Copying appearance setttings...\n";
 				$output .= shell_exec("sudo mv -v -f /tmp/css_restore/pistar-css.ini /etc/ 2>&1")."\n";
@@ -288,7 +295,6 @@ checkSessionValidity();
 		    fclose($handle);
 		    
 		    // Updates complete - copy the working file back to the proper location
-		    exec('sudo mount -o remount,rw /');                             // Make rootfs writable
 		    exec('sudo cp /tmp/bW1kd4jg6b3N0DQo.tmp /etc/pistar-css.ini');  // Move the file back
 		    exec('sudo chmod 644 /etc/pistar-css.ini');                     // Set the correct runtime permissions
 		    exec('sudo chown root:root /etc/pistar-css.ini');               // Set the owner
@@ -372,7 +378,7 @@ checkSessionValidity();
 		echo '  <div><input type="hidden" name="cssReset" value="1" /></div>'."\n";
 		echo '</form>'."\n";
 		echo '<input type="button" onclick="javascript:cssDownload();" value="Download Appearance Settings" />'."\n";
-		echo '<input type="button" onclick="javascript:cssUpload();" value="Upload &amp; Apply Appearance Settings" />'."\n";
+		echo '<input type="button" onclick="javascript:cssUpload();" value="Upload &amp; Apply Appearance Settings (zip file only!)" />'."\n";
 		echo '<input style="background:crimson;color:white;" type="button" onclick="javascript:cssReset();" value="Reset Appearance Settings" />'."\n";
 		echo "<br />\n";
 		echo "<br />\n";
