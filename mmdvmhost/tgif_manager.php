@@ -158,7 +158,7 @@ if (empty($dmrID) == false)
 	#$context = stream_context_create($options);
 	#$result = file_get_contents($tgifApiUrl, false, $context);
 
-	$context = stream_context_create(array('http'=>array('timeout' => 10, 'header' => 'User-Agent: WPSD Dashboard for '.$dmrID) )); // Add Timout and User Agent to include DMRID
+	$context = stream_context_create(array('http'=>array('timeout' => 10) )); // Add Timeout
 	$result = @file_get_contents($tgifApiUrl, true, $context);
 
 	// Output to the browser
