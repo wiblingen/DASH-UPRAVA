@@ -34,10 +34,10 @@ $CONFIG = '{"lang":"en","error_reporting":false,"show_hidden":false,"hide_Cols":
  */
 
 //TFM version
-define('VERSION', '2.5.3');
+define('VERSION', '2.5.4');
 
 //Application Title
-define('APP_TITLE', 'W0CHP-PiStar-Dash File Manager');
+define('APP_TITLE', 'WPSD File Manager');
 
 // --- EDIT BELOW CONFIGURATION CAREFULLY ---
 
