@@ -607,22 +607,24 @@ if ( $testMMDVModeDSTAR == 1 || isPaused("D-Star") ) { //Hide the D-Star Reflect
                     }
                 }
 		fclose($ysfHostFile);
-                $fcsHostFile = fopen("/usr/local/etc/FCSHosts.txt", "r");
-                $ysfLinkedToTxt = "null";
-                while (!feof($fcsHostFile)) {
-                    $ysfHostFileLine = fgets($fcsHostFile);
-                    $ysfRoomTxtLine = preg_split('/;/', $ysfHostFileLine);
+		if ($_SESSION['YSFGatewayConfigs']['FCS Network']['Enable'] == 1) {
+                    $fcsHostFile = fopen("/usr/local/etc/FCSHosts.txt", "r");
+                    $ysfLinkedToTxt = "null";
+                    while (!feof($fcsHostFile)) {
+                    	$ysfHostFileLine = fgets($fcsHostFile);
+                    	$ysfRoomTxtLine = preg_split('/;/', $ysfHostFileLine);
 
-                    if (empty($ysfRoomTxtLine[0]) || empty($ysfRoomTxtLine[1]))
-                        continue;
+                    	if (empty($ysfRoomTxtLine[0]) || empty($ysfRoomTxtLine[1]))
+                            continue;
 
-                    if (($ysfRoomTxtLine[0] == $ysfLinkedTo) || ($ysfRoomTxtLine[1] == $ysfLinkedTo)) {
-                        $ysfLinkedToTxt = $ysfRoomTxtLine[1];
-			$ysfRoomNo = $ysfRoomTxtLine[0];
-                        break;
+                    	if (($ysfRoomTxtLine[0] == $ysfLinkedTo) || ($ysfRoomTxtLine[1] == $ysfLinkedTo)) {
+                            $ysfLinkedToTxt = $ysfRoomTxtLine[1];
+			    $ysfRoomNo = $ysfRoomTxtLine[0];
+                            break;
+                    	}
                     }
-                }
-		fclose($fcsHostFile);
+		    fclose($fcsHostFile);
+		}
 
 		if ($ysfLinkedToTxt != "null") {
 		    //$ysfLinkedToTxt = "Room: ".$ysfLinkedToTxt;
