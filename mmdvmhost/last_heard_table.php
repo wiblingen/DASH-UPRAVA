@@ -70,16 +70,12 @@ $testMMDVModeDMR = getConfigItem("DMR", "Enable", $_SESSION['MMDVMHostConfigs'])
                    <div class="grid-item">
                     <div style="padding-top:6px;">
                         <input id="toggle-display-lastcaller" class="toggle toggle-round-flat" type="checkbox" name="display-lastcaller" value="ON" <?php if(file_exists('/etc/.CALLERDETAILS')) { echo 'checked="checked"';}?> aria-checked="true" aria-label="Display Caller Details" onchange="setLastCaller(this)" /><label for="toggle-display-lastcaller" ></label>
-                <?php } else { ?>
-                 <div class="grid-item menucaller" style="padding: 10px 0 0 20px;opacity: 0.5;" title="Function Disabled: Hardware too weak.">Caller Details: </div>
-                   <div class="grid-item">
-                    <div style="padding-top:6px;">
-                        <input id="toggle-display-lastcaller" class="toggle toggle-round-flat" type="checkbox" name="display-lastcaller" value="ON"  aria-checked="true" aria-label="Display Last Caller Details" disabled="disabled" title="Function Disabled: Hardware too weak." /><label for="toggle-display-lastcaller" title="Function Disabled: Hardware too weak."></label>
-                        <?php } ?>
                     </div>
                    </div>
                  </div>
+                <?php } ?>
             </div>
+                <?php if(isset($_SESSION['PiStarRelease']['Pi-Star']['ProcNum']) && ($_SESSION['PiStarRelease']['Pi-Star']['ProcNum'] >= 4)) { ?>
 <?php if (getEnabled("DMR", $_SESSION['MMDVMHostConfigs']) == 1 || getEnabled("NXDN", $_SESSION['MMDVMHostConfigs']) == 1 || getEnabled("P25", $_SESSION['MMDVMHostConfigs']) == 1 || getServiceEnabled('/etc/ysf2dmr') == 1 || getServiceEnabled('/etc/ysf2p25') == 1 || getServiceEnabled('/etc/ysf2nxdn') == 1) { ?>
 <input type="hidden" name="lh-tgnames" value="OFF" />
   <div style="float: right; vertical-align: bottom; padding-top: 0px;" id="lhTGN">
@@ -92,9 +88,10 @@ $testMMDVModeDMR = getConfigItem("DMR", "Enable", $_SESSION['MMDVMHostConfigs'])
                 </div>
             </div>
         </div>
-    </div>
+<?php } ?>
 <?php } ?>
 
+    </div>
 <div class="larger" style="vertical-align: bottom; font-weight: bold; padding-top:14px;text-align:left;"><?php echo __( 'Gateway Activity' );?></div>
   <table>
     <tr>
