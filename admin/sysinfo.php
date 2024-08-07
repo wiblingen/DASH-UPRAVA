@@ -21,6 +21,20 @@ include_once('mmdvmhost/tools.php');
 
 $instanceUUID = $_SESSION['PiStarRelease']['Pi-Star']['UUID'];
 
+function getMacAddresses() {
+    $interfaces = [];
+    $output = shell_exec('ifconfig -a');
+
+    preg_match_all('/^(\w+):\s+.*?\n.*?\n.*?ether\s+([0-9a-f:]+)/im', $output, $matches, PREG_SET_ORDER);
+
+    foreach ($matches as $match) {
+        $interfaces[] = ['interface' => $match[1], 'mac' => $match[2]];
+    }
+
+    return $interfaces;
+}
+$interfaces = getMacAddresses();
+
 function system_information() {
     @list($system, $host, $kernel) = preg_split('/[\s,]+/', php_uname('a'), 5);
     $meminfo = false;
@@ -199,6 +213,16 @@ function timesyncdProc() {
 
 		<h3 style="text-align:left;font-weight:bold;margin:5px 0 2px 0;">System Status</h3>
 		<table id="infotable" width="100%" border="0">
+        	  <tr>
+            	    <th align='left'>Network Interface(s)</th>
+            	    <th align='left'>MAC Address</th>
+        	  </tr>
+        	  <?php foreach ($interfaces as $interface): ?>
+            	  <tr>
+                    <td align='left'><?php echo htmlspecialchars($interface['interface']); ?></td>
+                    <td align='left'><?php echo htmlspecialchars($interface['mac']); ?></td>
+            	  </tr>
+        	  <?php endforeach; ?>
 		    <?php
 		    // Retrieve server information
 		    $system = system_information();
