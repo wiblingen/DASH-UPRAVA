@@ -98,13 +98,6 @@ $testMMDVModeDMR = getConfigItem("DMR", "Enable", $_SESSION['MMDVMHostConfigs'])
       <th width="250px"><a class="tooltip" href="#"><?php echo __( 'Time' );?> (<?php echo date('T')?>)<span><b>Time in <?php echo date('T')?> time zone</b></span></a></th>
       <th width="85px"><a class="tooltip" href="#"><?php echo __( 'Callsign' );?><span><b>Callsign</b></span></a></th>
       <th width="50px"><a class="tooltip" href="#">Country<span><b>Country</b></span></a></th>
-<?php
-    if (file_exists("/etc/.CALLERDETAILS") && $testMMDVModeDMR == 1 ) {
-?>
-      <th class="noMob"><a class="tooltip" href="#">Name<span><b>Name</b></span></a></th>
-<?php
-    }
-?>
       <th><a class="tooltip" href="#"><?php echo __( 'Mode' );?><span><b>Transmitted Mode</b></span></a></th>
       <th><a class="tooltip" href="#"><?php echo __( 'Target' );?><span><b>Target, D-Star Reflector, DMR Talk Group etc</b></span></a></th>
       <th><a class="tooltip" href="#"><?php echo __( 'Src' );?><span><b>Received from source</b></span></a></th>
@@ -163,52 +156,20 @@ for ($i = 0;  ($i <= $lastHeardRows - 1); $i++) {
 		echo"<tr>";
 		echo"<td align=\"left\" title='Row #".($i+1)."'>$local_time</td>";
 		if (is_numeric($listElem[2])) {
-		    if (file_exists("/etc/.CALLERDETAILS") && $testMMDVModeDMR == 1 ) {
-			if ($flContent = " " && empty($listElem[11])) {
-			    if ($listElem[2] > 9999) {
-			    	echo "<td class='noMob divTableCellMono' align=\"left\"><a href=\"".$idLookupUrl.$listElem[2]."\" target=\"_blank\">$listElem[2]</a></td><td align=\"left\" colspan='2'>&nbsp</td>";
-			    } else {
-			    	echo "<td class='noMob divTableCellMono' align=\"left\">$callPre$callSuff</td><td align=\"left\" colspan='2'>&nbsp</td>";
-			    }
-			} else {
-			    if ($listElem[2] > 9999) {
-                            	echo "<td align=\"left\" class='divTableCellMono'><a href=\"".$idLookupUrl.$listElem[2]."\" target=\"_blank\">$listElem[2]</a></td><td>$flContent</td><td align='left' class='noMob'>$listElem[11]</td>";
-			    } else {
-                            	echo "<td align=\"left\" class='divTableCellMono'>$callPre$callSuff</td><td>$flContent</td><td align='left' class='noMob'>$listElem[11]</td>";
-			    }
-			}
+		    if ($listElem[2] > 9999) {
+			echo "<td align=\"left\" class='divTableCellMono'><a href=\"".$idLookupUrl.$listElem[2]."\" target=\"_blank\">$listElem[2]</a></td><td>$flContent</td>";
 		    } else {
-			if ($listElem[2] > 9999) {
-                            echo "<td align=\"left\" class='divTableCellMono'><a href=\"".$idLookupUrl.$listElem[2]."\" target=\"_blank\">$listElem[2]</a></td><td>$flContent</td>";
-			} else {
-                            echo "<td align=\"left\" class='divTableCellMono'>$callPre$callSuff</td><td>$flContent</td>";
-			}
+			echo "<td align=\"left\" class='divTableCellMono'>$callPre$callSuff</td><td>$flContent</td>";
 		    }
 		} elseif (strpos($listElem[2], "openSPOT") !== FALSE) {
 		    echo "<td align=\"left\" class='divTableCellMono'>$callPre$callSuff</td><td align=\"left\"'>&nbsp</td>";
 		} elseif (!preg_match('/[A-Za-z].*[0-9]|[0-9].*[A-Za-z]/', $listElem[2])) {
-		    if (file_exists("/etc/.CALLERDETAILS") && $testMMDVModeDMR == 1 ) {
-			if ($flContent = " " && empty($listElem[11])) {
-			    echo "<td class='noMob divTableCellMono' align=\"left\">$callPre$callSuff</td><td align=\"left\" colspan='2'>&nbsp</td>";
-			} else {
-                            echo "<td align=\"left\" class='divTableCellMono'>$callPre$callSuff</td><td>$flContent</td><td align='left' class='noMob'>$listElem[11]</td>";
-			}
-		    } else {
-                        echo "<td align=\"left\" class='divTableCellMono'>$callPre$callSuff</td><td>$flContent</td>";
-		    }
+		    echo "<td align=\"left\" class='divTableCellMono'>$callPre$callSuff</td><td>$flContent</td>";
 		} else {
 		    if ( $listElem[3] && $listElem[3] != '    ' ) {
-			if (file_exists("/etc/.CALLERDETAILS") && $testMMDVModeDMR == 1 ) {
-			    echo "<td align=\"left\" class='divTableCellMono'><a href=\"$callsignLookupUrl"."$callPre\" target=\"_blank\">$listElem[2]</a>/$listElem[3]</td><td>$flContent</td><td align='left' class='noMob'>$listElem[11]</td>";
-			} else {
-			    echo "<td align=\"left\" class='divTableCellMono'><a href=\"$callsignLookupUrl"."$listElem[2]\" target=\"_blank\">$listElem[2]</a>/$listElem[3]</td><td>$flContent</td>";
-			}
+			echo "<td align=\"left\" class='divTableCellMono'><a href=\"$callsignLookupUrl"."$listElem[2]\" target=\"_blank\">$listElem[2]</a>/$listElem[3]</td><td>$flContent</td>";
 		    } else {
-			if (file_exists("/etc/.CALLERDETAILS") && $testMMDVModeDMR == 1 ) {
-			    echo "<td align=\"left\" class='divTableCellMono'><a href=\"$callsignLookupUrl"."$callPre\" target=\"_blank\">$callPre</a>$callSuff</td><td>$flContent</td><td align='left' class='noMob'>$listElem[11]</td>";
-			} else {
-			    echo "<td align=\"left\" class='divTableCellMono'><a href=\"$callsignLookupUrl"."$callPre\" target=\"_blank\">$callPre</a>$callSuff</td><td>$flContent</td></td>";
-			}
+			echo "<td align=\"left\" class='divTableCellMono'><a href=\"$callsignLookupUrl"."$callPre\" target=\"_blank\">$callPre</a>$callSuff</td><td>$flContent</td></td>";
 		    }
 		}
 
@@ -250,35 +211,34 @@ for ($i = 0;  ($i <= $lastHeardRows - 1); $i++) {
 		}
 
 		if ($listElem[5] == "RF") {
-			echo "<td><span style='color:$backgroundModeCellInactiveColor;font-weight:bold;'>RF</span></td>";
+		    echo "<td><span style='color:$backgroundModeCellInactiveColor;font-weight:bold;'>RF</span></td>";
 		} else {
-			echo "<td>$listElem[5]</td>";
+		    echo "<td>$listElem[5]</td>";
 		}
 		if ($listElem[6] == null && (file_exists("/etc/.CALLERDETAILS")))  {
-			echo "<td colspan =\"2\" class='activity-duration' style=\"background:#d11141;color:#fff;\">TX</td>";
+		    echo "<td colspan =\"2\" class='activity-duration' style=\"background:#d11141;color:#fff;\">TX</td>";
 		} else if ($listElem[6] == null) {
-			// Live duration
-			$utc_time = $listElem[0];
-			$utc_tz =  new DateTimeZone('UTC');
-			$now = new DateTime("now", $utc_tz);
-			$dt = new DateTime($utc_time, $utc_tz);
-			$duration = $now->getTimestamp() - $dt->getTimestamp();
-			$duration_string = $duration<999 ? round($duration) . "+" : "&infin;";
-			echo "<td colspan=\"2\" class='activity-duration' style=\"background:#d11141;color:#fff;\">TX " . $duration_string . " sec</td>";
+		    // Live duration
+		    $utc_time = $listElem[0];
+		    $utc_tz =  new DateTimeZone('UTC');
+		    $now = new DateTime("now", $utc_tz);
+		    $dt = new DateTime($utc_time, $utc_tz);
+		    $duration = $now->getTimestamp() - $dt->getTimestamp();
+		    $duration_string = $duration<999 ? round($duration) . "+" : "&infin;";
+		    echo "<td colspan=\"2\" class='activity-duration' style=\"background:#d11141;color:#fff;\">TX " . $duration_string . " sec</td>";
 		} else if ($listElem[6] == "DMR Data") {
 			echo "<td class='noMob' colspan =\"3\" style=\"background:#00718F;color:#fff;\">DMR Data</td>";
 		} else if ($listElem[6] == "POCSAG") {
 			echo "<td class='noMob' colspan=\"3\" style=\"background:#00718F;color:#fff;\">POCSAG Data</td>";
 		} else {
-			echo "<td class='activity-duration'>$listElem[6]</td>";
+		    echo "<td class='activity-duration'>$listElem[6]</td>";
 
-			// Color the Loss Field
-			if (floatval($listElem[7]) < 1) { echo "<td class='noMob'>$listElem[7]</td>"; }
-			elseif (floatval($listElem[7]) == 1) { echo "<td class='noMob'><span style='color:$backgroundModeCellActiveColor;font-weight:bold'>$listElem[7]</span></td>"; }
-			elseif (floatval($listElem[7]) > 1 && floatval($listElem[7]) <= 3) { echo "<td class='noMob'><span style='color:$backgroundModeCellPausedColor;font-weight:bold'>$listElem[7]</span></td>"; }
-			else { echo "<td class='noMob'><span style='color:$backgroundModeCellInactiveColor;font-weight:bold;'>$listElem[7]</span></td>"; }
-
-		    }
+		    // Color the Loss Field
+		    if (floatval($listElem[7]) < 1) { echo "<td class='noMob'>$listElem[7]</td>"; }
+		    elseif (floatval($listElem[7]) == 1) { echo "<td class='noMob'><span style='color:$backgroundModeCellActiveColor;font-weight:bold'>$listElem[7]</span></td>"; }
+		    elseif (floatval($listElem[7]) > 1 && floatval($listElem[7]) <= 3) { echo "<td class='noMob'><span style='color:$backgroundModeCellPausedColor;font-weight:bold'>$listElem[7]</span></td>"; }
+		    else { echo "<td class='noMob'><span style='color:$backgroundModeCellInactiveColor;font-weight:bold;'>$listElem[7]</span></td>"; }
+		}
 		echo"</tr>\n";
 		if (!empty($listElem[10] && file_exists("/etc/.SHOWDMRTA")) && (!file_exists('/etc/.CALLERDETAILS'))) {
 		    echo "<tr>";
