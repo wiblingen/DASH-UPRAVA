@@ -305,9 +305,17 @@ function timesyncdProc() {
 			$P25Gateway_Ver = exec('/usr/local/bin/P25Gateway -v | cut -d\' \' -f 3-');
 			echo "  <tr><td align='left'>P25Gateway</td><td align=\"left\">".$P25Gateway_Ver."</td></tr>\n";
 		    }
+		    if (is_executable('/usr/local/bin/P25Parrot')) {
+			$P25Parrot_Ver = exec('/usr/local/bin/P25Parrot -v | cut -d\' \' -f 3-');
+			echo "  <tr><td align='left'>P25Parrot</td><td align=\"left\">".$P25Parrot_Ver."</td></tr>\n";
+		    }
 		    if (is_executable('/usr/local/bin/NXDNGateway')) {
 			$NXDNGateway_Ver = exec('/usr/local/bin/NXDNGateway -v | cut -d\' \' -f 3-');
 			echo "  <tr><td align='left'>NXDNGateway</td><td align=\"left\">".$NXDNGateway_Ver."</td></tr>\n";
+		    }
+		    if (is_executable('/usr/local/bin/NXDNParrot')) {
+			$NXDNParrot_Ver = exec('/usr/local/bin/NXDNParrot -v | cut -d\' \' -f 3-');
+			echo "  <tr><td align='left'>NXDNParrot</td><td align=\"left\">".$NXDNParrot_Ver."</td></tr>\n";
 		    }
 		    if (isDVmegaCast() != 1 ) {
 			if (is_executable('/usr/local/bin/M17Gateway')) {
