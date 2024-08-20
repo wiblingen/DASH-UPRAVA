@@ -221,9 +221,11 @@ if (is_numeric($listElem[2]) || !preg_match('/[A-Za-z].*[0-9]|[0-9].*[A-Za-z]/',
     <div class='column'>
       <div class='orange-column'>
         <span class='oc_caller'>
+	<?php if ($name != $searchCall) { ?>
 	  <span class='oc_name'>
 	    <?php  echo $name;  ?>
 	  </span>
+	<?php } ?>
 	    <?php
 	    if (!empty($city)) {
 		echo "<br /> $city";

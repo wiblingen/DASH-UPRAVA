@@ -183,7 +183,7 @@ for ($i = 0;  ($i <= 0); $i++) { //Last 20  calls
 	    }
 
 	    if($listElem[2] == "4000" || $listElem[2] == "9990" || $listElem[2] == "DAPNET") {
-		$name = "---";
+		$name = "";
 		$city = "";
 		$state = "";
 		$country = "---";
@@ -208,7 +208,9 @@ for ($i = 0;  ($i <= 0); $i++) { //Last 20  calls
     <tr>
       <th><a class="tooltip" href="#"><?php echo __( 'Callsign' );?><span><b>Callsign</b></span></a></th>
       <th width="50px">Country</th>
+      <?php if ($name != $searchCall) { ?>
       <th>Name</th>
+      <?php } ?>
       <th class='noMob'>Location</th>
       <th><a class="tooltip" href="#"><?php echo __( 'Mode' );?><span><b>Transmitted Mode</b></span></a></th>
       <th><a class="tooltip" href="#"><?php echo __( 'Target' );?><span><b>Target, D-Star Reflector, DMR Talk Group etc</b></span></a></th>
@@ -219,7 +221,9 @@ for ($i = 0;  ($i <= 0); $i++) { //Last 20  calls
     <tr>
       <td style="padding:3px 20px 5px 20px;" class='divTableCellMono'><strong style="font-size:1.5em;"><?php echo $callsign ?? ' '; ?></strong></td>
       <td><?php echo $flContent; ?></td>
-      <td style="font-size:1.3em;"><?php echo $name ?? ' '; ?></td>
+      <?php if ($name != $searchCall) { ?>
+      <td style="font-size:1.3em;"><?php echo $name; ?></td>
+      <?php } ?>
       <td class='noMob' style="font-size:1.3em;"><?php
 		if (!empty($city)) {
 			echo $city .", ";

@@ -1984,7 +1984,7 @@ function getName($callsign) {
         $api_data = file_get_contents($cl_api, false, $context);
         $result = json_decode($api_data);
         if ($result->status == 'INVALID') { // Check if in NOT in API DB
-            $name = "---"; // placeholder for non US/FCC callsigns
+            $name = ""; // placeholder for non US/FCC callsigns
         } else {
             $name_full = $result->name; // grab name value from json
             $name_array = explode(' ', $name_full);
