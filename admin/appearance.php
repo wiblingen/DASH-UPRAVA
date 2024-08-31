@@ -368,7 +368,7 @@ checkSessionValidity();
                     echo "<br />\n";
         }
 		echo "</form>\n";
-		echo "<p> * Because of the way WPSD parses log files to display last heard data, it is not guaranteed that the number of rows specified will be displayed.</p>\n";
+		echo "<p> * Because of the way MMDVMHost logs last heard data, it is not guaranteed that the number of rows specified will be displayed.</p>\n";
 		echo "<hr />\n";
 		echo '<form id="cssUpload" action="" method="POST" enctype="multipart/form-data">'."\n";
 		echo '  <div><input id="fileid" name="cssFile" type="file" hidden/></div>'."\n";
