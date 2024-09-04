@@ -19,7 +19,7 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/mmdvmhost/functions.php';    // MMDVMDa
 include_once $_SERVER['DOCUMENT_ROOT'].'/config/language.php';        // Translation Code
 
 if (isset($_SESSION['DAPNETAPIKeyConfigs']['DAPNETAPI']['USER']) && (empty($_SESSION['DAPNETAPIKeyConfigs']['DAPNETAPI']['USER']) != TRUE)) {
-    // Max length for the textarea (pistar-dapnetapi will split in 5 messages maximum * 80 characters. 
+    // Max length for the textarea (dapnetapi will split in 5 messages maximum * 80 characters. 
     $maxlength = (5 * (80 - (strlen($_SESSION['DAPNETAPIKeyConfigs']['DAPNETAPI']['USER']) + 2 /* 'CALLSIGN: ' prefix */ + 4 /* 'x/n ' count */)));
     
     // Data has been posted for this page (POST)
@@ -49,7 +49,7 @@ if (isset($_SESSION['DAPNETAPIKeyConfigs']['DAPNETAPI']['USER']) && (empty($_SES
         }
 	
         // Build command line
-        $dapnetCmd = 'sudo '.$dapnetTrx.' /usr/local/sbin/pistar-dapnetapi '.$dapnetTo.' "'.$dapnetContent.'" nohost 2>&1';
+        $dapnetCmd = 'sudo '.$dapnetTrx.' /usr/local/sbin/wpsd-dapnetapi '.$dapnetTo.' "'.$dapnetContent.'" nohost 2>&1';
         
         unset($dummy);
         
