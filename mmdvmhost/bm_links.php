@@ -124,8 +124,8 @@ if ( $testMMDVModeDMR == 1 ) {
 	// Set some vars
 	$bmStaticTGList = "";
 	$bmDynamicTGList = "";
-        $bmDynanicTGname = "";
-        $bmDynanicTGexpire = "";
+        $bmDynamicTGname = "";
+        $bmDynamicTGexpire = "";
 	// Pull the information from JSON
 	if (isset($json->staticSubscriptions)) { $bmStaticTGListJson = $json->staticSubscriptions;
             foreach($bmStaticTGListJson as $staticTG) {
@@ -152,21 +152,25 @@ if ( $testMMDVModeDMR == 1 ) {
 		    $now = new DateTime();
 		    $then = new DateTime( "@" . $dynamicTG->timeout);
 		    $diff = $then->diff($now);
-		    $bmDynanicTGexpire = $diff->format('%i:%S mins');
+		    $bmDynamicTGexpire = $diff->format('%i:%S mins');
 		    $bmDynamicTGname = exec("grep -w \"$dynamicTG->talkgroup\" /usr/local/etc/BM_TGs.json | cut -d\":\" -f2- | tr -cd \"'[:alnum:]\/ -\"");
-		    $bmDynamicTGList .= "<tr><td align='left' style='padding-left: 8px;'>TG ".$dynamicTG->talkgroup."</td><td align='left' style='padding-left: 8px;'>$bmDynamicTGname</td><td align='left' style='padding-left: 8px;'>".$dynamicTG->slot."</td><td align='left' style='padding-left: 8px;' id='tgTimeout'>".date("$local_time", substr($dynamicTG->timeout, 0, 10))." ".date('T'). " ($bmDynanicTGexpire remaining)</td></tr>";
+		    $bmDynamicTGList .= "<tr><td align='left' style='padding-left: 8px;'>TG ".$dynamicTG->talkgroup."</td><td align='left' style='padding-left: 8px;'>$bmDynamicTGname</td><td align='left' style='padding-left: 8px;'>".$dynamicTG->slot."</td><td align='left' style='padding-left: 8px;' id='tgTimeout'>".date("$local_time", substr($dynamicTG->timeout, 0, 10))." ".date('T'). " ($bmDynamicTGexpire remaining)</td></tr>";
                 }
                 else if (getConfigItem("DMR Network", "Slot2", $_SESSION['MMDVMHostConfigs']) && $dynamicTG->slot == "2") {
 		    $now = new DateTime();
 		    $then = new DateTime( "@" . $dynamicTG->timeout);
 		    $diff = $then->diff($now);
-		    $bmDynanicTGexpire = $diff->format('%i:%S mins');
+		    $bmDynamicTGexpire = $diff->format('%i:%S mins');
 		    $bmDynamicTGname = exec("grep -w \"$dynamicTG->talkgroup\" /usr/local/etc/BM_TGs.json | cut -d\":\" -f2- | tr -cd \"'[:alnum:]\/ -\"");
-		    $bmDynamicTGList .= "<tr><td align='left' style='padding-left: 8px;'>TG ".$dynamicTG->talkgroup."</td><td align='left' style='padding-left: 8px;'>$bmDynamicTGname</td><td align='left' style='padding-left: 8px;'>".$dynamicTG->slot."</td><td align='left' style='padding-left: 8px;'>".date("$local_time", substr($dynamicTG->timeout, 0, 10))." ".date('T')." ($bmDynanicTGexpire remaining)</td></tr>";
+		    $bmDynamicTGList .= "<tr><td align='left' style='padding-left: 8px;'>TG ".$dynamicTG->talkgroup."</td><td align='left' style='padding-left: 8px;'>$bmDynamicTGname</td><td align='left' style='padding-left: 8px;'>".$dynamicTG->slot."</td><td align='left' style='padding-left: 8px;'>".date("$local_time", substr($dynamicTG->timeout, 0, 10))." ".date('T')." ($bmDynamicTGexpire remaining)</td></tr>";
                 }
                 else if (getConfigItem("DMR Network", "Slot1", $_SESSION['MMDVMHostConfigs']) == "0" && getConfigItem("DMR Network", "Slot2", $_SESSION['MMDVMHostConfigs']) && $dynamicTG->slot == "0") {
+                    $now = new DateTime();
+                    $then = new DateTime( "@" . $dynamicTG->timeout);
+                    $diff = $then->diff($now);
+                    $bmDynamicTGexpire = $diff->format('%i:%S mins');
                     $bmDynamicTGname = exec("grep -w \"$dynamicTG->talkgroup\" /usr/local/etc/BM_TGs.json | cut -d\":\" -f2- | tr -cd \"'[:alnum:]\/ -\"");
-		    $bmDynamicTGList .= "<tr><td align='left' style='padding-left: 8px;'>TG ".$dynamicTG->talkgroup."</td><td align='left' style='padding-left: 8px;'>$bmDynamicTGname</td><td align='left' style='padding-left: 8px;'>2</td><td align='left' style='padding-left: 8px;'>".date("$local_time", substr($dynamicTG->timeout, 0, 10))." ".date('T')." ($bmDynanicTGexpire remaining)</td></tr>";
+		    $bmDynamicTGList .= "<tr><td align='left' style='padding-left: 8px;'>TG ".$dynamicTG->talkgroup."</td><td align='left' style='padding-left: 8px;'>$bmDynamicTGname</td><td align='left' style='padding-left: 8px;'>2</td><td align='left' style='padding-left: 8px;'>".date("$local_time", substr($dynamicTG->timeout, 0, 10))." ".date('T')." ($bmDynamicTGexpire remaining)</td></tr>";
                 }
             }
             $bmDynamicTGList = wordwrap($bmDynamicTGList, 135, "\n");
