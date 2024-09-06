@@ -215,9 +215,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/live_log.php") {
   </tr>
   </table>
   </div>
-  <div class="footer">
-  <a href="https://wpsd.radio/">WPSD</a> &copy; <code>W0CHP</code> 2020-<?php echo date("Y"); ?>
-  <br />
+<?php include $_SERVER['DOCUMENT_ROOT'].'/includes/footer.php'; ?>
   </div>
   </div>
   </body>
@@ -265,9 +263,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/live_log.php") {
 		    <?php } ?>
 	      </table>
 	  </div>
-	  <div class="footer">
-	      <a href="https://wpsd.radio/">WPSD</a> &copy; <code>W0CHP</code> 2020-<?php echo date("Y"); ?><br />
-	  </div>
+<?php include $_SERVER['DOCUMENT_ROOT'].'/includes/footer.php'; ?>
       </div>
   </body>
   </html>

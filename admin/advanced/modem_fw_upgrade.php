@@ -229,10 +229,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/advanced/modem_fw_upgrade.php") {
   </td></tr>
   </table>
   </div>
-  <div class="footer">
-  <a href="https://wpsd.radio/">WPSD</a> &copy; <code>W0CHP</code> 2020-<?php echo date("Y"); ?>
-  <br />
-  </div>
+<?php include $_SERVER['DOCUMENT_ROOT'].'/includes/footer.php'; ?>
   </div>
   </body>
   <?php } else { ?>
@@ -241,10 +238,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/advanced/modem_fw_upgrade.php") {
   <tr><td align="left"><div id="tail"><h3>Starting Modem Firmware Upgrade...</h3></div></td></tr>
   </table>
   </div>
-  <div class="footer">
-  <a href="https://wpsd.radio/">WPSD</a> &copy; <code>W0CHP</code> 2020-<?php echo date("Y"); ?>
-  <br />
-  </div>
+<?php include $_SERVER['DOCUMENT_ROOT'].'/includes/footer.php'; ?>
   </div>
   </body>
   </html>

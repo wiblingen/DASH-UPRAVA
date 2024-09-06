@@ -76,10 +76,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/advanced/ssh_access.php") {
       echo "SSH Feature not yet installed";
     } ?>
   <?php if (isset($shellPort)) { echo "<p><a href=\"//".$_SERVER['HTTP_HOST'].":".$shellPort."\" style=\"text-decoration:underline;color:inherit;\">Click here for full-screen SSH client</a></p>\n"; } ?>
-  <div class="footer">
-  <a href="https://wpsd.radio/">WPSD</a> &copy; <code>W0CHP</code> 2020-<?php echo date("Y"); ?>
-  <br />
-  </div>
+<?php include $_SERVER['DOCUMENT_ROOT'].'/includes/footer.php'; ?>
   </body>
   </html>
 

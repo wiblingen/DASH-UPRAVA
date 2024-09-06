@@ -323,14 +323,7 @@ if(empty($_POST['func'])) {
 	    }
 	?>
 	</div>
-	
-	<div class="footer">
-	   <?php 
-                echo 'Get WPSD Help: [ <a href="https://w0chp.radio/wpsd-faqs/" target="_new">FAQs</a> ] &bull; [ <a href="https://www.facebook.com/groups/wpsdproject/" target="_new">Facebook Group</a> ] &bull; [ <a href="https://discord.gg/b8Hv5ygPdF" target="_new">Discord Server</a> ]<br />';
-                echo '<a href="https://wpsd.radio/">WPSD</a> by <code>W0CHP</code> &copy; 2020-'.date("Y").' -- WPSD Project <a href="https://w0chp.radio/wpsd/#credits" target="_new">Credits</a>';
-	   ?>
-	</div>
-	
+<?php include $_SERVER['DOCUMENT_ROOT']. '/includes/footer.php'; ?>	
 	</div>
     </body>
 </html>

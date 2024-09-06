@@ -95,9 +95,7 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/config/version.php';
 		</form>
 		
 	    </div>
-	    
-	    <div class="footer">
-		<a href="https://wpsd.radio/">WPSD</a> &copy; <code>W0CHP</code> 2020-<?php echo date("Y"); ?><br />
+<?php include $_SERVER['DOCUMENT_ROOT'].'/includes/footer.php'; ?> 
 	    </div>
 	    
 	</div>
