@@ -200,14 +200,19 @@ if (isset($_SESSION['YSFGatewayConfigs']['Remote Commands']['Enable']) && (isset
 				fclose($fcsHostFile);
 			    }
 
-			    if ($ysfLinkedToTxt != "null") {
-				$ysfLinkState = 'In Room: ';
-			    } else {
+			    if ($_SESSION['YSFGatewayConfigs']['FCS Network']['Enable'] != 1) {
 				$ysfLinkedToTxt = $ysfLinkedTo;
-				$ysfLinkState = 'Linked to: ';
-			    }
-
+				$ysfLinkState = ' [Linked]';
+			    } else {
+				if ($ysfLinkedToTxt != "null") {
+				    $ysfLinkState = ' [In Room]';
+				} else {
+				    $ysfLinkedToTxt = $ysfLinkedTo;
+				    $ysfLinkState = ' [Linked]';
+				}
+			    } 
 			    $ysfLinkedToTxt = str_replace('_', ' ', $ysfLinkedToTxt);
+
  			}
 
 			if (empty($ysfRoomNo) || ($ysfRoomNo == "null")) {

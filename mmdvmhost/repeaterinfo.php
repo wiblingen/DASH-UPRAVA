@@ -626,18 +626,20 @@ if ( $testMMDVModeDSTAR == 1 || isPaused("D-Star") ) { //Hide the D-Star Reflect
 		    fclose($fcsHostFile);
 		}
 
-		if ($ysfLinkedToTxt != "null") {
-		    //$ysfLinkedToTxt = "Room: ".$ysfLinkedToTxt;
-		    $ysfLinkState = ' [In Room]';
-		    $ysfLinkStateTooltip = 'In Room: ';
-		}
-		else {
-		    //$ysfLinkedToTxt = "Linked to: ".$ysfLinkedTo;
+		if ($_SESSION['YSFGatewayConfigs']['FCS Network']['Enable'] != 1) {
 		    $ysfLinkedToTxt = $ysfLinkedTo;
 		    $ysfLinkState = ' [Linked]';
 		    $ysfLinkStateTooltip = 'Linked to ';
+		} else {
+		    if ($ysfLinkedToTxt != "null") {
+			$ysfLinkState = ' [In Room]';
+			$ysfLinkStateTooltip = 'In Room: ';
+		    } else {
+			$ysfLinkedToTxt = $ysfLinkedTo;
+			$ysfLinkState = ' [Linked]';
+			$ysfLinkStateTooltip = 'Linked to ';
+		    }
 		}
-		
                 $ysfLinkedToTxt = str_replace('_', ' ', $ysfLinkedToTxt);
             }
 
