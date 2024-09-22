@@ -1,12 +1,9 @@
 <?php
 
-
 if (!isset($_SESSION) || !is_array($_SESSION)) {
     session_id('wpsdsession');
     session_start();
 
-    //unset($_SESSION['DvModemFWVersion']);  // unset the modem FW version in the event the user up/downgraded, so it shows the correct ver.
-    
     include_once $_SERVER['DOCUMENT_ROOT'].'/config/config.php';          // MMDVMDash Config
     include_once $_SERVER['DOCUMENT_ROOT'].'/mmdvmhost/tools.php';        // MMDVMDash Tools
     include_once $_SERVER['DOCUMENT_ROOT'].'/mmdvmhost/functions.php';    // MMDVMDash Functions

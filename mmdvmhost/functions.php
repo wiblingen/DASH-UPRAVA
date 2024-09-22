@@ -80,10 +80,10 @@ function checkSessionValidity() {
     loadSessionConfigFile('ModemConfigs', '/etc/dstar-radio.mmdvmhost');
 
     if ( ! isset( $_SESSION['DvModemFWVersion'] ) || ( is_countable( $_SESSION['DvModemFWVersion'] ) && count( $_SESSION['DvModemFWVersion'], COUNT_RECURSIVE ) < 1 ) ) {
-	$_SESSION['DvModemFWVersion'] = getDVModemFirmware();
+	$_SESSION['DvModemFWVersion'] = $_SESSION['PiStarRelease']['Pi-Star']['ModemFW'];
     }
     if ( ! isset( $_SESSION['DvModemTCXOFreq'] ) || ( is_countable( $_SESSION['DvModemTCXOFreq'] ) && count( $_SESSION['DvModemTCXOFreq'], COUNT_RECURSIVE) < 1 ) ) {
-	$_SESSION['DvModemTCXOFreq'] = getDVModemTCXOFreq();
+	$_SESSION['DvModemTCXOFreq'] = $_SESSION['PiStarRelease']['Pi-Star']['TCXO'];;
     }
 }
 
@@ -160,117 +160,6 @@ function getServiceEnabled ($configs) {
     } else {
         return 0;
     }
-}
-
-// 00000000001111111111222222222233333333334444444444555555555566666666667777777777888888888899999999990000000000111111111122
-// 01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901
-// I: 2020-11-12 17:54:01.968 MMDVM protocol version: 1, description: MMDVM 20200901 (D-Star/DMR/System Fusion/P25/NXDN/POCSAG/FM) 12.0000 MHz GitID #2509ab5
-// I: 1970-01-01 00:00:00.000 MMDVM protocol version: 1, description: DVMEGA HR3.14
-// I: 1970-01-01 00:00:00.000 MMDVM protocol version: 1, description: MMDVM_HS-ADF7021 20170414 (D-Star/DMR/YSF/P25) (Build: 20:16:25 May 20 2017)
-// I: 1970-01-01 00:00:00.000 MMDVM protocol version: 1, description: MMDVM 20170206 TCXO (D-Star/DMR/System Fusion/P25/RSSI/CW Id)
-// I: 1970-01-01 00:00:00.000 MMDVM protocol version: 1, description: ZUMspot ADF7021 v1.0.0 20170728 (DStar/DMR/YSF/P25) GitID #c16dd5a
-// I: 1970-01-01 00:00:00.000 MMDVM protocol version: 1, description: MMDVM_MDO ADF7021 v1.0.1 20170826 (DStar/DMR/YSF/P25) GitID #BD7KLE
-// I: 1970-01-01 00:00:00.000 MMDVM protocol version: 1, description: ZUMspot-v1.0.3 20171226 ADF7021 FW by CA6JAU GitID #bfb82b4
-// I: 1970-01-01 00:00:00.000 MMDVM protocol version: 1, description: MMDVM_HS_Hat-v1.0.3 20171226 ADF7021 FW by CA6JAU GitID #bfb82b4
-// I: 1970-01-01 00:00:00.000 MMDVM protocol version: 1, description: MMDVM_HS-v1.0.3 20171226 ADF7021 FW by CA6JAU GitID #bfb82b4
-// I: 1970-01-01 00:00:00.000 MMDVM protocol version: 1, description: MMDVM_HS_Dual_Hat-v1.3.6 20180521 dual ADF7021 FW by CA6JAU GitID #bd6217a
-// I: 1970-01-01 00:00:00.000 MMDVM protocol version: 1, description: D2RG_MMDVM_HS-v1.4.17 20190529 14.7456MHz ADF7021 FW by CA6JAU GitID #cc451c4
-// I: 1970-01-01 00:00:00.000 MMDVM protocol version: 1, description: Nano_hotSPOT-v1.3.3 20180224 ADF7021 FW by CA6JAU GitID #62323e7
-// I: 1970-01-01 00:00:00.000 MMDVM protocol version: 1, description: Nano-Spot-v1.3.3 20180224 ADF7021 FW by CA6JAU GitID #62323e7
-// I: 1970-01-01 00:00:00.000 MMDVM protocol version: 1, description: Nano_DV-v1.4.3 20180716 12.2880MHz ADF7021 FW by CA6JAU GitID #6729d23
-// I: 1970-01-01 00:00:00.000 MMDVM protocol version: 1, description: SkyBridge-v1.5.2 20201108 14.7456MHz ADF7021 FW by CA6JAU GitID #89daa20
-function getDVModemFirmware() {
-	$logMMDVMNow = MMDVMLOGPATH."/".MMDVMLOGPREFIX."-".gmdate("Y-m-d").".log";
-	$logMMDVMPrevious = MMDVMLOGPATH."/".MMDVMLOGPREFIX."-".gmdate("Y-m-d", time() - 86340).".log";
-	$logSearchString = "MMDVM protocol version";
-	$logLine = '';
-	$modemFirmware = '';
-	$logLine = exec("grep \"".$logSearchString."\" ".$logMMDVMNow." | tail -1");
-	if (!$logLine) { $logLine = exec("grep \"".$logSearchString."\" ".$logMMDVMPrevious." | tail -1"); }
-	if ($logLine) {
-		if (strpos($logLine, 'DVMEGA')) {
-			$modemFirmware = substr($logLine, 67, 15);
-		}
-		if (strpos($logLine, 'description: MMDVM_HS')) {
-			$modemFirmware = "MMDVM_HS:".ltrim(substr($logLine, 84, 8), 'v');
-		}
-		if (strpos($logLine, 'description: MMDVM ')) { # G4KLX MMDVM FW
-		    if (preg_match('/description: MMDVM (\d{8}_WPSD)/', $logLine, $matches)) { # WPSD's custom Zum MMDVM-Pi FW
-			$modemFirmware = "MMDVM:" . $matches[1];
-		    } else {
-			$modemFirmware = "MMDVM:".substr($logLine, 73, 8); # reg. MMDVM FW
-		    }
-		}
-		if (strpos($logLine, 'description: ZUMspot ')) {
-			$modemFirmware = "ZUMspot:".strtok(substr($logLine, 83, 12), ' ');
-		}
-		if (strpos($logLine, 'description: MMDVM_MDO ')) {
-			$modemFirmware = "MMDVM_MDO:".ltrim(strtok(substr($logLine, 85, 12), ' '), 'v');
-		}
-		if (strpos($logLine, 'description: ZUMspot-')) {
-			$modemFirmware = "ZUMspot:".strtok(substr($logLine, 75, 12), ' ');
-		}
-		if (strpos($logLine, 'description: MMDVM_HS_Hat-')) {
-			$modemFirmware = "MMDVM_HS-Hat:".strtok(substr($logLine, 80, 12), ' ');
-		}
-		if (strpos($logLine, 'description: MMDVM_HS_Dual_Hat-')) {
-			$modemFirmware = "MMDVM_HS-Dual_Hat:".strtok(substr($logLine, 85, 12), ' ');
-		}
-		if (strpos($logLine, 'description: D2RG_MMDVM_HS-')) {
-			$modemFirmware = "HS_Hat:".strtok(substr($logLine, 81, 12), ' ');
-		}
-		if (strpos($logLine, 'description: MMDVM_HS-')) {
-			$modemFirmware = "MMDVM_HS:".ltrim(strtok(substr($logLine, 76, 12), ' '), 'v');
-		}
-		if (strpos($logLine, 'description: Nano_hotSPOT-')) {
-			$modemFirmware = "Nano_hotSPOT:".ltrim(strtok(substr($logLine, 80, 12), ' '), 'v');
-		}
-		if (strpos($logLine, 'description: Nano-Spot-')) {
-			$modemFirmware = "NanoSpot:".strtok(substr($logLine, 77, 12), ' ');
-		}
-		if (strpos($logLine, 'description: Nano_DV-')) {
-			$modemFirmware = "NanoDV:".strtok(substr($logLine, 75, 12), ' ');
-		}
-		if (strpos($logLine, 'description: OpenGD77 Hotspot')) {
-			$modemFirmware = "OpenGD77_HS:".strtok(substr($logLine, 83, 12), ' ');
-		}
-		if (strpos($logLine, 'description: OpenGD77_HS ')) {
-			$modemFirmware = "OpenGD77_HS:".strtok(substr($logLine, 79, 12), ' ');
-		}
-		if (strpos($logLine, 'description: SkyBridge-')) {
-			$modemFirmware = "SkyBridge:".strtok(substr($logLine, 77, 12), ' ');
-		}
-		if (strpos($logLine, 'description: EuroNode-')) {
-			$modemFirmware = "EuroNode:".strtok(substr($logLine, 77, 12), ' ');
-		}
-        if (strpos($logLine, 'description: RRU-rf-board-')) {
-            $modemFirmware = "RRU-RF-Board:".strtok(substr($logLine, 80, 19), ' ');
-        }
-		if (strpos($logLine, 'description: MMDVM RB_STM32_DVM(446)')) {
-            $modemFirmware = "RB_STM32_DVM:".strtok(substr($logLine, 90, 19), ' ');
-        }
-	}
-	return $modemFirmware;
-}
-
-function getDVModemTCXOFreq() {
-    $logMMDVMNow = MMDVMLOGPATH."/".MMDVMLOGPREFIX."-".gmdate("Y-m-d").".log";
-    $logMMDVMPrevious = MMDVMLOGPATH."/".MMDVMLOGPREFIX."-".gmdate("Y-m-d", time() - 86340).".log";
-    $logSearchString = "MMDVM protocol version";
-    $logLine = '';
-    $modemTCXOFreq = '';
-    
-    $logLine = exec("grep \"".$logSearchString."\" ".$logMMDVMNow." | tail -1");
-    if (!$logLine) { $logLine = exec("grep \"".$logSearchString."\" ".$logMMDVMPrevious." | tail -1"); }
-    
-    if ($logLine) {
-        if (strpos($logLine, 'MHz') !== false) {
-            $modemTCXOFreq = $logLine;
-            $modemTCXOFreq = preg_replace('/.*(\d{2}\.\d{3,4}\s{0,1}MHz).*/', "$1", $modemTCXOFreq);
-            $modemTCXOFreq = str_replace("MHz"," MHz", $modemTCXOFreq);
-        }
-    }
-    return $modemTCXOFreq;
 }
 
 //I: 2021-02-21 13:22:24.213 Opening UDP port on 8673
