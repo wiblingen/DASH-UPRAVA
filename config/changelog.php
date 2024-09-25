@@ -115,7 +115,7 @@ if ($_SERVER["PHP_SELF"] == "/config/changelog.php") {
 			      </div>
 			    </div>
 			    <p style="text-align:center;font-weight:bold;">
-			      <a href="https://repo.w0chp.net/WPSD-Dev/WPSD-WebCode/graph?branch=refs%2Fheads%2Fmaster" target="_new" style="text-decoration:underline;color:inherit;">View the entire change/commit history...</a>
+			      <a href="https://wpsd-swd.w0chp.net/WPSD-SWD/WPSD-WebCode/graph" target="_new" style="text-decoration:underline;color:inherit;">View the entire change/commit history...</a>
 			    </p>
 			</div>
 		      </div>
