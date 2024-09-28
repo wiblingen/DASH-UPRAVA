@@ -80,30 +80,17 @@ if ($_SERVER["PHP_SELF"] == "/admin/advanced/modem_fw_upgrade.php") {
 	exit();
     }
 
-    $api = "https://wpsd-swd.w0chp.net/api/v1/repos/WPSD-SWD/MMDVM_HS-Firmware_Latest-Compiled/tags";
-    $userAgent = "WPSD Modem Firmware Version Checker (FW Upgrade Page)";
-    $jsonData = file_get_contents($api, false, stream_context_create(['http' => ['user_agent' => $userAgent]]));
-
-    // Check if the request was successful
-    if ($jsonData !== false) {
-	$data = json_decode($jsonData, true);
-
-	// Extract version numbers and find the maximum version
-	$versions = array_map(function($tag) {
-	    return array_map('intval', explode('.', ltrim($tag['name'], 'v')));
-	}, $data);
-
-	$maxVersion = max($versions);
-
-	// Join the version numbers into a string
-	$versionString = implode('.', $maxVersion);
-
-	$fw_version = trim($versionString);
-
-	$fw_ver_msg = "Latest firmware version: <strong>". $fw_version. "</strong>.";
-    } else {
-	$fw_ver_msg = "Unkown (failed to retrieve firmware version from the API).";
-    }
+   if (file_exists('/usr/local/bin/firmware/version.txt')) {
+       $versionData = getNoSectionsConfigContent('/usr/local/bin/firmware/versions.txt');
+   }
+   if (isset($versionData['mmdvm_hs'])) {
+       $mmdvm_hs_version = $versionData['mmdvm_hs'];
+       $dvmega_fw_version = $versionData['dvmega_'];
+       $rpt_version = $versionData['rpt'];
+       $fw_ver_msg = "Latest firmware version(s): <b> Hotspot:". $mmdvm_hs_version. " DV-Mega:".$dvmega_fw_version." Repeater:".$rpt_version."</b>.";
+   } else {
+       $fw_ver_msg = "Unkown (failed to retrieve firmware version).";
+   }
 ?>
 
   <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
