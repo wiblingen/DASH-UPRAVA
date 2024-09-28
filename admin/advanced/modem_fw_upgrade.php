@@ -80,7 +80,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/advanced/modem_fw_upgrade.php") {
 	exit();
     }
 
-   if (file_exists('/usr/local/bin/firmware/version.txt')) {
+   if (file_exists('/usr/local/bin/firmware/versions.txt')) {
        $versionData = getNoSectionsConfigContent('/usr/local/bin/firmware/versions.txt');
    }
    if (isset($versionData['mmdvm_hs'])) {
