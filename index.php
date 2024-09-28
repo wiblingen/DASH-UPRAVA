@@ -736,7 +736,7 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 
 	if ($_SERVER["PHP_SELF"] !== "/admin/index.php") {
             echo '<div id="liveCallerDeets">'."\n";
-	    include('/mmdvmhost/caller_details_table.php');
+	    include('mmdvmhost/caller_details_table.php');
             echo '</div>'."\n";
 
             if (!file_exists('/etc/.CALLERDETAILS')) {
@@ -744,11 +744,11 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
             } else {
                 echo '<div id="lastHeard">'."\n";
             }
-	    include('/mmdvmhost/last_heard_table.php');
+	    include('mmdvmhost/last_heard_table.php');
             echo '</div>'."\n";
 
             echo '<div id="localTxs" style="margin-top: 20px;">'."\n";
-	    include('/mmdvmhost/local_tx_table.php');
+	    include('mmdvmhost/local_tx_table.php');
             echo '</div>'."\n";
 	}
 

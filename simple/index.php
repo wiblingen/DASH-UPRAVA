@@ -147,7 +147,7 @@ if(empty($_POST['func'])) {
 		<h1>WPSD <?php echo __( 'Digital Voice' ) . " ".__( 'Dashboard for' )." <code style='font-weight:550;'>".$_SESSION['MYCALL']."</code>"; ?></h1>
 		<div id="CheckMessage">
 		<?php
-		    include('../config/messages.php');
+		    include('../includes/messages.php');
 		?>
 		</div>
 
@@ -278,7 +278,7 @@ if(empty($_POST['func'])) {
 		echo '</script>'."\n";
 
                 echo '<div id="liveCallerDeets">'."\n";
-                include '../mmdvmhost/live_caller_table.php';
+                include '../mmdvmhost/caller_details_table.php';
                 echo '</div>'."\n";
 
 		if (!file_exists('/etc/.CALLERDETAILS')) {
@@ -286,10 +286,11 @@ if(empty($_POST['func'])) {
 		} else {
  		    echo '<div id="lastHeard">'."\n";
 		}
+                include '../mmdvmhost/last_heard_table.php';
  		echo '</div>'."\n";
 
 		echo '<div id="localTxs" style="margin-top: 20px;">'."\n";
-		include 'mmdvmhost/local_tx_table.php';
+		include '../mmdvmhost/local_tx_table.php';
 		echo '</div>'."\n";
 
 		// If POCSAG is enabled, show the information panel
