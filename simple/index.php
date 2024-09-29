@@ -240,8 +240,11 @@ if(empty($_POST['func'])) {
 		
                   function reloadDynData() {
                     fetchData("/mmdvmhost/last_heard_table.php", "#lastHeard");
-                    fetchData("/mmdvmhost/local_tx_table.php", "#localTxs");
-                    fetchData("/mmdvmhost/caller_details_table.php", "#liveCallerDeets");
+                    fetchData("/mmdvmhost/local_tx_table.php", "#localTxs");';
+                    if(isset($_SESSION['PiStarRelease']['Pi-Star']['ProcNum']) && ($_SESSION['PiStarRelease']['Pi-Star']['ProcNum'] >= 4)) {
+                        echo 'fetchData("/mmdvmhost/caller_details_table.php", "#liveCallerDeets");';
+                    }
+                  echo '
                   }';
                   if(isset($_SESSION['PiStarRelease']['Pi-Star']['ProcNum']) && ($_SESSION['PiStarRelease']['Pi-Star']['ProcNum'] >= 4)) {
                       echo "setInterval(reloadDynData, 2000);";
