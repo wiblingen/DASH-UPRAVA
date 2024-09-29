@@ -692,15 +692,18 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 		          console.error(`Error fetching data from ${url}:`, error);
 		        }
 		      }
-
-		      function reloadDynData() {
-		        fetchData("/mmdvmhost/last_heard_table.php", "#lastHeard");
-		        fetchData("/mmdvmhost/local_tx_table.php", "#localTxs");
-		        fetchData("/mmdvmhost/caller_details_table.php", "#liveCallerDeets");
-		      }
-
-		      setInterval(reloadDynData, 1500);
-		    </script>';
+                      function reloadDynData() {
+                        fetchData("/mmdvmhost/last_heard_table.php", "#lastHeard");
+                        fetchData("/mmdvmhost/local_tx_table.php", "#localTxs");
+                        fetchData("/mmdvmhost/caller_details_table.php", "#liveCallerDeets");
+                      }';
+                      if(isset($_SESSION['PiStarRelease']['Pi-Star']['ProcNum']) && ($_SESSION['PiStarRelease']['Pi-Star']['ProcNum'] >= 4)) {
+                          echo "setInterval(reloadDynData, 2000);";
+                      } else {
+                          echo "setInterval(reloadDynData, 3000);";
+                      }
+                    echo '
+                    </script>';
 		}
  
 		echo '<script>'."\n";
@@ -736,7 +739,6 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 
 	if ($_SERVER["PHP_SELF"] !== "/admin/index.php") {
             echo '<div id="liveCallerDeets">'."\n";
-	    include('mmdvmhost/caller_details_table.php');
             echo '</div>'."\n";
 
             if (!file_exists('/etc/.CALLERDETAILS')) {
@@ -744,11 +746,9 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
             } else {
                 echo '<div id="lastHeard">'."\n";
             }
-	    include('mmdvmhost/last_heard_table.php');
             echo '</div>'."\n";
 
             echo '<div id="localTxs" style="margin-top: 20px;">'."\n";
-	    include('mmdvmhost/local_tx_table.php');
             echo '</div>'."\n";
 	}
 

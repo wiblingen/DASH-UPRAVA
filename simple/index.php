@@ -238,15 +238,18 @@ if(empty($_POST['func'])) {
 		    }
 		  }
 		
-		  function reloadDynData() {
-		    fetchData("/mmdvmhost/last_heard_table.php", "#lastHeard");
-		    fetchData("/mmdvmhost/local_tx_table.php", "#localTxs");
-		    fetchData("/mmdvmhost/caller_details_table.php", "#liveCallerDeets");
-		  }
-
-		  setInterval(reloadDynData, 1500);
-		</script>';
-
+                  function reloadDynData() {
+                    fetchData("/mmdvmhost/last_heard_table.php", "#lastHeard");
+                    fetchData("/mmdvmhost/local_tx_table.php", "#localTxs");
+                    fetchData("/mmdvmhost/caller_details_table.php", "#liveCallerDeets");
+                  }';
+                  if(isset($_SESSION['PiStarRelease']['Pi-Star']['ProcNum']) && ($_SESSION['PiStarRelease']['Pi-Star']['ProcNum'] >= 4)) {
+                      echo "setInterval(reloadDynData, 2000);";
+                  } else {
+                      echo "setInterval(reloadDynData, 3000);";
+                  }
+                echo '
+                </script>';
 
 		echo '<script>'."\n";
 		echo 'function setLHTGnames(obj) {'."\n";
@@ -278,7 +281,6 @@ if(empty($_POST['func'])) {
 		echo '</script>'."\n";
 
                 echo '<div id="liveCallerDeets">'."\n";
-                include '../mmdvmhost/caller_details_table.php';
                 echo '</div>'."\n";
 
 		if (!file_exists('/etc/.CALLERDETAILS')) {
@@ -286,11 +288,9 @@ if(empty($_POST['func'])) {
 		} else {
  		    echo '<div id="lastHeard">'."\n";
 		}
-                include '../mmdvmhost/last_heard_table.php';
  		echo '</div>'."\n";
 
 		echo '<div id="localTxs" style="margin-top: 20px;">'."\n";
-		include '../mmdvmhost/local_tx_table.php';
 		echo '</div>'."\n";
 
 		// If POCSAG is enabled, show the information panel
