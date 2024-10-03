@@ -153,10 +153,10 @@ for ($i = 0;  ($i <= 0); $i++) { //Last 20  calls
 		    fclose($handle);
 		}
 		$callMatch = explode(",", $callMatch[0]);
-		$name = sentence_cap(" ", "$callMatch[2] $callMatch[3]");
-		$city = ucwords(strtolower($callMatch[4]));
-		$state = ucwords(strtolower($callMatch[5]));
-		$country = ucwords(strtolower($callMatch[6]));
+		$name    = sentence_cap(" ", "$callMatch[2] $callMatch[3]");
+    $city    = ucwords_ext( $callMatch[4] );
+    $state   = ucwords_ext( $callMatch[5] );
+    $country = ucwords_ext( $callMatch[6] );
 		if(strpos($country, "United States") !== false) {
 		   $country = str_replace("United States", "USA", $country);
 		}

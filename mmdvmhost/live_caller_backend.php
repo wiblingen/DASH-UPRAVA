@@ -158,10 +158,10 @@ if (!is_numeric($listElem[2])) {
 	fclose($handle);
     }
     $callMatch = explode(",", $callMatch[0]);
-    $name = sentence_cap(" ", "$callMatch[2] $callMatch[3]");
-    $city = ucwords(strtolower($callMatch[4]));
-    $state = ucwords(strtolower($callMatch[5]));
-    $country = ucwords(strtolower($callMatch[6]));
+    $name    = sentence_cap(" ", "$callMatch[2] $callMatch[3]");
+    $city    = ucwords_ext( $callMatch[4] );
+    $state   = ucwords_ext( $callMatch[5] );
+    $country = ucwords_ext( $callMatch[6] );
     if (strlen($country) > 150) {
 	$country = substr($country, 0, 120) . '...';
     }
