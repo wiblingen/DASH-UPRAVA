@@ -87,6 +87,16 @@ function checkSessionValidity() {
     }
 }
 
+/**
+ * ucwords with support for places with dashes
+ * Example Rheinland-Pfalz in Germany
+ */
+public function ucwords_ext( $string ) {
+  return preg_replace_callback( '/\w+/', function ( $match ) {
+        return ucfirst( strtolower( $match[0] ) );
+    }, $string);
+}
+
 function get_string_between($string, $start, $end) {
     $string = " ".$string;
     $ini = strpos($string,$start);
