@@ -91,7 +91,7 @@ function checkSessionValidity() {
  * ucwords with support for places with dashes
  * Example Rheinland-Pfalz in Germany
  */
-public function ucwords_ext( $string ) {
+function ucwords_ext( $string ) {
   return preg_replace_callback( '/\w+/', function ( $match ) {
         return ucfirst( strtolower( $match[0] ) );
     }, $string);
