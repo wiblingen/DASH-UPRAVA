@@ -53,18 +53,64 @@ for ($i = 0;  ($i <= 0); $i++) { //Last 20  calls
     }
 }
 
-if (strpos($listElem[4], "via ")) {
-    $listElem[4] = preg_replace("/via (.*)/", "$1", $listElem[4]);
+$target = $listElem[4];
+$mode = $listElem[1];
+if (file_exists("/etc/.TGNAMES")) {
+
+    // Handle "via" and "at"
+    if (strpos($target, "via ")) {
+	$target = preg_replace("/via (.*)/", "<span class='noMob'> $1</span>", $target);
+    }
+    if (strpos($target, "at ")) {
+	$target = preg_replace("/at (.*)/", "<span class='noMob'>at $1</span>", $target);
+    }
+
+    // Pad if the target is too short
+    if (strlen($target) == 1) {
+	$target = str_pad($target, 8, " ", STR_PAD_LEFT);
+    }
+
+    // Set target based on specific condition
+    if (substr($target, 0, 6) === 'CQCQCQ') {
+	$target = $target;
+    } else {
+	$target = trim($target);  // Trim to avoid extra spaces
+    }
+
+    // Check if it's a private call or TG
+    if (strpos($mode, "DMR") !== false && strpos($target, "TG") === false && is_numeric($target)) {
+	$target = "Private Call to $target";  // Private call detected
+    } else {
+	$target = preg_replace('/TG /', '', $target);  // Clean up "TG" from the target
+	$target = tgLookup($mode, $target);  // Perform TG lookup
+    }
+} else {
+    // Handle "via" and "at"
+    if (strpos($target, "via ")) {
+	$target = preg_replace("/via (.*)/", "<span class='noMob'> $1</span>", $target);
+    }
+    if (strpos($target, "at ")) {
+	$target = preg_replace("/at (.*)/", "<span class='noMob'>at $1</span>", $target);
+    }
+
+    // Set target based on specific condition
+    if (substr($target, 0, 6) === 'CQCQCQ') {
+	$target = $target;
+    } else {
+	$target = trim($target);  // Trim to avoid extra spaces
+
+	// Check if it's a private call or TG
+	if (strpos($mode, "DMR") !== false && strpos($target, "TG") === false && is_numeric($target)) {
+	    $target = "Private Call to $target";  // Private call detected
+	}
+    }
 }
 
-if ( substr($listElem[4], 0, 6) === 'CQCQCQ' ) {
-	$target = $listElem[4];
-} else {
-	$target = str_replace(" ","&nbsp;", $listElem[4]);
+$modeArray = array('DMR', 'NXDN', 'P25');
+if (strpos($mode, $modeArray[0]) !== false) {
+    $target = "$target";
 }
-		
-$target = preg_replace('/TG /', '', $listElem[4]);
-		
+	
 if ($listElem[5] == "RF"){
 	$source = "<span class='source_rf'>RF</span>";
 } else {
@@ -173,17 +219,6 @@ if (!is_numeric($listElem[2])) {
     }
 }
  
-if (file_exists("/etc/.TGNAMES")) {
-    $target = tgLookup($mode, $target);
-} else {
-    $modeArray = array('DMR', 'NXDN', 'P25');
-    if (strpos($mode, $modeArray[0]) !== false) {
-	$target = "TG $target";
-    } else {
-	$target = $target;
-    }
-}
-
 if ($listElem[2] == "4000" || $listElem[2] == "9990" || $listElem[2] == "DAPNET") {
 	$name = "";
 	$city = "";

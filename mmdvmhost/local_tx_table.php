@@ -105,26 +105,60 @@ for ($i = 0; $i < $TXListLim; $i++) {
 		} else {
 		    $mode = $listElem[1];
 		}
-		if ( substr($listElem[4], 0, 6) === 'CQCQCQ' ) {
-		    $target = $listElem[4];
-		} else {
-		    $target = str_replace(" ","&nbsp;", $listElem[4]);
-		}
-		$target = preg_replace('/TG /', '', $listElem[4]);
-		$target = tgLookup($mode, $target);
+                $mode = $listElem[1];
 
-		echo "<td align=\"left\">$target</td>";
+                // Handle "via" and "at"
+                if (strpos($listElem[4], "via ")) {
+                    $listElem[4] = preg_replace("/via (.*)/", "<span class='noMob'> $1</span>", $listElem[4]);
+                }
+                if (strpos($listElem[4], "at ")) {
+                    $listElem[4] = preg_replace("/at (.*)/", "<span class='noMob'>at $1</span>", $listElem[4]);
+                }
 
-	    } else {
-		if (strlen($listElem[4]) == 1) {
-		    $listElem[4] = str_pad($listElem[4], 8, " ", STR_PAD_LEFT);
-		}
-		if ( substr($listElem[4], 0, 6) === 'CQCQCQ' ) {
-		    echo "<td align=\"left\">$listElem[4]</td>";
-		} else {
-		    echo "<td align=\"left\">".str_replace(" ","&nbsp;", $listElem[4])."</td>";
-		}
-	    }
+                // Pad if the target is too short
+                if (strlen($listElem[4]) == 1) {
+                    $listElem[4] = str_pad($listElem[4], 8, " ", STR_PAD_LEFT);
+                }
+
+                // Set target based on specific condition
+                if (substr($listElem[4], 0, 6) === 'CQCQCQ') {
+                    $target = $listElem[4];
+                } else {
+                    $target = trim($listElem[4]);  // Trim to avoid extra spaces
+                }
+
+                // Check if it's a private call or TG
+                if (strpos($mode, "DMR") !== false && strpos($target, "TG") === false && is_numeric($target)) {
+                    $target = "Private Call to $target";  // Private call detected
+                } else {
+                    $target = preg_replace('/TG /', '', $target);  // Clean up "TG" from the target
+                    $target = tgLookup($mode, $target);  // Perform TG lookup
+                }
+
+                echo "<td align=\"left\">$target</td>";
+            } else {
+                // Handle "via" and "at"
+                if (strpos($listElem[4], "via ")) {
+                     $listElem[4] = preg_replace("/via (.*)/", "<span class='noMob'> $1</span>", $listElem[4]);
+                }
+                if (strpos($listElem[4], "at ")) {
+                    $listElem[4] = preg_replace("/at (.*)/", "<span class='noMob'>at $1</span>", $listElem[4]);
+                }
+
+                // Set target based on specific condition
+                if (substr($listElem[4], 0, 6) === 'CQCQCQ') {
+                    echo "<td align=\"left\">$listElem[4]</td>";
+                } else {
+                    $listElem[4] = trim($listElem[4]);  // Trim to avoid extra spaces
+
+                    // Check if it's a private call or TG
+                    if (strpos($listElem[1], "DMR") !== false && strpos($listElem[4], "TG") === false && is_numeric($listElem[4])) {
+                        $listElem[4] = "Private Call to $listElem[4]";  // Private call detected
+                    }
+
+                    echo "<td align=\"left\">$listElem[4]</td>";
+                }
+            }
 
 	    if ($listElem[6] == null && (file_exists("/etc/.CALLERDETAILS"))) {
 		echo "<td colspan =\"3\" style=\"background:#d11141;color:#fff;\">TX</td>";
