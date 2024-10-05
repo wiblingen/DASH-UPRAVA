@@ -162,7 +162,7 @@ if (!empty($_POST["submit_mode"]) && empty($_POST["mode_sel"])) { //handler for 
 	</tr>
 	<tr>';
 	if(isset($_GET['all_resumed'])) {
-	    echo '<tr><td colspan="3">All Modes Resumed!</td></tr>';
+	    echo '<tr><td colspan="3"><p><br />All Modes Resumed!<br /><br />Give the services a few moments to initialize.<br /></p></td></tr>';
 	}
 	echo '<td style="white-space:nowrap;">
 	    <input name="mode_action" access="false" id="pause-res-0" value="Pause" type="radio" checked="checked">
