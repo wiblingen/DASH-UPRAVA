@@ -82,7 +82,7 @@ switch ($action) {
         break;
 
     case 'reload_wifi':
-        $result = executeCommand("sudo /usr/local/sbin/.reload-wifi");
+        $result = executeCommand("sudo /usr/local/sbin/.wpsd-reload-wifi");
         break;
 
     default:
