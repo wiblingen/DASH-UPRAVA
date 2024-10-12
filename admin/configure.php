@@ -5990,10 +5990,10 @@ $ysfHosts = fopen("/usr/local/etc/YSFHosts.txt", "r"); ?>
     else { echo "<div class=\"switch\"><input id=\"toggle-dmrGatewayNet1En\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"dmrGatewayNet1En\" value=\"ON\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDmrGatewayNet1EnCheckboxCr." /><label id=\"aria-toggle-dmrGatewayNet1En\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Enable BrandMeister DMR\" aria-checked=\"false\" onKeyPress=\"toggleDmrGatewayNet1EnCheckbox()\" onclick=\"toggleDmrGatewayNet1EnCheckbox()\" for=\"toggle-dmrGatewayNet1En\"><font style=\"font-size:0px\">Enable Brandmeister DMR</font></label></div>\n"; } ?>
     </td>
 	<?php
-		if ($configdmrgateway['General']['Primary'] != "1" ) {
-			echo "<td align=\"left\" colspan=\"1\"><i class=\"fa fa-exclamation-circle\"></i> Uses \"2\" talkgroup prefix</td>";
-		} else {
+		if ($configdmrgateway['General']['Primary'] == "1" ||  $configdmrgateway['General']['Primary'] == "") {
 			echo "<td align=\"left\" colspan=\"1\"><i class=\"fa fa-exclamation-circle\"></i> Primary Network - No talkgroup prefix</td>";
+		} else {
+			echo "<td align=\"left\" colspan=\"1\"><i class=\"fa fa-exclamation-circle\"></i> Uses \"2\" talkgroup prefix</td>";
 	
 		}
 	?>
