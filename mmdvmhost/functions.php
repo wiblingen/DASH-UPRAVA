@@ -1759,7 +1759,7 @@ function tgLookup($mode, $target) {
 		    	$target = "TG $target <span class='noMob'>(DMR+: $target_lookup)</span>";
 		    }
 		} else {
-		    $target = "TG vk $target";
+		    $target = "TG $target";
 		}
 	    } else if ($_SESSION['DMRGatewayConfigs']['DMR Network 2']['Enabled'] == "1" && strlen($target_offset) >= 6 && substr( $target_offset, 0, 1 ) === "8" && startsWith($_SESSION['DMRGatewayConfigs']['DMR Network 2']['Name'], "HB_US_Quadnet")) {
 		$target_lookup = exec("grep -w \"$target_offset\" /usr/local/etc/TGList_QuadNet.txt | awk -F, '{print $2}' | head -1 | tr -d '\"'");
