@@ -1674,7 +1674,11 @@ function tgLookup($mode, $target) {
 			} else if (substr( $target, 0, 1 ) == "8" && strlen($target) >= 7) {
 				$target_offset = $target;
 			} else {
-				$target_offset = 8000000 + (int) $target;
+				if ($target < 1000000) {
+					$target_offset = 8000000 + (int) $target;
+				} else {
+					$target_offset = $target;
+				}
 			}
 		} else if ($_SESSION['DMRGatewayConfigs']['General']['Primary'] == "3") {
 			if (substr( $target, 0, 1 ) == "2" && strlen($target) >= 7) {
@@ -1682,7 +1686,11 @@ function tgLookup($mode, $target) {
 			} else if (substr( $target, 0, 1 ) == "4" && strlen($target) >= 7) {
 				$target_offset = $target;
 			} else {
-				$target_offset = 4000000 + (int) $target;
+				if ($target < 1000000) {
+					$target_offset = 4000000 + (int) $target;
+				} else {
+					$target_offset = $target;
+				}
 			}
 		} else if ($_SESSION['DMRGatewayConfigs']['General']['Primary'] == "4") {
 			if (substr( $target, 0, 1 ) == "2" && strlen($target) >= 7) {
@@ -1690,7 +1698,11 @@ function tgLookup($mode, $target) {
 			} else if (substr( $target, 0, 1 ) == "5" && strlen($target) >= 7) {
 				$target_offset = $target;
 			} else {
-				$target_offset = 5000000 + (int) $target;
+				if ($target < 1000000) {
+					$target_offset = 5000000 + (int) $target;
+				} else {
+					$target_offset = $target;
+				}
 			}
 		}
 
@@ -1738,7 +1750,7 @@ function tgLookup($mode, $target) {
 		} else {
 		    $target = "TG $target";
 		}
-	    } else if ($_SESSION['DMRGatewayConfigs']['DMR Network 2']['Enabled'] == "1" && strlen($target_offset) >= 6 && substr( $target_offset, 0, 1 ) === "8" && startsWith($_SESSION['DMRGatewayConfigs']['DMR Network 2']['Name'], "DMR+_IPSC2")) {
+	    } else if ($_SESSION['DMRGatewayConfigs']['DMR Network 2']['Enabled'] == "1" && strlen($target_offset) >= 6 && substr( $target_offset, 0, 1 ) == "8" && startsWith($_SESSION['DMRGatewayConfigs']['DMR Network 2']['Name'], "DMR+_IPSC2")) {
 		$target_lookup = exec("grep -w \"$target_offset\" /usr/local/etc/TGList_DMRp.txt | awk -F, '{print $2}' | head -1 | tr -d '\"'");
 		if (!empty($target_lookup)) {
 		    if (strpos($_SERVER["PHP_SELF"], 'last_heard_table.php') || strpos($_SERVER["PHP_SELF"], 'local_tx_table.php') !== false) {
@@ -1747,7 +1759,7 @@ function tgLookup($mode, $target) {
 		    	$target = "TG $target <span class='noMob'>(DMR+: $target_lookup)</span>";
 		    }
 		} else {
-		    $target = "TG $target";
+		    $target = "TG vk $target";
 		}
 	    } else if ($_SESSION['DMRGatewayConfigs']['DMR Network 2']['Enabled'] == "1" && strlen($target_offset) >= 6 && substr( $target_offset, 0, 1 ) === "8" && startsWith($_SESSION['DMRGatewayConfigs']['DMR Network 2']['Name'], "HB_US_Quadnet")) {
 		$target_lookup = exec("grep -w \"$target_offset\" /usr/local/etc/TGList_QuadNet.txt | awk -F, '{print $2}' | head -1 | tr -d '\"'");
@@ -1799,7 +1811,7 @@ function tgLookup($mode, $target) {
 		    $target = "TG $target";
 		}
 	    } else { // nothing found in any DMR list/network - return TG # only
-		$target = "TG $target";
+		$target = "TG y $target";
 	    }
 	} else if (strpos($mode, 'NXDN') !== false) {
 	    $target_lookup = exec("grep -w \"$target\" /usr/local/etc/TGList_NXDN.txt | awk -F';' '{print $2}'");
