@@ -1663,22 +1663,32 @@ function tgLookup($mode, $target) {
     if (strlen($target) >= 2) {
 	if (strpos($mode, 'DMR') !== false) {
 		if ($_SESSION['DMRGatewayConfigs']['General']['Primary'] == "1" || $_SESSION['DMRGatewayConfigs']['General']['Primary'] == "") {
-			$target_offset = $target;
-		} else if ($_SESSION['DMRGatewayConfigs']['General']['Primary'] == "2") {
-			if (substr( $target, 0, 1 ) === "2") {
+			if (substr( $target, 0, 1 ) == "2" && strlen($target) >= 7) {
+			$target_offset = (int) $target - 2000000;
+			} else {
+				$target_offset = $target;
+			}
+	 	} else if ($_SESSION['DMRGatewayConfigs']['General']['Primary'] == "2") {
+			if (substr( $target, 0, 1 ) == "2" && strlen($target) >= 7) {
 				$target_offset = (int) $target - 2000000;
+			} else if (substr( $target, 0, 1 ) == "8" && strlen($target) >= 7) {
+				$target_offset = $target;
 			} else {
 				$target_offset = 8000000 + (int) $target;
 			}
 		} else if ($_SESSION['DMRGatewayConfigs']['General']['Primary'] == "3") {
-			if (substr( $target, 0, 1 ) === "2") {
+			if (substr( $target, 0, 1 ) == "2" && strlen($target) >= 7) {
 				$target_offset = (int) $target - 2000000;
+			} else if (substr( $target, 0, 1 ) == "4" && strlen($target) >= 7) {
+				$target_offset = $target;
 			} else {
 				$target_offset = 4000000 + (int) $target;
 			}
 		} else if ($_SESSION['DMRGatewayConfigs']['General']['Primary'] == "4") {
-			if (substr( $target, 0, 1 ) === "2") {
+			if (substr( $target, 0, 1 ) == "2" && strlen($target) >= 7) {
 				$target_offset = (int) $target - 2000000;
+			} else if (substr( $target, 0, 1 ) == "5" && strlen($target) >= 7) {
+				$target_offset = $target;
 			} else {
 				$target_offset = 5000000 + (int) $target;
 			}
@@ -1776,13 +1786,13 @@ function tgLookup($mode, $target) {
 		    }
 		}
 	    } else if ($_SESSION['DMRGatewayConfigs']['DMR Network 1']['Enabled'] == "1" && startsWith($_SESSION['DMRGatewayConfigs']['DMR Network 1']['Name'], "BM")) {
-		$target_lookup = exec("grep -w \"$target\" /usr/local/etc/groups.txt | awk -F, '{print $1}' | head -1 | tr -d '\"'");
+		$target_lookup = exec("grep -w \"$target_offset\" /usr/local/etc/groups.txt | awk -F, '{print $1}' | head -1 | tr -d '\"'");
 		if (!empty($target_lookup)) {
-		    $target = $target_lookup;
+		    // $target = $target_lookup;
 		    if (strpos($_SERVER["PHP_SELF"], 'last_heard_table.php') || strpos($_SERVER["PHP_SELF"], 'local_tx_table.php') !== false) {
-		    	$target = str_replace(": ", " <span style='float:right;' class='noMob'>(BM: ", $target.")</span>");
+		    	$target = $target . " " . str_replace($target_offset . ": ", " <span style='float:right;' class='noMob'>(BM: ", $target_lookup.")</span>");
 		    } else {
-		    	$target = str_replace(": ", " <span class='noMob'>(BM: ", $target.")</span>");
+		    	$target = $target . " " . str_replace($target_offset . ": ", " <span class='noMob'>(BM: ", $target_lookup.")</span>");
 		    }
 		    $target = "TG $target";
 		} else {
