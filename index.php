@@ -701,9 +701,9 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
                       echo '
                       }';
                       if(isset($_SESSION['PiStarRelease']['Pi-Star']['ProcNum']) && ($_SESSION['PiStarRelease']['Pi-Star']['ProcNum'] >= 4)) {
-                          echo "setInterval(reloadDynData, 2000);";
+                          echo "setInterval(reloadDynData, 1500);";
                       } else {
-                          echo "setInterval(reloadDynData, 3000);";
+                          echo "setInterval(reloadDynData, 2500);";
                       }
                     echo '
                     </script>';
