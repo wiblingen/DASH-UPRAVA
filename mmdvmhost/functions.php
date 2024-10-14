@@ -1819,11 +1819,20 @@ function tgLookup($mode, $target) {
 		    $target = "TG $target";
 		}
 	    } else if (strlen($target) >= 6 && substr( $target, 0, 1 ) === "7" && $_SESSION['DMRGatewayConfigs']['DMR Network 3']['Enabled'] == "1") {                             
-		if ($_SESSION['DMRGatewayConfigs']['DMR Network 3']['Name'] == "DMR2YSF_Cross-Mode") {                                                                             
+		if ($_SESSION['DMRGatewayConfigs']['DMR Network 3']['Name'] == "DMR2YSF_Cross-Mode") {    
+			$target_offset = substr( $target, 2, 5);
+			$target_lookup = exec("grep -w \"$target_offset\" /usr/local/etc/YSFHosts.txt | awk -F';' '{print $2}' | head -1 | tr -d '\"'");
+			if (!empty($target_lookup)) {
+				if ($_SESSION['DMRGatewayConfigs']['General']['Primary'] != "2") {
+					$target_local = " $target_offset $target_lookup";
+				} else {
+					$target_local = "";
+				}
+			}																			 
 		    if (strpos($_SERVER["PHP_SELF"], 'last_heard_table.php') || strpos($_SERVER["PHP_SELF"], 'local_tx_table.php') !== false) {
-		    	$target = "TG $target <span style='float:right;' class='noMob'>(DMR2YSF)</span>";
+		    	$target = "TG $target <span style='float:right;' class='noMob'>(DMR2YSF: $target_local)</span>";
 		    } else {
-		    	$target = "TG $target <span class='noMob'>(DMR2YSF)</span>";
+		    	$target = "TG $target <span class='noMob'>(DMR2YSF: $target_local)</span>";
 		    }
 		} else if ($_SESSION['DMRGatewayConfigs']['DMR Network 3']['Name'] == "DMR2NXDN_Cross-Mode") {                                                                     
 		    if (strpos($_SERVER["PHP_SELF"], 'last_heard_table.php') || strpos($_SERVER["PHP_SELF"], 'local_tx_table.php') !== false) {
