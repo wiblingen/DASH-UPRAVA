@@ -1710,7 +1710,7 @@ function tgLookup($mode, $target) {
 		$target_lookup = exec("grep -w \"$target_offset\" /usr/local/etc/TGList_TGIF.txt | awk -F';' '{print $2}' | head -1 | tr -d '\"'");
 		if (!empty($target_lookup)) {
 			if ($_SESSION['DMRGatewayConfigs']['General']['Primary'] != "4") {
-				$target_local = " TG " . (int) $target_offset - 5000000;
+				$target_local = " TG " . ((int) $target_offset - 5000000);
 			} else {
 				$target_local = "";
 			}
@@ -1726,7 +1726,7 @@ function tgLookup($mode, $target) {
 		$target_lookup = exec("grep -w \"$target_offset\" /usr/local/etc/TGList_FreeStarIPSC.txt | awk -F, '{print $2}' | head -1 | tr -d '\"'");
 		if (!empty($target_lookup)) {
 			if ($_SESSION['DMRGatewayConfigs']['General']['Primary'] != "2") {
-				$target_local = " TG " . (int) $target_offset - 8000000;
+				$target_local = " TG " . ((int) $target_offset - 8000000);
 			} else {
 				$target_local = "";
 			}
@@ -1742,7 +1742,7 @@ function tgLookup($mode, $target) {
 		$target_lookup = exec("grep -w \"$target_offset\" /usr/local/etc/TGList_SystemX.txt | awk -F, '{print $2}' | head -1 | tr -d '\"'");
 		if (!empty($target_lookup)) {
 			if ($_SESSION['DMRGatewayConfigs']['General']['Primary'] != "3") {
-				$target_local = " TG " . (int) $target_offset - 4000000;
+				$target_local = " TG " . ((int) $target_offset - 4000000);
 			} else {
 				$target_local = "";
 			}
@@ -1758,7 +1758,7 @@ function tgLookup($mode, $target) {
 		$target_lookup = exec("grep -w \"$target_offset\" /usr/local/etc/TGList_FreeDMR_.txt | awk -F, '{print $2}' | head -1 | tr -d '\"'");
 		if (!empty($target_lookup)) {
 			if ($_SESSION['DMRGatewayConfigs']['General']['Primary'] != "2") {
-				$target_local = " TG " . (int) $target_offset - 8000000;
+				$target_local = " TG " . ((int) $target_offset - 8000000);
 			} else {
 				$target_local = "";
 			}
@@ -1774,7 +1774,7 @@ function tgLookup($mode, $target) {
 		$target_lookup = exec("grep -w \"$target_offset\" /usr/local/etc/TGList_DMRp.txt | awk -F, '{print $2}' | head -1 | tr -d '\"'");
 		if (!empty($target_lookup)) {
 			if ($_SESSION['DMRGatewayConfigs']['General']['Primary'] != "2") {
-				$target_local = " TG " . (int) $target_offset - 8000000;
+				$target_local = " TG " . ((int) $target_offset - 8000000);
 			} else {
 				$target_local = "";
 			}
@@ -1790,7 +1790,7 @@ function tgLookup($mode, $target) {
 		$target_lookup = exec("grep -w \"$target_offset\" /usr/local/etc/TGList_QuadNet.txt | awk -F, '{print $2}' | head -1 | tr -d '\"'");
 		if (!empty($target_lookup)) {
 			if ($_SESSION['DMRGatewayConfigs']['General']['Primary'] != "2") {
-				$target_local = " TG " . (int) $target_offset - 8000000;
+				$target_local = " TG " . ((int) $target_offset - 8000000);
 			} else {
 				$target_local = "";
 			}
@@ -1806,7 +1806,7 @@ function tgLookup($mode, $target) {
 		$target_lookup = exec("grep -w \"$target_offset\" /usr/local/etc/TGList_AmComm.txt | awk -F, '{print $2}' | head -1 | tr -d '\"'");
 		if (!empty($target_lookup)) {
 			if ($_SESSION['DMRGatewayConfigs']['General']['Primary'] != "2") {
-				$target_local = " TG " . (int) $target_offset - 8000000;
+				$target_local = " TG " . ((int) $target_offset - 8000000);
 			} else {
 				$target_local = "";
 			}
@@ -1851,7 +1851,7 @@ function tgLookup($mode, $target) {
 		    $target = "TG $target";
 		}
 	    } else { // nothing found in any DMR list/network - return TG # only
-		$target = "TG y $target";
+		$target = "TG $target";
 	    }
 	} else if (strpos($mode, 'NXDN') !== false) {
 	    $target_lookup = exec("grep -w \"$target\" /usr/local/etc/TGList_NXDN.txt | awk -F';' '{print $2}'");
