@@ -1774,7 +1774,7 @@ function tgLookup($mode, $target) {
 		$target_lookup = exec("grep -w \"$target_offset\" /usr/local/etc/TGList_DMRp.txt | awk -F, '{print $2}' | head -1 | tr -d '\"'");
 		if (!empty($target_lookup)) {
 			if ($_SESSION['DMRGatewayConfigs']['General']['Primary'] != "2") {
-				$target_local = " TG " . (int) $target_prefix - 8000000;
+				$target_local = " TG " . (int) $target_offset - 8000000;
 			} else {
 				$target_local = "";
 			}
