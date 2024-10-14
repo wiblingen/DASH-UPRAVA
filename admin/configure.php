@@ -2051,22 +2051,20 @@ if (!empty($_POST)):
 
 	    // Set the DMR+ / HBLink / FreeDMR Options= line
 	    if ((substr($dmrMasterHostArr[3], 0, 4) == "DMR+") || (substr($dmrMasterHostArr[3], 0, 3) == "HB_") || (substr($dmrMasterHostArr[3], 0, 3) == "FD_") || (substr($dmrMasterHostArr[3], 0, 8) == "FreeDMR_")) {
-		unset ($configmmdvm['DMR Network']['Local']);
-		unset ($configmmdvm['DMR Network']['LocalPort']);
-		unset ($configysf2dmr['DMR Network']['Local']);
-		if (empty($_POST['dmrNetworkOptions']) != TRUE ) {
-		    $dmrOptionsLineStripped = str_replace('"', "", $_POST['dmrNetworkOptions']);
-		    $configmmdvm['DMR Network']['Options'] = '"'.$dmrOptionsLineStripped.'"';
-		    $configdmrgateway['DMR Network 2']['Options'] = '"'.$dmrOptionsLineStripped.'"';
-		}
-		else {
+			unset ($configmmdvm['DMR Network']['Local']);
+			unset ($configmmdvm['DMR Network']['LocalPort']);
+			unset ($configysf2dmr['DMR Network']['Local']);
+			if (empty($_POST['dmrNetworkOptions']) != TRUE ) {
+		    	$dmrOptionsLineStripped = str_replace('"', "", $_POST['dmrNetworkOptions']);
+		    	$configmmdvm['DMR Network']['Options'] = '"'.$dmrOptionsLineStripped.'"';
+		    	$configdmrgateway['DMR Network 2']['Options'] = '"'.$dmrOptionsLineStripped.'"';
+			} else {
 		    unset ($configmmdvm['DMR Network']['Options']);
 		    unset ($configdmrgateway['DMR Network 2']['Options']);
 		    unset ($configysf2dmr['DMR Network']['Options']);
-		}
+			}
 	    }
 
-	}
 
         // Set the SystemX (FreeSTAR) Options= line
         if ((substr($dmrMasterHostArr[3], 0, 8) == "SystemX_")) {
@@ -2085,6 +2083,15 @@ if (!empty($_POST)):
             }
         }
 
+	// Set primary DMR network
+	if (empty($_POST['dmrPrimary']) != TRUE ) {
+		$configdmrgateway['General']['Primary'] = preg_replace('/[^0-9]/', '', $_POST['dmrPrimary']);
+		$dmrMastersUpdateRqd = TRUE;
+	  } else {
+		$dmrMastersUpdateRqd = FALSE;
+	  }
+	}
+
 	if (empty($_POST['dmrMasterHost']) == TRUE ) {
 	    unset ($configmmdvm['DMR Network']['Options']);
 	    unset ($configdmrgateway['DMR Network 2']['Options']);
@@ -2099,6 +2106,8 @@ if (!empty($_POST)):
 	    }
 	    $configdmrgateway['DMR Network 1']['Port'] = $dmrMasterHostArr1[2];
 	    $configdmrgateway['DMR Network 1']['Name'] = $dmrMasterHostArr1[3];
+		$dmrMastersUpdateRqd = TRUE;
+
 	}
 	if (empty($_POST['dmrMasterHost2']) != TRUE ) {
 	    $dmrMasterHostArr2 = explode(',', escapeshellcmd($_POST['dmrMasterHost2']));
@@ -2106,20 +2115,8 @@ if (!empty($_POST)):
 	    $configdmrgateway['DMR Network 2']['Password'] = '"'.$dmrMasterHostArr2[1].'"';
 	    $configdmrgateway['DMR Network 2']['Port'] = $dmrMasterHostArr2[2];
 	    $configdmrgateway['DMR Network 2']['Name'] = $dmrMasterHostArr2[3];
-            $configdmrgateway['DMR Network 2']['TGRewrite0'] = "2,8,2,9,1";
-            $configdmrgateway['DMR Network 2']['PCRewrite0'] = "2,84000,2,4000,1001";
-            $configdmrgateway['DMR Network 2']['PCRewrite1'] = "1,8009990,1,9990,1";
-            $configdmrgateway['DMR Network 2']['PCRewrite2'] = "2,8009990,2,9990,1";
-            $configdmrgateway['DMR Network 2']['PCRewrite3'] = "1,8000001,1,1,999999"; 
-            $configdmrgateway['DMR Network 2']['PCRewrite4'] = "2,8000001,2,1,999999";
-            $configdmrgateway['DMR Network 2']['TypeRewrite1'] = "1,8009990,1,9990";
-            $configdmrgateway['DMR Network 2']['TypeRewrite2'] = "2,8009990,2,9990";
-            $configdmrgateway['DMR Network 2']['TGRewrite1'] = "1,8000001,1,1,999999";
-            $configdmrgateway['DMR Network 2']['TGRewrite2'] = "2,8000001,2,1,999999";
-            $configdmrgateway['DMR Network 2']['SrcRewrite1'] = "1,9990,1,8009990,1";
-            $configdmrgateway['DMR Network 2']['SrcRewrite2'] = "2,9990,2,8009990,1";
-            $configdmrgateway['DMR Network 2']['SrcRewrite3'] = "1,1,1,8000001,999999";
-            $configdmrgateway['DMR Network 2']['SrcRewrite4'] = "2,1,2,8000001,999999";
+		$dmrMastersUpdateRqd = TRUE;
+
 	    if (empty($_POST['dmrNetworkOptions']) != TRUE ) {
 		$dmrOptionsLineStripped = str_replace('"', "", $_POST['dmrNetworkOptions']);
 		unset ($configmmdvm['DMR Network']['Options']);
@@ -2135,29 +2132,17 @@ if (!empty($_POST)):
 	    $configdmrgateway['DMR Network 5']['Password'] = '"'.$dmrMasterHostArr5[1].'"';
 	    $configdmrgateway['DMR Network 5']['Port'] = $dmrMasterHostArr5[2];
 	    $configdmrgateway['DMR Network 5']['Name'] = $dmrMasterHostArr5[3];
-            $configdmrgateway['DMR Network 5']['TGRewrite0'] = "2,4,2,9,1";
-            $configdmrgateway['DMR Network 5']['PCRewrite0'] = "2,44000,2,4000,1001";
-            $configdmrgateway['DMR Network 5']['PCRewrite1'] = "1,4009990,1,9990,1";
-            $configdmrgateway['DMR Network 5']['PCRewrite2'] = "2,4009990,2,9990,1";
-            $configdmrgateway['DMR Network 5']['PCRewrite3'] = "1,4000001,1,1,999999";
-            $configdmrgateway['DMR Network 5']['PCRewrite4'] = "2,4000001,2,1,999999";
-            $configdmrgateway['DMR Network 5']['TypeRewrite1'] = "1,4009990,1,9990";
-            $configdmrgateway['DMR Network 5']['TypeRewrite2'] = "2,4009990,2,9990";
-            $configdmrgateway['DMR Network 5']['TGRewrite1'] = "1,4000001,1,1,999999";
-            $configdmrgateway['DMR Network 5']['TGRewrite2'] = "2,4000001,2,1,999999";
-            $configdmrgateway['DMR Network 5']['SrcRewrite1'] = "1,9990,1,4009990,1";
-            $configdmrgateway['DMR Network 5']['SrcRewrite2'] = "2,9990,2,4009990,1";
-            $configdmrgateway['DMR Network 5']['SrcRewrite3'] = "1,1,1,4000001,999999";
-            $configdmrgateway['DMR Network 5']['SrcRewrite4'] = "2,1,2,4000001,999999";
-	    if (empty($_POST['dmrNetworkOptions5']) != TRUE ) {
+		$dmrMastersUpdateRqd = TRUE;
+	}
+
+	if (empty($_POST['dmrNetworkOptions5']) != TRUE ) {
 		$dmrOptionsLineStripped5 = str_replace('"', "", $_POST['dmrNetworkOptions5']);
 		unset ($configmmdvm['DMR Network']['Options']);
 		$configdmrgateway['DMR Network 5']['Options'] = '"'.$dmrOptionsLineStripped5.'"';
-	    }
-	    else {
+	} else {
 		unset ($configdmrgateway['DMR Network 5']['Options']);
-	    }
 	}
+
 
 	if (empty($_POST['dmrMasterHost3']) != TRUE ) {
 	    $dmrMasterHostArr3 = explode(',', escapeshellcmd($_POST['dmrMasterHost3']));
@@ -2260,6 +2245,7 @@ if (!empty($_POST)):
 	  $configmmdvm['DMR Network']['ModeHang'] = preg_replace('/[^0-9]/', '', $_POST['dmrNetHangTime']);
 	  $configdmrgateway['General']['NetTimeout'] = preg_replace('/[^0-9]/', '', $_POST['dmrNetHangTime']);
 	}
+  
 	// Set D-Star Hang Timers
 	if (empty($_POST['dstarRfHangTime']) != TRUE ) {
 	  $configmmdvm['D-Star']['ModeHang'] = preg_replace('/[^0-9]/', '', $_POST['dstarRfHangTime']);
@@ -2845,38 +2831,29 @@ if (!empty($_POST)):
 	// TGIF (Net4) for DMRGW
 	if (empty($_POST['dmrMasterHost4']) != TRUE ) {
 	    if (escapeshellcmd($_POST['dmrGatewayNet4En']) == 'ON' )  {
-		unset($configdmrgateway['DMR Network 4']);
-		$configdmrgateway['DMR Network 4']['Enabled'] = "1";
-		$configdmrgateway['DMR Network 4']['Address'] = "tgif.network";
-		$configdmrgateway['DMR Network 4']['Port'] = "62031";
-		$configdmrgateway['DMR Network 4']['Name'] = "TGIF_Network";
-		$configdmrgateway['DMR Network 4']['Debug'] = "0";
-		$configdmrgateway['DMR Network 4']['Location'] = "0";
-		// Set TGIF Extended ID
-		if (empty($_POST['tgifExtendedId']) != TRUE ) {
-		    $newPosttgifExtendedId = preg_replace('/[^0-9]/', '', $_POST['tgifExtendedId']);
-		   $configdmrgateway['DMR Network 4']['Id'] = $configmmdvm['General']['Id'].$newPosttgifExtendedId;
-		}
-		if (empty($_POST['tgifHSSecurity']) != TRUE ) {
-		    $configdmrgateway['DMR Network 4']['Password'] = '"'.$_POST['tgifHSSecurity'].'"';
-		} else {
-		    $configdmrgateway['DMR Network 4']['Password'] = "passw0rd";
-		} 
-		$configdmrgateway['DMR Network 4']['Id'] = $configdmrgateway['DMR Network 4']['Id'];
-		$configdmrgateway['DMR Network 4']['PCRewrite1'] = "1,5009990,1,9990,1";
-		$configdmrgateway['DMR Network 4']['PCRewrite2'] = "2,5009990,2,9990,1";
-		$configdmrgateway['DMR Network 4']['TypeRewrite1'] = "1,5009990,1,9990";
-		$configdmrgateway['DMR Network 4']['TypeRewrite2'] = "2,5009990,2,9990";
-		$configdmrgateway['DMR Network 4']['TGRewrite1'] = "1,5000001,1,1,999999";
-		$configdmrgateway['DMR Network 4']['TGRewrite2'] = "2,5000001,2,1,999999";
-		$configdmrgateway['DMR Network 4']['SrcRewrite1'] = "1,9990,1,5009990,1";
-		$configdmrgateway['DMR Network 4']['SrcRewrite2'] = "2,9990,2,5009990,1";
-		$configdmrgateway['DMR Network 4']['SrcRewrite3'] = "1,1,1,5000001,999999";
-		$configdmrgateway['DMR Network 4']['SrcRewrite4'] = "2,1,2,5000001,999999";
+			unset($configdmrgateway['DMR Network 4']);
+			$configdmrgateway['DMR Network 4']['Enabled'] = "1";
+			$configdmrgateway['DMR Network 4']['Address'] = "tgif.network";
+			$configdmrgateway['DMR Network 4']['Port'] = "62031";
+			$configdmrgateway['DMR Network 4']['Name'] = "TGIF_Network";
+			$configdmrgateway['DMR Network 4']['Debug'] = "0";
+			$configdmrgateway['DMR Network 4']['Location'] = "0";
+			// Set TGIF Extended ID
+			if (empty($_POST['tgifExtendedId']) != TRUE ) {
+		    	$newPosttgifExtendedId = preg_replace('/[^0-9]/', '', $_POST['tgifExtendedId']);
+		   	$configdmrgateway['DMR Network 4']['Id'] = $configmmdvm['General']['Id'].$newPosttgifExtendedId;
+			}
+			if (empty($_POST['tgifHSSecurity']) != TRUE ) {
+		    	$configdmrgateway['DMR Network 4']['Password'] = '"'.$_POST['tgifHSSecurity'].'"';
+			} else {
+		    	$configdmrgateway['DMR Network 4']['Password'] = "passw0rd";
+			} 
+			$configdmrgateway['DMR Network 4']['Id'] = $configdmrgateway['DMR Network 4']['Id'];
+			$dmrMastersUpdateRqd = TRUE;
 	    }
 	    if (escapeshellcmd($_POST['dmrGatewayNet4En']) == 'OFF' )  {
-		//unset($configdmrgateway['DMR Network 4']); // not certain why I originally placed this in here. Will disable and hope it doesn't cause issues. ;)
-		$configdmrgateway['DMR Network 4']['Enabled'] = "0";
+			//unset($configdmrgateway['DMR Network 4']); // not certain why I originally placed this in here. Will disable and hope it doesn't cause issues. ;)
+			$configdmrgateway['DMR Network 4']['Enabled'] = "0";
 	    }
 	}
 
@@ -2886,6 +2863,215 @@ if (!empty($_POST)):
 			$configdmrgateway['DMR Network 3']['Enabled'] = "1";
 		} else {
 			$configdmrgateway['DMR Network 3']['Enabled'] = "0";
+		}
+	}
+
+
+
+
+	if ($dmrMastersUpdateRqd == TRUE) {
+		if ($configdmrgateway['General']['Primary'] == "1" ) {
+			unset ($configdmrgateway['DMR Network 1']['TGRewrite0']);
+			unset ($configdmrgateway['DMR Network 1']['TGRewrite1']);
+			unset ($configdmrgateway['DMR Network 1']['TGRewrite2']);
+			unset ($configdmrgateway['DMR Network 1']['TGRewrite3']);
+			unset ($configdmrgateway['DMR Network 1']['TGRewrite4']);
+			unset ($configdmrgateway['DMR Network 1']['PCRewrite0']);
+			unset ($configdmrgateway['DMR Network 1']['PCRewrite1']);
+			unset ($configdmrgateway['DMR Network 1']['PCRewrite2']);
+			unset ($configdmrgateway['DMR Network 1']['PCRewrite3']);
+			unset ($configdmrgateway['DMR Network 1']['PCRewrite4']);
+			unset ($configdmrgateway['DMR Network 1']['TypeRewrite0']);
+			unset ($configdmrgateway['DMR Network 1']['TypeRewrite1']);
+			unset ($configdmrgateway['DMR Network 1']['TypeRewrite2']);
+			unset ($configdmrgateway['DMR Network 1']['TypeRewrite3']);
+			unset ($configdmrgateway['DMR Network 1']['TypeRewrite4']);
+			unset ($configdmrgateway['DMR Network 1']['SrcRewrite0']);
+			unset ($configdmrgateway['DMR Network 1']['SrcRewrite1']);
+			unset ($configdmrgateway['DMR Network 1']['SrcRewrite2']);
+			unset ($configdmrgateway['DMR Network 1']['SrcRewrite3']);
+			unset ($configdmrgateway['DMR Network 1']['SrcRewrite4']);
+
+			$configdmrgateway['DMR Network 1']['TGRewrite0'] = "2,9,2,9,1";
+			$configdmrgateway['DMR Network 1']['PCRewrite0'] = "2,94000,2,4000,1001";
+			$configdmrgateway['DMR Network 1']['TypeRewrite0'] = "2,9990,2,9990";
+			$configdmrgateway['DMR Network 1']['SrcRewrite0'] = "2,4000,2,9,1001";
+			$configdmrgateway['DMR Network 1']['PassAllPC0'] = "1";
+			$configdmrgateway['DMR Network 1']['PassAllTG0'] = "1";
+			$configdmrgateway['DMR Network 1']['PassAllPC1'] = "2";
+			$configdmrgateway['DMR Network 1']['PassAllTG1'] = "2";
+		} else {
+			unset ($configdmrgateway['DMR Network 1']['PassAllPC0']);
+			unset ($configdmrgateway['DMR Network 1']['PassAllTG0']);
+			unset ($configdmrgateway['DMR Network 1']['PassAllPC1']);
+			unset ($configdmrgateway['DMR Network 1']['PassAllTG1']);
+
+            $configdmrgateway['DMR Network 1']['TGRewrite0'] = "2,8,2,9,1";
+            $configdmrgateway['DMR Network 1']['PCRewrite0'] = "2,24000,2,4000,1001";
+            $configdmrgateway['DMR Network 1']['PCRewrite1'] = "1,2009990,1,9990,1";
+            $configdmrgateway['DMR Network 1']['PCRewrite2'] = "2,2009990,2,9990,1";
+            $configdmrgateway['DMR Network 1']['PCRewrite3'] = "1,2000001,1,1,999999"; 
+            $configdmrgateway['DMR Network 1']['PCRewrite4'] = "2,2000001,2,1,999999";
+            $configdmrgateway['DMR Network 1']['TypeRewrite1'] = "1,2009990,1,9990";
+            $configdmrgateway['DMR Network 1']['TypeRewrite2'] = "2,2009990,2,9990";
+            $configdmrgateway['DMR Network 1']['TGRewrite1'] = "1,2000001,1,1,999999";
+            $configdmrgateway['DMR Network 1']['TGRewrite2'] = "2,2000001,2,1,999999";
+            $configdmrgateway['DMR Network 1']['SrcRewrite1'] = "1,9990,1,2009990,1";
+            $configdmrgateway['DMR Network 1']['SrcRewrite2'] = "2,9990,2,2009990,1";
+            $configdmrgateway['DMR Network 1']['SrcRewrite3'] = "1,1,1,2000001,999999";
+            $configdmrgateway['DMR Network 1']['SrcRewrite4'] = "2,1,2,2000001,999999";
+		}
+
+		if ($configdmrgateway['General']['Primary'] == "2" ) {
+			unset ($configdmrgateway['DMR Network 2']['TGRewrite0']);
+			unset ($configdmrgateway['DMR Network 2']['TGRewrite1']);
+			unset ($configdmrgateway['DMR Network 2']['TGRewrite2']);
+			unset ($configdmrgateway['DMR Network 2']['TGRewrite3']);
+			unset ($configdmrgateway['DMR Network 2']['TGRewrite4']);
+			unset ($configdmrgateway['DMR Network 2']['PCRewrite0']);
+			unset ($configdmrgateway['DMR Network 2']['PCRewrite1']);
+			unset ($configdmrgateway['DMR Network 2']['PCRewrite2']);
+			unset ($configdmrgateway['DMR Network 2']['PCRewrite3']);
+			unset ($configdmrgateway['DMR Network 2']['PCRewrite4']);
+			unset ($configdmrgateway['DMR Network 2']['TypeRewrite0']);
+			unset ($configdmrgateway['DMR Network 2']['TypeRewrite1']);
+			unset ($configdmrgateway['DMR Network 2']['TypeRewrite2']);
+			unset ($configdmrgateway['DMR Network 2']['TypeRewrite3']);
+			unset ($configdmrgateway['DMR Network 2']['TypeRewrite4']);
+			unset ($configdmrgateway['DMR Network 2']['SrcRewrite0']);
+			unset ($configdmrgateway['DMR Network 2']['SrcRewrite1']);
+			unset ($configdmrgateway['DMR Network 2']['SrcRewrite2']);
+			unset ($configdmrgateway['DMR Network 2']['SrcRewrite3']);
+			unset ($configdmrgateway['DMR Network 2']['SrcRewrite4']);
+
+			$configdmrgateway['DMR Network 2']['TGRewrite0'] = "2,9,2,9,1";
+			$configdmrgateway['DMR Network 2']['PCRewrite0'] = "2,94000,2,4000,1001";
+			$configdmrgateway['DMR Network 2']['TypeRewrite0'] = "2,9990,2,9990";
+			$configdmrgateway['DMR Network 2']['SrcRewrite0'] = "2,4000,2,9,1001";
+			$configdmrgateway['DMR Network 2']['PassAllPC0'] = "1";
+			$configdmrgateway['DMR Network 2']['PassAllTG0'] = "1";
+			$configdmrgateway['DMR Network 2']['PassAllPC1'] = "2";
+			$configdmrgateway['DMR Network 2']['PassAllTG1'] = "2";
+		} else {
+			unset ($configdmrgateway['DMR Network 2']['PassAllPC0']);
+			unset ($configdmrgateway['DMR Network 2']['PassAllTG0']);
+			unset ($configdmrgateway['DMR Network 2']['PassAllPC1']);
+			unset ($configdmrgateway['DMR Network 2']['PassAllTG1']);
+
+			$configdmrgateway['DMR Network 2']['TGRewrite0'] = "2,8,2,9,1";
+            $configdmrgateway['DMR Network 2']['PCRewrite0'] = "2,84000,2,4000,1001";
+            $configdmrgateway['DMR Network 2']['PCRewrite1'] = "1,8009990,1,9990,1";
+            $configdmrgateway['DMR Network 2']['PCRewrite2'] = "2,8009990,2,9990,1";
+            $configdmrgateway['DMR Network 2']['PCRewrite3'] = "1,8000001,1,1,999999"; 
+            $configdmrgateway['DMR Network 2']['PCRewrite4'] = "2,8000001,2,1,999999";
+            $configdmrgateway['DMR Network 2']['TypeRewrite1'] = "1,8009990,1,9990";
+            $configdmrgateway['DMR Network 2']['TypeRewrite2'] = "2,8009990,2,9990";
+            $configdmrgateway['DMR Network 2']['TGRewrite1'] = "1,8000001,1,1,999999";
+            $configdmrgateway['DMR Network 2']['TGRewrite2'] = "2,8000001,2,1,999999";
+            $configdmrgateway['DMR Network 2']['SrcRewrite1'] = "1,9990,1,8009990,1";
+            $configdmrgateway['DMR Network 2']['SrcRewrite2'] = "2,9990,2,8009990,1";
+            $configdmrgateway['DMR Network 2']['SrcRewrite3'] = "1,1,1,8000001,999999";
+            $configdmrgateway['DMR Network 2']['SrcRewrite4'] = "2,1,2,8000001,999999";
+
+		}
+
+		if ($configdmrgateway['General']['Primary'] == "3" ) {
+			unset ($configdmrgateway['DMR Network 5']['TGRewrite0']);
+			unset ($configdmrgateway['DMR Network 5']['TGRewrite1']);
+			unset ($configdmrgateway['DMR Network 5']['TGRewrite2']);
+			unset ($configdmrgateway['DMR Network 5']['TGRewrite3']);
+			unset ($configdmrgateway['DMR Network 5']['TGRewrite4']);
+			unset ($configdmrgateway['DMR Network 5']['PCRewrite0']);
+			unset ($configdmrgateway['DMR Network 5']['PCRewrite1']);
+			unset ($configdmrgateway['DMR Network 5']['PCRewrite2']);
+			unset ($configdmrgateway['DMR Network 5']['PCRewrite3']);
+			unset ($configdmrgateway['DMR Network 5']['PCRewrite4']);
+			unset ($configdmrgateway['DMR Network 5']['TypeRewrite0']);
+			unset ($configdmrgateway['DMR Network 5']['TypeRewrite1']);
+			unset ($configdmrgateway['DMR Network 5']['TypeRewrite2']);
+			unset ($configdmrgateway['DMR Network 5']['TypeRewrite3']);
+			unset ($configdmrgateway['DMR Network 5']['TypeRewrite4']);
+			unset ($configdmrgateway['DMR Network 5']['SrcRewrite0']);
+			unset ($configdmrgateway['DMR Network 5']['SrcRewrite1']);
+			unset ($configdmrgateway['DMR Network 5']['SrcRewrite2']);
+			unset ($configdmrgateway['DMR Network 5']['SrcRewrite3']);
+			unset ($configdmrgateway['DMR Network 5']['SrcRewrite4']);
+
+			$configdmrgateway['DMR Network 5']['TGRewrite0'] = "2,9,2,9,1";
+			$configdmrgateway['DMR Network 5']['PCRewrite0'] = "2,94000,2,4000,1001";
+			$configdmrgateway['DMR Network 5']['TypeRewrite0'] = "2,9990,2,9990";
+			$configdmrgateway['DMR Network 5']['SrcRewrite0'] = "2,4000,2,9,1001";
+			$configdmrgateway['DMR Network 5']['PassAllPC0'] = "1";
+			$configdmrgateway['DMR Network 5']['PassAllTG0'] = "1";
+			$configdmrgateway['DMR Network 5']['PassAllPC1'] = "2";
+			$configdmrgateway['DMR Network 5']['PassAllTG1'] = "2";
+		} else {
+			unset ($configdmrgateway['DMR Network 5']['PassAllPC0']);
+			unset ($configdmrgateway['DMR Network 5']['PassAllTG0']);
+			unset ($configdmrgateway['DMR Network 5']['PassAllPC1']);
+			unset ($configdmrgateway['DMR Network 5']['PassAllTG1']);
+
+            $configdmrgateway['DMR Network 5']['TGRewrite0'] = "2,4,2,9,1";
+            $configdmrgateway['DMR Network 5']['PCRewrite0'] = "2,44000,2,4000,1001";
+            $configdmrgateway['DMR Network 5']['PCRewrite1'] = "1,4009990,1,9990,1";
+            $configdmrgateway['DMR Network 5']['PCRewrite2'] = "2,4009990,2,9990,1";
+            $configdmrgateway['DMR Network 5']['PCRewrite3'] = "1,4000001,1,1,999999";
+            $configdmrgateway['DMR Network 5']['PCRewrite4'] = "2,4000001,2,1,999999";
+            $configdmrgateway['DMR Network 5']['TypeRewrite1'] = "1,4009990,1,9990";
+            $configdmrgateway['DMR Network 5']['TypeRewrite2'] = "2,4009990,2,9990";
+            $configdmrgateway['DMR Network 5']['TGRewrite1'] = "1,4000001,1,1,999999";
+            $configdmrgateway['DMR Network 5']['TGRewrite2'] = "2,4000001,2,1,999999";
+            $configdmrgateway['DMR Network 5']['SrcRewrite1'] = "1,9990,1,4009990,1";
+            $configdmrgateway['DMR Network 5']['SrcRewrite2'] = "2,9990,2,4009990,1";
+            $configdmrgateway['DMR Network 5']['SrcRewrite3'] = "1,1,1,4000001,999999";
+            $configdmrgateway['DMR Network 5']['SrcRewrite4'] = "2,1,2,4000001,999999";
+		}
+		if ($configdmrgateway['General']['Primary'] == "4" ) {
+			unset ($configdmrgateway['DMR Network 4']['TGRewrite0']);
+			unset ($configdmrgateway['DMR Network 4']['TGRewrite1']);
+			unset ($configdmrgateway['DMR Network 4']['TGRewrite2']);
+			unset ($configdmrgateway['DMR Network 4']['TGRewrite3']);
+			unset ($configdmrgateway['DMR Network 4']['TGRewrite4']);
+			unset ($configdmrgateway['DMR Network 4']['PCRewrite0']);
+			unset ($configdmrgateway['DMR Network 4']['PCRewrite1']);
+			unset ($configdmrgateway['DMR Network 4']['PCRewrite2']);
+			unset ($configdmrgateway['DMR Network 4']['PCRewrite3']);
+			unset ($configdmrgateway['DMR Network 4']['PCRewrite4']);
+			unset ($configdmrgateway['DMR Network 4']['TypeRewrite0']);
+			unset ($configdmrgateway['DMR Network 4']['TypeRewrite1']);
+			unset ($configdmrgateway['DMR Network 4']['TypeRewrite2']);
+			unset ($configdmrgateway['DMR Network 4']['TypeRewrite3']);
+			unset ($configdmrgateway['DMR Network 4']['TypeRewrite4']);
+			unset ($configdmrgateway['DMR Network 4']['SrcRewrite0']);
+			unset ($configdmrgateway['DMR Network 4']['SrcRewrite1']);
+			unset ($configdmrgateway['DMR Network 4']['SrcRewrite2']);
+			unset ($configdmrgateway['DMR Network 4']['SrcRewrite3']);
+			unset ($configdmrgateway['DMR Network 4']['SrcRewrite4']);
+
+			$configdmrgateway['DMR Network 4']['TGRewrite0'] = "2,9,2,9,1";
+			$configdmrgateway['DMR Network 4']['PCRewrite0'] = "2,94000,2,4000,1001";
+			$configdmrgateway['DMR Network 4']['TypeRewrite0'] = "2,9990,2,9990";
+			$configdmrgateway['DMR Network 4']['SrcRewrite0'] = "2,4000,2,9,1001";
+			$configdmrgateway['DMR Network 4']['PassAllPC0'] = "1";
+			$configdmrgateway['DMR Network 4']['PassAllTG0'] = "1";
+			$configdmrgateway['DMR Network 4']['PassAllPC1'] = "2";
+			$configdmrgateway['DMR Network 4']['PassAllTG1'] = "2";
+		} else {
+			unset ($configdmrgateway['DMR Network 4']['PassAllPC0']);
+			unset ($configdmrgateway['DMR Network 4']['PassAllTG0']);
+			unset ($configdmrgateway['DMR Network 4']['PassAllPC1']);
+			unset ($configdmrgateway['DMR Network 4']['PassAllTG1']);
+
+			$configdmrgateway['DMR Network 4']['PCRewrite1'] = "1,5009990,1,9990,1";
+			$configdmrgateway['DMR Network 4']['PCRewrite2'] = "2,5009990,2,9990,1";
+			$configdmrgateway['DMR Network 4']['TypeRewrite1'] = "1,5009990,1,9990";
+			$configdmrgateway['DMR Network 4']['TypeRewrite2'] = "2,5009990,2,9990";
+			$configdmrgateway['DMR Network 4']['TGRewrite1'] = "1,5000001,1,1,999999";
+			$configdmrgateway['DMR Network 4']['TGRewrite2'] = "2,5000001,2,1,999999";
+			$configdmrgateway['DMR Network 4']['SrcRewrite1'] = "1,9990,1,5009990,1";
+			$configdmrgateway['DMR Network 4']['SrcRewrite2'] = "2,9990,2,5009990,1";
+			$configdmrgateway['DMR Network 4']['SrcRewrite3'] = "1,1,1,5000001,999999";
+			$configdmrgateway['DMR Network 4']['SrcRewrite4'] = "2,1,2,5000001,999999";
 		}
 	}
 
@@ -3058,6 +3244,7 @@ if (!empty($_POST)):
 	if (!isset($configdmrgateway['General']['Daemon'])) { $configdmrgateway['General']['Daemon'] ="1"; }
 	if (!isset($configdmrgateway['General']['Debug'])) { $configdmrgateway['General']['Debug'] ="0"; }
 	if (!isset($configdmrgateway['General']['Suffix'])) { $configdmrgateway['General']['Suffix'] ="R"; }
+	if (!isset($configdmrgateway['General']['Primary'])) { $configdmrgateway['General']['Primary'] ="1"; }
 	if (!isset($configdmrgateway['Info']['Enabled'])) { $configdmrgateway['Info']['Enabled'] = "0"; }
 	if (!isset($configdmrgateway['Info']['Power'])) { $configdmrgateway['Info']['Power'] = $configmmdvm['Info']['Power']; }
 	if (!isset($configdmrgateway['Info']['Height'])) { $configdmrgateway['Info']['Height'] = $configmmdvm['Info']['Height']; }
@@ -4737,7 +4924,14 @@ else:
     ?>
     <td align="left">RF Hangtime: <input type="text" name="dmrRfHangTime" size="7" maxlength="3" value="<?php if (isset($configmmdvm['DMR']['ModeHang'])) { echo $configmmdvm['DMR']['ModeHang']; } else { echo "20"; } ?>" />
     Net Hangtime: <input type="text" name="dmrNetHangTime" size="7" maxlength="3" value="<?php if (isset($configmmdvm['DMR Network']['ModeHang'])) { echo $configmmdvm['DMR Network']['ModeHang']; } else { echo "20"; } ?>" />
-    </td>
+    Primary DMR Network: 
+	<select name="dmrPrimary">
+	    <option <?php if (($configdmrgateway['General']['Primary'] == "1") || ($configmmdvm['General']['Primary'] == "") ) {echo 'selected="selected" ';}; ?>value="1">Brandmeister</option>
+	    <option <?php if (($configdmrgateway['General']['Primary'] == "2") ) {echo 'selected="selected" ';}; ?>value="2">DMR+</option>
+	    <option <?php if (($configdmrgateway['General']['Primary'] == "3") ) {echo 'selected="selected" ';}; ?>value="3">SystemX</option>
+	    <option <?php if (($configdmrgateway['General']['Primary'] == "4") ) {echo 'selected="selected" ';}; ?>value="4">TGIF</option>
+	</select>
+	</td>
     </tr>
 
     <?php if (isDVmegaCast() == 0) { // Begin DVMega Cast logic... ?>
@@ -5791,10 +5985,19 @@ $ysfHosts = fopen("/usr/local/etc/YSFHosts.txt", "r"); ?>
     </td></tr>
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo __( 'BrandMeister Network' );?> Enable:<span><b>BrandMeister Network Enable</b>Enable or disable BrandMeister Network</span></a></td>
-    <td align="left" colspan="3">
+    <td align="left" colspan="2">
     <?php if ($configdmrgateway['DMR Network 1']['Enabled'] == 1) { echo "<div class=\"switch\"><input id=\"toggle-dmrGatewayNet1En\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"dmrGatewayNet1En\" value=\"ON\" checked=\"checked\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDmrGatewayNet1EnCheckboxCr." /><label id=\"aria-toggle-dmrGatewayNet1En\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Enable BrandMeister DMR\" aria-checked=\"true\" onKeyPress=\"toggleDmrGatewayNet1EnCheckbox()\" onclick=\"toggleDmrGatewayNet1EnCheckbox()\" for=\"toggle-dmrGatewayNet1En\"><font style=\"font-size:0px\">Enable Brandmeister DMR</font></label></div>\n"; }
     else { echo "<div class=\"switch\"><input id=\"toggle-dmrGatewayNet1En\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"dmrGatewayNet1En\" value=\"ON\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDmrGatewayNet1EnCheckboxCr." /><label id=\"aria-toggle-dmrGatewayNet1En\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Enable BrandMeister DMR\" aria-checked=\"false\" onKeyPress=\"toggleDmrGatewayNet1EnCheckbox()\" onclick=\"toggleDmrGatewayNet1EnCheckbox()\" for=\"toggle-dmrGatewayNet1En\"><font style=\"font-size:0px\">Enable Brandmeister DMR</font></label></div>\n"; } ?>
     </td>
+	<?php
+		if ($configdmrgateway['General']['Primary'] == "1" ||  $configdmrgateway['General']['Primary'] == "") {
+			echo "<td align=\"left\" colspan=\"1\"><i class=\"fa fa-exclamation-circle\"></i> Primary Network - No talkgroup prefix</td>";
+		} else {
+			echo "<td align=\"left\" colspan=\"1\"><i class=\"fa fa-exclamation-circle\"></i> Uses \"2\" talkgroup prefix</td>";
+	
+		}
+	?>
+	
     </tr>
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo __( 'BrandMeister Network' );?>:<span><b>BrandMeister Dashboards</b>Direct links to your BrandMeister Dashboards</span></a></td>
@@ -5892,7 +6095,14 @@ if (!@file_exists($bmAPIkeyFile) && !@fopen($bmAPIkeyFile,'r')) {
     <?php if ($configdmrgateway['DMR Network 2']['Enabled'] == 1) { echo "<div class=\"switch\"><input id=\"toggle-dmrGatewayNet2En\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"dmrGatewayNet2En\" value=\"ON\" checked=\"checked\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDmrGatewayNet2EnCheckboxCr." /><label id=\"aria-toggle-dmrGatewayNet2En\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Enable DMR+ / FreeDMR / HBlink\" aria-checked=\"true\" onKeyPress=\"toggleDmrGatewayNet2EnCheckbox()\" onclick=\"toggleDmrGatewayNet2EnCheckbox()\" for=\"toggle-dmrGatewayNet2En\"><font style=\"font-size:0px\">Enable DMR+ / FreeDMR / HBlink</font></label></div>\n"; }
     else { echo "<div class=\"switch\"><input id=\"toggle-dmrGatewayNet2En\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"dmrGatewayNet2En\" value=\"ON\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDmrGatewayNet2EnCheckboxCr." /><label id=\"aria-toggle-dmrGatewayNet2En\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Enable DMR+ / FreeDMR / HBlink\" aria-checked=\"false\" onKeyPress=\"toggleDmrGatewayNet2EnCheckbox()\" onclick=\"toggleDmrGatewayNet2EnCheckbox()\" for=\"toggle-dmrGatewayNet2En\"><font style=\"font-size:0px\">Enable DMR+ / FreeDMR / HBlink</font></label></div>\n"; } ?>
     </td>
-    <td align="left" colspan="1"><i class="fa fa-exclamation-circle"></i> Uses "8" talkgroup prefix</td>
+	<?php
+	if ($configdmrgateway['General']['Primary'] != "2" ) {
+    	echo "<td align=\"left\" colspan=\"1\"><i class=\"fa fa-exclamation-circle\"></i> Uses \"8\" talkgroup prefix</td>";
+	} else {
+		echo "<td align=\"left\" colspan=\"1\"><i class=\"fa fa-exclamation-circle\"></i> Primary Network - No talkgroup prefix</td>";
+
+	}
+	?>
     </tr>
 
     <tr>
@@ -5966,7 +6176,15 @@ if (!@file_exists($bmAPIkeyFile) && !@fopen($bmAPIkeyFile,'r')) {
     <?php if ($configdmrgateway['DMR Network 5']['Enabled'] == 1) { echo "<div class=\"switch\"><input id=\"toggle-dmrGatewayNet5En\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"dmrGatewayNet5En\" value=\"ON\" checked=\"checked\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDmrGatewayNet5EnCheckboxCr." /><label id=\"aria-toggle-dmrGatewayNet5En\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Enable SystemX\" aria-checked=\"true\" onKeyPress=\"toggleDmrGatewayNet5EnCheckbox()\" onclick=\"toggleDmrGatewayNet5EnCheckbox()\" for=\"toggle-dmrGatewayNet5En\"><font style=\"font-size:0px\">Enable SystemX</font></label></div>\n"; }
     else { echo "<div class=\"switch\"><input id=\"toggle-dmrGatewayNet5En\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"dmrGatewayNet5En\" value=\"ON\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDmrGatewayNet5EnCheckboxCr." /><label id=\"aria-toggle-dmrGatewayNet5En\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Enable SystemX\" aria-checked=\"false\" onKeyPress=\"toggleDmrGatewayNet5EnCheckbox()\" onclick=\"toggleDmrGatewayNet5EnCheckbox()\" for=\"toggle-dmrGatewayNet5En\"><font style=\"font-size:0px\">Enable SystemX</font></label></div>\n"; } ?>
     </td>
-    <td align="left" colspan="1"><i class="fa fa-exclamation-circle"></i> Uses "4" talkgroup prefix</td>
+	<?php
+	if ($configdmrgateway['General']['Primary'] != "3" ) {
+    	echo "<td align=\"left\" colspan=\"1\"><i class=\"fa fa-exclamation-circle\"></i> Uses \"4\" talkgroup prefix</td>";
+	} else {
+		echo "<td align=\"left\" colspan=\"1\"><i class=\"fa fa-exclamation-circle\"></i> Primary Network - No talkgroup prefix</td>";
+
+	}
+	?>
+
     </tr>
 	</tr>
 	<tr>
@@ -6032,7 +6250,15 @@ if (!@file_exists($bmAPIkeyFile) && !@fopen($bmAPIkeyFile,'r')) {
     <?php if ($configdmrgateway['DMR Network 4']['Enabled'] == 1) { echo "<div class=\"switch\"><input id=\"toggle-dmrGatewayNet4En\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"dmrGatewayNet4En\" value=\"ON\" checked=\"checked\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDmrGatewayNet4EnCheckboxCr." /><label id=\"aria-toggle-dmrGatewayNet4En\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Enable TGIF\" aria-checked=\"true\" onKeyPress=\"toggleDmrGatewayNet4EnCheckbox()\" onclick=\"toggleDmrGatewayNet4EnCheckbox()\" for=\"toggle-dmrGatewayNet4En\"><font style=\"font-size:0px\">Enable TGIF/font></label></div>\n"; }
     else { echo "<div class=\"switch\"><input id=\"toggle-dmrGatewayNet4En\" class=\"toggle toggle-round-flat\" type=\"checkbox\" name=\"dmrGatewayNet4En\" value=\"ON\" aria-hidden=\"true\" tabindex=\"-1\" ".$toggleDmrGatewayNet4EnCheckboxCr." /><label id=\"aria-toggle-dmrGatewayNet4En\" role=\"checkbox\" tabindex=\"0\" aria-label=\"Enable TGIF\" aria-checked=\"false\" onKeyPress=\"toggleDmrGatewayNet4EnCheckbox()\" onclick=\"toggleDmrGatewayNet4EnCheckbox()\" for=\"toggle-dmrGatewayNet4En\"><font style=\"font-size:0px\">Enable TGIF</font></label></div>\n"; } ?>
     </td>
-    <td align="left" colspan="1"><i class="fa fa-exclamation-circle"></i> Uses "5" talkgroup prefix</td>
+	<?php
+		if ($configdmrgateway['General']['Primary'] != "4" ) {
+			echo "<td align=\"left\" colspan=\"1\"><i class=\"fa fa-exclamation-circle\"></i> Uses \"5\" talkgroup prefix</td>";
+		} else {
+			echo "<td align=\"left\" colspan=\"1\"><i class=\"fa fa-exclamation-circle\"></i> Primary Network - No talkgroup prefix</td>";
+	
+		}
+	?>
+	
     </tr>
     <tr>
     <td align="left"><a class="tooltip2" href="#">TGIF Network:<span><b>TGIF Dashboards</b>Direct links to your TGIF Dashboard</span></a></td>

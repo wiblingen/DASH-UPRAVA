@@ -1662,89 +1662,177 @@ function decodeAlias($logLine) {
 function tgLookup($mode, $target) {
     if (strlen($target) >= 2) {
 	if (strpos($mode, 'DMR') !== false) {
-	    if ($_SESSION['DMRGatewayConfigs']['DMR Network 4']['Enabled'] == "1" && strlen($target) >= 7 && substr( $target, 0, 1 ) === "5" && $_SESSION['DMRGatewayConfigs']['DMR Network 4']['Name'] == "TGIF_Network") {
-		$target_lookup = exec("grep -w \"$target\" /usr/local/etc/TGList_TGIF.txt | awk -F';' '{print $2}' | head -1 | tr -d '\"'");
+		if ($_SESSION['DMRGatewayConfigs']['General']['Primary'] == "1" || $_SESSION['DMRGatewayConfigs']['General']['Primary'] == "") {
+			if (substr( $target, 0, 1 ) == "2" && strlen($target) >= 7) {
+			$target_offset = (int) $target - 2000000;
+			} else {
+				$target_offset = $target;
+			}
+	 	} else if ($_SESSION['DMRGatewayConfigs']['General']['Primary'] == "2") {
+			if (substr( $target, 0, 1 ) == "2" && strlen($target) >= 7) {
+				$target_offset = (int) $target - 2000000;
+			} else if (substr( $target, 0, 1 ) == "8" && strlen($target) >= 7) {
+				$target_offset = $target;
+			} else {
+				if ($target < 1000000) {
+					$target_offset = 8000000 + (int) $target;
+				} else {
+					$target_offset = $target;
+				}
+			}
+		} else if ($_SESSION['DMRGatewayConfigs']['General']['Primary'] == "3") {
+			if (substr( $target, 0, 1 ) == "2" && strlen($target) >= 7) {
+				$target_offset = (int) $target - 2000000;
+			} else if (substr( $target, 0, 1 ) == "4" && strlen($target) >= 7) {
+				$target_offset = $target;
+			} else {
+				if ($target < 1000000) {
+					$target_offset = 4000000 + (int) $target;
+				} else {
+					$target_offset = $target;
+				}
+			}
+		} else if ($_SESSION['DMRGatewayConfigs']['General']['Primary'] == "4") {
+			if (substr( $target, 0, 1 ) == "2" && strlen($target) >= 7) {
+				$target_offset = (int) $target - 2000000;
+			} else if (substr( $target, 0, 1 ) == "5" && strlen($target) >= 7) {
+				$target_offset = $target;
+			} else {
+				if ($target < 1000000) {
+					$target_offset = 5000000 + (int) $target;
+				} else {
+					$target_offset = $target;
+				}
+			}
+		}
+
+	    if ($_SESSION['DMRGatewayConfigs']['DMR Network 4']['Enabled'] == "1" && strlen($target_offset) >= 7 && substr( $target_offset, 0, 1 ) === "5" && $_SESSION['DMRGatewayConfigs']['DMR Network 4']['Name'] == "TGIF_Network") {
+		$target_lookup = exec("grep -w \"$target_offset\" /usr/local/etc/TGList_TGIF.txt | awk -F';' '{print $2}' | head -1 | tr -d '\"'");
 		if (!empty($target_lookup)) {
+			if ($_SESSION['DMRGatewayConfigs']['General']['Primary'] != "4") {
+				$target_local = " TG " . ((int) $target_offset - 5000000);
+			} else {
+				$target_local = "";
+			}
 		    if (strpos($_SERVER["PHP_SELF"], 'last_heard_table.php') || strpos($_SERVER["PHP_SELF"], 'local_tx_table.php') !== false) {
-		    	$target = "TG $target <span style='float:right;' class='noMob'>(TGIF: $target_lookup)</span>";
+		    	$target = "TG $target <span style='float:right;' class='noMob'>(TGIF:$target_local $target_lookup)</span>";
 		    } else {
-		    	$target = "TG $target <span class='noMob'>(TGIF: $target_lookup)</span>";
+		    	$target = "TG $target <span class='noMob'>(TGIF:$target_local $target_lookup)</span>";
 		    }
 		} else {
 		    $target = "TG $target";
 		}
-	    } else if ($_SESSION['DMRGatewayConfigs']['DMR Network 2']['Enabled'] == "1" && strlen($target) >= 6 && substr( $target, 0, 1 ) === "8" && $_SESSION['DMRGatewayConfigs']['DMR Network 2']['Name'] == "DMR+_IPSC2-FreeSTAR") {
-		$target_lookup = exec("grep -w \"$target\" /usr/local/etc/TGList_FreeStarIPSC.txt | awk -F, '{print $2}' | head -1 | tr -d '\"'");
+	    } else if ($_SESSION['DMRGatewayConfigs']['DMR Network 2']['Enabled'] == "1" && strlen($target_offset) >= 6 && substr( $target_offset, 0, 1 ) === "8" && $_SESSION['DMRGatewayConfigs']['DMR Network 2']['Name'] == "DMR+_IPSC2-FreeSTAR") {
+		$target_lookup = exec("grep -w \"$target_offset\" /usr/local/etc/TGList_FreeStarIPSC.txt | awk -F, '{print $2}' | head -1 | tr -d '\"'");
 		if (!empty($target_lookup)) {
+			if ($_SESSION['DMRGatewayConfigs']['General']['Primary'] != "2") {
+				$target_local = " TG " . ((int) $target_offset - 8000000);
+			} else {
+				$target_local = "";
+			}
 		    if (strpos($_SERVER["PHP_SELF"], 'last_heard_table.php') || strpos($_SERVER["PHP_SELF"], 'local_tx_table.php') !== false) {
-		    	$target = "TG $target <span style='float:right;' class='noMob'>(FreeSTAR: $target_lookup)</span>";
+		    	$target = "TG $target <span style='float:right;' class='noMob'>(FreeSTAR:$target_local $target_lookup)</span>";
 		    } else {
-		    	$target = "TG $target <span class='noMob'>(FreeSTAR: $target_lookup)</span>";
+		    	$target = "TG $target <span class='noMob'>(FreeSTAR:$target_local $target_lookup)</span>";
 		    }
 		} else {
 		    $target = "TG $target";
 		}
-	    } else if ($_SESSION['DMRGatewayConfigs']['DMR Network 5']['Enabled'] == "1" && strlen($target) >= 6 && substr( $target, 0, 1 ) === "4" && startsWith($_SESSION['DMRGatewayConfigs']['DMR Network 5']['Name'], "SystemX")) {
-		$target_lookup = exec("grep -w \"$target\" /usr/local/etc/TGList_SystemX.txt | awk -F, '{print $2}' | head -1 | tr -d '\"'");
+	    } else if ($_SESSION['DMRGatewayConfigs']['DMR Network 5']['Enabled'] == "1" && strlen($target_offset) >= 6 && substr( $target_offset, 0, 1 ) === "4" && startsWith($_SESSION['DMRGatewayConfigs']['DMR Network 5']['Name'], "SystemX")) {
+		$target_lookup = exec("grep -w \"$target_offset\" /usr/local/etc/TGList_SystemX.txt | awk -F, '{print $2}' | head -1 | tr -d '\"'");
 		if (!empty($target_lookup)) {
+			if ($_SESSION['DMRGatewayConfigs']['General']['Primary'] != "3") {
+				$target_local = " TG " . ((int) $target_offset - 4000000);
+			} else {
+				$target_local = "";
+			}
 		    if (strpos($_SERVER["PHP_SELF"], 'last_heard_table.php') || strpos($_SERVER["PHP_SELF"], 'local_tx_table.php') !== false) {
-		    	$target = "TG $target <span style='float:right;' class='noMob'>(SystemX: $target_lookup)</span>";
+		    	$target = "TG $target <span style='float:right;' class='noMob'>(SystemX:$target_local $target_lookup)</span>";
 		    } else {
-		    	$target = "TG $target <span class='noMob'>(SystemX: $target_lookup)</span>";
+		    	$target = "TG $target <span class='noMob'>(SystemX:$target_local $target_lookup)</span>";
 		    }
 		} else {
 		    $target = "TG $target";
 		}
-	    } else if ($_SESSION['DMRGatewayConfigs']['DMR Network 2']['Enabled'] == "1" && strlen($target) >= 6 && substr( $target, 0, 1 ) === "8" && startsWith($_SESSION['DMRGatewayConfigs']['DMR Network 2']['Name'], "FreeDMR")) {
-		$target_lookup = exec("grep -w \"$target\" /usr/local/etc/TGList_FreeDMR_.txt | awk -F, '{print $2}' | head -1 | tr -d '\"'");
+	    } else if ($_SESSION['DMRGatewayConfigs']['DMR Network 2']['Enabled'] == "1" && strlen($target_offset) >= 6 && substr( $target_offset, 0, 1 ) === "8" && startsWith($_SESSION['DMRGatewayConfigs']['DMR Network 2']['Name'], "FreeDMR")) {
+		$target_lookup = exec("grep -w \"$target_offset\" /usr/local/etc/TGList_FreeDMR_.txt | awk -F, '{print $2}' | head -1 | tr -d '\"'");
 		if (!empty($target_lookup)) {
+			if ($_SESSION['DMRGatewayConfigs']['General']['Primary'] != "2") {
+				$target_local = " TG " . ((int) $target_offset - 8000000);
+			} else {
+				$target_local = "";
+			}
 		    if (strpos($_SERVER["PHP_SELF"], 'last_heard_table.php') || strpos($_SERVER["PHP_SELF"], 'local_tx_table.php') !== false) {
-		    	$target = "TG $target <span style='float:right;' class='noMob'>(FreeDMR: $target_lookup)</span>";
+		    	$target = "TG $target <span style='float:right;' class='noMob'>(FreeDMR:$target_local $target_lookup)</span>";
 		    } else {
-		    	$target = "TG $target <span class='noMob'>(FreeDMR: $target_lookup)</span>";
+		    	$target = "TG $target <span class='noMob'>(FreeDMR:$target_local $target_lookup)</span>";
 		    }
 		} else {
 		    $target = "TG $target";
 		}
-	    } else if ($_SESSION['DMRGatewayConfigs']['DMR Network 2']['Enabled'] == "1" && strlen($target) >= 6 && substr( $target, 0, 1 ) === "8" && startsWith($_SESSION['DMRGatewayConfigs']['DMR Network 2']['Name'], "DMR+_IPSC2")) {
-		$target_lookup = exec("grep -w \"$target\" /usr/local/etc/TGList_DMRp.txt | awk -F, '{print $2}' | head -1 | tr -d '\"'");
+	    } else if ($_SESSION['DMRGatewayConfigs']['DMR Network 2']['Enabled'] == "1" && strlen($target_offset) >= 6 && substr( $target_offset, 0, 1 ) == "8" && startsWith($_SESSION['DMRGatewayConfigs']['DMR Network 2']['Name'], "DMR+_IPSC2")) {
+		$target_lookup = exec("grep -w \"$target_offset\" /usr/local/etc/TGList_DMRp.txt | awk -F, '{print $2}' | head -1 | tr -d '\"'");
 		if (!empty($target_lookup)) {
+			if ($_SESSION['DMRGatewayConfigs']['General']['Primary'] != "2") {
+				$target_local = " TG " . ((int) $target_offset - 8000000);
+			} else {
+				$target_local = "";
+			}
 		    if (strpos($_SERVER["PHP_SELF"], 'last_heard_table.php') || strpos($_SERVER["PHP_SELF"], 'local_tx_table.php') !== false) {
-		    	$target = "TG $target <span style='float:right;' class='noMob'>(DMR+: $target_lookup)</span>";
+		    	$target = "TG $target <span style='float:right;' class='noMob'>(DMR+:$target_local $target_lookup)</span>";
 		    } else {
-		    	$target = "TG $target <span class='noMob'>(DMR+: $target_lookup)</span>";
+		    	$target = "TG $target <span class='noMob'>(DMR+:$target_local $target_lookup)</span>";
 		    }
 		} else {
 		    $target = "TG $target";
 		}
-	    } else if ($_SESSION['DMRGatewayConfigs']['DMR Network 2']['Enabled'] == "1" && strlen($target) >= 6 && substr( $target, 0, 1 ) === "8" && startsWith($_SESSION['DMRGatewayConfigs']['DMR Network 2']['Name'], "HB_US_Quadnet")) {
-		$target_lookup = exec("grep -w \"$target\" /usr/local/etc/TGList_QuadNet.txt | awk -F, '{print $2}' | head -1 | tr -d '\"'");
+	    } else if ($_SESSION['DMRGatewayConfigs']['DMR Network 2']['Enabled'] == "1" && strlen($target_offset) >= 6 && substr( $target_offset, 0, 1 ) === "8" && startsWith($_SESSION['DMRGatewayConfigs']['DMR Network 2']['Name'], "HB_US_Quadnet")) {
+		$target_lookup = exec("grep -w \"$target_offset\" /usr/local/etc/TGList_QuadNet.txt | awk -F, '{print $2}' | head -1 | tr -d '\"'");
 		if (!empty($target_lookup)) {
+			if ($_SESSION['DMRGatewayConfigs']['General']['Primary'] != "2") {
+				$target_local = " TG " . ((int) $target_offset - 8000000);
+			} else {
+				$target_local = "";
+			}
 		    if (strpos($_SERVER["PHP_SELF"], 'last_heard_table.php') || strpos($_SERVER["PHP_SELF"], 'local_tx_table.php') !== false) {
-		    	$target = "TG $target <span style='float:right;' class='noMob'>(QuadNet: $target_lookup)</span>";
+		    	$target = "TG $target <span style='float:right;' class='noMob'>(QuadNet:$target_local $target_lookup)</span>";
 		    } else {
-		    	$target = "TG $target <span class='noMob'>(QuadNet: $target_lookup)</span>";
+		    	$target = "TG $target <span class='noMob'>(QuadNet:$target_local $target_lookup)</span>";
 		    }
 		} else {
 		    $target = "TG $target";
 		}
-	    } else if ($_SESSION['DMRGatewayConfigs']['DMR Network 2']['Enabled'] == "1" && strlen($target) >= 6 && substr( $target, 0, 1 ) === "8" && startsWith($_SESSION['DMRGatewayConfigs']['DMR Network 2']['Name'], "FD_AmComm")) {
-		$target_lookup = exec("grep -w \"$target\" /usr/local/etc/TGList_AmComm.txt | awk -F, '{print $2}' | head -1 | tr -d '\"'");
+	    } else if ($_SESSION['DMRGatewayConfigs']['DMR Network 2']['Enabled'] == "1" && strlen($target_offset) >= 6 && substr( $target_offset, 0, 1 ) === "8" && startsWith($_SESSION['DMRGatewayConfigs']['DMR Network 2']['Name'], "FD_AmComm")) {
+		$target_lookup = exec("grep -w \"$target_offset\" /usr/local/etc/TGList_AmComm.txt | awk -F, '{print $2}' | head -1 | tr -d '\"'");
 		if (!empty($target_lookup)) {
+			if ($_SESSION['DMRGatewayConfigs']['General']['Primary'] != "2") {
+				$target_local = " TG " . ((int) $target_offset - 8000000);
+			} else {
+				$target_local = "";
+			}
 		    if (strpos($_SERVER["PHP_SELF"], 'last_heard_table.php') || strpos($_SERVER["PHP_SELF"], 'local_tx_table.php') !== false) {
-		    	$target = "TG $target <span style='float:right;' class='noMob'>(AmComm: $target_lookup)</span>";
+		    	$target = "TG $target <span style='float:right;' class='noMob'>(AmComm:$target_local $target_lookup)</span>";
 		    } else {
-		    	$target = "TG $target <span class='noMob'>(AmComm: $target_lookup)</span>";
+		    	$target = "TG $target <span class='noMob'>(AmComm:$target_local $target_lookup)</span>";
 		    }
 		} else {
 		    $target = "TG $target";
 		}
 	    } else if (strlen($target) >= 6 && substr( $target, 0, 1 ) === "7" && $_SESSION['DMRGatewayConfigs']['DMR Network 3']['Enabled'] == "1") {                             
-		if ($_SESSION['DMRGatewayConfigs']['DMR Network 3']['Name'] == "DMR2YSF_Cross-Mode") {                                                                             
+		if ($_SESSION['DMRGatewayConfigs']['DMR Network 3']['Name'] == "DMR2YSF_Cross-Mode") {    
+			$target_offset = substr( $target, 2, 5);
+			$target_lookup = exec("grep -w \"$target_offset\" /usr/local/etc/YSFHosts.txt | awk -F';' '{print $2}' | head -1 | tr -d '\"'");
+			if (!empty($target_lookup)) {
+				if ($_SESSION['DMRGatewayConfigs']['General']['Primary'] != "2") {
+					$target_local = " $target_offset $target_lookup";
+				} else {
+					$target_local = "";
+				}
+			}																			 
 		    if (strpos($_SERVER["PHP_SELF"], 'last_heard_table.php') || strpos($_SERVER["PHP_SELF"], 'local_tx_table.php') !== false) {
-		    	$target = "TG $target <span style='float:right;' class='noMob'>(DMR2YSF)</span>";
+		    	$target = "TG $target <span style='float:right;' class='noMob'>(DMR2YSF: $target_local)</span>";
 		    } else {
-		    	$target = "TG $target <span class='noMob'>(DMR2YSF)</span>";
+		    	$target = "TG $target <span class='noMob'>(DMR2YSF: $target_local)</span>";
 		    }
 		} else if ($_SESSION['DMRGatewayConfigs']['DMR Network 3']['Name'] == "DMR2NXDN_Cross-Mode") {                                                                     
 		    if (strpos($_SERVER["PHP_SELF"], 'last_heard_table.php') || strpos($_SERVER["PHP_SELF"], 'local_tx_table.php') !== false) {
@@ -1754,13 +1842,18 @@ function tgLookup($mode, $target) {
 		    }
 		}
 	    } else if ($_SESSION['DMRGatewayConfigs']['DMR Network 1']['Enabled'] == "1" && startsWith($_SESSION['DMRGatewayConfigs']['DMR Network 1']['Name'], "BM")) {
-		$target_lookup = exec("grep -w \"$target\" /usr/local/etc/groups.txt | awk -F, '{print $1}' | head -1 | tr -d '\"'");
+		$target_lookup = exec("grep -w \"$target_offset\" /usr/local/etc/groups.txt | awk -F, '{print $1}' | head -1 | tr -d '\"'");
 		if (!empty($target_lookup)) {
-		    $target = $target_lookup;
+		    // $target = $target_lookup;
+			if ($_SESSION['DMRGatewayConfigs']['General']['Primary'] != "1") {
+				$target_local = " TG $target_offset";
+			} else {
+				$target_local = "";
+			}
 		    if (strpos($_SERVER["PHP_SELF"], 'last_heard_table.php') || strpos($_SERVER["PHP_SELF"], 'local_tx_table.php') !== false) {
-		    	$target = str_replace(": ", " <span style='float:right;' class='noMob'>(BM: ", $target.")</span>");
+		    	$target = $target . " " . str_replace($target_offset . ": ", " <span style='float:right;' class='noMob'>(BM:$target_local ", $target_lookup.")</span>");
 		    } else {
-		    	$target = str_replace(": ", " <span class='noMob'>(BM: ", $target.")</span>");
+		    	$target = $target . " " . str_replace($target_offset . ": ", " <span class='noMob'>(BM:$target_local ", $target_lookup.")</span>");
 		    }
 		    $target = "TG $target";
 		} else {
