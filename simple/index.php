@@ -283,18 +283,21 @@ if(empty($_POST['func'])) {
 		echo '}'."\n";
 		echo '</script>'."\n";
 
-                echo '<div id="liveCallerDeets">'."\n";
-                echo '</div>'."\n";
+            	echo '<div id="liveCallerDeets">'."\n";
+            	include('../mmdvmhost/caller_details_table.php');
+            	echo '</div>'."\n";
 
-		if (!file_exists('/etc/.CALLERDETAILS')) {
- 		     echo '<div id="lastHeard" style="margin-top:-20px;">'."\n";
-		} else {
- 		    echo '<div id="lastHeard">'."\n";
-		}
- 		echo '</div>'."\n";
+            	if (!file_exists('/etc/.CALLERDETAILS')) {
+                    echo '<div id="lastHeard" style="margin-top:-20px;">'."\n";
+            	} else {
+                    echo '<div id="lastHeard">'."\n";
+            	}
+            	include('../mmdvmhost/last_heard_table.php');
+            	echo '</div>'."\n";
 
-		echo '<div id="localTxs" style="margin-top: 20px;">'."\n";
-		echo '</div>'."\n";
+            	echo '<div id="localTxs" style="margin-top: 20px;">'."\n";
+            	include('../mmdvmhost/local_tx_table.php');
+            	echo '</div>'."\n";
 
 		// If POCSAG is enabled, show the information panel
 		$testMMDVModePOCSAG = getConfigItem("POCSAG", "Enable", $_SESSION['MMDVMHostConfigs']);
