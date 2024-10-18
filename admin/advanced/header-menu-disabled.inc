@@ -8,7 +8,7 @@
        ?>
        </div><br />
     </div>
-    <h1>WPSD - Digital Voice Dashboard Advanced</h1>
+    <h1>WPSD Dashboard - Advanced Area</h1>
     <p>
 	<div class="navbar">
 	    <a class="menuconfig" href="/admin/configure.php"><?php echo __( 'Configuration' );?></a>

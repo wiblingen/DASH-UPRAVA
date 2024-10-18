@@ -77,7 +77,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/power.php") {
                       ?>
                       </div><br />
                     </div>
-		    <h1>WPSD <?php echo __( 'Digital Voice' ) . " - ".__( 'Power' );?></h1>
+		    <h1>WPSD <?php echo __(( 'Dashboard' )) . " - ".__( 'Power' );?></h1>
 			<div class="navbar">
               <script type= "text/javascript">
                $(document).ready(function() {

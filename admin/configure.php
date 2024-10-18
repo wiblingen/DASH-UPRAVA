@@ -835,7 +835,7 @@ if (file_exists($bmAPIkeyFile) && fopen($bmAPIkeyFile,'r')) {
   ?>
   </div><br />
 </div>
-<h1>WPSD <?php echo __( 'Digital Voice' ) . " - ".__( 'Configuration' );?></h1>
+<h1>WPSD <?php echo __(( 'Dashboard' )) . " - ".__( 'Configuration' );?></h1>
         <div class="navbar">
               <script type= "text/javascript">
                $(document).ready(function() {

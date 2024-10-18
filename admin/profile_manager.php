@@ -69,7 +69,7 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
                       ?>
                       </div><br />
                     </div>
-                    <h1>WPSD <?php echo __( 'Digital Voice' ); ?> - Profile Manager</h1>
+                    <h1>WPSD <?php echo __(( 'Dashboard' )); ?> - Profile Manager</h1>
 			<div class="navbar">
  			<script type= "text/javascript">
 			  $(document).ready(function() {

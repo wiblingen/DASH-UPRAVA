@@ -143,7 +143,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/live_log.php") {
                 ?>
                 </div><br />
               </div>
-	      <h1>WPSD <?php echo __( 'Digital Voice' ) . " - ".__( 'Log Viewer' );?></h1>
+	      <h1>WPSD <?php echo __(( 'Dashboard' )) . " - ".__( 'Log Viewer' );?></h1>
 	      <p>
 		  <div class="navbar">
               <script type= "text/javascript">

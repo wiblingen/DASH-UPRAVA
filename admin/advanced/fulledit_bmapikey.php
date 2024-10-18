@@ -25,7 +25,7 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/config/version.php';
 	<meta http-equiv="pragma" content="no-cache" />
 	<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
 	<meta http-equiv="Expires" content="0" />
-	<title>WPSD - Digital Voice Dashboard - Advanced Editor</title>
+	<title>WPSD Dashboard - Advanced Editor</title>
 	<link rel="stylesheet" type="text/css" href="/css/font-awesome-4.7.0/css/font-awesome.min.css" />
 <?php include_once $_SERVER['DOCUMENT_ROOT'].'/config/browserdetect.php'; ?>
     </head>

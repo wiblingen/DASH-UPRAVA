@@ -55,7 +55,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/config_backup.php") {
                       ?>
                       </div><br />
                     </div>
-		    <h1>WPSD <?php echo __( 'Digital Voice' ) . " - ".__( 'Backup/Restore' );?></h1>
+		    <h1>WPSD <?php echo __(( 'Dashboard' )) . " - ".__( 'Backup/Restore' );?></h1>
 		    <p>
 			<div class="navbar">
 			    <a class="menuconfig" href="/admin/configure.php"><?php echo __( 'Configuration' );?></a>

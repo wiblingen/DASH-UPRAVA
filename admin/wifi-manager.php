@@ -19,7 +19,7 @@ echo '<link rel="stylesheet" type="text/css" href="/admin/wifi/styles.php?versio
 <script type="text/javascript">
   $.ajaxSetup({ cache: false });
 </script>
-<title>WPSD Digital Voice Dashboard - WiFi Connection Manager</title>
+<title>WPSD Dashboard - WiFi Connection Manager</title>
 <style>
         .form-fields {
             display: none;

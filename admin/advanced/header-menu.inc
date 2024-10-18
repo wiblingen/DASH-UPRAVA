@@ -11,9 +11,9 @@
        </div><br />
     </div>
     <?php if ($_SERVER['REQUEST_URI'] === '/admin/appearance.php') { ?>
-    <h1>WPSD - Digital Voice Dashboard Appearance Settings</h1>
+    <h1>WPSD Dashboard Appearance Settings</h1>
     <?php } else { ?>
-    <h1>WPSD - Digital Voice Dashboard Advanced Area</h1>
+    <h1>WPSD Dashboard - Advanced Area</h1>
     <?php } ?>
     <p>
 	<div class="navbar">
