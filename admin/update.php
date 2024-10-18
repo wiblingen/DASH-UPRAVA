@@ -77,7 +77,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/update.php") {
     <meta http-equiv="pragma" content="no-cache" />
 <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
     <meta http-equiv="Expires" content="0" />
-    <title>WPSD <?php echo __( 'Digital Voice' ) . " ".__( 'Dashboard' )." - ".__( 'WPSD Update' );?></title>
+    <title>WPSD <?php echo __( 'Dashboard' )." - ".__( 'WPSD Update' );?></title>
 <?php include_once $_SERVER['DOCUMENT_ROOT'].'/config/browserdetect.php'; ?>
     <link rel="stylesheet" type="text/css" href="/css/font-awesome-4.7.0/css/font-awesome.min.css" />
     <script type="text/javascript" src="/js/jquery.min.js?version=<?php echo $versionCmd; ?>"></script>
@@ -106,7 +106,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/update.php") {
 	     <div class="SmallHeader shRight noMob">
                <div id="CheckUpdate"><?php echo $version; ?></div><br />
              </div>
-             <h1>WPSD <?php echo __( 'Digital Voice' ) . " ".__( 'Dashboard' )." - ".__( 'WPSD Update' );?></h1>
+             <h1>WPSD <?php echo __( 'Dashboard' )." - ".__( 'WPSD Update' );?></h1>
              <div class="navbar">
               <script type= "text/javascript">
                $(document).ready(function() {

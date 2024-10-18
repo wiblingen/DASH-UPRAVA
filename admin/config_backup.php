@@ -40,7 +40,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/config_backup.php") {
 	    <meta http-equiv="pragma" content="no-cache" />
 	    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
 	    <meta http-equiv="Expires" content="0" />
-	    <title>WPSD <?php echo __( 'Digital Voice' ) . " ".__( 'Dashboard' )." - ".__( 'Backup/Restore' );?></title>
+	    <title>WPSD <?php echo __( 'Dashboard' )." - ".__( 'Backup/Restore' );?></title>
 	    <link rel="stylesheet" type="text/css" href="/css/font-awesome-4.7.0/css/font-awesome.min.css" />
 <?php include_once $_SERVER['DOCUMENT_ROOT'].'/config/browserdetect.php'; ?>
 	</head>
