@@ -921,7 +921,7 @@ if (!empty($_POST)):
 	// Admin Password Change
 	if (!empty($_POST['adminPassword'])) {
 
-    	    $rollAdminPass0 = "sudo htpasswd -b /var/www/.htpasswd pi-star " . escapeshellarg(trim($_POST['adminPassword']);
+    	    $rollAdminPass0 = "sudo htpasswd -b /var/www/.htpasswd pi-star ". escapeshellarg(trim($_POST['adminPassword'])."";
 
 	    $output0 = null;
     	    $retval0 = null;
