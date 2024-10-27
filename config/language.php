@@ -1,5 +1,6 @@
 <?php
-// Set the language
-$pistarLanguage='english_us';
-include_once $_SERVER['DOCUMENT_ROOT']."/lang/$pistarLanguage.php";
+
+require $_SERVER['DOCUMENT_ROOT']."/config/config.php";
+include_once $_SERVER['DOCUMENT_ROOT']."/lang/$DashLanguage.php";
+
 ?>

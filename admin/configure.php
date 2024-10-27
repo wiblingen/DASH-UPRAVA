@@ -41,6 +41,7 @@ checkSessionValidity();
 // Load the pistar-release file
 $pistarReleaseConfig = '/etc/pistar-release';
 $configPistarRelease = parse_ini_file($pistarReleaseConfig, true);
+$config_file = '/etc/WPSD-Dashboard-Config.ini';
 
 // Load the ircDDBGateway config file
 $configs = array();
@@ -1001,20 +1002,20 @@ if (!empty($_POST)):
 	      $modemMatch = true;
 	  }
 	  if ($modemMatch && $modemValue === 'sbhsdualbandgpio') { // SkyBridge+ unit
-	      exec('sudo mkdir /tmp/reset/ ; sudo mkdir /tmp/reset-configs ; sudo unzip -o /usr/local/bin/.config_skybridge.zip -d /tmp/reset/; sudo mv /tmp/reset/*.php /tmp/reset-configs/ ; sudo mv /tmp/reset/hostapd.conf /etc/hostapd/ ; sudo mv /tmp/reset/* /etc/ ; sudo rm -rf /tmp/reset ; sudo timedatectl set-timezone America/Chicago');
+	      exec('sudo mkdir /tmp/reset/ ; sudo mkdir /tmp/reset-configs ; sudo unzip -o /usr/local/bin/.config_skybridge.zip -d /tmp/reset/ ; sudo mv /tmp/reset/hostapd.conf /etc/hostapd/ ; sudo mv /tmp/reset/* /etc/ ; sudo rm -rf /tmp/reset ; sudo timedatectl set-timezone America/Chicago');
 	  } elseif (isDVmegaCast() == 1) { // DVMega CAST
-              exec('sudo mkdir /tmp/reset/ ; sudo mkdir /tmp/reset-configs ; sudo unzip -o /usr/local/bin/.config_dvmega_cast.zip -d /tmp/reset/; sudo mv /tmp/reset/*.php /tmp/reset-configs/ ; sudo mv /tmp/reset/hostapd.conf /etc/hostapd/ ; sudo mv /tmp/reset/* /etc/ ; sudo rm -rf /tmp/reset ; sudo timedatectl set-timezone Europe/Amsterdam ; sudo cp -a /opt/cast/cast-factory-settings/* /usr/local/cast/etc/ ; sudo chmod 775 /usr/local/cast/etc ; sudo chown -R www-data:pi-star /usr/local/cast/etc ; sudo chmod 664 /usr/local/cast/etc/*');
+              exec('sudo mkdir /tmp/reset/ ; sudo mkdir /tmp/reset-configs ; sudo unzip -o /usr/local/bin/.config_dvmega_cast.zip -d /tmp/reset/ ; sudo mv /tmp/reset/hostapd.conf /etc/hostapd/ ; sudo mv /tmp/reset/* /etc/ ; sudo rm -rf /tmp/reset ; sudo timedatectl set-timezone Europe/Amsterdam ; sudo cp -a /opt/cast/cast-factory-settings/* /usr/local/cast/etc/ ; sudo chmod 775 /usr/local/cast/etc ; sudo chown -R www-data:pi-star /usr/local/cast/etc ; sudo chmod 664 /usr/local/cast/etc/*');
 	  } elseif ($modemMatch && $modemValue === 'dvmpis') { // DVMega units
-              exec('sudo mkdir /tmp/reset/ ; sudo mkdir /tmp/reset-configs ; sudo unzip -o /usr/local/bin/.config_dvmega_euronode.zip -d /tmp/reset/; sudo mv /tmp/reset/*.php /tmp/reset-configs/ ; sudo mv /tmp/reset/hostapd.conf /etc/hostapd/ ; sudo mv /tmp/reset/* /etc/ ; sudo rm -rf /tmp/reset ; sudo timedatectl set-timezone Europe/Amsterdam');
+              exec('sudo mkdir /tmp/reset/ ; sudo mkdir /tmp/reset-configs ; sudo unzip -o /usr/local/bin/.config_dvmega_euronode.zip -d /tmp/reset/ ; sudo mv /tmp/reset/hostapd.conf /etc/hostapd/ ; sudo mv /tmp/reset/* /etc/ ; sudo rm -rf /tmp/reset ; sudo timedatectl set-timezone Europe/Amsterdam');
 	  } elseif ($modemMatch && strpos($modemValue, 'zum') === 0 && strpos($modemValue, 'usb') !== false) { // ZUMRadio USB stick
-	      exec('sudo mkdir /tmp/reset/ ; sudo mkdir /tmp/reset-configs ; sudo unzip -o /usr/local/bin/.config_zum-usb.zip -d /tmp/reset/; sudo mv /tmp/reset/*.php /tmp/reset-configs/ ; sudo mv /tmp/reset/hostapd.conf /etc/hostapd/ ; sudo mv /tmp/reset/* /etc/ ; sudo rm -rf /tmp/reset ; sudo timedatectl set-timezone America/Chicago');
+	      exec('sudo mkdir /tmp/reset/ ; sudo mkdir /tmp/reset-configs ; sudo unzip -o /usr/local/bin/.config_zum-usb.zip -d /tmp/reset/ ; sudo mv /tmp/reset/hostapd.conf /etc/hostapd/ ; sudo mv /tmp/reset/* /etc/ ; sudo rm -rf /tmp/reset ; sudo timedatectl set-timezone America/Chicago');
 	  } elseif ($modemMatch && strpos($modemValue, 'zum') === 0 && strpos($modemValue, 'usb') === false) { // ZUMradio GPIO HAT
 	      switch ($display) {
 	          case "Nextion": // ZUMspot Elite unit
-	      	      exec('sudo mkdir /tmp/reset/ ; sudo mkdir /tmp/reset-configs ; sudo unzip -o /usr/local/bin/.config_zumgpio-nx.zip -d /tmp/reset/; sudo mv /tmp/reset/*.php /tmp/reset-configs/ ; sudo mv /tmp/reset/hostapd.conf /etc/hostapd/ ; sudo mv /tmp/reset/* /etc/ ; sudo rm -rf /tmp/reset ; sudo timedatectl set-timezone America/Chicago');
+	      	      exec('sudo mkdir /tmp/reset/ ; sudo mkdir /tmp/reset-configs ; sudo unzip -o /usr/local/bin/.config_zumgpio-nx.zip -d /tmp/reset/ ; sudo mv /tmp/reset/hostapd.conf /etc/hostapd/ ; sudo mv /tmp/reset/* /etc/ ; sudo rm -rf /tmp/reset ; sudo timedatectl set-timezone America/Chicago');
 	              break;
 	          default: // ZUMspot Mini unit
-	      	      exec('sudo mkdir /tmp/reset/ ; sudo mkdir /tmp/reset-configs ; sudo unzip -o /usr/local/bin/.config_zumgpio-oled.zip -d /tmp/reset/; sudo mv /tmp/reset/*.php /tmp/reset-configs/ ; sudo mv /tmp/reset/hostapd.conf /etc/hostapd/ ; sudo mv /tmp/reset/* /etc/ ; sudo rm -rf /tmp/reset ; sudo timedatectl set-timezone America/Chicago');
+	      	      exec('sudo mkdir /tmp/reset/ ; sudo mkdir /tmp/reset-configs ; sudo unzip -o /usr/local/bin/.config_zumgpio-oled.zip -d /tmp/reset/ ; sudo mv /tmp/reset/hostapd.conf /etc/hostapd/ ; sudo mv /tmp/reset/* /etc/ ; sudo rm -rf /tmp/reset ; sudo timedatectl set-timezone America/Chicago');
 	              break;
 	      }
 	  } else { // No-match ($modemValue = null): reset w/Generic hardware/setup configs
@@ -1030,7 +1031,6 @@ if (!empty($_POST)):
 	  exec('sudo git --work-tree=/usr/local/sbin --git-dir=/usr/local/sbin/.git reset --hard origin/master');
 	  exec('sudo git --work-tree=/usr/local/bin --git-dir=/usr/local/bin/.git reset --hard origin/master');
 	  exec('sudo git --work-tree=/var/www/dashboard --git-dir=/var/www/dashboard/.git reset --hard origin/master');
-	  exec('sudo mv /tmp/reset-configs/*.php /var/www/dashboard/config/ ; sudo rm -rf /tmp/reset-configs');
 	  // reset logs
 	  $log_backup_dir = "/home/pi-star/.backup-mmdvmhost-logs/";
 	  $log_dir = "/var/log/pi-star/";
@@ -1074,7 +1074,8 @@ if (!empty($_POST)):
 
 	// Change Dashboard Language
 	if (empty($_POST['dashboardLanguage']) != TRUE ) {
-	  $rollDashLang = 'sudo sed -i "/pistarLanguage=/c\\$pistarLanguage=\''.escapeshellcmd($_POST['dashboardLanguage']).'\';" /var/www/dashboard/config/language.php';
+	  $newLanguage = escapeshellcmd($_POST['dashboardLanguage']);
+	  $rollDashLang = "sudo sed -i \"/^DashLanguage = /c\\DashLanguage = $newLanguage\" $config_file";
 	  system($rollDashLang);
 	}
 
@@ -1581,7 +1582,7 @@ if (!empty($_POST)):
 
 	  $rollGATECALL = 'sudo sed -i "/gatewayCallsign=/c\\gatewayCallsign='.$newCallsignUpper.'" /etc/ircddbgateway';
 	  $rollDPLUSLOGIN = 'sudo sed -i "/dplusLogin=/c\\dplusLogin='.str_pad($newCallsignUpper, 8, " ").'" /etc/ircddbgateway';
-	  $rollDASHBOARDcall = 'sudo sed -i "/callsign=/c\\$callsign=\''.$newCallsignUpper.'\';" /var/www/dashboard/config/ircddblocal.php';
+	  $rollDASHBOARDcall = "sudo sed -i \"/Callsign = /c\\Callsign = $newCallsignUpper\" $config_file";
 	  $rollTIMESERVERcall = 'sudo sed -i "/callsign=/c\\callsign='.$newCallsignUpper.'" /etc/timeserver';
 	  $rollSTARNETSERVERcall = 'sudo sed -i "/callsign=/c\\callsign='.$newCallsignUpper.'" /etc/starnetserver';
 	  $rollSTARNETSERVERirc = 'sudo sed -i "/ircddbUsername=/c\\ircddbUsername='.$newCallsignUpperIRC.'" /etc/starnetserver';
@@ -4411,24 +4412,32 @@ if (!empty($_POST)):
 	}
 
 	// Set the system timezone
-	if (empty($_POST['systemTimezone']) != TRUE ) {
-		$rollTimeZone = 'sudo timedatectl set-timezone '.escapeshellcmd($_POST['systemTimezone']);
-		system($rollTimeZone);
-		$rollTimeZoneConfig = 'sudo sed -i "/date_default_timezone_set/c\\date_default_timezone_set(\''.escapeshellcmd($_POST['systemTimezone']).'\')\;" /var/www/dashboard/config/config.php';
-		system($rollTimeZoneConfig);
+	if (!empty($_POST['systemTimezone'])) {
+	    $newTimezone = escapeshellcmd($_POST['systemTimezone']);
+    
+	    $rollTimeZone = "sudo timedatectl set-timezone $newTimezone";
+	    system($rollTimeZone);
+
+	    $rollTimeZoneConfig = "sudo sed -i \"/Timezone = /c\\Timezone = $newTimezone\" $config_file";
+	    system($rollTimeZoneConfig);
 	}
 
 	// 12 or 24 hour time?
-	if (empty($_POST['systemTimeFormat']) != TRUE ) {
-		$rollTimeFormatConfig = 'sudo sed -i "/define(\'TIME_FORMAT\', /c\\\define(\'TIME_FORMAT\', \''.escapeshellcmd($_POST['systemTimeFormat']).'\')\;" /var/www/dashboard/config/config.php';
-		system($rollTimeFormatConfig);
-	}
+	if (!empty($_POST['systemTimeFormat'])) {
+	    $newTimeFormat = escapeshellcmd($_POST['systemTimeFormat']);
     
-        // auto-update check?
-        if (empty($_POST['autoUpdateCheck']) != TRUE ) {
-                $rollUpdateCheckConfig = 'sudo sed -i "/define(\'AUTO_UPDATE_CHECK\', /c\\\define(\'AUTO_UPDATE_CHECK\', \''.escapeshellcmd($_POST['autoUpdateCheck']).'\')\;" /var/www/dashboard/config/config.php';
-                system($rollUpdateCheckConfig);
-        }
+	    $rollTimeFormatConfig = "sudo sed -i \"/TimeFormat = /c\\TimeFormat = $newTimeFormat\" $config_file";
+	    system($rollTimeFormatConfig);
+	}
+
+	// Auto-update check?
+	if (!empty($_POST['autoUpdateCheck'])) {
+	    $newUpdateCheck = escapeshellcmd($_POST['autoUpdateCheck']);
+    
+	    $rollUpdateCheckConfig = "sudo sed -i \"/UpdateNotifier = /c\\UpdateNotifier = $newUpdateCheck\" $config_file";
+	    system($rollUpdateCheckConfig);
+	}
+
 
 	// Start all services
         if (isDVmegaCast() == 1) { // DVMega Cast mode logic
@@ -4688,7 +4697,7 @@ else:
 		foreach ($files as $file){
 			if (($file != 'index.php') && ($file != '.') && ($file != '..') && ($file != '')) {
 				$file = substr($file, 0, -4);
-				if ($file == $pistarLanguage) { echo "      <option selected=\"selected\" value=\"".$file."\">".$file."</option>\n"; }
+				if ($file == $DashLanguage) { echo "      <option selected=\"selected\" value=\"".$file."\">".$file."</option>\n"; }
 				else { echo "      <option value=\"".$file."\">".$file."</option>\n"; }
 			}
 		}
