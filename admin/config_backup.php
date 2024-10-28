@@ -118,9 +118,6 @@ if ($_SERVER["PHP_SELF"] == "/admin/config_backup.php") {
 			    exec("sudo cp /etc/.bm_tgs.json.saved $backupDir > /dev/null");
 			    exec("sudo cp /etc/timeserver.disable $backupDir > /dev/null");
 			    exec("sudo cp /usr/local/etc/RSSI.dat $backupDir > /dev/null");
-			    exec("sudo cp /var/www/dashboard/config/ircddblocal.php $backupDir > /dev/null");
-			    exec("sudo cp /var/www/dashboard/config/config.php $backupDir > /dev/null");
-			    exec("sudo cp /var/www/dashboard/config/language.php $backupDir > /dev/null");
 			    exec("sudo find /root/ -maxdepth 1 -name '*Hosts.txt' -exec cp {} $backupDir \; > /dev/null");
 			    // Begin DV-Mega Cast logic to save user cast settings
 			    if (isDVmegaCast() == 1) {
@@ -215,9 +212,6 @@ if ($_SERVER["PHP_SELF"] == "/admin/config_backup.php") {
 				}
                                 exec("sudo mv -f /tmp/config_restore/gpsd /etc/default/ > /dev/null");
 				exec("sudo mv -f /tmp/config_restore/RSSI.dat /usr/local/etc/ > /dev/null");
-				exec("sudo mv -f /tmp/config_restore/ircddblocal.php /var/www/dashboard/config/ > /dev/null");
-				exec("sudo mv -f /tmp/config_restore/config.php /var/www/dashboard/config/ > /dev/null");
-				exec("sudo mv -f /tmp/config_restore/language.php /var/www/dashboard/config/ > /dev/null");
 				exec('sudo find /tmp/config_restore/ -maxdepth 1 -name "*Hosts.txt" -exec mv -fv {} /root \; > /dev/null');
 				exec("sudo mv -f /tmp/config_restore/wpa_supplicant.conf /etc/wpa_supplicant/ > /dev/null");
 				exec("sudo mv -f /tmp/config_restore/*.nmconnection /etc/NetworkManager/system.connections/ > /dev/null");

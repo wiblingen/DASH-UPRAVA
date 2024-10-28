@@ -170,9 +170,6 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
                             	    exec("sudo cp /etc/.CALLERDETAILS $profileDir > /dev/null");
                             	    exec("sudo cp /etc/.TGNAMES $profileDir > /dev/null");
                             	    exec("sudo cp /usr/local/etc/RSSI.dat $profileDir > /dev/null");
-                            	    exec("sudo cp /var/www/dashboard/config/ircddblocal.php $profileDir > /dev/null");
-                            	    exec("sudo cp /var/www/dashboard/config/config.php $profileDir > /dev/null");
-			    	    exec("sudo cp /var/www/dashboard/config/language.php $profileDir > /dev/null");
 				    exec("sudo sh -c 'cp -a /root/*Hosts.txt' $profileDir > /dev/null");
 				    // Begin DV-Mega Cast logic to save user cast settings
 				    if (isDVmegaCast() == 1) {
@@ -215,9 +212,6 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
 				    exec("sudo sh -c 'cp -a $profileDir/* /etc/' > /dev/null");
 				    exec("sudo sh -c 'cp -a $profileDir/.CALLERDETAILS /etc/' > /dev/null");
 				    exec("sudo sh -c 'cp -a $profileDir/.TGNAMES /etc/' > /dev/null");
-                                    exec("sudo cp /var/www/dashboard/config/ircddblocal.php $profileDir > /dev/null");
-                                    exec("sudo cp /var/www/dashboard/config/config.php $profileDir > /dev/null");
-                                    exec("sudo cp /var/www/dashboard/config/language.php $profileDir > /dev/null");
 				    exec("sudo chown www-data:www-data /var/www/dashboard/ > /dev/null");
 				    exec("sudo sh -c 'cp -a /root/*Hosts.txt $profileDir' > /dev/null");
 				    exec("sudo sh -c \"echo ".$_POST['configs']." > /etc/.WPSD_config\"");
