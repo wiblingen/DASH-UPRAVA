@@ -4936,7 +4936,7 @@ else:
     Primary DMR Network: 
 	<select name="dmrPrimary">
 	    <option <?php if (($configdmrgateway['General']['Primary'] == "1") || ($configmmdvm['General']['Primary'] == "") ) {echo 'selected="selected" ';}; ?>value="1">Brandmeister</option>
-	    <option <?php if (($configdmrgateway['General']['Primary'] == "2") ) {echo 'selected="selected" ';}; ?>value="2">DMR+</option>
+	    <option <?php if (($configdmrgateway['General']['Primary'] == "2") ) {echo 'selected="selected" ';}; ?>value="2">DMR+/FreeDMR/HBlink/Custom Network</option>
 	    <option <?php if (($configdmrgateway['General']['Primary'] == "3") ) {echo 'selected="selected" ';}; ?>value="3">SystemX</option>
 	    <option <?php if (($configdmrgateway['General']['Primary'] == "4") ) {echo 'selected="selected" ';}; ?>value="4">TGIF</option>
 	</select>
