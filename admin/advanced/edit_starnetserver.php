@@ -90,7 +90,6 @@ if($_POST) {
 		fclose($handle);
 
 		// Updates complete - copy the working file back to the proper location
-		exec('sudo mount -o remount,rw /');					// Make rootfs writable
 		exec('sudo cp /tmp/c3Rhcm5ldHNlcnZlcg.tmp /etc/starnetserver');		// Move the file back
 		exec('sudo sed -i \'/\\[starnetserver\\]/d\' /etc/starnetserver');	// Clean up file mangling
 		exec('sudo chmod 644 /etc/starnetserver');				// Set the correct runtime permissions

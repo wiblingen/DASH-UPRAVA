@@ -52,7 +52,6 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/config/version.php';
 		    fwrite($fh, $data);
 		    fclose($fh);
 		    
-		    exec('sudo mount -o remount,rw /');
 		    exec('sudo cp '.$tempfile.' '.$configfile);
 		    exec('sudo chmod 644 '.$configfile);
 		    exec('sudo chown root:root '.$configfile);

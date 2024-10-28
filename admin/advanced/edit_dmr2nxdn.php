@@ -44,7 +44,6 @@ function update_ini_file($data, $filepath) {
     fclose($handle);
     
     // Updates complete - copy the working file back to the proper location
-    exec('sudo mount -o remount,rw /');				// Make rootfs writable
     exec('sudo cp /tmp/bm5qFPvEa7EH2k.tmp /etc/dmr2nxdn');	// Move the file back
     exec('sudo chmod 644 /etc/dmr2nxdn');				// Set the correct runtime permissions
     exec('sudo chown root:root /etc/dmr2nxdn');			// Set the owner

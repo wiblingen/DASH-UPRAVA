@@ -35,7 +35,6 @@ if (!file_exists($fm_config_file)) {
     exec('sudo echo "" >>' .$tempfile.'');
     exec('sudo echo "?>" >>' .$tempfile.'');
     
-    exec('sudo mount -o remount,rw /');
     exec('sudo mv '.$tempauth.' '.$fm_config_file.'');
     exec('sudo chown www-data:www-data '.$fm_config_file.'');
     exec('sudo chmod 664 '.$fm_config_file.'');
@@ -52,7 +51,6 @@ if (!file_exists($fm_auth_file)) {
     #exec('sudo echo ");" >>' .$tempauth.'');
     exec('sudo echo "?>" >>' .$tempauth.'');
     
-    exec('sudo mount -o remount,rw /');
     exec('sudo mv '.$tempauth.' '.$fm_auth_file.'');
     exec('sudo chown www-data:www-data '.$fm_auth_file.'');
     exec('sudo chmod 664 '.$fm_auth_file.'');

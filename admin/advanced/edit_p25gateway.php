@@ -43,7 +43,6 @@ function update_ini_file($data, $filepath) {
     fclose($handle);
     
     // Updates complete - copy the working file back to the proper location
-    exec('sudo mount -o remount,rw /');				// Make rootfs writable
     exec('sudo cp /tmp/aFE45dgs4tFS.tmp /etc/p25gateway');	// Move the file back
     exec('sudo chmod 644 /etc/p25gateway');				// Set the correct runtime permissions
     exec('sudo chown root:root /etc/p25gateway');			// Set the owner

@@ -30,7 +30,6 @@ if ($retvalue != 0) {
     exec('echo "#	XLX Hosts Below" >> /tmp/xGTcrAjxp2DN2.tmp');
     exec('echo "#" >> /tmp/xGTcrAjxp2DN2.tmp');
     exec('echo "#########################################################################" >> /tmp/xGTcrAjxp2DN2.tmp');
-    exec('sudo mount -o remount,rw /');
     exec('sudo mv /tmp/xGTcrAjxp2DN2.tmp /root/XLXHosts.txt');
     exec('sudo chmod 644 /root/XLXHosts.txt');
     exec('sudo chown root:root /root/XLXHosts.txt');

@@ -11,7 +11,6 @@ if (!file_exists('/etc/pistar-css.ini')) {
     fclose($outFile);
                     
     // Put the file back where it should be
-    exec('sudo mount -o remount,rw /');                             // Make rootfs writable
     exec('sudo cp /tmp/bW1kd4jg6b3N0DQo.tmp /etc/pistar-css.ini');  // Move the file back
     exec('sudo chmod 644 /etc/pistar-css.ini');                     // Set the correct runtime permissions
     exec('sudo chown root:root /etc/pistar-css.ini');               // Set the owner

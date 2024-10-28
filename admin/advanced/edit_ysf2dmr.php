@@ -53,7 +53,6 @@ function update_ini_file($data, $filepath) {
     fclose($handle);
     
     // Updates complete - copy the working file back to the proper location
-    exec('sudo mount -o remount,rw /');				// Make rootfs writable
     exec('sudo cp /tmp/MNhQn9HUvpNPgp.tmp /etc/ysf2dmr');	// Move the file back
     exec('sudo chmod 644 /etc/ysf2dmr');				// Set the correct runtime permissions
     exec('sudo chown root:root /etc/ysf2dmr');			// Set the owner

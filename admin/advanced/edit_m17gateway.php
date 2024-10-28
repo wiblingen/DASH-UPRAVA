@@ -43,7 +43,6 @@ function update_ini_file($data, $filepath) {
     fclose($handle);
     
     // Updates complete - copy the working file back to the proper location
-    exec('sudo mount -o remount,rw /');
     exec('sudo cp /tmp/rforHfnDVlS0SaF.tmp /etc/m17gateway'); // Move the file back
     exec('sudo chmod 644 /etc/m17gateway');                  // Set the correct runtime permissions
     exec('sudo chown root:root /etc/m17gateway');            // Set the owner

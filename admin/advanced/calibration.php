@@ -20,7 +20,6 @@ if ($_SERVER["PHP_SELF"] == "/admin/advanced/calibration.php") {
     }
     else if (($_GET['action'] === 'saveoffset')) {
       if (isset($_GET['param']) && strlen($_GET['param'])) {
-        system('sudo mount -o remount,rw /');
         system('sudo sed -i "/RXOffset=/c\\RXOffset='.intval($_GET['param']).'" /etc/mmdvmhost');
         system('sudo sed -i "/TXOffset=/c\\TXOffset='.intval($_GET['param']).'" /etc/mmdvmhost');
       }

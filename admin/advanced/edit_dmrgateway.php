@@ -48,7 +48,6 @@ function update_ini_file($data, $filepath) {
     fclose($handle);
     
     // Updates complete - copy the working file back to the proper location
-    exec('sudo mount -o remount,rw /');				                // Make rootfs writable
     exec('sudo cp /tmp/fmehg65694eg.tmp /etc/dmrgateway');	  // Move the file back
     exec('sudo chmod 644 /etc/dmrgateway');				            // Set the correct runtime permissions
     exec('sudo chown root:root /etc/dmrgateway');			        // Set the owner

@@ -44,7 +44,6 @@ function update_ini_file($data, $filepath) {
     fclose($handle);
     
     // Updates complete - copy the working file back to the proper location
-    exec('sudo mount -o remount,rw /');				// Make rootfs writable
     exec('sudo cp /tmp/7LyKicNWVPUAV2.tmp /etc/ysf2p25');	// Move the file back
     exec('sudo chmod 644 /etc/ysf2p25');				// Set the correct runtime permissions
     exec('sudo chown root:root /etc/ysf2p25');			// Set the owner

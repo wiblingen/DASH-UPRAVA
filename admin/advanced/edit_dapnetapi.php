@@ -22,7 +22,6 @@ if (! file_exists('/etc/dapnetapi.key')) {
     exec('echo "MY_RIC=" >> /tmp/jsADGHwf9sj294.tmp');
     exec('sudo chmod 664 /tmp/jsADGHwf9sj294.tmp');
 
-    exec('sudo mount -o remount,rw /');
     exec('sudo mv /tmp/jsADGHwf9sj294.tmp /etc/dapnetapi.key');
     exec('sudo chmod 644 /etc/dapnetapi.key');
     exec('sudo chown root:root /etc/dapnetapi.key');
@@ -63,7 +62,6 @@ function update_ini_file($data, $filepath) {
     fclose($handle);
     
     // Updates complete - copy the working file back to the proper location
-    exec('sudo mount -o remount,rw /');                         // Make rootfs writable
     exec('sudo cp /tmp/jsADGHwf9sj294.tmp /etc/dapnetapi.key'); // Move the file back
     exec('sudo chmod 644 /etc/dapnetapi.key');                  // Set the correct runtime permissions
     exec('sudo chown root:root /etc/dapnetapi.key');            // Set the owner

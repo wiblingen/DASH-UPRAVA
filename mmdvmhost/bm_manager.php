@@ -150,7 +150,6 @@ if ( $testMMDVModeDMR == 1 ) {
                             echo '<script type="text/javascript">setTimeout(function() { window.location.href = "./?func=bm_man";},3000);</script>';
                        } else // 10 or less tgs submitted. keep going...
 		           {
-                            exec('sudo mount -o remount,rw /');
                             $handleBatch = fopen("/tmp/.bm_tgs.batch", 'w+');
                             fwrite($handleBatch, $massTGs);
                             fclose($handleBatch);
@@ -184,7 +183,6 @@ if ( $testMMDVModeDMR == 1 ) {
                             echo '<script type="text/javascript">setTimeout(function() { window.location.href = "./?func=bm_man";},3000);</script>';
                        } else
 		           {
-                            exec('sudo mount -o remount,rw /');
                             $handleBatch = fopen("/tmp/.bm_tgs.batch", 'w+');
                             fwrite($handleBatch, $massTGs);
                             fclose($handleBatch);

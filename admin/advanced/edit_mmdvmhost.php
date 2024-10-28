@@ -91,7 +91,6 @@ if($_POST) {
 		fclose($handle);
 
 		// Updates complete - copy the working file back to the proper location
-		exec('sudo mount -o remount,rw /');				// Make rootfs writable
 		exec('sudo cp /tmp/bW1kdm1ob3N0DQo.tmp /etc/mmdvmhost');	// Move the file back
 		exec('sudo chmod 644 /etc/mmdvmhost');				// Set the correct runtime permissions
 		exec('sudo chown root:root /etc/mmdvmhost');			// Set the owner

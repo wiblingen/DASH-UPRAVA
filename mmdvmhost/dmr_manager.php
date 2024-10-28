@@ -77,7 +77,7 @@ if (!empty($_POST) && isset($_POST["dmrNetMan"])) {
 	unset($_POST);
 	echo '<script type="text/javascript">setTimeout(function() { window.location=window.location;},2000);</script>';
     } else {
-	$remoteCommand = "sudo systemctl stop cron && sudo mount -o remount,rw / && sudo ".$action." /etc/.dmr-".$selectedNet."_disabled && cd /var/log/pi-star ; /usr/local/bin/RemoteCommand ".$_SESSION['DMRGatewayConfigs']['Remote Control']['Port']. " $state $selectedNet && sudo systemctl start cron";
+	$remoteCommand = "sudo systemctl stop cron  && sudo ".$action." /etc/.dmr-".$selectedNet."_disabled && cd /var/log/pi-star ; /usr/local/bin/RemoteCommand ".$_SESSION['DMRGatewayConfigs']['Remote Control']['Port']. " $state $selectedNet && sudo systemctl start cron";
 	if (isset($remoteCommand)) {
 	    echo "<table>\n<tr><th>Command Output</th></tr>\n<tr><td>";
 	    echo "<p>Selected DMR Network, \"".str_replace('_', ' ' , $netName)."\" set to \"".ucfirst($state)."d\"";
@@ -149,10 +149,10 @@ if ($_SESSION['DMRGatewayConfigs']['XLX Network']['Enabled'] == "1") {
 	    $startupModule = $_POST['dmrMasterHost3StartupModule'];
 	    $xlxLinkToHost = "";
  	    if ($xlxLinkHost == "None") { // Unlinking
-		$remoteCommand = 'sudo systemctl stop cron && sudo mount -o remount,rw / ; sudo sed -i "/Module=/c\\Module=@" /etc/dmrgateway ; sudo systemctl restart dmrgateway.service ; sudo systemctl start cron';
+		$remoteCommand = 'sudo systemctl stop cron  ; sudo sed -i "/Module=/c\\Module=@" /etc/dmrgateway ; sudo systemctl restart dmrgateway.service ; sudo systemctl start cron';
 		$xlxLinkToHost = "Unlinking";
 	    } elseif ($xlxLinkHost != "None") {
-	        $remoteCommand = 'sudo systemctl stop cron && sudo mount -o remount,rw / ; sudo sed -i "/Module=/c\\Module='.$startupModule.'" /etc/dmrgateway ; sudo sed -i "/Startup=/c\\Startup='.$xlxLinkHost.'" /etc/dmrgateway ; sudo systemctl restart dmrgateway.service ; sudo systemctl start cron';
+	        $remoteCommand = 'sudo systemctl stop cron  ; sudo sed -i "/Module=/c\\Module='.$startupModule.'" /etc/dmrgateway ; sudo sed -i "/Startup=/c\\Startup='.$xlxLinkHost.'" /etc/dmrgateway ; sudo systemctl restart dmrgateway.service ; sudo systemctl start cron';
 		$xlxLinkToHost = "Link set to XLX-".$xlxLinkHost.", Module ".$startupModule."";
 	    }
 	else {

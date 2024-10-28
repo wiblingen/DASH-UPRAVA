@@ -49,7 +49,6 @@ function update_ini_file($data, $filepath) {
     fclose($handle);
 
     // Updates complete - copy the working file back to the proper location
-    exec('sudo mount -o remount,rw /');
     exec('sudo cp /tmp/cVKu8oJJKWqe.tmp /etc/dapnetgateway');	    // Move the file back
     exec('sudo chmod 644 /etc/dapnetgateway');				        // Set the correct runtime permissions
     exec('sudo chown root:root /etc/dapnetgateway');			    // Set the owner

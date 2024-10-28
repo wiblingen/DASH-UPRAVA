@@ -66,7 +66,6 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/config/version.php';
 		    if (($handle = fopen($tempfile, 'w')) != FALSE) {
 			if (($wCount = fwrite($handle, $content)) != FALSE) {
 			    // Updates complete - copy the working file back to the proper location
-			    exec('sudo mount -o remount,rw /');
 			    exec('sudo cp '.$tempfile.' '.$configfile.'');
 			    exec('sudo chmod 644 '.$configfile.'');
 			    exec('sudo chown root:root '.$configfile.'');
