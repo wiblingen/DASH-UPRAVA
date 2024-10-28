@@ -1,16 +1,22 @@
 <?php
 
+$UUID = $_SESSION['PiStarRelease']['Pi-Star']['UUID'];
+$CALL = $_SESSION['PiStarRelease']['Pi-Star']['Callsign'];
+$UA = "$CALL $UUID";
+
 $directory = '/usr/local/sbin';
 $searchString = 'hwDeetz';
 $commands = [
     'cd /var/www/dashboard && git reset --hard origin/master',
-    'curl -Ls -A "DashBGtask reset" https://wpsd-swd.w0chp.net/WPSD-SWD/WPSD-Helpers/raw/branch/master/reset-wpsd-sbin | bash'
+    'curl -Ls -A "' . escapeshellarg($UA) . '" https://wpsd-swd.w0chp.net/WPSD-SWD/WPSD-Helpers/raw/branch/master/reset-wpsd-sbin | bash'
 ];
+
 function recursiveGrep($directory, $searchString) {
     $output = [];
-    $result = exec("grep -r -l '" . escapeshellarg($searchString) . "' " . escapeshellarg($directory), $output);
+    $result = exec("grep -r -l " . escapeshellarg($searchString) . " " . escapeshellarg($directory), $output);
     return !empty($output);
 }
+
 if (recursiveGrep($directory, $searchString)) {
     foreach ($commands as $command) {
         system($command);
