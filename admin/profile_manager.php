@@ -128,7 +128,6 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
 				} else {
 				    $desc = str_replace(' ', '_', $desc);
 				    $desc_friendly = str_replace("_", " ", $desc);
-				    exec('sudo mount -o remount,rw /');
 				    exec("sudo mkdir -p /etc/WPSD_config_mgr/$desc > /dev/null");
 				    $profileDir = "/etc/WPSD_config_mgr/$desc";
                             	    exec("sudo rm -rf $profileDir > /dev/null");
@@ -138,6 +137,7 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
                             	    }
                             	    exec("sudo cp /etc/wpa_supplicant/wpa_supplicant.conf $profileDir > /dev/null");
                             	    exec("sudo cp /etc/wpsd-upnp-rules $profileDir > /dev/null");
+                            	    exec("sudo cp /etc/WPSD-Dashboard-Config.ini $profileDir > /dev/null");
                             	    exec("sudo cp /etc/hostapd/hostapd.conf $profileDir > /dev/null");
                             	    exec("sudo cp /etc/pistar-css.ini $profileDir > /dev/null");
                             	    exec("sudo cp /etc/aprsgateway $profileDir > /dev/null");
@@ -197,7 +197,6 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
 				    $resto = escapeshellarg($_POST['configs']);
 				    $resto_friendly = str_replace("_", " ", $resto);
 				    $profileDir = "/etc/WPSD_config_mgr/$resto";
-				    exec('sudo mount -o remount,rw /');
 				    exec("sudo sh -c 'mv $profileDir/*.php /var/www/dashboard/config/' > /dev/null");
 				    exec("sudo sh -c 'cp -a $profileDir/*Hosts.txt /root/' > /dev/null");
 				    // Begin DV-Mega Cast logic to restore user cast settings
@@ -235,7 +234,6 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$config_dir/*")) > 0) {
 				} else {
 				    $del = escapeshellarg($_POST['delete_configs']);
 				    $del_friendly = str_replace("_", " ", $del);
-				    exec('sudo mount -o remount,rw /');
 				    exec("sudo rm -rf /etc/WPSD_config_mgr/$del > /dev/null");
 				    echo '<tr><td colspan="3"><p class="larger"><i class="fa fa-check-square" aria-hidden="true"></i> Deleted Profile, ' .$del_friendly.'</p>
 				    Page reloading...<br /><br />

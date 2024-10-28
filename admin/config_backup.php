@@ -85,6 +85,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/config_backup.php") {
 			    exec("sudo cp /etc/wpa_supplicant/wpa_supplicant.conf $backupDir > /dev/null");
 			    exec("sudo cp /etc/NetworkManager/system.connections/*.nmconnection $backupDir > /dev/null");
 			    exec("sudo cp /etc/wpsd-upnp-rules $backupDir > /dev/null");
+			    exec("sudo cp /etc/WPSD-Dashboard-Config.ini $backupDir > /dev/null");
                 	    exec("sudo cp /etc/hostapd/hostapd.conf $backupDir > /dev/null");
 			    exec("sudo cp /etc/pistar-css.ini $backupDir > /dev/null");
 			    exec("sudo cp /etc/pistar-release $backupDir > /dev/null");
@@ -199,7 +200,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/config_backup.php") {
 			    	exec('sudo wpsd-services fullstop > /dev/null');
 	
 				// Overwrite the configs
-				exec("sudo rm -rf /etc/dstar-radio.* /etc/bmapi.key /etc/dapnetapi.key /etc/timeserver.disable /etc/WPSD_config_mgr > /dev/null");
+				exec("sudo rm -rf /etc/WPSD-Dashboard-Config.ini /etc/dstar-radio.* /etc/bmapi.key /etc/dapnetapi.key /etc/timeserver.disable /etc/WPSD_config_mgr > /dev/null");
 				exec("sudo mv -f /tmp/config_restore/tmp/config_backup/* /tmp/config_restore/ > /dev/null");
 				exec("sudo rm -rf /tmp/config_restore/tmp > /dev/null");
                                 exec("sudo cp -a /tmp/config_restore/WPSD_config_mgr /etc/ > /dev/null");
@@ -222,8 +223,8 @@ if ($_SERVER["PHP_SELF"] == "/admin/config_backup.php") {
 				exec("sudo mv -f /tmp/config_restore/* /etc/ > /dev/null");
 				
 				//Restore the Timezone Config
-				$timeZone = exec("grep -o -P \"date_default_timezone_set\\('\\K[^']+\" /var/www/dashboard/config/config.php");
-				$timeZone = preg_replace( "/\r|\n/", "", $timeZone);                    //Remove the linebreaks
+				$timeZone = exec("grep -oP '^Timezone = \K.*' /etc/WPSD-Dashboard-Config.ini");
+				$timeZone = preg_replace( "/\r|\n/", "", $timeZone);
 				exec('sudo timedatectl set-timezone '.$timeZone.' > /dev/null');
 				
 				//Restore ircDDGBateway Link Manager Password
