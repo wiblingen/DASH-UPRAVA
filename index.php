@@ -79,6 +79,7 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 	<script type="text/javascript" src="/js/functions.js?version=<?php echo $versionCmd; ?>"></script>
 	<script type="text/javascript">
 	 $.ajaxSetup({ cache: false });
+   window.time_format = '<?php echo constant("TIME_FORMAT"); ?>';
 	</script>
         <link href="/js/select2/css/select2.min.css?version=<?php echo $versionCmd; ?>" rel="stylesheet" />
         <script src="/js/select2/js/select2.full.min.js?version=<?php echo $versionCmd; ?>"></script>
@@ -176,11 +177,10 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
     setTimeout(reloadMessageCheck,300000);
 
     function reloadDateTime(){
-      $("#DateTime").load("/includes/datetime.php",function(){
-        setTimeout(reloadDateTime,1000) });
+      $( '#DateTime' ).html( _getDatetime( window.time_format ) );
+      setTimeout(reloadDateTime,1000);
     }
-    setTimeout(reloadDateTime,1000);
-
+    reloadDateTime();
     </script>
 <script>
   function executeBackgroundTasks() {

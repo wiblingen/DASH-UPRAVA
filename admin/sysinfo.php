@@ -122,6 +122,7 @@ function timesyncdProc() {
 	<link rel="stylesheet" type="text/css" href="/css/font-awesome-4.7.0/css/font-awesome.min.css" />
 	<script type="text/javascript" src="/js/jquery.min.js?version=<?php echo $versionCmd; ?>"></script>
 	<script type="text/javascript" src="/js/jquery-timing.min.js?version=<?php echo $versionCmd; ?>"></script>
+  <script type="text/javascript" src="/js/functions.js?version=<?php echo $versionCmd; ?>"></script>
 	<style>  
          .progress .bar + .bar {
              -webkit-box-shadow: inset 1px 0 0 rgba(0, 0, 0, 0.15), inset 0 -1px 0 rgba(0, 0, 0, 0.15);
@@ -149,6 +150,7 @@ function timesyncdProc() {
 	     $("#synctable").load(" #synctable > *");
 	 }
 	 var timer = setInterval(function(){refreshTS()}, 2000);
+   window.time_format = '<?php echo constant("TIME_FORMAT"); ?>';
 	</script>
     </head>
     <body>
@@ -166,25 +168,11 @@ function timesyncdProc() {
 		<p>
 		    <div class="navbar">
               <script type= "text/javascript">
-               $(document).ready(function() {
-                 setInterval(function() {
-                   $("#timer").load("/includes/datetime.php");
-                   }, 1000);
-
-                 function update() {
-                   $.ajax({
-                     type: 'GET',
-                     cache: false,
-                     url: '/includes/datetime.php',
-                     timeout: 1000,
-                     success: function(data) {
-                       $("#timer").html(data); 
-                       window.setTimeout(update, 1000);
-                     }
-                   });
-                 }
-                 update();
-               });
+                function reloadDateTime(){
+                  $( '#timer' ).html( _getDatetime( window.time_format ) );
+                  setTimeout(reloadDateTime,1000);
+                }
+              reloadDateTime();
               </script>
               <div class="headerClock"> 
                 <span id="timer"></span>
