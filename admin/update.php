@@ -82,7 +82,9 @@ if ($_SERVER["PHP_SELF"] == "/admin/update.php") {
     <link rel="stylesheet" type="text/css" href="/css/font-awesome-4.7.0/css/font-awesome.min.css" />
     <script type="text/javascript" src="/js/jquery.min.js?version=<?php echo $versionCmd; ?>"></script>
     <script type="text/javascript" src="/js/jquery-timing.min.js?version=<?php echo $versionCmd; ?>"></script>
+    <script type="text/javascript" src="/js/functions.js?version=<?php echo $versionCmd; ?>"></script>
     <script type="text/javascript">
+    window.time_format = '<?php echo constant("TIME_FORMAT"); ?>';
     $(function() {
       $.repeat(1000, function() {
         $.get('/admin/update.php?ajax', function(data) {
@@ -109,25 +111,11 @@ if ($_SERVER["PHP_SELF"] == "/admin/update.php") {
              <h1>WPSD <?php echo __( 'Dashboard' )." - ".__( 'WPSD Update' );?></h1>
              <div class="navbar">
               <script type= "text/javascript">
-               $(document).ready(function() {
-                 setInterval(function() {
-                   $("#timer").load("/includes/datetime.php");
-                   }, 1000);
-
-                 function update() {
-                   $.ajax({
-                     type: 'GET',
-                     cache: false,
-                     url: '/includes/datetime.php',
-                     timeout: 1000,
-                     success: function(data) {
-                       $("#timer").html(data); 
-                       window.setTimeout(update, 1000);
-                     }
-                   });
+                 function reloadDateTime(){
+                   $( '#timer' ).html( _getDatetime( window.time_format ) );
+                   setTimeout(reloadDateTime,1000);
                  }
-                 update();
-               });
+                 reloadDateTime();
               </script>
               <div class="headerClock"> 
                 <span id="timer"></span>

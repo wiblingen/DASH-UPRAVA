@@ -107,6 +107,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/live_log.php") {
     <link rel="stylesheet" type="text/css" href="/css/font-awesome-4.7.0/css/font-awesome.min.css" />
     <script type="text/javascript" src="/js/jquery.min.js?version=<?php echo $versionCmd; ?>"></script>
     <script type="text/javascript" src="/js/jquery-timing.min.js?version=<?php echo $versionCmd; ?>"></script>
+    <script type="text/javascript" src="/js/functions.js?version=<?php echo $versionCmd; ?>"></script>
     <script type="text/javascript">
       $(function() {
         var placeholderVisible = true;
@@ -147,25 +148,12 @@ if ($_SERVER["PHP_SELF"] == "/admin/live_log.php") {
 	      <p>
 		  <div class="navbar">
               <script type= "text/javascript">
-               $(document).ready(function() {
-                 setInterval(function() {
-                   $("#timer").load("/includes/datetime.php");
-                   }, 1000);
-
-                 function update() {
-                   $.ajax({
-                     type: 'GET',
-                     cache: false,
-                     url: '/includes/datetime.php',
-                     timeout: 1000,
-                     success: function(data) {
-                       $("#timer").html(data); 
-                       window.setTimeout(update, 1000);
-                     }
-                   });
-                 }
-                 update();
-               });
+              window.time_format = '<?php echo constant("TIME_FORMAT"); ?>';
+              function reloadDateTime(){
+                $( '#timer' ).html( _getDatetime( window.time_format ) );
+                setTimeout(reloadDateTime,1000);
+                }
+                reloadDateTime();
               </script>
               <div class="headerClock"> 
                 <span id="timer"></span>
