@@ -793,5 +793,10 @@ include $_SERVER['DOCUMENT_ROOT'].'/includes/execute-background-tasks.php';
 <script>
 executeBackgroundTasks();
 </script>
+    <?php
+    if(constant("PHONETIC_CALLSIGNS") == "true"){
+        echo '<script src="/js/phonetic-callsigns.js"></script>';
+    }
+    ?>
     </body>
 </html>
