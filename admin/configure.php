@@ -1072,8 +1072,7 @@ if (!empty($_POST)):
         $rollDashLang = "sudo sed -i \"/^PhoneticCallsigns = /c\\PhoneticCallsigns = $newSetting\" $config_file";
         system($rollDashLang);
     }
-//    var_dump($_POST);
-//    die();
+
 
 	// Set the ircDDBGateway Remote Password and Port
 	if (empty($_POST['confPassword']) != TRUE ) {
