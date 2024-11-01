@@ -1069,8 +1069,8 @@ if (!empty($_POST)):
     // Change Phonetic Callign
     if (empty($_POST['phoneticCallsigns']) != TRUE ) {
         $newSetting = escapeshellcmd($_POST['phoneticCallsigns']);
-        $rollDashLang = "sudo sed -i \"/^PhoneticCallsigns = /c\\PhoneticCallsigns = $newSetting\" $config_file";
-        system($rollDashLang);
+        $rollPhoneticCallsign = "sudo sed -i \"/^PhoneticCallsigns = /c\\PhoneticCallsigns = $newSetting\" $config_file";
+        system($rollPhoneticCallsign);
     }
 
 
