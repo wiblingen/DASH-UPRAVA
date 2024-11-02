@@ -29,4 +29,9 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/config/version.php';
         <?php include '../mmdvmhost/live_caller_backend.php'; ?>
       </div>
     </body>
+    <?php
+    if(constant("PHONETIC_CALLSIGNS") == "true"){
+        echo '<script src="/js/phonetic-callsigns-live.js"></script>';
+    }
+    ?>
 </html>
