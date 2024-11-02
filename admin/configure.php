@@ -1066,7 +1066,6 @@ if (!empty($_POST)):
 	  system($rollDashLang);
 	}
 
-
 	// Set the ircDDBGateway Remote Password and Port
 	if (empty($_POST['confPassword']) != TRUE ) {
 	  $rollConfPassword0 = 'sudo sed -i "/remotePassword=/c\\remotePassword='.escapeshellcmd($_POST['confPassword']).'" /etc/ircddbgateway';
