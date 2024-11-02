@@ -41,12 +41,6 @@ if (file_exists($config_file)) {
     } else {
         define('AUTO_UPDATE_CHECK', 'false'); // Default to 'false' if not set
     }
-    // Set phonetic callsign display
-    if (isset($config['WPSD']['PhoneticCallsigns'])) {
-        define('PHONETIC_CALLSIGNS', $config['WPSD']['PhoneticCallsigns'] === '1' ? 'true' : 'false');
-    } else {
-        define('PHONETIC_CALLSIGNS', 'false'); // Default to 'false' if not set
-    }
 
     // Set dashboard language
     $DashLanguage = !empty($config['WPSD']['DashLanguage']) ? $config['WPSD']['DashLanguage'] : 'english_us';

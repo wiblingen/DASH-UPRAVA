@@ -30,8 +30,9 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/config/version.php';
       </div>
     </body>
     <?php
-    if(constant("PHONETIC_CALLSIGNS") == "true"){
+    if($_SESSION['PiStarRelease']['Pi-Star']['PhoneticCallsigns'] == "1"){
         echo '<script src="/js/phonetic-callsigns-live.js"></script>';
     }
     ?>
+
 </html>

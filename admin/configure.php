@@ -1066,13 +1066,6 @@ if (!empty($_POST)):
 	  system($rollDashLang);
 	}
 
-    // Change Phonetic Callign
-    if (empty($_POST['phoneticCallsigns']) != TRUE ) {
-        $newSetting = escapeshellcmd($_POST['phoneticCallsigns']);
-        $rollPhoneticCallsign = "sudo sed -i \"/^PhoneticCallsigns = /c\\PhoneticCallsigns = $newSetting\" $config_file";
-        system($rollPhoneticCallsign);
-    }
-
 
 	// Set the ircDDBGateway Remote Password and Port
 	if (empty($_POST['confPassword']) != TRUE ) {
@@ -4701,14 +4694,6 @@ else:
 	echo '    </select></td></tr>'."\n";
     }
 ?>
-   <tr>
-       <td align="left"><a class="tooltip2" href="#">Phonetic Callsigns:<span><b>Phonetic Callsigns</b>Adds an aditional label with the phonetic callsigns for each log</span></a></td>
-       <td colspan="2" align="left">
-           <input type="radio" name="phoneticCallsigns" value="false" <?php if (constant("PHONETIC_CALLSIGNS") == "false") { echo 'checked="checked"'; } ?> />Disabled
-           <input type="radio" name="phoneticCallsigns" value="true" <?php if (constant("PHONETIC_CALLSIGNS") == "true") { echo 'checked="checked"'; } ?> />Enabled
-       </td>
-       <td align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'>When enabled an additional label will be displayed with the phonetic version of callsigns</td>
-    </tr>
     <tr>
     <td align="left"><a class="tooltip2" href="#">Update Notifier:<span><b>Update Notifier</b>Enables/Disables automatic dashboard software update notifications.</span></a></td>
     <td colspan="2" align="left">

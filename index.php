@@ -794,7 +794,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/includes/execute-background-tasks.php';
 executeBackgroundTasks();
 </script>
     <?php
-    if(constant("PHONETIC_CALLSIGNS") == "true"){
+    if($_SESSION['PiStarRelease']['Pi-Star']['PhoneticCallsigns'] == "1"){
         echo '<script src="/js/phonetic-callsigns.js"></script>';
     }
     ?>
