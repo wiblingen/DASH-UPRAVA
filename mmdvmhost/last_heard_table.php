@@ -5,7 +5,7 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/mmdvmhost/tools.php';        // MMDVMDa
 include_once $_SERVER['DOCUMENT_ROOT'].'/mmdvmhost/functions.php';    // MMDVMDash Functions
 include_once $_SERVER['DOCUMENT_ROOT'].'/config/language.php';	      // Translation Code
 
-if (isset($_SESSION['CSSConfigs']['ExtraSettings']['LastHeardRows']) && $_SESSION['PiStarRelease']['Pi-Star']['ProcNum'] >= 4) {
+if (isset($_SESSION['CSSConfigs']['ExtraSettings']['LastHeardRows']) && $_SESSION['WPSDrelease']['WPSD']['ProcNum'] >= 4) {
     $lastHeardRows = $_SESSION['CSSConfigs']['ExtraSettings']['LastHeardRows'];
     if ($lastHeardRows > 100) {  
 	$lastHeardRows = "100";  // need an internal limit
@@ -65,7 +65,7 @@ $testMMDVModeDMR = getConfigItem("DMR", "Enable", $_SESSION['MMDVMHostConfigs'])
             <input type="hidden" name="display-lastcaller" value="OFF" />
             <div style="float: right; vertical-align: bottom; padding-top: 0px;" id="lhCN">
                <div class="grid-container" style="display: inline-grid; grid-template-columns: auto 40px; padding: 1px;; grid-column-gap: 5px;">
-                <?php if(isset($_SESSION['PiStarRelease']['Pi-Star']['ProcNum']) && ($_SESSION['PiStarRelease']['Pi-Star']['ProcNum'] >= 4)) { ?>
+                <?php if(isset($_SESSION['WPSDrelease']['WPSD']['ProcNum']) && ($_SESSION['WPSDrelease']['WPSD']['ProcNum'] >= 4)) { ?>
                  <div class="grid-item menucaller" style="padding: 10px 0 0 20px;" title="Display Caller Details">Caller Details: </div>
                    <div class="grid-item">
                     <div style="padding-top:6px;">
@@ -75,7 +75,7 @@ $testMMDVModeDMR = getConfigItem("DMR", "Enable", $_SESSION['MMDVMHostConfigs'])
                  </div>
                 <?php } ?>
             </div>
-                <?php if(isset($_SESSION['PiStarRelease']['Pi-Star']['ProcNum']) && ($_SESSION['PiStarRelease']['Pi-Star']['ProcNum'] >= 4)) { ?>
+                <?php if(isset($_SESSION['WPSDrelease']['WPSD']['ProcNum']) && ($_SESSION['WPSDrelease']['WPSD']['ProcNum'] >= 4)) { ?>
 <?php if (getEnabled("DMR", $_SESSION['MMDVMHostConfigs']) == 1 || getEnabled("NXDN", $_SESSION['MMDVMHostConfigs']) == 1 || getEnabled("P25", $_SESSION['MMDVMHostConfigs']) == 1 || getServiceEnabled('/etc/ysf2dmr') == 1 || getServiceEnabled('/etc/ysf2p25') == 1 || getServiceEnabled('/etc/ysf2nxdn') == 1) { ?>
 <input type="hidden" name="lh-tgnames" value="OFF" />
   <div style="float: right; vertical-align: bottom; padding-top: 0px;" id="lhTGN">

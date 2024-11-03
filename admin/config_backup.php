@@ -88,7 +88,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/config_backup.php") {
 			    exec("sudo cp /etc/WPSD-Dashboard-Config.ini $backupDir > /dev/null");
                 	    exec("sudo cp /etc/hostapd/hostapd.conf $backupDir > /dev/null");
 			    exec("sudo cp /etc/pistar-css.ini $backupDir > /dev/null");
-			    exec("sudo cp /etc/pistar-release $backupDir > /dev/null");
+			    exec("sudo cp /etc/wpsd-release $backupDir > /dev/null");
 			    exec("sudo cp /etc/aprsgateway $backupDir > /dev/null");
 			    exec("sudo cp /etc/ircddbgateway $backupDir > /dev/null");
 			    exec("sudo cp /etc/mmdvmhost $backupDir > /dev/null");

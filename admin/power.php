@@ -21,7 +21,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/power.php") {
     // Sanity Check Passed.
     header('Cache-Control: no-cache');
 
-    if(isset($_SESSION['PiStarRelease']['Pi-Star']['ProcNum']) && ($_SESSION['PiStarRelease']['Pi-Star']['ProcNum'] >= 4)) {
+    if(isset($_SESSION['WPSDrelease']['WPSD']['ProcNum']) && ($_SESSION['WPSDrelease']['WPSD']['ProcNum'] >= 4)) {
 	exec('/usr/local/sbin/.wpsd-platform-detect | grep "Pi 5 Model" | wc -l', $output);
 	$count = intval($output[0]);
 	$is_pi_5 = ($count >= 1);

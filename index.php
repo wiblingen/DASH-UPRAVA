@@ -261,7 +261,7 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 	    <?php
 	    // Check if config files need updating but supress if new installation
 	    if (($_SERVER["PHP_SELF"] == "/admin/index.php") || ($_SERVER["PHP_SELF"] == "/index.php")) {
-		$configUpNeeded = $_SESSION['PiStarRelease']['Pi-Star']['ConfUpdReqd'];
+		$configUpNeeded = $_SESSION['WPSDrelease']['WPSD']['ConfUpdReqd'];
                 if (!isset($configUpNeeded) || ($configUpNeeded < $configUpdateRequired)) {	
 		    $fileList = array_filter(array("/etc/dstar-radio.mmdvmhost", "/etc/dstar-radio.dstarrepeater"), 'file_exists');
 		    if ($file = array_shift($fileList)) {
@@ -695,12 +695,12 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
                       function reloadDynData() {
                         fetchData("/mmdvmhost/last_heard_table.php", "#lastHeard");
                         fetchData("/mmdvmhost/local_tx_table.php", "#localTxs");';
-                        if(isset($_SESSION['PiStarRelease']['Pi-Star']['ProcNum']) && ($_SESSION['PiStarRelease']['Pi-Star']['ProcNum'] >= 4)) {
+                        if(isset($_SESSION['WPSDrelease']['WPSD']['ProcNum']) && ($_SESSION['WPSDrelease']['WPSD']['ProcNum'] >= 4)) {
                             echo 'fetchData("/mmdvmhost/caller_details_table.php", "#liveCallerDeets");';
                         }
                       echo '
                       }';
-                      if(isset($_SESSION['PiStarRelease']['Pi-Star']['ProcNum']) && ($_SESSION['PiStarRelease']['Pi-Star']['ProcNum'] >= 4)) {
+                      if(isset($_SESSION['WPSDrelease']['WPSD']['ProcNum']) && ($_SESSION['WPSDrelease']['WPSD']['ProcNum'] >= 4)) {
                           echo "setInterval(reloadDynData, 1500);";
                       } else {
                           echo "setInterval(reloadDynData, 2500);";

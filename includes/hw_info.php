@@ -75,7 +75,7 @@ $ramDeetz = formatSize($sysRamUsed). " of ".formatSize($system['mem_info']['MemT
 $ramTip = "<strong>Used:</strong> $sysRamPercent%<br><strong>Free:</strong> ".formatSize($system['mem_info']['MemTotal'] - $sysRamUsed);
 
 // inet traffic
-$iface = $_SESSION['PiStarRelease']['Pi-Star']['iface'];
+$iface = $_SESSION['WPSDrelease']['WPSD']['iface'];
 $VNStatGetData = exec("vnstat -i $iface | grep today | sed 's/today//g' | awk '{print $1\" \"$2\" \"$4\" \"$5\" \"$7\" \"$8\" \"$10\" \"$11}'"); // fields: rx[0] unit[1] tx[2] unit[3] total[4] unit[5] rate[6] unit[7]
 if (empty($VNStatGetData) == false) {
     $Data = explode(" ", $VNStatGetData);
@@ -99,7 +99,7 @@ if (empty($VNStatGetData) == false) {
     </div>
     <div class="divTableRow">
     <?php if (file_exists('/sys/class/thermal/thermal_zone0/temp')) { ?>
-      <div class="divTableCell cell_content middle"><a class="tooltip" href="#" style="border-bottom:1px solid; color:<?php echo $textContent; ?>;"><?php echo $load; ?>%<span><strong>Hardware:</strong> <?php echo $_SESSION['PiStarRelease']['Pi-Star']['Hardware'];?><br /><strong>Platform:</strong> <?php echo $_SESSION['PiStarRelease']['Pi-Star']['Platform'];?><br /><strong><?php echo 'OS:</strong> ' . $system['os'] . " (release ver. " . $system['os_ver']; ?>)<br /><strong>Linux Kernel:</strong> <?php echo php_uname('r');?><br /><strong>Uptime:</strong> <?php  echo(str_replace("up", "", exec('uptime -p')));?></a></span></div>
+      <div class="divTableCell cell_content middle"><a class="tooltip" href="#" style="border-bottom:1px solid; color:<?php echo $textContent; ?>;"><?php echo $load; ?>%<span><strong>Hardware:</strong> <?php echo $_SESSION['WPSDrelease']['WPSD']['Hardware'];?><br /><strong>Platform:</strong> <?php echo $_SESSION['WPSDrelease']['WPSD']['Platform'];?><br /><strong><?php echo 'OS:</strong> ' . $system['os'] . " (release ver. " . $system['os_ver']; ?>)<br /><strong>Linux Kernel:</strong> <?php echo php_uname('r');?><br /><strong>Uptime:</strong> <?php  echo(str_replace("up", "", exec('uptime -p')));?></a></span></div>
       <?php echo $cpuTempHTML; ?>
     <?php } ?>
       <div class="divTableCell cell_content middle"><a class="tooltip" href="#" style="border-bottom:1px dotted;color: <?php echo $textContent;?>;"><?php echo $ramDeetz; ?><span><?php echo $ramTip; ?></span></a></div>

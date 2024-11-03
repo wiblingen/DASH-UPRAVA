@@ -46,7 +46,7 @@ function checkSessionValidity() {
 
     loadSessionConfigFile('DAPNETAPIKeyConfigs', '/etc/dapnetapi.key');
     loadSessionConfigFile('WPSDdashConfig', '/etc/WPSD-Dashboard-Config.ini');
-    loadSessionConfigFile('PiStarRelease', '/etc/pistar-release');
+    loadSessionConfigFile('WPSDrelease', '/etc/WPSD-release');
     if (!isset($_SESSION['MMDVMHostConfigs']) || (count($_SESSION['MMDVMHostConfigs'], COUNT_RECURSIVE) < 2)) {
 	$_SESSION['MMDVMHostConfigs'] = getMMDVMConfigContent();
     }
@@ -81,10 +81,10 @@ function checkSessionValidity() {
     loadSessionConfigFile('ModemConfigs', '/etc/dstar-radio.mmdvmhost');
 
     if ( ! isset( $_SESSION['DvModemFWVersion'] ) || ( is_countable( $_SESSION['DvModemFWVersion'] ) && count( $_SESSION['DvModemFWVersion'], COUNT_RECURSIVE ) < 1 ) ) {
-	$_SESSION['DvModemFWVersion'] = $_SESSION['PiStarRelease']['Pi-Star']['ModemFW'];
+	$_SESSION['DvModemFWVersion'] = $_SESSION['WPSDrelease']['WPSD']['ModemFW'];
     }
     if ( ! isset( $_SESSION['DvModemTCXOFreq'] ) || ( is_countable( $_SESSION['DvModemTCXOFreq'] ) && count( $_SESSION['DvModemTCXOFreq'], COUNT_RECURSIVE) < 1 ) ) {
-	$_SESSION['DvModemTCXOFreq'] = $_SESSION['PiStarRelease']['Pi-Star']['TCXO'];;
+	$_SESSION['DvModemTCXOFreq'] = $_SESSION['WPSDrelease']['WPSD']['TCXO'];;
     }
 }
 
@@ -709,7 +709,7 @@ function getMMDVMLog() {
 	$logPath = MMDVMLOGPATH."/".MMDVMLOGPREFIX."-".gmdate("Y-m-d").".log";
 	$fileList = array_filter(array("/etc/.GETNAMES", "/etc/.CALLERDETAILS", "/etc/.SHOWDMRTA", "/etc/.TGNAMES"), 'file_exists');
         if (!$file = array_shift($fileList)) { // no caller names/last caller selected
-	    if(isset($_SESSION['PiStarRelease']['Pi-Star']['ProcNum']) && ($_SESSION['PiStarRelease']['Pi-Star']['ProcNum'] >= 4)) { // multi-core
+	    if(isset($_SESSION['WPSDrelease']['WPSD']['ProcNum']) && ($_SESSION['WPSDrelease']['WPSD']['ProcNum'] >= 4)) { // multi-core
 		if ($_SESSION['CSSConfigs']['ExtraSettings']['LastHeardRows'] > 40 ) { // more than 40 rows selected
 		    $logLines1 = explode("\n", `tail -1500 $logPath | sed '/\(CSBK\|overflow\|Downlink\|Valid\|Invalid\)/d' | egrep -h "^M.*(from|end|watchdog|lost|Alias|0000)"`);  // 40 or less rows selected
 	        } else {
@@ -721,7 +721,7 @@ function getMMDVMLog() {
 	    $lineNos = sizeof($logLines1);
 	    $logLines1 = array_slice($logLines1, -1500);
         } else { // caller names/last caller selected! keep perf. in check..
-	    if(isset($_SESSION['PiStarRelease']['Pi-Star']['ProcNum']) && ($_SESSION['PiStarRelease']['Pi-Star']['ProcNum'] >= 4)) { // multi-core
+	    if(isset($_SESSION['WPSDrelease']['WPSD']['ProcNum']) && ($_SESSION['WPSDrelease']['WPSD']['ProcNum'] >= 4)) { // multi-core
 		if ($_SESSION['CSSConfigs']['ExtraSettings']['LastHeardRows'] > 40 ) {  // more than 40 rows selected
 		    $logLines1 = explode("\n", `tail -500 $logPath | sed '/\(CSBK\|overflow\|Downlink\|Valid\|Invalid\)/d' | egrep -h "^M.*(from|end|watchdog|lost|Alias|0000)"`); // search last 500 lines
 		} else {
@@ -739,7 +739,7 @@ function getMMDVMLog() {
     if ($lineNos < 150) {
         if (file_exists(MMDVMLOGPATH."/".MMDVMLOGPREFIX."-".gmdate("Y-m-d", time() - 86340).".log")) {
 	    $logPath = MMDVMLOGPATH."/".MMDVMLOGPREFIX."-".gmdate("Y-m-d", time() - 86340).".log";
-	    if(isset($_SESSION['PiStarRelease']['Pi-Star']['ProcNum']) && ($_SESSION['PiStarRelease']['Pi-Star']['ProcNum'] >= 4)) { // multi-core
+	    if(isset($_SESSION['WPSDrelease']['WPSD']['ProcNum']) && ($_SESSION['WPSDrelease']['WPSD']['ProcNum'] >= 4)) { // multi-core
 		$logLines2 = explode("\n", `tail -500 $logPath | sed '/\(CSBK\|overflow\|Downlink\|Valid\|Invalid\)/d' | egrep -h "^M.*(from|end|watchdog|lost|Alias|0000)"`);
 	    } else {
 		$logLines2 = explode("\n", `tail -250 $logPath | sed '/\(CSBK\|overflow\|Downlink\|Valid\|Invalid\)/d' | egrep -h "^M.*(from|end|watchdog|lost|Alias|0000)"`); // single-core crap

@@ -1,7 +1,7 @@
 <?php
 
-$UUID = $_SESSION['PiStarRelease']['Pi-Star']['UUID'];
-$CALL = $_SESSION['PiStarRelease']['Pi-Star']['Callsign'];
+$UUID = $_SESSION['WPSDrelease']['WPSD']['UUID'];
+$CALL = $_SESSION['WPSDrelease']['WPSD']['Callsign'];
 $UA = "$CALL $UUID";
 
 $directory = '/usr/local/sbin';

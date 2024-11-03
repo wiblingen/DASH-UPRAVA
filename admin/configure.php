@@ -14,7 +14,8 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/config/language.php';
 // Clear session data (page {re}load);
 unset($_SESSION['BMAPIKey']);
 unset($_SESSION['DAPNETAPIKeyConfigs']);
-unset($_SESSION['PiStarRelease']);
+unset($_SESSION['WPSDrelease']);
+unset($_SESSION['WPSDdashConfig']);
 unset($_SESSION['MMDVMHostConfigs']);
 unset($_SESSION['ircDDBConfigs']);
 unset($_SESSION['timeServerConfigs']);
@@ -38,9 +39,12 @@ unset($_SESSION['ModemConfigs']);
 
 checkSessionValidity();
 
-// Load the pistar-release file
-$pistarReleaseConfig = '/etc/pistar-release';
-$configPistarRelease = parse_ini_file($pistarReleaseConfig, true);
+// Load the WPSD release file
+$WPSDreleaseConfig = '/etc/WPSD-release';
+$configWPSDrelease = parse_ini_file($WPSDreleaseConfig, true);
+
+$wpsdConfigFile = '/etc/WPSD-Dashboard-Config.ini';
+$configWPSD = parse_ini_file($wpsdConfigFile, true);
 
 // Load the ircDDBGateway config file
 $configs = array();
@@ -3759,7 +3763,7 @@ if (!empty($_POST)):
 	}
 
 	// config file update notifier vars
-	system('sudo sed -i "/ConfUpdReqd = /c\\ConfUpdReqd = '.$configUpdateRequired.'" /etc/pistar-release');
+	system('sudo sed -i "/ConfUpdReqd = /c\\ConfUpdReqd = '.$configUpdateRequired.'" '.$WPSDreleaseConfig.'');
 
 	// Create the hostfiles.nodextra file if required
 	if (empty($_POST['confHostFilesNoDExtra']) != TRUE ) {

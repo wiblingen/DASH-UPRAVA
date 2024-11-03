@@ -19,7 +19,7 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/mmdvmhost/functions.php';    // MMDVMDa
 include_once $_SERVER['DOCUMENT_ROOT'].'/config/language.php';        // Translation Code
 require_once($_SERVER['DOCUMENT_ROOT'].'/config/ircddblocal.php');
 
-$instanceUUID = $_SESSION['PiStarRelease']['Pi-Star']['UUID'];
+$instanceUUID = $_SESSION['WPSDrelease']['WPSD']['UUID'];
 
 function getMacAddresses() {
     $interfaces = [];
@@ -241,7 +241,7 @@ function timesyncdProc() {
 		    // OS Information
 		    echo "<tr><th align='left'>Host System</th><th align='left'>Details</th></tr>";
 		    echo "<tr><td align='left'>Operating System</td><td align='left'>{$system['os']}, release ver. $osVer</td></tr>";
-		    echo "<tr><td align='left'>Hardware &amp; Platform</td><td align='left'>".$_SESSION['PiStarRelease']['Pi-Star']['Hardware']."<br />".$_SESSION['PiStarRelease']['Pi-Star']['Platform']."</td></tr>";
+		    echo "<tr><td align='left'>Hardware &amp; Platform</td><td align='left'>".$_SESSION['WPSDrelease']['WPSD']['Hardware']."<br />".$_SESSION['WPSDrelease']['WPSD']['Platform']."</td></tr>";
 		    echo "<tr><td align='left'>Hardware UUID</td><td align='left'>$instanceUUID</td></tr>";
 		    // Binary Information
 		    echo "  <tr><th align='left'>WPSD Software Binaries</th><th align='left'>Version</th></tr>\n";
@@ -274,7 +274,7 @@ function timesyncdProc() {
 			echo "  <tr><td align='left'>DGIdGateway</td><td align=\"left\">".$DGIdGateway_Ver."</td></tr>\n";
 		    }
 		    if (is_executable('/usr/local/bin/ircddbgatewayd')) {
-			$ircDDBGateway_Ver = $_SESSION['PiStarRelease']['Pi-Star']['ircddbgateway'];
+			$ircDDBGateway_Ver = $_SESSION['WPSDrelease']['WPSD']['ircddbgateway'];
 			echo "  <tr><td align='left'>ircDDBGateway</td><td align=\"left\">".$ircDDBGateway_Ver."</td></tr>\n";
 		    }
 		    if (is_executable('/usr/local/bin/YSF2DMR')) {
