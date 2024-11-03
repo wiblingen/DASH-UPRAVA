@@ -29,10 +29,4 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/config/version.php';
         <?php include '../mmdvmhost/live_caller_backend.php'; ?>
       </div>
     </body>
-    <?php
-    if($_SESSION['PiStarRelease']['Pi-Star']['PhoneticCallsigns'] == "1"){
-        echo '<script src="/js/phonetic-callsigns-live.js"></script>';
-    }
-    ?>
-
 </html>
