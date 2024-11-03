@@ -16,7 +16,7 @@ $_SESSION['MYCALL'] = $MYCALL;
 // Clear session data (page {re}load);
 unset($_SESSION['BMAPIKey']);
 unset($_SESSION['DAPNETAPIKeyConfigs']);
-unset($_SESSION['PiStarRelease']);
+unset($_SESSION['WPSDrelease']);
 unset($_SESSION['MMDVMHostConfigs']);
 unset($_SESSION['ircDDBConfigs']);
 unset($_SESSION['timeServerConfigs']);
