@@ -123,7 +123,7 @@ checkSessionValidity();
             die();
         }
 
-        if (!file_exists('/etc/pistar-css.ini')) {
+        if (!file_exists('/etc/wpsd-css.ini')) {
 		    //The source file does not exist, lets create it....
 		    $outFile = fopen("/tmp/bW1kd4jg6b3N0DQo.tmp", "w") or die("Unable to open file!");
 		    $headers = stream_context_create(Array("http" => Array("method"  => "GET",
@@ -141,12 +141,12 @@ checkSessionValidity();
 		    fclose($outFile);
 		    
 		    // Put the file back where it should be
-		    exec('sudo cp /tmp/bW1kd4jg6b3N0DQo.tmp /etc/pistar-css.ini');  // Move the file back
-		    exec('sudo chmod 644 /etc/pistar-css.ini');                     // Set the correct runtime permissions
-		    exec('sudo chown root:root /etc/pistar-css.ini');               // Set the owner
+		    exec('sudo cp /tmp/bW1kd4jg6b3N0DQo.tmp /etc/wpsd-css.ini');  // Move the file back
+		    exec('sudo chmod 644 /etc/wpsd-css.ini');                     // Set the correct runtime permissions
+		    exec('sudo chown root:root /etc/wpsd-css.ini');               // Set the owner
 		}
 		//Do some file wrangling...
-		exec('sudo cp /etc/pistar-css.ini /tmp/bW1kd4jg6b3N0DQo.tmp');
+		exec('sudo cp /etc/wpsd-css.ini /tmp/bW1kd4jg6b3N0DQo.tmp');
 		exec('sudo chown www-data:www-data /tmp/bW1kd4jg6b3N0DQo.tmp');
 		exec('sudo chmod 664 /tmp/bW1kd4jg6b3N0DQo.tmp');
 		
@@ -180,9 +180,9 @@ checkSessionValidity();
 			fclose($outFile);
 		    
 			// Put the file back where it should be
-			exec('sudo cp /tmp/bW1kd4jg6b3N0DQo.tmp /etc/pistar-css.ini');  // Move the file back
-			exec('sudo chmod 644 /etc/pistar-css.ini');                     // Set the correct runtime permissions
-			exec('sudo chown root:root /etc/pistar-css.ini');               // Set the owner
+			exec('sudo cp /tmp/bW1kd4jg6b3N0DQo.tmp /etc/wpsd-css.ini');  // Move the file back
+			exec('sudo chmod 644 /etc/wpsd-css.ini');                     // Set the correct runtime permissions
+			exec('sudo chown root:root /etc/wpsd-css.ini');               // Set the owner
 
 			echo '<script type="text/javascript">setTimeout(function() { window.location=window.location;},2000);</script>';
 			die();
@@ -249,7 +249,7 @@ checkSessionValidity();
 
 				
 				$output .= "Copying appearance setttings...\n";
-				$output .= shell_exec("sudo mv -v -f /tmp/css_restore/pistar-css.ini /etc/ 2>&1")."\n";
+				$output .= shell_exec("sudo mv -v -f /tmp/css_restore/wpsd-css.ini /etc/ 2>&1")."\n";
 
 				// Make the disk Read-Only
 				
@@ -312,9 +312,9 @@ checkSessionValidity();
 		    fclose($handle);
 		    
 		    // Updates complete - copy the working file back to the proper location
-		    exec('sudo cp /tmp/bW1kd4jg6b3N0DQo.tmp /etc/pistar-css.ini');  // Move the file back
-		    exec('sudo chmod 644 /etc/pistar-css.ini');                     // Set the correct runtime permissions
-		    exec('sudo chown root:root /etc/pistar-css.ini');               // Set the owner
+		    exec('sudo cp /tmp/bW1kd4jg6b3N0DQo.tmp /etc/wpsd-css.ini');  // Move the file back
+		    exec('sudo chmod 644 /etc/wpsd-css.ini');                     // Set the correct runtime permissions
+		    exec('sudo chown root:root /etc/wpsd-css.ini');               // Set the owner
 		    
 		    return $success;
 		}

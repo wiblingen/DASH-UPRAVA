@@ -77,7 +77,7 @@ function checkSessionValidity() {
     loadSessionConfigFile('NXDNGatewayConfigs', '/etc/nxdngateway');
     loadSessionConfigFile('M17GatewayConfigs', '/etc/m17gateway');
     loadSessionConfigFile('P25GatewayConfigs', '/etc/p25gateway');
-    loadSessionConfigFile('CSSConfigs', '/etc/pistar-css.ini');
+    loadSessionConfigFile('CSSConfigs', '/etc/wpsd-css.ini');
     loadSessionConfigFile('ModemConfigs', '/etc/dstar-radio.mmdvmhost');
 
     if ( ! isset( $_SESSION['DvModemFWVersion'] ) || ( is_countable( $_SESSION['DvModemFWVersion'] ) && count( $_SESSION['DvModemFWVersion'], COUNT_RECURSIVE ) < 1 ) ) {

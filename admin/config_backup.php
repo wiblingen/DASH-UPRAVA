@@ -87,13 +87,12 @@ if ($_SERVER["PHP_SELF"] == "/admin/config_backup.php") {
 			    exec("sudo cp /etc/wpsd-upnp-rules $backupDir > /dev/null");
 			    exec("sudo cp /etc/WPSD-Dashboard-Config.ini $backupDir > /dev/null");
                 	    exec("sudo cp /etc/hostapd/hostapd.conf $backupDir > /dev/null");
-			    exec("sudo cp /etc/pistar-css.ini $backupDir > /dev/null");
+			    exec("sudo cp /etc/wpsd-css.ini $backupDir > /dev/null");
 			    exec("sudo cp /etc/wpsd-release $backupDir > /dev/null");
 			    exec("sudo cp /etc/aprsgateway $backupDir > /dev/null");
 			    exec("sudo cp /etc/ircddbgateway $backupDir > /dev/null");
 			    exec("sudo cp /etc/mmdvmhost $backupDir > /dev/null");
 			    exec("sudo cp /etc/dapnetgateway $backupDir > /dev/null");
-                	    exec("sudo cp /etc/pistar-css.ini $backupDir > /dev/null");
 			    exec("sudo cp /etc/p25gateway $backupDir > /dev/null");
 			    exec("sudo cp /etc/ysfgateway $backupDir > /dev/null");
 			    exec("sudo cp /etc/dmr2nxdn $backupDir > /dev/null");
