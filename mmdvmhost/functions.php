@@ -516,15 +516,6 @@ function getFWstate () {
     }
 }
 
-// cron status
-function getCronState () {
-    if (isProcessRunning('cron',true) == 1) {
-        return 1;
-    } else {
-        return 0;
-    }
-}
-
 // Pi-Star Remote status
 function getPSRState () {
     if (isProcessRunning('/usr/local/sbin/pistar-remote',true) == 1) {
@@ -565,10 +556,10 @@ function isDVmegaCast() {
 // status classes used in sysinfo.php
 function getStatusClass($status, $disabled = false) {
     if ($status) {
-    echo '<td class="active-service-cell" align="left" title="Service Active">';
+	echo '<td class="active-service-cell" align="left" title="Service Active">';
     }
     else {
-    if ($disabled)
+ 	if ($disabled)
         echo '<td class="disabled-service-cell" align="left" title="Service Disabled">';
     else
         echo '<td class="inactive-service-cell" align="left" title="Service Not Active">';
@@ -620,6 +611,11 @@ function getModeClass($status, $disabled = false) {
 	        echo '<div class="inactive-mode-cell" title="Inactive">';
 	    }
     }
+}
+
+function isSystemdServiceRunning($SVCname) {
+    $output = shell_exec("systemctl is-active " . escapeshellarg($SVCname) . " 2>&1");
+    return trim($output) === "active";
 }
 
 // shows if mode is enabled or not.

@@ -1,22 +1,20 @@
 <?php
-
 if (!isset($_SESSION) || !is_array($_SESSION)) {
     session_id('wpsdsession');
     session_start();
 
-    include_once $_SERVER['DOCUMENT_ROOT'].'/config/config.php';          // MMDVMDash Config
     include_once $_SERVER['DOCUMENT_ROOT'].'/mmdvmhost/tools.php';        // MMDVMDash Tools
     include_once $_SERVER['DOCUMENT_ROOT'].'/mmdvmhost/functions.php';    // MMDVMDash Functions
     include_once $_SERVER['DOCUMENT_ROOT'].'/config/language.php';        // Translation Code
+    include_once $_SERVER['DOCUMENT_ROOT'].'/config/config.php';
     checkSessionValidity();
 }
 
-include_once $_SERVER['DOCUMENT_ROOT'].'/config/config.php';          // MMDVMDash Config
 include_once $_SERVER['DOCUMENT_ROOT'].'/mmdvmhost/tools.php';        // MMDVMDash Tools
 include_once $_SERVER['DOCUMENT_ROOT'].'/mmdvmhost/functions.php';    // MMDVMDash Functions
-include_once $_SERVER['DOCUMENT_ROOT'].'/config/language.php';	      // Translation Code
+include_once $_SERVER['DOCUMENT_ROOT'].'/config/language.php';        // Translation Code
 require_once($_SERVER['DOCUMENT_ROOT'].'/config/ircddblocal.php');
-
+include_once $_SERVER['DOCUMENT_ROOT'].'/config/config.php';
 ?>
 <h3 style="text-align:left;font-weight:bold;margin:5px 0 2px 0;"><?php echo __( 'Service &amp; Process Status' );?></h3>
 <div class="status-grid">
@@ -35,12 +33,7 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/config/ircddblocal.php');
   <?php } else { ?>
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('/usr/local/sbin/pistar-remote',true)); ?>">RF Remote Control</div> 
   <?php } ?>
-
-  <?php if (getCronState()=='0' ) { ?>
-  <div class='grid-item paused-mode-cell' title="Disabled">Cron</div>
-  <?php } else { ?>
-  <div class="grid-item <?php getServiceStatusClass(isProcessRunning('cron')); ?>">Cron</div>
-  <?php } ?>
+  <div class="grid-item <?php getServiceStatusClass(isSystemdServiceRunning("wpsd-nightly-tasks.timer")); ?>">WPSD Nightly Task Processor</div>
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('NXDNGateway')); ?>">NXDNGateway</div> 
   <?php if (isDVmegaCast() == 0) { ?>
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('M17Gateway')); ?>">M17Gateway</div> 
