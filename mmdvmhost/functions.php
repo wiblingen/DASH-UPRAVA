@@ -45,6 +45,7 @@ function checkSessionValidity() {
     }
 
     loadSessionConfigFile('DAPNETAPIKeyConfigs', '/etc/dapnetapi.key');
+    loadSessionConfigFile('WPSDdashConfig', '/etc/WPSD-Dashboard-Config.ini');
     loadSessionConfigFile('PiStarRelease', '/etc/pistar-release');
     if (!isset($_SESSION['MMDVMHostConfigs']) || (count($_SESSION['MMDVMHostConfigs'], COUNT_RECURSIVE) < 2)) {
 	$_SESSION['MMDVMHostConfigs'] = getMMDVMConfigContent();

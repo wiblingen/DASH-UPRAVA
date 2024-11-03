@@ -19,8 +19,8 @@ if (isset($_SESSION['CSSConfigs']['Background'])) {
     $backgroundModeCellInactiveColor = $_SESSION['CSSConfigs']['Background']['ModeCellInactiveColor'];
 }
 
-if (isset($_SESSION['PiStarRelease']['Pi-Star']['CallLookupProvider'])) {
-    $callsignLookupSvc = $_SESSION['PiStarRelease']['Pi-Star']['CallLookupProvider'];
+if (isset($_SESSION['WPSDdashConfig']['WPSD']['CallLookupProvider'])) {
+    $callsignLookupSvc = $_SESSION['WPSDdashConfig']['WPSD']['CallLookupProvider'];
 } else {
     $callsignLookupSvc = "QRZ";
 }

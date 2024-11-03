@@ -9,7 +9,7 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/config/version.php';
 require_once $_SERVER['DOCUMENT_ROOT'].'/config/ircddblocal.php';
 require_once $_SERVER['DOCUMENT_ROOT'].'/mmdvmhost/functions.php';
 require_once $_SERVER['DOCUMENT_ROOT'].'/config/language.php';
-unset($_SESSION['PiStarRelease']);
+unset($_SESSION['WPSDdashConfig']);
 checkSessionValidity();
 
 ?>
@@ -99,31 +99,29 @@ checkSessionValidity();
 		
 		<?php
 		if (empty($_POST['CallLookupProvider']) != TRUE) {
-		    exec('sudo sed -i "/CallLookupProvider = /c\\\CallLookupProvider = '.escapeshellcmd($_POST['CallProvider']).'" /etc/pistar-release');	
+		    exec('sudo sed -i "/CallLookupProvider = /c\\\CallLookupProvider = '.escapeshellcmd($_POST['CallProvider']).'" ' . $config_file . '');	
 		    unset($_POST);
 		    echo '<script type="text/javascript">setTimeout(function() { window.location=window.location;},0);</script>';
 		    die();
 		}
         if (isset($_POST['phoneticCallsigns'])) {
             $phoneticCallsigns = escapeshellcmd($_POST['phoneticCallsigns']);
-            $filePath = '/etc/pistar-release';
 
             // Check if the key already exists in the file
-            $output = shell_exec("grep -c '^PhoneticCallsigns =' $filePath");
+            $output = shell_exec("grep -c '^PhoneticCallsigns =' $config_file");
 
             if (trim($output) == '0') {
                 // Key does not exist, append it to the file
-                exec("echo 'PhoneticCallsigns = $phoneticCallsigns' | sudo tee -a $filePath > /dev/null");
+                exec("echo 'PhoneticCallsigns = $phoneticCallsigns' | sudo tee -a $config_file > /dev/null");
             } else {
                 // Key exists, replace it
-                exec("sudo sed -i '/PhoneticCallsigns = /c\\PhoneticCallsigns = $phoneticCallsigns' $filePath");
+                exec("sudo sed -i '/PhoneticCallsigns = /c\\PhoneticCallsigns = $phoneticCallsigns' $config_file");
             }
 
             unset($_POST);
             echo '<script type="text/javascript">setTimeout(function() { window.location=window.location;},0);</script>';
             die();
         }
-
 
         if (!file_exists('/etc/pistar-css.ini')) {
 		    //The source file does not exist, lets create it....
@@ -331,10 +329,10 @@ checkSessionValidity();
 	  <tr>
 	    <td>
 	      <form method="post" action="" class="left">
-		<input type="radio" name="CallProvider" value="RadioID" id="RadioID" <?php if ($_SESSION['PiStarRelease']['Pi-Star']['CallLookupProvider'] == "RadioID") {  echo 'checked="checked"'; } ?> />
+		<input type="radio" name="CallProvider" value="RadioID" id="RadioID" <?php if ($_SESSION['WPSDdashConfig']['WPSD']['CallLookupProvider'] == "RadioID") {  echo 'checked="checked"'; } ?> />
 		<label for="RadioID">RadioID</label>
 		&nbsp;
-		<input type="radio" name="CallProvider" value="QRZ" id="QRZ" <?php if ($_SESSION['PiStarRelease']['Pi-Star']['CallLookupProvider'] == "QRZ") {  echo 'checked="checked"'; } ?> />
+		<input type="radio" name="CallProvider" value="QRZ" id="QRZ" <?php if ($_SESSION['WPSDdashConfig']['WPSD']['CallLookupProvider'] == "QRZ") {  echo 'checked="checked"'; } ?> />
 		<label for="QRZ">QRZ</label>
 		&nbsp;
 		<input name="CallLookupProvider" type="submit" value="Apply Change" />
@@ -348,10 +346,10 @@ checkSessionValidity();
                 <tr>
                     <td>
                         <form method="post" action="" class="left">
-                            <input type="radio" name="phoneticCallsigns" value="0" id="phoneticCallsign-false" <?php if ($_SESSION['PiStarRelease']['Pi-Star']['PhoneticCallsigns'] == "0" || !(isset($_SESSION['PiStarRelease']['Pi-Star']['PhoneticCallsigns']))) {  echo 'checked="checked"'; } ?> />
+                            <input type="radio" name="phoneticCallsigns" value="0" id="phoneticCallsign-false" <?php if ($_SESSION['WPSDdashConfig']['WPSD']['PhoneticCallsigns'] == "0" || !(isset($_SESSION['WPSDdashConfig']['WPSD']['PhoneticCallsigns']))) {  echo 'checked="checked"'; } ?> />
                             <label for="phoneticCallsign-false">Disabled</label>
                             &nbsp;
-                            <input type="radio" name="phoneticCallsigns" value="1" id="phoneticCallsign-true" <?php if ($_SESSION['PiStarRelease']['Pi-Star']['PhoneticCallsigns'] == "1") {  echo 'checked="checked"'; } ?> />
+                            <input type="radio" name="phoneticCallsigns" value="1" id="phoneticCallsign-true" <?php if ($_SESSION['WPSDdashConfig']['WPSD']['PhoneticCallsigns'] == "1") {  echo 'checked="checked"'; } ?> />
                             <label for="phoneticCallsign-true">Enabled</label>
                             &nbsp;
                             <input name="phoneticCallsignsSubmit" type="submit" value="Apply Change" />

@@ -41,7 +41,6 @@ checkSessionValidity();
 // Load the pistar-release file
 $pistarReleaseConfig = '/etc/pistar-release';
 $configPistarRelease = parse_ini_file($pistarReleaseConfig, true);
-$config_file = '/etc/WPSD-Dashboard-Config.ini';
 
 // Load the ircDDBGateway config file
 $configs = array();

@@ -317,7 +317,7 @@ if(empty($_POST['func'])) {
 <?php include $_SERVER['DOCUMENT_ROOT']. '/includes/footer.php'; ?>	
 	</div>
     <?php
-    if($_SESSION['PiStarRelease']['Pi-Star']['PhoneticCallsigns'] == "1"){
+    if($_SESSION['WPSDdashConfig']['WPSD']['PhoneticCallsigns'] == "1"){
         echo '<script src="/js/phonetic-callsigns.js"></script>';
     }
     ?>
