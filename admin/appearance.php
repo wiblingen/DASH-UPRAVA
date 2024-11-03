@@ -98,15 +98,34 @@ checkSessionValidity();
 	    <div class="contentwide">
 		
 		<?php
-
 		if (empty($_POST['CallLookupProvider']) != TRUE) {
 		    exec('sudo sed -i "/CallLookupProvider = /c\\\CallLookupProvider = '.escapeshellcmd($_POST['CallProvider']).'" /etc/pistar-release');	
 		    unset($_POST);
 		    echo '<script type="text/javascript">setTimeout(function() { window.location=window.location;},0);</script>';
 		    die();
 		}
+        if (isset($_POST['phoneticCallsigns'])) {
+            $phoneticCallsigns = escapeshellcmd($_POST['phoneticCallsigns']);
+            $filePath = '/etc/pistar-release';
 
-		if (!file_exists('/etc/pistar-css.ini')) {
+            // Check if the key already exists in the file
+            $output = shell_exec("grep -c '^PhoneticCallsigns =' $filePath");
+
+            if (trim($output) == '0') {
+                // Key does not exist, append it to the file
+                exec("echo 'PhoneticCallsigns = $phoneticCallsigns' | sudo tee -a $filePath > /dev/null");
+            } else {
+                // Key exists, replace it
+                exec("sudo sed -i '/PhoneticCallsigns = /c\\PhoneticCallsigns = $phoneticCallsigns' $filePath");
+            }
+
+            unset($_POST);
+            echo '<script type="text/javascript">setTimeout(function() { window.location=window.location;},0);</script>';
+            die();
+        }
+
+
+        if (!file_exists('/etc/pistar-css.ini')) {
 		    //The source file does not exist, lets create it....
 		    $outFile = fopen("/tmp/bW1kd4jg6b3N0DQo.tmp", "w") or die("Unable to open file!");
 		    $headers = stream_context_create(Array("http" => Array("method"  => "GET",
@@ -323,6 +342,24 @@ checkSessionValidity();
 	    </td>
 	  </tr>
 	</table>
+            <br>
+            <h2 class="ConfSec">Phonetic Callsigns</h2>
+            <table>
+                <tr>
+                    <td>
+                        <form method="post" action="" class="left">
+                            <input type="radio" name="phoneticCallsigns" value="0" id="phoneticCallsigns" <?php if ($_SESSION['PiStarRelease']['Pi-Star']['PhoneticCallsigns'] == "0" || !(isset($_SESSION['PiStarRelease']['Pi-Star']['PhoneticCallsigns']))) {  echo 'checked="checked"'; } ?> />
+                            <label for="phoneticCallsign-false">Disabled</label>
+                            &nbsp;
+                            <input type="radio" name="phoneticCallsigns" value="1" id="phoneticCallsigns" <?php if ($_SESSION['PiStarRelease']['Pi-Star']['PhoneticCallsigns'] == "1") {  echo 'checked="checked"'; } ?> />
+                            <label for="phoneticCallsign-true">Enabled</label>
+                            &nbsp;
+                            <input name="phoneticCallsignsSubmit" type="submit" value="Apply Change" />
+                        </form>
+                    </td>
+                    <td align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'>When enabled an additional label will be displayed with the phonetic version of callsigns</td>
+                </tr>
+            </table>
 
 	<br />
 	
