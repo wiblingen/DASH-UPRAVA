@@ -348,10 +348,10 @@ checkSessionValidity();
                 <tr>
                     <td>
                         <form method="post" action="" class="left">
-                            <input type="radio" name="phoneticCallsigns" value="0" id="phoneticCallsigns" <?php if ($_SESSION['PiStarRelease']['Pi-Star']['PhoneticCallsigns'] == "0" || !(isset($_SESSION['PiStarRelease']['Pi-Star']['PhoneticCallsigns']))) {  echo 'checked="checked"'; } ?> />
+                            <input type="radio" name="phoneticCallsigns" value="0" id="phoneticCallsign-false" <?php if ($_SESSION['PiStarRelease']['Pi-Star']['PhoneticCallsigns'] == "0" || !(isset($_SESSION['PiStarRelease']['Pi-Star']['PhoneticCallsigns']))) {  echo 'checked="checked"'; } ?> />
                             <label for="phoneticCallsign-false">Disabled</label>
                             &nbsp;
-                            <input type="radio" name="phoneticCallsigns" value="1" id="phoneticCallsigns" <?php if ($_SESSION['PiStarRelease']['Pi-Star']['PhoneticCallsigns'] == "1") {  echo 'checked="checked"'; } ?> />
+                            <input type="radio" name="phoneticCallsigns" value="1" id="phoneticCallsign-true" <?php if ($_SESSION['PiStarRelease']['Pi-Star']['PhoneticCallsigns'] == "1") {  echo 'checked="checked"'; } ?> />
                             <label for="phoneticCallsign-true">Enabled</label>
                             &nbsp;
                             <input name="phoneticCallsignsSubmit" type="submit" value="Apply Change" />
