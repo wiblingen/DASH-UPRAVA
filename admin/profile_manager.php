@@ -126,7 +126,7 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$profile_dir/*")) > 0) {
                             	    exec("sudo cp /etc/wpsd-upnp-rules $profileDir > /dev/null");
                             	    exec("sudo cp /etc/WPSD-Dashboard-Config.ini $profileDir > /dev/null");
                             	    exec("sudo cp /etc/hostapd/hostapd.conf $profileDir > /dev/null");
-                            	    exec("sudo cp /etc/wpsd-css.ini $profileDir > /dev/null");
+                            	    exec("sudo cp /etc/*css.ini $profileDir > /dev/null");
                             	    exec("sudo cp /etc/aprsgateway $profileDir > /dev/null");
                             	    exec("sudo cp /etc/ircddbgateway $profileDir > /dev/null");
                             	    exec("sudo cp /etc/mmdvmhost $profileDir > /dev/null");
