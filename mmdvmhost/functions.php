@@ -413,7 +413,7 @@ function isM17GatewayConnected() {
 
     $logLines = $logLines1 + $logLines2;
 
-    $errorMessages = array('Link lost' , 'Link refused');
+    $errorMessages = array('Received a DISC from reflector' , 'Received a NACK from reflector' , 'Link lost' , 'Link refused');
     
     foreach($logLines as $m17MessageLine) {
 		foreach($errorMessages as $errorLine) {
@@ -1557,7 +1557,7 @@ function getActualLink($logLines, $mode) {
     case "M17":
             if (isProcessRunning("M17Gateway")) {
 		foreach($logLines as $logLine) {
-		    if(preg_match_all('/Linked .* reflector ((M17|URF)-.{3} [A-Z])/', $logLine, $linx) > 0) {
+		    if(preg_match_all('/Linked to ((M17|URF)-.{3} [A-Z])/', $logLine, $linx) > 0) {
 			return $linx[1][0];
 		    }
 		    else if (strpos($logLine, "Switched to reflector")) {
