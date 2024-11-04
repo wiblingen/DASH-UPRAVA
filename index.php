@@ -259,6 +259,7 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 		</div>
 
 	    <?php
+	    /*
 	    // Check if config files need updating but supress if new installation
 	    if (($_SERVER["PHP_SELF"] == "/admin/index.php") || ($_SERVER["PHP_SELF"] == "/index.php")) {
 		$configUpNeeded = $_SESSION['WPSDrelease']['WPSD']['ConfUpdReqd'];
@@ -280,6 +281,7 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 	    <?php }
 	        }
 	    }
+	    */
 	    ?>
 	    <?php
             // Output some default features

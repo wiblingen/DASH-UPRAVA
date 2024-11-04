@@ -605,7 +605,7 @@ $MYCALL=strtoupper($callsign);
 		var inputField = $("#" + targetField);
 
 		// Disable the field during lookup
-		inputField.prop("disabled", true);
+		inputField.prop("disabled", false);
 		inputField.attr("placeholder", "Searching...");
 
 		$.ajax({
