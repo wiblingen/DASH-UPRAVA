@@ -58,7 +58,7 @@ $testMMDVModeDMR = getConfigItem("DMR", "Enable", $_SESSION['MMDVMHostConfigs'])
   <?php 
     if ( file_exists( '/etc/.FILTERACTIVITY' ) ) : ?>
       <div class="filter-activity-max-wrap">
-        <<input onChange='setFilterActivityMax(this)' onfocus = 'clearInterval(reloadDynDataId)' class='filter-activity-max' style="width:40px;" type='number' step='0.5' min='0.5' name='filter-activity-max' value='<?php echo file_get_contents( '/etc/.FILTERACTIVITY' ); ?>' /> s
+        <input onChange='setFilterActivityMax(this)' onfocus = 'clearInterval(reloadDynDataId)' class='filter-activity-max' style="width:40px;" type='number' step='0.5' min='0.5' name='filter-activity-max' value='<?php echo file_get_contents( '/etc/.FILTERACTIVITY' ); ?>' /> s
       </div>
   <?php endif; ?>
 </div>
