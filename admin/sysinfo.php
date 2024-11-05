@@ -241,6 +241,7 @@ function timesyncdProc() {
 		    // OS Information
 		    echo "<tr><th align='left'>Host System</th><th align='left'>Details</th></tr>";
 		    echo "<tr><td align='left'>Operating System</td><td align='left'>{$system['os']}, release ver. $osVer</td></tr>";
+		    echo "<tr><td align='left'>Kernel</td><td align='left'>".php_uname('r')."</td></tr>";
 		    echo "<tr><td align='left'>Hardware &amp; Platform</td><td align='left'>".$_SESSION['WPSDrelease']['WPSD']['Hardware']."<br />".$_SESSION['WPSDrelease']['WPSD']['Platform']."</td></tr>";
 		    echo "<tr><td align='left'>Hardware UUID</td><td align='left'>$instanceUUID</td></tr>";
 		    // Binary Information
