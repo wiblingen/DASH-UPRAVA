@@ -162,6 +162,7 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
     function setFilterActivityMax(obj) {
       max = obj.value || 1;
       localStorage.setItem('filter_activity_max', obj.value);
+	  reloadDynDataId = setInterval(reloadDynData, reloadDynDataInterval);
     }
 
     function reloadUpdateCheck(){
@@ -703,10 +704,12 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
                       echo '
                       }';
                       if(isset($_SESSION['WPSDrelease']['WPSD']['ProcNum']) && ($_SESSION['WPSDrelease']['WPSD']['ProcNum'] >= 4)) {
-                          echo "setInterval(reloadDynData, 1500);";
+						echo "reloadDynDataInterval = 1500;";
                       } else {
-                          echo "setInterval(reloadDynData, 2500);";
-                      }
+						echo "reloadDynDataInterval = 2500;";
+					  }
+					  echo "reloadDynDataId = setInterval(reloadDynData, reloadDynDataInterval);";
+                      
                     echo '
                     </script>';
 		}
