@@ -12,7 +12,8 @@ $CALL = $_SESSION['WPSDrelease']['WPSD']['Callsign'];
 $headers = stream_context_create(Array("http" => Array("method"  => "GET",
                                                        "timeout" => 10,
                                                        "header"  => "User-agent: WPSD-Messages - $CALL $UUID",
-                                                       'request_fulluri' => True )));
+
+/*                                                       'request_fulluri' => True )));
 // buster EOL!!!! YAY!!!!!!! \o/
 if ($osName === "buster") {
     $local_msg = '/var/www/dashboard/includes/.wpsd-legacy-msg.html';
@@ -23,5 +24,6 @@ if ($osName === "buster") {
     }
     echo $result;
 }
+*/
 ?>
 
