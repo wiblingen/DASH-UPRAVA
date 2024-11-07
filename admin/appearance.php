@@ -170,7 +170,7 @@ checkSessionValidity();
                                                        "header"  => "User-agent: WPSD-CSS-Reset - $versionCmd",
                                                        'request_fulluri' => True )));
 
-			$fileContent = file_get_contents("https://wpsd-swd.w0chp.net/WPSD-SWD/WPSD-Helpers/raw/branch/master/supporting-files/pistar-css-W0CHP.ini", false, $headers);
+			$fileContent = file_get_contents("https://wpsd-swd.w0chp.net/WPSD-SWD/WPSD-Helpers/raw/branch/master/supporting-files/WPSD-CSS.ini", false, $headers);
 
 			if ($fileContent === false) {
 			    die("Failed to retrieve file content.");

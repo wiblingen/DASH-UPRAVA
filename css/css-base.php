@@ -6,7 +6,7 @@ if (!file_exists('/etc/wpsd-css.ini')) {
                                                            "timeout" => 10,
                                                            "header"  => "User-agent: WPSD-CSS-Default - $versionCmd",
                                                            'request_fulluri' => True )));
-    $fileContent = @file_get_contents("https://wpsd-swd.w0chp.net/WPSD-SWD/W0CHP-PiStar-Installer/raw/branch/master/supporting-files/pistar-css-W0CHP.ini", false, $headers);
+    $fileContent = @file_get_contents("https://wpsd-swd.w0chp.net/WPSD-SWD/WPSD-Helpers/raw/branch/master/supporting-files/WPSD-CSS.ini", false, $headers);
     fwrite($outFile, $fileContent);
     fclose($outFile);
                     
