@@ -219,6 +219,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/config_backup.php") {
                 		exec("sudo mv -f /tmp/config_restore/hostapd.conf /etc/hostapd/ > /dev/null");
 				exec("sudo mv -f /tmp/config_restore/*_paused /etc/ > /dev/null");
 				exec("sudo cp -a /tmp/config_restore/.bm_tgs.json.saved /etc/ > /dev/null");
+				exec("sudo mv -f /tmp/config_restore/pistar-css.ini /etc/wpsd-css.ini > /dev/null");
 				exec("sudo mv -f /tmp/config_restore/* /etc/ > /dev/null");
 				
 				//Restore the Timezone Config
