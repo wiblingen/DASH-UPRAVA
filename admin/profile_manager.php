@@ -194,6 +194,7 @@ if (file_exists('/etc/.WPSD_config') && count(glob("$profile_dir/*")) > 0) {
 					exec('sudo /usr/local/cast/bin/cast-reset ; sleep 2 > /dev/null 2>/dev/null');
 				    }
 				    exec("sudo sh -c 'rm -rf $profileDir/*Hosts.txt' > /dev/null");
+				    exec("sudo sh -c 'mv $profileDir/pistar-css.ini /etc/wpsd-css.ini' > /dev/null");
 				    exec("sudo sh -c 'cp -a $profileDir/* /etc/' > /dev/null");
 				    exec("sudo sh -c 'cp -a $profileDir/.CALLERDETAILS /etc/' > /dev/null");
 				    exec("sudo sh -c 'cp -a $profileDir/.TGNAMES /etc/' > /dev/null");
