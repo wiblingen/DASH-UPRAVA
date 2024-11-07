@@ -14,31 +14,12 @@ $MYCALL = strtoupper($callsign);
 $_SESSION['MYCALL'] = $MYCALL;
 
 // Clear session data (page {re}load);
-unset($_SESSION['BMAPIKey']);
-unset($_SESSION['DAPNETAPIKeyConfigs']);
-unset($_SESSION['WPSDrelease']);
-unset($_SESSION['WPSDdashConfig']);
-unset($_SESSION['MMDVMHostConfigs']);
-unset($_SESSION['ircDDBConfigs']);
-unset($_SESSION['timeServerConfigs']);
-unset($_SESSION['DStarRepeaterConfigs']);
-unset($_SESSION['DMRGatewayConfigs']);
-unset($_SESSION['YSFGatewayConfigs']);
-unset($_SESSION['DGIdGatewayConfigs']);
-unset($_SESSION['DAPNETGatewayConfigs']);
-unset($_SESSION['YSF2DMRConfigs']);
-unset($_SESSION['YSF2NXDNConfigs']);
-unset($_SESSION['YSF2P25Configs']);
-unset($_SESSION['DMR2YSFConfigs']);
-unset($_SESSION['DMR2NXDNConfigs']);
-unset($_SESSION['APRSGatewayConfigs']);
-unset($_SESSION['NXDNGatewayConfigs']);
-unset($_SESSION['P25GatewayConfigs']);
-unset($_SESSION['CSSConfigs']);
-unset($_SESSION['DvModemFWVersion']);
-unset($_SESSION['DvModemTCXOFreq']);
-unset($_SESSION['M17GatewayConfigs']);
-unset($_SESSION['ModemConfigs']);
+$keepSessions = ['MYCALL'];
+foreach ($_SESSION as $key => $value) {
+    if (!in_array($key, $keepSessions)) {
+        unset($_SESSION[$key]);
+    }
+}
 
 checkSessionValidity();
 
