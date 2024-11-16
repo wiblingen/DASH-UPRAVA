@@ -41,7 +41,7 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/config/config.php';
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('NXDNParrot')); ?>">NXDNParrot</div> 
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('usr/sbin/vnstatd',true)); ?>">Network Metrics (vnstat)</div> 
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('APRSGateway')); ?>">APRSGateway</div>
-  <div class="grid-item <?php getServiceStatusClass(isProcessRunning('/lib/systemd/systemd-timesyncd',true)); ?>">Time Sync Service</div> 
+  <div class="grid-item <?php getServiceStatusClass(isSystemdServiceRunning("wpsd-hostfile-update.timer")); ?>">WPSD Hostfile Update Service</div> 
   <div class="grid-item <?php getServiceStatusClass(isProcessRunning('YSFParrot')); ?>">YSFParrot</div>
 
   <div class="grid-item <?php getServiceStatusClass(autoAPenabled()); ?>">Auto AP</div>
