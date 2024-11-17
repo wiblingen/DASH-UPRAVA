@@ -1752,7 +1752,7 @@ function tgLookup($mode, $target) {
 		    $target = "TG $target";
 		}
 	    } else if ($_SESSION['DMRGatewayConfigs']['DMR Network 2']['Enabled'] == "1" && strlen($target_offset) >= 6 && substr( $target_offset, 0, 1 ) === "8" && startsWith($_SESSION['DMRGatewayConfigs']['DMR Network 2']['Name'], "FreeDMR")) {
-		$target_lookup = exec("grep -w \"$target_offset\" /usr/local/etc/TGList_FreeDMR_.txt | awk -F, '{print $2}' | head -1 | tr -d '\"'");
+		$target_lookup = exec("grep -w \"$target_offset\" /usr/local/etc/TGList_FreeDMR.txt | awk -F, '{print $2}' | head -1 | tr -d '\"'");
 		if (!empty($target_lookup)) {
 			if ($_SESSION['DMRGatewayConfigs']['General']['Primary'] != "2") {
 				$target_local = " TG " . ((int) $target_offset - 8000000);
