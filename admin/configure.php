@@ -4409,7 +4409,7 @@ if (!empty($_POST)):
         if (isDVmegaCast() == 1) { // DVMega Cast mode logic
 	    system($rollCastMode);
 	}
-	exec'sudo wpsd-services restart > /dev/null 2>/dev/null &');
+	exec('sudo wpsd-services restart > /dev/null 2>/dev/null &');
 
 	unset($_POST);
 	echo '<script type="text/javascript">window.location=window.location;</script>';
