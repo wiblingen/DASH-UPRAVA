@@ -998,7 +998,7 @@ if (!empty($_POST)):
 	  if (file_exists('/etc/timeserver.disable'))
 	      system('sudo rm /etc/timeserver.disable');
 	  // reset repos
-	  system('sudo wpsd-services fullstop > /dev/null 2>/dev/null');
+	  exec('sudo wpsd-services fullstop > /dev/null 2>/dev/null');
 	  exec('sudo git --work-tree=/usr/local/sbin --git-dir=/usr/local/sbin/.git update-index --no-assume-unchanged pistar-upnp.service');
 	  exec('sudo git --work-tree=/usr/local/sbin --git-dir=/usr/local/sbin/.git reset --hard origin/master');
 	  exec('sudo git --work-tree=/usr/local/bin --git-dir=/usr/local/bin/.git reset --hard origin/master');
@@ -1010,7 +1010,7 @@ if (!empty($_POST)):
 	  if (isDVmegaCast() == 1) { // if DVMega cast, reset main board
 	      system('sudo /usr/local/cast/bin/cast-reset ; sleep 5 > /dev/null 2>/dev/null');
 	  }
-	  system('sudo wpsd-services start > /dev/null 2>/dev/null &');
+	  exec('sudo wpsd-services start > /dev/null 2>/dev/null &');
           echo '<script type="text/javascript">setTimeout(function() { window.location=window.location;},5000);</script>';
 	  echo "<br />\n</div>\n";
           echo "<br />\n</div>\n</div>\n</body>\n</html>\n";
@@ -2425,11 +2425,6 @@ if (!empty($_POST)):
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
 	    $configmmdvm['Modem']['UARTSpeed'] = "460800";
-	  }
-
-	  if ( $confHardware == 'zum' ) {
-	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
-	    system($rollRepeaterType1);
 	  }
 
 	  if ( $confHardware == 'stm32dvm' ) {
@@ -4410,12 +4405,11 @@ if (!empty($_POST)):
 	    system($rollUpdateCheckConfig);
 	}
 
-
 	// Start all services
         if (isDVmegaCast() == 1) { // DVMega Cast mode logic
 	    system($rollCastMode);
 	}
-	system('sudo wpsd-services restart > /dev/null 2>/dev/null &');
+	exec'sudo wpsd-services restart > /dev/null 2>/dev/null &');
 
 	unset($_POST);
 	echo '<script type="text/javascript">window.location=window.location;</script>';
@@ -4572,7 +4566,6 @@ else:
 	        <option<?php if ($configModem['Modem']['Hardware'] === 'dvrptr1') {		echo ' selected="selected"';}?> value="dvrptr1">DV-RPTR V1 (USB)</option>
 		<option<?php if ($configModem['Modem']['Hardware'] === 'dvrptr2') {		echo ' selected="selected"';}?> value="dvrptr2">DV-RPTR V2 (USB)</option>
 		<option<?php if ($configModem['Modem']['Hardware'] === 'dvrptr3') {		echo ' selected="selected"';}?> value="dvrptr3">DV-RPTR V3 (USB)</option>
-		<option<?php if ($configModem['Modem']['Hardware'] === 'zum') {			echo ' selected="selected"';}?> value="zum">MMDVM / MMDVM_HS / Teensy / ZUM (USB)</option>
 		<option<?php if ($configModem['Modem']['Hardware'] === 'stm32dvm') {		echo ' selected="selected"';}?> value="stm32dvm">STM32-DVM / MMDVM_HS - Raspberry Pi Hat (GPIO)</option>
 		<option<?php if ($configModem['Modem']['Hardware'] === 'stm32dvmv3+') {		echo ' selected="selected"';}?> value="stm32dvmv3+">RB STM32-DVM (GPIO v3+)</option>
 		<option<?php if ($configModem['Modem']['Hardware'] === 'stm32usb') {		echo ' selected="selected"';}?> value="stm32usb">RB STM32-DVM (USB)</option>
@@ -4583,7 +4576,7 @@ else:
 		<option<?php if ($configModem['Modem']['Hardware'] === 'zumspotgpio') {		echo ' selected="selected"';}?> value="zumspotgpio">ZUMspot - Single Band Raspberry Pi Hat (GPIO)</option>
 	        <option<?php if ($configModem['Modem']['Hardware'] === 'zumspotdualgpio') {	echo ' selected="selected"';}?> value="zumspotdualgpio">ZUMspot - Dual Band Raspberry Pi Hat (GPIO)</option>
 		<option<?php if ($configModem['Modem']['Hardware'] === 'zumspotduplexgpio') {	echo ' selected="selected"';}?> value="zumspotduplexgpio">ZUMspot - Duplex Raspberry Pi Hat (GPIO)</option>
-	        <option<?php if ($configModem['Modem']['Hardware'] === 'zumradiopigpio') {	echo ' selected="selected"';}?> value="zumradiopigpio">ZUM Radio-MMDVM for Pi (GPIO)</option>
+	        <option<?php if ($configModem['Modem']['Hardware'] === 'zumradiopigpio') {	echo ' selected="selected"';}?> value="zumradiopigpio">ZUM Radio-MMDVM (Rptr.) for Pi (GPIO)</option>
 	        <option<?php if ($configModem['Modem']['Hardware'] === 'zumradiopiusb') {	echo ' selected="selected"';}?> value="zumradiopiusb">ZUM Radio-MMDVM-Nucleo (USB)</option>
 	        <option<?php if ($configModem['Modem']['Hardware'] === 'f4mgpio') {		echo ' selected="selected"';}?> value="f4mgpio">MMDVM F4M-GPIO (GPIO)</option>
 	        <option<?php if ($configModem['Modem']['Hardware'] === 'f4mf7m') {		echo ' selected="selected"';}?> value="f4mf7m">MMDVM F4M/F7M (F0DEI) for USB</option>
