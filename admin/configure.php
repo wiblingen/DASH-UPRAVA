@@ -1529,7 +1529,7 @@ if (!empty($_POST)):
 	     system($rollTimeserverBand);
 	  }
 
-	  $newCallsignUpper = strtoupper(escapeshellcmd($_POST['confCallsign']));
+	  $newCallsignUpper = strtoupper(preg_replace('/[^A-Za-z0-9]/', '', $_POST['confCallsign']));
 	  $confRPT2 = str_pad(escapeshellcmd($_POST['confCallsign']), 7, " ")."G";
 
 	  $confRPT1 = strtoupper($confRPT1);
@@ -1567,6 +1567,7 @@ if (!empty($_POST)):
 
 	  $configysfgateway['General']['Callsign'] = $newCallsignUpper;
 	  $configmmdvm['General']['Callsign'] = $newCallsignUpper;
+	  $configmmdvm['FM']['Callsign'] = $newCallsignUpper;
 	  $configysfgateway['aprs.fi']['Password'] = aprspass($newCallsignUpper);
 	  $configysfgateway['aprs.fi']['Description'] = $newCallsignUpper."_WPSD";
 	  $configysf2dmr['aprs.fi']['Password'] = aprspass($newCallsignUpper);
@@ -3402,7 +3403,7 @@ if (!empty($_POST)):
 	if (isset($configmmdvm['Nextion']['Port'])) {
 	    if ( $configmmdvm['Nextion']['Port'] == "/dev/modem" ) { $configmmdvm['Nextion']['Port'] = "modem"; }
 	}
-	if (!isset($configmmdvm['FM'])) {
+	if (isset($configmmdvm['FM'])) {
 		$configmmdvm['FM']['Enable'] = "0";
 		$configmmdvm['FM']['Callsign'] = $newCallsignUpper;
 		$configmmdvm['FM']['CallsignSpeed'] = "20";
@@ -4339,7 +4340,7 @@ if (!empty($_POST)):
 	//         * Every Block is 8 chars and string total is 49 bytes/chars.
 	*/
 	if (isDVmegaCast() == 1) {
-	    $callsignCast = !empty($newCallsignUpper) ? $newCallsignUpper : 'PE1ABC';
+	    $callsignCast = !empty($newCallsignUpper) ? $newCallsignUpper : 'PE1XYZ';
 	    $dmridCast = !empty($newPostDmrId) ? $newPostDmrId : '2040000';
 	    $essidCast = !empty($_POST['bmExtendedId']) && $_POST['bmExtendedId'] !== 'None' ? $_POST['bmExtendedId'] : '00';
 	    $modSuffixCast = !empty($_POST['confDStarModuleSuffix']) ? $_POST['confDStarModuleSuffix'] : 'E';
