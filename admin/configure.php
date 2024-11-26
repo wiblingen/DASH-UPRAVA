@@ -3075,7 +3075,7 @@ if (!empty($_POST)):
 
 	// handle NONE display post
 	if ((empty($_POST['mmdvmDisplayType']) == TRUE) || (escapeshellcmd($_POST['mmdvmDisplayType']) == "None")) {
-	    $configmmdvm['General']['Display'] = "None";
+	    $configmmdvm['General']['Display'] = "";
 	    unset($_POST['mmdvmDisplayType']);
 	}
 
