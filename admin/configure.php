@@ -891,6 +891,8 @@ if ($_SERVER["PHP_SELF"] == "/admin/configure.php") {
      echo '<div class="contentwide">'."\n";
 if (!empty($_POST)):
 
+	exec('sudo wpsd-services fullstop > /dev/null 2>/dev/null');
+
 	// Admin Password Change
 	if (!empty($_POST['adminPassword'])) {
     	    $adminPassword = escapeshellarg(trim($_POST['adminPassword'])); // Escaping and trimming input
@@ -4410,7 +4412,7 @@ if (!empty($_POST)):
         if (isDVmegaCast() == 1) { // DVMega Cast mode logic
 	    system($rollCastMode);
 	}
-	exec('sudo wpsd-services restart > /dev/null 2>/dev/null &');
+	exec('sudo wpsd-services start > /dev/null 2>/dev/null &');
 
 	unset($_POST);
 	echo '<script type="text/javascript">window.location=window.location;</script>';
