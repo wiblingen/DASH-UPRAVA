@@ -24,20 +24,13 @@ $instanceUUID = $_SESSION['WPSDrelease']['WPSD']['UUID'];
 function getMacAddresses() {
     $interfaces = [];
     
-    $ifconfigExists = shell_exec('command -v ifconfig');
-    
-    if ($ifconfigExists) {
-        $output = shell_exec('ifconfig -a');
-        preg_match_all('/^(\w+):\s+.*?\n.*?\n.*?ether\s+([0-9a-f:]+)/im', $output, $matches, PREG_SET_ORDER);
-    } else {
-        $output = shell_exec('ip link');
-        preg_match_all('/^\d+:\s+(\w+):.*?\n\s+link\/ether\s+([0-9a-f:]+)/im', $output, $matches, PREG_SET_ORDER);
-    }
-    
+    $output = shell_exec('ip link');
+    preg_match_all('/^\d+:\s+(\w+):.*?\n\s+link\/ether\s+([0-9a-f:]+)/im', $output, $matches, PREG_SET_ORDER);
+
     foreach ($matches as $match) {
         $interfaces[] = ['interface' => $match[1], 'mac' => $match[2]];
     }
-    
+
     return $interfaces;
 }
 $interfaces = getMacAddresses();
