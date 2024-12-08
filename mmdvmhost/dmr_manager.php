@@ -77,7 +77,7 @@ if (!empty($_POST) && isset($_POST["dmrNetMan"])) {
 	unset($_POST);
 	echo '<script type="text/javascript">setTimeout(function() { window.location=window.location;},2000);</script>';
     } else {
-	$remoteCommand = "sudo systemctl stop cron  && sudo ".$action." /etc/.dmr-".$selectedNet."_disabled && cd /var/log/pi-star ; /usr/local/bin/RemoteCommand ".$_SESSION['DMRGatewayConfigs']['Remote Control']['Port']. " $state $selectedNet && sudo systemctl start cron";
+	$remoteCommand = "sudo systemctl stop cron  && sudo ".$action." /etc/.dmr-".$selectedNet."_disabled && cd /var/log/WPSD ; /usr/local/bin/RemoteCommand ".$_SESSION['DMRGatewayConfigs']['Remote Control']['Port']. " $state $selectedNet && sudo systemctl start cron";
 	if (isset($remoteCommand)) {
 	    echo "<table>\n<tr><th>Command Output</th></tr>\n<tr><td>";
 	    echo "<p>Selected DMR Network, \"".str_replace('_', ' ' , $netName)."\" set to \"".ucfirst($state)."d\"";
@@ -265,7 +265,7 @@ if ($_SESSION['DMRGatewayConfigs']['XLX Network']['Enabled'] == "1") {
 if(getDMRnetStatus("xlx") == "disabled") {
     $target = "<span class='paused-mode-span title='User Disabled'>User Disabled</span>";
 } else {
-    $target = exec('cd /var/log/pi-star; /usr/local/bin/RemoteCommand ' .$_SESSION['DMRGatewayConfigs']['Remote Control']['Port']. ' hosts | sed "s/ /\n/g" | egrep -oh "XLX(.*)" | sed "s/\"//g" | sed "s/_/ Module /g"'); 
+    $target = exec('cd /var/log/WPSD; /usr/local/bin/RemoteCommand ' .$_SESSION['DMRGatewayConfigs']['Remote Control']['Port']. ' hosts | sed "s/ /\n/g" | egrep -oh "XLX(.*)" | sed "s/\"//g" | sed "s/_/ Module /g"'); 
 }
 ?>
 <script>

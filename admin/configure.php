@@ -1007,7 +1007,7 @@ if (!empty($_POST)):
 	  exec('sudo git --work-tree=/var/www/dashboard --git-dir=/var/www/dashboard/.git reset --hard origin/master');
 	  // reset logs
 	  $log_backup_dir = "/home/pi-star/.backup-mmdvmhost-logs/";
-	  $log_dir = "/var/log/pi-star/";
+	  $log_dir = "/var/log/WPSD/";
           exec ("sudo rm -rf $log_dir/* $log_backup_dir/* > /dev/null");
 	  if (isDVmegaCast() == 1) { // if DVMega cast, reset main board
 	      system('sudo /usr/local/cast/bin/cast-reset ; sleep 5 > /dev/null 2>/dev/null');
@@ -3319,7 +3319,7 @@ if (!empty($_POST)):
 	$configm17gateway['Remote Commands']['Port'] = "6076";
 	$configm17gateway['Log']['DisplayLevel'] = "0";
 	$configm17gateway['Log']['FileLevel'] = "2";
-	$configm17gateway['Log']['FilePath'] = "/var/log/pi-star";
+	$configm17gateway['Log']['FilePath'] = "/var/log/WPSD";
 	$configm17gateway['Log']['FileRoot'] = "M17Gateway";
 	$configm17gateway['Voice']['Enabled'] = "1";
 	$configm17gateway['Voice']['Language'] = "en_US";
@@ -3500,7 +3500,7 @@ if (!empty($_POST)):
 	if (!isset($configysf2dmr['DMR Id Lookup']['DropUnknown'])) { $configysf2dmr['DMR Id Lookup']['DropUnknown'] = "0"; }
 	if (isset($configysf2dmr['Log']['DisplayLevel'])) { $configysf2dmr['Log']['DisplayLevel'] = "0"; }
 	if (isset($configysf2dmr['Log']['FileLevel'])) { $configysf2dmr['Log']['FileLevel'] = "2"; }
-	if (!isset($configysf2dmr['Log']['FilePath'])) { $configysf2dmr['Log']['FilePath'] = "/var/log/pi-star"; }
+	if (!isset($configysf2dmr['Log']['FilePath'])) { $configysf2dmr['Log']['FilePath'] = "/var/log/WPSD"; }
 	if (!isset($configysf2dmr['Log']['FileRoot'])) { $configysf2dmr['Log']['FileRoot'] = "YSF2DMR"; }
 	if (!isset($configysf2dmr['aprs.fi']['Enable'])) { $configysf2dmr['aprs.fi']['Enable'] = "0"; }
 	if (!isset($configysf2dmr['aprs.fi']['Port'])) { $configysf2dmr['aprs.fi']['Port'] = "14580"; }
@@ -3525,7 +3525,7 @@ if (!empty($_POST)):
 	$configysf2nxdn['NXDN Network']['TGListFile'] = "/usr/local/etc/TGList_NXDN.txt";
 	$configysf2nxdn['Log']['DisplayLevel'] = "0";
 	$configysf2nxdn['Log']['FileLevel'] = "2";
-	$configysf2nxdn['Log']['FilePath'] = "/var/log/pi-star";
+	$configysf2nxdn['Log']['FilePath'] = "/var/log/WPSD";
 	$configysf2nxdn['Log']['FileRoot'] = "YSF2NXDN";
 	if (!isset($configysf2nxdn['aprs.fi']['Enable'])) { $configysf2nxdn['aprs.fi']['Enable'] = "0"; }
 	if (!isset($configysf2nxdn['YSF Network']['WiresXMakeUpper'])) { $configysf2nxdn['YSF Network']['WiresXMakeUpper'] = "1"; }
@@ -3542,7 +3542,7 @@ if (!empty($_POST)):
 	$configysf2p25['P25 Network']['TGListFile'] = "/usr/local/etc/TGList_P25.txt";
 	$configysf2p25['Log']['DisplayLevel'] = "0";
 	$configysf2p25['Log']['FileLevel'] = "2";
-	$configysf2p25['Log']['FilePath'] = "/var/log/pi-star";
+	$configysf2p25['Log']['FilePath'] = "/var/log/WPSD";
 	$configysf2p25['Log']['FileRoot'] = "YSF2P25";
 	if (isset($configysf2p25['aprs.fi'])) { unset($configysf2p25['aprs.fi']); }
 	if (!isset($configysf2p25['YSF Network']['WiresXMakeUpper'])) { $configysf2p25['YSF Network']['WiresXMakeUpper'] = "1"; }
@@ -3559,7 +3559,7 @@ if (!empty($_POST)):
 	$configdgidgateway['General']['Bleep'] = "1";
 	$configdgidgateway['Log']['DisplayLevel'] = "0"; 
 	$configdgidgateway['Log']['FileLevel'] = "2";
-	$configdgidgateway['Log']['FilePath'] = "/var/log/pi-star";
+	$configdgidgateway['Log']['FilePath'] = "/var/log/WPSD";
 	$configdgidgateway['Log']['FileRoot'] = "DGIdGateway";
 	$configdgidgateway['Log']['FileRotate'] = "1";
 	$configdgidgateway['YSF Network']['Hosts'] = "/usr/local/etc/YSFHosts.txt";
@@ -3630,7 +3630,7 @@ if (!empty($_POST)):
 	if (isset($configp25gateway['Remote Commands']['Enable'])) { $configp25gateway['Remote Commands']['Enable'] = "1"; }
 	if (isset($configp25gateway['Remote Commands']['Port'])) { $configp25gateway['Remote Commands']['Port'] = "6074"; }
 	if (isset($configp25gateway['General']['Announcements'])) { unset($configp25gateway['General']['Announcements']); }
-	if (!isset($configp25gateway['Log']['FilePath'])) { $configp25gateway['Log']['FilePath'] = "/var/log/pi-star"; }
+	if (!isset($configp25gateway['Log']['FilePath'])) { $configp25gateway['Log']['FilePath'] = "/var/log/WPSD"; }
 	if (!isset($configp25gateway['Log']['FileRoot'])) { $configp25gateway['Log']['FileRoot'] = "P25Gateway"; }
 	if (!isset($configp25gateway['Log']['DisplayLevel'])) { $configp25gateway['Log']['DisplayLevel'] = "0"; }
 	if (!isset($configp25gateway['Log']['FileLevel'])) { $configp25gateway['Log']['FileLevel'] = "2"; }
@@ -3646,7 +3646,7 @@ if (!empty($_POST)):
 	if (isset($confignxdngateway['Remote Commands']['Port'])) { $confignxdngateway['Remote Commands']['Port'] = "6075"; }
 	if (isset($confignxdngateway['aprs.fi'])) { unset($confignxdngateway['aprs.fi']); }
 	if (!isset($confignxdngateway['General']['RptProtocol'])) { $confignxdngateway['General']['RptProtocol'] = "Icom"; }
-        if (!isset($confignxdngateway['Log']['FilePath'])) { $confignxdngateway['Log']['FilePath'] = "/var/log/pi-star"; }
+        if (!isset($confignxdngateway['Log']['FilePath'])) { $confignxdngateway['Log']['FilePath'] = "/var/log/WPSD"; }
         if (!isset($confignxdngateway['Log']['FileRoot'])) { $confignxdngateway['Log']['FileRoot'] = "NXDNGateway"; }
 	if (!isset($confignxdngateway['Log']['DisplayLevel'])) { $confignxdngateway['Log']['DisplayLevel'] = "0"; }
 	if (!isset($confignxdngateway['Log']['FileLevel'])) { $confignxdngateway['Log']['FileLevel'] = "2"; }
@@ -3713,7 +3713,7 @@ if (!empty($_POST)):
 	if (!isset($configdapnetgw['General']['Daemon'])) { $configdapnetgw['General']['Daemon'] = "0"; }
 	if (isset($configdapnetgw['Log']['DisplayLevel'])) { $configdapnetgw['Log']['DisplayLevel'] = "0"; }
 	if (isset($configdapnetgw['Log']['FileLevel'])) { $configdapnetgw['Log']['FileLevel'] = "2"; }
-	if (!isset($configdapnetgw['Log']['FilePath'])) { $configdapnetgw['Log']['FilePath'] = "/var/log/pi-star"; }
+	if (!isset($configdapnetgw['Log']['FilePath'])) { $configdapnetgw['Log']['FilePath'] = "/var/log/WPSD"; }
 	if (!isset($configdapnetgw['Log']['FileRoot'])) { $configdapnetgw['Log']['FileRoot'] = "DAPNETGateway"; }
 	if (!isset($configdapnetgw['DAPNET']['Address'])) { $configdapnetgw['DAPNET']['Address'] = "dapnet.afu.rwth-aachen.de"; }
 	if (!isset($configdapnetgw['DAPNET']['Port'])) { $configdapnetgw['DAPNET']['Port'] = "43434"; }

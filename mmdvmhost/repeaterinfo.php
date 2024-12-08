@@ -32,7 +32,7 @@ function FillConnectionHosts(&$destArray, $remoteEnabled, $remotePort) {
     if (($remoteEnabled == 1) && ($remotePort != 0)) {
 	$remoteOutput = null;
 	$remoteRetval = null;
-	exec('cd /var/log/pi-star; /usr/local/bin/RemoteCommand '.$remotePort.' hosts', $remoteOutput, $remoteRetval);
+	exec('cd /var/log/WPSD; /usr/local/bin/RemoteCommand '.$remotePort.' hosts', $remoteOutput, $remoteRetval);
 	if (($remoteRetval == 0) && (count($remoteOutput) >= 2)) {
 	    $expOutput = preg_split('/"[^"]*"(*SKIP)(*F)|\x20/', $remoteOutput[1]);
 	    foreach ($expOutput as $entry) {
@@ -47,7 +47,7 @@ function FillConnectionStatus(&$destArray, $remoteEnabled, $remotePort) {
     if (($remoteEnabled == 1) && ($remotePort != 0)) {
 	$remoteOutput = null;
 	$remoteRetval = null;
-	exec('cd /var/log/pi-star; /usr/local/bin/RemoteCommand '.$remotePort.' status', $remoteOutput, $remoteRetval);
+	exec('cd /var/log/WPSD; /usr/local/bin/RemoteCommand '.$remotePort.' status', $remoteOutput, $remoteRetval);
 	if (($remoteRetval == 0) && (count($remoteOutput) >= 2)) {
 	    $tok = strtok($remoteOutput[1], " \n\t");
 	    while ($tok !== false) {
@@ -120,7 +120,7 @@ if (isProcessRunning("M17Gateway")) {
 }
 
 // get number of DMR Masters configged for DMRGw:
-$numDMRmasters = exec('cd /var/log/pi-star ; /usr/local/bin/RemoteCommand '.$_SESSION['DMRGatewayConfigs']['Remote Control']['Port']. ' status | grep -o "conn" | wc -l');
+$numDMRmasters = exec('cd /var/log/WPSD ; /usr/local/bin/RemoteCommand '.$_SESSION['DMRGatewayConfigs']['Remote Control']['Port']. ' status | grep -o "conn" | wc -l');
 ?>
 
 <div class="mode_flex" id="rptInfoTable">
@@ -524,13 +524,13 @@ if ( $testMMDVModeDSTAR == 1 || isPaused("D-Star") ) { //Hide the D-Star Reflect
 			if ( !isset($_SESSION['DMRGatewayConfigs']['XLX Network 1']['Enabled']) && isset($_SESSION['DMRGatewayConfigs']['XLX Network']['Enabled']) && $_SESSION['DMRGatewayConfigs']['XLX Network']['Enabled'] == 1) {
 			    $xlxMasterHostLinkState = "";
 			    
-                            if (file_exists("/var/log/pi-star/DMRGateway-".gmdate("Y-m-d").".log")) {
-				$xlxMasterHostLinkState = exec('grep \'XLX, Linking\|XLX, Unlinking\|XLX, Logged\' /var/log/pi-star/DMRGateway-'.gmdate("Y-m-d").'.log | tail -1 | awk \'{print $5 " " $8 " " $9}\'');
+                            if (file_exists("/var/log/WPSD/DMRGateway-".gmdate("Y-m-d").".log")) {
+				$xlxMasterHostLinkState = exec('grep \'XLX, Linking\|XLX, Unlinking\|XLX, Logged\' /var/log/WPSD/DMRGateway-'.gmdate("Y-m-d").'.log | tail -1 | awk \'{print $5 " " $8 " " $9}\'');
 				if(empty($xlxMasterHostLinkState)) {
-				    $xlxMasterHostLinkState = exec('grep \'XLX, Linking\|XLX, Unlinking\|XLX, Logged\' /var/log/pi-star/DMRGateway-'.gmdate("Y-m-d", time() - 86340).'.log | tail -1 | awk \'{print $5 " " $8 " " $9}\'');
+				    $xlxMasterHostLinkState = exec('grep \'XLX, Linking\|XLX, Unlinking\|XLX, Logged\' /var/log/WPSD/DMRGateway-'.gmdate("Y-m-d", time() - 86340).'.log | tail -1 | awk \'{print $5 " " $8 " " $9}\'');
 				}
 			    } else {
-				$xlxMasterHostLinkState = exec('grep \'XLX, Linking\|XLX, Unlinking\|XLX, Logged\' /var/log/pi-star/DMRGateway-'.gmdate("Y-m-d", time() - 86340).'.log | tail -1 | awk \'{print $5 " " $8 " " $9}\'');
+				$xlxMasterHostLinkState = exec('grep \'XLX, Linking\|XLX, Unlinking\|XLX, Logged\' /var/log/WPSD/DMRGateway-'.gmdate("Y-m-d", time() - 86340).'.log | tail -1 | awk \'{print $5 " " $8 " " $9}\'');
 			    }
                             if ($xlxMasterHostLinkState != "") {
                                 if ( strpos($xlxMasterHostLinkState, 'Linking') !== false ) {

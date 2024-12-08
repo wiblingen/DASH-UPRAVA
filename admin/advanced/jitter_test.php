@@ -38,8 +38,8 @@ if ($_SERVER["PHP_SELF"] == "/admin/advanced/jitter_test.php") {
   } else { $target = ""; }
 
     if (!isset($_GET['ajax'])) {
-	system('sudo touch /var/log/pi-star/wpsd_icmptest.log > /dev/null 2>&1 &');
-	system('sudo echo "" > /var/log/pi-star/wpsd_icmptest.log > /dev/null 2>&1 &');
+	system('sudo touch /var/log/WPSD/wpsd_icmptest.log > /dev/null 2>&1 &');
+	system('sudo echo "" > /var/log/WPSD/wpsd_icmptest.log > /dev/null 2>&1 &');
 	system('sudo /usr/local/sbin/wpsd-dmr_jittertest '.$target.' > /dev/null 2>&1 &');
 	$_SESSION['jittertest-isrunning'] = 1;
     }
@@ -49,8 +49,8 @@ if ($_SERVER["PHP_SELF"] == "/admin/advanced/jitter_test.php") {
     
     if (!isset($_GET['ajax'])) {
 	//unset($_SESSION['update_offset']);
-	if (file_exists('/var/log/pi-star/wpsdr_icmptest.log')) {
-	    $_SESSION['update_offset'] = filesize('/var/log/pi-star/wpsd_icmptest.log');
+	if (file_exists('/var/log/WPSD/wpsdr_icmptest.log')) {
+	    $_SESSION['update_offset'] = filesize('/var/log/WPSD/wpsd_icmptest.log');
 	}
 	else {
 	    $_SESSION['update_offset'] = 0;
@@ -59,11 +59,11 @@ if ($_SERVER["PHP_SELF"] == "/admin/advanced/jitter_test.php") {
     
     if (isset($_GET['ajax'])) {
 	//session_start();
-	if (!file_exists('/var/log/pi-star/wpsd_icmptest.log')) {
+	if (!file_exists('/var/log/WPSD/wpsd_icmptest.log')) {
 	    exit();
 	}
 	
-	if (($handle = fopen('/var/log/pi-star/wpsd_icmptest.log', 'rb')) != false) {
+	if (($handle = fopen('/var/log/WPSD/wpsd_icmptest.log', 'rb')) != false) {
 	    if (isset($_SESSION['update_offset'])) {
 		fseek($handle, 0, SEEK_END);
 		if ($_SESSION['update_offset'] > ftell($handle)) { //log rotated/truncated

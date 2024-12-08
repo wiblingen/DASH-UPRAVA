@@ -1,5 +1,5 @@
 <?php
-$logPath='/var/log/pi-star';
+$logPath='/var/log/WPSD';
 $registerURL = '';
 $starLogPath = $logPath . '/STARnet.log';
 $linkLogPath = $logPath . '/Links.log';

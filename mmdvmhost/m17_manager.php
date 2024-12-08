@@ -41,10 +41,10 @@ if ($_SERVER["PHP_SELF"] == "/admin/index.php") { // Stop this working outside o
 		    if ($m17LinkHost != "none") { // Unlinking
 			$m17LinkToHost = "".$m17LinkHost."_".$_POST['m17LinkModule']."";
 		    }
-		    $remoteCommand = "cd /var/log/pi-star && sudo /usr/local/bin/RemoteCommand ".$remotePort." Reflector ".$m17LinkToHost."";
+		    $remoteCommand = "cd /var/log/WPSD && sudo /usr/local/bin/RemoteCommand ".$remotePort." Reflector ".$m17LinkToHost."";
 		}
 		else if ($_POST["Link"] == "UNLINK") {
-		    $remoteCommand = "cd /var/log/pi-star && sudo /usr/local/bin/RemoteCommand ".$remotePort." Reflector";
+		    $remoteCommand = "cd /var/log/WPSD && sudo /usr/local/bin/RemoteCommand ".$remotePort." Reflector";
 		}
 		else {
 		    echo "<div style='text-align:left;font-weight:bold;'>M17 Link Manager</div>\n";

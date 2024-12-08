@@ -28,7 +28,7 @@ if (isset($_SESSION['YSFGatewayConfigs']['Remote Commands']['Enable']) && (isset
 	    }
 	    if ($_POST["Link"] == "LINK") {
 		if ($_POST['ysfLinkHost'] == "none") {
-		    $remoteCommand = "cd /var/log/pi-star && sudo /usr/local/bin/RemoteCommand ".$remotePort." UnLink";
+		    $remoteCommand = "cd /var/log/WPSD && sudo /usr/local/bin/RemoteCommand ".$remotePort." UnLink";
 		    if (isset($_SESSION['DMR2YSFConfigs']['Enabled']['Enabled']) == 1) {
 			exec("sudo systemctl stop cron.service  ; sudo sed -i '/DefaultDstTG=/c\\DefaultDstTG=9' /etc/dmr2ysf ; sudo systemctl restart dmr2ysf.service ; sudo systemctl restart cron.service");
 		    }
@@ -37,14 +37,14 @@ if (isset($_SESSION['YSFGatewayConfigs']['Remote Commands']['Enable']) && (isset
 		    $ysfLinkHost = $_POST['ysfLinkHost'];
 		    $ysfType = substr($ysfLinkHost, 0, 3);
 		    $ysfID = substr($ysfLinkHost, 3);
-		    $remoteCommand = "cd /var/log/pi-star && sudo /usr/local/bin/RemoteCommand ".$remotePort." Link".$ysfType." ".$ysfID."";
+		    $remoteCommand = "cd /var/log/WPSD && sudo /usr/local/bin/RemoteCommand ".$remotePort." Link".$ysfType." ".$ysfID."";
 		    if (isset($_SESSION['DMR2YSFConfigs']['Enabled']['Enabled']) == 1) {
 			exec("sudo systemctl stop cron.service  ; sudo sed -i '/DefaultDstTG=/c\\DefaultDstTG=$ysfID' /etc/dmr2ysf ; sudo systemctl restart dmr2ysf.service ; sudo systemctl restart cron.service");
 		    }
 		}
 	    }
 	    else if ($_POST["Link"] == "UNLINK") {
-		$remoteCommand = "cd /var/log/pi-star && sudo /usr/local/bin/RemoteCommand ".$remotePort." UnLink";
+		$remoteCommand = "cd /var/log/WPSD && sudo /usr/local/bin/RemoteCommand ".$remotePort." UnLink";
 		if (isset($_SESSION['DMR2YSFConfigs']['Enabled']['Enabled']) == 1) {
 		    exec("sudo systemctl stop cron.service  ; sudo sed -i '/DefaultDstTG=/c\\DefaultDstTG=9' /etc/dmr2ysf ; sudo systemctl restart dmr2ysf.service ; sudo systemctl restart cron.service");
 		}

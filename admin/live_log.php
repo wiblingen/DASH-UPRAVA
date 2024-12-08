@@ -23,49 +23,49 @@ if ($_SERVER["PHP_SELF"] == "/admin/live_log.php") {
 
     switch ($log) {
 	case "MMDVMHost":
-	    $logfile = "/var/log/pi-star/MMDVM-".gmdate('Y-m-d').".log";
+	    $logfile = "/var/log/WPSD/MMDVM-".gmdate('Y-m-d').".log";
 	    break;
 	case "DMRGateway":
-	    $logfile = "/var/log/pi-star/DMRGateway-".gmdate('Y-m-d').".log";
+	    $logfile = "/var/log/WPSD/DMRGateway-".gmdate('Y-m-d').".log";
 	    break;
 	case "YSFGateway":
-	    $logfile = "/var/log/pi-star/YSFGateway-".gmdate('Y-m-d').".log";
+	    $logfile = "/var/log/WPSD/YSFGateway-".gmdate('Y-m-d').".log";
 	    break;
 	case "DGIdGateway":
-	    $logfile = "/var/log/pi-star/DGIdGateway-".gmdate('Y-m-d').".log";
+	    $logfile = "/var/log/WPSD/DGIdGateway-".gmdate('Y-m-d').".log";
 	    break;
 	case "ircDDBGateway":
-	    $logfile = "/var/log/pi-star/ircDDBGateway-".gmdate('Y-m-d').".log";
+	    $logfile = "/var/log/WPSD/ircDDBGateway-".gmdate('Y-m-d').".log";
 	    break;
 	case "P25Gateway":
-	    $logfile = "/var/log/pi-star/P25Gateway-".gmdate('Y-m-d').".log";
+	    $logfile = "/var/log/WPSD/P25Gateway-".gmdate('Y-m-d').".log";
 	    break;
 	case "NXDNGateway":
-	    $logfile = "/var/log/pi-star/NXDNGateway-".gmdate('Y-m-d').".log";
+	    $logfile = "/var/log/WPSD/NXDNGateway-".gmdate('Y-m-d').".log";
 	    break;
 	case "M17Gateway":
-	    $logfile = "/var/log/pi-star/M17Gateway-".gmdate('Y-m-d').".log";
+	    $logfile = "/var/log/WPSD/M17Gateway-".gmdate('Y-m-d').".log";
 	    break;
 	case "DAPNETGateway":
-	    $logfile = "/var/log/pi-star/DAPNETGateway-".gmdate('Y-m-d').".log";
+	    $logfile = "/var/log/WPSD/DAPNETGateway-".gmdate('Y-m-d').".log";
 	    break;
 	case "DMR2NXDN":
-	    $logfile = "/var/log/pi-star/DMR2NXDN-".gmdate('Y-m-d').".log";
+	    $logfile = "/var/log/WPSD/DMR2NXDN-".gmdate('Y-m-d').".log";
 	    break;
 	case "DMR2YSF":
-	    $logfile = "/var/log/pi-star/DMR2YSF-".gmdate('Y-m-d').".log";
+	    $logfile = "/var/log/WPSD/DMR2YSF-".gmdate('Y-m-d').".log";
 	    break;
 	case "YSF2DMR":
-	    $logfile = "/var/log/pi-star/YSF2DMR-".gmdate('Y-m-d').".log";
+	    $logfile = "/var/log/WPSD/YSF2DMR-".gmdate('Y-m-d').".log";
 	    break;
 	case "YSF2NXDN":
-	    $logfile = "/var/log/pi-star/YSF2NXDN-".gmdate('Y-m-d').".log";
+	    $logfile = "/var/log/WPSD/YSF2NXDN-".gmdate('Y-m-d').".log";
 	    break;
 	case "YSF2P25":
-	    $logfile = "/var/log/pi-star/YSF2P25-".gmdate('Y-m-d').".log";
+	    $logfile = "/var/log/WPSD/YSF2P25-".gmdate('Y-m-d').".log";
 	    break;
 	case "APRSGateway":
-	    $logfile = "/var/log/pi-star/APRSGateway-".gmdate('Y-m-d').".log";
+	    $logfile = "/var/log/WPSD/APRSGateway-".gmdate('Y-m-d').".log";
 	    break;
     }
     

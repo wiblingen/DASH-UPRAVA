@@ -22,13 +22,13 @@ setlocale(LC_ALL, "LC_CTYPE=en_GB.UTF-8;LC_NUMERIC=C;LC_TIME=C;LC_COLLATE=C;LC_M
 if ($_SERVER["PHP_SELF"] == "/admin/update.php") {
 
    if (!isset($_GET['ajax'])) {
-    if (!file_exists('/var/log/pi-star')) {
-      system('sudo mkdir -p /var/log/pi-star/');
-      system('sudo chmod 775 /var/log/pi-star/');
-      system('sudo chown root:mmdvm /var/log/pi-star/');
+    if (!file_exists('/var/log/WPSD')) {
+      system('sudo mkdir -p /var/log/WPSD/');
+      system('sudo chmod 775 /var/log/WPSD/');
+      system('sudo chown root:mmdvm /var/log/WPSD/');
     }
-     system('sudo touch /var/log/pi-star/WPSD-update.log > /dev/null 2>&1 &');
-     system('sudo echo "" > /var/log/pi-star/WPSD-update.log > /dev/null 2>&1 &');
+     system('sudo touch /var/log/WPSD/WPSD-update.log > /dev/null 2>&1 &');
+     system('sudo echo "" > /var/log/WPSD/WPSD-update.log > /dev/null 2>&1 &');
      system('sudo /usr/local/sbin/wpsd-update > /dev/null 2>&1 &');
   }
 
@@ -37,8 +37,8 @@ if ($_SERVER["PHP_SELF"] == "/admin/update.php") {
 
   if (!isset($_GET['ajax'])) {
     //unset($_SESSION['update_offset']);
-    if (file_exists('/var/log/pi-star/WPSD-update.log')) {
-      $_SESSION['update_offset'] = filesize('/var/log/pi-star/WPSD-update.log');
+    if (file_exists('/var/log/WPSD/WPSD-update.log')) {
+      $_SESSION['update_offset'] = filesize('/var/log/WPSD/WPSD-update.log');
     } else {
       $_SESSION['update_offset'] = 0;
     }
@@ -46,11 +46,11 @@ if ($_SERVER["PHP_SELF"] == "/admin/update.php") {
   
   if (isset($_GET['ajax'])) {
     //session_start();
-    if (!file_exists('/var/log/pi-star/WPSD-update.log')) {
+    if (!file_exists('/var/log/WPSD/WPSD-update.log')) {
       exit();
     }
     
-    $handle = fopen('/var/log/pi-star/WPSD-update.log', 'rb');
+    $handle = fopen('/var/log/WPSD/WPSD-update.log', 'rb');
     if (isset($_SESSION['update_offset'])) {
       fseek($handle, 0, SEEK_END);
       if ($_SESSION['update_offset'] > ftell($handle)) //log rotated/truncated

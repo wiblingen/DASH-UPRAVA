@@ -36,8 +36,8 @@ if ($_SERVER["PHP_SELF"] == "/admin/advanced/modem_fw_upgrade.php") {
     header('Cache-Control: no-cache');
 
     if (!isset($_GET['ajax'])) {
-	if (file_exists('/var/log/pi-star/WPSD-modemflash.log')) {
-	    $_SESSION['update_offset'] = filesize('/var/log/pi-star/WPSD-modemflash.log');
+	if (file_exists('/var/log/WPSD/WPSD-modemflash.log')) {
+	    $_SESSION['update_offset'] = filesize('/var/log/WPSD/WPSD-modemflash.log');
 	}
 	else {
 	    $_SESSION['update_offset'] = 0;
@@ -45,11 +45,11 @@ if ($_SERVER["PHP_SELF"] == "/admin/advanced/modem_fw_upgrade.php") {
     }
     
     if (isset($_GET['ajax'])) {
-	if (!file_exists('/var/log/pi-star/WPSD-modemflash.log')) {
+	if (!file_exists('/var/log/WPSD/WPSD-modemflash.log')) {
 	    exit();
 	}
 	
-	if (($handle = fopen('/var/log/pi-star/WPSD-modemflash.log', 'rb')) != false) {
+	if (($handle = fopen('/var/log/WPSD/WPSD-modemflash.log', 'rb')) != false) {
 	    if (isset($_SESSION['update_offset'])) {
 		fseek($handle, 0, SEEK_END);
 		if ($_SESSION['update_offset'] > ftell($handle)) { //log rotated/truncated

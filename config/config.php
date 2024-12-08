@@ -1,16 +1,16 @@
 <?php
 
-define("MMDVMLOGPATH", "/var/log/pi-star");
+define("MMDVMLOGPATH", "/var/log/WPSD");
 define("MMDVMLOGPREFIX", "MMDVM");
-define("YSFGATEWAYLOGPATH", "/var/log/pi-star");
+define("YSFGATEWAYLOGPATH", "/var/log/WPSD");
 define("YSFGATEWAYLOGPREFIX", "YSFGateway");
 define("YSFGATEWAYINIPATH", "/etc");
 define("YSFGATEWAYINIFILENAME", "ysfgateway");
-define("P25GATEWAYLOGPATH", "/var/log/pi-star");
+define("P25GATEWAYLOGPATH", "/var/log/WPSD");
 define("P25GATEWAYLOGPREFIX", "P25Gateway");
 define("P25GATEWAYINIPATH", "/etc");
 define("P25GATEWAYINIFILENAME", "p25gateway");
-define("LINKLOGPATH", "/var/log/pi-star");
+define("LINKLOGPATH", "/var/log/WPSD");
 
 $config_file = '/etc/WPSD-Dashboard-Config.ini';
 
