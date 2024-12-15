@@ -195,7 +195,7 @@ function signalStrengthBars($signalStrength) {
 	$bars .= "<span style='color:$color;'>&#x2588;</span>"; // Unicode FULL BLOCK character
     }
     for ($i = $filledBars; $i < $numBars; $i++) {
-	$bars .= "<span style='color:#666666;'>&#x2588;</span>"; // Unicode FULL BLOCK character
+	$bars .= "<span style='color:#D1D1D1;'>&#x2588;</span>"; // Unicode FULL BLOCK character
     }
     return $bars;
 }
@@ -449,7 +449,7 @@ else {
     <label for="action">Action:</label>
     <select name="action" id="action" onchange="showHideFormFields()">
         <option value="" selected disabled>Choose Action...</option>
-        <option value="scan">Scan &amp Add Available Networks (10 secs.)</option>
+        <option value="scan">Scan &amp Add Available Networks (can take 10 secs.)</option>
         <option value="add">Add Connection Manually</option>
     </select>
     <br>
