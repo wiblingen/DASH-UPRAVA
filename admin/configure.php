@@ -4771,6 +4771,7 @@ else:
                 if ($configdgidgateway['Enabled']['Enabled'] !== "1")  { echo(' disabled="disabled"'); }?> >
                 <label for="aprsgw-service-selection-2">DGId</label>
             </div>
+	    <?php if (isDVmegaCast() == 0) { // Begin DVMega Cast logic... ?>
             <div style="display: inline-block;vertical-align: middle; margin-left:5px;">
                 <input name="NXDNGatewayAPRS"  id="aprsgw-service-selection-3" value="NXDNGatewayAPRS" type="checkbox"
                 <?php if($NXDNGatewayAPRS == "1" && $configmmdvm['NXDN Network']['Enable'] == "1") { echo(' checked="checked"'); }
@@ -4789,6 +4790,7 @@ else:
                 if ($configs['ircddbEnabled'] !== "1" || $configmmdvm['D-Star Network']['Enable'] !== "1")  { echo(' disabled="disabled"'); }?> >
                 <label for="aprsgw-service-selection-5">ircDDB (D-Star)</label>
             </div>
+	    <?php } // end DVMega Cast logic ?>
             <br /><em><small>(Note: Radio/MMDVM Mode must be enabled to select APRS mode publishing.)</small></em>
           </div>
         </div>
@@ -4805,8 +4807,13 @@ else:
     </td>
     </tr>
     <tr>
+    <?php if (isDVmegaCast() == 0) { // Begin DVMega Cast logic... ?>
     <td colspan="4" style='word-wrap: break-word;white-space: normal;padding-left: 5px;' align="left"><i class="fa fa-info-circle"></i> APRSGateway will use the location information (Lat./Lon.) you have entered above. However, If you have a GPS device connected and have enabled GPSd (below), it will use the GPS device location informaion.</td>
+    <?php } else { ?>
+    <td colspan="4" style='word-wrap: break-word;white-space: normal;padding-left: 5px;' align="left"><i class="fa fa-info-circle"></i> APRSGateway will use the location information (Lat./Lon.) you have entered above.</td>
+    <?php } // end DVMega Cast logic ?>
     </tr>
+    <?php if (isDVmegaCast() == 0) { // Begin DVMega Cast logic... ?>
     <tr>
     <td align="left"><a class="tooltip2" href="#">GPSd:<span><b>GPS daemon support</b>Read NMEA data from a serially connected GPS unit and then to make that data available for other programs.</span></a></td>
     <input type="hidden" name="GPSD" value="OFF" />
@@ -4820,6 +4827,7 @@ else:
     </td>
     <td colspan="3" style='word-wrap: break-word;white-space: normal;padding-left: 5px;' align="left"><i class="fa fa-question-circle"></i> Enabling this option, allows an externally-connected GPS device to send your location information to APRS, vs. the location information (Lat./Lon.) you have entered above. This functionality requires that you also enable APRS Gateway (above).</td>
     </tr>
+    <?php } // end DVMega Cast logic ?>
     </table>
 
     <br /><br />
