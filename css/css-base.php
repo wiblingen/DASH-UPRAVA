@@ -2,7 +2,7 @@
 
 $UUID = $_SESSION['WPSDrelease']['WPSD']['UUID'];
 
-if (!file_exists('/etc/wpsd-css.ini') && !file_exists('/etc/pistar-css.ini')) {
+if (!file_exists('/etc/wpsd-css.ini')) {
     $outFile = fopen("/tmp/bW1kd4jg6b3N0DQo.tmp", "w") or die("Unable to open file!");
     $headers = stream_context_create(Array("http" => Array("method"  => "GET",
                                                            "timeout" => 10,
