@@ -4413,11 +4413,20 @@ if (!empty($_POST)):
 	    system($rollUpdateCheckConfig);
 	}
 
+	// User map opt-in
+	if (!empty($_POST['mapOpted'])) {
+	    $newMapOpted = escapeshellcmd($_POST['mapOpted']);
+    
+	    $rollMapOpted = "sudo sed -i \"/OptIntoUserMap = /c\\OptIntoUserMap = $newMapOpted\" $config_file";
+	    system($rollMapOpted);
+	}
+
 	// Start all services
         if (isDVmegaCast() == 1) { // DVMega Cast mode logic
 	    system($rollCastMode);
 	}
 	exec('sudo wpsd-services start > /dev/null 2>/dev/null &');
+	exec('sudo .wpsd-slipstream-tasks > /dev/null 2>/dev/null &');
 
 	unset($_POST);
 	echo '<script type="text/javascript">window.location=window.location;</script>';
@@ -4717,6 +4726,14 @@ else:
     <td align="left" colspan="3"><input type="text" name="confDesc2" size="30" maxlength="30" value="<?php echo $configs['description2'] ?>" /></td>
     </tr>
     <tr>
+    <tr>
+    <td align="left"><a class="tooltip2" href="#">Show Hotspot on WPSD User Map:<span><b>Show Hotspot on WPSD User Map</b>Enables/Disables your WPSD Hotspot being displayed on the WPSD User Map.</span></a></td>
+    <td colspan="2" align="left">
+    <input type="radio" name="mapOpted" value="false" <?php if (constant("MAP_OPTED") == "false" || !defined(constant("MAP_OPTED"))  ) { echo 'checked="checked"'; } ?> />Disabled
+    <input type="radio" name="mapOpted" value="true" <?php if (constant("MAP_OPTED") == "true") { echo 'checked="checked"'; } ?> />Enabled
+    </td>
+    <td align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'>Enables/Disables your WPSD Hotspot being displayed on the <a href="https://cdn.w0chp.net/WPSD-Map/" target="_new">WPSD User Map</a>.</td>
+    </tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo __( 'URL' );?>:<span><b>URL</b>Your URL you'd like to be displayed in various networks/gateways, such as Brandmeister, DMR+, etc.<br><br>This does NOT affect your callsign link on the Dashboard page.</span></a></td>
     <td align="left" colspan="2"><input type="text" name="confURL" size="45" maxlength="255" value="<?php echo $configs['url'] ?>" /></td>
     <td align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'>

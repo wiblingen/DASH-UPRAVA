@@ -37,6 +37,13 @@ if (file_exists($config_file)) {
         define('AUTO_UPDATE_CHECK', 'true');
     }
 
+    if (isset($config['WPSD']['OptIntoUserMap'])) {
+        define('MAP_OPTED', $config['WPSD']['OptIntoUserMap'] === '1' ? 'true' : 'false');
+    } else {
+        define('MAP_OPTED', 'false');
+    }
+
+
     $DashLanguage = !empty($config['WPSD']['DashLanguage']) ? $config['WPSD']['DashLanguage'] : 'english_us';
 }
 ?>
