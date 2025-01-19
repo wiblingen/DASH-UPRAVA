@@ -771,6 +771,11 @@ $MYCALL=strtoupper($callsign);
         }
     }
 </script>
+<style>
+input[type=number] {
+    font: 0.8em 'Inconsolata', monospace !important;
+}
+</style>
 </head>
 <body onload="checkFrequency(); return false;">
 <div id="unsavedChanges">
@@ -4663,7 +4668,7 @@ else:
     }
 ?>
     </select></td>
-    <td align="left" colspan="2">Time Format: 
+    <td align="left" colspan="2">Dashboard Time Format: 
     <input type="radio" name="systemTimeFormat" value="24" <?php if (constant("TIME_FORMAT") == "24") {  echo 'checked="checked"'; } ?> />24 Hour
     <input type="radio" name="systemTimeFormat" value="12" <?php if (constant("TIME_FORMAT") == "12") { echo 'checked="checked"'; } ?> />12 Hour
     </tr>
@@ -4706,16 +4711,108 @@ else:
     <table>
     <tr>
     </tr>
-    <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo __( 'Latitude' );?>:<span><b>Gateway Latitude</b>This is the latitude where the gateway is located (positive number for North, negative number for South) - Set to 0 to hide your hotspot location</span></a></td>
-    <td align="left" colspan="3"><input type="text" id="confLatitude" name="confLatitude" size="13" maxlength="9" value="<?php echo $configmmdvm['Info']['Latitude']; ?>" /> degrees (positive value for North, negative for South)</td>
-    </tr>
-    <tr>
-    <td align="left"><a class="tooltip2" href="#"><?php echo __( 'Longitude' );?>:<span><b>Gateway Longitude</b>This is the longitude where the gateway is located (positive number for East, negative number for West) - Set to 0 to hide your hotspot location</span></a></td>
-    <td align="left" colspan="3"><input type="text" id="confLongitude" name="confLongitude" size="13" maxlength="9" value="<?php echo $configmmdvm['Info']['Longitude'];  ?>" /> degrees (positive value for East, negative for West)</td>
-    </tr>
+<tr>
+    <td align="left"><a class="tooltip2" href="#"><?php echo __( 'Latitude' );?>:<span><b>Node Latitude</b>This is the latitude where the node is located (positive number for North, negative number for South) - Set to 0 to diable</span></a></td>
+    <td align="left" colspan="3">
+        <input type="number" 
+               id="confLatitude" 
+               name="confLatitude" 
+               size="15" 
+               step="0.000001"
+               min="-90" 
+               max="90" 
+               value="<?php echo $configmmdvm['Info']['Latitude']; ?>" 
+               onchange="validateDecimalDegrees(this, 'latitude')"
+               required
+        /> degrees (positive value for North, negative for South)
+        <span id="latitudeError" class="error-message" style="color: red; display: none;"></span>
+    </td>
+</tr>
+<tr>
+    <td align="left"><a class="tooltip2" href="#"><?php echo __( 'Longitude' );?>:<span><b>Node Longitude</b>This is the longitude where the node is located (positive number for East, negative number for West) - Set to 0 to disable</span></a></td>
+    <td align="left" colspan="3">
+        <input type="number" 
+               id="confLongitude" 
+               name="confLongitude" 
+               size="15" 
+               step="0.000001"
+               min="-180" 
+               max="180" 
+               value="<?php echo $configmmdvm['Info']['Longitude']; ?>" 
+               onchange="validateDecimalDegrees(this, 'longitude')"
+               required
+        /> degrees (positive value for East, negative for West)
+        <span id="longitudeError" class="error-message" style="color: red; display: none;"></span>
+    </td>
+</tr>
+
+<script>
+function validateDecimalDegrees(input, type) {
+    const value = parseFloat(input.value);
+    const errorElement = document.getElementById(type + 'Error');
+    
+    // Check if it's a valid number
+    if (isNaN(value)) {
+        errorElement.textContent = "Please enter a valid decimal number";
+        errorElement.style.display = "block";
+        input.value = "";
+        return false;
+    }
+    
+    // Validate range based on type
+    const ranges = {
+        latitude: { min: -90, max: 90 },
+        longitude: { min: -180, max: 180 }
+    };
+    
+    const range = ranges[type];
+    if (value < range.min || value > range.max) {
+        errorElement.textContent = `${type.charAt(0).toUpperCase() + type.slice(1)} must be between ${range.min} and ${range.max} degrees`;
+        errorElement.style.display = "block";
+        input.value = "";
+        return false;
+    }
+    
+    // Special case for value 0 (hiding location)
+    if (value === 0) {
+        errorElement.style.display = "none";
+        return true;
+    }
+    
+    // Validate decimal places (maximum 6 decimal places)
+    const decimalPlaces = (input.value.split('.')[1] || '').length;
+    if (decimalPlaces > 6) {
+        errorElement.textContent = "Maximum 6 decimal places allowed";
+        errorElement.style.display = "block";
+        input.value = value.toFixed(6);
+        return false;
+    }
+    
+    // Clear error message if validation passes
+    errorElement.style.display = "none";
+    return true;
+}
+
+// Add form submit handler to validate both fields
+document.querySelector('form').addEventListener('submit', function(e) {
+    const latValid = validateDecimalDegrees(document.getElementById('confLatitude'), 'latitude');
+    const longValid = validateDecimalDegrees(document.getElementById('confLongitude'), 'longitude');
+    
+    if (!latValid || !longValid) {
+        e.preventDefault();
+    }
+});
+</script>
     <tr>
     <td colspan="4" align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'><i class="fa fa-info-circle"></i> Hint: You can use <a href="https://w0chp.radio/get-your-location-coords/" target="_new">this tool to try and calculate your location coordinates.</a></td>
+    </tr>
+    <tr>
+    <td align="left"><a class="tooltip2" href="#">Show This Node on the WPSD User Map:<span><b>Show Node on the WPSD User Map</b>Enables/Disables your WPSD Node being displayed on the WPSD User Map.</span></a></td>
+    <td colspan="2" align="left">
+    <input type="radio" name="mapOpted" value="false" <?php if (constant("MAP_OPTED") == "false" || !defined(constant("MAP_OPTED"))  ) { echo 'checked="checked"'; } ?> />Hide
+    <input type="radio" name="mapOpted" value="true" <?php if (constant("MAP_OPTED") == "true") { echo 'checked="checked"'; } ?> />Display
+    </td>
+    <td align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'>Display Your WPSD Node on the <a href="https://cdn.w0chp.net/WPSD-Map/" target="_new">WPSD User Map</a>.<br><small><i class="fa fa-exclamation-circle"></i> Note: You must input your latitude and longitude coordinates above to ensure map accuracy.</small></td>
     </tr>
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo __( 'Town' );?>:<span><b>Gateway City/State</b>The City/State where the gateway is located</span></a></td>
@@ -4724,15 +4821,6 @@ else:
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo __( 'Country' );?>:<span><b>Gateway Country</b>The country where the gateway is located</span></a></td>
     <td align="left" colspan="3"><input type="text" name="confDesc2" size="30" maxlength="30" value="<?php echo $configs['description2'] ?>" /></td>
-    </tr>
-    <tr>
-    <tr>
-    <td align="left"><a class="tooltip2" href="#">Show Hotspot on WPSD User Map:<span><b>Show Hotspot on WPSD User Map</b>Enables/Disables your WPSD Hotspot being displayed on the WPSD User Map.</span></a></td>
-    <td colspan="2" align="left">
-    <input type="radio" name="mapOpted" value="false" <?php if (constant("MAP_OPTED") == "false" || !defined(constant("MAP_OPTED"))  ) { echo 'checked="checked"'; } ?> />Disabled
-    <input type="radio" name="mapOpted" value="true" <?php if (constant("MAP_OPTED") == "true") { echo 'checked="checked"'; } ?> />Enabled
-    </td>
-    <td align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'>Enables/Disables your WPSD Hotspot being displayed on the <a href="https://cdn.w0chp.net/WPSD-Map/" target="_new">WPSD User Map</a>.</td>
     </tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo __( 'URL' );?>:<span><b>URL</b>Your URL you'd like to be displayed in various networks/gateways, such as Brandmeister, DMR+, etc.<br><br>This does NOT affect your callsign link on the Dashboard page.</span></a></td>
     <td align="left" colspan="2"><input type="text" name="confURL" size="45" maxlength="255" value="<?php echo $configs['url'] ?>" /></td>
@@ -6860,39 +6948,61 @@ echo'
     var aprsGatewayCheckbox;
 
     window.onload = function () {
-        toggleAPRSGatewayCheckbox();
+      toggleAPRSGatewayCheckbox();
     };
 
     function toggleAPRSGatewayCheckbox() {
-        aprsGatewayCheckbox = document.getElementById('toggle-aprsgateway');
-        var gpsdCheckbox = document.getElementById('toggle-GPSD');
-        var dmrCheckbox = document.getElementById('aprsgw-service-selection-0');
-        var ysfCheckbox = document.getElementById('aprsgw-service-selection-1');
-        var dgIdCheckbox = document.getElementById('aprsgw-service-selection-2');
-        var nxdnCheckbox = document.getElementById('aprsgw-service-selection-3');
-        var m17Checkbox = document.getElementById('aprsgw-service-selection-4');
-        var ircDDBCheckbox = document.getElementById('aprsgw-service-selection-5');
+      aprsGatewayCheckbox = document.getElementById('toggle-aprsgateway');
+      var gpsdCheckbox = document.getElementById('toggle-GPSD');
+      var dmrCheckbox = document.getElementById('aprsgw-service-selection-0');
+      var ysfCheckbox = document.getElementById('aprsgw-service-selection-1');
+      var dgIdCheckbox = document.getElementById('aprsgw-service-selection-2');
+      var nxdnCheckbox = document.getElementById('aprsgw-service-selection-3');
+      var m17Checkbox = document.getElementById('aprsgw-service-selection-4');
+      var ircDDBCheckbox = document.getElementById('aprsgw-service-selection-5');
 
-        // Disable or enable GPSD based on the state of APRS Gateway checkbox
-        gpsdCheckbox.disabled = !aprsGatewayCheckbox.checked;
+      // Disable or enable GPSD based on the state of APRS Gateway checkbox
+      if (gpsdCheckbox) {
+          gpsdCheckbox.disabled = !aprsGatewayCheckbox.checked;
 
-        // Uncheck GPSD if APRS Gateway is unchecked
-        if (!aprsGatewayCheckbox.checked) {
-            gpsdCheckbox.checked = false;
-        }
+          // Uncheck GPSD if APRS Gateway is unchecked
+          if (!aprsGatewayCheckbox.checked) {
+              gpsdCheckbox.checked = false;
+          }
+      }
 
-        // Disable or enable other checkboxes based on the state of APRS Gateway checkbox
-        dmrCheckbox.disabled = !aprsGatewayCheckbox.checked;
-        ysfCheckbox.disabled = !aprsGatewayCheckbox.checked;
-        dgIdCheckbox.disabled = !aprsGatewayCheckbox.checked;
-        nxdnCheckbox.disabled = !aprsGatewayCheckbox.checked;
-        m17Checkbox.disabled = !aprsGatewayCheckbox.checked;
-        ircDDBCheckbox.disabled = !aprsGatewayCheckbox.checked;
+      // For each mode checkbox, respect both PHP-set disabled state and APRS Gateway state
+      if (dmrCheckbox) {
+          dmrCheckbox.disabled = dmrCheckbox.hasAttribute('disabled') || !aprsGatewayCheckbox.checked;
+      }
+    
+      if (ysfCheckbox) {
+          ysfCheckbox.disabled = ysfCheckbox.hasAttribute('disabled') || !aprsGatewayCheckbox.checked;
+      }
+    
+      if (dgIdCheckbox) {
+          dgIdCheckbox.disabled = dgIdCheckbox.hasAttribute('disabled') || !aprsGatewayCheckbox.checked;
+      }
+    
+      if (nxdnCheckbox) {
+          nxdnCheckbox.disabled = nxdnCheckbox.hasAttribute('disabled') || !aprsGatewayCheckbox.checked;
+      }
+    
+      if (m17Checkbox) {
+          m17Checkbox.disabled = m17Checkbox.hasAttribute('disabled') || !aprsGatewayCheckbox.checked;
+      }
+    
+      if (ircDDBCheckbox) {
+          ircDDBCheckbox.disabled = ircDDBCheckbox.hasAttribute('disabled') || !aprsGatewayCheckbox.checked;
+      }
     }
 
     // Add an event listener to the toggle-aprsgateway checkbox to call the function when its state changes
     window.addEventListener('load', function () {
-        aprsGatewayCheckbox.addEventListener('change', toggleAPRSGatewayCheckbox);
+      aprsGatewayCheckbox = document.getElementById('toggle-aprsgateway');
+      if (aprsGatewayCheckbox) {
+          aprsGatewayCheckbox.addEventListener('change', toggleAPRSGatewayCheckbox);
+      }
     });
 </script>
 </body>
