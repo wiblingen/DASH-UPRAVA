@@ -1101,7 +1101,7 @@ if (!empty($_POST)):
 	}
 
 	// Set the Latitude
-	if (empty($_POST['confLatitude']) != TRUE ) {
+	if (isset($_POST['confLatitude']) && is_numeric($_POST['confLatitude'])) {
 	  $newConfLatitude = preg_replace('/[^0-9\.\-]/', '', $_POST['confLatitude']);
 	  $rollConfLat0 = 'sudo sed -i "/latitude=/c\\latitude='.$newConfLatitude.'" /etc/ircddbgateway';
 	  $rollConfLat1 = 'sudo sed -i "/latitude1=/c\\latitude1='.$newConfLatitude.'" /etc/ircddbgateway';
@@ -1119,7 +1119,7 @@ if (!empty($_POST)):
 	}
 
 	// Set the Longitude
-	if (empty($_POST['confLongitude']) != TRUE ) {
+	if (isset($_POST['confLongitude']) && is_numeric($_POST['confLongitude'])) {
 	  $newConfLongitude = preg_replace('/[^0-9\.\-]/', '', $_POST['confLongitude']);
 	  $rollConfLon0 = 'sudo sed -i "/longitude=/c\\longitude='.$newConfLongitude.'" /etc/ircddbgateway';
 	  $rollConfLon1 = 'sudo sed -i "/longitude1=/c\\longitude1='.$newConfLongitude.'" /etc/ircddbgateway';
