@@ -87,7 +87,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/advanced/modem_fw_upgrade.php") {
        $mmdvm_hs_version = $versionData['mmdvm_hs'];
        $dvmega_fw_version = $versionData['dvmega'];
        $rpt_version = $versionData['rpt'];
-       $fw_ver_msg = "Latest firmware version(s): MMDVM Hotspots: <b><code>v.".$mmdvm_hs_version. "</code></b> &bull; DVMega: <b><code>v.".$dvmega_fw_version."</code></b> &bull; MMDVM Repeaters: <b><code>v.".$rpt_version."</code></b>";
+       $fw_ver_msg = "Latest firmware version(s): MMDVM Hotspots: <b><code>v".$mmdvm_hs_version. "</code></b> &bull; DVMega: <b><code>v".$dvmega_fw_version."</code></b> &bull; MMDVM Repeaters: <b><code>v".$rpt_version."</code></b>";
    } else {
        $fw_ver_msg = "Unkown (failed to retrieve firmware version).";
    }
