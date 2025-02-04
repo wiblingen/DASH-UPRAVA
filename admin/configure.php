@@ -4816,11 +4816,11 @@ document.querySelector('form').addEventListener('submit', function(e) {
     </tr>
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo __( 'Town' );?>:<span><b>Gateway City/State</b>The City/State where the gateway is located</span></a></td>
-    <td align="left" colspan="3"><input type="text" name="confDesc1" size="30" maxlength="30" value="<?php echo $configs['description1'] ?>" /></td>
+    <td align="left" colspan="3"><input type="text" name="confDesc1" size="30" value="<?php echo $configs['description1'] ?>" /></td>
     </tr>
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo __( 'Country' );?>:<span><b>Gateway Country</b>The country where the gateway is located</span></a></td>
-    <td align="left" colspan="3"><input type="text" name="confDesc2" size="30" maxlength="30" value="<?php echo $configs['description2'] ?>" /></td>
+    <td align="left" colspan="3"><input type="text" name="confDesc2" size="30" value="<?php echo $configs['description2'] ?>" /></td>
     </tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo __( 'URL' );?>:<span><b>URL</b>Your URL you'd like to be displayed in various networks/gateways, such as Brandmeister, DMR+, etc.<br><br>This does NOT affect your callsign link on the Dashboard page.</span></a></td>
     <td align="left" colspan="2"><input type="text" name="confURL" size="45" maxlength="255" value="<?php echo $configs['url'] ?>" /></td>
@@ -5380,7 +5380,7 @@ document.querySelector('form').addEventListener('submit', function(e) {
     <?php } // end DVmega Cast logic ?>
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo __( 'Remote Password' );?>:<span><b>Remote Password</b>Used for ircDDBGateway remote control access</span></a></td>
-    <td align="left" colspan="2"><input type="password" name="confPassword" id="ircddbPass" size="30" maxlength="30" value="<?php echo $configs['remotePassword'] ?>" />
+    <td align="left" colspan="2"><input type="password" name="confPassword" id="ircddbPass" size="30" value="<?php echo $configs['remotePassword'] ?>" />
     <span toggle="#password-field" class="fa fa-fw fa-eye field_icon toggle-ircddb-password"></span></td>
     </tr>
     <tr>
@@ -5736,7 +5736,7 @@ $ysfHosts = fopen("/usr/local/etc/YSFHosts.txt", "r"); ?>
     <tr>
       <td align="left"><a class="tooltip2" href="#">Hotspot Security:<span><b>DMR Master Password</b>Override the Password for DMR with your own custom password, make sure you already configured this on your chosed DMR Master. Empty the field to use the default.</span></a></td>
       <td align="left" colspan="2">
-        <input type="password" name="bmHSSecurity_YSF" id="bmHSSecurity_YSF" size="30" maxlength="30" value="<?php if (isset($configModem['BrandMeister']['Password'])) {echo $configModem['BrandMeister']['Password'];} ?>"></input>
+        <input type="password" name="bmHSSecurity_YSF" id="bmHSSecurity_YSF" size="30" value="<?php if (isset($configModem['BrandMeister']['Password'])) {echo $configModem['BrandMeister']['Password'];} ?>"></input>
 	<span toggle="#password-field" class="fa fa-fw fa-eye field_icon toggle-bm-password_YSF"></span>
       </td>
     </tr>
@@ -6038,7 +6038,7 @@ $ysfHosts = fopen("/usr/local/etc/YSFHosts.txt", "r"); ?>
     <tr>
       <td align="left"><a class="tooltip2" href="#">BM Hotspot Security:<span><b>BrandMeister Password</b>Enter your Security password for BrandMeister, and make sure you already configured this using BM Self Care.</span></a></td>
       <td align="left" colspan="2">
-        <input type="password" name="bmHSSecurity" id="bmHSSecurity" size="30" maxlength="30" value="<?php if (isset($configModem['BrandMeister']['Password'])) {echo $configModem['BrandMeister']['Password'];} ?>"></input>
+        <input type="password" name="bmHSSecurity" id="bmHSSecurity" size="30" value="<?php if (isset($configModem['BrandMeister']['Password'])) {echo $configModem['BrandMeister']['Password'];} ?>"></input>
         <span toggle="#password-field" class="fa fa-fw fa-eye field_icon toggle-bm-password"></span>
       </td>
       <td align="left"><a href="https://brandmeister.network/?page=register" target="_new">Register for a Brandmeister Account...</a></td>
@@ -6335,7 +6335,7 @@ if (!@file_exists($bmAPIkeyFile) && !@fopen($bmAPIkeyFile,'r')) {
     <tr>
       <td align="left"><a class="tooltip2" href="#">TGIF Security Key:<span><b>TGIF Security Key</b>Override the default login with your own TGIF security key, Make sure you already configured this using TGIF Self Care. Empty the field to use the default.</span></a></td>
       <td align="left" colspan="2">
-        <input type="password" name="tgifHSSecurity" id="tgifHSSecurity" size="30" maxlength="30" value="<?php if (isset($configModem['TGIF']['Password'])) {echo $configModem['TGIF']['Password'];} ?>"></input>
+        <input type="password" name="tgifHSSecurity" id="tgifHSSecurity" size="30" value="<?php if (isset($configModem['TGIF']['Password'])) {echo $configModem['TGIF']['Password'];} ?>"></input>
 	<span toggle="#password-field" class="fa fa-fw fa-eye field_icon toggle-tgif-password"></span>
       </td>
       <td align="left"><a href="https://tgif.network/profile.php?tab=Security" target="_new">Get your TGIF Security Key here...</a></td>
