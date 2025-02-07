@@ -59,8 +59,8 @@ if (file_exists('/sys/class/thermal/thermal_zone0/temp')) {
     $cpuTempCRaw = exec('cat /sys/class/thermal/thermal_zone0/temp');
     if ($cpuTempCRaw > 1000) { $cpuTempC = sprintf('%.0f',round($cpuTempCRaw / 1000, 1)); } else { $cpuTempC = sprintf('%.0f',round($cpuTempCRaw, 1)); }
     $cpuTempF = sprintf('%.0f',round(+$cpuTempC * 9 / 5 + 32, 1));
-    if ($cpuTempC <= 59) { $cpuTempHTML = "<div class=\"divTableCell cell_content\" style=\"background: inherit\">".$cpuTempF."&deg;F / ".$cpuTempC."&deg;C</div>\n"; }
-    if ($cpuTempC >= 60) { $cpuTempHTML = "<div class=\"divTableCell cell_content\" style=\"background: #fa0;color:black;\">".$cpuTempF."&deg;F / ".$cpuTempC."&deg;C</div>\n"; }
+    if ($cpuTempC <= 69) { $cpuTempHTML = "<div class=\"divTableCell cell_content\" style=\"background: inherit\">".$cpuTempF."&deg;F / ".$cpuTempC."&deg;C</div>\n"; }
+    if ($cpuTempC >= 70) { $cpuTempHTML = "<div class=\"divTableCell cell_content\" style=\"background: #fa0;color:black;\">".$cpuTempF."&deg;F / ".$cpuTempC."&deg;C</div>\n"; }
     if ($cpuTempC >= 80) { $cpuTempHTML = "<div class=\"divTableCell cell_content\" style=\"background: #f00;color:black;font-weight:bold;\">".$cpuTempF."&deg;F / ".$cpuTempC."&deg;C</div>\n"; }
 }
 
