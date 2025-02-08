@@ -154,6 +154,13 @@ tt, code, kbd, pre {
     background: #000000;
     font-size: 18px;
     padding: 1em;
+    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+}
+
+/* For Webkit browsers like Chrome/Safari */
+#tail::-webkit-scrollbar {
+    display: none;
 }
 
 table {
