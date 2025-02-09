@@ -31,7 +31,7 @@ function displayRepoStatus($dir) {
     $ver_cmd = trim(shell_exec("git --work-tree={$dir} --git-dir={$dir}/.git rev-parse HEAD"));
     $ver_cmd = substr($ver_cmd, 0, 10); // Get first 10 characters of hash
 
-    echo "Ver. # {$ver_cmd}\n";
+    echo "Ver.# {$ver_cmd}\n";
 }
 
 function getMacAddresses() {
