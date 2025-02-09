@@ -21,6 +21,19 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/config/ircddblocal.php');
 
 $instanceUUID = $_SESSION['WPSDrelease']['WPSD']['UUID'];
 
+$DASHBOARD_DIR = "/var/www/dashboard";
+$SBIN_DIR = "/usr/local/sbin";
+$BIN_DIR = "/usr/local/bin";
+$CAST_DIR = "/opt/cast";
+
+function displayRepoStatus($dir) {
+    $repo = trim(shell_exec("git --work-tree={$dir} --git-dir={$dir}/.git config --get remote.origin.url"));
+    $ver_cmd = trim(shell_exec("git --work-tree={$dir} --git-dir={$dir}/.git rev-parse HEAD"));
+    $ver_cmd = substr($ver_cmd, 0, 10); // Get first 10 characters of hash
+
+    echo "Ver. # {$ver_cmd}\n";
+}
+
 function getMacAddresses() {
     $interfaces = [];
     
@@ -199,15 +212,37 @@ function timesyncdProc() {
                 echo '</div>'."\n";
             ?>
 
-		<h3 style="text-align:left;font-weight:bold;margin:5px 0 2px 0;">System Status</h3>
+		<h3 class='larger' style="text-align:left;font-weight:bold;margin:5px 0 2px 0;">System Status</h3>
 		<table id="infotable" width="100%" border="0">
+                  <tr>
+                    <th class='larger' align='left'>WPSD System Component</th>
+                    <th class='larger' align='left'>Version</th>
+                  </tr>
+		  <tr>
+		    <td align='left' class='sans'>WPSD Dashboard Web Software</td>
+		    <td align='left'><?php displayRepoStatus('/var/www/dashboard'); ?></td>
+		  </tr>
+		  <tr>
+		    <td align='left' class='sans'>WPSD Support Utilites and Programs</td>
+		    <td align='left'><?php displayRepoStatus('/usr/local/sbin'); ?></td>
+		  </tr>
+		  <tr>
+		    <td align='left' class='sans'>WPSD Digital Voice and Related Binaries</td>
+		    <td align='left'><?php displayRepoStatus('/usr/local/bin'); ?></td>
+		  </tr>
+		  <?php if (isDVmegaCast() == 1) { ?>
+		  <tr>
+		    <td align='left' class='sans'>WPSD DVMega CAST Software</td>
+		    <td align='left'><?php displayRepoStatus('/opt/cast'); ?></td>
+		  </tr>
+		  <?php } ?>
         	  <tr>
-            	    <th align='left'>Network Interface(s)</th>
-            	    <th align='left'>MAC Address</th>
+            	    <th class='larger' align='left'>Network Interface(s)</th>
+            	    <th class='larger' align='left'>MAC Address</th>
         	  </tr>
         	  <?php foreach ($interfaces as $interface): ?>
             	  <tr>
-                    <td align='left'><?php echo htmlspecialchars($interface['interface']); ?></td>
+                    <td align='left' class='sans'><?php echo htmlspecialchars($interface['interface']); ?></td>
                     <td align='left'><?php echo htmlspecialchars($interface['mac']); ?></td>
             	  </tr>
         	  <?php endforeach; ?>
@@ -217,15 +252,15 @@ function timesyncdProc() {
 
 		    // Ram information
 		    if ($system['mem_info']) {
-			echo "  <tr><th align='left'>Memory</th><th align='left'>Stats</th></tr>\n";
+			echo "  <tr><th class='larger' align='left'>Memory</th><th class='larger' align='left'>Stats</th></tr>\n";
 			$sysRamUsed = $system['mem_info']['MemTotal'] - $system['mem_info']['MemFree'] - $system['mem_info']['Buffers'] - $system['mem_info']['Cached'];
 			$sysRamPercent = sprintf('%.2f',($sysRamUsed / $system['mem_info']['MemTotal']) * 100);
-			echo "  <tr><td align=\"left\">RAM</td><td align=\"left\"><div class='progress progress-info' style='margin-bottom: 0;'><div class='bar' style='width: ".$sysRamPercent."%;'>Used&nbsp;".$sysRamPercent."%</div></div>";
+			echo "  <tr><td class='sans' align=\"left\">RAM</td><td align=\"left\"><div class='progress progress-info' style='margin-bottom: 0;'><div class='bar' style='width: ".$sysRamPercent."%;'>Used&nbsp;".$sysRamPercent."%</div></div>";
 			echo "  <b>Total:</b> ".formatSize($system['mem_info']['MemTotal'])."<b> Used:</b> ".formatSize($sysRamUsed)."<b> Free:</b> ".formatSize($system['mem_info']['MemTotal'] - $sysRamUsed)."</td></tr>\n";
 		    }
 		    // Filesystem Information
 		    if (count($system['partitions']) > 0) {
-			echo "  <tr><th align='left'>Filesystem Mountpoints</th><th align='left'>Stats</th></tr>\n";
+			echo "  <tr><th class='larger' align='left'>Filesystem Mountpoints</th><th class='larger' align='left'>Stats</th></tr>\n";
 			foreach($system['partitions'] as $fs) {
 			    if ($fs['Used']['value'] > 0 && $fs['FileSystem']['text']!= "none" && $fs['FileSystem']['text']!= "udev") {
 				$diskFree = $fs['Free']['value'];
@@ -233,107 +268,107 @@ function timesyncdProc() {
 				$diskUsed = $fs['Used']['value'];
 				$diskPercent = sprintf('%.2f',($diskUsed / $diskTotal) * 100);
 				
-				echo "  <tr><td align=\"left\">".$fs['Partition']['text']."</td><td align=\"left\"><div class='progress progress-info' style='margin-bottom: 0;'><div class='bar' style='width: ".$diskPercent."%;'>Used&nbsp;".$diskPercent."%</div></div>";
+				echo "  <tr><td align=\"left\" class='sans'>".$fs['Partition']['text']."</td><td align=\"left\"><div class='progress progress-info' style='margin-bottom: 0;'><div class='bar' style='width: ".$diskPercent."%;'>Used&nbsp;".$diskPercent."%</div></div>";
 				echo "  <b>Total:</b> ".formatSize($diskTotal)."<b> Used:</b> ".formatSize($diskUsed)."<b> Free:</b> ".formatSize($diskFree)."</td></tr>\n";
 			    }
 			}
 		    }
 		    // OS Information
-		    echo "<tr><th align='left'>Host System</th><th align='left'>Details</th></tr>";
-		    echo "<tr><td align='left'>Operating System</td><td align='left'>{$system['os']}, release ver. $osVer</td></tr>";
-		    echo "<tr><td align='left'>Kernel</td><td align='left'>".php_uname('r')."</td></tr>";
-		    echo "<tr><td align='left'>Hardware &amp; Platform</td><td align='left'>".$_SESSION['WPSDrelease']['WPSD']['Hardware']."<br />".$_SESSION['WPSDrelease']['WPSD']['Platform']."</td></tr>";
-		    echo "<tr><td align='left'>Hardware UUID</td><td align='left'>$instanceUUID</td></tr>";
+		    echo "<tr><th class='larger' align='left' class='sans'>Host System</th><th class='larger' align='left'>Details</th></tr>";
+		    echo "<tr><td align='left' class='sans'>Operating System</td><td align='left'>{$system['os']}, release ver. $osVer</td></tr>";
+		    echo "<tr><td align='left' class='sans''>Kernel</td><td align='left'>".php_uname('r')."</td></tr>";
+		    echo "<tr><td align='left' class='sans'>Hardware &amp; Platform</td><td align='left'>".$_SESSION['WPSDrelease']['WPSD']['Hardware']."<br />".$_SESSION['WPSDrelease']['WPSD']['Platform']."</td></tr>";
+		    echo "<tr><td align='left' class='sans'>Hardware UUID</td><td align='left'>$instanceUUID</td></tr>";
 		    // Binary Information
-		    echo "  <tr><th align='left'>WPSD Software Binaries</th><th align='left'>Version</th></tr>\n";
+		    echo "  <tr><th class='larger' align='left'>WPSD Software Binaries</th><th class='larger' align='left'>Version</th></tr>\n";
 		    if (is_executable('/usr/local/bin/MMDVMHost')) {
 			$MMDVMHost_Ver = exec('/usr/local/bin/MMDVMHost -v | cut -d\' \' -f 3-');
-			echo "  <tr><td align='left'>MMDVMHost</td><td align=\"left\">".$MMDVMHost_Ver."</td></tr>\n";
+			echo "  <tr><td align='left' class='sans'>MMDVMHost</td><td align=\"left\">".$MMDVMHost_Ver."</td></tr>\n";
 		    }
 		    if (is_executable('/usr/local/bin/DMRGateway')) {
 			$DMRGateway_Ver = exec('/usr/local/bin/DMRGateway -v | cut -d\' \' -f 3-');
-			echo "  <tr><td align='left'>DMRGateway</td><td align=\"left\">".$DMRGateway_Ver."</td></tr>\n";
+			echo "  <tr><td align='left' class='sans'>DMRGateway</td><td align=\"left\">".$DMRGateway_Ver."</td></tr>\n";
 		    }
 		    if (is_executable('/usr/local/bin/DMR2YSF')) {
 			$DMR2YSF_Ver = exec('/usr/local/bin/DMR2YSF -v | cut -d\' \' -f 3-');
-			echo "  <tr><td align='left'>DMR2YSF</td><td align=\"left\">".$DMR2YSF_Ver."</td></tr>\n";
+			echo "  <tr><td align='left' class='sans'>DMR2YSF</td><td align=\"left\">".$DMR2YSF_Ver."</td></tr>\n";
 		    }
 		    if (is_executable('/usr/local/bin/DMR2NXDN')) {
 			$DMR2NXDN_Ver = exec('/usr/local/bin/DMR2NXDN -v | cut -d\' \' -f 3-');
-			echo "  <tr><td align='left'>DMR2NXDN</td><td align=\"left\">".$DMR2NXDN_Ver."</td></tr>\n";
+			echo "  <tr><td align='left' class='sans'>DMR2NXDN</td><td align=\"left\">".$DMR2NXDN_Ver."</td></tr>\n";
 		    }
 		    if (is_executable('/usr/local/bin/YSFGateway')) {
 			$YSFGateway_Ver = exec('/usr/local/bin/YSFGateway -v | cut -d\' \' -f 3-');
-			echo "  <tr><td align='left'>YSFGateway</td><td align=\"left\">".$YSFGateway_Ver."</td></tr>\n";
+			echo "  <tr><td align='left' class='sans'>YSFGateway</td><td align=\"left\">".$YSFGateway_Ver."</td></tr>\n";
 		    }
 		    if (is_executable('/usr/local/bin/YSFParrot')) {
 			$YSFParrot_Ver = exec('/usr/local/bin/YSFParrot -v | cut -d\' \' -f 3-');
-			echo "  <tr><td align='left'>YSFParrot</td><td align=\"left\">".$YSFParrot_Ver."</td></tr>\n";
+			echo "  <tr><td align='left' class='sans'>YSFParrot</td><td align=\"left\">".$YSFParrot_Ver."</td></tr>\n";
 		    }
 		    if (is_executable('/usr/local/bin/DGIdGateway')) {
 			$DGIdGateway_Ver = exec('/usr/local/bin/DGIdGateway -v | cut -d\' \' -f 3-');
-			echo "  <tr><td align='left'>DGIdGateway</td><td align=\"left\">".$DGIdGateway_Ver."</td></tr>\n";
+			echo "  <tr><td align='left' class='sans'>DGIdGateway</td><td align=\"left\">".$DGIdGateway_Ver."</td></tr>\n";
 		    }
 		    if (is_executable('/usr/local/bin/ircddbgatewayd')) {
 			$ircDDBGateway_Ver = $_SESSION['WPSDrelease']['WPSD']['ircddbgateway'];
-			echo "  <tr><td align='left'>ircDDBGateway</td><td align=\"left\">".$ircDDBGateway_Ver."</td></tr>\n";
+			echo "  <tr><td align='left' class='sans'>ircDDBGateway</td><td align=\"left\">".$ircDDBGateway_Ver."</td></tr>\n";
 		    }
 		    if (is_executable('/usr/local/bin/YSF2DMR')) {
 			$YSF2DMR_Ver = exec('/usr/local/bin/YSF2DMR -v | cut -d\' \' -f 3-');
-			echo "  <tr><td align='left'>YSF2DMR</td><td align=\"left\">".$YSF2DMR_Ver."</td></tr>\n";
+			echo "  <tr><td align='left' class='sans'>YSF2DMR</td><td align=\"left\">".$YSF2DMR_Ver."</td></tr>\n";
 		    }
 		    if (is_executable('/usr/local/bin/YSF2P25')) {
 			$YSF2P25_Ver = exec('/usr/local/bin/YSF2P25 -v | cut -d\' \' -f 3-');
-			echo "  <tr><td align='left'>YSF2P25</td><td align=\"left\">".$YSF2P25_Ver."</td></tr>\n";
+			echo "  <tr><td align='left' class='sans'>YSF2P25</td><td align=\"left\">".$YSF2P25_Ver."</td></tr>\n";
 		    }
 		    if (is_executable('/usr/local/bin/YSF2NXDN')) {
 			$YSF2NXDN_Ver = exec('/usr/local/bin/YSF2NXDN -v | cut -d\' \' -f 3-');
-			echo "  <tr><td align='left'>YSF2NXDN</td><td align=\"left\">".$YSF2NXDN_Ver."</td></tr>\n";
+			echo "  <tr><td align='left' class='sans'>YSF2NXDN</td><td align=\"left\">".$YSF2NXDN_Ver."</td></tr>\n";
 		    }
 		    if (is_executable('/usr/local/bin/P25Gateway')) {
 			$P25Gateway_Ver = exec('/usr/local/bin/P25Gateway -v | cut -d\' \' -f 3-');
-			echo "  <tr><td align='left'>P25Gateway</td><td align=\"left\">".$P25Gateway_Ver."</td></tr>\n";
+			echo "  <tr><td align='left' class='sans'>P25Gateway</td><td align=\"left\">".$P25Gateway_Ver."</td></tr>\n";
 		    }
 		    if (is_executable('/usr/local/bin/P25Parrot')) {
 			$P25Parrot_Ver = exec('/usr/local/bin/P25Parrot -v | cut -d\' \' -f 3-');
-			echo "  <tr><td align='left'>P25Parrot</td><td align=\"left\">".$P25Parrot_Ver."</td></tr>\n";
+			echo "  <tr><td align='left' class='sans'>P25Parrot</td><td align=\"left\">".$P25Parrot_Ver."</td></tr>\n";
 		    }
 		    if (is_executable('/usr/local/bin/NXDNGateway')) {
 			$NXDNGateway_Ver = exec('/usr/local/bin/NXDNGateway -v | cut -d\' \' -f 3-');
-			echo "  <tr><td align='left'>NXDNGateway</td><td align=\"left\">".$NXDNGateway_Ver."</td></tr>\n";
+			echo "  <tr><td align='left' class='sans'>NXDNGateway</td><td align=\"left\">".$NXDNGateway_Ver."</td></tr>\n";
 		    }
 		    if (isDVmegaCast() != 1 ) {
 			if (is_executable('/usr/local/bin/M17Gateway')) {
 			    $M17Gateway_Ver = exec('/usr/local/bin/M17Gateway -v | cut -d\' \' -f 3-');
-			    echo "  <tr><td align='left'>M17Gateway</td><td align=\"left\">".$M17Gateway_Ver."</td></tr>\n";
+			    echo "  <tr><td align='left' class='sans'>M17Gateway</td><td align=\"left\">".$M17Gateway_Ver."</td></tr>\n";
 			}
 		    }
 		    if (is_executable('/usr/local/bin/DAPNETGateway')) {
 			$DAPNETGateway_Ver = exec('/usr/local/bin/DAPNETGateway -v | cut -d\' \' -f 3-');
-			echo "  <tr><td align='left'>DAPNETGateway</td><td align=\"left\">".$DAPNETGateway_Ver."</td></tr>\n";
+			echo "  <tr><td align='left' class='sans'>DAPNETGateway</td><td align=\"left\">".$DAPNETGateway_Ver."</td></tr>\n";
 		    }
 		    if (is_executable('/usr/local/bin/APRSGateway')) {
 			$APRSGateway_Ver = exec('/usr/local/bin/APRSGateway -v| cut -d\' \' -f 3-');
-			echo "  <tr><td align='left'>APRSGateway</td><td align=\"left\">".$APRSGateway_Ver."</td></tr>\n";
+			echo "  <tr><td align='left' class='sans'>APRSGateway</td><td align=\"left\">".$APRSGateway_Ver."</td></tr>\n";
 		    }
                     if (is_executable('/usr/sbin/gpsd')) {
                         $GPSD_Ver = exec('/usr/sbin/gpsd -V | cut -d\' \' -f 2-');
-                        echo "  <tr><td align='left'>GPSd</td><td align=\"left\">".$GPSD_Ver."</td></tr>\n";
+                        echo "  <tr><td align='left' class='sans'>GPSd</td><td align=\"left\">".$GPSD_Ver."</td></tr>\n";
                     }
 		    if (isDVmegaCast() == 0) {
 			if (is_executable('/usr/local/bin/NextionDriver')) {
 			    $NEXTIONDRIVER_Ver = exec('/usr/local/bin/NextionDriver -V | head -n 2 | cut -d\' \' -f 3');
-			    echo "  <tr><td align='left'>NextionDriver</td><td align=\"left\">".$NEXTIONDRIVER_Ver."</td></tr>\n";
+			    echo "  <tr><td align='left' class='sans'>NextionDriver</td><td align=\"left\">".$NEXTIONDRIVER_Ver."</td></tr>\n";
 			}
 		    } else {
 			if (is_executable('/usr/local/cast/bin/castudp')) {
-			    echo "  <tr><td align='left'>DVMega Cast UDP Service</td><td align=\"left\">DVMega</td></tr>\n";
+			    echo "  <tr><td align='left' class='sans'>DVMega Cast UDP Service</td><td align=\"left\">DVMega</td></tr>\n";
 			}
 		    }
 ?>
 		</table>
 		<br />
-	        <h3 style="text-align:left;font-weight:bold;margin:5px 0 2px 0;">Time Synchronization Status</h3>
+	        <h3 class='larger' style="text-align:left;font-weight:bold;margin:5px 0 2px 0;">Time Synchronization Status</h3>
 		<table id="synctable" width="100%" border="0">
 <?php
 		    // time sync status

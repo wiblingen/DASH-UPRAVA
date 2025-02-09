@@ -1333,3 +1333,8 @@ meter::-webkit-meter-even-less-good-value {
 .larger {
     font-size: larger;
 }
+
+table td.sans {
+    font-family: 'Source Sans Pro', sans-serif !important;
+}
+
