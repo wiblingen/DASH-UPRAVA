@@ -1338,3 +1338,6 @@ table td.sans {
     font-family: 'Source Sans Pro', sans-serif !important;
 }
 
+div.network, div.wifiinfo, div.intinfo, div.infoheader {
+    border: none !important;
+}
