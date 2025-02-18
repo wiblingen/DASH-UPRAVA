@@ -34,7 +34,7 @@ $lang = array (
   "Firewall Configuration"                   =>  "防火墙配置",
   "Remote Access Password"            =>  "远程访问密码",
   // Config Page - Section General
-  "Setting"                     =>  "设置中",
+  "Setting"                     =>  "设置",
   "Value"                       =>  "设置值",
   "Apply Changes"               =>  "应用更改",
   // Config Page - Gateway Hardware Information
