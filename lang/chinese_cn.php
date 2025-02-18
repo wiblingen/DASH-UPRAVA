@@ -1,6 +1,6 @@
 <?php
 //
-// Chinese CN (simplified Chinese) Language Pack
+// Chinese CN (Simplified Chinese) Language Pack
 // Mingming Fan(BH3HNI),https://bh3hni.cn
 // Last update on 18/02/2025
 //
