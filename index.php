@@ -247,7 +247,7 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 	    if (($_SERVER["PHP_SELF"] == "/admin/index.php") || ($_SERVER["PHP_SELF"] == "/index.php")) {
 		$configUpNeeded = $_SESSION['WPSDrelease']['WPSD']['ConfUpdReqd'];
                 if (!isset($configUpNeeded) || ($configUpNeeded < $configUpdateRequired)) {	
-		    $fileList = array_filter(array("/etc/dstar-radio.mmdvmhost", "/etc/dstar-radio.dstarrepeater"), 'file_exists');
+		    $fileList = array_filter(array("/etc/dstar-radio.mmdvmhost"), 'file_exists');
 		    if ($file = array_shift($fileList)) {
 	    ?>
 		<div>
@@ -301,13 +301,6 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 		echo "<h1>New ZUMspot Installation...</h1>\n";
 		echo "<p>You will be redirected to the configuration page in 10 seconds to setup your ZUMspot...</p>\n";
 		echo '<script type="text/javascript">setTimeout(function() { window.location="/admin/configure.php";},10000);</script>'."\n";
-            } else if (file_exists('/etc/dstar-radio.dstarrepeater')) { //dstarrepeater migration
-		echo '<div class="contentwide">'."\n";
-		echo "<h1>NOTE: Migration Required...</h1>\n";
-		echo "<p>DSTARrepeater mode is unsupported and has been removed. You will need to re-configure using the (now default) MMDVMHost controller mode.</p>\n";
-		echo "<p>You will be redirected to the configuration page in 30 seconds to setup your installation... Or <a href='admin/configure.php'>configure now...</a></p>\n";
-		echo '<script type="text/javascript">setTimeout(function() { window.location="/admin/configure.php";},30000);</script>'."\n";
-
 	    } else if (file_exists('/etc/dstar-radio.mmdvmhost')) {
 		echo '<div class="nav">'."\n";					// Start the Side Menu
 		echo '<script type="text/javascript">'."\n";
