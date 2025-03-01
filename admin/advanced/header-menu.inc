@@ -113,7 +113,7 @@
 				<li class="subs"><a href="fulledit_dapnetapi.php">DAPNet API</a></li>
 			    </ul>
 			</li>
-			<li class="subs"><a href="fulledit_wpaconfig.php">WiFi</a></li>
+			<li class="subs"><a href="fulledit_wifi.php">WiFi</a></li>
 			<li class="subs"><a href="fulledit_rssidat.php">RSSI Data</a></li>
 		    </ul>
 		</li>
