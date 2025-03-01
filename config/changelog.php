@@ -102,7 +102,7 @@ if ($_SERVER["PHP_SELF"] == "/config/changelog.php") {
                     <div class="divTableBody">
                       <div class="divTableRow">
                         <div class="divTableCellSans">
-                          <p><b>The Last 20 Changes/Commits of the Dashboard Code:</b></p>
+                          <p><b>The Last 5 Changes/Commits of the Dashboard Code:</b></p>
                             <div class="cl_wrapper">
 			      <div class="ChangeLogData"> 
 				<?php
@@ -125,7 +125,7 @@ if ($_SERVER["PHP_SELF"] == "/config/changelog.php") {
                     <div class="divTableBody">
                       <div class="divTableRow">
                         <div class="divTableCellSans">
-                          <p><b>The Last 20 Changes/Commits of Scripts and Programs Code:</b></p>
+                          <p><b>The Last 5 Changes/Commits of Scripts and Programs Code:</b></p>
                             <div class="cl_wrapper">
                               <div class="ChangeLogData"> 
                                 <?php
@@ -147,7 +147,7 @@ if ($_SERVER["PHP_SELF"] == "/config/changelog.php") {
                     <div class="divTableBody">
                       <div class="divTableRow">
                         <div class="divTableCellSans">
-                          <p><b>The Last 20 Changes/Commits of the Digital Voice-Related Binaries:</b></p>
+                          <p><b>The Last 5 Changes/Commits of the Digital Voice-Related Binaries:</b></p>
                             <div class="cl_wrapper">
                               <div class="ChangeLogData"> 
                                 <?php
@@ -172,7 +172,7 @@ if (isDVmegaCast() == 1) {
                     <div class="divTableBody">
                       <div class="divTableRow">
                         <div class="divTableCellSans">
-                          <p><b>The Last 20 Changes/Commits of the DVMEGA Cast Code:</b></p>
+                          <p><b>The Last 5 Changes/Commits of the DVMEGA Cast Code:</b></p>
                             <div class="cl_wrapper">
                               <div class="ChangeLogData"> 
                                 <?php
