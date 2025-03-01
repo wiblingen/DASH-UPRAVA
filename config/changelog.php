@@ -108,19 +108,96 @@ if ($_SERVER["PHP_SELF"] == "/config/changelog.php") {
 				<?php
 				  $uaStr="WPSD-ChangeLog-Viewer";
 				  @exec("curl --fail -s -o /dev/null https://wpsd-swd.w0chp.net/WPSD-SWD/WPSD-WebCode/info/refs?service=git-upload-pack --user-agent $uaStr");
-				  $out = shell_exec('/usr/local/bin/WPSD-CL-to-html');
+				  $out = shell_exec('/usr/local/bin/WPSD-CL-to-html /var/www/dashboard');
 				  $out = str_replace("\n", "<br />", $out);
 				  echo $out;
 				?>
 			      </div>
 			    </div>
-			    <p style="text-align:center;font-weight:bold;">
-			      <a href="https://wpsd-swd.w0chp.net/WPSD-SWD/WPSD-WebCode/graph?branch=refs%2Fheads%2Fmaster" target="_new" style="text-decoration:underline;color:inherit;">View the entire change/commit history...</a>
+			    <p style="text-align:center;">
+			      <a href="https://wpsd-swd.w0chp.net/WPSD-SWD/WPSD-WebCode/graph?branch=refs%2Fheads%2Fmaster" target="_new" style="text-decoration:underline;color:inherit;">(View the entire change/commit history...)</a>
 			    </p>
 			</div>
 		      </div>
 		    </div>
 		  </div>
+
+                  <div class="divTable">
+                    <div class="divTableBody">
+                      <div class="divTableRow">
+                        <div class="divTableCellSans">
+                          <p><b>The Last 20 Changes/Commits of Scripts and Programs Code:</b></p>
+                            <div class="cl_wrapper">
+                              <div class="ChangeLogData"> 
+                                <?php
+                                  $uaStr="WPSD-ChangeLog-Viewer";
+                                  @exec("curl --fail -s -o /dev/null https://wpsd-swd.w0chp.net/WPSD-SWD/WPSD-Scripts/info/refs?service=git-upload-pack --user-agent $uaStr");
+                                  $out = shell_exec('/usr/local/bin/WPSD-CL-to-html /usr/local/sbin');
+                                  $out = str_replace("\n", "<br />", $out);
+                                  echo $out;
+                                ?>
+                              </div>
+                            </div>
+                            <div style="text-align:center;">
+                              <a href="https://wpsd-swd.w0chp.net/WPSD-SWD/WPSD-WebCode/graph?branch=refs%2Fheads%2Fmaster" target="_new" style="text-decoration:underline;color:inherit;">(View the entire change/commit history...)</a>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="divTable">
+                    <div class="divTableBody">
+                      <div class="divTableRow">
+                        <div class="divTableCellSans">
+                          <p><b>The Last 20 Changes/Commits of the Digital Voice-Related Binaries:</b></p>
+                            <div class="cl_wrapper">
+                              <div class="ChangeLogData"> 
+                                <?php
+                                  $uaStr="WPSD-ChangeLog-Viewer";
+                                  @exec("curl --fail -s -o /dev/null https://wpsd-swd.w0chp.net/WPSD-SWD/WPSD-Binaries/info/refs?service=git-upload-pack --user-agent $uaStr");
+                                  $out = shell_exec('/usr/local/bin/WPSD-CL-to-html /usr/local/bin');
+                                  $out = str_replace("\n", "<br />", $out);
+                                  echo $out;
+                                ?>
+                              </div>
+                            </div>
+                            <div style="text-align:center;">
+                              <a href="https://wpsd-swd.w0chp.net/WPSD-SWD/WPSD-WebCode/graph?branch=refs%2Fheads%2Fmaster" target="_new" style="text-decoration:underline;color:inherit;">(View the entire change/commit history...)</a>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+<?php
+if (isDVmegaCast() == 1) {
+?>
+                  <div class="divTable">
+                    <div class="divTableBody">
+                      <div class="divTableRow">
+                        <div class="divTableCellSans">
+                          <p><b>The Last 20 Changes/Commits of the DVMEGA Cast Code:</b></p>
+                            <div class="cl_wrapper">
+                              <div class="ChangeLogData"> 
+                                <?php
+                                  $uaStr="WPSD-ChangeLog-Viewer";
+                                  @exec("curl --fail -s -o /dev/null https://wpsd-swd.w0chp.net/WPSD-SWD/DVMega-Cast/info/refs?service=git-upload-pack --user-agent $uaStr");
+                                  $out = shell_exec('/usr/local/bin/WPSD-CL-to-html /opt/cast');
+                                  $out = str_replace("\n", "<br />", $out);
+                                  echo $out;
+                                ?>
+                              </div>
+                            </div>
+                            <div style="text-align:center;">
+                              <a href="https://wpsd-swd.w0chp.net/WPSD-SWD/WPSD-WebCode/graph?branch=refs%2Fheads%2Fmaster" target="_new" style="text-decoration:underline;color:inherit;">(View the entire change/commit history...)</a>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+<?php
+}
+?>
+
 		</div>
 <?php include $_SERVER['DOCUMENT_ROOT'].'/includes/footer.php'; ?>	
 	    </div>
