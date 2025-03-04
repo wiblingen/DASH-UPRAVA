@@ -4901,13 +4901,13 @@ document.querySelector('form').addEventListener('submit', function(e) {
                 if ($configmmdvm['M17 Network']['Enable'] !== "1")  { echo(' disabled="disabled"'); }?> >
                 <label for="aprsgw-service-selection-4">M17</label>
             </div>
+	    <?php } // end DVMega Cast logic ?>
             <div style="display: inline-block;vertical-align: middle; margin-left:5px;">
                 <input name="IRCDDBGatewayAPRS" id="aprsgw-service-selection-5" value="IRCDDBGatewayAPRS" type="checkbox"
                 <?php if($IRCDDBGatewayAPRS == "1" && $configs['ircddbEnabled'] == "1" && $configmmdvm['D-Star Network']['Enable'] == "1") { echo(' checked="checked"'); }
                 if ($configs['ircddbEnabled'] !== "1" || $configmmdvm['D-Star Network']['Enable'] !== "1")  { echo(' disabled="disabled"'); }?> >
                 <label for="aprsgw-service-selection-5">ircDDB (D-Star)</label>
             </div>
-	    <?php } // end DVMega Cast logic ?>
             <br /><em><small>(Note: Radio/MMDVM Mode must be enabled to select APRS mode publishing.)</small></em>
           </div>
         </div>
