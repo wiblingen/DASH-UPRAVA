@@ -147,7 +147,6 @@
 			<li class="subs"><a href="ssh_access.php">SSH Access</a></li>
 			<li class="subs"><a href="jitter_test.php">DMR Jitter Test</a></li>
 			<li class="subs"><a href="calibration.php">MMDVMHost Calibration</a></li>
-			<li class="subs"><a href="filemanager.php">File Manager</a></li>
 			<?php if(isDVmegaCast() == 1) { // Begin DVmega Cast logic... ?>	
 			<li class="subs"><a href="/admin/cast/cast-firmware/">DVMega Cast Upgrade Utility</a></li>
 			<?php } else { // end DVmega cast logic ?>
