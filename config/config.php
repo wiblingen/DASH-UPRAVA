@@ -43,6 +43,11 @@ if (file_exists($config_file)) {
         define('MAP_OPTED', 'false');
     }
 
+    if (isset($config['WPSD']['OptIntoDiags'])) {
+        define('DIAGS_OPTED', $config['WPSD']['OptIntoDiags'] === '1' ? 'true' : 'false');
+    } else {
+        define('DIAGS_OPTED', 'true');
+    }
 
     $DashLanguage = !empty($config['WPSD']['DashLanguage']) ? $config['WPSD']['DashLanguage'] : 'english_us';
 }
