@@ -6900,10 +6900,9 @@ echo'
     <input type="radio" name="diagsOpted" value="false" <?php if (constant("DIAGS_OPTED") == "false") { echo 'checked="checked"'; } ?> />Disabled
     <td align="right"><input type="Submit" id="diagsSubmit" value="<?php echo __( 'Submit' );?>" /></td>
     </tr>
-    <tr><td colspan="4" align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'><i class="fa fa-exclamation-circle"></i> <strong>NOTE:</strong> Disabling Auto-Updates and Diagnostics will completely disable all WPSD software updates, as well as hostfile, talkgroup and user ID (DMR / NXDN) database updates. Also note, by disabling Auto-Updates and Diagnostics, you will forfeit any and all official WPSD support (we can't troubleshoot/support installations that are both outdated and which do not contain any diagnostics data.)</td></tr>
+    <tr><td colspan="4" align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'><i class="fa fa-exclamation-circle"></i> <strong>Warning:</strong> Disabling Auto-Updates and Diagnostics will completely disable <em>all</em> automated and critical WPSD software updates, as well as hostfiles, talkgroups and user ID (DMR / NXDN) database updates.<br>Also note, by disabling Auto-Updates and Diagnostics, you will forfeit any and all official WPSD support (we can't troubleshoot/support installations that are both outdated and which do not contain any diagnostics data.)</td></tr>
     </table>
     </form>
-
 
 <?php endif; ?>
 <br />
