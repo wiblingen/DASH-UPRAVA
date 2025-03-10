@@ -4432,6 +4432,25 @@ if (!empty($_POST)):
 	    system($rollMapOpted);
 	}
 
+	// Diags/Updates opt-out
+	if (!empty($_POST['diagsOpted'])) {
+	    $newDiagsOpted = escapeshellcmd($_POST['diagsOpted']);
+    
+	    $rollDiagsOpted = "sudo sed -i \"/OptIntoDiags = /c\\OptIntoDiags = $newDiagsOpted\" $config_file";
+	    system($rollDiagsOpted);
+
+	    if ($newDiagsOpted == "false") {
+		$command = 'for unit in wpsd-hostfile-update.timer wpsd-nightly-tasks.timer wpsd-running-tasks.timer; do sudo systemctl stop $unit && sudo systemctl disable $unit; done';
+		system($command);
+		$rollUpdateCheckConfig = "sudo sed -i \"/UpdateNotifier = /c\\UpdateNotifier = false\" $config_file";
+		system($rollUpdateCheckConfig);
+
+	    } else {
+		$command = 'for unit in wpsd-hostfile-update.timer wpsd-nightly-tasks.timer wpsd-running-tasks.timer wpsd-running-tasks.service; do sudo systemctl enable $unit && sudo systemctl start $unit; done';
+		system($command);
+	    }
+	}
+
 	// Start all services
         if (isDVmegaCast() == 1) { // DVMega Cast mode logic
 	    system($rollCastMode);
@@ -4700,14 +4719,6 @@ else:
 	echo '    </select></td></tr>'."\n";
     }
 ?>
-    <tr>
-    <td align="left"><a class="tooltip2" href="#">Update Notifier:<span><b>Update Notifier</b>Enables/Disables automatic dashboard software update notifications.</span></a></td>
-    <td colspan="2" align="left">
-    <input type="radio" name="autoUpdateCheck" value="false" <?php if (constant("AUTO_UPDATE_CHECK") == "false") { echo 'checked="checked"'; } ?> />Disabled
-    <input type="radio" name="autoUpdateCheck" value="true" <?php if (constant("AUTO_UPDATE_CHECK") == "true") { echo 'checked="checked"'; } ?> />Enabled
-    </td>
-    <td align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'>Enables / Disables automatic dashboard software update notifications.<br>When enabled, software update availability is displayed in the dashboard header.</td>
-    </tr>
     </table>
 
     <br /><br />
@@ -6876,6 +6887,24 @@ echo'
     <tr><td colspan="3" align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'><i class="fa fa-exclamation-circle"></i> <strong>NOTE:</strong> This changes the password for admin pages, this configuration page AND the '<code>pi-star</code>' SSH account.</td></tr>
     </table>
     </form>
+
+<br />
+    <h2 class="ConfSec"><?php echo __( 'Auto-Updates and Diagnostics' );?></h2>
+    <form id="diagsOptForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+    <table>
+    <tr>
+    <td align="left"><b>Enable / Disable Auto-Updates &amp; Diagnostics</b></td>
+    <td align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'><i class="fa fa-question-circle"></i> WPSD uses and sends encrypted/private diagnostics data to the WPSD update servers to determine if updates are available.</td>
+    <td align="left">
+    <input type="radio" name="diagsOpted" value="true" <?php if (constant("DIAGS_OPTED") == "true" || !defined(constant("DIAGS_OPTED"))  ) { echo 'checked="checked"'; } ?> />Enabled
+    <input type="radio" name="diagsOpted" value="false" <?php if (constant("DIAGS_OPTED") == "false") { echo 'checked="checked"'; } ?> />Disabled
+    <td align="right"><input type="Submit" id="diagsSubmit" value="<?php echo __( 'Submit' );?>" /></td>
+    </tr>
+    <tr><td colspan="4" align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'><i class="fa fa-exclamation-circle"></i> <strong>NOTE:</strong> Disabling Auto-Updates and Diagnostics will completely disable all WPSD software updates, as well as hostfile, talkgroup and user ID (DMR / NXDN) database updates. Also note, by disabling Auto-Updates and Diagnostics, you will forfeit any and all official WPSD support (we can't troubleshoot/support installations that are both outdated and which do not contain any diagnostics data.)</td></tr>
+    </table>
+    </form>
+
+
 <?php endif; ?>
 <br />
 </div>
