@@ -6894,7 +6894,7 @@ echo'
     <table>
     <tr>
     <td align="left"><b>Enable / Disable Auto-Updates &amp; Diagnostics</b></td>
-    <td align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'><i class="fa fa-question-circle"></i> WPSD uses and sends encrypted/private diagnostics data to the WPSD update servers to determine if updates are available.</td>
+    <td align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'><i class="fa fa-question-circle"></i> WPSD sends encrypted/private diagnostics data to the WPSD update servers to determine if updates are available.</td>
     <td align="left">
     <input type="radio" name="diagsOpted" value="true" <?php if (constant("DIAGS_OPTED") == "true" || !defined(constant("DIAGS_OPTED"))  ) { echo 'checked="checked"'; } ?> />Enabled
     <input type="radio" name="diagsOpted" value="false" <?php if (constant("DIAGS_OPTED") == "false") { echo 'checked="checked"'; } ?> />Disabled
