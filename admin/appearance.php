@@ -10,9 +10,13 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/config/ircddblocal.php';
 require_once $_SERVER['DOCUMENT_ROOT'].'/mmdvmhost/functions.php';
 require_once $_SERVER['DOCUMENT_ROOT'].'/config/language.php';
 unset($_SESSION['WPSDdashConfig']);
+unset($_SESSION['MMDVMHostConfigs']);
 checkSessionValidity();
 
+$displayType = getConfigItem("General", "Display", $_SESSION['MMDVMHostConfigs']);
+
 ?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 	  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="en">
@@ -322,6 +326,26 @@ checkSessionValidity();
 		//parse the ini file using default parse_ini_file() PHP function
 		$parsed_ini = parse_ini_file($filepath, true);
 ?>
+
+	<?php if ($displayType == "OLED") { ?>
+	<h2 class="ConfSec">OLED Display Control</h2>
+	<script>
+          function toggleOLED() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '/admin/OLED_ajax.php?action=toggle', true);
+            xhr.send();
+          }
+        </script>
+        <table>
+          <tr>
+	    <td class="left">
+		<button id="toggleButton" onclick="toggleOLED()">Toggle OLED Display Off/On</button>
+            </td>
+          </tr>
+        </table>
+	<?php } ?>
+
+	<br />
 
 	<h2 class="ConfSec">Callsign Link Provider</h2>	
 
