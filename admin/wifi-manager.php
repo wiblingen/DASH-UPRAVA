@@ -224,14 +224,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['regulatory_domain']))
 }
 
 function parseNetworkInfo($line) {
-    $parts = preg_split('/(?<!\\\):/', $line);
+    $parts = explode(':', $line); // for nmcli -t output
+    if (count($parts) < 4) return null; // Skip malformed lines
 
-    $ssid = trim($parts[2]);
-    $signalStrength = trim($parts[6]);
-    $channel = trim($parts[4]);
-    $securityType = trim($parts[8]);
-
-    return compact('ssid', 'signalStrength', 'channel', 'securityType');
+    return [
+        'ssid'           => trim($parts[0]),
+        'signalStrength' => trim($parts[1]),
+        'channel'        => trim($parts[2]),
+        'securityType'   => trim($parts[3])
+    ];
 }
 
 if (isset($_POST['action'])) {
@@ -257,13 +258,10 @@ if (isset($_POST['action'])) {
             }
             break;
         case 'scan':
-            $scanOutput = shell_exec('sudo nmcli -e yes -c no -g common device wifi list --rescan yes');
+	    $scanOutput = shell_exec("sudo nmcli -t -f SSID,SIGNAL,CHAN,SECURITY device wifi list --rescan yes");
             $networks = explode("\n", trim($scanOutput));
 
             if (count($networks) > 1) {
-                $header = array_map('trim', preg_split('/\s+/', $networks[0]));
-                 unset($networks[0]);
-
         ?>
         <table>
             <thead>
@@ -280,7 +278,7 @@ if (isset($_POST['action'])) {
             <tbody>
                 <?php foreach ($networks as $network) : ?>
                     <?php $networkInfo = parseNetworkInfo($network); ?>
-                    <?php if (!empty($networkInfo['ssid'])) : ?>
+		    <?php if (!empty(trim($networkInfo['ssid'])) && $networkInfo['ssid'] !== '--') : ?>
                         <tr>
                             <td><?php echo $networkInfo['ssid']; ?></td>
                             <td><?php echo signalStrengthBars($networkInfo['signalStrength']). "&nbsp" .$networkInfo['signalStrength']; ?>%</td>
