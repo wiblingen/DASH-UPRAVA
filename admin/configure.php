@@ -4833,7 +4833,7 @@ document.querySelector('form').addEventListener('submit', function(e) {
     <input type="radio" name="mapOpted" value="false" <?php if (constant("MAP_OPTED") == "false" || !defined(constant("MAP_OPTED"))  ) { echo 'checked="checked"'; } ?> />Hide
     <input type="radio" name="mapOpted" value="true" <?php if (constant("MAP_OPTED") == "true") { echo 'checked="checked"'; } ?> />Display
     </td>
-    <td align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'>Display Your WPSD Node on the <a href="https://user-map.wpsd.radio/" target="_new">WPSD User Map</a>.<br><small><i class="fa fa-exclamation-circle"></i> Note: You must input your latitude and longitude coordinates above to ensure map accuracy.</small></td>
+    <td align="left" style='word-wrap: break-word;white-space: normal;padding-left: 5px;'>Display Your WPSD Node on the <a href="https://user-map.wpsd.radio/" target="_new">WPSD User Map</a>.<br><small><i class="fa fa-exclamation-circle"></i> Notes: You must input your latitude and longitude coordinates above to ensure map accuracy. The WPSD User Map is <em>not</em> APRS -- it's just a fun map for users to share that they use WPSD and what their location is.</small></td>
     </tr>
     <tr>
     <td align="left"><a class="tooltip2" href="#"><?php echo __( 'Town' );?>:<span><b>Gateway City/State</b>The City/State where the gateway is located</span></a></td>
