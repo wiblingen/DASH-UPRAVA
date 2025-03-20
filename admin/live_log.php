@@ -178,21 +178,21 @@ if ($_SERVER["PHP_SELF"] == "/admin/live_log.php") {
   <form method="get">
    <b>Select a log to view:</b>
     <select name="log" value="log">
-	<option name="MMDVMHost">MMDVMHost</option>
-	<option name="ircDDBGateway">ircDDBGateway</option>
-	<option name="DMRGateway">DMRGateway</option>
-	<option name="YSFGateway">YSFGateway</option>
-	<option name="DGIdGateway">DGIdGateway</option>
-	<option name="P25Gateway">P25Gateway</option>
-	<option name="NXDNGateway">NXDNGateway</option>
-	<option name="M17Gateway">M17Gateway</option>
-	<option name="DAPNETGateway">DAPNETGateway</option>
-	<option name="DMR2NXDN">DMR2NXDN</option>
-	<option name="DMR2YSF">DMR2YSF</option>
-	<option name="YSF2DMR">YSF2DMR</option>
-	<option name="YSF2NXDN">YSF2NXDN</option>
-	<option name="YSF2P25">YSF2P25</option>
-	<option name="APRSGateway">APRSGateway</option>
+        <option name="APRSGateway">APRSGateway</option>
+        <option name="DAPNETGateway">DAPNETGateway</option>
+        <option name="DGIdGateway">DGIdGateway</option>
+        <option name="DMR2NXDN">DMR2NXDN</option>
+        <option name="DMR2YSF">DMR2YSF</option>
+        <option name="DMRGateway">DMRGateway</option>
+        <option name="ircDDBGateway">ircDDBGateway</option>
+        <option name="M17Gateway">M17Gateway</option>
+        <option name="MMDVMHost">MMDVMHost</option>
+        <option name="NXDNGateway">NXDNGateway</option>
+        <option name="P25Gateway">P25Gateway</option>
+        <option name="YSF2DMR">YSF2DMR</option>
+        <option name="YSF2NXDN">YSF2NXDN</option>
+        <option name="YSF2P25">YSF2P25</option>
+        <option name="YSFGateway">YSFGateway</option>
     </select>
     <input type="submit" name="sumbit" value="Select" />
   </form>
