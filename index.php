@@ -4,6 +4,7 @@ session_name("WPSD_Session");
 session_id('wpsdsession');
 session_start();
 
+require_once $_SERVER['DOCUMENT_ROOT'].'/classes/class-wpsd-functions.php';
 require_once $_SERVER['DOCUMENT_ROOT'].'/config/config.php';
 require_once $_SERVER['DOCUMENT_ROOT'].'/config/version.php';
 require_once $_SERVER['DOCUMENT_ROOT'].'/config/ircddblocal.php';
@@ -769,6 +770,8 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 <?php
 include $_SERVER['DOCUMENT_ROOT'].'/includes/footer.php';
 include $_SERVER['DOCUMENT_ROOT'].'/includes/execute-background-tasks.php';
+// print custom JS
+echo wpsd()->user_js();
 ?>
 <script>
 executeBackgroundTasks();
