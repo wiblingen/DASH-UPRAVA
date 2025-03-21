@@ -224,7 +224,6 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 		      echo ' <a class="menupower" href="/admin/power.php">'.__( 'Power' ).'</a>'."\n";
 		      echo ' <a class="menusysinfo noMob" href="/admin/sysinfo.php">System Details</a>'."\n";
 		      echo ' <a class="menulogs noMob" href="/admin/live_log.php">'.__( 'Log Viewer' ).'</a>'."\n";
-		      echo ' <a class="menuappearance noMob" href="/admin/appearance.php">Appearance</a>'."\n";
 		      echo ' <a class="menudashboard" href="/">'.__( 'Dashboard' ).'</a>'."\n";
 		    }
                     if ($_SERVER["PHP_SELF"] !== "/admin/index.php") {
@@ -236,6 +235,7 @@ $isNewZumInstall = isset($iniData[$section][$key]) && $iniData[$section][$key] =
 			if (isDVmegaCast() == 1) {
 		    	    echo '<a class="menucastmemory noMob" href="/admin/cast/memory-list/">Cast Memory</a>';
 			}
+			echo ' <a class="menuappearance noMob" href="/admin/appearance.php">Appearance</a>'."\n";
                         echo '<a class="menuprofile noMob" href="/admin/profile_manager.php">Profiles</a>'."\n";
                     } ?>
 	    	</div>
