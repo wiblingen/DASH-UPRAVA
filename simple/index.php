@@ -4,6 +4,7 @@ session_name("WPSD_Session");
 session_id('wpsdsession');
 session_start();
 
+require_once $_SERVER['DOCUMENT_ROOT'].'/classes/class-wpsd-functions.php';
 require_once $_SERVER['DOCUMENT_ROOT'].'/config/config.php';
 require_once $_SERVER['DOCUMENT_ROOT'].'/config/version.php';
 require_once $_SERVER['DOCUMENT_ROOT'].'/config/ircddblocal.php';
@@ -307,6 +308,7 @@ if(empty($_POST['func'])) {
         echo '<script src="/js/phonetic-callsigns.js"></script>';
     }
     ?>
+    <?php echo wpsd()->user_js(); ?>
     </body>
 </html>
 
