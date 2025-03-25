@@ -89,6 +89,7 @@ for ($i = 0;  ($i <= 0); $i++) { //Last 20  calls
 		// dynamic TX <title>
 		echo "<script>if(typeof window.original_title === 'undefined'){window.original_title = jQuery('title').text();}</script>";
 		echo $_SESSION['MYCALL'] != $listElem[2] ? "<script>jQuery('title').text('>$listElem[2]<');</script>" : "<script>jQuery('title').text('TX');</script>";
+		echo "<script>jQuery('link[rel=\"shortcut icon\"').attr('href', '/images/favicon_active.ico?version=$versionCmd');</script>";
 	    } else if ($listElem[6] == "DMR Data") {
 		$duration =  "<td style=\"background:#00718F;color:#ff;font-size:1.3em;\">DMR Data</td>";
 	    } else if ($listElem[6] == "POCSAG") {
@@ -102,6 +103,7 @@ for ($i = 0;  ($i <= 0); $i++) { //Last 20  calls
 		$duration = "<td style='font-size:1.3em;'>$listElem[6]s <span class='noMob'>($TA)</span></td>";
 		// dynamic <title> reset
 		echo "<script>if(typeof window.original_title !== 'undefined'){jQuery('title').text(window.original_title)}</script>";
+		echo "<script>jQuery('link[rel=\"shortcut icon\"').attr('href', '/images/favicon.ico?version=$versionCmd');</script>";
 	    }
 
 	    if ($listElem[8] == null) {
