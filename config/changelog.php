@@ -143,28 +143,6 @@ if ($_SERVER["PHP_SELF"] == "/config/changelog.php") {
                       </div>
                     </div>
                   </div>
-                  <div class="divTable">
-                    <div class="divTableBody">
-                      <div class="divTableRow">
-                        <div class="divTableCellSans">
-                          <p><b>The Last 15 Changes/Commits of the Digital Voice-Related Binaries:</b></p>
-                            <div class="cl_wrapper">
-                              <div class="ChangeLogData"> 
-                                <?php
-                                  $uaStr="WPSD-ChangeLog-Viewer";
-                                  $out = shell_exec('/usr/local/bin/WPSD-CL-to-html /usr/local/bin');
-                                  $out = str_replace("\n", "<br />", $out);
-                                  echo $out;
-                                ?>
-                              </div>
-                            </div>
-                            <div style="text-align:center;">
-                              <a href="https://wpsd-swd.w0chp.net/WPSD-SWD/WPSD-Binaries/graph?branch=refs%2Fheads%2Fmaster" target="_new" style="text-decoration:underline;color:inherit;">(View the entire change/commit history...)</a>
-                            </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
 <?php
 if (isDVmegaCast() == 1) {
 ?>
