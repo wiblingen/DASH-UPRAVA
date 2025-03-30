@@ -84,21 +84,34 @@ if ($_SERVER["PHP_SELF"] == "/admin/update.php") {
     <script type="text/javascript" src="/js/jquery-timing.min.js?version=<?php echo $versionCmd; ?>"></script>
     <script type="text/javascript" src="/js/functions.js?version=<?php echo $versionCmd; ?>"></script>
     <script type="text/javascript">
-    window.time_format = '<?php echo constant("TIME_FORMAT"); ?>';
-    $(function() {
-      $.repeat(1000, function() {
-        $.get('/admin/update.php?ajax', function(data) {
-          if (data.length < 1) return;
-          var objDiv = document.getElementById("tail");
-          var isScrolledToBottom = objDiv.scrollHeight - objDiv.clientHeight <= objDiv.scrollTop + 1;
-	  $('#tail').append(data);
-	  //data = data.replace(/\\n/g, '').replace(/\n/g, ''); // strip linebreaks and literal '\n's
-	  //$('#tail').append('<pre>' + data + '</pre>'); // preformat it.
-          if (isScrolledToBottom)
-            objDiv.scrollTop = objDiv.scrollHeight;
+      window.time_format = '12';
+      $(function() {
+        var firstUpdate = true;
+        var updateCompleted = false;
+  
+        $.repeat(1000, function() {
+          $.get('/admin/update.php?ajax', function(data) {
+            if (data.length < 1) return;
+            var objDiv = document.getElementById("tail");
+            var isScrolledToBottom = objDiv.scrollHeight - objDiv.clientHeight <= objDiv.scrollTop + 1;
+      
+            if (firstUpdate) {
+              $('#tail').html('<h3 style="color:white;margin-bottom:-5px;margin-top:-1px;">Running WPSD Software Update...</h3>');
+              firstUpdate = false;
+            }
+            
+            if (data.includes("Process Finished") && !updateCompleted) {
+              $('#tail h3').first().text('WPSD Software Update Completed');
+              updateCompleted = true;
+            }
+            
+            $('#tail').append(data);
+            
+            if (isScrolledToBottom)
+              objDiv.scrollTop = objDiv.scrollHeight;
+          });
         });
       });
-    });
     </script>
   </head>
   <body>
