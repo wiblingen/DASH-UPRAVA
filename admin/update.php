@@ -84,7 +84,7 @@ if ($_SERVER["PHP_SELF"] == "/admin/update.php") {
     <script type="text/javascript" src="/js/jquery-timing.min.js?version=<?php echo $versionCmd; ?>"></script>
     <script type="text/javascript" src="/js/functions.js?version=<?php echo $versionCmd; ?>"></script>
     <script type="text/javascript">
-      window.time_format = '12';
+      window.time_format = '<?php echo constant("TIME_FORMAT"); ?>';
       $(function() {
         var firstUpdate = true;
         var updateCompleted = false;
