@@ -135,7 +135,7 @@ function timesyncdProc() {
 	<link rel="stylesheet" type="text/css" href="/css/font-awesome-4.7.0/css/font-awesome.min.css" />
 	<script type="text/javascript" src="/js/jquery.min.js?version=<?php echo $versionCmd; ?>"></script>
 	<script type="text/javascript" src="/js/jquery-timing.min.js?version=<?php echo $versionCmd; ?>"></script>
-  <script type="text/javascript" src="/js/functions.js?version=<?php echo $versionCmd; ?>"></script>
+	<script type="text/javascript" src="/js/functions.js?version=<?php echo $versionCmd; ?>"></script>
 	<style>  
          .progress .bar + .bar {
              -webkit-box-shadow: inset 1px 0 0 rgba(0, 0, 0, 0.15), inset 0 -1px 0 rgba(0, 0, 0, 0.15);
@@ -162,8 +162,8 @@ function timesyncdProc() {
 	 function refreshTS () {
 	     $("#synctable").load(" #synctable > *");
 	 }
-	 var timer = setInterval(function(){refreshTS()}, 2000);
-   window.time_format = '<?php echo constant("TIME_FORMAT"); ?>';
+	 var timer = setInterval(function(){refreshTS()}, 5000);
+	 window.time_format = '<?php echo constant("TIME_FORMAT"); ?>';
 	</script>
     </head>
     <body>
