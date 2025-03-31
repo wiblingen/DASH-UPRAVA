@@ -13,6 +13,7 @@ if (!isset($_SESSION) || !is_array($_SESSION) || (count($_SESSION, COUNT_RECURSI
 }
 
 require_once($_SERVER['DOCUMENT_ROOT'].'/mmdvmhost/tools.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/config/config.php');
 
 function loadSessionConfigFile($key, $configFile, $minEntries = 2) {
     if ((!isset($_SESSION[$key]) || (count($_SESSION[$key], COUNT_RECURSIVE) < $minEntries)) && file_exists($configFile)) {
@@ -25,7 +26,7 @@ function checkSessionValidity() {
 	global $callsign;
 	
 	if (empty($callsign)) {
-	    include $_SERVER['DOCUMENT_ROOT'].'/config/ircddblocal.php';
+	    include $_SERVER['DOCUMENT_ROOT'].'/config/config.php';
 	    $_SESSION['MYCALL'] = strtoupper($callsign);
 	}
 	else {
@@ -705,8 +706,8 @@ function getMMDVMLog() {
     $logLines1 = array();
     $logLines2 = array();
     $lineNos = "";
-    if (file_exists(MMDVMLOGPATH."/".MMDVMLOGPREFIX."-".gmdate("Y-m-d").".log")) {
-	$logPath = MMDVMLOGPATH."/".MMDVMLOGPREFIX."-".gmdate("Y-m-d").".log";
+    if (file_exists(constant('MMDVMLOGPATH')."/".constant('MMDVMLOGPREFIX')."-".gmdate("Y-m-d").".log")) {
+	$logPath = constant('MMDVMLOGPATH')."/".constant('MMDVMLOGPREFIX')."-".gmdate("Y-m-d").".log";
 	$fileList = array_filter(array("/etc/.GETNAMES", "/etc/.CALLERDETAILS", "/etc/.SHOWDMRTA", "/etc/.TGNAMES"), 'file_exists');
         if (!$file = array_shift($fileList)) { // no caller names/last caller selected
 	    if(isset($_SESSION['WPSDrelease']['WPSD']['ProcNum']) && ($_SESSION['WPSDrelease']['WPSD']['ProcNum'] >= 4)) { // multi-core
