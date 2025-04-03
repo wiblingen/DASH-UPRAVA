@@ -309,6 +309,10 @@ if(empty($_POST['func'])) {
     }
     ?>
     <?php echo wpsd()->user_js(); ?>
+    <script>
+    reloadDateTime();
+    reloadDynData();
+    </script>
     </body>
 </html>
 
