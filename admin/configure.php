@@ -797,8 +797,9 @@ input[type=number] {
 // warn to backup configs, only if this is not a new installation.
 $config_dir = "/etc/WPSD_config_mgr";
 if (!is_dir($config_dir) || count(glob("$config_dir/*")) < 1) { // no saved configs
-    if (file_exists('/etc/dstar-radio.mmdvmhost') && $MYCALL != "M1ABC") { // NOT a new installation , so display message...
-?>
+    $skipped_calls = ["WPSD42", "M1ABC", "NOCALL", "N0CALL", "PE1XYZ", "PE1ABC"];
+    if (file_exists('/etc/dstar-radio.mmdvmhost') && !in_array($MYCALL, $skipped_calls)) { // NOT a new installation , so display message..
+?> 
 <div>
   <table align="center"style="margin: 0px 0px 10px 0px; width: 100%;border-collapse:collapse; table-layout:fixed;white-space: normal!important;">
     <tr>
