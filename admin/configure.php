@@ -28,6 +28,8 @@ $configWPSDrelease = parse_ini_file($WPSDreleaseConfig, true);
 $wpsdConfigFile = '/etc/WPSD-Dashboard-Config.ini';
 $configWPSD = parse_ini_file($wpsdConfigFile, true);
 
+$skipped_calls = ["WPSD42", "M1ABC", "NOCALL", "N0CALL", "PE1XYZ", "PE1ABC"];
+
 // Load the ircDDBGateway config file
 $configs = array();
 if ($configfile = fopen($gatewayConfigPath,'r')) {
@@ -797,7 +799,6 @@ input[type=number] {
 // warn to backup configs, only if this is not a new installation.
 $config_dir = "/etc/WPSD_config_mgr";
 if (!is_dir($config_dir) || count(glob("$config_dir/*")) < 1) { // no saved configs
-    $skipped_calls = ["WPSD42", "M1ABC", "NOCALL", "N0CALL", "PE1XYZ", "PE1ABC"];
     if (file_exists('/etc/dstar-radio.mmdvmhost') && !in_array($MYCALL, $skipped_calls)) { // NOT a new installation , so display message..
 ?> 
 <div>
@@ -4468,7 +4469,7 @@ if (!empty($_POST)):
 
 else:
 	// Output the HTML Form here
-	if (file_exists('/etc/dstar-radio.mmdvmhost') && !$configModem['Modem']['Hardware'] && $MYCALL != "M1ABC") { echo "<script type\"text/javascript\">\n\talert(\"NOTE:\\n\\nPlease (re-)select your modem from the 'Radio/Modem Type' drop-down list.\")\n</script>\n"; }
+	if (file_exists('/etc/dstar-radio.mmdvmhost') && !$configModem['Modem']['Hardware'] && !in_array($MYCALL, $skipped_calls))  { echo "<script type\"text/javascript\">\n\talert(\"NOTE:\\n\\nPlease (re-)select your modem from the 'Radio/Modem Type' drop-down list.\")\n</script>\n"; }
 	if (strpos($_SERVER['HTTP_USER_AGENT'], 'Chrome') !== false) {
 		$toggleDMRCheckboxCr			= 'onclick="toggleDMRCheckbox()"';
 		$toggleDSTARCheckboxCr			= 'onclick="toggleDSTARCheckbox()"';
