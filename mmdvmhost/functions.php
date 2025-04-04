@@ -982,9 +982,9 @@ function getHeardList($logLines) {
 	else if(strpos($logLine,"invalid access")) {
 	    continue;
 	}
-    else if(strpos($logLine,"packet received from an invalid source")) {
-        continue;
-    }
+	else if(strpos($logLine,"packet received from an invalid source")) {
+	    continue;
+	}
 	else if(strpos($logLine,"received RF header for wrong repeater")) {
 	    continue;
 	}
@@ -994,9 +994,12 @@ function getHeardList($logLines) {
 	else if(strpos($logLine,"overflow in the DMR slot RF queue")) {
 	    continue;
 	}
-    else if(strpos($logLine,"overflow in the System Fusion RF queue")) {
-        continue;
-    }
+	else if(strpos($logLine,"overflow in the System Fusion RF queue")) {
+ 	    continue;
+	}
+	else if(strpos($logLine,"overflow in the M17 RF queue")) {
+	    continue;
+	}
 	else if(strpos($logLine,"non repeater RF header received")) {
 	    continue;
 	}
@@ -1004,6 +1007,12 @@ function getHeardList($logLines) {
             continue;
 	}
 	else if(strpos($logLine,"DMR Talker Alias")) {
+	    continue;
+	}
+	else if(strpos($logLine,", Talker Alias ")) {
+	    continue;
+	}
+	else if(strpos($logLine,", text Data: ")) {
 	    continue;
 	}
 	else if(strpos($logLine,"CSBK Preamble")) {
