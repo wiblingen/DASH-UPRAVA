@@ -2437,6 +2437,7 @@ if (!empty($_POST)):
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
 	    $configmmdvm['General']['Duplex'] = 1;
+            $configmmdvm['DMR Network']['Slot1'] = 1;
 	  }
 
           if ( $confHardware == 'zumradiopiusb' ) {
@@ -2456,34 +2457,46 @@ if (!empty($_POST)):
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
 	    $configmmdvm['Modem']['UARTSpeed'] = "460800";
+            $configmmdvm['General']['Duplex'] = 1;
+            $configmmdvm['DMR Network']['Slot1'] = 1;
 	  }
 
 	  if ( $confHardware == 'stm32usb' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
+            $configmmdvm['General']['Duplex'] = 1;
+            $configmmdvm['DMR Network']['Slot1'] = 1;
 	  }
 
 	  if ( $confHardware == 'stm32usbv3+' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
 	    $configmmdvm['Modem']['UARTSpeed'] = "460800";
+            $configmmdvm['General']['Duplex'] = 1;
+            $configmmdvm['DMR Network']['Slot1'] = 1;
 	  }
 
 	  if ( $confHardware == 'stm32dvmmtr2kopi' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
 	    $configmmdvm['Modem']['UARTSpeed'] = "500000";
+            $configmmdvm['General']['Duplex'] = 1;
+            $configmmdvm['DMR Network']['Slot1'] = 1;
 	  }
 
 	  if ( $confHardware == 'f4mgpio' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
+            $configmmdvm['General']['Duplex'] = 0;
+            $configmmdvm['DMR Network']['Slot1'] = 0;
+
 	  }
 
 	  if ( $confHardware == 'f4mf7m' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
 	    $configmmdvm['General']['Duplex'] = 1;
+	    $configmmdvm['DMR Network']['Slot1'] = 1;
 	  }
 
 	  if ( $confHardware == 'mmdvmhshat' ) {
@@ -2525,24 +2538,28 @@ if (!empty($_POST)):
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
 	    $configmmdvm['General']['Duplex'] = 1;
+	    $configmmdvm['DMR Network']['Slot1'] = 1;
 	  }
 
 	  if ( $confHardware == 'lshsdualhatgpio' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
 	    $configmmdvm['General']['Duplex'] = 1;
+	    $configmmdvm['DMR Network']['Slot1'] = 1;
 	  }
 
 	  if ( $confHardware == 'mmdvmhsdualhatusb' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
 	    $configmmdvm['General']['Duplex'] = 1;
+	    $configmmdvm['DMR Network']['Slot1'] = 1;
 	  }
 
 	  if ( $confHardware == 'mmdvmrpthat' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
 	    $configmmdvm['General']['Duplex'] = 1;
+	    $configmmdvm['DMR Network']['Slot1'] = 1;
 	  }
 
 	  if ( $confHardware == 'mmdvmmdohat' ) {
@@ -2563,6 +2580,21 @@ if (!empty($_POST)):
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
 	    $configmmdvm['General']['Duplex'] = 1;
+	    $configmmdvm['DMR Network']['Slot1'] = 1;
+	  }
+
+	  if ( $confHardware == 'jtahotspotdual' ) {
+	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
+	    system($rollRepeaterType1);
+	    $configmmdvm['General']['Duplex'] = 1;
+	    $configmmdvm['DMR Network']['Slot1'] = 1;
+	  }
+
+	  if ( $confHardware == 'nanohotspotnpi' ) {
+	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
+	    system($rollRepeaterType1);
+	    $configmmdvm['General']['Duplex'] = 0;
+	    $configmmdvm['DMR Network']['Slot1'] = 0;
 	  }
 
 	  if ( $confHardware == 'nanodv' ) {
@@ -4637,6 +4669,8 @@ else:
 	        <option<?php if ($configModem['Modem']['Hardware'] === 'mmdvmmdohat') {		echo ' selected="selected"';}?> value="mmdvmmdohat">MMDVM_HS_MDO Hat (BG3MDO) for Pi (GPIO)</option>
 	        <option<?php if ($configModem['Modem']['Hardware'] === 'mmdvmvyehat') {		echo ' selected="selected"';}?> value="mmdvmvyehat">MMDVM_HS_NPi Hat (VR2VYE) for Nano Pi (GPIO)</option>
 	        <option<?php if ($configModem['Modem']['Hardware'] === 'mmdvmvyehatdual') {	echo ' selected="selected"';}?> value="mmdvmvyehatdual">MMDVM_HS_Hat_Dual Hat (VR2VYE) for Pi (GPIO)</option>
+	        <option<?php if ($configModem['Modem']['Hardware'] === 'jtahotspotdual') {	echo ' selected="selected"';}?> value="jtahotspotdual">hotSPOT Dual Hat (VR2VYE, BI7JTA) for RPi (GPIO)</option>
+	        <option<?php if ($configModem['Modem']['Hardware'] === 'nanohotspotnpi') {	echo ' selected="selected"';}?> value="nanohotspotnpi">Nano_hotSPOT (BI7JTA) for NanoPi (GPIO)</option>
 	    	<option<?php if ($configModem['Modem']['Hardware'] === 'lshshatgpio') {		echo ' selected="selected"';}?> value="lshshatgpio">LoneStar - MMDVM_HS_Hat for Pi (GPIO)</option>
 	    	<option<?php if ($configModem['Modem']['Hardware'] === 'lshsdualhatgpio') {	echo ' selected="selected"';}?> value="lshsdualhatgpio">LoneStar - MMDVM_HS_Dual_Hat for Pi (GPIO)</option>
 	    	<option<?php if ($configModem['Modem']['Hardware'] === 'lsusb') {		echo ' selected="selected"';}?> value="lsusb">LoneStar - USB Stick</option>
