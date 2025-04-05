@@ -2452,11 +2452,6 @@ if (!empty($_POST)):
 	    $configmmdvm['Modem']['UARTSpeed'] = "460800";
 	  }
 
-	  if ( $confHardware == 'stm32dvm' ) {
-	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
-	    system($rollRepeaterType1);
-	  }
-
 	  if ( $confHardware == 'stm32dvmv3+' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
