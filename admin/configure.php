@@ -4619,7 +4619,6 @@ else:
 	        <option<?php if ($configModem['Modem']['Hardware'] === 'dvrptr1') {		echo ' selected="selected"';}?> value="dvrptr1">DV-RPTR V1 (USB)</option>
 		<option<?php if ($configModem['Modem']['Hardware'] === 'dvrptr2') {		echo ' selected="selected"';}?> value="dvrptr2">DV-RPTR V2 (USB)</option>
 		<option<?php if ($configModem['Modem']['Hardware'] === 'dvrptr3') {		echo ' selected="selected"';}?> value="dvrptr3">DV-RPTR V3 (USB)</option>
-		<option<?php if ($configModem['Modem']['Hardware'] === 'stm32dvm') {		echo ' selected="selected"';}?> value="stm32dvm">STM32-DVM / MMDVM_HS - Raspberry Pi Hat (GPIO)</option>
 		<option<?php if ($configModem['Modem']['Hardware'] === 'stm32dvmv3+') {		echo ' selected="selected"';}?> value="stm32dvmv3+">RB STM32-DVM (GPIO v3+)</option>
 		<option<?php if ($configModem['Modem']['Hardware'] === 'stm32usb') {		echo ' selected="selected"';}?> value="stm32usb">RB STM32-DVM (USB)</option>
 		<option<?php if ($configModem['Modem']['Hardware'] === 'stm32usbv3+') {		echo ' selected="selected"';}?> value="stm32usbv3+">RB STM32-DVM (USB v3+)</option>
