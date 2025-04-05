@@ -1015,6 +1015,9 @@ function getHeardList($logLines) {
 	else if(strpos($logLine,", text Data: ")) {
 	    continue;
 	}
+	else if(strpos($logLine,", data text")) {
+	    continue;
+	}
 	else if(strpos($logLine,"CSBK Preamble")) {
             continue;
 	}
