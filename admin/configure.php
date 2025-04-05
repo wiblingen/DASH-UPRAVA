@@ -2590,6 +2590,13 @@ if (!empty($_POST)):
 	    $configmmdvm['DMR Network']['Slot1'] = 1;
 	  }
 
+	  if ( $confHardware == 'jtarptv3f4' ) {
+	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
+	    system($rollRepeaterType1);
+	    $configmmdvm['General']['Duplex'] = 1;
+	    $configmmdvm['DMR Network']['Slot1'] = 1;
+	  }
+
 	  if ( $confHardware == 'nanohotspotnpi' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
@@ -4671,6 +4678,7 @@ else:
 	        <option<?php if ($configModem['Modem']['Hardware'] === 'mmdvmvyehatdual') {	echo ' selected="selected"';}?> value="mmdvmvyehatdual">MMDVM_HS_Hat_Dual Hat (VR2VYE) for Pi (GPIO)</option>
 	        <option<?php if ($configModem['Modem']['Hardware'] === 'jtahotspotdual') {	echo ' selected="selected"';}?> value="jtahotspotdual">hotSPOT Dual Hat (VR2VYE, BI7JTA) for RPi (GPIO)</option>
 	        <option<?php if ($configModem['Modem']['Hardware'] === 'nanohotspotnpi') {	echo ' selected="selected"';}?> value="nanohotspotnpi">Nano_hotSPOT (BI7JTA) for NanoPi (GPIO)</option>
+	        <option<?php if ($configModem['Modem']['Hardware'] === 'jtarptv3f4') {	echo ' selected="selected"';}?> value="jtarptv3f4">V3FR Repeater Board (BI7JTA) for PiPi (GPIO)</option>
 	    	<option<?php if ($configModem['Modem']['Hardware'] === 'lshshatgpio') {		echo ' selected="selected"';}?> value="lshshatgpio">LoneStar - MMDVM_HS_Hat for Pi (GPIO)</option>
 	    	<option<?php if ($configModem['Modem']['Hardware'] === 'lshsdualhatgpio') {	echo ' selected="selected"';}?> value="lshsdualhatgpio">LoneStar - MMDVM_HS_Dual_Hat for Pi (GPIO)</option>
 	    	<option<?php if ($configModem['Modem']['Hardware'] === 'lsusb') {		echo ' selected="selected"';}?> value="lsusb">LoneStar - USB Stick</option>
