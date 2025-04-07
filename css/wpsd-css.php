@@ -617,6 +617,10 @@ select {
   color: black !important;
 }
 
+.select2-results__option--selectable {
+    min-width: 75%;
+}
+
 .navbar {
     overflow: hidden;
     background-color: <?php echo $backgroundNavbar; ?>;
