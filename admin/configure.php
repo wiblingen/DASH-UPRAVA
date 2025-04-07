@@ -2436,7 +2436,7 @@ if (!empty($_POST)):
 	  if ( $confHardware == 'zumspotduplexgpio' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
-	    $configmmdvm['General']['Duplex'] = 1;
+	    $configmmdvm['General']['Duplex'] = 0;
             $configmmdvm['DMR Network']['Slot1'] = 1;
 	  }
 
@@ -2537,21 +2537,21 @@ if (!empty($_POST)):
 	  if ( $confHardware == 'mmdvmhsdualhatgpio' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
-	    $configmmdvm['General']['Duplex'] = 1;
+	    $configmmdvm['General']['Duplex'] = 0;
 	    $configmmdvm['DMR Network']['Slot1'] = 1;
 	  }
 
 	  if ( $confHardware == 'lshsdualhatgpio' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
-	    $configmmdvm['General']['Duplex'] = 1;
+	    $configmmdvm['General']['Duplex'] = 0;
 	    $configmmdvm['DMR Network']['Slot1'] = 1;
 	  }
 
 	  if ( $confHardware == 'mmdvmhsdualhatusb' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
-	    $configmmdvm['General']['Duplex'] = 1;
+	    $configmmdvm['General']['Duplex'] = 0;
 	    $configmmdvm['DMR Network']['Slot1'] = 1;
 	  }
 
@@ -2579,14 +2579,14 @@ if (!empty($_POST)):
 	  if ( $confHardware == 'mmdvmvyehatdual' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
-	    $configmmdvm['General']['Duplex'] = 1;
+	    $configmmdvm['General']['Duplex'] = 0;
 	    $configmmdvm['DMR Network']['Slot1'] = 1;
 	  }
 
 	  if ( $confHardware == 'jtahotspotdual' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
-	    $configmmdvm['General']['Duplex'] = 1;
+	    $configmmdvm['General']['Duplex'] = 0;
 	    $configmmdvm['DMR Network']['Slot1'] = 1;
 	  }
 
