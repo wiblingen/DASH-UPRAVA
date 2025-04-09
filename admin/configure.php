@@ -2485,6 +2485,14 @@ if (!empty($_POST)):
             $configmmdvm['DMR Network']['Slot1'] = 1;
 	  }
 
+	  if ( $confHardware == 'stm32dvmnanopi' ) {
+	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
+	    system($rollRepeaterType1);
+	    $configmmdvm['Modem']['UARTSpeed'] = "115200";
+            $configmmdvm['General']['Duplex'] = 1;
+            $configmmdvm['DMR Network']['Slot1'] = 1;
+	  }
+
 	  if ( $confHardware == 'f4mgpio' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
@@ -4686,6 +4694,7 @@ else:
 		<option<?php if ($configModem['Modem']['Hardware'] === 'stm32usb') {		echo ' selected="selected"';}?> value="stm32usb">RB STM32-DVM (USB)</option>
 		<option<?php if ($configModem['Modem']['Hardware'] === 'stm32usbv3+') {		echo ' selected="selected"';}?> value="stm32usbv3+">RB STM32-DVM (USB v3+)</option>
 		<option<?php if ($configModem['Modem']['Hardware'] === 'stm32dvmmtr2kopi') {	echo ' selected="selected"';}?> value="stm32dvmmtr2kopi">RB STM32-DVM-MTR2k (GPIO v3+)</option>
+		<option<?php if ($configModem['Modem']['Hardware'] === 'stm32dvmnanopi') {	echo ' selected="selected"';}?> value="stm32dvmnanopi">RB STM32-DVM-NanoPi (GPIO v1)</option>
 	        <option<?php if ($configModem['Modem']['Hardware'] === 'zumspotlibre') {	echo ' selected="selected"';}?> value="zumspotlibre">ZUMspot - Libre (USB)</option>
 		<option<?php if ($configModem['Modem']['Hardware'] === 'zumspotusb') {		echo ' selected="selected"';}?> value="zumspotusb">ZUMspot - USB Stick</option>
 		<option<?php if ($configModem['Modem']['Hardware'] === 'zumspotgpio') {		echo ' selected="selected"';}?> value="zumspotgpio">ZUMspot - Single Band Raspberry Pi Hat (GPIO)</option>
