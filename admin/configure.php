@@ -2449,7 +2449,6 @@ if (!empty($_POST)):
 	  if ( $confHardware == 'zumradiopigpio' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
-            $configmmdvm['General']['Duplex'] = 1;
             $configmmdvm['DMR Network']['Slot1'] = 1;
 	    $configmmdvm['Modem']['UARTSpeed'] = "460800";
 	  }
@@ -2458,14 +2457,12 @@ if (!empty($_POST)):
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
 	    $configmmdvm['Modem']['UARTSpeed'] = "460800";
-            $configmmdvm['General']['Duplex'] = 1;
             $configmmdvm['DMR Network']['Slot1'] = 1;
 	  }
 
 	  if ( $confHardware == 'stm32usb' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
-            $configmmdvm['General']['Duplex'] = 1;
             $configmmdvm['DMR Network']['Slot1'] = 1;
 	  }
 
@@ -2473,7 +2470,6 @@ if (!empty($_POST)):
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
 	    $configmmdvm['Modem']['UARTSpeed'] = "460800";
-            $configmmdvm['General']['Duplex'] = 1;
             $configmmdvm['DMR Network']['Slot1'] = 1;
 	  }
 
@@ -2481,7 +2477,6 @@ if (!empty($_POST)):
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
 	    $configmmdvm['Modem']['UARTSpeed'] = "500000";
-            $configmmdvm['General']['Duplex'] = 1;
             $configmmdvm['DMR Network']['Slot1'] = 1;
 	  }
 
@@ -2489,7 +2484,6 @@ if (!empty($_POST)):
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
 	    $configmmdvm['Modem']['UARTSpeed'] = "115200";
-            $configmmdvm['General']['Duplex'] = 1;
             $configmmdvm['DMR Network']['Slot1'] = 1;
 	  }
 
@@ -2504,7 +2498,6 @@ if (!empty($_POST)):
 	  if ( $confHardware == 'f4mf7m' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
-	    $configmmdvm['General']['Duplex'] = 1;
 	    $configmmdvm['DMR Network']['Slot1'] = 1;
 	  }
 
@@ -2566,7 +2559,6 @@ if (!empty($_POST)):
 	  if ( $confHardware == 'mmdvmrpthat' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
-	    $configmmdvm['General']['Duplex'] = 1;
 	    $configmmdvm['DMR Network']['Slot1'] = 1;
 	  }
 
@@ -2599,7 +2591,6 @@ if (!empty($_POST)):
 	  if ( $confHardware == 'jtarptv3f4' ) {
 	    $rollRepeaterType1 = 'sudo sed -i "/repeaterType1=/c\\repeaterType1=0" /etc/ircddbgateway';
 	    system($rollRepeaterType1);
-	    $configmmdvm['General']['Duplex'] = 1;
 	    $configmmdvm['DMR Network']['Slot1'] = 1;
 	  }
 
