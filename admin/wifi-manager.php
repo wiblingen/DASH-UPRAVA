@@ -243,7 +243,13 @@ if (isset($_POST['action'])) {
             if (isset($_POST['ssid']) && isset($_POST['passphrase'])) {
                 $ssid = $_POST['ssid'];
                 $passphrase = $_POST['passphrase'];
-                executeCommand("sudo nmcli connection add type wifi con-name \"$ssid\" ifname '*' ssid \"$ssid\" wifi-sec.key-mgmt wpa-psk wifi-sec.psk \"$passphrase\" ; sleep 1");
+
+		$escapedSsid = escapeshellarg($ssid);
+		$escapedPassphrase = escapeshellarg($passphrase);
+
+		executeCommand("sudo nmcli connection add type wifi con-name " . $escapedSsid . 
+                          " ifname '*' ssid " . $escapedSsid . 
+                          " wifi-sec.key-mgmt wpa-psk wifi-sec.psk " . $escapedPassphrase . " ; sleep 1");
 		echo "<p>(Please give the Wifi Information some time to initialize and refresh its status)</p>";
             } else {
                 echo "Error: SSID and passphrase are required for adding a connection.";
@@ -252,7 +258,10 @@ if (isset($_POST['action'])) {
         case 'delete':
             if (isset($_POST['connection'])) {
                 $connection = $_POST['connection'];
-                executeCommand("sudo nmcli connection delete \"$connection\" sleep 1");
+
+		$connection = escapeshellarg($connection);
+
+		executeCommand("sudo nmcli connection delete " . $escapedConnection . "; sleep 1");
             } else {
                 echo "Error: Connection name is required for deletion.";
             }
@@ -493,9 +502,11 @@ else {
 <?php
 if (isset($_POST['action']) && $_POST['action'] === 'set_domain') {
     if (isset($_POST['regulatory_domain'])) {
-        $selectedDomain = $_POST['regulatory_domain'];
-        executeCommand("sudo iw reg set $selectedDomain");
-        executeCommand("sudo sed -i 's/cfg80211\.ieee80211_regdom=.*/cfg80211.ieee80211_regdom=$selectedDomain/' /boot/firmware/cmdline.txt ; sleep 1");
+	$selectedDomain = $_POST['regulatory_domain'];
+	$escapedDomain = escapeshellarg($selectedDomain);
+
+	executeCommand("sudo iw reg set " . $escapedDomain);
+	executeCommand("sudo sed -i 's/cfg80211\.ieee80211_regdom=.*/cfg80211.ieee80211_regdom=" . $selectedDomain . "/' /boot/firmware/cmdline.txt ; sleep 1");
 	echo "<pre>WiFi Country Updated.</pre>";
     } else {
         echo "Error: Please select a regulatory domain.";
