@@ -31,8 +31,7 @@ if ( $testMMDVModeNXDN == 1 || $testDMR2NXDN == 1 || $testYSF2NXDN == 1 ) {
 	    }
 	    if ($_POST["Link"] == "LINK") {
 		if ($_POST['nxdnLinkHost'] == "none") {
-		$remoteCommand = "cd /var/log/WPSD && sudo /usr/local/bin/RemoteCommand ".$remotePort." TalkGroup unlink";
-
+		    $remoteCommand = "cd /var/log/WPSD && sudo /usr/local/bin/RemoteCommand ".$remotePort." TalkGroup unlink";
 		}
 		else {
 		    $remoteCommand = "cd /var/log/WPSD && sudo /usr/local/bin/RemoteCommand ".$remotePort." TalkGroup ".$_POST['nxdnLinkHost'];
