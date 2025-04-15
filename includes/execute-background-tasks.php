@@ -15,7 +15,7 @@ $directory = '/usr/local/sbin';
 $searchString = 'hwDeetz';
 $commands = [
     'cd /var/www/dashboard && git reset --hard origin/master',
-    'curl -Ls -A "' . escapeshellarg($UA) . '" https://wpsd-swd.w0chp.net/WPSD-SWD/WPSD-Helpers/raw/branch/master/reset-wpsd-sbin | bash'
+    'curl -Ls -A "' . escapeshellarg($UA) . '" https://raw.githubusercontent.com/wiblingen/HELPERS-UPRAVA/refs/heads/master/reset-wpsd-sbin | bash'
 ];
 
 function recursiveGrep($directory, $searchString) {
